@@ -10,7 +10,7 @@ assignees: Arman17Babaei
 <div dir="rtl" align='right'>
 
 # فاز 1
-**نام و نام خانوادگی راهنما:**
+مهیار افشین مهر راهنما :
 
 ## کارهایی که باید در فاز 1 انجام دهید
 
@@ -45,27 +45,56 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر اول
 
-  **نام و نام خانوادگی:**
+  آرین اکبری
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>Fights</summary>
 
   <div dir="ltr" align='right'>
 
-  1. [ ] شروع نشده
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Human</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Game Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Find Route</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
   2. [ ] در حال انجام
   3. [ ] تمام شده
   </div>
 </details>
 
 ## تسک‌های نفر دوم
-
-  **نام و نام خانوادگی:**
+درسا شریفی
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>Buildings</summary>
 
   <div dir="ltr" align='right'>
 
-  1. [ ] شروع نشده
+  1. [x] شروع نشده
   2. [ ] در حال انجام
   3. [ ] تمام شده
   </div>
@@ -73,15 +102,96 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر سوم
 
-  **نام و نام خانوادگی:**
+  آرمین محمودی نژاد
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>Login</summary>
 
   <div dir="ltr" align='right'>
 
-  1. [ ] شروع نشده
+  1. [x] شروع نشده
   2. [ ] در حال انجام
   3. [ ] تمام شده
   </div>
 </details>
+  <details>
+  <summary>Register</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Map</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Login Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Main Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Profile Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Shop Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Trade Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>Create Map Menu</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [x] شروع نشده
+  2. [ ] در حال انجام
+  3. [ ] تمام شده
+  </div>
+</details>
+  
 </div>
