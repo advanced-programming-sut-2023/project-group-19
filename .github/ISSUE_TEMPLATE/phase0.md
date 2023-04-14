@@ -20,7 +20,7 @@ assignees: Arman17Babaei
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
 
@@ -31,7 +31,7 @@ assignees: Arman17Babaei
   
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
      </div>
 </details>
 
@@ -42,49 +42,70 @@ assignees: Arman17Babaei
   
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
      </div>
 </details>
 
 ## تسک‌های نفر اول
 
-  **نام و نام خانوادگی:**
+  آرین اکبری:
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>راه اندازی Github issue</summary>
 
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
+  </div>
+</details>
+  <details>
+  <summary>طراحی uml برای منطق پروژه</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [x] تمام شده
   </div>
 </details>
 
 ## تسک‌های نفر دوم
 
-  **نام و نام خانوادگی:**
+  درسا شریفی:
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>راه اندازی مخزن Github</summary>
 
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
+  <details>
+  <summary>طراحی uml برای منطق پروژه</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [x] تمام شده
+  </div>
+</details>
+  
 
 ## تسک‌های نفر سوم
 
-  **نام و نام خانوادگی:**
+  آرمین محمودی نژاد:
 <details>
-  <summary>تسک مربوطه</summary>
+  <summary>طراحی uml برای منطق پروژه</summary>
 
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
 </div>
