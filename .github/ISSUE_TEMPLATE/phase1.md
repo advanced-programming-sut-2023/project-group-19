@@ -10,7 +10,7 @@ assignees: Arman17Babaei
 <div dir="rtl" align='right'>
 
 # فاز 1
-مهیار افشین مهر راهنما :
+راهنما : مهیار افشین مهر
 
 ## کارهایی که باید در فاز 1 انجام دهید
 
@@ -88,14 +88,14 @@ assignees: Arman17Babaei
 </details>
 
 ## تسک‌های نفر دوم
-درسا شریفی
+درسا شریفی قمبوانی
 <details>
   <summary>Buildings</summary>
 
   <div dir="ltr" align='right'>
 
-  1. [x] شروع نشده
-  2. [ ] در حال انجام
+  1. [ ] شروع نشده
+  2. [x] در حال انجام
   3. [ ] تمام شده
   </div>
 </details>
