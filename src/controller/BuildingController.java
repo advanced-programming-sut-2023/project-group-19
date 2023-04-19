@@ -89,7 +89,7 @@ public class BuildingController {
         // TODO A MENU FOR COMMANDS AFTER SELECTING THE BUILDING TO SEE WHICH CHANGE IS GONNA BE APPLIED
         ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING?
         //TODO AFTER COMPLETING THE ARMIES SEARCH TO SEE IF ENEMIES ARE IN THE GIVEN POSITION
-        int requiredStone;
+        int requiredStone = 50;
         StoneGateWay stoneGateWay;
         DrawBridge drawBridge;
         switch (typeOfSelectedBuilding.toString()) {

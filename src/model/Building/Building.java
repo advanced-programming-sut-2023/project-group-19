@@ -7,6 +7,20 @@ public abstract class Building {
     private Empire owner;
     private String requiredGroundType;
     private Names name;
+    private int hp;
+    private int maxHp;
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
 
     public Names getName() {
         return name;
