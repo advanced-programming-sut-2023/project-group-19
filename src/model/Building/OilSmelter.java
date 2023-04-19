@@ -9,6 +9,7 @@ public class OilSmelter extends Building {
     OilSmelter(Empire government) {
         super(government);
     }
+
     private int rate;
     private Names names;
 
@@ -25,17 +26,19 @@ public class OilSmelter extends Building {
     }
 
     //TODO add WORKER
-    public HashMap<String , Integer> cost = new HashMap<>();
+    public HashMap<String, Integer> cost = new HashMap<>();
+
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
-        cost.put("wood" , wood);
-        cost.put("stone" , stone);
-        cost.put("gold" , gold);
-        cost.put("iron" , iron);
-        cost.put("oil" , oil);
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        cost.put("wood", wood);
+        cost.put("stone", stone);
+        cost.put("gold", gold);
+        cost.put("iron", iron);
+        cost.put("oil", oil);
     }
-    public void oilSmelter(){
+
+    public void oilSmelter() {
         names = Names.OIL_SMELTER;
-        createBuildingCost(0 , 0 , 100 , 10 , 0);
+        createBuildingCost(0, 0, 100, 10, 0);
     }
 }

@@ -7,6 +7,7 @@ public class Army extends Human {
     public Army(Empire government) {
         super(government);
     }
+
     private String armyForm;
     private int hp;
     private int speed;

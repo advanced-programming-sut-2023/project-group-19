@@ -78,11 +78,13 @@ public enum Names {
     CAGED_WAR_DOGS("Caged War Dogs"),
     SIEGE_TENT("Siege Tent");
     private String name;
+
     Names(String s) {
-        this.name=s;
+        this.name = s;
     }
-    public static Matcher getMatcher(String input, Names names){
-        Matcher matcher= Pattern.compile(names.name).matcher(input);
+
+    public static Matcher getMatcher(String input, Names names) {
+        Matcher matcher = Pattern.compile(names.name).matcher(input);
         return matcher;
     }
 }

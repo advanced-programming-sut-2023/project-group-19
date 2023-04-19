@@ -7,9 +7,29 @@ public abstract class Building {
     private Empire owner;
     private String requiredGroundType;
     private Names name;
+    private int hp;
+    private int maxHp;
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
     public Names getName() {
         return name;
     }
+
     public void setName(Names name) {
         this.name = name;
     }
@@ -22,7 +42,7 @@ public abstract class Building {
         this.requiredGroundType = requiredGroundType;
     }
 
-    Building (Empire government){
+    Building(Empire government) {
         this.owner = government;
     }
 

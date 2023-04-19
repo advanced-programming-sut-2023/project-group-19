@@ -10,11 +10,13 @@ public class EuropeArmy extends Army {
     public EuropeArmy(Empire government) {
         super(government);
     }
+
     private Names names;
 
     public Names getNames() {
         return names;
     }
+
     private String ArmyForm;
 
     public void setNames(Names names) {
@@ -78,30 +80,37 @@ public class EuropeArmy extends Army {
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
-    public void ArcherBow(){
+
+    public void ArcherBow() {
         names = Names.ARCHER_BOW;
 
     }
-    public void Slaves(){
+
+    public void Slaves() {
         names = Names.SLAVES;
 
     }
-    public void Slingers(){
+
+    public void Slingers() {
         names = Names.SLINGERS;
 
     }
-    public void Assassins(){
+
+    public void Assassins() {
         names = Names.ASSASSINS;
     }
-    public void HorseArchers(){
+
+    public void HorseArchers() {
         names = Names.HORSE_ARCHERS;
 
     }
-    public void ArabianSwordsmen(){
+
+    public void ArabianSwordsmen() {
         names = Names.ARABIAN_SWORDSMEN;
 
     }
-    public void FireThrowers(){
+
+    public void FireThrowers() {
         names = Names.FireThrowers;
 
     }
