@@ -12,8 +12,7 @@ import view.Commands.BuildingMessages;
 public class BuildingController {
     public static int size;
     private Building selectedBuilding;
-    private Class typeOfSelectedBuilding;
-    private Empire currentEmpire;
+    public static Empire currentEmpire;
 
     public BuildingMessages checkCoordinate(int x, int y) {
         if (x < 0 || y < 0 || x > size || y > size) {
@@ -78,7 +77,6 @@ public class BuildingController {
             if (HasBuildingInThisPlace(x, y)) {
                 if (Map.getBuildingMap()[x][y].get(0).getOwner().getName().equals(currentEmpire.getName())) {
                     selectedBuilding = Map.getBuildingMap()[x][y].get(0);
-                    typeOfSelectedBuilding = selectedBuilding.getClass();
                 } else return BuildingMessages.NO_ACCESS;
             } else return BuildingMessages.EMPTY_CELL;
         }
@@ -90,37 +88,27 @@ public class BuildingController {
         ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING?
         //TODO AFTER COMPLETING THE ARMIES SEARCH TO SEE IF ENEMIES ARE IN THE GIVEN POSITION
         int requiredStone = 50;
-        StoneGateWay stoneGateWay;
-        DrawBridge drawBridge;
-        switch (typeOfSelectedBuilding.toString()) {
-            case "model.Building.StoneGateWay":
-                stoneGateWay = (StoneGateWay) Map.getBuildingMap()[x][y].get(0);
-                requiredStone = stoneGateWay.getDefaultHP() - stoneGateWay.getHp();
-                if (requiredStone > currentEmpire.getStoneCount()) {
-                    return BuildingMessages.NOT_ENOUGH_STONE;
+        Building building = findSelectedBuilding(x , y);
+        if(building != null) {
+            int currentHp = building.getHp();
+            int maxHp = building.getMaxHp();
+            if(currentHp == maxHp){
+                return BuildingMessages.HP_ALREADY_FULL;
+            }
+            else {
+                if(currentEmpire.getStoneCount() >= 50) {
+                    currentEmpire.setStoneCount(currentEmpire.getStoneCount() - requiredStone);
+                    building.setHp(maxHp);
+                    return BuildingMessages.SUCCESSFUL_REPAIR;
                 }
-                stoneGateWay.setHp(stoneGateWay.getDefaultHP());
-                Map.getBuildingMap()[x][y].add(stoneGateWay);
-                Map.getBuildingMap()[x][y].remove(0);
-                currentEmpire.setStoneCount(currentEmpire.getStoneCount() - requiredStone);
-                selectedBuilding = null;
-                typeOfSelectedBuilding = null;
-                return BuildingMessages.SUCCESS;
-            case "model.Building.DrawBridge":
-                drawBridge = (DrawBridge) Map.getBuildingMap()[x][y].get(0);
-                requiredStone = drawBridge.getDefaultHP() - drawBridge.getHp();
-                if (requiredStone > currentEmpire.getStoneCount()) {
-                    return BuildingMessages.NOT_ENOUGH_STONE;
+                else {
+                    return BuildingMessages.INSUFFICIENT_STONE;
                 }
-                drawBridge.setHp(drawBridge.getDefaultHP());
-                Map.getBuildingMap()[x][y].add(drawBridge);
-                Map.getBuildingMap()[x][y].remove(0);
-                currentEmpire.setStoneCount(currentEmpire.getStoneCount() - requiredStone);
-                selectedBuilding = null;
-                typeOfSelectedBuilding = null;
-                return BuildingMessages.SUCCESS;
+            }
         }
-        return BuildingMessages.CONTINUE;
+        else {
+            return BuildingMessages.CONTINUE;
+        }
     }
 
     public BuildingMessages capacityLimitation(int capacity, Names name) {//Q: Usage???

@@ -9,6 +9,9 @@ public enum BuildingMessages {
     INVALID_BUILDING_NAME("Invalid building name!"),
     NOT_ENOUGH_STONE("Not enough stone!"),
     FULL_CAPACITY_OF_BUILDING("The gatehouse's capacity is full!"),
+    HP_ALREADY_FULL("the building is at max hp!"),
+    SUCCESSFUL_REPAIR("building repaired successfully"),
+    INSUFFICIENT_STONE("insufficient stone"),
     CONTINUE("Continue"),
     SUCCESS("Success");
     private String messages;
