@@ -21,6 +21,9 @@ public class BuildingController {
         }
         return BuildingMessages.CONTINUE;
     }
+    public Building findSelectedBuilding(int x, int y){
+        return Map.buildingMap[x][y].get(0);
+    }
 
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
         switch (type) {
