@@ -22,7 +22,11 @@ public class BuildingController {
         return BuildingMessages.CONTINUE;
     }
     public Building findSelectedBuilding(int x, int y){
+        if(Map.buildingMap[x][y].size() != 0)
         return Map.buildingMap[x][y].get(0);
+        else {
+            return null;
+        }
     }
 
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
