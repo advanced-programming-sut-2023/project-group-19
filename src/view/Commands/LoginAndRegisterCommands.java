@@ -10,6 +10,7 @@ public enum LoginAndRegisterCommands {
     REGISTER_EMAIL_CHECK("(?<email>(-email\\s+(?=\"+)[^-]+)\"{1}|(-email\\s+(?=\"{0})[^\\s-]+))"),
     REGISTER_NICKNAME_CHECK("(?<nickname>(-n\\s+(?=\"+)[^-]+)\"{1}|(-n\\s+(?=\"{0})[^\\s-]+))"),
     REGISTER_SLOGAN_CHECK("(?<slogan>(-s\\s+(?=\"+)[^-]+)\"{1}|(-s\\s+(?=\"{0})[^\\s-]+))"),
+    REGISTER_SLOGAN_CHECL_FOR_EMPTY(" (?<sloganCheck>-s)"),
     GET_QUESTION_NUMBER("(?<numberOfQuestion>-q [1-3])"),
     GET_QUESTION_ASK("(?<ask>(-s\\s+(?=\"+)[^-]+)\"{1}|(-s\\s+(?=\"{0})[^\\s-]+))"),
     GET_QUESTION_ASK_CONFIRM("(?<askConfirm>(-s\\s+(?=\"+)[^-]+)\"{1}|(-s\\s+(?=\"{0})[^\\s-]+))"),
