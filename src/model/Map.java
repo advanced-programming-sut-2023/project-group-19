@@ -52,7 +52,7 @@ public class Map {
                 groundType[i][j] = new ArrayList<>();
             }
         }
-        boolean[][] notPassable = new boolean[size][size];
-        boolean[][] notBuildable = new boolean[size][size];
+        notPassable = new boolean[size][size];
+        notBuildable = new boolean[size][size];
     }
 }

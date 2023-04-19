@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Empire {
-    private String userName;
+    private User user;
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     private int strayCount;
     private int engineerCount;
     private int troopCount;
@@ -203,14 +204,9 @@ public class Empire {
         this.donation = donation;
     }
     // TODO call createFoodList function before usage
-    private ArrayList<Building> myBuildings=new ArrayList<>();
     private HashMap<String , Integer> allFood = new HashMap<>();
     private ArrayList<String> request = new ArrayList<>();
     private ArrayList<String> donation = new ArrayList<>();
-
-    public ArrayList<Building> getMyBuildings() {
-        return myBuildings;
-    }
     public void CreateFoodList(){
         allFood.put("apple" , 0);
         allFood.put("bread" , 0);
