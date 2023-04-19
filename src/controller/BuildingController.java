@@ -38,7 +38,7 @@ public class BuildingController {
         }
     }
 
-    public BuildingMessages callBuildingFunction(int x, int y, String type) { // nice
+    public BuildingMessages callBuildingFunction(int x, int y, String type) {
         switch (type) {
             case "Small Stone Gatehouse":
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
@@ -75,7 +75,7 @@ public class BuildingController {
 
     public BuildingMessages selectBuilding(int x, int y) {
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
-            if (Map.getBuildingMap()[x][y].get(0) != null) {
+            if (HasBuildingInThisPlace(x, y)) {
                 if (Map.getBuildingMap()[x][y].get(0).getOwner().getName().equals(currentEmpire.getName())) {
                     selectedBuilding = Map.getBuildingMap()[x][y].get(0);
                     typeOfSelectedBuilding = selectedBuilding.getClass();
