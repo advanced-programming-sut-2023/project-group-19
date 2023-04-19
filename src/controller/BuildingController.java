@@ -22,6 +22,14 @@ public class BuildingController {
         return BuildingMessages.CONTINUE;
     }
 
+    public boolean HasBuildingInThisPlace(int x, int y) {
+        return Map.buildingMap[x][y].size() != 0;
+    }
+
+    public boolean correctGroundType(int x, int y, Building newBuilding) {
+        return Map.getGroundType()[x][y].get(0).equals(newBuilding.getRequiredGroundType());
+    }
+
     public Building findSelectedBuilding(int x, int y) {
         if (Map.buildingMap[x][y].size() != 0)
             return Map.buildingMap[x][y].get(0);
@@ -30,7 +38,7 @@ public class BuildingController {
         }
     }
 
-    public BuildingMessages callBuildingFunction(int x, int y, String type) {
+    public BuildingMessages callBuildingFunction(int x, int y, String type) { // nice
         switch (type) {
             case "Small Stone Gatehouse":
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
@@ -52,8 +60,8 @@ public class BuildingController {
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                 if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
-                    if (Map.getGroundType()[x][y].get(0).equals(newBuilding.getRequiredGroundType())) {
-                        if (Map.getBuildingMap()[x][y].get(0) == null) {
+                    if (correctGroundType(x, y, newBuilding)) {
+                        if (HasBuildingInThisPlace(x, y)) {
                             callBuildingFunction(x, y, type);
                             break;
                         } else return BuildingMessages.FILLED_CELL;
