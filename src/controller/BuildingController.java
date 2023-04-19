@@ -9,7 +9,7 @@ import model.Manage;
 import model.Map;
 import view.Commands.GameMessages;
 
-public class GameController {
+public class BuildingController {
     private Building selectedBuilding;
     private Class typeOfSelectedBuilding;
     private Empire currentEmpire;
