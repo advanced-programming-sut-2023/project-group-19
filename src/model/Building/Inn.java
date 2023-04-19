@@ -4,12 +4,11 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Inn extends Building {
+public class Inn extends Building{
     Inn(Empire government) {
         super(government);
     }
-
-    private int popularityRate;
+    private int  popularityRate;
     private int wineUsage;
     private int rate;
     private Names name;
@@ -41,21 +40,18 @@ public class Inn extends Building {
     public void setRate(int rate) {
         this.rate = rate;
     }
-
     //TODO add worker
-    public HashMap<String, Integer> cost = new HashMap<>();
-
+    public HashMap<String , Integer> cost = new HashMap<>();
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
+        cost.put("wood" , wood);
+        cost.put("stone" , stone);
+        cost.put("gold" , gold);
+        cost.put("iron" , iron);
+        cost.put("oil" , oil);
     }
-
-    public void inn() {
+    public void inn(){
         name = Names.INN;
-        createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingCost(20 , 0 , 100 , 0 , 0);
     }
 }

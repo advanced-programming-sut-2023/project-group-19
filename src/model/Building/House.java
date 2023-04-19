@@ -4,31 +4,28 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class House extends Building {
+public class House extends Building{
 
     House(Empire government) {
         super(government);
     }
-
     private Names names;
 
     public Names getNames() {
         return names;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
-
+    public HashMap<String , Integer> cost = new HashMap<>();
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
+        cost.put("wood" , wood);
+        cost.put("stone" , stone);
+        cost.put("gold" , gold);
+        cost.put("iron" , iron);
+        cost.put("oil" , oil);
     }
-
-    public void house() {
+    public void house(){
         names = Names.HOUSE;
-        createBuildingCost(6, 0, 0, 0, 0);
+        createBuildingCost(6 , 0 , 0 , 0 , 0);
     }
 }

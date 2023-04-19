@@ -7,7 +7,6 @@ public class Engineer extends Army {
     Engineer(Empire government) {
         super(government);
     }
-
     private int hp = 1;
 
     @Override

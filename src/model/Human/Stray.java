@@ -2,11 +2,10 @@ package model.Human;
 
 import model.Empire;
 
-public class Stray extends Human {
+public class Stray extends Human{
     Stray(Empire government) {
         super(government);
     }
-
     private int hp = 1;
 
     @Override
@@ -18,7 +17,6 @@ public class Stray extends Human {
     public void setHp(int hp) {
         this.hp = hp;
     }
-
     private int defencePower;
 
     private int attackPower;

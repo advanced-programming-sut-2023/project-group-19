@@ -9,7 +9,6 @@ public class Industry extends Building {
     Industry(Empire government) {
         super(government);
     }
-
     private int rateOfMill;
     private int rateOfIronDig;
     private int rateOfOxTether;
@@ -73,46 +72,38 @@ public class Industry extends Building {
     public void setNames(Names names) {
         this.names = names;
     }
-
     //TODO add worker
-    public HashMap<String, Integer> cost = new HashMap<>();
-
+    public HashMap<String , Integer> cost = new HashMap<>();
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
+        cost.put("wood" , wood);
+        cost.put("stone" , stone);
+        cost.put("gold" , gold);
+        cost.put("iron" , iron);
+        cost.put("oil" , oil);
     }
-
-    public void mill() {
+    public void mill(){
         names = Names.MILL;
-        createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingCost(20 , 0 , 0 , 0 , 0);
     }
-
-    public void ironDig() {
+    public void ironDig(){
         names = Names.IRON_DIG;
-        createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingCost(20 , 0 , 0 , 0 , 0);
     }
-
-    public void oxTether() {
+    public void oxTether(){
         names = Names.OX_TETHER;
-        createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingCost(5 , 0 , 0 , 0 , 0);
     }
-
-    public void oilSmelter() {
+    public void oilSmelter(){
         names = Names.OIL_SMELTER;
-        createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingCost(20 , 0 , 0 , 0 , 0);
     }
-
-    public void quarry() {
+    public void quarry(){
         names = Names.QUARRY;
-        createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingCost(20 , 0 , 0 , 0 , 0);
     }
-
-    public void woodCutter() {
+    public void woodCutter(){
         names = Names.WOODCUTTER;
-        createBuildingCost(3, 0, 0, 0, 0);
+        createBuildingCost(3 , 0 , 0 , 0 , 0);
     }
 }
