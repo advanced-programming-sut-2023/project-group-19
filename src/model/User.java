@@ -1,6 +1,32 @@
 package model;
 
+import com.sun.xml.internal.ws.api.addressing.OneWayFeature;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class User {
+    private static HashMap<Integer,String> securityQuestions = new HashMap<>();
+
+    public static HashMap<Integer, String> getSecurityQuestions() {
+        return securityQuestions;
+    }
+
+    static {
+        securityQuestions.put(1,"What is my father\'s name?");
+        securityQuestions.put(2,"What was my first pet\'s name?");
+        securityQuestions.put(3,"What is my mother\'s last name?");
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        User.currentUser = currentUser;
+    }
+
+    private static User currentUser ;
     private String username;
     private String password;
     private String nickname;
@@ -9,7 +35,19 @@ public class User {
     private String slogan;
     private int recoveryQuestionNumber;
     private int highScore;
+    private static ArrayList<User> users = new ArrayList<>();
     private int rank;
+
+    public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) {
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.recoveryQuestion = recoveryQuestion;
+        this.slogan = slogan;
+        this.recoveryQuestionNumber = recoveryQuestionNumber;
+        users.add(this);
+    }
 
     public String getUsername() {
         return username;
@@ -81,5 +119,19 @@ public class User {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+    public static User getUserByName(String username){
+        for(User user : users){
+            if(user.getUsername().equals(username)) return user ;
+        }
+        return null ;
+    }
+    public static User getUserByEmail(String email){
+        String changedEmail ;
+        for(User user : users){
+            changedEmail = user.getEmail().toLowerCase( );
+            if(changedEmail.equals(email)) return user ;
+        }
+        return null ;
     }
 }
