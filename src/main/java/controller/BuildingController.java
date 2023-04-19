@@ -111,11 +111,7 @@ public class BuildingController {
         }
     }
 
-    public BuildingMessages increaseCapacityLimitation(int capacity, Names name) {//Q: Usage???
-        if ((capacity > 8 && name == Names.SMALL_STONE_GATE_HOUSE) ||
-                (capacity > 10 && name == Names.BIG_STONE_GATE_HOUSE)) {
-            return BuildingMessages.FULL_CAPACITY_OF_BUILDING;
-        }
-        return BuildingMessages.CONTINUE;
+    public void increaseCapacityLimitation(int capacity) {
+        currentEmpire.setPopulation(currentEmpire.getPopulation() + capacity);
     }
 }
