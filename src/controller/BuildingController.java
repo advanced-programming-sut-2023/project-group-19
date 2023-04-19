@@ -10,12 +10,13 @@ import model.Map;
 import view.Commands.BuildingMessages;
 
 public class BuildingController {
+    private static int size;
     private Building selectedBuilding;
     private Class typeOfSelectedBuilding;
     private Empire currentEmpire;
 
     public BuildingMessages checkCoordinate(int x, int y) {
-        if (x < 0 || y < 0) {
+        if (x < 0 || y < 0 || x > size || y > size ) {
             return BuildingMessages.INVALID_COORDINATE;
         }
         return BuildingMessages.CONTINUE;
