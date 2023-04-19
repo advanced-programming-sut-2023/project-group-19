@@ -1,18 +1,21 @@
 package model;
+import model.*;
+import model.Building.Building;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Empire {
-    private String userName;
+    private User user;
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
+
     private int strayCount;
     private int engineerCount;
     private int troopCount;
@@ -200,17 +203,14 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
-// TODO: call createFoodList function before usage
-
+    // TODO call createFoodList function before usage
     private HashMap<String , Integer> allFood = new HashMap<>();
     private ArrayList<String> request = new ArrayList<>();
     private ArrayList<String> donation = new ArrayList<>();
-
     public void CreateFoodList(){
         allFood.put("apple" , 0);
         allFood.put("bread" , 0);
         allFood.put("cheese" , 0);
         allFood.put("meat", 0);
     }
-
 }
