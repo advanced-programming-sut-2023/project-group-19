@@ -11,8 +11,5 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Empire empire = new Empire();
-        Map map = new Map();
-        Map.CreateMap(200);
     }
 }
