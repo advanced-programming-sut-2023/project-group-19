@@ -1,4 +1,6 @@
 package model;
+import model.*;
+import model.Building.Building;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -200,17 +202,19 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
-// TODO: call createFoodList function before usage
-
+    // TODO call createFoodList function before usage
+    private ArrayList<Building> myBuildings=new ArrayList<>();
     private HashMap<String , Integer> allFood = new HashMap<>();
     private ArrayList<String> request = new ArrayList<>();
     private ArrayList<String> donation = new ArrayList<>();
 
+    public ArrayList<Building> getMyBuildings() {
+        return myBuildings;
+    }
     public void CreateFoodList(){
         allFood.put("apple" , 0);
         allFood.put("bread" , 0);
         allFood.put("cheese" , 0);
         allFood.put("meat", 0);
     }
-
 }
