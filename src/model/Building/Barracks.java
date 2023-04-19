@@ -8,6 +8,7 @@ public class Barracks extends Building {
     Barracks(Empire government) {
         super(government);
     }
+
     private int costOfBarrack;
     private Names names;
 
@@ -18,17 +19,20 @@ public class Barracks extends Building {
     public void setCostOfBarrack(int costOfBarrack) {
         this.costOfBarrack = costOfBarrack;
     }
-    public HashMap<String , Integer> cost = new HashMap<>();
+
+    public HashMap<String, Integer> cost = new HashMap<>();
+
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
-        cost.put("wood" , wood);
-        cost.put("stone" , stone);
-        cost.put("gold" , gold);
-        cost.put("iron" , iron);
-        cost.put("oil" , oil);
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        cost.put("wood", wood);
+        cost.put("stone", stone);
+        cost.put("gold", gold);
+        cost.put("iron", iron);
+        cost.put("oil", oil);
     }
-    public void barracks(){
+
+    public void barracks() {
         names = Names.BARRACK;
-        createBuildingCost(0 , 15 , 0 , 0 , 0);
+        createBuildingCost(0, 15, 0, 0, 0);
     }
 }

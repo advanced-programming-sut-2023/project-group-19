@@ -8,6 +8,7 @@ public class Stockpile extends Building {
     Stockpile(Empire government) {
         super(government);
     }
+
     private int foodCapacity;
     private int industryCapacity;
     private Names names;
@@ -31,23 +32,27 @@ public class Stockpile extends Building {
     public Names getNames() {
         return names;
     }
+
     //TODO add WORKER
-    public HashMap<String , Integer> cost = new HashMap<>();
+    public HashMap<String, Integer> cost = new HashMap<>();
+
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
-        cost.put("wood" , wood);
-        cost.put("stone" , stone);
-        cost.put("gold" , gold);
-        cost.put("iron" , iron);
-        cost.put("oil" , oil);
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        cost.put("wood", wood);
+        cost.put("stone", stone);
+        cost.put("gold", gold);
+        cost.put("iron", iron);
+        cost.put("oil", oil);
     }
-    public void industryStockpile(){
+
+    public void industryStockpile() {
         names = Names.STOCKPILE;
-        createBuildingCost(0 , 0 , 0 , 0 , 0);
+        createBuildingCost(0, 0, 0, 0, 0);
     }
-    public void foodProcessingStockpile(){
+
+    public void foodProcessingStockpile() {
         names = Names.FOOD_PROCESSING_STOCKPILE;
-        createBuildingCost(5 , 0 , 0 , 0 , 0);
+        createBuildingCost(5, 0, 0, 0, 0);
     }
 
 

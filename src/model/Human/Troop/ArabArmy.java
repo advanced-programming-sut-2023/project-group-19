@@ -8,11 +8,13 @@ public class ArabArmy extends Army {
     public ArabArmy(Empire government) {
         super(government);
     }
+
     private Names names;
 
     public Names getNames() {
         return names;
     }
+
     private String armyForm;
 
     public void setNames(Names names) {
@@ -77,48 +79,55 @@ public class ArabArmy extends Army {
         this.attackPower = attackPower;
     }
 
-    public void archer(){
+    public void archer() {
         names = Names.ARCHER;
 
     }
-    public void Crossbowmen(){
+
+    public void Crossbowmen() {
         names = Names.CROSSBOWMEN;
 
     }
-    public void SpearMen(){
+
+    public void SpearMen() {
         names = Names.SPEAR_MEN;
 
     }
-    public void PikeMen(){
+
+    public void PikeMen() {
         names = Names.PIKE_MEN;
 
     }
-    public void MaceMen(){
+
+    public void MaceMen() {
         names = Names.MACE_MEN;
 
     }
-    public void Swordsmen(){
+
+    public void Swordsmen() {
         names = Names.SWORDSMEN;
 
     }
-    public void Knight(){
+
+    public void Knight() {
         names = Names.KNIGHT;
 
     }
-    public void Tunneler(){
+
+    public void Tunneler() {
         names = Names.TUNNELER;
 
     }
-    public void LadderMen(){
+
+    public void LadderMen() {
         names = Names.LADDER_MEN;
 
     }
-    public void BlackMonk(){
+
+    public void BlackMonk() {
         names = Names.BLACK_MONK;
 
     }
-
-
 
 
 }

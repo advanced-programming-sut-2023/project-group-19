@@ -7,9 +7,11 @@ public abstract class Building {
     private Empire owner;
     private String requiredGroundType;
     private Names name;
+
     public Names getName() {
         return name;
     }
+
     public void setName(Names name) {
         this.name = name;
     }
@@ -22,7 +24,7 @@ public abstract class Building {
         this.requiredGroundType = requiredGroundType;
     }
 
-    Building (Empire government){
+    Building(Empire government) {
         this.owner = government;
     }
 

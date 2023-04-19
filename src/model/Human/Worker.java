@@ -7,6 +7,7 @@ public class Worker extends Human {
     Worker(Empire government) {
         super(government);
     }
+
     private int hp = 1;
 
     @Override
@@ -18,6 +19,7 @@ public class Worker extends Human {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
     //TODO set minimum speed
     private int defencePower;
 

@@ -16,14 +16,15 @@ public class BuildingController {
     private Empire currentEmpire;
 
     public BuildingMessages checkCoordinate(int x, int y) {
-        if (x < 0 || y < 0 || x > size || y > size ) {
+        if (x < 0 || y < 0 || x > size || y > size) {
             return BuildingMessages.INVALID_COORDINATE;
         }
         return BuildingMessages.CONTINUE;
     }
-    public Building findSelectedBuilding(int x, int y){
-        if(Map.buildingMap[x][y].size() != 0)
-        return Map.buildingMap[x][y].get(0);
+
+    public Building findSelectedBuilding(int x, int y) {
+        if (Map.buildingMap[x][y].size() != 0)
+            return Map.buildingMap[x][y].get(0);
         else {
             return null;
         }
