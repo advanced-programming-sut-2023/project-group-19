@@ -4,11 +4,10 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Goods extends Building {
+public class Goods extends Building{
     Goods(Empire government) {
         super(government);
     }
-
     private int rate;
     private Names names;
 
@@ -25,49 +24,41 @@ public class Goods extends Building {
     }
 
     //TODO add WORKER
-    public HashMap<String, Integer> cost = new HashMap<>();
-
+    public HashMap<String , Integer> cost = new HashMap<>();
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
+        cost.put("wood" , wood);
+        cost.put("stone" , stone);
+        cost.put("gold" , gold);
+        cost.put("iron" , iron);
+        cost.put("oil" , oil);
     }
-
-    public void appleFarm() {
+    public void appleFarm(){
         names = Names.APPLE_FARM;
-        createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingCost(5 , 0 , 0 , 0 , 0);
     }
-
-    public void dairyProduct() {
+    public void dairyProduct(){
         names = Names.DAIRY_PRODUCT;
-        createBuildingCost(10, 0, 0, 0, 0);
+        createBuildingCost(10 , 0 , 0 , 0 , 0);
     }
-
-    public void oatFarm() {
+    public void oatFarm(){
         names = Names.OAT_FARM;
-        createBuildingCost(15, 0, 0, 0, 0);
+        createBuildingCost(15 , 0 , 0 , 0 , 0);
     }
-
-    public void huntingPost() {
+    public void huntingPost(){
         names = Names.HUNTING_POST;
-        createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingCost(5 , 0 , 0 , 0 , 0);
     }
-
-    public void wheatFarm() {
+    public void wheatFarm(){
         names = Names.WHEAT_FARM;
-        createBuildingCost(15, 0, 0, 0, 0);
+        createBuildingCost(15 , 0 , 0 , 0 , 0);
     }
-
-    public void bakery() {
+    public void bakery(){
         names = Names.BAKERY;
-        createBuildingCost(10, 0, 0, 0, 0);
+        createBuildingCost(10 , 0 , 0 , 0 , 0);
     }
-
-    public void bearFactory() {
+    public void bearFactory(){
         names = Names.BEAR_FACTORY;
-        createBuildingCost(10, 0, 0, 0, 0);
+        createBuildingCost(10 , 0 , 0 , 0 , 0);
     }
 }

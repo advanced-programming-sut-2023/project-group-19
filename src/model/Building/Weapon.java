@@ -4,12 +4,11 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Weapon extends Building {
+public class Weapon extends Building{
     Weapon(Empire government) {
         super(government);
     }
-
-    private String supplyName;
+    private String supplyName ;
     private String supplyCount;
     private int productionRate;
     private Names names;
@@ -43,34 +42,29 @@ public class Weapon extends Building {
     }
 
     //TODO add WORKER
-    public HashMap<String, Integer> cost = new HashMap<>();
-
+    public HashMap<String , Integer> cost = new HashMap<>();
     //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+    public void createBuildingCost(int wood , int stone , int gold , int iron , int oil ){
+        cost.put("wood" , wood);
+        cost.put("stone" , stone);
+        cost.put("gold" , gold);
+        cost.put("iron" , iron);
+        cost.put("oil" , oil);
     }
-
-    public void armourer() {
+    public void armourer(){
         names = Names.ARMOURER;
-        createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingCost(20 , 0 , 100 , 0 , 0);
     }
-
-    public void blacksmith() {
+    public void blacksmith(){
         names = Names.BLACKSMITH;
-        createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingCost(20 , 0 , 100 , 0 , 0);
     }
-
-    public void Fletcher() {
+    public void Fletcher(){
         names = Names.FLETCHER;
-        createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingCost(20 , 0 , 100 , 0 , 0);
     }
-
-    public void PoleTurner() {
+    public void PoleTurner(){
         names = Names.POLE_TURNER;
-        createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingCost(20 , 0 , 100 , 0 , 0);
     }
 }

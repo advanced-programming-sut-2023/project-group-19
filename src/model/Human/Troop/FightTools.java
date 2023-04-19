@@ -2,11 +2,10 @@ package model.Human.Troop;
 
 import model.Empire;
 
-public class FightTools extends Army {
+public class FightTools extends Army{
     public FightTools(Empire government) {
         super(government);
     }
-
     private int hp;
     private int speed;
     private int defencePower;
@@ -63,29 +62,25 @@ public class FightTools extends Army {
         this.attackRange = attackRange;
     }
 
-    public void portableShield() {
+    public void portableShield(){
+
+    }
+    public void ram(){
+
+    }
+    public void conquerTower(){
+
+    }
+    public void normalCatapult(){
+
+    }
+    public void specialCatapult(){
+
+    }
+    public void fireThrower(){
 
     }
 
-    public void ram() {
-
-    }
-
-    public void conquerTower() {
-
-    }
-
-    public void normalCatapult() {
-
-    }
-
-    public void specialCatapult() {
-
-    }
-
-    public void fireThrower() {
-
-    }
 
 
 }
