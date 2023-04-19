@@ -1,6 +1,6 @@
 package view.Commands;
 
-public enum GameMessages {
+public enum BuildingMessages {
     INVALID_COORDINATE("Invalid coordinate!"),
     NO_ACCESS("You don't have the permission to select your enemy's building!"),
     EMPTY_CELL("The given cell is empty!"),
@@ -12,7 +12,7 @@ public enum GameMessages {
     CONTINUE("Continue"),
     SUCCESS("Success");
     private String messages;
-    GameMessages(String messages) {
+    BuildingMessages(String messages) {
         this.messages=messages;
     }
 }
