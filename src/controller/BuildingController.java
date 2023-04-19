@@ -10,7 +10,7 @@ import model.Map;
 import view.Commands.BuildingMessages;
 
 public class BuildingController {
-    private static int size;
+    public static int size;
     private Building selectedBuilding;
     private Class typeOfSelectedBuilding;
     private Empire currentEmpire;
