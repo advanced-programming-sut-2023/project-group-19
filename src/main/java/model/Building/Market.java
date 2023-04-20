@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Market extends Building {
+public class Market extends Building implements BuildingConstantFunctions {
 
     Market(Empire government) {
         super(government);
@@ -31,5 +31,20 @@ public class Market extends Building {
     public void market() {
         names = Names.MARKET;
         createBuildingCost(5, 0, 0, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

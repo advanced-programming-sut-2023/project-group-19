@@ -17,7 +17,7 @@ public class LoginController {
             return RegisterMessages.EMPTY_FIELD;
         }
         if (!username.matches(".*[A-Za-z0-9_].*")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
-        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED;
+        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPEATED;
         if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;

@@ -53,4 +53,18 @@ public class Wall extends Building {
     }
 
 
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
+    }
 }

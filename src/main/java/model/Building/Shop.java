@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Shop extends Building {
+public class Shop extends Building implements BuildingConstantFunctions {
 
     Shop(Empire government) {
         super(government);
@@ -62,4 +62,18 @@ public class Shop extends Building {
     }
 
 
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
+    }
 }

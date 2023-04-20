@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Weapon extends Building {
+public class Weapon extends Building implements BuildingConstantFunctions {
     Weapon(Empire government) {
         super(government);
     }
@@ -72,5 +72,20 @@ public class Weapon extends Building {
     public void PoleTurner() {
         names = Names.POLE_TURNER;
         createBuildingCost(20, 0, 100, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

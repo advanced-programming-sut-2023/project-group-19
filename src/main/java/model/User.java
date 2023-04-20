@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.xml.internal.ws.api.addressing.OneWayFeature;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +12,9 @@ public class User {
     }
 
     static {
-        securityQuestions.put(1,"What is my father\'s name?");
-        securityQuestions.put(2,"What was my first pet\'s name?");
-        securityQuestions.put(3,"What is my mother\'s last name?");
+        securityQuestions.put(1,"What is my father's name?");
+        securityQuestions.put(2,"What was my first pet's name?");
+        securityQuestions.put(3,"What is my mother's last name?");
     }
 
     public static User getCurrentUser() {

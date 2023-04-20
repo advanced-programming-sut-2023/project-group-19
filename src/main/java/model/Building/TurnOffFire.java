@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class TurnOffFire extends Building {
+public class TurnOffFire extends Building implements BuildingConstantFunctions {
     TurnOffFire(Empire government) {
         super(government);
     }
@@ -35,5 +35,20 @@ public class TurnOffFire extends Building {
     public void waterPot() {
         names = Names.WATER_POT;
         createBuildingCost(0, 0, 60, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

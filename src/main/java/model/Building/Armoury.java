@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Armoury extends Building {
+public class Armoury extends Building implements BuildingConstantFunctions {
     public Armoury(Empire government) {
         super(government);
     }
@@ -39,5 +39,20 @@ public class Armoury extends Building {
     public void armoury() {
         names = Names.ARMOURY;
         createBuildingCost(5, 0, 0, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

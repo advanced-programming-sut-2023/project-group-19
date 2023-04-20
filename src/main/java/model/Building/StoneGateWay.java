@@ -1,12 +1,9 @@
 package model.Building;
 
 import model.Empire;
-import model.Manage;
-import model.Map;
+import model.GroundType;
 
-import java.util.HashMap;
-
-public class StoneGateWay extends Building {
+public class StoneGateWay extends Building implements BuildingConstantFunctions {
     public StoneGateWay(Empire government) {
         super(government);
 
@@ -28,18 +25,27 @@ public class StoneGateWay extends Building {
     }
 
     public void setNames(Names names) {
-        this.name = names;
+        name = names;
     }
 
     private int hp;
-    private static int defaultHP;
+    private int maxHP;
+    private String groundType = GroundType.DEFAULT.getGroundType();
 
-    public void setDefaultHP(int defaultHP) {
-        StoneGateWay.defaultHP = defaultHP;
+    public String getGroundType() {
+        return groundType;
     }
 
-    public int getDefaultHP() {
-        return defaultHP;
+    public void setGroundType(String groundType) {
+        this.groundType = groundType;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 
     public int getHp() {
@@ -50,7 +56,7 @@ public class StoneGateWay extends Building {
         this.hp = hp;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
+//    public HashMap<String, Integer> cost = new HashMap<>();
 
     //TODO: call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
@@ -63,20 +69,34 @@ public class StoneGateWay extends Building {
 
     //TODO make a condition in the Building menu to see whether we have Gateway or not if we don't make an error
     //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
-    public void smallGateWay(int x, int y, Building currentBuilding) {
+    public void smallGateWay() {
         hp = 500;
-        defaultHP = 500;
+        maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
-        Map.AddToBuildingMap(x, y, currentBuilding);
+        capacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
     }
 
-    public void bigGateWay(int x, int y, Building currentBuilding) {
+    public void bigGateWay() {
         hp = 700;
-        defaultHP = 700;
+        maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
-        Map.AddToBuildingMap(x, y, currentBuilding);
+        capacity = 10;
         createBuildingCost(0, 20, 0, 0, 0);
-        Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 20);
+    }
+
+    @Override
+    public int maxHp() {
+        return maxHP;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public String groundType() {
+        return groundType;
     }
 }

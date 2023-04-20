@@ -2,9 +2,7 @@ package model.Building;
 
 import model.Empire;
 
-import java.util.HashMap;
-
-public class Tunnel extends Building {
+public class Tunnel extends Building implements BuildingConstantFunctions {
     Tunnel(Empire government) {
         super(government);
     }
@@ -18,5 +16,20 @@ public class Tunnel extends Building {
     public void tunnel() {
         names = Names.TUNNEL;
 
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

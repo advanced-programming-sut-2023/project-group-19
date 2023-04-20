@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class PitchDitch extends Building {
+public class PitchDitch extends Building implements BuildingConstantFunctions {
     PitchDitch(Empire government) {
         super(government);
     }
@@ -30,5 +30,20 @@ public class PitchDitch extends Building {
     public void pitchDitch() {
         names = Names.PITCH_DITCH;
         createBuildingCost(0, 0, 0, 0, 2);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

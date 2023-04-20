@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class CagedWarDogs extends Building {
+public class CagedWarDogs extends Building implements BuildingConstantFunctions {
     CagedWarDogs(Empire government) {
         super(government);
     }
@@ -29,5 +29,20 @@ public class CagedWarDogs extends Building {
     public void cagedWarDogs() {
         names = Names.CAGED_WAR_DOGS;
         createBuildingCost(10, 0, 100, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }
