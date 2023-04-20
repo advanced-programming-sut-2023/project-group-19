@@ -6,11 +6,21 @@ import java.util.HashMap;
 
 public class Market extends Building implements BuildingConstantFunctions {
 
-    Market(Empire government) {
+    public Market(Empire government) {
         super(government);
     }
-
+    private int hp;
     private Names names;
+
+    @Override
+    public int getHp() {
+        return hp;
+    }
+
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
     public Names getNames() {
         return names;
@@ -29,10 +39,10 @@ public class Market extends Building implements BuildingConstantFunctions {
     }
 
     public void market() {
+        hp=300;
         names = Names.MARKET;
         createBuildingCost(5, 0, 0, 0, 0);
     }
-
     @Override
     public int maxHp() {
         return 0;

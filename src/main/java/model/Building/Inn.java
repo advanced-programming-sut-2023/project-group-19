@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public class Inn extends Building implements BuildingConstantFunctions {
-    Inn(Empire government) {
+    public Inn(Empire government) {
         super(government);
     }
 
@@ -55,6 +55,9 @@ public class Inn extends Building implements BuildingConstantFunctions {
     }
 
     public void inn() {
+        //TODO: FUNCTION FOR POPULARITY RATE CHANGE ACCORDING TO DOC
+        //TODO: RATE???
+        wineUsage=5;//5 liters per day
         name = Names.INN;
         createBuildingCost(20, 0, 100, 0, 0);
     }

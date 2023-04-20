@@ -76,7 +76,7 @@ public class Empire {
         this.maxPossiblePopulation = maxPossiblePopulation;
     }
 
-    private int popularity;
+    public int popularity;
     private int goldCount;
     private int foodRateNumber;
     private int totalFoodCount;

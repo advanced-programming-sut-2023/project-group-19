@@ -56,10 +56,9 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
-    public void drawBridge(int x, int y) {//check how to reduce the cost of building it from Government Cash
+    public void drawBridge() {//check how to reduce the cost of building it from Government Cash
         names = Names.DRAW_BRIDGE;
         bridgeState = true;//passable
-        Map.AddToBuildingMap(x, y, this);
         createBuildingCost(10, 0, 0, 0, 0);
         Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 10);
     }

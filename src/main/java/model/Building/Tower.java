@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.Map;
 
 import java.util.HashMap;
 
@@ -12,40 +13,11 @@ public class Tower extends Building {
     private int hp;
     private int maxHp;
     private Names name;
-    private int capacity;
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    private int fireRange = 100;
-
+    private int fireRange;
     private int defendRange;
     //TODO setter for isBig
-    private boolean isBig;
-    private int length;
+    private boolean isBig = false;
 
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    @Override
-    public int getMaxHp() {
-        return maxHp;
-    }
-
-    @Override
-    public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
 
     public Names getNames() {
         return name;
@@ -79,6 +51,16 @@ public class Tower extends Building {
         this.defendRange = defendRange;
     }
 
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
     public int getHp() {
         return hp;
     }
@@ -99,61 +81,46 @@ public class Tower extends Building {
     }
 
     public void lookoutTower() {
-        hp = 1000;
-        maxHp = 1000;
-        isBig = false;
-        length = 200;
-        capacity = 5;
-        fireRange = fireRange + length;
-        defendRange = fireRange;
+        hp=-800;
+        maxHp=800;
+        fireRange=650;
+        defendRange=700;
         name = Names.LOOKOUT_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
     }
 
     public void perimeterTower() {
-        hp = 1000;
-        maxHp = 1000;
-        isBig = false;
-        length = 100;
-        capacity = 10;
-        fireRange = fireRange + length;
-        defendRange = fireRange;
+        hp=-800;
+        maxHp=800;
+        fireRange=650;
+        defendRange=700;
         name = Names.PERIMETER_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
     }
 
     public void defendTower() {
-        hp = 2000;
-        maxHp = 2000;
-        isBig = false;
-        length = 100;
-        capacity = 10;
-        fireRange = fireRange + length;
-        defendRange = fireRange;
+        hp=-1000;
+        maxHp=1000;
+        fireRange=650;
+        defendRange=900;
         name = Names.DEFEND_TOWER;
         createBuildingCost(0, 15, 0, 0, 0);
     }
 
     public void squareTower() {
-        hp = 1200;
-        maxHp = 1200;
-        isBig = true;
-        length = 100;
-        capacity = 10;
-        fireRange = fireRange + length;
-        defendRange = fireRange;
+        hp=-800;
+        maxHp=800;
+        fireRange=650;
+        defendRange=800;
         name = Names.SQUARE_TOWER;
         createBuildingCost(0, 35, 0, 0, 0);
     }
 
     public void roundTower() {
-        hp = 1600;
-        maxHp = 1600;
-        isBig = true;
-        length = 100;
-        capacity = 10;
-        fireRange = fireRange + length;
-        defendRange = fireRange;
+        hp=-850;
+        maxHp=800;
+        fireRange=650;
+        defendRange=700;
         name = Names.ROUND_TOWER;
         createBuildingCost(0, 40, 0, 0, 0);
     }

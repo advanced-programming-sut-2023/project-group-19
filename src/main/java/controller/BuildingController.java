@@ -6,6 +6,9 @@ import model.Manage;
 import model.Map;
 import view.Commands.BuildingMessages;
 
+import javax.swing.text.AsyncBoxView;
+import javax.xml.catalog.CatalogFeatures;
+
 public class BuildingController {
     public static int size;
     public static Building selectedBuilding;
@@ -34,9 +37,7 @@ public class BuildingController {
     }
 
     public boolean empireHasEnoughResourcesToBuildTheBuilding(Building building, Empire empire) {
-        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount()
-                && building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount()
-                && building.cost.get("oil") <= empire.getOilAmount();
+        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount() && building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount() && building.cost.get("oil") <= empire.getOilAmount();
     }
 
     public void buildingCheckout(Building building, Empire empire) {
@@ -47,7 +48,6 @@ public class BuildingController {
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
     }
 
-    //TODO : MAKE SURE TO SYNC THIS PART WITH THE 5TYPE ALGORITHM
     //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
         switch (type) {
@@ -77,7 +77,7 @@ public class BuildingController {
                 }
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
+                drawBridge.drawBridge();
                 if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
                     buildingCheckout(drawBridge, currentEmpire);
                     Map.AddToBuildingMap(x, y, drawBridge);
@@ -147,402 +147,330 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            /*case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Armoury":
+                Armoury armoury = new Armoury(currentEmpire);
+                armoury.armoury();
+                if (empireHasEnoughResourcesToBuildTheBuilding(armoury, currentEmpire)){
+                    buildingCheckout(armoury, currentEmpire);
+                    Map.AddToBuildingMap(x, y,armoury);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Barrack":
+                PrepareLaboursAndFighters barracks = new PrepareLaboursAndFighters(currentEmpire);
+                barracks.barracks();
+                if (empireHasEnoughResourcesToBuildTheBuilding(barracks, currentEmpire)) {
+                    buildingCheckout(barracks, currentEmpire);
+                    Map.AddToBuildingMap(x, y, barracks);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Mercenary Post":
+                PrepareLaboursAndFighters mercenaryPost = new PrepareLaboursAndFighters(currentEmpire);
+                mercenaryPost.mercenary();
+                if (empireHasEnoughResourcesToBuildTheBuilding(mercenaryPost, currentEmpire)) {
+                    buildingCheckout(mercenaryPost, currentEmpire);
+                    Map.AddToBuildingMap(x, y, mercenaryPost);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Engineer Guild":
+                PrepareLaboursAndFighters engineerGuild = new PrepareLaboursAndFighters(currentEmpire);
+                engineerGuild.engineerGuild();
+                if (empireHasEnoughResourcesToBuildTheBuilding(engineerGuild, currentEmpire)) {
+                    buildingCheckout(engineerGuild, currentEmpire);
+                    Map.AddToBuildingMap(x, y, engineerGuild);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Killing Pit":
+                KillingPit killingPit = new KillingPit(currentEmpire);
+                killingPit.killingPit();
+                if (empireHasEnoughResourcesToBuildTheBuilding(killingPit, currentEmpire)) {
+                    buildingCheckout(killingPit, currentEmpire);
+                    Map.AddToBuildingMap(x, y, killingPit);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Inn":
+                Inn inn = new Inn(currentEmpire);
+                inn.inn();
+                if (empireHasEnoughResourcesToBuildTheBuilding(inn, currentEmpire)) {
+                    buildingCheckout(inn, currentEmpire);
+                    Map.AddToBuildingMap(x, y, inn);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Mill":
+                Industry mill = new Industry(currentEmpire);
+                mill.mill();
+                if (empireHasEnoughResourcesToBuildTheBuilding(mill, currentEmpire)) {
+                    buildingCheckout(mill, currentEmpire);
+                    Map.AddToBuildingMap(x, y, mill);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Iron Dig":
+                Industry ironDig = new Industry(currentEmpire);
+                ironDig.ironDig();
+                if (empireHasEnoughResourcesToBuildTheBuilding(ironDig, currentEmpire)) {
+                    buildingCheckout(ironDig, currentEmpire);
+                    Map.AddToBuildingMap(x, y, ironDig);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Market":
+                Market market= new Market(currentEmpire);
+                market.market();
+                if (empireHasEnoughResourcesToBuildTheBuilding(market, currentEmpire)) {
+                    buildingCheckout(market, currentEmpire);
+                    Map.AddToBuildingMap(x, y, market);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Ox Tether":
+                Industry oxTether = new Industry(currentEmpire);
+                oxTether.oxTether();
+                if (empireHasEnoughResourcesToBuildTheBuilding(oxTether, currentEmpire)) {
+                    buildingCheckout(oxTether, currentEmpire);
+                    Map.AddToBuildingMap(x, y, oxTether);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Pitch Rig":
+                Industry pitchRig = new Industry(currentEmpire);
+                pitchRig.pitchRig();
+                if (empireHasEnoughResourcesToBuildTheBuilding(pitchRig, currentEmpire)) {
+                    buildingCheckout(pitchRig, currentEmpire);
+                    Map.AddToBuildingMap(x, y, pitchRig);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Quarry":
+                Industry quarry = new Industry(currentEmpire);
+                quarry.quarry();
+                if (empireHasEnoughResourcesToBuildTheBuilding(quarry, currentEmpire)) {
+                    buildingCheckout(quarry, currentEmpire);
+                    Map.AddToBuildingMap(x, y, quarry);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Stockpile":
+                Stockpile stockpile = new Stockpile(currentEmpire);
+                stockpile.industryStockpile();
+                if (empireHasEnoughResourcesToBuildTheBuilding(stockpile, currentEmpire)) {
+                    buildingCheckout(stockpile, currentEmpire);
+                    Map.AddToBuildingMap(x, y, stockpile);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Wood Cutter":
+                Industry woodCutter = new Industry(currentEmpire);
+                woodCutter.woodCutter();
+                if (empireHasEnoughResourcesToBuildTheBuilding(woodCutter, currentEmpire)) {
+                    buildingCheckout(woodCutter, currentEmpire);
+                    Map.AddToBuildingMap(x, y, woodCutter);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "House":
+                House house = new House(currentEmpire);
+                house.house();
+                if (empireHasEnoughResourcesToBuildTheBuilding(house, currentEmpire)) {
+                    buildingCheckout(house, currentEmpire);
+                    Map.AddToBuildingMap(x, y, house);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Small Church":
+                Church smallChurch = new Church(currentEmpire);
+                smallChurch.smallChurch();
+                if (empireHasEnoughResourcesToBuildTheBuilding(smallChurch, currentEmpire)) {
+                    buildingCheckout(smallChurch, currentEmpire);
+                    Map.AddToBuildingMap(x, y, smallChurch);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Big Church":
+                Church bigChurch = new Church(currentEmpire);
+                bigChurch.bigChurch();
+                if (empireHasEnoughResourcesToBuildTheBuilding(bigChurch, currentEmpire)) {
+                    buildingCheckout(bigChurch, currentEmpire);
+                    Map.AddToBuildingMap(x, y, bigChurch);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Armourer":
+                Weapon armourer = new Weapon(currentEmpire);
+                armourer.armourer();
+                if (empireHasEnoughResourcesToBuildTheBuilding(armourer, currentEmpire)) {
+                    buildingCheckout(armourer, currentEmpire);
+                    Map.AddToBuildingMap(x, y, armourer);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Blacksmith":
+                Weapon blackSmith = new Weapon(currentEmpire);
+                blackSmith.blacksmith();
+                if (empireHasEnoughResourcesToBuildTheBuilding(blackSmith, currentEmpire)) {
+                    buildingCheckout(blackSmith, currentEmpire);
+                    Map.AddToBuildingMap(x, y, blackSmith);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Fletcher":
+                Weapon fletcher = new Weapon(currentEmpire);
+                fletcher.fletcher();
+                if (empireHasEnoughResourcesToBuildTheBuilding(fletcher, currentEmpire)) {
+                    buildingCheckout(fletcher, currentEmpire);
+                    Map.AddToBuildingMap(x, y, fletcher);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Pole Turner":
+                Weapon poleTurner=new Weapon(currentEmpire);
+                poleTurner.poleTurner();
+                if (empireHasEnoughResourcesToBuildTheBuilding(poleTurner, currentEmpire)) {
+                    buildingCheckout(poleTurner, currentEmpire);
+                    Map.AddToBuildingMap(x, y, poleTurner);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Tunnel":
+                Tunnel tunnel = new Tunnel(currentEmpire);
+                tunnel.tunnel();
+                if (empireHasEnoughResourcesToBuildTheBuilding(tunnel, currentEmpire)) {
+                    buildingCheckout(tunnel, currentEmpire);
+                    Map.AddToBuildingMap(x, y, tunnel);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Oil Smelter":
+                OilSmelter oilSmelter = new OilSmelter(currentEmpire);
+                oilSmelter.oilSmelter();
+                if (empireHasEnoughResourcesToBuildTheBuilding(oilSmelter, currentEmpire)) {
+                    buildingCheckout(oilSmelter, currentEmpire);
+                    Map.AddToBuildingMap(x, y, oilSmelter);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Pitch Ditch":
+                PitchDitch pitchDitch = new PitchDitch(currentEmpire);
+                pitchDitch.pitchDitch();
+                if (empireHasEnoughResourcesToBuildTheBuilding(pitchDitch, currentEmpire)) {
+                    buildingCheckout(pitchDitch, currentEmpire);
+                    Map.AddToBuildingMap(x, y, pitchDitch);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Caged War Dogs":
+                CagedWarDogs cagedWarDogs = new CagedWarDogs(currentEmpire);
+                cagedWarDogs.cagedWarDogs();
+                if (empireHasEnoughResourcesToBuildTheBuilding(cagedWarDogs, currentEmpire)) {
+                    buildingCheckout(cagedWarDogs, currentEmpire);
+                    Map.AddToBuildingMap(x, y, cagedWarDogs);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Siege Tent":
+                SiegeTent siegeTent = new SiegeTent(currentEmpire);
+                siegeTent.siegeTent();
+                if (empireHasEnoughResourcesToBuildTheBuilding(siegeTent, currentEmpire)) {
+                    buildingCheckout(siegeTent, currentEmpire);
+                    Map.AddToBuildingMap(x, y, siegeTent);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
+            case "Stable":
+                Stable stable = new Stable(currentEmpire);
+                stable.stable();
+                if (empireHasEnoughResourcesToBuildTheBuilding(stable, currentEmpire)) {
+                    buildingCheckout(stable, currentEmpire);
+                    Map.AddToBuildingMap(x, y, stable);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
-                    Map.notBuildable[x][y] = true;
-                    Map.notPassable[x][y] = true;
-                    return BuildingMessages.SUCCESS;
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
-                    Map.notBuildable[x][y] = true;
-                    Map.notPassable[x][y] = true;
-                    return BuildingMessages.SUCCESS;
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
-                    Map.notBuildable[x][y] = true;
-                    Map.notPassable[x][y] = true;
-                    return BuildingMessages.SUCCESS;
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
-                    Map.notBuildable[x][y] = true;
-                    Map.notPassable[x][y] = true;
-                    return BuildingMessages.SUCCESS;
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
-                    Map.notBuildable[x][y] = true;
-                    Map.notPassable[x][y] = true;
-                    return BuildingMessages.SUCCESS;
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }
-            case "Draw Bridge":
-                DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
-                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge, currentEmpire);
-                    Map.AddToBuildingMap(x, y, drawBridge);
-                    Map.notBuildable[x][y] = true;
-                    Map.notPassable[x][y] = true;
-                    return BuildingMessages.SUCCESS;
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }*/
             case "Apple Farm":
                 Goods appleFarm = new Goods(currentEmpire);
                 appleFarm.appleFarm();

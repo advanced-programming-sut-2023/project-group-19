@@ -6,11 +6,20 @@ import java.util.HashMap;
 
 public class House extends Building implements BuildingConstantFunctions {
 
-    House(Empire government) {
+    public House(Empire government) {
         super(government);
     }
 
     private Names names;
+    private int capacity;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 
     public Names getNames() {
         return names;
@@ -28,6 +37,7 @@ public class House extends Building implements BuildingConstantFunctions {
     }
 
     public void house() {
+        capacity=8;
         names = Names.HOUSE;
         createBuildingCost(6, 0, 0, 0, 0);
     }

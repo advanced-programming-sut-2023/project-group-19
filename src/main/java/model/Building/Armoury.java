@@ -10,6 +10,7 @@ public class Armoury extends Building implements BuildingConstantFunctions {
     }
 
     private int capacity;
+    private int currentCapacity;
     private Names names;
 
     public Names getNames() {
@@ -22,6 +23,14 @@ public class Armoury extends Building implements BuildingConstantFunctions {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(int currentCapacity) {
+        this.currentCapacity = currentCapacity;
     }
 
     //TODO hash map for armory
@@ -37,6 +46,9 @@ public class Armoury extends Building implements BuildingConstantFunctions {
     }
 
     public void armoury() {
+        //TODO: Add weapons to armoury
+        capacity=50;
+        currentCapacity=0;
         names = Names.ARMOURY;
         createBuildingCost(5, 0, 0, 0, 0);
     }

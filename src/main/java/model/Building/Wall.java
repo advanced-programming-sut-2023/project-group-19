@@ -52,7 +52,6 @@ public class Wall extends Building {
         createBuildingCost(0, 0, 0, 0, 0);
     }
 
-
     @Override
     public int maxHp() {
         return 0;

@@ -5,28 +5,38 @@ import model.Empire;
 import java.util.HashMap;
 
 public class Stockpile extends Building implements BuildingConstantFunctions {
-    Stockpile(Empire government) {
+    public Stockpile(Empire government) {
         super(government);
     }
 
-    private int foodCapacity;
-    private int industryCapacity;
+    public final int maxFoodCapacity=200;
+    public final int maxIndustryCapacity=200;
+    private int currentFoodCapacity;
+    private int currentIndustryCapacity;
     private Names names;
 
-    public int getFoodCapacity() {
-        return foodCapacity;
+    public int getMaxFoodCapacity() {
+        return maxFoodCapacity;
     }
 
-    public void setFoodCapacity(int foodCapacity) {
-        this.foodCapacity = foodCapacity;
+    public int getMaxIndustryCapacity() {
+        return maxIndustryCapacity;
     }
 
-    public int getIndustryCapacity() {
-        return industryCapacity;
+    public int getCurrentFoodCapacity() {
+        return currentFoodCapacity;
     }
 
-    public void setIndustryCapacity(int industryCapacity) {
-        this.industryCapacity = industryCapacity;
+    public void setCurrentFoodCapacity(int currentFoodCapacity) {
+        this.currentFoodCapacity = currentFoodCapacity;
+    }
+
+    public int getCurrentIndustryCapacity() {
+        return currentIndustryCapacity;
+    }
+
+    public void setCurrentIndustryCapacity(int currentIndustryCapacity) {
+        this.currentIndustryCapacity = currentIndustryCapacity;
     }
 
     public Names getNames() {
@@ -46,6 +56,8 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
     }
 
     public void industryStockpile() {
+        //TODO:INCREASE THE CURRENT CAPACITY EVERY TIME YOU ADD A THING TO STOCKPILE
+        currentIndustryCapacity=0;
         names = Names.STOCKPILE;
         createBuildingCost(0, 0, 0, 0, 0);
     }

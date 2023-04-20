@@ -1,12 +1,13 @@
 package model.Building;
 
 import model.Empire;
+import model.Manage;
 
 import java.util.HashMap;
 
 public class Church extends Building implements BuildingConstantFunctions {
 
-    Church(Empire government) {
+    public Church(Empire government) {
         super(government);
     }
 
@@ -46,12 +47,16 @@ public class Church extends Building implements BuildingConstantFunctions {
     }
 
     public void smallChurch() {
+        //TODO: PRIESTS INSIDE SMALL CHURCH
         names = Names.SMALL_CHURCH;
+        Manage.getCurrentEmpire().popularity+=2;
         createBuildingCost(0, 0, 250, 0, 0);
     }
 
     public void bigChurch() {
+        //TODO: PRODUCING PRIEST & TRAINING THEM
         names = Names.BIG_CHURCH;
+        Manage.getCurrentEmpire().popularity+=2;
         createBuildingCost(0, 0, 1000, 0, 0);
     }
 
