@@ -128,6 +128,7 @@ public class LoginMenu {
                                                        String email , String nickname , String slogan , Scanner scanner){
         System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
+        System.out.println(message);
         switch (message){
             case USERNAME_REPETED :
                 username = LoginController.makeUserNameForUser(username);
