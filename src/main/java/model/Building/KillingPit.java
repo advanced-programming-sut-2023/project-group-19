@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public class KillingPit extends Building implements BuildingConstantFunctions {
-    KillingPit(Empire government) {
+    public KillingPit(Empire government) {
         super(government);
     }
 
@@ -36,6 +36,7 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
     }
 
     public void killingPit() {
+        damage=100;
         name = Names.KILLING_PIT;
         createBuildingCost(6, 0, 0, 0, 0);
     }

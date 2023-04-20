@@ -80,53 +80,48 @@ public class Tower extends Building {
         cost.put("oil", oil);
     }
 
-    public void lookoutTower(int x , int y , Building currentBuilding) {
+    public void lookoutTower() {
         hp=-800;
         maxHp=800;
         fireRange=650;
         defendRange=700;
         name = Names.LOOKOUT_TOWER;
-        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 10, 0, 0, 0);
     }
 
-    public void perimeterTower(int x , int y , Building currentBuilding) {
+    public void perimeterTower() {
         hp=-800;
         maxHp=800;
         fireRange=650;
         defendRange=700;
         name = Names.PERIMETER_TOWER;
-        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 10, 0, 0, 0);
     }
 
-    public void defendTower(int x , int y , Building currentBuilding) {
+    public void defendTower() {
         hp=-1000;
         maxHp=1000;
         fireRange=650;
         defendRange=900;
         name = Names.DEFEND_TOWER;
-        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 15, 0, 0, 0);
     }
 
-    public void squareTower(int x , int y , Building currentBuilding) {
+    public void squareTower() {
         hp=-800;
         maxHp=800;
         fireRange=650;
         defendRange=800;
         name = Names.SQUARE_TOWER;
-        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 35, 0, 0, 0);
     }
 
-    public void roundTower(int x , int y , Building currentBuilding) {
+    public void roundTower() {
         hp=-850;
         maxHp=800;
         fireRange=650;
         defendRange=700;
         name = Names.ROUND_TOWER;
-        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 40, 0, 0, 0);
     }
 

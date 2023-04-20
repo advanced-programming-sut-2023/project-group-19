@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class OilSmelter extends Building implements BuildingConstantFunctions {
 
-    OilSmelter(Empire government) {
+    public OilSmelter(Empire government) {
         super(government);
     }
 
@@ -38,6 +38,8 @@ public class OilSmelter extends Building implements BuildingConstantFunctions {
     }
 
     public void oilSmelter() {
+        //TODO : ENGINEERS
+        rate=0;//TODO: no idea
         names = Names.OIL_SMELTER;
         createBuildingCost(0, 0, 100, 10, 0);
     }

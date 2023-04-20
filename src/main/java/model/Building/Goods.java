@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public class Goods extends Building implements BuildingConstantFunctions {
-    Goods(Empire government) {
+    public Goods(Empire government) {
         super(government);
     }
 

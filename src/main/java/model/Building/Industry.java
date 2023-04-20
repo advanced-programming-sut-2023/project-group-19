@@ -1,12 +1,13 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 
 import java.util.HashMap;
 
 public class Industry extends Building implements BuildingConstantFunctions {
 
-    Industry(Empire government) {
+    public Industry(Empire government) {
         super(government);
     }
 
@@ -16,7 +17,9 @@ public class Industry extends Building implements BuildingConstantFunctions {
     private int rateOfPitchRig;
     private int rateOfQuarry;
     private int rateOfWoodCuter;
+    private int capacityOfQuarry;
     private Names names;
+    private GroundType groundType;
 
     public int getRateOfMill() {
         return rateOfMill;
@@ -66,6 +69,14 @@ public class Industry extends Building implements BuildingConstantFunctions {
         this.rateOfWoodCuter = rateOfWoodCuter;
     }
 
+    public int getCapacityOfQuarry() {
+        return capacityOfQuarry;
+    }
+
+    public void setCapacityOfQuarry(int capacityOfQuarry) {
+        this.capacityOfQuarry = capacityOfQuarry;
+    }
+
     public Names getNames() {
         return names;
     }
@@ -87,31 +98,40 @@ public class Industry extends Building implements BuildingConstantFunctions {
     }
 
     public void mill() {
+        rateOfMill=0;//TODO: NO IDEA
         names = Names.MILL;
         createBuildingCost(20, 0, 0, 0, 0);
     }
 
     public void ironDig() {
+        rateOfIronDig =0;//TODO:NO IDEA
+        groundType=GroundType.IRON;
         names = Names.IRON_DIG;
         createBuildingCost(20, 0, 0, 0, 0);
     }
 
     public void oxTether() {
+        rateOfOxTether=0;//TODO:NO IDEA
         names = Names.OX_TETHER;
         createBuildingCost(5, 0, 0, 0, 0);
     }
 
-    public void oilSmelter() {
-        names = Names.OIL_SMELTER;
+    public void pitchRig() {
+        rateOfPitchRig=0;//TODO:NO IDEA
+        names = Names.PITCH_RIG;
+        groundType=GroundType.PLAIN;
         createBuildingCost(20, 0, 0, 0, 0);
     }
 
     public void quarry() {
+        rateOfQuarry=0;//TODO: NO IDEA
+        capacityOfQuarry=50;
         names = Names.QUARRY;
         createBuildingCost(20, 0, 0, 0, 0);
     }
 
     public void woodCutter() {
+        rateOfWoodCuter=0;//TODO: NO IDEA
         names = Names.WOODCUTTER;
         createBuildingCost(3, 0, 0, 0, 0);
     }

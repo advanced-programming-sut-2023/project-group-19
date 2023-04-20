@@ -3,7 +3,7 @@ package model.Building;
 import model.Empire;
 
 public class Tunnel extends Building implements BuildingConstantFunctions {
-    Tunnel(Empire government) {
+    public Tunnel(Empire government) {
         super(government);
     }
 

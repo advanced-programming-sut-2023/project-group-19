@@ -9,6 +9,7 @@ public enum GroundType {
     GRASS("grass"),
     DASH("dash"),
     FILLFUL_DASH("fillFulDash"),
+    PLAIN("plain"),
     ;
     private String groundType;
     GroundType(String groundType) {

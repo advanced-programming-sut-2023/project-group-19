@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public class PrepareLaboursAndFighters extends Building implements BuildingConstantFunctions {
-    PrepareLaboursAndFighters(Empire government) {
+    public PrepareLaboursAndFighters(Empire government) {
         super(government);
     }
 
@@ -75,17 +75,22 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
         cost.put("oil", oil);
     }
 
-    public void Barracks() {
+    public void barracks() {
+        costOfBarracks=50;
         name = Names.BARRACK;
         createBuildingCost(0, 15, 0, 0, 0);
     }
 
-    public void Mercenary() {
+    public void mercenary() {
+        costOfMercenary=30;
         name = Names.MERCENARY_POST;
         createBuildingCost(10, 0, 0, 0, 0);
     }
 
     public void engineerGuild() {
+        //TODO : ADD ENGINEERS AND LADDERMAN TO THE ARRAYLIST OF SPECIALIZED BUILDING
+        costOfEngineer=40;
+        costOfLadderMan=20;
         name = Names.ENGINEER_GUILD;
         createBuildingCost(10, 0, 100, 0, 0);
     }

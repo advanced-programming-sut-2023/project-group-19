@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public class Weapon extends Building implements BuildingConstantFunctions {
-    Weapon(Empire government) {
+    public Weapon(Empire government) {
         super(government);
     }
 
