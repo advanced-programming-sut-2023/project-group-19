@@ -21,7 +21,7 @@ public class Main {
         stoneGateWay.smallGateWay(0 , 0 );
         System.out.println(stoneGateWay.getMaxHP());
         Map.buildingMap[0][0].add(stoneGateWay);
-        System.out.println(Map.buildingMap[0][0].get(0).maxHp());
+        System.out.println(Map.buildingMap[0][0].get(0).groundType());
         LoginMenu.run(new Scanner(System.in));
     }
 }

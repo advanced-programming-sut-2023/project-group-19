@@ -33,6 +33,15 @@ public class StoneGateWay extends Building implements BuildingHPAndGroundType {
 
     private int hp;
     private int maxHP;
+    private String groundType;
+
+    public String getGroundType() {
+        return groundType;
+    }
+
+    public void setGroundType(String groundType) {
+        this.groundType = groundType;
+    }
 
     public int getMaxHP() {
         return maxHP;
@@ -91,6 +100,6 @@ public class StoneGateWay extends Building implements BuildingHPAndGroundType {
 
     @Override
     public String groundType() {
-        return null;
+        return groundType;
     }
 }
