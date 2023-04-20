@@ -101,8 +101,8 @@ public class Industry extends Building implements BuildingConstantFunctions {
         createBuildingCost(5, 0, 0, 0, 0);
     }
 
-    public void oilSmelter() {
-        names = Names.OIL_SMELTER;
+    public void pitchRig() {
+        names = Names.PITCH_RIG;
         createBuildingCost(20, 0, 0, 0, 0);
     }
 

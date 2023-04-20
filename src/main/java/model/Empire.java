@@ -78,12 +78,6 @@ public class Empire {
 
     private int popularity;
     private int goldCount;
-    private int woodCount;
-    private int stoneCount;
-    private int ironCount;
-    private int oilAmount;
-    private int wheatCount;
-    private int oatCount;
     private int foodRateNumber;
     private int totalFoodCount;
     private int foodDiversity;
@@ -91,19 +85,19 @@ public class Empire {
     private int fearRateNumber;
 
     public int getOatCount() {
-        return oatCount;
+        return stores.get("oat");
     }
 
     public void setOatCount(int oatCount) {
-        this.oatCount = oatCount;
+        stores.replace("oat", oatCount);
     }
 
     public int getWheatCount() {
-        return wheatCount;
+        return stores.get("wheat");
     }
 
     public void setWheatCount(int wheatCount) {
-        this.wheatCount = wheatCount;
+        stores.replace("wheat", wheatCount);
     }
 
     public String getName() {
@@ -139,35 +133,35 @@ public class Empire {
     }
 
     public int getWoodCount() {
-        return woodCount;
+        return stores.get("wood");
     }
 
     public void setWoodCount(int woodCount) {
-        this.woodCount = woodCount;
+        stores.replace("wood", woodCount);
     }
 
     public int getStoneCount() {
-        return stoneCount;
+        return stores.get("stone");
     }
 
     public void setStoneCount(int stoneCount) {
-        this.stoneCount = stoneCount;
+        stores.replace("stone", stoneCount);
     }
 
     public int getIronCount() {
-        return ironCount;
+        return stores.get("iron");
     }
 
     public void setIronCount(int ironCount) {
-        this.ironCount = ironCount;
+        stores.replace("iron", ironCount);
     }
 
     public int getOilAmount() {
-        return oilAmount;
+        return stores.get("oil");
     }
 
     public void setOilAmount(int oilAmount) {
-        this.oilAmount = oilAmount;
+        stores.replace("oil", oilAmount);
     }
 
     public int getFoodRateNumber() {
@@ -227,161 +221,174 @@ public class Empire {
     }
 
     //TODO : when you create a quarry make sure you set the ox tether count to 1
-    private int ironMineRate = 20;
-    private int pitchRigRate = 4;
-    private int quarryRate = 12; //--> ox tether * 12
-    private int woodCutterRate = 20;
-    private int appleFarmRate = 20;
-    private int oatFarmRate = 20;
-    private int huntingPostRate = 20;
-    private int wheatFarmRate = 20;
 
-
-    private int ironMineCount; //--> ox tether
-    private int oxTetherCount;
-    private int pitchRigCount;
-    private int quarryCount;
-    private int woodCutterCount;
-    private int appleFarmCount;
-    private int oatFarmCount;
-    private int huntingPostCount;
-    private int wheatFarmCount;
 
     public int getIronMineRate() {
-        return ironMineRate;
+        return productionBuildingRate.get("ironMine");
     }
 
     public void setIronMineRate(int ironMineRate) {
-        this.ironMineRate = ironMineRate;
+        productionBuildingRate.replace("ironMine", ironMineRate);
     }
 
     public int getPitchRigRate() {
-        return pitchRigRate;
+        return productionBuildingRate.get("pitchRig");
     }
 
     public void setPitchRigRate(int pitchRigRate) {
-        this.pitchRigRate = pitchRigRate;
+        productionBuildingRate.replace("pitchRig", pitchRigRate);
     }
 
     public int getQuarryRate() {
-        return quarryRate;
+        return productionBuildingRate.get("quarry");
     }
 
     public void setQuarryRate(int quarryRate) {
-        this.quarryRate = quarryRate;
+        productionBuildingRate.replace("quarry", quarryRate);
     }
 
     public int getWoodCutterRate() {
-        return woodCutterRate;
+        return productionBuildingRate.get("woodCutter");
     }
 
     public void setWoodCutterRate(int woodCutterRate) {
-        this.woodCutterRate = woodCutterRate;
+        productionBuildingRate.replace("woodCutter", woodCutterRate);
     }
 
     public int getAppleFarmRate() {
-        return appleFarmRate;
+        return productionBuildingRate.get("appleFarm");
     }
 
     public void setAppleFarmRate(int appleFarmRate) {
-        this.appleFarmRate = appleFarmRate;
+        productionBuildingRate.replace("appleFarm", appleFarmRate);
     }
 
     public int getOatFarmRate() {
-        return oatFarmRate;
+        return productionBuildingRate.get("oatFarm");
     }
 
     public void setOatFarmRate(int oatFarmRate) {
-        this.oatFarmRate = oatFarmRate;
+        productionBuildingRate.replace("oatFarm", oatFarmRate);
     }
 
     public int getHuntingPostRate() {
-        return huntingPostRate;
+        return productionBuildingRate.get("huntingPost");
     }
 
     public void setHuntingPostRate(int huntingPostRate) {
-        this.huntingPostRate = huntingPostRate;
+        productionBuildingRate.replace("huntingPost", huntingPostRate);
     }
 
-    public int getWheatFarmRate() {
-        return wheatFarmRate;
+    public int getBeerFactoryRate() {
+        return productionBuildingRate.get("beerFactory");
     }
 
-    public void setWheatFarmRate(int wheatFarmRate) {
-        this.wheatFarmRate = wheatFarmRate;
+    public void setBeerFactoryRate(int beerFactoryRate) {
+        productionBuildingRate.replace("beerFactory", beerFactoryRate);
     }
+
+    public int getBakeryRate() {
+        return productionBuildingRate.get("bakery");
+    }
+
+    public void setBakeryRate(int bakeryRate) {
+        productionBuildingRate.replace("bakery", bakeryRate);
+    }
+
+    public int getMillRate() {
+        return productionBuildingRate.get("mill");
+    }
+
+    public void setMillRate(int millRate) {
+        productionBuildingRate.replace("mill", millRate);
+    }
+
+    public int getDairyFactoryRate() {
+        return productionBuildingRate.get("dairyFactory");
+    }
+
+    public void setDairyFactoryRate(int dairyFactoryRate) {
+        productionBuildingRate.replace("dairyFactory", dairyFactoryRate);
+    }
+
 
     public int getIronMineCount() {
-        return ironMineCount;
+        return productionBuildingCount.get("ironMine");
     }
 
     public void setIronMineCount(int ironMineCount) {
-        this.ironMineCount = ironMineCount;
+        productionBuildingCount.replace("ironMine", ironMineCount);
     }
 
     public int getOxTetherCount() {
-        return oxTetherCount;
+        return productionBuildingCount.get("oxTether");
     }
 
     public void setOxTetherCount(int oxTetherCount) {
-        this.oxTetherCount = oxTetherCount;
+        productionBuildingCount.replace("oxTether", oxTetherCount);
     }
 
     public int getPitchRigCount() {
-        return pitchRigCount;
+        return productionBuildingCount.get("pitchRig");
     }
 
     public void setPitchRigCount(int pitchRigCount) {
-        this.pitchRigCount = pitchRigCount;
+        productionBuildingCount.replace("pitchRig", pitchRigCount);
     }
 
     public int getQuarryCount() {
-        return quarryCount;
+        return productionBuildingCount.get("quarry");
     }
 
     public void setQuarryCount(int quarryCount) {
-        this.quarryCount = quarryCount;
+        productionBuildingCount.replace("quarry", quarryCount);
     }
 
     public int getWoodCutterCount() {
-        return woodCutterCount;
+        return productionBuildingCount.get("woodCutter");
     }
 
     public void setWoodCutterCount(int woodCutterCount) {
-        this.woodCutterCount = woodCutterCount;
+        productionBuildingCount.replace("woodCutter", woodCutterCount);
     }
 
     public int getAppleFarmCount() {
-        return appleFarmCount;
+        return productionBuildingCount.get("appleFarm");
     }
 
     public void setAppleFarmCount(int appleFarmCount) {
-        this.appleFarmCount = appleFarmCount;
+        productionBuildingCount.replace("appleFarm", appleFarmCount);
     }
 
     public int getOatFarmCount() {
-        return oatFarmCount;
+        return productionBuildingCount.get("oatFarm");
     }
 
     public void setOatFarmCount(int oatFarmCount) {
-        this.oatFarmCount = oatFarmCount;
+        productionBuildingCount.replace("oatFarm", oatFarmCount);
     }
 
     public int getHuntingPostCount() {
-        return huntingPostCount;
+        return productionBuildingCount.get("huntingPost");
     }
 
     public void setHuntingPostCount(int huntingPostCount) {
-        this.huntingPostCount = huntingPostCount;
+        productionBuildingCount.replace("huntingPost", huntingPostCount);
     }
 
     public int getWheatFarmCount() {
-        return wheatFarmCount;
+        return productionBuildingCount.get("wheatFarm");
     }
 
     public void setWheatFarmCount(int wheatFarmCount) {
-        this.wheatFarmCount = wheatFarmCount;
+        productionBuildingCount.replace("wheatFarm", wheatFarmCount);
     }
+
+    private int millCount;
+    private int flour;
+    private int beer;
+    private int bread;
+
 
     public ArrayList<String> getDonation() {
         return donation;
@@ -401,18 +408,99 @@ public class Empire {
         allFood.put("meat", 0);
     }
 
-    private ArrayList<String> request = new ArrayList<>();
-    private ArrayList<String> donation = new ArrayList<>();
+    public HashMap<String, Integer> allWeaponTools = new HashMap<>();
+
+    {
+        allWeaponTools.put("leatherArmour", 0);
+        allWeaponTools.put("metalArmour", 0);
+        allWeaponTools.put("bow", 0);
+        allWeaponTools.put("sword", 0);
+        allWeaponTools.put("mace", 0);
+        allWeaponTools.put("spear", 0);
+        allWeaponTools.put("peak", 0);
+    }
+
+    public HashMap<String, Integer> stores = new HashMap<>();
+
+    {
+        stores.put("wood", 0);
+        stores.put("iron", 0);
+        stores.put("stone", 0);
+        stores.put("oat", 0);
+        stores.put("wheat", 0);
+        stores.put("beer", 0);
+        stores.put("flour", 0);
+        stores.put("oil", 0);
+    }
+
+    public HashMap<String, Integer> productionBuildingCount = new HashMap<>();
+
+    {
+        productionBuildingCount.put("ironMine", 0);
+        productionBuildingCount.put("oxTether", 0);
+        productionBuildingCount.put("pitchRig", 0);
+        productionBuildingCount.put("quarry", 0);
+        productionBuildingCount.put("woodCutter", 0);
+        productionBuildingCount.put("appleFarm", 0);
+        productionBuildingCount.put("oatFarm", 0);
+        productionBuildingCount.put("huntingPost", 0);
+        productionBuildingCount.put("beerFactory", 0);
+        productionBuildingCount.put("bakery", 0);
+        productionBuildingCount.put("mill", 0);
+        productionBuildingCount.put("dairyFactory", 0);
+        productionBuildingCount.put("wheatFactory", 0);
+    }
+
+    public HashMap<String, Integer> productionBuildingRate = new HashMap<>();
+
+    {
+        productionBuildingRate.put("ironMine", 20);
+        productionBuildingRate.put("pitchRig", 4);
+        productionBuildingRate.put("quarry", 12);
+        productionBuildingRate.put("woodCutter", 20);
+        productionBuildingRate.put("appleFarm", 20);
+        productionBuildingRate.put("oatFarm", 20);
+        productionBuildingRate.put("huntingPost", 20);
+        productionBuildingRate.put("beerFactory", 5);
+        productionBuildingRate.put("bakery", 5);
+        productionBuildingRate.put("mill", 5);
+        productionBuildingRate.put("dairyFactory", 5);
+        productionBuildingRate.put("wheatFactory", 20);
+    }
+
+    public HashMap<String, Integer> createWeaponBuildingCount = new HashMap<>();
+
+    {
+        createWeaponBuildingCount.put("armourer", 0);
+        createWeaponBuildingCount.put("blacksmith", 0);
+        createWeaponBuildingCount.put("fletcher", 0);
+        createWeaponBuildingCount.put("poleTurner", 0);
+
+    }
+
+    public HashMap<String, Integer> createWeaponBuildingRate = new HashMap<>();
+
+    {
+        createWeaponBuildingRate.put("armourer", 5);
+        createWeaponBuildingRate.put("blacksmith", 5);
+        createWeaponBuildingRate.put("fletcher", 5);
+        createWeaponBuildingRate.put("poleTurner", 5);
+    }
+
+
+    public ArrayList<String> request = new ArrayList<>();
+    public ArrayList<String> donation = new ArrayList<>();
 
     //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
     public void independentProductionBuilding() {
-        ironCount += ironMineRate * ironMineCount;
-        oilAmount += pitchRigRate * pitchRigCount;
-        stoneCount += quarryCount * quarryRate * oxTetherCount;
-        woodCount += woodCutterCount * woodCutterRate;
-        allFood.replace("apple", allFood.get("apple") + (appleFarmCount * appleFarmRate));
-        oatCount += oatFarmCount * oatFarmRate;
-        allFood.replace("meat", allFood.get("meat") + (huntingPostCount * huntingPostRate));
-        wheatCount += wheatFarmCount * wheatFarmRate;
+        stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
+        stores.replace("oil", stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig"));
+        stores.replace("stone", stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry"));
+        stores.replace("wood", stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter"));
+        allFood.replace("apple", allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm"));
+        stores.replace("oat", stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm"));
+        allFood.replace("meat", allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost"));
+        stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
     }
+
 }

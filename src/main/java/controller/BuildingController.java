@@ -34,7 +34,9 @@ public class BuildingController {
     }
 
     public boolean empireHasEnoughResourcesToBuildTheBuilding(Building building, Empire empire) {
-        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount() && building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount() && building.cost.get("oil") <= empire.getOilAmount();
+        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount()
+                && building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount()
+                && building.cost.get("oil") <= empire.getOilAmount();
     }
 
     public void buildingCheckout(Building building, Empire empire) {
@@ -44,6 +46,7 @@ public class BuildingController {
         empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
     }
+
     //TODO : MAKE SURE TO SYNC THIS PART WITH THE 5TYPE ALGORITHM
     //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
