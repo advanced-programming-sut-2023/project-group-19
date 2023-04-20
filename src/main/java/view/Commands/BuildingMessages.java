@@ -14,7 +14,7 @@ public enum BuildingMessages {
     INSUFFICIENT_STONE("insufficient stone"),
     INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING("empire doesnt have enough resources to build the building"),
     CONTINUE("Continue"),
-    SUCCESS("Success");
+    SUCCESS("building created successfully");
     private String messages;
     BuildingMessages(String messages) {
         this.messages=messages;

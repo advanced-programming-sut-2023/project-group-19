@@ -30,17 +30,14 @@ public class BuildingController {
     }
 
     public Building findSelectedBuilding(int x, int y) {
-        if (Map.buildingMap[x][y].size() != 0)
-            return Map.buildingMap[x][y].get(0);
+        if (Map.buildingMap[x][y].size() != 0) return Map.buildingMap[x][y].get(0);
         else {
             return null;
         }
     }
 
     public boolean empireHasEnoughResourcesToBuildTheBuilding(Building building, Empire empire) {
-        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount() &&
-                building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount()
-                && building.cost.get("oil") <= empire.getOilAmount();
+        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount() && building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount() && building.cost.get("oil") <= empire.getOilAmount();
     }
 
     public void buildingCheckout(Building building, Empire empire) {
@@ -50,6 +47,7 @@ public class BuildingController {
         empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
     }
+
     //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
         switch (type) {
@@ -57,6 +55,7 @@ public class BuildingController {
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay(x, y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
+                    increaseCapacityLimitation(smallStoneGateWay.getCapacity());
                     buildingCheckout(smallStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, smallStoneGateWay);
                     Map.notBuildable[x][y] = true;
@@ -69,6 +68,7 @@ public class BuildingController {
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay(x, y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
+                    increaseCapacityLimitation(bigStoneGateWay.getCapacity());
                     buildingCheckout(bigStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, bigStoneGateWay);
                     Map.notBuildable[x][y] = true;
@@ -123,7 +123,7 @@ public class BuildingController {
 
     public BuildingMessages repairBuilding(int x, int y) {
         // TODO A MENU FOR COMMANDS AFTER SELECTING THE BUILDING TO SEE WHICH CHANGE IS GONNA BE APPLIED
-        ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING?
+        ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING? ----> i dont think soo(Arian)
         //TODO AFTER COMPLETING THE ARMIES SEARCH TO SEE IF ENEMIES ARE IN THE GIVEN POSITION
         int requiredStone = 50;
         Building building = findSelectedBuilding(x, y);
