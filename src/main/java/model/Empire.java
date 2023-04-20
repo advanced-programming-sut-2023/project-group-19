@@ -1,4 +1,5 @@
 package model;
+
 import model.*;
 import model.Building.Building;
 
@@ -52,6 +53,7 @@ public class Empire {
     public void setWorker(int worker) {
         this.worker = worker;
     }
+
     private int foodCapacity;
 
     public int getFoodCapacity() {
@@ -80,11 +82,29 @@ public class Empire {
     private int stoneCount;
     private int ironCount;
     private int oilAmount;
+    private int wheatCount;
+    private int oatCount;
     private int foodRateNumber;
     private int totalFoodCount;
     private int foodDiversity;
     private int taxRateNumber;
     private int fearRateNumber;
+
+    public int getOatCount() {
+        return oatCount;
+    }
+
+    public void setOatCount(int oatCount) {
+        this.oatCount = oatCount;
+    }
+
+    public int getWheatCount() {
+        return wheatCount;
+    }
+
+    public void setWheatCount(int wheatCount) {
+        this.wheatCount = wheatCount;
+    }
 
     public String getName() {
         return name;
@@ -206,6 +226,163 @@ public class Empire {
         this.request = request;
     }
 
+    //TODO : when you create a quarry make sure you set the ox tether count to 1
+    private int ironMineRate = 20;
+    private int pitchRigRate = 4;
+    private int quarryRate = 12; //--> ox tether * 12
+    private int woodCutterRate = 20;
+    private int appleFarmRate = 20;
+    private int oatFarmRate = 20;
+    private int huntingPostRate = 20;
+    private int wheatFarmRate = 20;
+
+
+    private int ironMineCount; //--> ox tether
+    private int oxTetherCount;
+    private int pitchRigCount;
+    private int quarryCount;
+    private int woodCutterCount;
+    private int appleFarmCount;
+    private int oatFarmCount;
+    private int huntingPostCount;
+    private int wheatFarmCount;
+
+    public int getIronMineRate() {
+        return ironMineRate;
+    }
+
+    public void setIronMineRate(int ironMineRate) {
+        this.ironMineRate = ironMineRate;
+    }
+
+    public int getPitchRigRate() {
+        return pitchRigRate;
+    }
+
+    public void setPitchRigRate(int pitchRigRate) {
+        this.pitchRigRate = pitchRigRate;
+    }
+
+    public int getQuarryRate() {
+        return quarryRate;
+    }
+
+    public void setQuarryRate(int quarryRate) {
+        this.quarryRate = quarryRate;
+    }
+
+    public int getWoodCutterRate() {
+        return woodCutterRate;
+    }
+
+    public void setWoodCutterRate(int woodCutterRate) {
+        this.woodCutterRate = woodCutterRate;
+    }
+
+    public int getAppleFarmRate() {
+        return appleFarmRate;
+    }
+
+    public void setAppleFarmRate(int appleFarmRate) {
+        this.appleFarmRate = appleFarmRate;
+    }
+
+    public int getOatFarmRate() {
+        return oatFarmRate;
+    }
+
+    public void setOatFarmRate(int oatFarmRate) {
+        this.oatFarmRate = oatFarmRate;
+    }
+
+    public int getHuntingPostRate() {
+        return huntingPostRate;
+    }
+
+    public void setHuntingPostRate(int huntingPostRate) {
+        this.huntingPostRate = huntingPostRate;
+    }
+
+    public int getWheatFarmRate() {
+        return wheatFarmRate;
+    }
+
+    public void setWheatFarmRate(int wheatFarmRate) {
+        this.wheatFarmRate = wheatFarmRate;
+    }
+
+    public int getIronMineCount() {
+        return ironMineCount;
+    }
+
+    public void setIronMineCount(int ironMineCount) {
+        this.ironMineCount = ironMineCount;
+    }
+
+    public int getOxTetherCount() {
+        return oxTetherCount;
+    }
+
+    public void setOxTetherCount(int oxTetherCount) {
+        this.oxTetherCount = oxTetherCount;
+    }
+
+    public int getPitchRigCount() {
+        return pitchRigCount;
+    }
+
+    public void setPitchRigCount(int pitchRigCount) {
+        this.pitchRigCount = pitchRigCount;
+    }
+
+    public int getQuarryCount() {
+        return quarryCount;
+    }
+
+    public void setQuarryCount(int quarryCount) {
+        this.quarryCount = quarryCount;
+    }
+
+    public int getWoodCutterCount() {
+        return woodCutterCount;
+    }
+
+    public void setWoodCutterCount(int woodCutterCount) {
+        this.woodCutterCount = woodCutterCount;
+    }
+
+    public int getAppleFarmCount() {
+        return appleFarmCount;
+    }
+
+    public void setAppleFarmCount(int appleFarmCount) {
+        this.appleFarmCount = appleFarmCount;
+    }
+
+    public int getOatFarmCount() {
+        return oatFarmCount;
+    }
+
+    public void setOatFarmCount(int oatFarmCount) {
+        this.oatFarmCount = oatFarmCount;
+    }
+
+    public int getHuntingPostCount() {
+        return huntingPostCount;
+    }
+
+    public void setHuntingPostCount(int huntingPostCount) {
+        this.huntingPostCount = huntingPostCount;
+    }
+
+    public int getWheatFarmCount() {
+        return wheatFarmCount;
+    }
+
+    public void setWheatFarmCount(int wheatFarmCount) {
+        this.wheatFarmCount = wheatFarmCount;
+    }
+
     public ArrayList<String> getDonation() {
         return donation;
     }
@@ -213,13 +390,29 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
+
     // TODO call createFoodList function before usage
-    private HashMap<String , Integer> allFood = new HashMap<>();{
-        allFood.put("apple" , 0);
-        allFood.put("bread" , 0);
-        allFood.put("cheese" , 0);
+    public HashMap<String, Integer> allFood = new HashMap<>();
+
+    {
+        allFood.put("apple", 0);
+        allFood.put("bread", 0);
+        allFood.put("cheese", 0);
         allFood.put("meat", 0);
     }
+
     private ArrayList<String> request = new ArrayList<>();
     private ArrayList<String> donation = new ArrayList<>();
+
+    //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
+    public void independentProductionBuilding() {
+        ironCount += ironMineRate * ironMineCount;
+        oilAmount += pitchRigRate * pitchRigCount;
+        stoneCount += quarryCount * quarryRate * oxTetherCount;
+        woodCount += woodCutterCount * woodCutterRate;
+        allFood.replace("apple", allFood.get("apple") + (appleFarmCount * appleFarmRate));
+        oatCount += oatFarmCount * oatFarmRate;
+        allFood.replace("meat", allFood.get("meat") + (huntingPostCount * huntingPostRate));
+        wheatCount += wheatFarmCount * wheatFarmRate;
+    }
 }
