@@ -11,7 +11,7 @@ import view.Commands.BuildingMessages;
 
 public class BuildingController {
     public static int size;
-    private Building selectedBuilding;
+    public static Building selectedBuilding;
     public static Empire currentEmpire;
 
     public BuildingMessages checkCoordinate(int x, int y) {
