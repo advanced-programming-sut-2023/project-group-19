@@ -108,7 +108,7 @@ public class LoginMenu {
         else {
             password = matcher.group("password").trim().substring(3).replaceAll("\"","");
             confirmPassword = matcher.group("confirmPassword");
-            if(confirmPassword != null) confirmPassword = confirmPassword.replaceAll("\"","");
+            if(confirmPassword != null) confirmPassword = confirmPassword.trim().replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
         if(matcher == null) email =  null ;
@@ -121,14 +121,20 @@ public class LoginMenu {
             nickname = matcher.group("nickname").trim().substring(3).replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
-        if(matcher == null) slogan = null ;
+        if(matcher == null){
+            matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK_FOR_EMPTY);
+            if(matcher == null) slogan = "empty";
+            else slogan = null ;
+        }
         else slogan = matcher.group("slogan").trim().substring(3).replaceAll("\"","");
 
         sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
                                                        String email , String nickname , String slogan , Scanner scanner){
-        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
+//        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
+        System.out.println(password);
+        System.out.println(confirmPassword);
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
         System.out.println(message);
         switch (message){

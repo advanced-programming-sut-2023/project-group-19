@@ -9,7 +9,7 @@ import java.util.Random ;
 public class LoginController {
     public static RegisterMessages checkErrorForRegister(String username , String password , String confirmPassword ,
                                                          String email , String nickname , String slogan){
-        if(username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null) ){
+        if(slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null) ){
             return RegisterMessages.EMPTY_FIELD;
         }
         if(User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED ;
