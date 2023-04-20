@@ -2,9 +2,7 @@ package model.Building;
 
 import model.Empire;
 
-import java.util.HashMap;
-
-public class SiegeTent extends Building implements BuildingHPAndGroundType {
+public class SiegeTent extends Building implements BuildingConstructorsFunctions {
     SiegeTent(Empire government) {
         super(government);
     }

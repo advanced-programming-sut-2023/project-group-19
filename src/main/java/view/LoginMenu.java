@@ -121,7 +121,7 @@ public class LoginMenu {
                                                        String email , String nickname , String slogan , Scanner scanner){
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
         switch (message){
-            case USERNAME_REPETED :
+            case USERNAME_REPEATED :
                 username = LoginController.makeUserNameForUser(username);
                 System.out.println("your name is repeted but the name of " + username + " is exist now. would you like to use it? type yes if you want!");
                 String answer = scanner.nextLine();

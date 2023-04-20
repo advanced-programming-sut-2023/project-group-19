@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class TurnOffFire extends Building implements BuildingHPAndGroundType {
+public class TurnOffFire extends Building implements BuildingConstructorsFunctions {
     TurnOffFire(Empire government) {
         super(government);
     }

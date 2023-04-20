@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Industry extends Building implements BuildingHPAndGroundType {
+public class Industry extends Building implements BuildingConstructorsFunctions {
 
     Industry(Empire government) {
         super(government);

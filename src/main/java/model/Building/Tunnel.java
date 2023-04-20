@@ -2,9 +2,7 @@ package model.Building;
 
 import model.Empire;
 
-import java.util.HashMap;
-
-public class Tunnel extends Building implements BuildingHPAndGroundType {
+public class Tunnel extends Building implements BuildingConstructorsFunctions {
     Tunnel(Empire government) {
         super(government);
     }

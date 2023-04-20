@@ -1,12 +1,9 @@
 package model.Building;
 
 import model.Empire;
-import model.Manage;
-import model.Map;
+import model.GroundType;
 
-import java.util.HashMap;
-
-public class StoneGateWay extends Building implements BuildingHPAndGroundType {
+public class StoneGateWay extends Building implements BuildingConstructorsFunctions {
     public StoneGateWay(Empire government) {
         super(government);
 
@@ -33,7 +30,7 @@ public class StoneGateWay extends Building implements BuildingHPAndGroundType {
 
     private int hp;
     private int maxHP;
-    private String groundType;
+    private String groundType = GroundType.DEFAULT.getGroundType();
 
     public String getGroundType() {
         return groundType;

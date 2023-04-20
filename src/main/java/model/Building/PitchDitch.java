@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class PitchDitch extends Building implements BuildingHPAndGroundType {
+public class PitchDitch extends Building implements BuildingConstructorsFunctions {
     PitchDitch(Empire government) {
         super(government);
     }

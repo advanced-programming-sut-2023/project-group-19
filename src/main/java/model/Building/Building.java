@@ -1,11 +1,10 @@
 package model.Building;
 
 import model.Empire;
-import model.Manage;
 
 import java.util.HashMap;
 
-public abstract class Building implements BuildingHPAndGroundType {
+public abstract class Building implements BuildingConstructorsFunctions {
     private Empire owner;
     private String requiredGroundType;
     private Names name;
