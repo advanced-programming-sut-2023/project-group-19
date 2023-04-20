@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public class Goods extends Building implements BuildingConstantFunctions {
-    Goods(Empire government) {
+    public Goods(Empire government) {
         super(government);
     }
 
@@ -37,48 +37,55 @@ public class Goods extends Building implements BuildingConstantFunctions {
     }
 
     public void appleFarm() {
+        rate = 20;
         names = Names.APPLE_FARM;
         createBuildingCost(5, 0, 0, 0, 0);
     }
 
     public void dairyProduct() {
+        rate = 5;
         names = Names.DAIRY_PRODUCT;
         createBuildingCost(10, 0, 0, 0, 0);
     }
 
     public void oatFarm() {
+        rate = 20;
         names = Names.OAT_FARM;
         createBuildingCost(15, 0, 0, 0, 0);
     }
 
     public void huntingPost() {
+        rate = 15;
         names = Names.HUNTING_POST;
         createBuildingCost(5, 0, 0, 0, 0);
     }
 
     public void wheatFarm() {
+        rate = 20;
         names = Names.WHEAT_FARM;
         createBuildingCost(15, 0, 0, 0, 0);
     }
 
     public void bakery() {
+        rate = 5;
         names = Names.BAKERY;
         createBuildingCost(10, 0, 0, 0, 0);
     }
 
     public void bearFactory() {
+        rate = 5;
         names = Names.BEAR_FACTORY;
         createBuildingCost(10, 0, 0, 0, 0);
     }
 
     @Override
     public int maxHp() {
-        return 0;
+        return 999999999;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return 999999999;
     }
 
     @Override
