@@ -9,18 +9,18 @@ import java.util.Random ;
 public class LoginController {
     public static RegisterMessages checkErrorForRegister(String username , String password , String confirmPassword ,
                                                          String email , String nickname , String slogan){
-        if(password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD ;
-        if(username == null || password == null || email == null || nickname == null ||
-                (password.equals("random") && confirmPassword != null) || (!password.equals("random") && confirmPassword == null)){
+        if(username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null) ){
             return RegisterMessages.EMPTY_FIELD;
         }
+        if(password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD ;
+
         if(!username.matches(".*[A-Za-z0-9_].*")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if(User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED ;
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if(!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if(!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if(password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
-        if(!password.equals("random") && !password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
+        if(!password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         String changedEmail = email.toLowerCase() ;
         if(User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPETED_EMAIL;
         if(!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]*\\.+[A-Za-z0-9\\.]*")) return RegisterMessages.INVALID_FORM_EMAIL ;
