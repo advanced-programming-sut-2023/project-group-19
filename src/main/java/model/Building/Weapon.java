@@ -8,11 +8,21 @@ public class Weapon extends Building implements BuildingConstantFunctions {
     public Weapon(Empire government) {
         super(government);
     }
-
+    private int hp;
     private String supplyName;
     private String supplyCount;
     private int productionRate;
     private Names names;
+
+    @Override
+    public int getHp() {
+        return hp;
+    }
+
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
     public String getSupplyName() {
         return supplyName;
@@ -53,23 +63,27 @@ public class Weapon extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
-
+    //TODO: COMPLETE SUPPLY NAME,SUPPLY COUNT,PRODUCTION RATE
     public void armourer() {
+        hp=400;
         names = Names.ARMOURER;
         createBuildingCost(20, 0, 100, 0, 0);
     }
 
     public void blacksmith() {
+        hp=500;
         names = Names.BLACKSMITH;
         createBuildingCost(20, 0, 100, 0, 0);
     }
 
-    public void Fletcher() {
+    public void fletcher() {
+        hp=400;
         names = Names.FLETCHER;
         createBuildingCost(20, 0, 100, 0, 0);
     }
 
-    public void PoleTurner() {
+    public void poleTurner() {
+        hp=400;
         names = Names.POLE_TURNER;
         createBuildingCost(20, 0, 100, 0, 0);
     }
