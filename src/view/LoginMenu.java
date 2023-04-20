@@ -98,26 +98,26 @@ public class LoginMenu {
         Matcher matcher ;
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
         if(matcher == null) username = null ;
-        else username = matcher.group("username").substring(3);
+        else username = matcher.group("username").substring(3).replaceAll("\"","");
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_PASSWORD_CHECK);
         if(matcher == null) password =  null ;
         else {
-            password = matcher.group("password").trim().substring(3);
-            confirmPassword = matcher.group("confirmPassword").trim();
+            password = matcher.group("password").trim().substring(3).replaceAll("\"","");
+            confirmPassword = matcher.group("confirmPassword");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
         if(matcher == null) email =  null ;
         else {
-            email = matcher.group("email").trim().substring(3);
+            email = matcher.group("email").trim().substring(8).replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_NICKNAME_CHECK);
         if(matcher == null) nickname =  null ;
         else {
-            nickname = matcher.group("nickname").trim().substring(3);
+            nickname = matcher.group("nickname").trim().substring(3).replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
         if(matcher == null) slogan = null ;
-        else slogan = matcher.group("slogan").trim().substring(3);
+        else slogan = matcher.group("slogan").trim().substring(3).replaceAll("\"","");
         System.out.println("cheeck2");
         sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
     }
