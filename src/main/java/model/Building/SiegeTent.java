@@ -2,7 +2,7 @@ package model.Building;
 
 import model.Empire;
 
-public class SiegeTent extends Building implements BuildingConstructorsFunctions {
+public class SiegeTent extends Building implements BuildingConstantFunctions {
     SiegeTent(Empire government) {
         super(government);
     }

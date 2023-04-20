@@ -3,7 +3,7 @@ package model.Building;
 import model.Empire;
 import model.GroundType;
 
-public class StoneGateWay extends Building implements BuildingConstructorsFunctions {
+public class StoneGateWay extends Building implements BuildingConstantFunctions {
     public StoneGateWay(Empire government) {
         super(government);
 

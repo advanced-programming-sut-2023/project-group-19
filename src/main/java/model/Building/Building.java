@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public abstract class Building implements BuildingConstructorsFunctions {
+public abstract class Building implements BuildingConstantFunctions {
     private Empire owner;
     private String requiredGroundType;
     private Names name;

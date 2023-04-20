@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class OilSmelter extends Building implements BuildingConstructorsFunctions {
+public class OilSmelter extends Building implements BuildingConstantFunctions {
 
     OilSmelter(Empire government) {
         super(government);

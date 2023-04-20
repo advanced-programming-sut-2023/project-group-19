@@ -6,7 +6,7 @@ import model.Map;
 
 import java.util.HashMap;
 
-public class DrawBridge extends Building implements BuildingConstructorsFunctions {
+public class DrawBridge extends Building implements BuildingConstantFunctions {
     public DrawBridge(Empire government) {
         super(government);
     }

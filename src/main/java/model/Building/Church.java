@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Church extends Building implements BuildingConstructorsFunctions {
+public class Church extends Building implements BuildingConstantFunctions {
 
     Church(Empire government) {
         super(government);
