@@ -76,8 +76,6 @@ public class StoneGateWay extends Building {
         maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
         capacity = 10;
-//        Map.AddToBuildingMap(x, y, currentBuilding);
         createBuildingCost(0, 20, 0, 0, 0);
-//        Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 20);
     }
 }

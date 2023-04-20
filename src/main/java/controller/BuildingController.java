@@ -58,7 +58,7 @@ public class BuildingController {
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay(x, y, smallStoneGateWay);
                 if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
-                    buildingCheckout(smallStoneGateWay , currentEmpire);
+                    buildingCheckout(smallStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, smallStoneGateWay);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
@@ -70,7 +70,7 @@ public class BuildingController {
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay(x, y, bigStoneGateWay);
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
-                    buildingCheckout(bigStoneGateWay , currentEmpire);
+                    buildingCheckout(bigStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, bigStoneGateWay);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
@@ -82,7 +82,7 @@ public class BuildingController {
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
                 drawBridge.drawBridge(x, y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
-                    buildingCheckout(drawBridge , currentEmpire);
+                    buildingCheckout(drawBridge, currentEmpire);
                     Map.AddToBuildingMap(x, y, drawBridge);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
