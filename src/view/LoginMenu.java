@@ -47,6 +47,8 @@ public class LoginMenu {
                 case WEAK_PASSWORD_FOR_LOWERCASE:
                     System.out.println("you should use lowercase chars");
                     return;
+                case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
+                    System.out.println("you should use chars axept alphbetical");
                 case WEAK_PASSWORD_FOR_UPPERCASE:
                     System.out.println("you should use uppercase chars");
                     return;
@@ -91,6 +93,7 @@ public class LoginMenu {
         }
     }
     public static void checkElementsToRegisterUser(String command , Scanner scanner){
+        System.out.println("into check element");
         String username;String password ;String confirmPassword = null;String email ;String nickname ;String slogan ;
         Matcher matcher ;
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
@@ -115,11 +118,14 @@ public class LoginMenu {
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
         if(matcher == null) slogan = null ;
         else slogan = matcher.group("slogan").trim().substring(3);
+        System.out.println("cheeck2");
         sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
                                                        String email , String nickname , String slogan , Scanner scanner){
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
+        System.out.println(message);
+        System.out.println("into check information");
         switch (message){
             case USERNAME_REPETED :
                 username = LoginController.makeUserNameForUser(username);
@@ -132,6 +138,11 @@ public class LoginMenu {
                     System.out.println("try agian");
                     return;
                 }
+                break;
+            case GET_RANDOM_SLOGANS:
+                slogan = LoginController.getRandomSlogan();
+                System.out.println("Your slogan is \"" + slogan + "\"");
+                sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
                 break;
             case GET_RANDOM_PASSWORD:
                 password = LoginController.generateRandomPassword();
@@ -146,6 +157,9 @@ public class LoginMenu {
                 }
             case INCORRECT_FORM_OF_USERNAME:
                 System.out.println("your form of username is invalid!");
+                return;
+            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
+                System.out.println("you should use chars exept alphabetical");
                 return;
             case WEAK_PASSWORD_FOR_LENGTH:
                 System.out.println("length of your password is must be at least 6 characters");
@@ -173,9 +187,11 @@ public class LoginMenu {
                 return;
             case SUCCESS:
                 String[] list = askSecurityQuestion(scanner);
+                System.out.println("lslsl");
                 if(list == null) return;
                 else LoginController.Register(username,password,email,nickname,slogan,list[0],list[1]);
         }
+        System.out.println("into end");
 
     }
     private static String[] askSecurityQuestion(Scanner scanner){

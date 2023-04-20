@@ -12,19 +12,19 @@ public class LoginController {
         if(username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null) ){
             return RegisterMessages.EMPTY_FIELD;
         }
+        if(slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
         if(password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD ;
-
         if(!username.matches(".*[A-Za-z0-9_].*")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if(User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED ;
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if(!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if(!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
+        if(!password.matches(".*[\\!\\@\\#\\$\\%\\^\\&].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
         if(password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
         if(!password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         String changedEmail = email.toLowerCase() ;
         if(User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPETED_EMAIL;
         if(!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]*\\.+[A-Za-z0-9\\.]*")) return RegisterMessages.INVALID_FORM_EMAIL ;
-        if(slogan == null) return RegisterMessages.NULL_SLOGAN ;
         return RegisterMessages.SUCCESS ;
     }
     public static RegisterMessages changePassword(User user , String password){
@@ -92,8 +92,15 @@ public class LoginController {
             sb.append(randomChar);
 
         }
+        sb.append("#");
 
         return sb.toString();
 
+    }
+    public static String getRandomSlogan(){
+        int size = User.getRandomSlogans().size();
+        Random random = new Random();
+        int index = random.nextInt(size - 1);
+        return (User.getRandomSlogans().get(index));
     }
 }
