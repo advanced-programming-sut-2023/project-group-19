@@ -52,7 +52,8 @@ public class LoginMenu {
                     System.out.println("you should use lowercase chars");
                     return;
                 case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
-                    System.out.println("you should use chars axept alphbetical");
+                    System.out.println("you should use chars exept alphbetical");
+                    return;
                 case WEAK_PASSWORD_FOR_UPPERCASE:
                     System.out.println("you should use uppercase chars");
                     return;

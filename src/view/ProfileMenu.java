@@ -70,7 +70,7 @@ public class ProfileMenu {
         }
     }
     private static void changingNickname(String nickname){
-        ProfileMenuMessage message = ProfileController.changeUsername(nickname);
+        ProfileMenuMessage message = ProfileController.changeNickname(nickname);
         System.out.println("nickname changed successfully");
     }
     private static void changingPassword(String oldPassword , String newPassword , Scanner scanner){

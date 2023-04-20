@@ -19,7 +19,7 @@ public class LoginController {
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if(!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if(!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
-        if(!password.matches(".*[\\!\\@\\#\\$\\%\\^\\&].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
+        if(!password.matches(".*[\\W\\_].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
         if(password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
         if(!password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         String changedEmail = email.toLowerCase() ;
@@ -29,6 +29,7 @@ public class LoginController {
     }
     public static RegisterMessages changePassword(User user , String password){
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
+        if(!password.matches(".*[\\W\\_].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
         if(!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if(!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if(password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
