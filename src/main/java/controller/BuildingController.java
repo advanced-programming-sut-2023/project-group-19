@@ -1,9 +1,6 @@
 package controller;
 
-import model.Building.Building;
-import model.Building.DrawBridge;
-import model.Building.Names;
-import model.Building.StoneGateWay;
+import model.Building.*;
 import model.Empire;
 import model.Manage;
 import model.Map;
@@ -49,7 +46,27 @@ public class BuildingController {
                 return BuildingMessages.SUCCESS;
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x, y);
+                drawBridge.drawBridge(x, y ,drawBridge);
+                return BuildingMessages.SUCCESS;
+            case "Lookout Tower":
+                Tower lookoutTower=new Tower(currentEmpire);
+                lookoutTower.lookoutTower(x ,y ,lookoutTower);
+                return BuildingMessages.SUCCESS;
+            case "Perimeter Tower":
+                Tower perimeterTower=new Tower(currentEmpire);
+                perimeterTower.perimeterTower(x ,y ,perimeterTower);
+                return BuildingMessages.SUCCESS;
+            case "Defend Tower":
+                Tower defendTower=new Tower(currentEmpire);
+                defendTower.defendTower(x ,y ,defendTower);
+                return BuildingMessages.SUCCESS;
+            case "Square Tower":
+                Tower squareTower=new Tower(currentEmpire);
+                squareTower.squareTower(x ,y ,squareTower);
+                return BuildingMessages.SUCCESS;
+            case "Round Tower":
+                Tower roundTower=new Tower(currentEmpire);
+                roundTower.roundTower(x ,y ,roundTower);
                 return BuildingMessages.SUCCESS;
         }
         return BuildingMessages.INVALID_BUILDING_NAME;

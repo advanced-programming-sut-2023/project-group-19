@@ -1,15 +1,17 @@
 package model.Building;
 
 import model.Empire;
+import model.Map;
 
 import java.util.HashMap;
 
 public class Tower extends Building {
-    Tower(Empire government) {
+    public Tower(Empire government) {
         super(government);
     }
 
     private int hp;
+    private int maxHp;
     private Names name;
     private int fireRange;
     private int defendRange;
@@ -49,6 +51,16 @@ public class Tower extends Building {
         this.defendRange = defendRange;
     }
 
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
     public int getHp() {
         return hp;
     }
@@ -68,28 +80,38 @@ public class Tower extends Building {
         cost.put("oil", oil);
     }
 
-    public void lookoutTower() {
+    public void lookoutTower(int x , int y , Building currentBuilding) {
+        maxHp=800;
         name = Names.LOOKOUT_TOWER;
+        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 10, 0, 0, 0);
     }
 
-    public void perimeterTower() {
+    public void perimeterTower(int x , int y , Building currentBuilding) {
+        maxHp=800;
         name = Names.PERIMETER_TOWER;
+        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 10, 0, 0, 0);
     }
 
-    public void defendTower() {
+    public void defendTower(int x , int y , Building currentBuilding) {
+        maxHp=800;
         name = Names.DEFEND_TOWER;
+        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 15, 0, 0, 0);
     }
 
-    public void squareTower() {
+    public void squareTower(int x , int y , Building currentBuilding) {
+        maxHp=800;
         name = Names.SQUARE_TOWER;
+        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 35, 0, 0, 0);
     }
 
-    public void roundTower() {
+    public void roundTower(int x , int y , Building currentBuilding) {
+        maxHp=800;
         name = Names.ROUND_TOWER;
+        Map.AddToBuildingMap(x ,y , currentBuilding);
         createBuildingCost(0, 40, 0, 0, 0);
     }
 }
