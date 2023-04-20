@@ -12,6 +12,7 @@ public enum BuildingMessages {
     HP_ALREADY_FULL("the building is at max hp!"),
     SUCCESSFUL_REPAIR("building repaired successfully"),
     INSUFFICIENT_STONE("insufficient stone"),
+    INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING("empire doesnt have enough resources to build the building"),
     CONTINUE("Continue"),
     SUCCESS("Success");
     private String messages;

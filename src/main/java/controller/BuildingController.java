@@ -37,20 +37,59 @@ public class BuildingController {
         }
     }
 
+    public boolean empireHasEnoughResourcesToBuildTheBuilding(Building building, Empire empire) {
+        return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount() &&
+                building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount()
+                && building.cost.get("oil") <= empire.getOilAmount();
+    }
+
+    public void buildingCheckout(Building building, Empire empire) {
+        empire.setWoodCount(empire.getWoodCount() - building.cost.get("wood"));
+        empire.setStoneCount(empire.getStoneCount() - building.cost.get("stone"));
+        empire.setGoldCount(empire.getGoldCount() - building.cost.get("gold"));
+        empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
+        empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
+    }
+
+    //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
         switch (type) {
             case "Small Stone Gatehouse":
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay(x, y, smallStoneGateWay);
-                return BuildingMessages.SUCCESS;
+                if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
+                    buildingCheckout(smallStoneGateWay , currentEmpire);
+                    Map.AddToBuildingMap(x, y, smallStoneGateWay);
+                    Map.notBuildable[x][y] = true;
+                    Map.notPassable[x][y] = true;
+                    return BuildingMessages.SUCCESS;
+                } else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
             case "Big Stone Gatehouse":
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay(x, y, bigStoneGateWay);
-                return BuildingMessages.SUCCESS;
+                if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
+                    buildingCheckout(bigStoneGateWay , currentEmpire);
+                    Map.AddToBuildingMap(x, y, bigStoneGateWay);
+                    Map.notBuildable[x][y] = true;
+                    Map.notPassable[x][y] = true;
+                    return BuildingMessages.SUCCESS;
+                } else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
                 drawBridge.drawBridge(x, y);
-                return BuildingMessages.SUCCESS;
+                if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
+                    buildingCheckout(drawBridge , currentEmpire);
+                    Map.AddToBuildingMap(x, y, drawBridge);
+                    Map.notBuildable[x][y] = true;
+                    Map.notPassable[x][y] = true;
+                    return BuildingMessages.SUCCESS;
+                } else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
         }
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
@@ -109,6 +148,6 @@ public class BuildingController {
     }
 
     public void increaseCapacityLimitation(int capacity) {
-        currentEmpire.setPopulation(currentEmpire.getPopulation() + capacity);
+        currentEmpire.setMaxPossiblePopulation(currentEmpire.getMaxPossiblePopulation() + capacity);
     }
 }

@@ -3,12 +3,15 @@ package model.Building;
 import model.Empire;
 import model.Manage;
 
+import java.util.HashMap;
+
 public abstract class Building {
     private Empire owner;
     private String requiredGroundType;
     private Names name;
     private int hp;
     private int maxHp;
+    public HashMap<String, Integer> cost = new HashMap<>();
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;

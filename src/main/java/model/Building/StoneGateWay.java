@@ -32,14 +32,14 @@ public class StoneGateWay extends Building {
     }
 
     private int hp;
-    private static int defaultHP;
+    private static int maxHP;
 
-    public void setDefaultHP(int defaultHP) {
-        StoneGateWay.defaultHP = defaultHP;
+    public static int getMaxHP() {
+        return maxHP;
     }
 
-    public int getDefaultHP() {
-        return defaultHP;
+    public static void setMaxHP(int maxHP) {
+        maxHP = maxHP;
     }
 
     public int getHp() {
@@ -50,7 +50,7 @@ public class StoneGateWay extends Building {
         this.hp = hp;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
+//    public HashMap<String, Integer> cost = new HashMap<>();
 
     //TODO: call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
@@ -65,18 +65,19 @@ public class StoneGateWay extends Building {
     //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
     public void smallGateWay(int x, int y, Building currentBuilding) {
         hp = 500;
-        defaultHP = 500;
+        maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
-        Map.AddToBuildingMap(x, y, currentBuilding);
+        capacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
     }
 
     public void bigGateWay(int x, int y, Building currentBuilding) {
         hp = 700;
-        defaultHP = 700;
+        maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
-        Map.AddToBuildingMap(x, y, currentBuilding);
+        capacity = 10;
+//        Map.AddToBuildingMap(x, y, currentBuilding);
         createBuildingCost(0, 20, 0, 0, 0);
-        Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 20);
+//        Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 20);
     }
 }

@@ -64,6 +64,16 @@ public class Empire {
 
     private String name;
     private int population;
+    private int maxPossiblePopulation;
+
+    public int getMaxPossiblePopulation() {
+        return maxPossiblePopulation;
+    }
+
+    public void setMaxPossiblePopulation(int maxPossiblePopulation) {
+        this.maxPossiblePopulation = maxPossiblePopulation;
+    }
+
     private int popularity;
     private int goldCount;
     private int woodCount;
@@ -204,13 +214,12 @@ public class Empire {
         this.donation = donation;
     }
     // TODO call createFoodList function before usage
-    private HashMap<String , Integer> allFood = new HashMap<>();
-    private ArrayList<String> request = new ArrayList<>();
-    private ArrayList<String> donation = new ArrayList<>();
-    public void CreateFoodList(){
+    private HashMap<String , Integer> allFood = new HashMap<>();{
         allFood.put("apple" , 0);
         allFood.put("bread" , 0);
         allFood.put("cheese" , 0);
         allFood.put("meat", 0);
     }
+    private ArrayList<String> request = new ArrayList<>();
+    private ArrayList<String> donation = new ArrayList<>();
 }
