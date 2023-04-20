@@ -19,13 +19,13 @@ public class LoginMenu {
                 EnterToLogin(command,scanner);
             }else if((matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK)) != null){
                 ForgotPasswordCheck(command,scanner);
-            }
+            }else System.out.println("Invalid command!");
         }
     }
     //user create -u armin -p mamad mamad -email hhh -n kazem -s dd
     private static int numberToWait = 1 ;
     private static void ForgotPasswordCheck(String command,Scanner scanner){
-        String username = null ;
+        String username;
         Matcher matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
         if(matcher != null)username = matcher.group("username").trim().substring(3);
         else {
@@ -33,6 +33,10 @@ public class LoginMenu {
             return;
         }
         User user = User.getUserByName(username);
+        if(user == null) {
+            System.out.println("this user not exist!");
+            return;
+        }
         String secQuestion = (User.getSecurityQuestions().get(user.getRecoveryQuestionNumber()));
         System.out.println("your security question is " + secQuestion + ".please answer it");
         String answer = scanner.nextLine();
@@ -93,7 +97,6 @@ public class LoginMenu {
         }
     }
     public static void checkElementsToRegisterUser(String command , Scanner scanner){
-        System.out.println("into check element");
         String username;String password ;String confirmPassword = null;String email ;String nickname ;String slogan ;
         Matcher matcher ;
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
@@ -108,7 +111,7 @@ public class LoginMenu {
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
         if(matcher == null) email =  null ;
         else {
-            email = matcher.group("email").trim().substring(8).replaceAll("\"","");
+            email = matcher.group("email").trim().substring(7).replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_NICKNAME_CHECK);
         if(matcher == null) nickname =  null ;
@@ -118,14 +121,13 @@ public class LoginMenu {
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
         if(matcher == null) slogan = null ;
         else slogan = matcher.group("slogan").trim().substring(3).replaceAll("\"","");
-        System.out.println("cheeck2");
+
         sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
                                                        String email , String nickname , String slogan , Scanner scanner){
+        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
-        System.out.println(message);
-        System.out.println("into check information");
         switch (message){
             case USERNAME_REPETED :
                 username = LoginController.makeUserNameForUser(username);
@@ -149,10 +151,11 @@ public class LoginMenu {
                 String ans = scanner.nextLine();
                 while(true){
                     if(ans.equals(password)) {
-                        sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
+                        sendInformationsOfRegisterUser(username,password,password,email,nickname,slogan,scanner);
                         break;
                     }
                     System.out.println("try again!");
+                    ans = scanner.nextLine();
                 }
                 return;
             case INCORRECT_FORM_OF_USERNAME:
@@ -182,13 +185,17 @@ public class LoginMenu {
             case REPETED_EMAIL:
                 System.out.println("your email is repeted");
                 return;
-            case NULL_SLOGAN:
-                System.out.println("null form slogan");
+            case EMPTY_FIELD:
+                System.out.println("has empty field");
                 return;
             case SUCCESS:
                 String[] list = askSecurityQuestion(scanner);
-                if(list == null) return;
+                if(list == null) {
+                    System.out.println("ypu have to fix whole fields correctly");
+                    return;
+                }
                 else LoginController.Register(username,password,email,nickname,slogan,list[0],list[1]);
+                System.out.println("register succseefully");
         }
 
     }
