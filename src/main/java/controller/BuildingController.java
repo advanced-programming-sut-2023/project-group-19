@@ -8,7 +8,7 @@ import view.Commands.BuildingMessages;
 
 public class BuildingController {
     public static int size;
-    private Building selectedBuilding;
+    public static Building selectedBuilding;
     public static Empire currentEmpire;
 
     public BuildingMessages checkCoordinate(int x, int y) {
@@ -38,11 +38,11 @@ public class BuildingController {
         switch (type) {
             case "Small Stone Gatehouse":
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
-                smallStoneGateWay.smallGateWay(x, y, smallStoneGateWay);
+                smallStoneGateWay.smallGateWay();
                 return BuildingMessages.SUCCESS;
             case "Big Stone Gatehouse":
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
-                bigStoneGateWay.bigGateWay(x, y, bigStoneGateWay);
+                bigStoneGateWay.bigGateWay();
                 return BuildingMessages.SUCCESS;
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
