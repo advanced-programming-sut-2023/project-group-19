@@ -1,7 +1,6 @@
 package model;
 
-import model.*;
-import model.Building.Building;
+import controller.Building.FunctionBuildingController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -454,7 +453,7 @@ public class Empire {
     public HashMap<String, Integer> productionBuildingRate = new HashMap<>();
 
     {
-        productionBuildingRate.put("ironMine", 20);
+        productionBuildingRate.put("ironMine", 30);
         productionBuildingRate.put("pitchRig", 4);
         productionBuildingRate.put("quarry", 12);
         productionBuildingRate.put("woodCutter", 20);
@@ -492,7 +491,7 @@ public class Empire {
     public ArrayList<String> donation = new ArrayList<>();
 
     //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
-    public void independentProductionBuilding() {
+    public void independentProductionBuilding() { //part 1 of 5TYPE algorithm
         stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
         stores.replace("oil", stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig"));
         stores.replace("stone", stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry"));
@@ -501,6 +500,16 @@ public class Empire {
         stores.replace("oat", stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm"));
         allFood.replace("meat", allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost"));
         stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
+    }
+
+    public void functionBuildings() { //part 2 of 5TYPE algorithm
+        FunctionBuildingController.transformWheatToFlour();
+        FunctionBuildingController.transformFlourToBread();
+        FunctionBuildingController.transformHopsToBeer();
+        FunctionBuildingController.transformIronToMetalArmour();
+        FunctionBuildingController.transformIronToSwordOrMace();
+        FunctionBuildingController.transformWoodToBow();
+        FunctionBuildingController.transformWoodToSpearOrPike();
     }
 
 }
