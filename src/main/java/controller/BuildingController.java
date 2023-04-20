@@ -52,7 +52,6 @@ public class BuildingController {
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay();
                 if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
-                    increaseCapacityLimitation(smallStoneGateWay.getCapacity());
                     buildingCheckout(smallStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, smallStoneGateWay);
                     Map.notBuildable[x][y] = true;
@@ -65,7 +64,6 @@ public class BuildingController {
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay();
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
-                    increaseCapacityLimitation(bigStoneGateWay.getCapacity());
                     buildingCheckout(bigStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, bigStoneGateWay);
                     Map.notBuildable[x][y] = true;

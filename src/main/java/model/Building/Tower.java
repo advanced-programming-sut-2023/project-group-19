@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Tower extends Building implements TowerFunctions  {
+public class Tower extends Building {
     public Tower(Empire government) {
         super(government);
     }
@@ -12,6 +12,16 @@ public class Tower extends Building implements TowerFunctions  {
     private int hp;
     private int maxHp;
     private Names name;
+    private int capacity;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
     private int fireRange = 100;
 
     private int defendRange;
@@ -43,16 +53,6 @@ public class Tower extends Building implements TowerFunctions  {
 
     public void setNames(Names names) {
         this.name = names;
-    }
-
-    @Override
-    public int fireRange() {
-        return fireRange;
-    }
-
-    @Override
-    public int defendRange() {
-        return defendRange;
     }
 
     public boolean isBig() {
@@ -103,6 +103,7 @@ public class Tower extends Building implements TowerFunctions  {
         maxHp = 1000;
         isBig = false;
         length = 200;
+        capacity = 5;
         fireRange = fireRange + length;
         defendRange = fireRange;
         name = Names.LOOKOUT_TOWER;
@@ -114,6 +115,7 @@ public class Tower extends Building implements TowerFunctions  {
         maxHp = 1000;
         isBig = false;
         length = 100;
+        capacity = 10;
         fireRange = fireRange + length;
         defendRange = fireRange;
         name = Names.PERIMETER_TOWER;
@@ -125,6 +127,7 @@ public class Tower extends Building implements TowerFunctions  {
         maxHp = 2000;
         isBig = false;
         length = 100;
+        capacity = 10;
         fireRange = fireRange + length;
         defendRange = fireRange;
         name = Names.DEFEND_TOWER;
@@ -136,6 +139,7 @@ public class Tower extends Building implements TowerFunctions  {
         maxHp = 1200;
         isBig = true;
         length = 100;
+        capacity = 10;
         fireRange = fireRange + length;
         defendRange = fireRange;
         name = Names.SQUARE_TOWER;
@@ -147,6 +151,7 @@ public class Tower extends Building implements TowerFunctions  {
         maxHp = 1600;
         isBig = true;
         length = 100;
+        capacity = 10;
         fireRange = fireRange + length;
         defendRange = fireRange;
         name = Names.ROUND_TOWER;
