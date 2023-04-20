@@ -32,7 +32,10 @@ public class ProfileMenu {
                 System.out.println(ProfileController.showSlogan());
             }else if(command.matches("profile display")){
                 System.out.println(ProfileController.showDisplay());
-            }else{
+            }else if(command.matches("\\s*profile\\s+remove\\s+slogan")){
+                System.out.println(ProfileController.removeSlogan());
+            }
+            else{
                 System.out.println("invalod command!");
             }
         }

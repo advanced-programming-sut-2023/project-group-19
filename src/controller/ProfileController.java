@@ -4,6 +4,11 @@ import model.User;
 import view.Messages.ProfileMenuMessage;
 
 public class ProfileController {
+    public static String removeSlogan(){
+        User user = User.getCurrentUser();
+        user.setSlogan("empty");
+        return "removing slogan is successfully";
+    }
     public static ProfileMenuMessage changeUsername(String username){
         User user = User.getCurrentUser();
         if(!username.matches(".*[A-Za-z0-9_].*")) return ProfileMenuMessage.INVALID_FORM_USERNAME;

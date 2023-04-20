@@ -132,9 +132,9 @@ public class LoginMenu {
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
                                                        String email , String nickname , String slogan , Scanner scanner){
-//        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
-        System.out.println(password);
-        System.out.println(confirmPassword);
+        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
+//        System.out.println(password);
+//        System.out.println(confirmPassword);
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
         System.out.println(message);
         switch (message){
