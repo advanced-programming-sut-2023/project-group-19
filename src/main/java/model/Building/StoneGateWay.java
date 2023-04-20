@@ -69,7 +69,7 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
 
     //TODO make a condition in the Building menu to see whether we have Gateway or not if we don't make an error
     //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
-    public void smallGateWay(int x, int y) {
+    public void smallGateWay() {
         hp = 500;
         maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
@@ -77,7 +77,7 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         createBuildingCost(0, 0, 0, 0, 0);
     }
 
-    public void bigGateWay(int x, int y) {
+    public void bigGateWay() {
         hp = 700;
         maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;

@@ -18,7 +18,7 @@ public class Main {
         Empire empire = new Empire();
         Map.CreateMap(200);
         StoneGateWay stoneGateWay = new StoneGateWay(empire);
-        stoneGateWay.smallGateWay(0 , 0 );
+        stoneGateWay.smallGateWay();
         System.out.println(stoneGateWay.getMaxHP());
         Map.buildingMap[0][0].add(stoneGateWay);
         System.out.println(Map.buildingMap[0][0].get(0).groundType());
