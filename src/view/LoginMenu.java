@@ -108,6 +108,7 @@ public class LoginMenu {
         else {
             password = matcher.group("password").trim().substring(3).replaceAll("\"","");
             confirmPassword = matcher.group("confirmPassword");
+            if(confirmPassword != null) confirmPassword = confirmPassword.replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
         if(matcher == null) email =  null ;
