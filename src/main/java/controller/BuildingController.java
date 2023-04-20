@@ -44,7 +44,7 @@ public class BuildingController {
         empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
     }
-
+    //TODO : MAKE SURE TO SYNC THIS PART WITH THE 5TYPE ALGORITHM
     //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
     public BuildingMessages callBuildingFunction(int x, int y, String type) {
         switch (type) {
