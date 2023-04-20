@@ -132,8 +132,7 @@ public class LoginMenu {
                 System.out.println("your name is repeted but the name of " + username + " is exist now. would you like to use it? type yes if you want!");
                 String answer = scanner.nextLine();
                 if(answer.equals("yes"))
-                    message = LoginController.checkErrorForRegister(username, password,
-                            confirmPassword,email, nickname, slogan);
+                    sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
                 else {
                     System.out.println("try agian");
                     return;
@@ -150,11 +149,12 @@ public class LoginMenu {
                 String ans = scanner.nextLine();
                 while(true){
                     if(ans.equals(password)) {
-                        LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
+                        sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
                         break;
                     }
                     System.out.println("try again!");
                 }
+                return;
             case INCORRECT_FORM_OF_USERNAME:
                 System.out.println("your form of username is invalid!");
                 return;
@@ -187,11 +187,9 @@ public class LoginMenu {
                 return;
             case SUCCESS:
                 String[] list = askSecurityQuestion(scanner);
-                System.out.println("lslsl");
                 if(list == null) return;
                 else LoginController.Register(username,password,email,nickname,slogan,list[0],list[1]);
         }
-        System.out.println("into end");
 
     }
     private static String[] askSecurityQuestion(Scanner scanner){
