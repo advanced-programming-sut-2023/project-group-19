@@ -88,25 +88,22 @@ public class BuildingController {
         ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING?
         //TODO AFTER COMPLETING THE ARMIES SEARCH TO SEE IF ENEMIES ARE IN THE GIVEN POSITION
         int requiredStone = 50;
-        Building building = findSelectedBuilding(x , y);
-        if(building != null) {
+        Building building = findSelectedBuilding(x, y);
+        if (building != null) {
             int currentHp = building.getHp();
             int maxHp = building.getMaxHp();
-            if(currentHp == maxHp){
+            if (currentHp == maxHp) {
                 return BuildingMessages.HP_ALREADY_FULL;
-            }
-            else {
-                if(currentEmpire.getStoneCount() >= 50) {
+            } else {
+                if (currentEmpire.getStoneCount() >= 50) {
                     currentEmpire.setStoneCount(currentEmpire.getStoneCount() - requiredStone);
                     building.setHp(maxHp);
                     return BuildingMessages.SUCCESSFUL_REPAIR;
-                }
-                else {
+                } else {
                     return BuildingMessages.INSUFFICIENT_STONE;
                 }
             }
-        }
-        else {
+        } else {
             return BuildingMessages.CONTINUE;
         }
     }
