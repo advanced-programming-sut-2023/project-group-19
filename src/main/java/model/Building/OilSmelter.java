@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class OilSmelter extends Building {
+public class OilSmelter extends Building implements BuildingHPAndGroundType {
 
     OilSmelter(Empire government) {
         super(government);
@@ -40,5 +40,20 @@ public class OilSmelter extends Building {
     public void oilSmelter() {
         names = Names.OIL_SMELTER;
         createBuildingCost(0, 0, 100, 10, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

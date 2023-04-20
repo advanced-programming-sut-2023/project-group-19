@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Church extends Building {
+public class Church extends Building implements BuildingHPAndGroundType {
 
     Church(Empire government) {
         super(government);
@@ -53,5 +53,20 @@ public class Church extends Building {
     public void bigChurch() {
         names = Names.BIG_CHURCH;
         createBuildingCost(0, 0, 1000, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class KillingPit extends Building {
+public class KillingPit extends Building implements BuildingHPAndGroundType {
     KillingPit(Empire government) {
         super(government);
     }
@@ -41,4 +41,18 @@ public class KillingPit extends Building {
     }
 
 
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
+    }
 }

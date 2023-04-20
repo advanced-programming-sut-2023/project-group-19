@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class PrepareLaboursAndFighters extends Building {
+public class PrepareLaboursAndFighters extends Building implements BuildingHPAndGroundType {
     PrepareLaboursAndFighters(Empire government) {
         super(government);
     }
@@ -93,5 +93,20 @@ public class PrepareLaboursAndFighters extends Building {
     public void tunnelerGuild() {
         name = Names.TUNNELER;
         createBuildingCost(10, 0, 100, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

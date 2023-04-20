@@ -56,7 +56,7 @@ public class BuildingController {
         switch (type) {
             case "Small Stone Gatehouse":
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
-                smallStoneGateWay.smallGateWay(x, y, smallStoneGateWay);
+                smallStoneGateWay.smallGateWay(x, y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
                     buildingCheckout(smallStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, smallStoneGateWay);
@@ -68,7 +68,7 @@ public class BuildingController {
                 }
             case "Big Stone Gatehouse":
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
-                bigStoneGateWay.bigGateWay(x, y, bigStoneGateWay);
+                bigStoneGateWay.bigGateWay(x, y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
                     buildingCheckout(bigStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, bigStoneGateWay);

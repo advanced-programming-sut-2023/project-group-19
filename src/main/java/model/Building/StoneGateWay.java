@@ -6,7 +6,7 @@ import model.Map;
 
 import java.util.HashMap;
 
-public class StoneGateWay extends Building {
+public class StoneGateWay extends Building implements BuildingHPAndGroundType {
     public StoneGateWay(Empire government) {
         super(government);
 
@@ -28,18 +28,18 @@ public class StoneGateWay extends Building {
     }
 
     public void setNames(Names names) {
-        this.name = names;
+        name = names;
     }
 
     private int hp;
-    private static int maxHP;
+    private int maxHP;
 
-    public static int getMaxHP() {
+    public int getMaxHP() {
         return maxHP;
     }
 
-    public static void setMaxHP(int maxHP) {
-        maxHP = maxHP;
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 
     public int getHp() {
@@ -63,7 +63,7 @@ public class StoneGateWay extends Building {
 
     //TODO make a condition in the Building menu to see whether we have Gateway or not if we don't make an error
     //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
-    public void smallGateWay(int x, int y, Building currentBuilding) {
+    public void smallGateWay(int x, int y) {
         hp = 500;
         maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
@@ -71,11 +71,26 @@ public class StoneGateWay extends Building {
         createBuildingCost(0, 0, 0, 0, 0);
     }
 
-    public void bigGateWay(int x, int y, Building currentBuilding) {
+    public void bigGateWay(int x, int y) {
         hp = 700;
         maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
         capacity = 10;
         createBuildingCost(0, 20, 0, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return maxHP;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

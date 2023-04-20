@@ -6,7 +6,7 @@ import model.Map;
 
 import java.util.HashMap;
 
-public class DrawBridge extends Building {
+public class DrawBridge extends Building implements BuildingHPAndGroundType {
     public DrawBridge(Empire government) {
         super(government);
     }
@@ -62,5 +62,20 @@ public class DrawBridge extends Building {
         Map.AddToBuildingMap(x, y, this);
         createBuildingCost(10, 0, 0, 0, 0);
         Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 10);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

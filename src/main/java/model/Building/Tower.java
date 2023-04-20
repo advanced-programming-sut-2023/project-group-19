@@ -4,7 +4,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Tower extends Building {
+public class Tower extends Building implements BuildingHPAndGroundType {
     Tower(Empire government) {
         super(government);
     }
@@ -91,5 +91,20 @@ public class Tower extends Building {
     public void roundTower() {
         name = Names.ROUND_TOWER;
         createBuildingCost(0, 40, 0, 0, 0);
+    }
+
+    @Override
+    public int maxHp() {
+        return 0;
+    }
+
+    @Override
+    public int hp() {
+        return 0;
+    }
+
+    @Override
+    public String groundType() {
+        return null;
     }
 }

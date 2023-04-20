@@ -5,7 +5,7 @@ import model.Manage;
 
 import java.util.HashMap;
 
-public abstract class Building {
+public abstract class Building implements BuildingHPAndGroundType {
     private Empire owner;
     private String requiredGroundType;
     private Names name;
