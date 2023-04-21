@@ -12,7 +12,7 @@ public enum LoginAndRegisterCommands {
     REGISTER_NICKNAME_CHECK("-n\\s+(?<nickname>(?=\")\"[^\"]+\"|\\S+)"),
     REGISTER_SLOGAN_CHECK("-s\\s+(?<slogan>(?=\")\"[^\"]+\"|\\S+)"),
     REGISTER_SLOGAN_CHECK_FOR_EMPTY(" (?<sloganCheck>-s)"),
-    GET_QUESTION_NUMBER("(?<number>-q [1-3])"),
+    GET_QUESTION_NUMBER("-q\\s+(?<number>\\d)"),
     GET_QUESTION_ASK("-a\\s+(?<ask>(?=\")\"[^\"]+\"|\\S+)"),
     GET_QUESTION_ASK_CONFIRM("-c\\s+(?<askConfirm>(?=\")\"[^\"]+\"|\\S+)"),
     LOGIN("user login"),

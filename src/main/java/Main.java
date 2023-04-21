@@ -12,13 +12,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
+
+
+//        System.out.println(Manage.allUsers.size());
+//        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
+
+
+//        System.out.println(Manage.allUsers.size());
         Scanner scanner = new Scanner(System.in);
         LoginMenu.run(scanner);
-
-//        User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
-//        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
-//        Manage.allUsers.add(user1);
-//        Manage.allUsers.(user2);
 //        user1.addUserToAllUsersArrayList(user1);
 //        System.out.println(Manage.allUsers.get(0).getPassword());
 

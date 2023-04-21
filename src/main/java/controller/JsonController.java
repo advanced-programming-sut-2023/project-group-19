@@ -6,10 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import model.Manage;
 import model.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,7 +41,12 @@ public class JsonController {
         }
 
     }
-    public static void readDataFile(String fileName) throws FileNotFoundException {
+    public static void readDataFile(String fileName) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        if (br.readLine() == null) {
+            content = null ;
+            return;
+        }
         StringBuilder stringBuilder = new StringBuilder();
         File file = new File(fileName);
         Scanner sc = new Scanner(file);
@@ -54,17 +56,19 @@ public class JsonController {
         content = stringBuilder.toString();
 
     }
-    public static void saveAllUsersFileData(){
+    public static void saveAllUsersFileData() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         Type allUsersType = new TypeToken<ArrayList<User>>(){}.getType();
+        if(content == null) return;
         Manage.allUsers = gson.fromJson(content , allUsersType);
     }
     public static User saveLoggedInUserFileData(){
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
+        if(content == null) return null;
         return gson.fromJson(content , User.class);
     }
 }

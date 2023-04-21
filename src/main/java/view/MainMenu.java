@@ -23,7 +23,7 @@ public class MainMenu {
                 JsonController.emptyFile();
                 System.out.println("logged out");
                 return;
-            }
+            }else System.out.println("Invalid command!");
         }
     }
     public static void logoutUser(){

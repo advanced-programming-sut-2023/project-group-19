@@ -13,7 +13,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 public class LoginMenu {
 
+
     public static void run(Scanner scanner) throws InterruptedException, IOException {
+        JsonController.readDataFile("User.json");
+        JsonController.saveAllUsersFileData();
         isLoggedUser(scanner);
         String command ;
         Matcher matcher ;
@@ -28,6 +31,16 @@ public class LoginMenu {
             }else System.out.println("Invalid command!");
         }
     }
+//    static {
+//        try {
+//            User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
+//            System.out.println("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        System.out.println(Manage.allUsers.size() + "jfjf");
+//    }
+
     public static void isLoggedUser(Scanner scanner) throws InterruptedException, IOException {
         System.out.println("kk");
         JsonController.readDataFile("LoggedInUser.json");
@@ -94,9 +107,9 @@ public class LoginMenu {
         String username = null ;
         String password = null;
         Matcher matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.LOGIN_GET_USERNAME);
-        if(matcher != null) username = matcher.group("username").trim().substring(3);
+        if(matcher != null) username = matcher.group("username").replaceAll("\"","");
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.LOGIN_GET_PASSWORD);
-        if(matcher != null) password = matcher.group("password").trim().substring(3);
+        if(matcher != null) password = matcher.group("password").replaceAll("\"","");;
         if(username == null || password == null){
             System.out.println("invalid command");
             return;
@@ -107,6 +120,8 @@ public class LoginMenu {
             System.out.println(result);
             if(result.equals("this user is not exist!")) return;
         }
+        System.out.println(username);
+        System.out.println(password);
         RegisterMessages message = LoginController.loginUser(username , password);
         System.out.println(username + " \n" + password);
         System.out.println(message);
@@ -230,10 +245,14 @@ public class LoginMenu {
             case SUCCESS:
                 String[] list = askSecurityQuestion(scanner);
                 if(list == null) {
-                    System.out.println("ypu have to fix whole fields correctly");
+                    System.out.println("yoy have to fix whole fields correctly");
                     return;
                 }
-                else LoginController.Register(username,password,email,nickname,slogan,list[0],list[1]);
+                else{
+                    User user = new User(username,password,nickname,email,list[1],slogan,Integer.parseInt(list[0]));
+                    System.out.println(Manage.allUsers.size());
+                }
+//                System.out.println(Manage.allUsers.size());
                 System.out.println("register succseefully");
         }
 
@@ -254,13 +273,14 @@ public class LoginMenu {
         Matcher matcher ;
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.GET_QUESTION_NUMBER);
         if(matcher != null)
-            number = Integer.parseInt(matcher.group("number").trim().substring(3));
+            number = Integer.parseInt(matcher.group("number").replaceAll("\"",""));
+
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.GET_QUESTION_ASK);
         if(matcher != null)
-            ask = matcher.group("ask").trim().substring(3);
+            ask = matcher.group("ask").replaceAll("\"","");
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.GET_QUESTION_ASK_CONFIRM);
         if(matcher != null)
-            askConfirm = matcher.group("askConfirm").trim().substring(3);
+            askConfirm = matcher.group("askConfirm").replaceAll("\"","");
         RegisterMessages message = LoginController.checkSecurityAsks(number,ask,askConfirm);
         if(message.equals(RegisterMessages.IS_OK_ASKS)){
             String[] list = new String[2];

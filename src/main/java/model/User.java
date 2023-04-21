@@ -64,7 +64,7 @@ public class User {
         this.recoveryQuestionNumber = recoveryQuestionNumber;
         users.add(this);
         //
-
+        Manage.allUsers.add(this);
         JsonController.writeIntoFile(Manage.allUsers , "User.json");
     }
     public void addUserToAllUsersArrayList(User user){

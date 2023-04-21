@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
     public static ArrayList<User> allUsers = new ArrayList<>();
+    public static void mamad(){
+        System.out.println("yes");
+    }
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
     {
         namesOfAllPossibleBuildings.add("Armoury");

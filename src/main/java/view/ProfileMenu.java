@@ -19,7 +19,7 @@ public class ProfileMenu {
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_NICKNAME_CHANGE)) != null){
                 changingNickname(matcher.group("nickname").replaceAll("\"",""));
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_PASSWORD_CHANGE)) != null){
-                changingPassword(matcher.group("old").replaceAll("\"",""), matcher.group("new").trim().substring(3).replaceAll("\"",""),scanner);
+                changingPassword(matcher.group("old").replaceAll("\"",""), matcher.group("new").replaceAll("\"",""),scanner);
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_EMAIL_CHANGE)) != null){
                 changingEmail(matcher.group("email").replaceAll("\"",""));
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.SHOW_SLOGAN_CHANGE)) != null){
@@ -36,7 +36,7 @@ public class ProfileMenu {
                 System.out.println(ProfileController.removeSlogan());
             }
             else{
-                System.out.println("invalod command!");
+                System.out.println("invalid command!");
             }
         }
 
@@ -44,7 +44,7 @@ public class ProfileMenu {
     private static void changeSlogan(String command){
         String result = null ;
         Matcher matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_SLOGAN_CHANGE);
-        if(matcher != null) result = matcher.group("slogan").trim().substring(3);
+        if(matcher != null) result = matcher.group("slogan").replaceAll("\"","");
         ProfileController.changeSlogan(result);
         System.out.println("done!");
 
@@ -92,6 +92,7 @@ public class ProfileMenu {
                 System.out.println("Please enter a new password!");
                 return;
             case SUCCESS:
+                System.out.println("please enter your new password again!");
                 String answer = scanner.nextLine();
                 while (!answer.equals(newPassword)) {
                     System.out.println("Please enter your new password again!");

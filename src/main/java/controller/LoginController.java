@@ -11,9 +11,9 @@ import java.util.Random ;
 import static controller.JsonController.saveAllUsersFileData;
 
 public class LoginController {
-    static {
-        saveAllUsersFileData();
-    }
+//    static {
+//        saveAllUsersFileData();
+//    }
     public static RegisterMessages checkErrorForRegister(String username , String password , String confirmPassword ,
                                                          String email , String nickname , String slogan){
         if(slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null) ){
@@ -49,7 +49,7 @@ public class LoginController {
 //        user.addUserToAllUsersArrayList(user);
     }
     public static RegisterMessages checkSecurityAsks(int number , String answer , String confirmAnswer){
-        if(answer == null || confirmAnswer == null) return RegisterMessages.TRY_ANOTHER_SEC_ASK;
+        if(answer == null || confirmAnswer == null || number < 0 || number > 3) return RegisterMessages.TRY_ANOTHER_SEC_ASK;
         if(answer.equals(confirmAnswer)) return RegisterMessages.IS_OK_ASKS;
         else return RegisterMessages.TRY_ANOTHER_SEC_ASK;
     }
