@@ -17,6 +17,7 @@ public class MainMenu {
                 ProfileMenu.run(scanner);
             }else if(MainMenuCommands.getMatcher(command,MainMenuCommands.LOGOUT) != null){
                 MainMenuController.logout();
+
                 System.out.println("logged out");
                 return;
             }

@@ -8,7 +8,12 @@ import view.Messages.RegisterMessages;
 import java.io.IOException;
 import java.util.Random ;
 
+import static controller.JsonController.saveAllUsersFileData;
+
 public class LoginController {
+    static {
+        saveAllUsersFileData();
+    }
     public static RegisterMessages checkErrorForRegister(String username , String password , String confirmPassword ,
                                                          String email , String nickname , String slogan){
         if(slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null) ){
