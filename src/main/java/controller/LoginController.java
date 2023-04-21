@@ -41,6 +41,7 @@ public class LoginController {
         new User(username,password,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
     }
     public static RegisterMessages checkSecurityAsks(int number , String answer , String confirmAnswer){
+        if(answer == null || confirmAnswer == null || (number >= 1 && number <= 3)) return RegisterMessages.TRY_ANOTHER_SEC_ASK;
         if(answer.equals(confirmAnswer)) return RegisterMessages.IS_OK_ASKS;
         else return RegisterMessages.TRY_ANOTHER_SEC_ASK;
     }
