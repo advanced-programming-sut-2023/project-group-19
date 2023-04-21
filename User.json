@@ -1,0 +1,24 @@
+[
+  {
+    "username": "ali",
+    "password": "123",
+    "nickname": "mamad",
+    "email": "String email",
+    "recoveryQuestion": "String recoveryQuestion",
+    "slogan": "String slogan",
+    "recoveryQuestionNumber": 2,
+    "highScore": 0,
+    "rank": 0
+  },
+  {
+    "username": "afgjfgj",
+    "password": "12jgjg3",
+    "nickname": "mamagjjgjd",
+    "email": "String emgjgjail",
+    "recoveryQuestion": "String rjgjgjgjgecoveryQuestion",
+    "slogan": "Strgjgjgjing slogan",
+    "recoveryQuestionNumber": 0,
+    "highScore": 0,
+    "rank": 0
+  }
+]
