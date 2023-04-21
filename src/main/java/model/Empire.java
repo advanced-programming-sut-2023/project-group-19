@@ -383,11 +383,174 @@ public class Empire {
         productionBuildingCount.replace("wheatFarm", wheatFarmCount);
     }
 
-    private int millCount;
-    private int flour;
-    private int beer;
-    private int bread;
+    public int getBeerFactoryCount() {
+        return productionBuildingCount.get("beerFactory");
+    }
 
+    public void setBeerFactoryCount(int beerFactoryCount) {
+        productionBuildingCount.replace("beerFactory", beerFactoryCount);
+    }
+
+    public int getBakeryCount() {
+        return productionBuildingCount.get("bakery");
+    }
+
+    public void setBakeryCount(int bakeryCount) {
+        productionBuildingCount.replace("bakery", bakeryCount);
+    }
+
+    public int getMillCount() {
+        return productionBuildingCount.get("mill");
+    }
+
+    public void setMillCount(int millCount) {
+        productionBuildingCount.replace("mill", millCount);
+    }
+
+    public int getFlour() {
+        return stores.get("flour");
+    }
+
+    public void setFlour(int flour) {
+        stores.replace("flour", flour);
+    }
+
+    public int getBeer() {
+        return stores.get("beer");
+    }
+
+    public void setBeer(int beer) {
+        stores.replace("beer", beer);
+    }
+
+    public int getBread() {
+        return allFood.get("bread");
+    }
+
+    public void setBread(int bread) {
+        allFood.replace("bread", bread);
+    }
+
+    public int getArmourerBuildingRate() {
+        return createWeaponBuildingRate.get("armourer");
+    }
+
+    public void setArmourerBuildingRate(int armourerBuildingRate) {
+        createWeaponBuildingRate.replace("armourer", armourerBuildingRate);
+    }
+
+    public int getBlacksmithBuildingRate() {
+        return createWeaponBuildingRate.get("blacksmith");
+    }
+
+    public void setBlacksmithBuildingRate(int blacksmithBuildingRate) {
+        createWeaponBuildingRate.replace("blacksmith", blacksmithBuildingRate);
+    }
+
+    public int getFletcherBuildingRate() {
+        return createWeaponBuildingRate.get("fletcher");
+    }
+
+    public void setFletcherBuildingRate(int fletcherBuildingRate) {
+        createWeaponBuildingRate.replace("fletcher", fletcherBuildingRate);
+    }
+
+    public int getPoleTurnerBuildingRate() {
+        return createWeaponBuildingRate.get("poleTurner");
+    }
+
+    public void setPoleTurnerBuildingRate(int poleTurnerBuildingRate) {
+        createWeaponBuildingRate.replace("poleTurner", poleTurnerBuildingRate);
+    }
+
+
+    public int getArmourerBuildingCount() {
+        return createWeaponBuildingCount.get("armourer");
+    }
+
+    public void setArmourerBuildingCount(int armourerBuildingCount) {
+        createWeaponBuildingCount.replace("armourer", armourerBuildingCount);
+    }
+
+    public int getBlacksmithBuildingCount() {
+        return createWeaponBuildingCount.get("blacksmith");
+    }
+
+    public void setBlacksmithBuildingCount(int blacksmithBuildingCount) {
+        createWeaponBuildingCount.replace("blacksmith", blacksmithBuildingCount);
+    }
+
+    public int getFletcherBuildingCount() {
+        return createWeaponBuildingCount.get("fletcher");
+    }
+
+    public void setFletcherBuildingCount(int fletcherBuildingCount) {
+        createWeaponBuildingCount.replace("fletcher", fletcherBuildingCount);
+    }
+
+    public int getPoleTurnerBuildingCount() {
+        return createWeaponBuildingCount.get("poleTurner");
+    }
+
+    public void setPoleTurnerBuildingCount(int poleTurnerBuildingCount) {
+        createWeaponBuildingCount.replace("poleTurner", poleTurnerBuildingCount);
+    }
+
+    public int getLeatherArmourCount() {
+        return allWeaponTools.get("leatherArmour");
+    }
+
+    public void setLeatherArmourCount(int leatherArmourCount) {
+        allWeaponTools.replace("leatherArmour", leatherArmourCount);
+    }
+
+    public int getMetalArmourCount() {
+        return allWeaponTools.get("metalArmour");
+    }
+
+    public void setMetalArmourCount(int metalArmourCount) {
+        allWeaponTools.replace("metalArmour", metalArmourCount);
+    }
+
+    public int getBowCount() {
+        return allWeaponTools.get("bow");
+    }
+
+    public void setBowCount(int bowCount) {
+        allWeaponTools.replace("bow", bowCount);
+    }
+
+    public int getSwordCount() {
+        return allWeaponTools.get("sword");
+    }
+
+    public void setSwordCount(int swordCount) {
+        allWeaponTools.replace("sword", swordCount);
+    }
+
+    public int getMaceCount() {
+        return allWeaponTools.get("mace");
+    }
+
+    public void setMaceCount(int maceCount) {
+        allWeaponTools.replace("mace", maceCount);
+    }
+
+    public int getSpearCount() {
+        return allWeaponTools.get("spear");
+    }
+
+    public void setSpearCount(int spearCount) {
+        allWeaponTools.replace("spear", spearCount);
+    }
+
+    public int getPeakCount() {
+        return allWeaponTools.get("peak");
+    }
+
+    public void setPeakCount(int peakCount) {
+        allWeaponTools.replace("peak", peakCount);
+    }
 
     public ArrayList<String> getDonation() {
         return donation;
@@ -418,6 +581,7 @@ public class Empire {
         allWeaponTools.put("spear", 0);
         allWeaponTools.put("peak", 0);
     }
+
 
     public HashMap<String, Integer> stores = new HashMap<>();
 
@@ -503,9 +667,10 @@ public class Empire {
     }
 
     public void functionBuildings() { //part 2 of 5TYPE algorithm
+        FunctionBuildingController.empire = this;
         FunctionBuildingController.transformWheatToFlour();
         FunctionBuildingController.transformFlourToBread();
-        FunctionBuildingController.transformHopsToBeer();
+        FunctionBuildingController.transformOatToBeer();
         FunctionBuildingController.transformIronToMetalArmour();
         FunctionBuildingController.transformIronToSwordOrMace();
         FunctionBuildingController.transformWoodToBow();
