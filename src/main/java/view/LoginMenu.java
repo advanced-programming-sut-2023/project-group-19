@@ -1,14 +1,19 @@
 package view;
+import controller.JsonController;
 import model.* ;
 //import controller.Controller;
 import controller.LoginController;
 import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 public class LoginMenu {
-    public static void run(Scanner scanner) throws InterruptedException {
+
+    public static void run(Scanner scanner) throws InterruptedException, IOException {
+        isLoggedUser(scanner);
         String command ;
         Matcher matcher ;
         while(true){
@@ -20,6 +25,17 @@ public class LoginMenu {
             }else if((matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK)) != null){
                 ForgotPasswordCheck(command,scanner);
             }else System.out.println("Invalid command!");
+        }
+    }
+    public static void isLoggedUser(Scanner scanner) throws InterruptedException, FileNotFoundException {
+        System.out.println("kk");
+        JsonController.readDataFile("LoggedInUser.json");
+        User user = JsonController.saveLoggedInUserFileData();
+        System.out.println(user == null);
+        if(user != null){
+            User.setCurrentUser(user);
+            System.out.println("login successfully");
+            MainMenu.run(scanner);
         }
     }
     //user create -u armin -p mamad mamad -email hhh -n kazem -s dd
@@ -73,14 +89,26 @@ public class LoginMenu {
 
 
     }
-    private static void EnterToLogin(String command,Scanner scanner) throws InterruptedException {
+    private static void EnterToLogin(String command,Scanner scanner) throws InterruptedException, IOException {
         String username = null ;
         String password = null;
         Matcher matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.LOGIN_GET_USERNAME);
         if(matcher != null) username = matcher.group("username").trim().substring(3);
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.LOGIN_GET_PASSWORD);
         if(matcher != null) password = matcher.group("password").trim().substring(3);
+        if(username == null || password == null){
+            System.out.println("invalid command");
+            return;
+        }
+        matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.IS_LOGGED_USER);
+        if(matcher != null){
+            String result = LoginController.isLoggedUser(username);
+            System.out.println(result);
+            if(result.equals("this user is not exist!")) return;
+        }
         RegisterMessages message = LoginController.loginUser(username , password);
+        System.out.println(username + " \n" + password);
+        System.out.println(message);
         switch (message){
             case NOT_EXIST_USERNAME :
                 System.out.println("not exist username");
@@ -97,7 +125,7 @@ public class LoginMenu {
                 return;
         }
     }
-    public static void checkElementsToRegisterUser(String command , Scanner scanner){
+    public static void checkElementsToRegisterUser(String command , Scanner scanner) throws IOException {
         String username;String password ;String confirmPassword = null;String email ;String nickname ;String slogan ;
         Matcher matcher ;
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
@@ -131,7 +159,7 @@ public class LoginMenu {
         sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
-                                                       String email , String nickname , String slogan , Scanner scanner){
+                                                       String email , String nickname , String slogan , Scanner scanner) throws IOException {
         System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
 //        System.out.println(password);
 //        System.out.println(confirmPassword);
@@ -238,7 +266,7 @@ public class LoginMenu {
             list[1] = ask ;
             return list ;
         }
-        System.out.println("your asks is not similar");
+        System.out.println(number + "\n" + ask + "\n" + askConfirm);
         return null ;
 
     }

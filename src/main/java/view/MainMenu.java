@@ -12,7 +12,6 @@ public class MainMenu {
         Matcher matcher ;
         while (true){
             command = scanner.nextLine();
-
             if((matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.ENTER_PROFILE_MENU)) != null){
                 System.out.println("entered profile menu successfully");
                 ProfileMenu.run(scanner);

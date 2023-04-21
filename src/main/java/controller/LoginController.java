@@ -4,6 +4,8 @@ import model.*;
 import model.User;
 import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
+
+import java.io.IOException;
 import java.util.Random ;
 
 public class LoginController {
@@ -37,11 +39,11 @@ public class LoginController {
         return RegisterMessages.SUCCESS;
     }
     public static void Register(String username , String password , String email , String nickname , String slogan
-            , String numberOfSecQuesion , String answeroFSecQuestion){
+            , String numberOfSecQuesion , String answeroFSecQuestion) throws IOException {
         new User(username,password,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
     }
     public static RegisterMessages checkSecurityAsks(int number , String answer , String confirmAnswer){
-        if(answer == null || confirmAnswer == null || (number >= 1 && number <= 3)) return RegisterMessages.TRY_ANOTHER_SEC_ASK;
+        if(answer == null || confirmAnswer == null) return RegisterMessages.TRY_ANOTHER_SEC_ASK;
         if(answer.equals(confirmAnswer)) return RegisterMessages.IS_OK_ASKS;
         else return RegisterMessages.TRY_ANOTHER_SEC_ASK;
     }
@@ -49,9 +51,16 @@ public class LoginController {
         if(User.getUserByName(username) != null) username = makeUserNameForUser(username);
         return username ;
     }
+    public static String isLoggedUser(String username) throws IOException {
+        User user ;
+        if((user = User.getUserByName(username)) == null ) return "this user is not exist!";
+        JsonController.writeIntoFile(user,"LoggedInUser.json");
+        return "your username for next login is saved!";
+    }
     public static RegisterMessages loginUser(String username , String password){
         User user ;
         if((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME ;
+        System.out.println(user.getPassword());
         if(!user.getPassword().equals(password)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         User.setCurrentUser(user);
         return RegisterMessages.SUCCESS ;

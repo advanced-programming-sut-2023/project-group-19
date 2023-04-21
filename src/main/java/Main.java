@@ -24,6 +24,7 @@ public class Main {
 //        JsonController.saveAllUsersFileData();
 //        JsonController.readDataFile("LoggedInUser.json");
 //        User loggedInUser = JsonController.saveLoggedInUserFileData();
+//        System.out.println(loggedInUser.getPassword());
 //        System.out.println(Manage.allUsers.get(1).getUsername());
 //        try{
 //            System.out.println(loggedInUser.getUsername());

@@ -1,4 +1,7 @@
 package model;
+import controller.JsonController;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -50,7 +53,7 @@ public class User {
     private static ArrayList<User> users = new ArrayList<>();
     private int rank;
 
-    public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) {
+    public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) throws IOException {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
@@ -59,6 +62,9 @@ public class User {
         this.slogan = slogan;
         this.recoveryQuestionNumber = recoveryQuestionNumber;
         users.add(this);
+        //
+        Manage.allUsers.add(this);
+        JsonController.writeIntoFile(Manage.allUsers , "User.json");
     }
 
     public String getUsername() {

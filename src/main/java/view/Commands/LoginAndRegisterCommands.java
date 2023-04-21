@@ -15,6 +15,7 @@ public enum LoginAndRegisterCommands {
     GET_QUESTION_ASK("(?<ask>(-a\\s+(?=\"+)[^-]+)\"{1}|(-a\\s+(?=\"{0})[^\\s-]+))"),
     GET_QUESTION_ASK_CONFIRM("(?<askConfirm>(-c\\s+(?=\"+)[^-]+)\"{1}|(-c\\s+(?=\"{0})[^\\s-]+))"),
     LOGIN("user login"),
+    IS_LOGGED_USER("--stay-logged-in"),
     LOGIN_GET_USERNAME("(?<username>(-u\\s+(?=\"+)[^-]+)\"{1}|(-u\\s+(?=\"{0})[^\\s-]+))"),
     LOGIN_GET_PASSWORD("(?<password>(-p\\s+(?=\"+)[^-]+)\"{1}|(-p\\s+(?=\"{0})[^\\s-]+))"),
     FORGOT_MY_PASSWORD("forgot my password"),
