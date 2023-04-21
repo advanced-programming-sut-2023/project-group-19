@@ -57,7 +57,7 @@ public class LoginMenu {
     private static void ForgotPasswordCheck(String command,Scanner scanner){
         String username;
         Matcher matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
-        if(matcher != null)username = matcher.group("username").trim().substring(3);
+        if(matcher != null)username = matcher.group("username").replaceAll("\"","");
         else {
             System.out.println("username not found!");
             return;
