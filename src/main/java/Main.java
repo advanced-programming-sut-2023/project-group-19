@@ -12,23 +12,25 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
+        Scanner scanner = new Scanner(System.in);
+        LoginMenu.run(scanner);
 //        User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
 //        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
 //        Manage.allUsers.add(user1);
 //        Manage.allUsers.add(user2);
 //        JsonController.writeIntoFile(Manage.allUsers , "User.json");
 //        JsonController.writeIntoFile(user2 , "LoggedInUser.json");
-        JsonController.readDataFile("User.json");
-        JsonController.saveAllUsersFileData();
-        JsonController.readDataFile("LoggedInUser.json");
-        User loggedInUser = JsonController.saveLoggedInUserFileData();
-        System.out.println(Manage.allUsers.get(1).getUsername());
-        try{
-            System.out.println(loggedInUser.getUsername());
-        }
-        catch (NullPointerException e){
-            System.out.println("no user logged in");
-        }
+//        JsonController.readDataFile("User.json");
+//        JsonController.saveAllUsersFileData();
+//        JsonController.readDataFile("LoggedInUser.json");
+//        User loggedInUser = JsonController.saveLoggedInUserFileData();
+//        System.out.println(Manage.allUsers.get(1).getUsername());
+//        try{
+//            System.out.println(loggedInUser.getUsername());
+//        }
+//        catch (NullPointerException e){
+//            System.out.println("no user logged in");
+//        }
 
 
 //        Empire empire = new Empire();
