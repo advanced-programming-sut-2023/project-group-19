@@ -1,4 +1,5 @@
 package view;
+import com.google.gson.JsonSyntaxException;
 import controller.JsonController;
 import model.* ;
 //import controller.Controller;
@@ -27,7 +28,7 @@ public class LoginMenu {
             }else System.out.println("Invalid command!");
         }
     }
-    public static void isLoggedUser(Scanner scanner) throws InterruptedException, FileNotFoundException {
+    public static void isLoggedUser(Scanner scanner) throws InterruptedException, IOException {
         System.out.println("kk");
         JsonController.readDataFile("LoggedInUser.json");
         User user = JsonController.saveLoggedInUserFileData();

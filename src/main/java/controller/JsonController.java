@@ -30,6 +30,20 @@ public class JsonController {
         }
 
     }
+    public static void emptyFile() throws IOException {
+        String fileName = "LoggedInUser.json";
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        try(FileWriter file = new FileWriter(fileName)){
+            file.write(gson.toJson(null));
+            file.flush();
+        }
+        catch (IOException ignored){
+            System.out.println("couldn't save into file");
+        }
+
+    }
     public static void readDataFile(String fileName) throws FileNotFoundException {
         StringBuilder stringBuilder = new StringBuilder();
         File file = new File(fileName);
