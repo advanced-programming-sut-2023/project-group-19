@@ -4,12 +4,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum ProfileMenuCommands {
-    PROFILE_USERNAME_CHANGE("(?<username>(-u\\s+(?=\"+)[^-]+)\"{1}|(-u\\s+(?=\"{0})[^\\s-]+))"),
-    PROFILE_NICKNAME_CHANGE("profile\\s+change\\s+(?<nickname>(-n\\s+(?=\"+)[^-]+)\"{1}|(-n\\s+(?=\"{0})[^\\s-]+))"),
-    PROFILE_PASSWORD_CHANGE("(?<old>(-o\\s+(?=\"+)[^-]+)\"{1}|(-o\\s+(?=\"{0})[^\\s-]+))\\s+(?<new>(-n\\s+(?=\"+)[^-]+)\"{1}|(-n\\s+(?=\"{0})[^\\s-]+))"),
-    PROFILE_EMAIL_CHANGE("(?<email>(-e\\s+(?=\"+)[^-]+)\"{1}|(-e\\s+(?=\"{0})[^\\s-]+))"),
+    PROFILE_USERNAME_CHANGE("-u\\s+(?<username>(?=\")\"[^\"]+\"|\\S+)"),
+    PROFILE_NICKNAME_CHANGE("profile\\s+change\\s+nickname\\s+-n\\s+(?<nickname>(?=\")\"[^\"]+\"|\\S+)"),
+//    PROFILE_PASSWORD_CHANGE("(?<old>(-o\\s+(?=\"+)[^-]+)\"{1}|(-o\\s+(?=\"{0})[^\\s-]+))\\s+(?<new>(-n\\s+(?=\"+)[^-]+)\"{1}|(-n\\s+(?=\"{0})[^\\s-]+))"),
+    PROFILE_PASSWORD_CHANGE("-o\\s+(?<old>(?=\")\"[^\"]+\"|\\S+)\\s+-n\\s+(?<new>(?=\")\"[^\"]+\"|\\S+)"),
+    PROFILE_EMAIL_CHANGE("(--email|-e)\\s+(?<email>(?=\")\"[^\"]+\"|\\S+)"),
     SHOW_SLOGAN_CHANGE("profile\\s+change\\s+slogan"),
-    PROFILE_SLOGAN_CHANGE("(?<slogan>(-s\\s+(?=\"+)[^-]+)\"{1}|(-s\\s+(?=\"{0})[^\\s-]+))");
+    PROFILE_SLOGAN_CHANGE("-s\\s+(?<slogan>(?=\")\"[^\"]+\"|\\S+)");
     String regex ;
     ProfileMenuCommands(String regex){
         this.regex = regex ;

@@ -15,13 +15,13 @@ public class ProfileMenu {
         while(true){
             command = scanner.nextLine();
             if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_USERNAME_CHANGE)) != null){
-                changingUsername(matcher.group("username").trim().substring(3).replaceAll("\"",""));
+                changingUsername(matcher.group("username").replaceAll("\"",""));
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_NICKNAME_CHANGE)) != null){
-                changingNickname(matcher.group("nickname").trim().substring(3).replaceAll("\"",""));
+                changingNickname(matcher.group("nickname").replaceAll("\"",""));
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_PASSWORD_CHANGE)) != null){
-                changingPassword(matcher.group("old").trim().substring(3).replaceAll("\"",""), matcher.group("new").trim().substring(3).replaceAll("\"",""),scanner);
+                changingPassword(matcher.group("old").replaceAll("\"",""), matcher.group("new").trim().substring(3).replaceAll("\"",""),scanner);
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_EMAIL_CHANGE)) != null){
-                changingEmail(matcher.group("email").trim().substring(3).replaceAll("\"",""));
+                changingEmail(matcher.group("email").replaceAll("\"",""));
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.SHOW_SLOGAN_CHANGE)) != null){
                 changeSlogan(command);
             }else if(command.matches("\\s*profile\\s+display\\s+highscore\\s*")){

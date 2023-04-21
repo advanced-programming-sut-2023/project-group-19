@@ -55,7 +55,7 @@ public class LoginMenu {
             return;
         }
         String secQuestion = (User.getSecurityQuestions().get(user.getRecoveryQuestionNumber()));
-        System.out.println("your security question is " + secQuestion + ".please answer it");
+        System.out.println("your security question is " + secQuestion + ".please answer it\n");
         String answer = scanner.nextLine();
         if(answer.equals(user.getRecoveryQuestion())){
             System.out.println("please enter your new password :");
@@ -131,23 +131,23 @@ public class LoginMenu {
         Matcher matcher ;
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
         if(matcher == null) username = null ;
-        else username = matcher.group("username").substring(3).replaceAll("\"","");
+        else username = matcher.group("username").replaceAll("\"","");
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_PASSWORD_CHECK);
         if(matcher == null) password =  null ;
         else {
-            password = matcher.group("password").trim().substring(3).replaceAll("\"","");
+            password = matcher.group("password").replaceAll("\"","");
             confirmPassword = matcher.group("confirmPassword");
-            if(confirmPassword != null) confirmPassword = confirmPassword.trim().replaceAll("\"","");
+            if(confirmPassword != null) confirmPassword = confirmPassword.replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
         if(matcher == null) email =  null ;
         else {
-            email = matcher.group("email").trim().substring(7).replaceAll("\"","");
+            email = matcher.group("email").replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_NICKNAME_CHECK);
         if(matcher == null) nickname =  null ;
         else {
-            nickname = matcher.group("nickname").trim().substring(3).replaceAll("\"","");
+            nickname = matcher.group("nickname").replaceAll("\"","");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
         if(matcher == null){
@@ -155,7 +155,7 @@ public class LoginMenu {
             if(matcher == null) slogan = "empty";
             else slogan = null ;
         }
-        else slogan = matcher.group("slogan").trim().substring(3).replaceAll("\"","");
+        else slogan = matcher.group("slogan").replaceAll("\"","");
 
         sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
     }
@@ -164,6 +164,7 @@ public class LoginMenu {
         System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
 //        System.out.println(password);
 //        System.out.println(confirmPassword);
+        System.out.println(email);
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
         System.out.println(message);
         switch (message){
@@ -212,7 +213,7 @@ public class LoginMenu {
                 System.out.println("you should use uppercase chars");
                 return;
             case WEAK_PASSWORD_FOR_NUMBER:
-                System.out.println("you should use numbsers into your pssword");
+                System.out.println("you should use numbers into your pssword");
                 return;
             case NOT_SIMILAR_PASSWORD:
                 System.out.println("not similar your password");
@@ -221,7 +222,7 @@ public class LoginMenu {
                 System.out.println("invalid form email");
                 return;
             case REPETED_EMAIL:
-                System.out.println("your email is repeted");
+                System.out.println("your email is repeated");
                 return;
             case EMPTY_FIELD:
                 System.out.println("has empty field");
@@ -238,9 +239,9 @@ public class LoginMenu {
 
     }
     private static String[] askSecurityQuestion(Scanner scanner){
-        System.out.println("Pick your security quesion: 1.What is my father\'s name? " +
-                "2.What was my first pet\'s name? " +
-                "3.What is my mother\'s last name?");
+        System.out.println("Pick your security quesion: \n1.What is my father\'s name? " +
+                "\n2.What was my first pet\'s name? " +
+                "\n3.What is my mother\'s last name?");
         String command = scanner.nextLine();
         return getMatcherForRegister(command);
 
@@ -272,6 +273,8 @@ public class LoginMenu {
 
     }
 }
+//TODO : fix all commands regex
+//TODO : fix all users arrayList
 
 
 

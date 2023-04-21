@@ -45,7 +45,8 @@ public class LoginController {
     }
     public static void Register(String username , String password , String email , String nickname , String slogan
             , String numberOfSecQuesion , String answeroFSecQuestion) throws IOException {
-        new User(username,password,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
+        User user = new User(username,password,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
+//        user.addUserToAllUsersArrayList(user);
     }
     public static RegisterMessages checkSecurityAsks(int number , String answer , String confirmAnswer){
         if(answer == null || confirmAnswer == null) return RegisterMessages.TRY_ANOTHER_SEC_ASK;

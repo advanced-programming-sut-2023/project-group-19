@@ -4,6 +4,7 @@ import controller.JsonController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.Manage;
 
 public class User {
     private static HashMap<Integer,String> securityQuestions = new HashMap<>();
@@ -63,8 +64,11 @@ public class User {
         this.recoveryQuestionNumber = recoveryQuestionNumber;
         users.add(this);
         //
-        Manage.allUsers.add(this);
+
         JsonController.writeIntoFile(Manage.allUsers , "User.json");
+    }
+    public void addUserToAllUsersArrayList(User user){
+        Manage.allUsers.add(user);
     }
 
     public String getUsername() {
