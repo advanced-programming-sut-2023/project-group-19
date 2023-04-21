@@ -6,6 +6,10 @@ import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random ;
 
 import static controller.JsonController.saveAllUsersFileData;
@@ -43,9 +47,11 @@ public class LoginController {
         user.setPassword(password);
         return RegisterMessages.SUCCESS;
     }
-    public static void Register(String username , String password , String email , String nickname , String slogan
-            , String numberOfSecQuesion , String answeroFSecQuestion) throws IOException {
-        User user = new User(username,password,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
+    public static void register(String username , String password , String nickname , String email , String answeroFSecQuestion
+            , String slogan , String numberOfSecQuesion) throws IOException {
+        String newPassword = getHashCode(password);
+        User user = new User(username,newPassword,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
+        user.setPassword(password);
 //        user.addUserToAllUsersArrayList(user);
     }
     public static RegisterMessages checkSecurityAsks(int number , String answer , String confirmAnswer){
@@ -60,7 +66,11 @@ public class LoginController {
     public static String isLoggedUser(String username) throws IOException {
         User user ;
         if((user = User.getUserByName(username)) == null ) return "this user is not exist!";
+        String password = user.getPassword();
+        String newPassword = getHashCode(password);
+        user.setPassword(newPassword);
         JsonController.writeIntoFile(user,"LoggedInUser.json");
+        user.setPassword(password);
         return "your username for next login is saved!";
     }
     public static RegisterMessages loginUser(String username , String password){
@@ -119,5 +129,46 @@ public class LoginController {
         Random random = new Random();
         int index = random.nextInt(size - 1);
         return (User.getRandomSlogans().get(index));
+    }
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException
+    {
+        // Static getInstance method is called with hashing SHA
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        // digest() method called
+        // to calculate message digest of an input
+        // and return array of byte
+        return md.digest(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static String toHexString(byte[] hash)
+    {
+        // Convert byte array into signum representation
+        BigInteger number = new BigInteger(1, hash);
+
+        // Convert message digest into hex value
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        // Pad with leading zeros
+        while (hexString.length() < 64)
+        {
+            hexString.insert(0, '0');
+        }
+
+        return hexString.toString();
+    }
+
+    // Driver code
+    public static String  getHashCode(String text)
+    {
+        try
+        {
+            return toHexString(getSHA(text));
+        }
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            System.out.println("Exception thrown for incorrect algorithm: " + e);
+        }
+        return null ;
     }
 }

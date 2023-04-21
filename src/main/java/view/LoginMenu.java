@@ -174,12 +174,12 @@ public class LoginMenu {
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
                                                        String email , String nickname , String slogan , Scanner scanner) throws IOException {
-        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
+//        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
 //        System.out.println(password);
 //        System.out.println(confirmPassword);
-        System.out.println(email);
+//        System.out.println(email);
         RegisterMessages message = LoginController.checkErrorForRegister(username,password,confirmPassword,email,nickname,slogan);
-        System.out.println(message);
+//        System.out.println(message);
         switch (message){
             case USERNAME_REPETED :
                 username = LoginController.makeUserNameForUser(username);
@@ -247,7 +247,8 @@ public class LoginMenu {
                     return;
                 }
                 else{
-                    User user = new User(username,password,nickname,email,list[1],slogan,Integer.parseInt(list[0]));
+                    LoginController.register(username,password,nickname,email,list[1],slogan,list[0]);
+//                    User user = new User(username,password,nickname,email,list[1],slogan,Integer.parseInt(list[0]));
                 }
 //                System.out.println(Manage.allUsers.size());
                 System.out.println("register succseefully");
@@ -285,7 +286,7 @@ public class LoginMenu {
             list[1] = ask ;
             return list ;
         }
-        System.out.println(number + "\n" + ask + "\n" + askConfirm);
+//        System.out.println(number + "\n" + ask + "\n" + askConfirm);
         return null ;
 
     }
