@@ -17,7 +17,6 @@ public class Main {
 //        System.out.println(Manage.allUsers.size());
 //        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
 
-
 //        System.out.println(Manage.allUsers.size());
         Scanner scanner = new Scanner(System.in);
         LoginMenu.run(scanner);

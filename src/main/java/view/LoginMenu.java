@@ -42,10 +42,8 @@ public class LoginMenu {
 //    }
 
     public static void isLoggedUser(Scanner scanner) throws InterruptedException, IOException {
-        System.out.println("kk");
         JsonController.readDataFile("LoggedInUser.json");
         User user = JsonController.saveLoggedInUserFileData();
-        System.out.println(user == null);
         if(user != null){
             User.setCurrentUser(user);
             System.out.println("login successfully");
@@ -250,7 +248,6 @@ public class LoginMenu {
                 }
                 else{
                     User user = new User(username,password,nickname,email,list[1],slogan,Integer.parseInt(list[0]));
-                    System.out.println(Manage.allUsers.size());
                 }
 //                System.out.println(Manage.allUsers.size());
                 System.out.println("register succseefully");
