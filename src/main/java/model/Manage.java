@@ -59,6 +59,7 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Pole Turner");
     }
     private static Empire currentEmpire;
+    public static ArrayList<User> allUsers = new ArrayList<>();
     public static Empire getCurrentEmpire() {
         return currentEmpire;
     }
