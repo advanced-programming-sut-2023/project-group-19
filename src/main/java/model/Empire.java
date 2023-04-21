@@ -664,6 +664,8 @@ public class Empire {
         stores.replace("oat", stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm"));
         allFood.replace("meat", allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost"));
         stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
+        allFood.replace("cheese", allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
+        allWeaponTools.replace("leatherArmour", allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
     }
 
     public void functionBuildings() { //part 2 of 5TYPE algorithm
@@ -674,7 +676,7 @@ public class Empire {
         FunctionBuildingController.transformIronToMetalArmour();
         FunctionBuildingController.transformIronToSwordOrMace();
         FunctionBuildingController.transformWoodToBow();
-        FunctionBuildingController.transformWoodToSpearOrPike();
+        FunctionBuildingController.transformWoodToSpearOrPeak();
     }
 
 }
