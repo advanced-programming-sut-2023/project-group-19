@@ -103,7 +103,7 @@ public class Empire {
 
     public int popularity;
     private int goldCount;
-    private int foodRateNumber;
+    private int foodRateNumber = -2;
     private int totalFoodCount;
     private int foodDiversity;
     private int taxRateNumber;
@@ -746,6 +746,34 @@ public class Empire {
     public void setTunnelerCount(int tunnelerCount) {
         engineerGuildTroopCount.replace("tunneler", tunnelerCount);
     }
+    public int getPopularityFactorFood() {
+        return popularityFactors.get("food");
+    }
+
+    public void setPopularityFactorFood(int popularityFactorFood) {
+        popularityFactors.replace("food", popularityFactorFood);
+    }
+    public int getPopularityFactorTax() {
+        return popularityFactors.get("tax");
+    }
+
+    public void setPopularityFactorTax(int popularityFactorTax) {
+        popularityFactors.replace("tax", popularityFactorTax);
+    }
+    public int getPopularityFactorReligious() {
+        return popularityFactors.get("religious");
+    }
+
+    public void setPopularityFactorReligious(int popularityFactorReligious) {
+        popularityFactors.replace("religious", popularityFactorReligious);
+    }
+    public int getPopularityFactorFear() {
+        return popularityFactors.get("fear");
+    }
+
+    public void setPopularityFactorFear(int popularityFactorFear) {
+        popularityFactors.replace("fear", popularityFactorFear);
+    }
 
 
     public ArrayList<String> getDonation() {
@@ -881,50 +909,87 @@ public class Empire {
         engineerGuildTroopCount.put("ladderMan", 0);
         engineerGuildTroopCount.put("tunneler", 0);
     }
+    public HashMap<String, Integer> popularityFactors = new HashMap<>();
 
+    {
+        popularityFactors.put("food", 0);
+        popularityFactors.put("tax", 0);
+        popularityFactors.put("religious", 0);
+        popularityFactors.put("fear", 0);
+    }
 
     public ArrayList<String> request = new ArrayList<>();
     public ArrayList<String> donation = new ArrayList<>();
 
     //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
     // call these functions in the order that has been written in this part
+
+
+    public void findFoodDiversity(){
+        int foodDiversity = 0;
+        if(allFood.get("apple") > 0) foodDiversity++;
+        if(allFood.get("bread") > 0 ) foodDiversity++;
+        if(allFood.get("cheese") > 0) foodDiversity++;
+        if(allFood.get("meat") > 0 ) foodDiversity++;
+        setFoodDiversity(foodDiversity);
+        switch (foodDiversity){
+            case 2 :
+                setPopularity(getPopularity() + 1);
+            case 3 :
+                setPopularity(getPopularity() + 2);
+            case 4 :
+                setPopularity(getPopularity() + 3);
+        }
+    }
     public void taxImpactOnEmpire(Empire empire, int taxRate) {
         switch (taxRate) {
             case -3:
                 empire.setGoldCount(empire.getGoldCount() - empire.getPopulation());
                 empire.setPopularity(empire.getPopularity() + 7);
+                setPopularityFactorTax(getPopularityFactorFood() + 7);
             case -2:
                 empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.8));
                 empire.setPopularity(empire.getPopularity() + 5);
+                setPopularityFactorTax(getPopularityFactorFood() + 5);
             case -1:
                 empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.6));
                 empire.setPopularity(empire.getPopularity() + 3);
+                setPopularityFactorTax(getPopularityFactorFood() + 3);
             case 0:
                 empire.setPopularity(empire.getPopularity() + 1);
+                setPopularityFactorTax(getPopularityFactorFood() + 1);
             case 1:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.6));
                 empire.setPopularity(empire.getPopularity() - 2);
+                setPopularityFactorTax(getPopularityFactorFood() - 2);
             case 2:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.8));
                 empire.setPopularity(empire.getPopularity() - 4);
+                setPopularityFactorTax(getPopularityFactorFood() - 4);
             case 3:
                 empire.setGoldCount(empire.getGoldCount() + empire.getPopulation());
                 empire.setPopularity(empire.getPopularity() - 6);
+                setPopularityFactorTax(getPopularityFactorFood() - 6);
             case 4:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.2));
                 empire.setPopularity(empire.getPopularity() - 8);
+                setPopularityFactorTax(getPopularityFactorFood() - 8);
             case 5:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.4));
                 empire.setPopularity(empire.getPopularity() - 12);
+                setPopularityFactorTax(getPopularityFactorFood() - 12);
             case 6:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.6));
                 empire.setPopularity(empire.getPopularity() - 16);
+                setPopularityFactorTax(getPopularityFactorFood() - 16);
             case 7:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.8));
                 empire.setPopularity(empire.getPopularity() - 20);
+                setPopularityFactorTax(getPopularityFactorFood() - 20);
             case 8:
                 empire.setGoldCount(empire.getGoldCount() + empire.getPopulation() * 2);
                 empire.setPopularity(empire.getPopularity() - 24);
+                setPopularityFactorTax(getPopularityFactorFood() -24);
         }
     }
 
