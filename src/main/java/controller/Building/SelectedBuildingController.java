@@ -2,10 +2,10 @@ package controller.Building;
 
 import model.Building.Building;
 import model.Building.DrawBridge;
+import model.Human.Troop.Army;
+import model.Human.Troop.SiegeTent;
 import model.Empire;
 import model.Human.Troop.ArabArmy;
-import model.Human.Troop.Army;
-import model.Human.Troop.Engineer;
 import model.Human.Troop.EuropeArmy;
 import model.Map;
 
@@ -364,7 +364,6 @@ public class SelectedBuildingController {
     }
 
     public SelectedBuildingMessages engineerGuild(String troopName, int count) {
-        int empireGoldCount = empire.getGoldCount();
         HashMap<String, Integer> engineerGuildTroopPrice = new HashMap<>();
 
         {
@@ -404,8 +403,114 @@ public class SelectedBuildingController {
 
     }
 
-    public void siegeTent(String siegeName, int count) {
-        //TODO : i didnt found this building in the real game and i have no idea how this building exactly works soo after some searching  this part must be filled
+    public SelectedBuildingMessages enoughResourcesToBuyFromSiegeTent(Empire empire, int troopPrice, int troopCount) {
+        int empiresGoldCount = empire.getGoldCount();
+        int empiresEngineerCount = empire.getEngineerCount();
+        if (empiresEngineerCount * 3 < troopCount) return SelectedBuildingMessages.NOT_ENOUGH_ENGINEERS;
+        int totalBuyPrice = troopPrice * troopCount;
+        if (totalBuyPrice > empiresGoldCount) return SelectedBuildingMessages.NOT_ENOUGH_GOLD;
+        return SelectedBuildingMessages.ENOUGH_RESOURCES;
+    }
+    public void buyFromSiegeTent(Empire empire, int troopPrice, String troopName, int troopCount){
+        empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
+        empire.setEngineerCount(empire.getEngineerCount() - 3 * troopCount);
+        empire.setTroopCount(empire.getTroopCount() + troopCount);
+        switch (troopName) {
+            case "catapult":
+                empire.setCatapultCount(empire.getCatapultCount() + troopCount);
+                for (int i = 0; i < troopCount; i++) {
+                    Army catapult = new Army(empire);
+                    empire.empireArmy.add(catapult);
+                }
+            case "trebuchet":
+                empire.setTrebuchetCount(empire.getTrebuchetCount() + troopCount);
+                for (int i = 0; i < troopCount; i++) {
+                    Army trebuchet = new Army(empire);
+                    empire.empireArmy.add(trebuchet);
+                }
+            case "siegeTower":
+                empire.setSiegeTowerCount(empire.getSiegeTowerCount() + troopCount);
+                for (int i = 0; i < troopCount; i++) {
+                    Army siegeTower = new Army(empire);
+                    empire.empireArmy.add(siegeTower);
+                }
+            case "fireBalista":
+                empire.setFireBalistaCount(empire.getFireBalistaCount() + troopCount);
+                for (int i = 0; i < troopCount; i++) {
+                    Army fireBalista = new Army(empire);
+                    empire.empireArmy.add(fireBalista);
+                }
+            case "batteringRam":
+                empire.setBatteringRamCount(empire.getBatteringRamCount()+ troopCount);
+                for (int i = 0; i < troopCount; i++) {
+                    Army batteringRam = new Army(empire);
+                    empire.empireArmy.add(batteringRam);
+                }
+            case "portableShield":
+                empire.setPortableShieldCount(empire.getPortableShieldCount() + 3 * troopCount);
+                for (int i = 0; i < troopCount; i++) {
+                    Army portableShield = new Army(empire);
+                    empire.empireArmy.add(portableShield);
+                }
+        }
+    }
+    public SelectedBuildingMessages siegeTent(String siegeName, int count) {
+
+        HashMap<String, Integer> siegeTentTroopsPrice = new HashMap<>();
+
+        {
+            siegeTentTroopsPrice.put("catapult", 150);
+            siegeTentTroopsPrice.put("trebuchet", 150);
+            siegeTentTroopsPrice.put("siegeTower", 150);
+            siegeTentTroopsPrice.put("fireBalista", 150);
+            siegeTentTroopsPrice.put("batteringRam", 150);
+            siegeTentTroopsPrice.put("portableShield", 5);
+        }
+        switch (siegeName) {
+            case "catapult":
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("catapult"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromSiegeTent(empire, siegeTentTroopsPrice.get("catapult"), siegeName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("catapult"),  count));
+                }
+            case "trebuchet":
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("trebuchet"),  count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromSiegeTent(empire, siegeTentTroopsPrice.get("trebuchet"), siegeName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("trebuchet"), count));
+                }
+            case "siegeTower":
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("siegeTower"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromSiegeTent(empire, siegeTentTroopsPrice.get("siegeTower"), siegeName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("siegeTower"),  count));
+                }
+            case "fireBalista":
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"),  count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"), siegeName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"), count));
+                }
+            case "batteringRam":
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"),  count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"), siegeName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"),  count));
+                }
+            case "portableShield":
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"),  count  / 3).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), siegeName, count / 3);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), count /3));
+                }
+        }
+        return null;
     }
 
 

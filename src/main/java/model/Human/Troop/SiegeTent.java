@@ -1,8 +1,13 @@
-package model.Building;
+package model.Human.Troop;
 
+import model.Building.Building;
+import model.Building.BuildingConstantFunctions;
+import model.Building.Names;
 import model.Empire;
 
-public class SiegeTent extends Building implements BuildingConstantFunctions {
+import java.util.HashMap;
+
+public class SiegeTent extends Army implements BuildingConstantFunctions {
     public SiegeTent(Empire government) {
         super(government);
     }
@@ -32,7 +37,7 @@ public class SiegeTent extends Building implements BuildingConstantFunctions {
     public String groundType() {
         return null;
     }
-
+    public HashMap<String, Integer> cost = new HashMap<>();
     @Override
     public String showBuildingName() {
         return names.getName();

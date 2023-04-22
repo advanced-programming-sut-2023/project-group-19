@@ -784,6 +784,49 @@ public class Empire {
         this.donation = donation;
     }
 
+    public int getCatapultCount() {
+        return popularityFactors.get("catapult");
+    }
+
+    public void setCatapultCount(int catapultCount) {
+        popularityFactors.replace("catapult", catapultCount);
+    }
+    public int getTrebuchetCount() {
+        return popularityFactors.get("trebuchet");
+    }
+
+    public void setTrebuchetCount(int trebuchetCount) {
+        popularityFactors.replace("trebuchet", trebuchetCount);
+    }
+    public int getSiegeTowerCount() {
+        return popularityFactors.get("siegeTower");
+    }
+
+    public void setSiegeTowerCount(int siegeTowerCount) {
+        popularityFactors.replace("siegeTower", siegeTowerCount);
+    }
+    public int getFireBalistaCount() {
+        return popularityFactors.get("fireBalista");
+    }
+
+    public void setFireBalistaCount(int fireBalistaCount) {
+        popularityFactors.replace("fireBalista", fireBalistaCount);
+    }
+    public int getBatteringRamCount() {
+        return popularityFactors.get("batteringRam");
+    }
+
+    public void setBatteringRamCount(int batteringRamCount) {
+        popularityFactors.replace("batteringRam", batteringRamCount);
+    }
+    public int getPortableShieldCount() {
+        return popularityFactors.get("portableShield");
+    }
+
+    public void setPortableShieldCount(int portableShieldCount) {
+        popularityFactors.replace("portableShield", portableShieldCount);
+    }
+
 
     // TODO call createFoodList function before usage
     public HashMap<String, Integer> allFood = new HashMap<>();
@@ -916,6 +959,16 @@ public class Empire {
         popularityFactors.put("tax", 0);
         popularityFactors.put("religious", 0);
         popularityFactors.put("fear", 0);
+    }
+    public HashMap<String, Integer> siegeTentTroopsCount = new HashMap<>();
+
+    {
+        siegeTentTroopsCount.put("catapult", 0);
+        siegeTentTroopsCount.put("trebuchet", 0);
+        siegeTentTroopsCount.put("siegeTower", 0);
+        siegeTentTroopsCount.put("fireBalista", 0);
+        siegeTentTroopsCount.put("batteringRam", 0);
+        siegeTentTroopsCount.put("portableShield", 0);
     }
 
     public ArrayList<String> request = new ArrayList<>();
