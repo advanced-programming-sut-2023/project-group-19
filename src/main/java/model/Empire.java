@@ -16,17 +16,17 @@ public class Empire {
         this.user = user;
     }
 
-    private int strayCount;
+    private int PeasantCount;
     private int engineerCount;
     private int troopCount;
     private int worker;
 
-    public int getStrayCount() {
-        return strayCount;
+    public int getPeasantCount() {
+        return PeasantCount;
     }
 
-    public void setStrayCount(int strayCount) {
-        this.strayCount = strayCount;
+    public void setPeasantCount(int peasantCount) {
+        PeasantCount = peasantCount;
     }
 
     public int getEngineerCount() {

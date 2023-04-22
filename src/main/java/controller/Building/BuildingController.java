@@ -617,7 +617,10 @@ public class BuildingController {
     public void SelectedBuilding(int x, int y){
         Building building = findSelectedBuilding(x, y);
         SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
+        SelectedBuildingController.empire = currentEmpire;
+        SelectedBuildingController.selectedBuilding = building;
         //TODO : i have defined the algorithm of the chosen buildings in the selectedBuildingController soo the only thing that must be done is that
         //TODO --> is to properly call that functions in maybe a menu !
+//        System.out.println(building.showBuildingName());
     }
 }

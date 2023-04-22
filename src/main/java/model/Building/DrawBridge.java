@@ -17,6 +17,19 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
     public Names getNames() {
         return names;
     }
+    public boolean bridgeOpen = false;
+
+    public boolean isBridgeOpen() {
+        return bridgeOpen;
+    }
+
+    public void setBridgeOpen(boolean bridgeOpen) {
+        this.bridgeOpen = bridgeOpen;
+    }
+
+    public void setNames(Names names) {
+        this.names = names;
+    }
 
     private int hp;
     private static int defaultHP = 500;

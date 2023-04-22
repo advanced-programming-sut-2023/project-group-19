@@ -1,0 +1,16 @@
+package controller.Building;
+
+public enum SelectedBuildingMessages {
+    TAX_RATE_OUT_OF_BONDS,
+    TAX_RATE_CHANGE_SUCCESSFUL,
+    BRIDGE_OPENED,
+    BRIDGE_CLOSED,
+    BRIDGE_ALREADY_OPEN,
+    BRIDGE_ALREADY_CLOSE,
+    NOT_ENOUGH_PEASANTS,
+    NOT_ENOUGH_GOLD,
+    NOT_ENOUGH_RESOURCES,
+    ENOUGH_RESOURCES,
+    SUCCESS,
+
+}
