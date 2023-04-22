@@ -25,12 +25,14 @@ public class FunctionBuildingController {
         int empiresFlourCount = empire.getFlour();
         int backerRate = empire.getBakeryRate();
         int backerCount = empire.getBakeryCount();
-        if (backerRate * backerCount <= empiresFlourCount) {
-            empire.setFlour(empiresFlourCount - backerRate * backerCount);
-            empire.setBread(empire.getBread() + backerRate * backerCount);
-        } else {
-            empire.setFlour(0);
-            empire.setBread(empire.getBread() + empiresFlourCount);
+        if (empire.getFoodCount() + backerRate * backerCount <= empire.getFoodCapacity()) {
+            if (backerRate * backerCount <= empiresFlourCount) {
+                empire.setFlour(empiresFlourCount - backerRate * backerCount);
+                empire.setBread(empire.getBread() + backerRate * backerCount);
+            } else {
+                empire.setFlour(0);
+                empire.setBread(empire.getBread() + empiresFlourCount);
+            }
         }
     }
 
@@ -51,12 +53,14 @@ public class FunctionBuildingController {
         int empiresIronCount = empire.getIronCount();
         int armourerBuildingRate = empire.getArmourerBuildingRate();
         int armourerBuildingCount = empire.getArmourerBuildingCount();
-        if (armourerBuildingRate * armourerBuildingCount <= empiresIronCount) {
-            empire.setIronCount(empiresIronCount - armourerBuildingRate * armourerBuildingCount);
-            empire.setMetalArmourCount(empire.getMetalArmourCount() + armourerBuildingRate * armourerBuildingCount);
-        } else {
-            empire.setIronCount(0);
-            empire.setMetalArmourCount(empire.getMetalArmourCount() + empiresIronCount);
+        if (empire.getWeaponsCount() + armourerBuildingRate * armourerBuildingCount <= empire.getWeaponsCapacity()) {
+            if (armourerBuildingRate * armourerBuildingCount <= empiresIronCount) {
+                empire.setIronCount(empiresIronCount - armourerBuildingRate * armourerBuildingCount);
+                empire.setMetalArmourCount(empire.getMetalArmourCount() + armourerBuildingRate * armourerBuildingCount);
+            } else {
+                empire.setIronCount(0);
+                empire.setMetalArmourCount(empire.getMetalArmourCount() + empiresIronCount);
+            }
         }
     }
 
@@ -64,12 +68,14 @@ public class FunctionBuildingController {
         int empiresWoodCount = empire.getWoodCount();
         int fletcherBuildingRate = empire.getFletcherBuildingRate();
         int fletcherBuildingCount = empire.getFletcherBuildingCount();
-        if (fletcherBuildingRate * fletcherBuildingCount <= empiresWoodCount) {
-            empire.setWoodCount(empiresWoodCount - fletcherBuildingRate * fletcherBuildingCount);
-            empire.setBowCount(empire.getBowCount() + fletcherBuildingRate * fletcherBuildingCount);
-        } else {
-            empire.setWoodCount(0);
-            empire.setBowCount(empire.getBowCount() + empiresWoodCount);
+        if (empire.getWeaponsCount() + fletcherBuildingRate * fletcherBuildingCount <= empire.getWeaponsCapacity()) {
+            if (fletcherBuildingRate * fletcherBuildingCount <= empiresWoodCount) {
+                empire.setWoodCount(empiresWoodCount - fletcherBuildingRate * fletcherBuildingCount);
+                empire.setBowCount(empire.getBowCount() + fletcherBuildingRate * fletcherBuildingCount);
+            } else {
+                empire.setWoodCount(0);
+                empire.setBowCount(empire.getBowCount() + empiresWoodCount);
+            }
         }
     }
 
@@ -77,14 +83,26 @@ public class FunctionBuildingController {
         int empiresIronCount = empire.getIronCount();
         int blacksmithBuildingRate = empire.getBlacksmithBuildingRate();
         int blacksmithBuildingCount = empire.getBlacksmithBuildingCount();
-        if (blacksmithBuildingRate * blacksmithBuildingCount * 2 <= empiresIronCount) {
-            empire.setIronCount(empire.getIronCount() - 2 * blacksmithBuildingRate * blacksmithBuildingCount);
-            empire.setSwordCount(empire.getSwordCount() + blacksmithBuildingRate * blacksmithBuildingCount);
-            empire.setMaceCount(empire.getMaceCount() + blacksmithBuildingRate * blacksmithBuildingCount);
+        if (empire.getWeaponsCount() + 2 * blacksmithBuildingRate * blacksmithBuildingCount <= empire.getWeaponsCapacity()) {
+            if (blacksmithBuildingRate * blacksmithBuildingCount * 2 <= empiresIronCount) {
+                empire.setIronCount(empire.getIronCount() - 2 * blacksmithBuildingRate * blacksmithBuildingCount);
+                empire.setSwordCount(empire.getSwordCount() + blacksmithBuildingRate * blacksmithBuildingCount);
+                empire.setMaceCount(empire.getMaceCount() + blacksmithBuildingRate * blacksmithBuildingCount);
+            } else {
+                empire.setIronCount(0);
+                empire.setSwordCount(empire.getSwordCount() + empiresIronCount / 2);
+                empire.setMaceCount(empire.getMaceCount() + empiresIronCount / 2);
+            }
         } else {
-            empire.setIronCount(0);
-            empire.setSwordCount(empire.getSwordCount() + empiresIronCount / 2);
-            empire.setMaceCount(empire.getMaceCount() + empiresIronCount / 2);
+            if (empire.getWeaponsCapacity() - empire.getWeaponsCount() <= empiresIronCount) {
+                empire.setIronCount(empire.getIronCount() - (empire.getWeaponsCapacity() - empire.getWeaponsCount()));
+                empire.setSwordCount(empire.getSwordCount() + (empire.getWeaponsCapacity() - empire.getWeaponsCount()) / 2);
+                empire.setMaceCount(empire.getMaceCount() + (empire.getWeaponsCapacity() - empire.getWeaponsCount()) / 2);
+            } else {
+                empire.setIronCount(0);
+                empire.setSwordCount(empire.getSwordCount() + empiresIronCount / 2);
+                empire.setMaceCount(empire.getMaceCount() + empiresIronCount / 2);
+            }
         }
     }
 
@@ -92,14 +110,26 @@ public class FunctionBuildingController {
         int empiresWoodCount = empire.getWoodCount();
         int poleTurnerBuildingRate = empire.getPoleTurnerBuildingRate();
         int poleTurnerBuildingCount = empire.getPoleTurnerBuildingCount();
-        if (poleTurnerBuildingRate * poleTurnerBuildingCount * 2 <= empiresWoodCount) {
-            empire.setWoodCount(empire.getWoodCount() - 2 * poleTurnerBuildingRate * poleTurnerBuildingCount);
-            empire.setSpearCount(empire.getSpearCount() + poleTurnerBuildingRate * poleTurnerBuildingCount);
-            empire.setPeakCount(empire.getPeakCount() + poleTurnerBuildingRate * poleTurnerBuildingCount);
+        if (empire.getWeaponsCount() + 2 * poleTurnerBuildingRate * poleTurnerBuildingCount <= empire.getWeaponsCapacity()) {
+            if (poleTurnerBuildingRate * poleTurnerBuildingCount * 2 <= empiresWoodCount) {
+                empire.setWoodCount(empire.getWoodCount() - 2 * poleTurnerBuildingRate * poleTurnerBuildingCount);
+                empire.setSpearCount(empire.getSpearCount() + poleTurnerBuildingRate * poleTurnerBuildingCount);
+                empire.setPeakCount(empire.getPeakCount() + poleTurnerBuildingRate * poleTurnerBuildingCount);
+            } else {
+                empire.setWoodCount(0);
+                empire.setSpearCount(empire.getSpearCount() + empiresWoodCount / 2);
+                empire.setPeakCount(empire.getPeakCount() + empiresWoodCount / 2);
+            }
         } else {
-            empire.setWoodCount(0);
-            empire.setSpearCount(empire.getSpearCount() + empiresWoodCount / 2);
-            empire.setPeakCount(empire.getPeakCount() + empiresWoodCount / 2);
+            if (empire.getWeaponsCapacity() - empire.getWeaponsCount() <= empiresWoodCount) {
+                empire.setWoodCount(empire.getWoodCount() - (empire.getWeaponsCapacity() - empire.getWeaponsCount()));
+                empire.setSpearCount(empire.getSpearCount() + (empire.getWeaponsCapacity() - empire.getWeaponsCount()) / 2);
+                empire.setPeakCount(empire.getPeakCount() + (empire.getWeaponsCapacity() - empire.getWeaponsCount()) / 2);
+            } else {
+                empire.setWoodCount(0);
+                empire.setSpearCount(empire.getSpearCount() + empiresWoodCount / 2);
+                empire.setPeakCount(empire.getPeakCount() + empiresWoodCount / 2);
+            }
         }
     }
 }

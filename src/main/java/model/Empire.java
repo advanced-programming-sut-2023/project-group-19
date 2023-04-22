@@ -17,6 +17,14 @@ public class Empire {
         this.user = user;
     }
 
+    private int foodCapacity = 50;
+    private int foodCount;
+    private int weaponsCapacity = 50;
+    private int weaponsCount;
+    private int resourcesCapacity = 100;
+    private int resourcesCount;
+
+    private int maxPossiblePopulation;
     private int PeasantCount;
     private int troopCount;
     private int workerCount;
@@ -49,7 +57,29 @@ public class Empire {
         this.workerCount = worker;
     }
 
-    private int foodCapacity;
+    public int getFoodCount() {
+        return foodCount;
+    }
+
+    public void setFoodCount(int foodCount) {
+        this.foodCount = foodCount;
+    }
+
+    public int getWeaponsCount() {
+        return weaponsCount;
+    }
+
+    public void setWeaponsCount(int weaponsCount) {
+        this.weaponsCount = weaponsCount;
+    }
+
+    public int getResourcesCount() {
+        return resourcesCount;
+    }
+
+    public void setResourcesCount(int resourcesCount) {
+        this.resourcesCount = resourcesCount;
+    }
 
     public int getFoodCapacity() {
         return foodCapacity;
@@ -61,7 +91,7 @@ public class Empire {
 
     private String name;
     private int population;
-    private int maxPossiblePopulation;
+
 
     public int getMaxPossiblePopulation() {
         return maxPossiblePopulation;
@@ -125,6 +155,22 @@ public class Empire {
 
     public void setGoldCount(int goldCount) {
         this.goldCount = goldCount;
+    }
+
+    public int getWeaponsCapacity() {
+        return weaponsCapacity;
+    }
+
+    public void setWeaponsCapacity(int weaponsCapacity) {
+        this.weaponsCapacity = weaponsCapacity;
+    }
+
+    public int getResourcesCapacity() {
+        return resourcesCapacity;
+    }
+
+    public void setResourcesCapacity(int resourcesCapacity) {
+        this.resourcesCapacity = resourcesCapacity;
     }
 
     public int getWoodCount() {
@@ -828,7 +874,6 @@ public class Empire {
         arabTroopCount.put("fireThrower", 0);
     }
 
-
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();
 
     {
@@ -843,17 +888,39 @@ public class Empire {
 
     //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
     public void independentProductionBuilding() { //part 1 of 5TYPE algorithm
-        stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
-        stores.replace("oil", stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig"));
-        stores.replace("stone", stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry"));
-        stores.replace("wood", stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter"));
-        allFood.replace("apple", allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm"));
-        stores.replace("oat", stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm"));
-        allFood.replace("meat", allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost"));
-        stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
-        allFood.replace("cheese", allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
-        allWeaponTools.replace("leatherArmour", allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
-        allWeaponTools.replace("horse", allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable"));
+        if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") <= resourcesCapacity) {
+            stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
+        }
+        if (resourcesCount + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") <= resourcesCapacity) {
+            stores.replace("oil", stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig"));
+        }
+        if (resourcesCount + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") <= resourcesCapacity) {
+            stores.replace("stone", stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry"));
+        }
+        if (resourcesCount + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") <= resourcesCapacity) {
+            stores.replace("wood", stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter"));
+        }
+        if (foodCount + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") <= foodCapacity) {
+            allFood.replace("apple", allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm"));
+        }
+        if (resourcesCount + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") <= resourcesCapacity) {
+            stores.replace("oat", stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm"));
+        }
+        if (foodCount + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") <= foodCapacity) {
+            allFood.replace("meat", allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost"));
+        }
+        if (resourcesCount + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") <= resourcesCapacity) {
+            stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
+        }
+        if (foodCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") <= foodCapacity) {
+            allFood.replace("cheese", allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
+        }
+        if (weaponsCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") <= weaponsCapacity) {
+            allWeaponTools.replace("leatherArmour", allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
+        }
+        if (weaponsCount + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") <= weaponsCapacity) {
+            allWeaponTools.replace("horse", allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable"));
+        }
     }
 
     public void functionBuildings() { //part 2 of 5TYPE algorithm
