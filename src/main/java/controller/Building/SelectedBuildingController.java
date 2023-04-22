@@ -7,16 +7,19 @@ import model.Empire;
 public class SelectedBuildingController {
     public static Empire empire;
 
-    public void gatehouse(){
+    public void gatehouse( int taxRate ){
 
     }
-    public void DrawBridge(){
+    public void DrawBridge(String bridgeCondition){
 
     }
-    public void mercenary(){
+    public void blacksmith(String troopName , int count){
 
     }
-    public void engineerGuild(){
+    public void mercenary(String troopName , int count){
+
+    }
+    public void engineerGuild(String troopName , int count){
 
     }
     public void shop(){
@@ -25,7 +28,7 @@ public class SelectedBuildingController {
     public void cagedWarDogs(){
         //TODO : should be filled when we started the game menu
     }
-    public void siegeTent(){
+    public void siegeTent(String siegeName , int count){
 
     }
 

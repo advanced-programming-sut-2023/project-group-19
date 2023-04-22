@@ -139,4 +139,9 @@ public class Tower extends Building {
     public String groundType() {
         return null;
     }
+
+    @Override
+    public String showBuildingName() {
+        return name.name();
+    }
 }

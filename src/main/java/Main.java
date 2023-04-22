@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-        Scanner scanner = new Scanner(System.in);
-        LoginMenu.run(scanner);
+//        Scanner scanner = new Scanner(System.in);
+//        LoginMenu.run(scanner);
 //        User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
 //        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
 //        Manage.allUsers.add(user1);
@@ -34,18 +34,18 @@ public class Main {
 //        }
 
 
-//        Empire empire = new Empire();
-//        Map.CreateMap(200);
-//        StoneGateWay stoneGateWay = new StoneGateWay(empire);
-//        stoneGateWay.smallGateWay();
-//        Tower tower = new Tower(empire);
-//        tower.lookoutTower();
-//        System.out.println(tower);
-//        Map.buildingMap[0][1].add(tower);
-//        System.out.println(Map.buildingMap[0][1].get(0).getMaxHp());
-//        System.out.println(stoneGateWay.getMaxHP());
-//        Map.buildingMap[0][0].add(stoneGateWay);
-//        System.out.println(Map.buildingMap[0][0].get(0).hp());
+        Empire empire = new Empire();
+        Map.CreateMap(200);
+        StoneGateWay stoneGateWay = new StoneGateWay(empire);
+        stoneGateWay.smallGateWay();
+        Tower tower = new Tower(empire);
+        tower.lookoutTower();
+        System.out.println(tower.showBuildingName());
+        Map.buildingMap[0][1].add(tower);
+        System.out.println(Map.buildingMap[0][1].get(0).getName());
+        System.out.println(stoneGateWay.getMaxHP());
+        Map.buildingMap[0][0].add(stoneGateWay);
+        System.out.println(Map.buildingMap[0][0].get(0).hp());
 //        LoginMenu.run(new Scanner(System.in));
     }
 }
