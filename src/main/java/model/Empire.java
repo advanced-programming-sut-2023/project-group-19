@@ -1,6 +1,7 @@
 package model;
 
 import controller.Building.FunctionBuildingController;
+import model.Human.Troop.Army;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +18,11 @@ public class Empire {
     }
 
     private int PeasantCount;
-    private int engineerCount;
     private int troopCount;
-    private int worker;
+    private int workerCount;
+
+    public ArrayList<Army> empireArmy = new ArrayList<>();
+
 
     public int getPeasantCount() {
         return PeasantCount;
@@ -29,13 +32,6 @@ public class Empire {
         PeasantCount = peasantCount;
     }
 
-    public int getEngineerCount() {
-        return engineerCount;
-    }
-
-    public void setEngineerCount(int engineerCount) {
-        this.engineerCount = engineerCount;
-    }
 
     public int getTroopCount() {
         return troopCount;
@@ -45,12 +41,12 @@ public class Empire {
         this.troopCount = troopCount;
     }
 
-    public int getWorker() {
-        return worker;
+    public int getWorkerCount() {
+        return workerCount;
     }
 
-    public void setWorker(int worker) {
-        this.worker = worker;
+    public void setWorkerCount(int worker) {
+        this.workerCount = worker;
     }
 
     private int foodCapacity;
@@ -568,6 +564,144 @@ public class Empire {
         allWeaponTools.replace("peak", peakCount);
     }
 
+    public int getEuropeArcherCount() {
+        return europeTroopCount.get("archer");
+    }
+
+    public void setEuropeArcherCount(int europeArcherCount) {
+        europeTroopCount.replace("archer", europeArcherCount);
+    }
+
+    public int getSpearManCount() {
+        return europeTroopCount.get("spearMan");
+    }
+
+    public void setSpearManCount(int spearManCount) {
+        europeTroopCount.replace("spearMan", spearManCount);
+    }
+
+    public int getMaceManCount() {
+        return europeTroopCount.get("maceMan");
+    }
+
+    public void setMaceManCount(int maceManCount) {
+        europeTroopCount.replace("maceMan", maceManCount);
+    }
+
+    public int getCrossbowManCount() {
+        return europeTroopCount.get("crossbowMan");
+    }
+
+    public void setCrossbowManCount(int crossbowManCount) {
+        europeTroopCount.replace("crossbowMan", crossbowManCount);
+    }
+
+    public int getPikeManCount() {
+        return europeTroopCount.get("pikeMan");
+    }
+
+    public void setPikeManCount(int pikeManCount) {
+        europeTroopCount.replace("pikeMan", pikeManCount);
+    }
+
+    public int getSwordManCount() {
+        return europeTroopCount.get("swordMan");
+    }
+
+    public void setSwordManCount(int swordManCount) {
+        europeTroopCount.replace("swordMan", swordManCount);
+    }
+
+    public int getKnightCount() {
+        return europeTroopCount.get("knight");
+    }
+
+    public void setKnightCount(int knightCount) {
+        europeTroopCount.replace("knight", knightCount);
+    }
+
+    public int getArabianBowCount() {
+        return arabTroopCount.get("arabianBow");
+    }
+
+    public void setArabianBowCount(int arabianBowCount) {
+        arabTroopCount.replace("arabianBow", arabianBowCount);
+    }
+
+    public int getSlaveCount() {
+        return arabTroopCount.get("slave");
+    }
+
+    public void setSlaveCount(int slaveCount) {
+        arabTroopCount.replace("slave", slaveCount);
+    }
+
+    public int getSlingerCount() {
+        return arabTroopCount.get("slinger");
+    }
+
+    public void setSlingerCount(int slingerCount) {
+        arabTroopCount.replace("slinger", slingerCount);
+    }
+
+    public int getAssassinCount() {
+        return arabTroopCount.get("assassin");
+    }
+
+    public void setAssassinCount(int assassinCount) {
+        arabTroopCount.replace("assassin", assassinCount);
+    }
+
+    public int getHorseArcherCount() {
+        return arabTroopCount.get("horseArcher");
+    }
+
+    public void setHorseArcherCount(int horseArcherCount) {
+        arabTroopCount.replace("horseArcher", horseArcherCount);
+    }
+
+    public int getArabianSwordManCount() {
+        return arabTroopCount.get("arabianSwordMan");
+    }
+
+    public void setArabianSwordManCount(int arabianSwordManCount) {
+        arabTroopCount.replace("arabianSwordMan", arabianSwordManCount);
+    }
+
+    public int getFireThrowerCount() {
+        return arabTroopCount.get("fireThrower");
+    }
+
+    public void setFireThrowerCount(int fireThrowerCount) {
+        arabTroopCount.replace("fireThrower", fireThrowerCount);
+    }
+
+
+    public int getEngineerCount() {
+        return engineerGuildTroopCount.get("engineer");
+    }
+
+    public void setEngineerCount(int engineerCount) {
+        engineerGuildTroopCount.replace("engineer", engineerCount);
+    }
+
+    public int getLadderManCount() {
+        return engineerGuildTroopCount.get("ladderMan");
+    }
+
+    public void setLadderManCount(int ladderManCount) {
+        engineerGuildTroopCount.replace("ladderMan", ladderManCount);
+    }
+
+    public int getTunnelerCount() {
+        return engineerGuildTroopCount.get("tunneler");
+    }
+
+    public void setTunnelerCount(int tunnelerCount) {
+        engineerGuildTroopCount.replace("tunneler", tunnelerCount);
+    }
+
+
     public ArrayList<String> getDonation() {
         return donation;
     }
@@ -575,6 +709,7 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
+
 
     // TODO call createFoodList function before usage
     public HashMap<String, Integer> allFood = new HashMap<>();
@@ -667,6 +802,39 @@ public class Empire {
         createWeaponBuildingRate.put("fletcher", 5);
         createWeaponBuildingRate.put("poleTurner", 5);
         createWeaponBuildingRate.put("stable", 4);
+    }
+
+    public HashMap<String, Integer> europeTroopCount = new HashMap<>();
+
+    {
+        europeTroopCount.put("archer", 0);
+        europeTroopCount.put("spearMan", 0);
+        europeTroopCount.put("maceMan", 0);
+        europeTroopCount.put("crossbowMan", 0);
+        europeTroopCount.put("pikeMan", 0);
+        europeTroopCount.put("swordMan", 0);
+        europeTroopCount.put("knight", 0);
+    }
+
+    public HashMap<String, Integer> arabTroopCount = new HashMap<>();
+
+    {
+        arabTroopCount.put("arabianBow", 0);
+        arabTroopCount.put("slave", 0);
+        arabTroopCount.put("slinger", 0);
+        arabTroopCount.put("assassin", 0);
+        arabTroopCount.put("horseArcher", 0);
+        arabTroopCount.put("arabianSwordMan", 0);
+        arabTroopCount.put("fireThrower", 0);
+    }
+
+
+    public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();
+
+    {
+        engineerGuildTroopCount.put("engineer", 0);
+        engineerGuildTroopCount.put("ladderMan", 0);
+        engineerGuildTroopCount.put("tunneler", 0);
     }
 
 

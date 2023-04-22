@@ -76,7 +76,7 @@ public class BuildingController {
                 }
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge();
+                drawBridge.drawBridge(x , y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
                     buildingCheckout(drawBridge, currentEmpire);
                     Map.AddToBuildingMap(x, y, drawBridge);
