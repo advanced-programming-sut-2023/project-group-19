@@ -120,7 +120,7 @@ public class SelectedBuildingController {
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
 
-    public void blacksmith(String troopName, int count) {
+    public SelectedBuildingMessages blacksmith(String troopName, int count) {
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
         {
@@ -149,35 +149,53 @@ public class SelectedBuildingController {
                 allWeaponTools.replace("bow", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("archer"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
             case "spearMan":
                 allWeaponTools.replace("spear", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("spearMan"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
             case "maceMan":
                 allWeaponTools.replace("mace", 1);
                 allWeaponTools.replace("leatherArmour", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("maceMan"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
             case "crossbowMan":
                 allWeaponTools.replace("bow", 1);
                 allWeaponTools.replace("leatherArmour", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("crossbowMan"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
             case "pikeMan":
                 allWeaponTools.replace("peak", 1);
                 allWeaponTools.replace("metalArmour", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("pikeMan"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
             case "swordMan":
                 allWeaponTools.replace("sword", 1);
                 allWeaponTools.replace("metalArmour", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("swordMan"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
             case "knight":
                 allWeaponTools.replace("sword", 1);
@@ -185,8 +203,12 @@ public class SelectedBuildingController {
                 allWeaponTools.replace("horse", 1);
                 if (empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromBarracks(empire, listOfTroopsBuyPrice.get("knight"), allWeaponTools, troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
         }
+        return null;
 
     }
 
@@ -249,7 +271,7 @@ public class SelectedBuildingController {
         }
     }
 
-    public void mercenary(String troopName, int count) {
+    public SelectedBuildingMessages mercenary(String troopName, int count) {
         int empireGoldCount = empire.getGoldCount();
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
@@ -266,32 +288,54 @@ public class SelectedBuildingController {
             case "arabianBow":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianBow"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianBow"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianBow"), troopName, count);
                 }
             case "slave":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("slave"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("slave"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("slave"), troopName, count);
                 }
             case "slinger":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("slinger"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("slinger"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("slinger"), troopName, count);
                 }
             case "assassin":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("assassin"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("assassin"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("assassin"), troopName, count);
                 }
             case "horseArcher":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("horseArcher"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("horseArcher"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("horseArcher"), troopName, count);
                 }
             case "arabianSwordMan":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianSwordMan"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianSwordMan"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianSwordMan"), troopName, count);
                 }
             case "fireThrower":
                 if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count);
                 }
         }
+        return null;
     }
 
     public SelectedBuildingMessages enoughResourcesToBuyFromEngineerGuild(Empire empire, int troopPrice, String troopName, int troopCount) {
@@ -319,7 +363,7 @@ public class SelectedBuildingController {
         }
     }
 
-    public void engineerGuild(String troopName, int count) {
+    public SelectedBuildingMessages engineerGuild(String troopName, int count) {
         int empireGoldCount = empire.getGoldCount();
         HashMap<String, Integer> engineerGuildTroopPrice = new HashMap<>();
 
@@ -332,17 +376,26 @@ public class SelectedBuildingController {
             case "arabianBow":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count));
                 }
             case "slave":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, engineerGuildTroopPrice.get("slave"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count));
                 }
             case "slinger":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, engineerGuildTroopPrice.get("slinger"), troopName, count);
+                    return SelectedBuildingMessages.PURCHASE_SUCCESS;
+                } else {
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count));
                 }
         }
-
+        return null;
     }
 
     public void shop() {
