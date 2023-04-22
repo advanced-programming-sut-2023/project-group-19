@@ -69,6 +69,7 @@ public enum Names {
     SIEGE("Siege"),
     TUNNELER("Tunneler"),
     HOP("Hop"),
+    SHOP("shop"),
     MERCENARY_POST("Mercenary Post"),
     LADDER_MAN("Ladder Man"),
     OIL_SMELTER("Oil Smelter"),

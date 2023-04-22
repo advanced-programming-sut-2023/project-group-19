@@ -475,6 +475,7 @@ public class Empire {
     public int getBlacksmithBuildingCount() {
         return createWeaponBuildingCount.get("blacksmith");
     }
+
     public void setBlacksmithBuildingCount(int blacksmithBuildingCount) {
         createWeaponBuildingCount.replace("armourer", blacksmithBuildingCount);
     }
@@ -526,6 +527,7 @@ public class Empire {
     public void setBowCount(int bowCount) {
         allWeaponTools.replace("bow", bowCount);
     }
+
     public int getHorseCount() {
         return allWeaponTools.get("horse");
     }
@@ -683,7 +685,7 @@ public class Empire {
         stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
         allFood.replace("cheese", allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
         allWeaponTools.replace("leatherArmour", allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
-        allWeaponTools.replace("horse" , allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") );
+        allWeaponTools.replace("horse", allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable"));
     }
 
     public void functionBuildings() { //part 2 of 5TYPE algorithm

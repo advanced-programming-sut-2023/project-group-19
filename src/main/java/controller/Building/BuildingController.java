@@ -5,6 +5,7 @@ import model.Empire;
 import model.Manage;
 import model.Map;
 import view.Commands.BuildingMessages;
+import view.SelectedBuildingMenu;
 
 
 public class BuildingController {
@@ -612,5 +613,11 @@ public class BuildingController {
 
     public void increaseCapacityLimitation(int capacity) {
         currentEmpire.setMaxPossiblePopulation(currentEmpire.getMaxPossiblePopulation() + capacity);
+    }
+    public void SelectedBuilding(int x, int y){
+        Building building = findSelectedBuilding(x, y);
+        SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
+        //TODO : i have defined the algorithm of the chosen buildings in the selectedBuildingController soo the only thing that must be done is that
+        //TODO --> is to properly call that functions in maybe a menu !
     }
 }

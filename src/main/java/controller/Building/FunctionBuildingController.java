@@ -102,5 +102,4 @@ public class FunctionBuildingController {
             empire.setPeakCount(empire.getPeakCount() + empiresWoodCount / 2);
         }
     }
-
 }

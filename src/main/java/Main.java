@@ -1,4 +1,3 @@
-import controller.Building.FunctionBuildingController;
 import controller.JsonController;
 import model.Building.StoneGateWay;
 import model.Building.Tower;
@@ -13,10 +12,29 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
+        Scanner scanner = new Scanner(System.in);
+        LoginMenu.run(scanner);
+//        User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
+//        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
+//        Manage.allUsers.add(user1);
+//        Manage.allUsers.add(user2);
+//        System.out.println(Manage.allUsers.get(0).getUsername());
+//        JsonController.writeIntoFile(Manage.allUsers , "User.json");
+//        JsonController.writeIntoFile(user2 , "LoggedInUser.json");
+//        JsonController.readDataFile("User.json");
+//        JsonController.saveAllUsersFileData();
+//        JsonController.readDataFile("LoggedInUser.json");
+//        User loggedInUser = JsonController.saveLoggedInUserFileData();
+//        System.out.println(Manage.allUsers.get(1).getUsername());
+//        try{
+//            System.out.println(loggedInUser.getUsername());
+//        }
+//        catch (NullPointerException e){
+//            System.out.println("no user logged in");
+//        }
 
 
 //        Empire empire = new Empire();
-//        empire.functionBuildings();
 //        Map.CreateMap(200);
 //        StoneGateWay stoneGateWay = new StoneGateWay(empire);
 //        stoneGateWay.smallGateWay();
