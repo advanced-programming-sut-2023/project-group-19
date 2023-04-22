@@ -99,4 +99,9 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     public String groundType() {
         return groundType;
     }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
+    }
 }

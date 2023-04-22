@@ -77,4 +77,9 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
     public String groundType() {
         return null;
     }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
+    }
 }

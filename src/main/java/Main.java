@@ -42,7 +42,7 @@ public class Main {
         tower.lookoutTower();
         System.out.println(tower.showBuildingName());
         Map.buildingMap[0][1].add(tower);
-        System.out.println(Map.buildingMap[0][1].get(0).getName());
+        System.out.println(Map.buildingMap[0][1].get(0).showBuildingName());
         System.out.println(stoneGateWay.getMaxHP());
         Map.buildingMap[0][0].add(stoneGateWay);
         System.out.println(Map.buildingMap[0][0].get(0).hp());

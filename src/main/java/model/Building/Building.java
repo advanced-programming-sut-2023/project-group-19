@@ -31,6 +31,9 @@ public abstract class Building implements BuildingConstantFunctions {
     public Names getName() {
         return name;
     }
+    public String showBuildingName() {
+        return name.getName();
+    }
 
     public void setName(Names name) {
         this.name = name;

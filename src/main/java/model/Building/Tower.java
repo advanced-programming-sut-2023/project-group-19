@@ -142,6 +142,6 @@ public class Tower extends Building {
 
     @Override
     public String showBuildingName() {
-        return name.name();
+        return name.getName();
     }
 }

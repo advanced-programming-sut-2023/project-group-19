@@ -114,4 +114,9 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
     public String groundType() {
         return null;
     }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
+    }
 }

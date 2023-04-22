@@ -76,4 +76,9 @@ public class Shop extends Building implements BuildingConstantFunctions {
     public String groundType() {
         return null;
     }
+
+    @Override
+    public String showBuildingName() {
+        return "shop";
+    }
 }

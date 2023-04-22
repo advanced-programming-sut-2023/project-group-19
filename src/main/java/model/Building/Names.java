@@ -78,6 +78,14 @@ public enum Names {
     SIEGE_TENT("Siege Tent");
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     Names(String s) {
         this.name = s;
     }

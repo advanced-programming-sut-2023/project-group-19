@@ -66,4 +66,9 @@ public class Wall extends Building {
     public String groundType() {
         return null;
     }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
+    }
 }
