@@ -11,6 +11,8 @@ public enum SelectedBuildingMessages {
     NOT_ENOUGH_GOLD,
     NOT_ENOUGH_RESOURCES,
     ENOUGH_RESOURCES,
-    SUCCESS,
+    NOT_ENOUGH_SPACE,
+
+    PURCHASE_SUCCESS,
 
 }

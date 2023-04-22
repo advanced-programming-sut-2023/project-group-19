@@ -190,6 +190,15 @@ public class SelectedBuildingController {
 
     }
 
+    public SelectedBuildingMessages enoughResourcesToBuyFromMercenary(Empire empire, int troopPrice, String troopName, int troopCount) {
+        int empiresGoldCount = empire.getGoldCount();
+        int empiresPeasantCount = empire.getPeasantCount();
+        if (empiresPeasantCount < troopCount) return SelectedBuildingMessages.NOT_ENOUGH_PEASANTS;
+        int totalBuyPrice = troopPrice * troopCount;
+        if (totalBuyPrice > empiresGoldCount) return SelectedBuildingMessages.NOT_ENOUGH_GOLD;
+        return SelectedBuildingMessages.ENOUGH_RESOURCES;
+    }
+
     public void buyFromMercenary(Empire empire, int troopPrice, String troopName, int troopCount) {
         empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
         empire.setPeasantCount(empire.getPeasantCount() - troopCount);
@@ -255,34 +264,43 @@ public class SelectedBuildingController {
         }
         switch (troopName) {
             case "arabianBow":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("arabianBow") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianBow"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianBow"), troopName, count);
                 }
             case "slave":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("slave") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("slave"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("slave"), troopName, count);
                 }
             case "slinger":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("slinger") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("slinger"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("slinger"), troopName, count);
                 }
             case "assassin":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("assassin") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("assassin"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("assassin"), troopName, count);
                 }
             case "horseArcher":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("horseArcher") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("horseArcher"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("horseArcher"), troopName, count);
                 }
             case "arabianSwordMan":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("arabianSwordMan") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianSwordMan"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianSwordMan"), troopName, count);
                 }
             case "fireThrower":
-                if (empireGoldCount > listOfTroopsBuyPrice.get("fireThrower") * count) {
+                if (enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count);
                 }
         }
+    }
+
+    public SelectedBuildingMessages enoughResourcesToBuyFromEngineerGuild(Empire empire, int troopPrice, String troopName, int troopCount) {
+        int empiresGoldCount = empire.getGoldCount();
+        int empiresPeasantCount = empire.getPeasantCount();
+        if (empiresPeasantCount < troopCount) return SelectedBuildingMessages.NOT_ENOUGH_PEASANTS;
+        int totalBuyPrice = troopPrice * troopCount;
+        if (totalBuyPrice > empiresGoldCount) return SelectedBuildingMessages.NOT_ENOUGH_GOLD;
+        return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
 
     public void buyFromEngineerGuild(Empire empire, int troopPrice, String troopName, int troopCount) {
@@ -312,15 +330,15 @@ public class SelectedBuildingController {
         }
         switch (troopName) {
             case "arabianBow":
-                if (empireGoldCount > engineerGuildTroopPrice.get("arabianBow") * count) {
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count);
                 }
             case "slave":
-                if (empireGoldCount > engineerGuildTroopPrice.get("slave") * count) {
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, engineerGuildTroopPrice.get("slave"), troopName, count);
                 }
             case "slinger":
-                if (empireGoldCount > engineerGuildTroopPrice.get("slinger") * count) {
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromMercenary(empire, engineerGuildTroopPrice.get("slinger"), troopName, count);
                 }
         }
@@ -329,18 +347,12 @@ public class SelectedBuildingController {
 
     public void shop() {
         //TODO : pass this function to the shop menu
-
-
-    }
-
-    public void cagedWarDogs() {
-        //TODO : should be filled when we started the game menu
-
+        // actually this function shouldn't exist  this is just a sign to know that we must pass it to the shop menu
 
     }
 
     public void siegeTent(String siegeName, int count) {
-
+        //TODO : i didnt found this building in the real game and i have no idea how this building exactly works soo after some searching  this part must be filled
     }
 
 
