@@ -3,6 +3,7 @@ package controller.Building;
 import model.Building.Building;
 import model.Building.DrawBridge;
 import model.Empire;
+import model.Human.Troop.ArabArmy;
 import model.Human.Troop.Army;
 import model.Human.Troop.EuropeArmy;
 import model.Map;
@@ -78,7 +79,7 @@ public class SelectedBuildingController {
                 empire.setCrossbowManCount(empire.getCrossbowManCount() + troopCount);
                 for(int i = 0 ; i < troopCount ; i++){
                     EuropeArmy crossbowMan = new EuropeArmy(empire);
-                    empire.empireArmy.add(crossbowMan);
+                           empire.empireArmy.add(crossbowMan);
                 }
             case "pikeMan":
                 empire.setPikeManCount(empire.getPikeManCount() + troopCount);
@@ -201,9 +202,99 @@ public class SelectedBuildingController {
         }
 
     }
-
+    public void buyFromMercenary(Empire empire, int troopPrice, String troopName, int troopCount){
+        empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
+        empire.setPeasantCount(empire.getPeasantCount() - troopCount);
+        empire.setTroopCount(empire.getTroopCount() + troopCount);
+        empire.setTroopCount(empire.getTroopCount() + troopCount);
+        switch (troopName) {
+            case "arabianBow":
+                empire.setArabianBowCount(empire.getArabianBowCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy arabianBow = new ArabArmy(empire);
+                    empire.empireArmy.add(arabianBow);
+                }
+            case "slave":
+                empire.setSlaveCount(empire.getSlaveCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy slave = new ArabArmy(empire);
+                    empire.empireArmy.add(slave);
+                }
+            case "slinger":
+                empire.setSlingerCount(empire.getSlingerCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy slinger = new ArabArmy(empire);
+                    empire.empireArmy.add(slinger);
+                }
+            case "assassin":
+                empire.setAssassinCount(empire.getAssassinCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy assassin = new ArabArmy(empire);
+                    empire.empireArmy.add(assassin);
+                }
+            case "horseArcher":
+                empire.setHorseArcherCount(empire.getHorseArcherCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy horseArcher = new ArabArmy(empire);
+                    empire.empireArmy.add(horseArcher);
+                }
+            case "arabianSwordMan":
+                empire.setArabianSwordManCount(empire.getArabianSwordManCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy arabianSwordMan = new ArabArmy(empire);
+                    empire.empireArmy.add(arabianSwordMan);
+                }
+            case "fireThrower":
+                empire.setFireThrowerCount(empire.getFireThrowerCount() + troopCount);
+                for(int i = 0 ; i < troopCount ; i++){
+                    ArabArmy fireThrower = new ArabArmy(empire);
+                    empire.empireArmy.add(fireThrower);
+                }
+        }
+    }
     public void mercenary(String troopName, int count) {
+        int empireGoldCount = empire.getGoldCount();
+        HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
+        {
+            listOfTroopsBuyPrice.put("arabianBow", 75);
+            listOfTroopsBuyPrice.put("slave", 5);
+            listOfTroopsBuyPrice.put("slinger", 15);
+            listOfTroopsBuyPrice.put("assassin", 60);
+            listOfTroopsBuyPrice.put("horseArcher", 10);
+            listOfTroopsBuyPrice.put("arabianSwordMan", 10);
+            listOfTroopsBuyPrice.put("fireThrower", 100);
+        }
+        switch (troopName) {
+            case "arabianBow":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("arabianBow") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianBow"), troopName, count);
+                }
+            case "slave":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("slave") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("slave"), troopName, count);
+                }
+            case "slinger":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("slinger") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("slinger"), troopName, count);
+                }
+            case "assassin":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("assassin") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("assassin"), troopName, count);
+                }
+            case "horseArcher":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("horseArcher") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("horseArcher"), troopName, count);
+                }
+            case "arabianSwordMan":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("arabianSwordMan") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("arabianSwordMan"), troopName, count);
+                }
+            case "fireThrower":
+                if (empireGoldCount > listOfTroopsBuyPrice.get("fireThrower") * count) {
+                    buyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count);
+                }
+        }
     }
 
     public void engineerGuild(String troopName, int count) {
@@ -211,11 +302,16 @@ public class SelectedBuildingController {
     }
 
     public void shop() {
+        //TODO : pass this function to the shop menu
+
+
 
     }
 
     public void cagedWarDogs() {
         //TODO : should be filled when we started the game menu
+
+
     }
 
     public void siegeTent(String siegeName, int count) {
