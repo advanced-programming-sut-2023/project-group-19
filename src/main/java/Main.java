@@ -11,8 +11,11 @@ import view.LoginMenu;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static java.lang.Math.floor;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
+        System.out.println((int) floor(34 * 1.6));
 //        Scanner scanner = new Scanner(System.in);
 //        LoginMenu.run(scanner);
 //        User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);

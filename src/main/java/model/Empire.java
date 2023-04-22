@@ -6,6 +6,8 @@ import model.Human.Troop.Army;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static java.lang.Math.floor;
+
 public class Empire {
     private User user;
 
@@ -23,7 +25,6 @@ public class Empire {
     private int weaponsCount;
     private int resourcesCapacity = 100;
     private int resourcesCount;
-
     private int maxPossiblePopulation;
     private int PeasantCount;
     private int troopCount;
@@ -39,7 +40,6 @@ public class Empire {
     public void setPeasantCount(int peasantCount) {
         PeasantCount = peasantCount;
     }
-
 
     public int getTroopCount() {
         return troopCount;
@@ -887,6 +887,47 @@ public class Empire {
     public ArrayList<String> donation = new ArrayList<>();
 
     //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
+    // call these functions in the order that has been written in this part
+    public void taxImpactOnEmpire(Empire empire, int taxRate) {
+        switch (taxRate) {
+            case -3:
+                empire.setGoldCount(empire.getGoldCount() - empire.getPopulation());
+                empire.setPopularity(empire.getPopularity() + 7);
+            case -2:
+                empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.8));
+                empire.setPopularity(empire.getPopularity() + 5);
+            case -1:
+                empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.6));
+                empire.setPopularity(empire.getPopularity() + 3);
+            case 0:
+                empire.setPopularity(empire.getPopularity() + 1);
+            case 1:
+                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.6));
+                empire.setPopularity(empire.getPopularity() - 2);
+            case 2:
+                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.8));
+                empire.setPopularity(empire.getPopularity() - 4);
+            case 3:
+                empire.setGoldCount(empire.getGoldCount() + empire.getPopulation());
+                empire.setPopularity(empire.getPopularity() - 6);
+            case 4:
+                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.2));
+                empire.setPopularity(empire.getPopularity() - 8);
+            case 5:
+                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.4));
+                empire.setPopularity(empire.getPopularity() - 12);
+            case 6:
+                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.6));
+                empire.setPopularity(empire.getPopularity() - 16);
+            case 7:
+                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.8));
+                empire.setPopularity(empire.getPopularity() - 20);
+            case 8:
+                empire.setGoldCount(empire.getGoldCount() + empire.getPopulation() * 2);
+                empire.setPopularity(empire.getPopularity() - 24);
+        }
+    }
+
     public void independentProductionBuilding() { //part 1 of 5TYPE algorithm
         if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") <= resourcesCapacity) {
             stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
