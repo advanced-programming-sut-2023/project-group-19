@@ -1,0 +1,34 @@
+********      selecting buildings command      ********
+
+1 - small stone gatehouse / big stone gatehouse
+command : taxrate (int taxrate)
+
+********************************************************
+2 - drawbridge
+command : drawBridge up/down 
+
+********************************************************
+3 - select barracks
+command : create (troop name) (int count)
+
+********************************************************
+4 - select mercenary 
+command : create (troop name) (int count)
+
+********************************************************
+5 - select engineerGuild 
+command : create (engineer name) (int count)
+
+********************************************************
+6 - select shop
+command : *** pass to the shop menu ***
+
+********************************************************
+7 - select caged war dogs
+command : release dogs
+
+********************************************************
+8 - select siege tent
+command : create (siege name) (int count)
+
+********************************************************
