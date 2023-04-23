@@ -24,10 +24,11 @@ public enum BuildingCommands {
         this.name = name;
     }
 
-    BuildingCommands (String name){
+    BuildingCommands(String name) {
         this.name = Pattern.compile(name);
     }
-    public static Matcher getMatcher(String input , BuildingCommands command){
+
+    public static Matcher getMatcher(String input, BuildingCommands command) {
         Matcher matcher = command.name.matcher(input);
         return matcher.matches() ? matcher : null;
     }

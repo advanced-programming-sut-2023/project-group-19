@@ -33,10 +33,11 @@ public enum SelectedBuildingMessages {
         this.name = name;
     }
 
-    SelectedBuildingMessages (String name){
+    SelectedBuildingMessages(String name) {
         this.name = Pattern.compile(name);
     }
-    public static Matcher getMatcher(String input , SelectedBuildingMessages command){
+
+    public static Matcher getMatcher(String input, SelectedBuildingMessages command) {
         Matcher matcher = command.name.matcher(input);
         return matcher.matches() ? matcher : null;
     }

@@ -81,7 +81,7 @@ public class BuildingController {
                 }
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
-                drawBridge.drawBridge(x , y);
+                drawBridge.drawBridge(x, y);
                 if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
                     buildingCheckout(drawBridge, currentEmpire);
                     Map.AddToBuildingMap(x, y, drawBridge);
@@ -154,9 +154,9 @@ public class BuildingController {
             case "Armoury":
                 Armoury armoury = new Armoury(currentEmpire);
                 armoury.armoury();
-                if (empireHasEnoughResourcesToBuildTheBuilding(armoury, currentEmpire)){
+                if (empireHasEnoughResourcesToBuildTheBuilding(armoury, currentEmpire)) {
                     buildingCheckout(armoury, currentEmpire);
-                    Map.AddToBuildingMap(x, y,armoury);
+                    Map.AddToBuildingMap(x, y, armoury);
                     Map.notBuildable[x][y] = true;
                     Map.notPassable[x][y] = true;
                     return BuildingMessages.SUCCESS;
@@ -248,7 +248,7 @@ public class BuildingController {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
             case "Market":
-                Market market= new Market(currentEmpire);
+                Market market = new Market(currentEmpire);
                 market.market();
                 if (empireHasEnoughResourcesToBuildTheBuilding(market, currentEmpire)) {
                     buildingCheckout(market, currentEmpire);
@@ -392,7 +392,7 @@ public class BuildingController {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
             case "Pole Turner":
-                Weapon poleTurner=new Weapon(currentEmpire);
+                Weapon poleTurner = new Weapon(currentEmpire);
                 poleTurner.poleTurner();
                 if (empireHasEnoughResourcesToBuildTheBuilding(poleTurner, currentEmpire)) {
                     buildingCheckout(poleTurner, currentEmpire);
@@ -559,16 +559,42 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
+                //TODO : add fear impact on production buildings and soldiers
+            case "garden":
+                FearControl garden = new FearControl(currentEmpire);
+                garden.garden();
+                if (empireHasEnoughResourcesToBuildTheBuilding(garden, currentEmpire)) {
+                    buildingCheckout(garden, currentEmpire);
+                    Map.AddToBuildingMap(x, y, garden);
+                    Map.notBuildable[x][y] = true;
+                    Map.notPassable[x][y] = true;
+                    return BuildingMessages.SUCCESS;
+                } else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
+            case "torture chamber":
+                FearControl tortureChamber = new FearControl(currentEmpire);
+                tortureChamber.tortureChamber();
+                if (empireHasEnoughResourcesToBuildTheBuilding(tortureChamber, currentEmpire)) {
+                    buildingCheckout(tortureChamber, currentEmpire);
+                    Map.AddToBuildingMap(x, y, tortureChamber);
+                    Map.notBuildable[x][y] = true;
+                    Map.notPassable[x][y] = true;
+                    return BuildingMessages.SUCCESS;
+                } else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
         }
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
+
     //TODO : check the ground type while adding the buildings in callBuildingFunction
     public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup) {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         String type = typeGroup.group("type");
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
-            if(!Map.notBuildable[x][y] ) {
+            if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                     if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
                         if (HasBuildingInThisPlace(x, y)) {
@@ -577,19 +603,19 @@ public class BuildingController {
                         } else return BuildingMessages.INVALID_BUILDING_NAME;
                     }
                 }
-            }
-            else
+            } else
                 return BuildingMessages.FILLED_CELL;
         }
         return BuildingMessages.INVALID_COORDINATE;
     }
+
     public BuildingMessages selectBuilding(Matcher xGroup, Matcher yGroup) {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (HasBuildingInThisPlace(x, y)) {
                 if (Map.getBuildingMap()[x][y].get(0).getOwner().getName().equals(currentEmpire.getName())) {
-                    if(currentEmpire.getName().equals(Map.getBuildingMap()[x][y].get(0).getOwner().getName())) {
+                    if (currentEmpire.getName().equals(Map.getBuildingMap()[x][y].get(0).getOwner().getName())) {
                         selectedBuilding = Map.getBuildingMap()[x][y].get(0);
                         return BuildingMessages.SUCCESSFUL_SELECT;
                     }
@@ -627,7 +653,8 @@ public class BuildingController {
     public void increaseCapacityLimitation(int capacity) {
         currentEmpire.setMaxPossiblePopulation(currentEmpire.getMaxPossiblePopulation() + capacity);
     }
-    public void SelectedBuilding(Matcher xGroup, Matcher yGroup){
+
+    public void SelectedBuilding(Matcher xGroup, Matcher yGroup) {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         Building building = findSelectedBuilding(x, y);

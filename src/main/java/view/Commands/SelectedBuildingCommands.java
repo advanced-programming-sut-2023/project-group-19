@@ -31,10 +31,11 @@ public enum SelectedBuildingCommands {
         this.name = name;
     }
 
-    SelectedBuildingCommands (String name){
+    SelectedBuildingCommands(String name) {
         this.name = Pattern.compile(name);
     }
-    public static Matcher getMatcher(String input , SelectedBuildingCommands command){
+
+    public static Matcher getMatcher(String input, SelectedBuildingCommands command) {
         Matcher matcher = command.name.matcher(input);
         return matcher.matches() ? matcher : null;
     }

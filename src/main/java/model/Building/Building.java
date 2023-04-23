@@ -7,6 +7,20 @@ import java.util.HashMap;
 public abstract class Building implements BuildingConstantFunctions {
     private Empire owner;
     private String requiredGroundType;
+    private boolean castleType;
+
+    public boolean isCastleType() {
+        return castleType;
+    }
+
+    public void setCastleType(boolean castleType) {
+        this.castleType = castleType;
+    }
+
+    public Names getName() {
+        return name;
+    }
+
     private Names name;
     private int hp;
     private int maxHp;

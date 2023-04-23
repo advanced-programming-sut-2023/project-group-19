@@ -20,6 +20,8 @@ public enum Names {
     MOUNTED_SIEGE_EQUIPMENT("Mounted Siege Equipment"),
     ARMOURY("Armoury"),
     ARMOUR("Armour"),
+    TORTURE_CHAMBER("torture chamber"),
+    GARDEN("garden"),
     TUNNEL("Tunnel"),
     WEAPON("Weapon"),
     WORKSHOP("Workshop"),

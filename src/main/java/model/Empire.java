@@ -665,6 +665,7 @@ public class Empire {
     public void setKnightCount(int knightCount) {
         europeTroopCount.replace("knight", knightCount);
     }
+
     public int getBlackMonkCount() {
         return europeTroopCount.get("blackMonk");
     }
@@ -753,6 +754,7 @@ public class Empire {
     public void setTunnelerCount(int tunnelerCount) {
         engineerGuildTroopCount.replace("tunneler", tunnelerCount);
     }
+
     public int getPopularityFactorFood() {
         return popularityFactors.get("food");
     }
@@ -760,6 +762,7 @@ public class Empire {
     public void setPopularityFactorFood(int popularityFactorFood) {
         popularityFactors.replace("food", popularityFactorFood);
     }
+
     public int getPopularityFactorTax() {
         return popularityFactors.get("tax");
     }
@@ -767,6 +770,7 @@ public class Empire {
     public void setPopularityFactorTax(int popularityFactorTax) {
         popularityFactors.replace("tax", popularityFactorTax);
     }
+
     public int getPopularityFactorReligious() {
         return popularityFactors.get("religious");
     }
@@ -774,6 +778,7 @@ public class Empire {
     public void setPopularityFactorReligious(int popularityFactorReligious) {
         popularityFactors.replace("religious", popularityFactorReligious);
     }
+
     public int getPopularityFactorFear() {
         return popularityFactors.get("fear");
     }
@@ -798,6 +803,7 @@ public class Empire {
     public void setCatapultCount(int catapultCount) {
         popularityFactors.replace("catapult", catapultCount);
     }
+
     public int getTrebuchetCount() {
         return popularityFactors.get("trebuchet");
     }
@@ -805,6 +811,7 @@ public class Empire {
     public void setTrebuchetCount(int trebuchetCount) {
         popularityFactors.replace("trebuchet", trebuchetCount);
     }
+
     public int getSiegeTowerCount() {
         return popularityFactors.get("siegeTower");
     }
@@ -812,6 +819,7 @@ public class Empire {
     public void setSiegeTowerCount(int siegeTowerCount) {
         popularityFactors.replace("siegeTower", siegeTowerCount);
     }
+
     public int getFireBalistaCount() {
         return popularityFactors.get("fireBalista");
     }
@@ -819,6 +827,7 @@ public class Empire {
     public void setFireBalistaCount(int fireBalistaCount) {
         popularityFactors.replace("fireBalista", fireBalistaCount);
     }
+
     public int getBatteringRamCount() {
         return popularityFactors.get("batteringRam");
     }
@@ -826,6 +835,7 @@ public class Empire {
     public void setBatteringRamCount(int batteringRamCount) {
         popularityFactors.replace("batteringRam", batteringRamCount);
     }
+
     public int getPortableShieldCount() {
         return popularityFactors.get("portableShield");
     }
@@ -960,6 +970,7 @@ public class Empire {
         engineerGuildTroopCount.put("ladderMan", 0);
         engineerGuildTroopCount.put("tunneler", 0);
     }
+
     public HashMap<String, Integer> popularityFactors = new HashMap<>();
 
     {
@@ -968,6 +979,7 @@ public class Empire {
         popularityFactors.put("religious", 0);
         popularityFactors.put("fear", 0);
     }
+
     public HashMap<String, Integer> siegeTentTroopsCount = new HashMap<>();
 
     {
@@ -986,22 +998,77 @@ public class Empire {
     // call these functions in the order that has been written in this part
 
 
-    public void findFoodDiversity(){
+    public void findFoodDiversity() {
         int foodDiversity = 0;
-        if(allFood.get("apple") > 0) foodDiversity++;
-        if(allFood.get("bread") > 0 ) foodDiversity++;
-        if(allFood.get("cheese") > 0) foodDiversity++;
-        if(allFood.get("meat") > 0 ) foodDiversity++;
+        if (allFood.get("apple") > 0) foodDiversity++;
+        if (allFood.get("bread") > 0) foodDiversity++;
+        if (allFood.get("cheese") > 0) foodDiversity++;
+        if (allFood.get("meat") > 0) foodDiversity++;
         setFoodDiversity(foodDiversity);
-        switch (foodDiversity){
-            case 2 :
+        switch (foodDiversity) {
+            case 2:
                 setPopularity(getPopularity() + 1);
-            case 3 :
+            case 3:
                 setPopularity(getPopularity() + 2);
-            case 4 :
+            case 4:
                 setPopularity(getPopularity() + 3);
         }
     }
+
+    //TODO : call this function as the last one
+    public void givingPeopleFood(Empire empire) {
+        double foodPerPearson = 0;
+        int foodRate = empire.getFoodRateNumber();
+        switch (foodRate) {
+            case -2:
+                empire.setPopularity(empire.getPopularity() - 8);
+                foodPerPearson = 0;
+            case -1:
+                empire.setPopularity(empire.getPopularity() - 4);
+                foodPerPearson = 0.5;
+            case 0:
+                foodPerPearson = 1;
+            case 1:
+                empire.setPopularity(empire.getPopularity() + 4);
+                foodPerPearson = 1.5;
+            case 2:
+                empire.setPopularity(empire.getPopularity() + 8);
+                foodPerPearson = 2;
+        }
+        int totalFoodThatBeGivenToPeople = (int) foodPerPearson * population;
+        if (foodPerPearson * population >= empire.getTotalFoodCount()) {
+            while (totalFoodThatBeGivenToPeople != 0) {
+                if (allFood.get("apple") != 0) {
+                    allFood.replace("apple", allFood.get("apple") - 1);
+                    totalFoodThatBeGivenToPeople--;
+                }
+                if (allFood.get("cheese") != 0) {
+                    allFood.replace("cheese", allFood.get("cheese") - 1);
+                    totalFoodThatBeGivenToPeople--;
+                }
+                if (allFood.get("bread") != 0) {
+                    allFood.replace("bread", allFood.get("bread") - 1);
+                    totalFoodThatBeGivenToPeople--;
+                }
+                if (allFood.get("meat") != 0) {
+                    allFood.replace("meat", allFood.get("meat") - 1);
+                    totalFoodThatBeGivenToPeople--;
+                }
+            }
+
+        } else {
+            empire.setFoodRateNumber(-2);
+        }
+
+    }
+
+    public String showFoodList(Empire empire) {
+        return "apple :" + allFood.get("apple") + '\n' +
+                "bread :" + allFood.get("bread") + '\n' +
+                "cheese :" + allFood.get("cheese") + '\n' +
+                "meat :" + allFood.get("meat") + '\n';
+    }
+
     public void taxImpactOnEmpire(Empire empire, int taxRate) {
         switch (taxRate) {
             case -3:
@@ -1050,7 +1117,7 @@ public class Empire {
             case 8:
                 empire.setGoldCount(empire.getGoldCount() + empire.getPopulation() * 2);
                 empire.setPopularity(empire.getPopularity() - 24);
-                setPopularityFactorTax(getPopularityFactorFood() -24);
+                setPopularityFactorTax(getPopularityFactorFood() - 24);
         }
     }
 
