@@ -107,6 +107,7 @@ public class Industry extends Building implements BuildingConstantFunctions {
         rateOfMill=0;//TODO: NO IDEA
         names = Names.MILL;
         createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 3);
     }
 
     public void ironDig() {
@@ -114,12 +115,14 @@ public class Industry extends Building implements BuildingConstantFunctions {
         groundType=GroundType.IRON;
         names = Names.IRON_DIG;
         createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 2);
     }
 
     public void oxTether() {
         rateOfOxTether=0;//TODO:NO IDEA
         names = Names.OX_TETHER;
         createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     public void pitchRig() {
@@ -127,6 +130,7 @@ public class Industry extends Building implements BuildingConstantFunctions {
         names = Names.PITCH_RIG;
         groundType=GroundType.PLAIN;
         createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     public void quarry() {
@@ -134,12 +138,14 @@ public class Industry extends Building implements BuildingConstantFunctions {
         capacityOfQuarry=50;
         names = Names.QUARRY;
         createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 3);
     }
 
     public void woodCutter() {
         rateOfWoodCuter=0;//TODO: NO IDEA
         names = Names.WOODCUTTER;
         createBuildingCost(3, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     @Override

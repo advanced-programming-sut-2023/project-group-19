@@ -66,6 +66,7 @@ public class Inn extends Building implements BuildingConstantFunctions {
         wineUsage=5;//5 liters per day
         name = Names.INN;
         createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     @Override

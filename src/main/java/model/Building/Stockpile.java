@@ -66,11 +66,13 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
         currentIndustryCapacity=0;
         names = Names.STOCKPILE;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void foodProcessingStockpile() {
         names = Names.FOOD_PROCESSING_STOCKPILE;
         createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
 
