@@ -7,6 +7,7 @@ import model.Empire;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Commands.BuildingCommands;
 import view.LoginMenu;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
+//        System.out.println(BuildingCommands.INVALID_COMMAND.getName());
 //        System.out.println(Names.APOTHECARY.equals(Names.APOTHECARY));
 //        System.out.println((int) floor(34 * 1.6));
 //        Scanner scanner = new Scanner(System.in);

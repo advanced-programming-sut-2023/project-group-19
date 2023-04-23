@@ -11,7 +11,11 @@ public enum SelectedBuildingCommands {
     SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK("^(catapult|trebuchet|siegeTower|fireBalista|batteringRam|portableShield)$"),
     SELECTED_BUILDING_MERCENARY_TROOP_NAME_CHECK("(arabianBow|slave|slinger|assassin|horseArcher|arabianSwordMan|fireThrower)"),
     SELECTED_BUILDING_ENGINEER_GUILD_TROOP_NAME_CHECK("^(engineer|ladderMan|tunneler)$"),
-    SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK("^blackMonk$");
+    SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK("^blackMonk$"),
+    BUILDING_COMMANDS_CREATE_UNIT("createunit"),
+    BUILDING_COMMANDS_REPAIR("repair"),
+    BUILDING_COMMANDS_FIND_CREATE_UNIT_TYPE("-t\\s+(?<type>\\w+)"),
+    BUILDING_COMMANDS_FIND_COUNT("-c\\s+(?<count>\\d+)");
 
     String regex;
 

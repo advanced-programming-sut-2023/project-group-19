@@ -2,10 +2,11 @@ package controller.Building;
 
 import model.Building.*;
 import model.Empire;
-import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
-import view.Commands.BuildingMessages;
+import view.Messages.BuildingMessages;
+
+import java.util.regex.Matcher;
 
 
 public class BuildingController {
@@ -557,25 +558,31 @@ public class BuildingController {
         }
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
-
-    public BuildingMessages dropBuilding(int x, int y, String type, Building newBuilding) {
+    //TODO : check the ground type while adding the buildings in callBuildingFunction
+    public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup) {
+        int x = Integer.parseInt(xGroup.group("x"));
+        int y = Integer.parseInt(yGroup.group("y"));
+        String type = typeGroup.group("type");
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
-            for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
-                if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
-                    if (correctGroundType(x, y, newBuilding)) {
+            if(!Map.notBuildable[x][y] ) {
+                for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
+                    if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
                         if (HasBuildingInThisPlace(x, y)) {
                             callBuildingFunction(x, y, type);
                             break;
-                        } else return BuildingMessages.FILLED_CELL;
-                    } else return BuildingMessages.INPROPER_GROUND_TYPE;
+                        } else return BuildingMessages.INVALID_BUILDING_NAME;
+                    }
                 }
             }
-            return BuildingMessages.INVALID_BUILDING_NAME;
+            else
+                return BuildingMessages.FILLED_CELL;
         }
         return BuildingMessages.INVALID_COORDINATE;
     }
 
-    public BuildingMessages selectBuilding(int x, int y) {
+    public BuildingMessages selectBuilding(Matcher xGroup, Matcher yGroup) {
+        int x = Integer.parseInt(xGroup.group("x"));
+        int y = Integer.parseInt(yGroup.group("y"));
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (HasBuildingInThisPlace(x, y)) {
                 if (Map.getBuildingMap()[x][y].get(0).getOwner().getName().equals(currentEmpire.getName())) {
@@ -586,10 +593,12 @@ public class BuildingController {
         return BuildingMessages.INVALID_COORDINATE;
     }
 
-    public BuildingMessages repairBuilding(int x, int y) {
+    public BuildingMessages repairBuilding(Matcher xGroup, Matcher yGroup) {
         // TODO A MENU FOR COMMANDS AFTER SELECTING THE BUILDING TO SEE WHICH CHANGE IS GONNA BE APPLIED
         ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING? ----> i dont think soo(Arian)
         //TODO AFTER COMPLETING THE ARMIES SEARCH TO SEE IF ENEMIES ARE IN THE GIVEN POSITION
+        int x = Integer.parseInt(xGroup.group("x"));
+        int y = Integer.parseInt(yGroup.group("y"));
         int requiredStone = 50;
         Building building = findSelectedBuilding(x, y);
         if (building != null) {
@@ -614,7 +623,9 @@ public class BuildingController {
     public void increaseCapacityLimitation(int capacity) {
         currentEmpire.setMaxPossiblePopulation(currentEmpire.getMaxPossiblePopulation() + capacity);
     }
-    public void SelectedBuilding(int x, int y){
+    public void SelectedBuilding(Matcher xGroup, Matcher yGroup){
+        int x = Integer.parseInt(xGroup.group("x"));
+        int y = Integer.parseInt(yGroup.group("y"));
         Building building = findSelectedBuilding(x, y);
         SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
         SelectedBuildingController.empire = currentEmpire;

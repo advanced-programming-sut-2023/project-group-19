@@ -1,4 +1,4 @@
-package view.Commands;
+package view.Messages;
 
 public enum BuildingMessages {
     INVALID_COORDINATE("Invalid coordinate!"),
@@ -16,6 +16,15 @@ public enum BuildingMessages {
     CONTINUE("Continue"),
     SUCCESS("building created successfully");
     private String messages;
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
+
     BuildingMessages(String messages) {
         this.messages=messages;
     }
