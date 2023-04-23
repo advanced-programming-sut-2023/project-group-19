@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 
 public enum CreateMapCommands {
     MOVING_MAP("map"),
-    MOVING_MAP_INTO_DIRECTION("(?<type>left|right|up|down)\\s+(?<number>\\d+)?");
+    SHOW_DETAIL_X("-x\\s+(?<x>\\d+)"),
+    SHOW_DETAIL_Y("-y\\s+(?<y>\\d+)"),
+    SHOW_DETAIL("show\\s+detail");
+
     String regex ;
     CreateMapCommands(String regex){
         this.regex = regex;

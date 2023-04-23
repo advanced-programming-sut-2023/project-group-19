@@ -114,7 +114,7 @@ public class CreateMapController {
 
     }
 
-    public static String  moveMap(int deltaX , int deltaY){
+    public static String moveMap(int deltaX , int deltaY){
         leftLimit += deltaY ;
         rightLimit += deltaY ;
         uplimit += deltaX ;
@@ -124,4 +124,30 @@ public class CreateMapController {
 
         return makeMap();
     }
+    public static String showDetail(int x , int y){
+        Building building ;
+        String buildingName = "empty";
+        Army army ;
+        String armyName = "empty";
+        String grounfType = "empty";
+        int numOfArmy = 0 ;
+        if(!Map.getBuildingMap()[x][y].isEmpty()){
+            building = Map.getBuildingMap()[x][y].get(0);
+            buildingName = String.valueOf(building.getName());
+        }
+        if(!Map.getTroopMap()[x][y].isEmpty()){
+            army = Map.getTroopMap()[x][y].get(0);
+            armyName = String.valueOf(army.getNames());
+            numOfArmy = Map.getTroopMap()[x][y].size();
+        }
+        if(!Map.getGroundType()[x][y].isEmpty()){
+            grounfType = Map.getGroundType()[x][y].get(0).getGroundType();
+        }
+        return "Building: " + buildingName + "\n" +
+                "army: " + armyName +  " --> " + numOfArmy + "\n" +
+                "ground type: " + grounfType ;
+
+
+    }
+
 }

@@ -2,10 +2,16 @@ package model.Human.Troop;
 
 import model.Empire;
 import model.Human.Human;
+import model.Human.Names;
 
 public class Army extends Human {
     public Army(Empire government) {
         super(government);
+    }
+    private Names names;
+
+    public Names getNames() {
+        return names;
     }
 
     private String armyForm;

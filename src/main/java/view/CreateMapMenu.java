@@ -4,6 +4,7 @@ import model.Map;
 import controller.*;
 import view.Commands.CreateMapCommands;
 import view.Commands.LoginAndRegisterCommands;
+import view.Commands.MainMenuCommands;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -17,7 +18,10 @@ public class CreateMapMenu {
             command = scanner.nextLine();
             if((matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.MOVING_MAP)) != null){
                 movingMap(command);
-            }else System.out.println("invalid command");
+            }else if((matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_DETAIL)) != null){
+                showDetail(command);
+            }
+            else System.out.println("invalid command");
         }
 
     }
@@ -58,12 +62,26 @@ public class CreateMapMenu {
                     break;
             }
         }
-
         int deltaX = up + down ;
         int deltaY = right + left  ;
-        System.out.println(deltaX);
-        System.out.println(deltaY);
         System.out.println(CreateMapController.moveMap(deltaX,deltaY));
 
+    }
+    public static void showDetail(String command){
+        Matcher matcher ;
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_DETAIL_X);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_DETAIL_Y);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        System.out.println(CreateMapController.showDetail(x,y));
     }
 }
