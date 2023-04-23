@@ -3,10 +3,9 @@ package controller.Building;
 import model.Building.Building;
 import model.Building.DrawBridge;
 import model.Human.Troop.Army;
-import model.Human.Troop.SiegeTent;
 import model.Empire;
-import model.Human.Troop.ArabArmy;
 import model.Human.Troop.EuropeArmy;
+import model.Human.Troop.ArabArmy;
 import model.Map;
 
 import java.util.HashMap;
@@ -58,43 +57,43 @@ public class SelectedBuildingController {
             case "archer":
                 empire.setEuropeArcherCount(empire.getEuropeArcherCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy archer = new EuropeArmy(empire);
+                    ArabArmy archer = new ArabArmy(empire);
                     empire.empireArmy.add(archer);
                 }
             case "spearMan":
                 empire.setSpearManCount(empire.getSpearManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy spearMan = new EuropeArmy(empire);
+                    ArabArmy spearMan = new ArabArmy(empire);
                     empire.empireArmy.add(spearMan);
                 }
             case "maceMan":
                 empire.setMaceManCount(empire.getMaceManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy maceMan = new EuropeArmy(empire);
+                    ArabArmy maceMan = new ArabArmy(empire);
                     empire.empireArmy.add(maceMan);
                 }
             case "crossbowMan":
                 empire.setCrossbowManCount(empire.getCrossbowManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy crossbowMan = new EuropeArmy(empire);
+                    ArabArmy crossbowMan = new ArabArmy(empire);
                     empire.empireArmy.add(crossbowMan);
                 }
             case "pikeMan":
                 empire.setPikeManCount(empire.getPikeManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy pikeMan = new EuropeArmy(empire);
+                    ArabArmy pikeMan = new ArabArmy(empire);
                     empire.empireArmy.add(pikeMan);
                 }
             case "swordMan":
                 empire.setSwordManCount(empire.getSwordManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy swordMan = new EuropeArmy(empire);
+                    ArabArmy swordMan = new ArabArmy(empire);
                     empire.empireArmy.add(swordMan);
                 }
             case "knight":
                 empire.setKnightCount(empire.getKnightCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy knight = new EuropeArmy(empire);
+                    ArabArmy knight = new ArabArmy(empire);
                     empire.empireArmy.add(knight);
                 }
         }
@@ -229,43 +228,43 @@ public class SelectedBuildingController {
             case "arabianBow":
                 empire.setArabianBowCount(empire.getArabianBowCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy arabianBow = new ArabArmy(empire);
+                    EuropeArmy arabianBow = new EuropeArmy(empire);
                     empire.empireArmy.add(arabianBow);
                 }
             case "slave":
                 empire.setSlaveCount(empire.getSlaveCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy slave = new ArabArmy(empire);
+                    EuropeArmy slave = new EuropeArmy(empire);
                     empire.empireArmy.add(slave);
                 }
             case "slinger":
                 empire.setSlingerCount(empire.getSlingerCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy slinger = new ArabArmy(empire);
+                    EuropeArmy slinger = new EuropeArmy(empire);
                     empire.empireArmy.add(slinger);
                 }
             case "assassin":
                 empire.setAssassinCount(empire.getAssassinCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy assassin = new ArabArmy(empire);
+                    EuropeArmy assassin = new EuropeArmy(empire);
                     empire.empireArmy.add(assassin);
                 }
             case "horseArcher":
                 empire.setHorseArcherCount(empire.getHorseArcherCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy horseArcher = new ArabArmy(empire);
+                    EuropeArmy horseArcher = new EuropeArmy(empire);
                     empire.empireArmy.add(horseArcher);
                 }
             case "arabianSwordMan":
                 empire.setArabianSwordManCount(empire.getArabianSwordManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy arabianSwordMan = new ArabArmy(empire);
+                    EuropeArmy arabianSwordMan = new EuropeArmy(empire);
                     empire.empireArmy.add(arabianSwordMan);
                 }
             case "fireThrower":
                 empire.setFireThrowerCount(empire.getFireThrowerCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy fireThrower = new ArabArmy(empire);
+                    EuropeArmy fireThrower = new EuropeArmy(empire);
                     empire.empireArmy.add(fireThrower);
                 }
         }
@@ -402,7 +401,7 @@ public class SelectedBuildingController {
         // actually this function shouldn't exist  this is just a sign to know that we must pass it to the shop menu
 
     }
-
+    //TODO : check the siegeTent algorithm later because i feel i have had a mistake in it but cant see it right now
     public SelectedBuildingMessages enoughResourcesToBuyFromSiegeTent(Empire empire, int troopPrice, int troopCount) {
         int empiresGoldCount = empire.getGoldCount();
         int empiresEngineerCount = empire.getEngineerCount();
@@ -512,6 +511,7 @@ public class SelectedBuildingController {
         }
         return null;
     }
+
 
 
 }

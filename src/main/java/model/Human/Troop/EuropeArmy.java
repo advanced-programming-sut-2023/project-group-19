@@ -1,10 +1,7 @@
 package model.Human.Troop;
 
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
-
-import java.security.PublicKey;
 
 public class EuropeArmy extends Army {
     public EuropeArmy(Empire government) {
@@ -17,7 +14,7 @@ public class EuropeArmy extends Army {
         return names;
     }
 
-    private String ArmyForm;
+    private String armyForm;
 
     public void setNames(Names names) {
         this.names = names;
@@ -25,12 +22,12 @@ public class EuropeArmy extends Army {
 
     @Override
     public String getArmyForm() {
-        return ArmyForm;
+        return armyForm;
     }
 
     @Override
     public void setArmyForm(String armyForm) {
-        ArmyForm = armyForm;
+        this.armyForm = armyForm;
     }
 
     private int hp;
@@ -81,37 +78,55 @@ public class EuropeArmy extends Army {
         this.attackPower = attackPower;
     }
 
-    public void ArcherBow() {
-        names = Names.ARCHER_BOW;
+    public void archer() {
+        names = Names.ARCHER;
 
     }
 
-    public void Slaves() {
-        names = Names.SLAVES;
+    public void Crossbowmen() {
+        names = Names.CROSSBOWMEN;
 
     }
 
-    public void Slingers() {
-        names = Names.SLINGERS;
+    public void SpearMen() {
+        names = Names.SPEAR_MEN;
 
     }
 
-    public void Assassins() {
-        names = Names.ASSASSINS;
-    }
-
-    public void HorseArchers() {
-        names = Names.HORSE_ARCHERS;
+    public void PikeMen() {
+        names = Names.PIKE_MEN;
 
     }
 
-    public void ArabianSwordsmen() {
-        names = Names.ARABIAN_SWORDSMEN;
+    public void MaceMen() {
+        names = Names.MACE_MEN;
 
     }
 
-    public void FireThrowers() {
-        names = Names.FireThrowers;
+    public void Swordsmen() {
+        names = Names.SWORDSMEN;
 
     }
+
+    public void Knight() {
+        names = Names.KNIGHT;
+
+    }
+
+    public void Tunneler() {
+        names = Names.TUNNELER;
+
+    }
+
+    public void LadderMen() {
+        names = Names.LADDER_MEN;
+
+    }
+
+    public void BlackMonk() {
+        names = Names.BLACK_MONK;
+
+    }
+
+
 }
