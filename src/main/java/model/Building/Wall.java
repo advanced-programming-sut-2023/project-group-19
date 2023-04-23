@@ -46,16 +46,19 @@ public class Wall extends Building {
     public void bigWall(int x, int y) {
         name = Names.BIG_WALL;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void smallWall(int x, int y) {
         name = Names.SMALL_WALL;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void stair(int x, int y) {
         name = Names.STAIR;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

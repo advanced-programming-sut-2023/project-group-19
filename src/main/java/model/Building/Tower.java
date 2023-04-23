@@ -93,6 +93,7 @@ public class Tower extends Building {
         defendRange=700;
         name = Names.LOOKOUT_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void perimeterTower() {
@@ -102,6 +103,7 @@ public class Tower extends Building {
         defendRange=700;
         name = Names.PERIMETER_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void defendTower() {
@@ -111,6 +113,7 @@ public class Tower extends Building {
         defendRange=900;
         name = Names.DEFEND_TOWER;
         createBuildingCost(0, 15, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void squareTower() {
@@ -120,6 +123,7 @@ public class Tower extends Building {
         defendRange=800;
         name = Names.SQUARE_TOWER;
         createBuildingCost(0, 35, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void roundTower() {
@@ -129,6 +133,7 @@ public class Tower extends Building {
         defendRange=700;
         name = Names.ROUND_TOWER;
         createBuildingCost(0, 40, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

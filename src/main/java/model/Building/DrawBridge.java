@@ -100,6 +100,7 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         bridgeState = true;//passable
         createBuildingCost(10, 0, 0, 0, 0);
         Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 10);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override
