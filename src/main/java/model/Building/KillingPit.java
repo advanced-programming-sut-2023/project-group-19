@@ -46,6 +46,7 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
         damage=100;
         name = Names.KILLING_PIT;
         createBuildingCost(6, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
 

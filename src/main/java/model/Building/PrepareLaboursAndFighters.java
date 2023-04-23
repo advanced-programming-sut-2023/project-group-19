@@ -85,12 +85,14 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
         costOfBarracks=50;
         name = Names.BARRACK;
         createBuildingCost(0, 15, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void mercenary() {
         costOfMercenary=30;
         name = Names.MERCENARY_POST;
         createBuildingCost(10, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void engineerGuild() {
@@ -99,11 +101,13 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
         costOfLadderMan=20;
         name = Names.ENGINEER_GUILD;
         createBuildingCost(10, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void tunnelerGuild() {
         name = Names.TUNNELER;
         createBuildingCost(10, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override
