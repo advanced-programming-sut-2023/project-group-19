@@ -26,6 +26,8 @@ public abstract class Building implements BuildingConstantFunctions {
     private int maxHp;
     public HashMap<String, Integer> cost = new HashMap<>();
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
@@ -45,6 +47,7 @@ public abstract class Building implements BuildingConstantFunctions {
     public Names getNameEnum() {
         return name;
     }
+
     public String showBuildingName() {
         return name.getName();
     }

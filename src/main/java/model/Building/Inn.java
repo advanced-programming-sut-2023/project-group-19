@@ -53,6 +53,12 @@ public class Inn extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
 
     public void inn() {
         //TODO: FUNCTION FOR POPULARITY RATE CHANGE ACCORDING TO DOC
