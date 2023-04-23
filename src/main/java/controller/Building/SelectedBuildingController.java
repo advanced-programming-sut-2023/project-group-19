@@ -120,7 +120,7 @@ public class SelectedBuildingController {
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
 
-    public SelectedBuildingMessages blacksmith(String troopName, int count) {
+    public SelectedBuildingMessages Barracks(String troopName, int count) {
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
         {
@@ -402,6 +402,7 @@ public class SelectedBuildingController {
         // actually this function shouldn't exist  this is just a sign to know that we must pass it to the shop menu
 
     }
+
     //TODO : check the siegeTent algorithm later because i feel i have had a mistake in it but cant see it right now
     public SelectedBuildingMessages enoughResourcesToBuyFromSiegeTent(Empire empire, int troopPrice, int troopCount) {
         int empiresGoldCount = empire.getGoldCount();
@@ -411,7 +412,8 @@ public class SelectedBuildingController {
         if (totalBuyPrice > empiresGoldCount) return SelectedBuildingMessages.NOT_ENOUGH_GOLD;
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
-    public void buyFromSiegeTent(Empire empire, int troopPrice, String troopName, int troopCount){
+
+    public void buyFromSiegeTent(Empire empire, int troopPrice, String troopName, int troopCount) {
         empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
         empire.setEngineerCount(empire.getEngineerCount() - 3 * troopCount);
         empire.setTroopCount(empire.getTroopCount() + troopCount);
@@ -441,7 +443,7 @@ public class SelectedBuildingController {
                     empire.empireArmy.add(fireBalista);
                 }
             case "batteringRam":
-                empire.setBatteringRamCount(empire.getBatteringRamCount()+ troopCount);
+                empire.setBatteringRamCount(empire.getBatteringRamCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
                     Army batteringRam = new Army(empire);
                     empire.empireArmy.add(batteringRam);
@@ -454,6 +456,7 @@ public class SelectedBuildingController {
                 }
         }
     }
+
     public SelectedBuildingMessages siegeTent(String siegeName, int count) {
 
         HashMap<String, Integer> siegeTentTroopsPrice = new HashMap<>();
@@ -472,10 +475,10 @@ public class SelectedBuildingController {
                     buyFromSiegeTent(empire, siegeTentTroopsPrice.get("catapult"), siegeName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("catapult"),  count));
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("catapult"), count));
                 }
             case "trebuchet":
-                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("trebuchet"),  count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("trebuchet"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromSiegeTent(empire, siegeTentTroopsPrice.get("trebuchet"), siegeName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
@@ -486,34 +489,34 @@ public class SelectedBuildingController {
                     buyFromSiegeTent(empire, siegeTentTroopsPrice.get("siegeTower"), siegeName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("siegeTower"),  count));
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("siegeTower"), count));
                 }
             case "fireBalista":
-                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"),  count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"), siegeName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
                     return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("fireBalista"), count));
                 }
             case "batteringRam":
-                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"),  count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"), siegeName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"),  count));
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("batteringRam"), count));
                 }
             case "portableShield":
-                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"),  count  / 3).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                if (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), count / 3).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
                     buyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), siegeName, count / 3);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), count /3));
+                    return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), count / 3));
                 }
         }
         return null;
     }
 
-    public SelectedBuildingMessages enoughResourcesToBuyFromChurch(Empire empire, int troopPrice, int troopCount){
+    public SelectedBuildingMessages enoughResourcesToBuyFromChurch(Empire empire, int troopPrice, int troopCount) {
         int empiresGoldCount = empire.getGoldCount();
         int empiresPeasantsCount = empire.getPeasantCount();
         if (empiresPeasantsCount < troopCount) return SelectedBuildingMessages.NOT_ENOUGH_PEASANTS;
@@ -521,7 +524,8 @@ public class SelectedBuildingController {
         if (totalBuyPrice > empiresGoldCount) return SelectedBuildingMessages.NOT_ENOUGH_GOLD;
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
-    public void buyFromChurch(Empire empire, int troopPrice, int troopCount){
+
+    public void buyFromChurch(Empire empire, int troopPrice, int troopCount) {
         empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
         empire.setPeasantCount(empire.getEngineerCount() - troopCount);
         empire.setTroopCount(empire.getTroopCount() + troopCount);
@@ -531,7 +535,8 @@ public class SelectedBuildingController {
             empire.empireArmy.add(BlackMonk);
         }
     }
-    public SelectedBuildingMessages church(int count){
+
+    public SelectedBuildingMessages church(int count) {
         HashMap<String, Integer> churchTroopsPrice = new HashMap<>();
 
         {
@@ -542,11 +547,10 @@ public class SelectedBuildingController {
             buyFromChurch(empire, churchTroopsPrice.get("blackMonk"), count);
             return SelectedBuildingMessages.PURCHASE_SUCCESS;
         } else {
-            return (enoughResourcesToBuyFromChurch(empire, churchTroopsPrice.get("blackMonk"),  count));
+            return (enoughResourcesToBuyFromChurch(empire, churchTroopsPrice.get("blackMonk"), count));
         }
 
     }
-
 
 
 }

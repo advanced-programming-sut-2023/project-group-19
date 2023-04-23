@@ -1,5 +1,6 @@
 import controller.JsonController;
 import model.Building.Names;
+import model.Building.SiegeTent;
 import model.Building.StoneGateWay;
 import model.Building.Tower;
 import model.Empire;
@@ -15,7 +16,8 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-        System.out.println((int) floor(34 * 1.6));
+//        System.out.println(Names.APOTHECARY.equals(Names.APOTHECARY));
+//        System.out.println((int) floor(34 * 1.6));
 //        Scanner scanner = new Scanner(System.in);
 //        LoginMenu.run(scanner);
 //        User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
@@ -38,14 +40,15 @@ public class Main {
 //        }
 
 
+
 //        Empire empire = new Empire();
 //        Map.CreateMap(200);
 //        StoneGateWay stoneGateWay = new StoneGateWay(empire);
 //        stoneGateWay.smallGateWay();
-//        Tower tower = new Tower(empire);
-//        tower.lookoutTower();
-//        System.out.println(tower.showBuildingName());
-//        Map.buildingMap[0][1].add(tower);
+//        SiegeTent siegeTent = new SiegeTent(empire);
+//        siegeTent.siegeTent();
+//        System.out.println(siegeTent.showBuildingName());
+//        Map.buildingMap[0][1].add(siegeTent);
 //        System.out.println(Map.buildingMap[0][1].get(0).showBuildingName());
 //        System.out.println(stoneGateWay.getMaxHP());
 //        Map.buildingMap[0][0].add(stoneGateWay);
