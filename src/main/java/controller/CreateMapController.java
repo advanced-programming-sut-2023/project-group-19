@@ -17,15 +17,16 @@ public class CreateMapController {
     static int rightLimit ;
     static int uplimit ;
     static int downLimit ;
-    public static String showMap(int xInput , int yInput){
+    public static String showMap(int xInput , int yInput , boolean isMove){
         if((xInput <= 0  || xInput > size) || (yInput <= 0 || yInput > size)) return "fill correctly;" +
                 "your numbers out of bounds";
         x = xInput;
         y = yInput;
-        downLimit = x + 2 ;
-        uplimit = x - 2 ;
-        rightLimit = y + 9 ;
-        leftLimit = y - 9 ;
+        downLimit = x + 2;
+        uplimit = x - 2;
+        rightLimit = y + 9;
+        leftLimit = y - 9;
+
         if(uplimit < 0) uplimit = 1 ;
         if(downLimit > size) downLimit = size ;
         if(leftLimit < 0) leftLimit = 1 ;
@@ -62,6 +63,8 @@ public class CreateMapController {
                             if(name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = 'T';
+                        }else if(row == x-1 && k - 1 == y - 1){
+                            type = '&';
                         }else type = ' ';
                         square.append(type);
                     }
@@ -86,7 +89,19 @@ public class CreateMapController {
     }
 
     public static String  moveMap(int deltaX , int deltaY){
-        return showMap(x + deltaX , y + deltaY);
+        leftLimit += deltaY ;
+        rightLimit += deltaY ;
+        uplimit += deltaX ;
+        downLimit += deltaX ;
+//        System.out.println(leftLimit);
+//        System.out.println(rightLimit);
+//        System.out.println(size);
+        //189
+        //199
+        if(leftLimit <= 0  || rightLimit> size || uplimit  <= 0 || downLimit  > size) return "fill correctly;" +
+                "your numbers****out of bounds";
+
+        return makeMap();
     }
 }
 //downlimit

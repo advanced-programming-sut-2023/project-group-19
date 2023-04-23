@@ -23,7 +23,12 @@ public class Main {
         Map.CreateMap(200);
         Empire emoire = new Empire();
         Army army = new Army(emoire);
-        Map.getTroopMap()[199][197].add(army);
+        int x = 200;
+        int y = 200;
+        //show map -x 198 -y 199
+        Map.getTroopMap()[x - 1][y - 1].add(army);
+        Scanner scanner = new Scanner(System.in);
+        LoginMenu.run(scanner);
 //        System.out.println(CreateMapController.showMap(199,199));
 
 //        String regex =  "(?<number>\\d+)";
@@ -39,8 +44,7 @@ public class Main {
 //        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
 
 //        System.out.println(Manage.allUsers.size());
-//        Scanner scanner = new Scanner(System.in);
-//        LoginMenu.run(scanner);
+
 //        user1.addUserToAllUsersArrayList(user1);
 //        System.out.println(Manage.allUsers.get(0).getPassword());
 

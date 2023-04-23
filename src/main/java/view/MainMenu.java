@@ -47,7 +47,7 @@ public class MainMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(CreateMapController.showMap(x,y));
+        System.out.println(CreateMapController.showMap(x,y,false));
         CreateMapMenu.run(scanner);
 
     }

@@ -7,6 +7,7 @@ import view.Commands.LoginAndRegisterCommands;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateMapMenu {
     public static void run(Scanner scanner){
@@ -28,12 +29,16 @@ public class CreateMapMenu {
         int left = 0;
         int right = 0;
         Matcher matcher;
-        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.MOVING_MAP_INTO_DIRECTION);
-        while(matcher != null){
+        command = command.replaceAll("map","");
+        System.out.println(command);
+        String regex = "(?<type>\\S+)\\s*(?<number>\\d+)?";
+        matcher = Pattern.compile(regex).matcher(command);
+//        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.MOVING_MAP_INTO_DIRECTION);
+        while(matcher.find()){
             String type =  matcher.group("type");
             String number = matcher.group("number");
-            System.out.println(type + " " + number);
-            //show map -x 198 -y 195
+            System.out.println(type + "%%%" + number);
+            //show map -x 200 -y 200
             switch (type){
                 case "left" :
                     if(number != null) left = -1 * Integer.parseInt(number);
@@ -52,12 +57,13 @@ public class CreateMapMenu {
                     else down = 1 ;
                     break;
             }
-            matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.MOVING_MAP_INTO_DIRECTION);
         }
 
         int deltaX = up + down ;
-        int delataY = right + left  ;
-        System.out.println(CreateMapController.moveMap(deltaX,delataY));
+        int deltaY = right + left  ;
+        System.out.println(deltaX);
+        System.out.println(deltaY);
+        System.out.println(CreateMapController.moveMap(deltaX,deltaY));
 
     }
 }
