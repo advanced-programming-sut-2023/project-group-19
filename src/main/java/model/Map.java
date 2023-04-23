@@ -10,8 +10,18 @@ import java.util.Arrays;
 public class Map {
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
+
+    public static ArrayList<Army>[][] getTroopMap() {
+        return troopMap;
+    }
+
     public static ArrayList<Obstacle>[][] obstacleMap;
-    public static ArrayList<String>[][] groundType;
+
+    public static ArrayList<Obstacle>[][] getObstacleMap() {
+        return obstacleMap;
+    }
+
+    public static ArrayList<GroundType>[][] groundType;
     public static boolean[][] notPassable; // for troop
     public static boolean[][] notBuildable; // for building
 
@@ -23,7 +33,7 @@ public class Map {
         buildingMap[x][y].add(newBuilding);
     }
 
-    public static ArrayList<String>[][] getGroundType() {
+    public static ArrayList<GroundType>[][] getGroundType() {
         return groundType;
     }
 

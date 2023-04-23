@@ -15,6 +15,7 @@ public enum GroundType {
     GroundType(String groundType) {
         this.groundType = groundType;
     }
+    public GroundType getEnumGroundType ;
 
     public String getGroundType() {
         return groundType;

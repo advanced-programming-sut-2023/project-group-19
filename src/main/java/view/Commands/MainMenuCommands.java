@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 
 public enum MainMenuCommands {
     ENTER_PROFILE_MENU("enter\\s+profile\\s+menu"),
-    LOGOUT("\\s*logou\\s*");
+    LOGOUT("\\s*logou\\s*"),
+    SHOW_MAP("show\\s+map"),
+    SHOW_MAP_X("-x\\s+(?<x>\\d+)"),
+    SHOW_MAP_Y("-y\\s+(?<y>\\d+)");
     String regex ;
     MainMenuCommands(String regex){
         this.regex = regex;

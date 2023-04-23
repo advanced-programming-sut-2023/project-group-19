@@ -1,4 +1,7 @@
+import controller.CreateMapController;
 import controller.JsonController;
+import model.Building.Armoury;
+import model.Building.Building;
 import model.Building.StoneGateWay;
 import model.Building.Tower;
 import model.Empire;
@@ -8,18 +11,21 @@ import model.User;
 import view.LoginMenu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-
+        Map.CreateMap(200);
+//        if(Map.getBuildingMap()[0][6].get(0) == null) System.out.println("yes");
+        System.out.println(CreateMapController.showMap(30,40));
 
 //        System.out.println(Manage.allUsers.size());
 //        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);
 
 //        System.out.println(Manage.allUsers.size());
-        Scanner scanner = new Scanner(System.in);
-        LoginMenu.run(scanner);
+//        Scanner scanner = new Scanner(System.in);
+//        LoginMenu.run(scanner);
 //        user1.addUserToAllUsersArrayList(user1);
 //        System.out.println(Manage.allUsers.get(0).getPassword());
 
