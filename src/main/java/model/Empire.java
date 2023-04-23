@@ -665,6 +665,13 @@ public class Empire {
     public void setKnightCount(int knightCount) {
         europeTroopCount.replace("knight", knightCount);
     }
+    public int getBlackMonkCount() {
+        return europeTroopCount.get("blackMonk");
+    }
+
+    public void setBlackMonkCount(int blackMonkCount) {
+        europeTroopCount.replace("blackMonk", blackMonkCount);
+    }
 
     public int getArabianBowCount() {
         return arabTroopCount.get("arabianBow");
@@ -931,6 +938,7 @@ public class Empire {
         europeTroopCount.put("pikeMan", 0);
         europeTroopCount.put("swordMan", 0);
         europeTroopCount.put("knight", 0);
+        europeTroopCount.put("blackMonk", 0);
     }
 
     public HashMap<String, Integer> arabTroopCount = new HashMap<>();

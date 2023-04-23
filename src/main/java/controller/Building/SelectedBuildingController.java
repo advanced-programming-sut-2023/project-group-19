@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class SelectedBuildingController {
     public static Empire empire;
     public static Building selectedBuilding;
+    //TODO : all the troops made in here . their functions is not called in the functions soo after fixing the troops class it must be added
 
     public SelectedBuildingMessages gatehouse(int taxRate) {
         if (taxRate > 7 | taxRate < -3) {
@@ -510,6 +511,40 @@ public class SelectedBuildingController {
                 }
         }
         return null;
+    }
+
+    public SelectedBuildingMessages enoughResourcesToBuyFromChurch(Empire empire, int troopPrice, int troopCount){
+        int empiresGoldCount = empire.getGoldCount();
+        int empiresPeasantsCount = empire.getPeasantCount();
+        if (empiresPeasantsCount < troopCount) return SelectedBuildingMessages.NOT_ENOUGH_PEASANTS;
+        int totalBuyPrice = troopPrice * troopCount;
+        if (totalBuyPrice > empiresGoldCount) return SelectedBuildingMessages.NOT_ENOUGH_GOLD;
+        return SelectedBuildingMessages.ENOUGH_RESOURCES;
+    }
+    public void buyFromChurch(Empire empire, int troopPrice, int troopCount){
+        empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
+        empire.setPeasantCount(empire.getEngineerCount() - troopCount);
+        empire.setTroopCount(empire.getTroopCount() + troopCount);
+        empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
+        for (int i = 0; i < troopCount; i++) {
+            Army BlackMonk = new Army(empire);
+            empire.empireArmy.add(BlackMonk);
+        }
+    }
+    public SelectedBuildingMessages church(int count){
+        HashMap<String, Integer> churchTroopsPrice = new HashMap<>();
+
+        {
+            churchTroopsPrice.put("blackMonk", 20);
+
+        }
+        if (enoughResourcesToBuyFromChurch(empire, churchTroopsPrice.get("blackMonk"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+            buyFromChurch(empire, churchTroopsPrice.get("blackMonk"), count);
+            return SelectedBuildingMessages.PURCHASE_SUCCESS;
+        } else {
+            return (enoughResourcesToBuyFromChurch(empire, churchTroopsPrice.get("blackMonk"),  count));
+        }
+
     }
 
 
