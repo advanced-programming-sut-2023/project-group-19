@@ -1,15 +1,12 @@
 import controller.CreateMapController;
 import controller.JsonController;
+import model.*;
 import model.Building.Armoury;
 import model.Building.Building;
 import model.Building.StoneGateWay;
 import model.Building.Tower;
-import model.Empire;
 import model.Human.Troop.Army;
-import model.Manage;
-import model.Map;
 import model.Obstacle.Tree;
-import model.User;
 import view.LoginMenu;
 
 import java.io.IOException;
@@ -26,6 +23,7 @@ public class Main {
         int x = 200;
         int y = 200;
         //show map -x 198 -y 199
+        Map.getGroundType()[199][199].add(GroundType.STONE_ROCK);
         Map.getTroopMap()[x - 1][y - 1].add(army);
         Scanner scanner = new Scanner(System.in);
         LoginMenu.run(scanner);

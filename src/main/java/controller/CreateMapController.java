@@ -82,14 +82,16 @@ public class CreateMapController {
                         }else if(row == x-1 && k - 1 == y - 1){
                             type = "&";
                         }else type = " ";
-                        if(Map.getGroundType()[row][k - 1].equals(GroundType.DEFAULT)) type = ANSI_BLACK_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.GROUND_WITH_STONE)) type = ANSI_BLACK_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.IRON)) type = ANSI_BLUE_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.STONE_ROCK)) type = ANSI_WHITE_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.GRASS)) type = ANSI_GREEN_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.FILLFUL_DASH)) type = ANSI_GREEN_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.DASH)) type = ANSI_YELLOW_BACKGROUND + type +  ANSI_RESET ;
-                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.STONE)) type = ANSI_RED_BACKGROUND + type +  ANSI_RESET ;
+                        if(!Map.getGroundType()[row][k - 1].isEmpty()) {
+                            if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DEFAULT)) type = ANSI_BLACK_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GROUND_WITH_STONE)) type = ANSI_BLACK_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.IRON)) type = ANSI_BLUE_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.STONE_ROCK)) type = ANSI_WHITE_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GRASS)) type = ANSI_GREEN_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.FILLFUL_DASH)) type = ANSI_GREEN_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DASH)) type = ANSI_YELLOW_BACKGROUND + type +  ANSI_RESET ;
+                            else if(Map.getGroundType()[row][k - 1].get(0).equals(GroundType.STONE)) type = ANSI_RED_BACKGROUND + type +  ANSI_RESET ;
+                        }
                         square.append(type);
                     }
                 }
