@@ -28,7 +28,7 @@ public abstract class Building implements BuildingConstantFunctions {
         return maxHp;
     }
 
-    public Names getName() {
+    public Names getNameEnum() {
         return name;
     }
     public String showBuildingName() {

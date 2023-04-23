@@ -4,15 +4,19 @@ import model.Building.*;
 import model.Empire;
 import model.Manage;
 import model.Map;
+import view.BuildingMenu;
 import view.Messages.BuildingMessages;
+import view.SelectedBuildingMenu;
 
+import java.util.Scanner;
 import java.util.regex.Matcher;
 
 
 public class BuildingController {
     public static int size;
-    public static Building selectedBuilding;
+
     public static Empire currentEmpire;
+    public static Building selectedBuilding;
 
     public BuildingMessages checkCoordinate(int x, int y) {
         if (x < 0 || y < 0 || x > size || y > size) {
@@ -579,14 +583,17 @@ public class BuildingController {
         }
         return BuildingMessages.INVALID_COORDINATE;
     }
-
     public BuildingMessages selectBuilding(Matcher xGroup, Matcher yGroup) {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (HasBuildingInThisPlace(x, y)) {
                 if (Map.getBuildingMap()[x][y].get(0).getOwner().getName().equals(currentEmpire.getName())) {
-                    selectedBuilding = Map.getBuildingMap()[x][y].get(0);
+                    if(currentEmpire.getName().equals(Map.getBuildingMap()[x][y].get(0).getOwner().getName())) {
+                        selectedBuilding = Map.getBuildingMap()[x][y].get(0);
+                        return BuildingMessages.SUCCESSFUL_SELECT;
+                    }
+                    return BuildingMessages.BUILDING_IS_NOT_FOR_THIS_EMPIRE;
                 } else return BuildingMessages.NO_ACCESS;
             } else return BuildingMessages.EMPTY_CELL;
         }

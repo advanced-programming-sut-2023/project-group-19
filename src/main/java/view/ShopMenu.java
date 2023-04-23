@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ShopMenu {
     public static String currentMenu;
 
-    public static void run(Scanner scanner){
+    public void run(Scanner scanner){
 
     }
     public void showGoods(){

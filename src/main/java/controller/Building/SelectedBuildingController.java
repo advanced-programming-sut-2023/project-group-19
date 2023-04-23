@@ -7,15 +7,18 @@ import model.Empire;
 import model.Human.Troop.EuropeArmy;
 import model.Human.Troop.ArabArmy;
 import model.Map;
+import view.Messages.SelectedBuildingMessages;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
 
 public class SelectedBuildingController {
     public static Empire empire;
     public static Building selectedBuilding;
     //TODO : all the troops made in here . their functions is not called in the functions soo after fixing the troops class it must be added
 
-    public SelectedBuildingMessages gatehouse(int taxRate) {
+    public SelectedBuildingMessages gatehouse(Matcher matcherTaxRate) {
+        int taxRate = Integer.parseInt(matcherTaxRate.group("taxRate"));
         if (taxRate > 7 | taxRate < -3) {
             empire.setTaxRateNumber(taxRate);
             return SelectedBuildingMessages.TAX_RATE_CHANGE_SUCCESSFUL;
@@ -23,7 +26,8 @@ public class SelectedBuildingController {
         return SelectedBuildingMessages.TAX_RATE_OUT_OF_BONDS;
     }
 
-    public SelectedBuildingMessages DrawBridge(String bridgeCondition) {
+    public SelectedBuildingMessages drawBridge(Matcher matcherBridgeCondition) {
+        String bridgeCondition = matcherBridgeCondition.group("bridgeCondition");
         if (bridgeCondition.equals("down")) {
             if (((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_OPEN;
             ((DrawBridge) selectedBuilding).setBridgeOpen(true);
@@ -120,7 +124,9 @@ public class SelectedBuildingController {
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
 
-    public SelectedBuildingMessages Barracks(String troopName, int count) {
+    public SelectedBuildingMessages Barracks(Matcher matcherTroopName, Matcher matcherCount) {
+        String troopName = matcherTroopName.group("troopName");
+        int count = Integer.parseInt(matcherCount.group("count"));
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
         {
@@ -271,7 +277,9 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages mercenary(String troopName, int count) {
+    public SelectedBuildingMessages mercenary(Matcher matcherTroopName, Matcher matcherCount) {
+        String troopName = matcherTroopName.group("troopName");
+        int count = Integer.parseInt(matcherCount.group("count"));
         int empireGoldCount = empire.getGoldCount();
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
@@ -363,7 +371,9 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages engineerGuild(String troopName, int count) {
+    public SelectedBuildingMessages engineerGuild(Matcher matcherTroopName, Matcher matcherCount) {
+        String troopName = matcherTroopName.group("troopName");
+        int count = Integer.parseInt(matcherCount.group("count"));
         HashMap<String, Integer> engineerGuildTroopPrice = new HashMap<>();
 
         {
@@ -457,7 +467,9 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages siegeTent(String siegeName, int count) {
+    public SelectedBuildingMessages siegeTent(Matcher matcherTroopName, Matcher matcherCount) {
+        String siegeName = matcherTroopName.group("troopName");
+        int count = Integer.parseInt(matcherCount.group("count"));
 
         HashMap<String, Integer> siegeTentTroopsPrice = new HashMap<>();
 
@@ -536,7 +548,8 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages church(int count) {
+    public SelectedBuildingMessages church(Matcher matcherCount) {
+        int count = Integer.parseInt(matcherCount.group("count"));
         HashMap<String, Integer> churchTroopsPrice = new HashMap<>();
 
         {

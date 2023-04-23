@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class BuildingMenu {
-    Empire currentEmpire;
+    public  static Empire currentEmpire;
     String input;
     BuildingController buildingController = new BuildingController();
     public void run(Scanner scanner){
@@ -28,7 +28,17 @@ public class BuildingMenu {
                 Matcher matcherX = BuildingCommands.getMatcher(input , BuildingCommands.BUILDING_COMMANDS_FIND_X);
                 Matcher matcherY = BuildingCommands.getMatcher(input , BuildingCommands.BUILDING_COMMANDS_FIND_Y);
                 if( matcherX != null && matcherY != null){
-                    System.out.println(buildingController.selectBuilding(matcherX , matcherY ).getMessages());
+                    if(buildingController.selectBuilding(matcherX , matcherY ).equals(BuildingMessages.SUCCESSFUL_SELECT)){
+                        System.out.println(buildingController.selectBuilding(matcherX , matcherY ).getMessages());
+                        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
+                        SelectedBuildingMenu.selectedBuilding = BuildingController.selectedBuilding ;
+                        SelectedBuildingMenu.currentEmpire = currentEmpire;
+                        selectedBuildingMenu.run(scanner);
+                    }
+                    else
+                    {
+                        System.out.println(buildingController.selectBuilding(matcherX , matcherY ).getMessages());
+                    }
                 }
             }
             else {
