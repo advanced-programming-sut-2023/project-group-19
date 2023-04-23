@@ -20,14 +20,19 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-//        Map.CreateMap(200);
-//        Empire emoire = new Empire();
-//        Army army = new Army(emoire);
-//        Map.getTroopMap()[199][197].add(army);
+        Map.CreateMap(200);
+        Empire emoire = new Empire();
+        Army army = new Army(emoire);
+        Map.getTroopMap()[199][197].add(army);
 //        System.out.println(CreateMapController.showMap(199,199));
 
-        String regex =  "(?<number>\\d+)";
-        Matcher matcher =
+//        String regex =  "(?<number>\\d+)";
+//        String text = "5";
+//        Matcher matcher = Pattern.compile(regex).matcher(text);
+//        matcher.find();
+//        System.out.println(matcher.group("number"));
+//        matcher.find();
+//        System.out.println(matcher.group("number"));
 
 
 //        System.out.println(Manage.allUsers.size());
