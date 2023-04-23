@@ -32,3 +32,7 @@ command : release dogs
 command : create (siege name) (int count)
 
 ********************************************************
+9 - select big church / small church
+command : create blackMonk (int count)
+
+********************************************************
