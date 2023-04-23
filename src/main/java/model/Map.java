@@ -21,7 +21,7 @@ public class Map {
         return obstacleMap;
     }
 
-    public static ArrayList<GroundType>[][] groundType;
+    public static GroundType[][] groundType ;
     public static boolean[][] notPassable; // for troop
     public static boolean[][] notBuildable; // for building
 
@@ -33,9 +33,6 @@ public class Map {
         buildingMap[x][y].add(newBuilding);
     }
 
-    public static ArrayList<GroundType>[][] getGroundType() {
-        return groundType;
-    }
 
     public static void CreateMap(int size){
         buildingMap=new ArrayList[size][size];
@@ -56,13 +53,12 @@ public class Map {
                 obstacleMap[i][j] = new ArrayList<>();
             }
         }
-        groundType=new ArrayList[size][size];
-        for(int i = 0 ; i < size ; i++){
-            for(int j = 0 ; j < size ; j++){
-                groundType[i][j] = new ArrayList<>();
-            }
-        }
+        groundType = new GroundType[size][size];
         notPassable = new boolean[size][size];
         notBuildable = new boolean[size][size];
+    }
+
+    public static Object[][] getGroundType() {
+        return getGroundType();
     }
 }

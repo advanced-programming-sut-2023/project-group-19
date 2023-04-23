@@ -10,6 +10,19 @@ import java.util.Scanner;
 import model.Obstacle.ObstacleName;
 
 public class CreateMapController {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK_BACKGROUND
+            = "\u001B[40m";
+    public static final String ANSI_RED_BACKGROUND
+            = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND
+            = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND
+            = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND
+            = "\u001B[46m";
+    public static final String ANSI_WHITE_BACKGROUND
+            = "\u001B[47m";
     static int size = 200 ;
     static int x ;
     static int y ;
@@ -54,18 +67,29 @@ public class CreateMapController {
                         if (length == j) square.append("  ");
                     }
                     else{
-                        char type = 0;
-                        if(!(Map.getBuildingMap()[row ][k - 1]).isEmpty()) type =  'B' ;
-                        else if(!(Map.getTroopMap()[row][k - 1]).isEmpty()) type =  'S' ;
+                        String type = "";
+                        if(!(Map.getBuildingMap()[row ][k - 1]).isEmpty()) {
+
+                            type =  "B";
+                        }
+                        else if(!(Map.getTroopMap()[row][k - 1]).isEmpty()) type =  "S" ;
                         else if(!(Map.getObstacleMap()[row][k - 1]).isEmpty()){
                             obstacle  = Map.getObstacleMap()[row][k - 1].get(0);
                             ObstacleName name = obstacle.getName();
                             if(name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
-                                    name.equals(ObstacleName.CherryTree)) type = 'T';
+                                    name.equals(ObstacleName.CherryTree)) type = "T";
                         }else if(row == x-1 && k - 1 == y - 1){
-                            type = '&';
-                        }else type = ' ';
+                            type = "&";
+                        }else type = " ";
+                        if(Map.getGroundType()[row][k - 1].equals(GroundType.DEFAULT)) type = ANSI_BLACK_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.GROUND_WITH_STONE)) type = ANSI_BLACK_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.IRON)) type = ANSI_BLUE_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.STONE_ROCK)) type = ANSI_WHITE_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.GRASS)) type = ANSI_GREEN_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.FILLFUL_DASH)) type = ANSI_GREEN_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.DASH)) type = ANSI_YELLOW_BACKGROUND + type +  ANSI_RESET ;
+                        else if(Map.getGroundType()[row][k - 1].equals(GroundType.STONE)) type = ANSI_RED_BACKGROUND + type +  ANSI_RESET ;
                         square.append(type);
                     }
                 }
@@ -93,16 +117,9 @@ public class CreateMapController {
         rightLimit += deltaY ;
         uplimit += deltaX ;
         downLimit += deltaX ;
-//        System.out.println(leftLimit);
-//        System.out.println(rightLimit);
-//        System.out.println(size);
-        //189
-        //199
-        if(leftLimit <= 0  || rightLimit> size || uplimit  <= 0 || downLimit  > size) return "fill correctly;" +
-                "your numbers****out of bounds";
+        if(leftLimit <= 0  || rightLimit > size || uplimit  <= 0 || downLimit  > size) return "fill correctly;" +
+                "your location out of bounds";
 
         return makeMap();
     }
 }
-//downlimit
-
