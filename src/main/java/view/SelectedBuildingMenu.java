@@ -55,11 +55,11 @@ public class SelectedBuildingMenu {
                     if (matcherTaxRate != null) {
                         System.out.println(selectedBuildingController.gatehouse(matcherTaxRate).getName());
                     } else {
-                        System.out.println(SelectedBuildingMessages.INVALID_COMMAND);
+                        System.out.println(SelectedBuildingMessages.INVALID_COMMAND.getName());
                     }
                 }
                 else {
-                    System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN);
+                    System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
             }
             else if (SelectedBuildingCommands.getMatcher(input , SelectedBuildingCommands.SELECTED_BUILDING_DRAW_BRIDGE) != null){
@@ -68,11 +68,11 @@ public class SelectedBuildingMenu {
                     if (matcherBridgeCondition != null) {
                         System.out.println(selectedBuildingController.drawBridge(matcherBridgeCondition).getName());
                     } else {
-                        System.out.println(SelectedBuildingMessages.INVALID_COMMAND);
+                        System.out.println(SelectedBuildingMessages.INVALID_COMMAND.getName());
                     }
                 }
                 else {
-                    System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN);
+                    System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
             }
             else if (buildingName.equals("shop")){
@@ -83,7 +83,7 @@ public class SelectedBuildingMenu {
                 return;
             }
             else {
-                System.out.println(SelectedBuildingMessages.INVALID_COMMAND);
+                System.out.println(SelectedBuildingMessages.INVALID_COMMAND.getName());
             }
 
         }
