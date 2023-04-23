@@ -1,0 +1,22 @@
+********      selecting buildings command      ********
+notice : the commands are exact and fit and extra spaces and things are not accepted
+
+********************************************************
+1 - small stone gatehouse / big stone gatehouse
+command : taxrate (int taxrate)
+
+********************************************************
+2 - drawbridge
+command : drawBridge up/down 
+
+********************************************************
+3 - select barracks / mercenary / engineerGuild / big church / small church / siege tent
+command : createunit -t [type] -c [count]
+
+********************************************************
+4 - select shop
+command : *** pass to the shop menu ***
+********************************************************
+4 - Exit from this menu
+command : exit
+********************************************************
