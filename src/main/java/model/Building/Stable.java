@@ -44,6 +44,7 @@ public class Stable extends Building implements BuildingConstantFunctions {
     public void stable() {
         names = Names.STABLE;
         createBuildingCost(20, 0, 400, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

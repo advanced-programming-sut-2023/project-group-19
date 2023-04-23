@@ -47,6 +47,7 @@ public class CagedWarDogs extends Building implements BuildingConstantFunctions 
         hp=500;
         names = Names.CAGED_WAR_DOGS;
         createBuildingCost(10, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

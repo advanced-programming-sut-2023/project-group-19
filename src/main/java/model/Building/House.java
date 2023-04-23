@@ -46,6 +46,7 @@ public class House extends Building implements BuildingConstantFunctions {
         capacity=8;
         names = Names.HOUSE;
         createBuildingCost(6, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

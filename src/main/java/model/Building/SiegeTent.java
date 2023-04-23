@@ -54,6 +54,7 @@ public class SiegeTent extends Building {
         public void siegeTent() {
             names = Names.SIEGE_TENT;
             createBuildingCost(0, 0, 0, 0, 0);
+            createBuildingWorkersNeeded(1 , 0);
         }
 
 

@@ -48,6 +48,7 @@ public class OilSmelter extends Building implements BuildingConstantFunctions {
         rate=0;//TODO: no idea
         names = Names.OIL_SMELTER;
         createBuildingCost(0, 0, 100, 10, 0);
+        createBuildingWorkersNeeded(1 , 0);
     }
 
     @Override

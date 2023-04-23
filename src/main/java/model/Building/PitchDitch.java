@@ -36,6 +36,7 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     public void pitchDitch() {
         names = Names.PITCH_DITCH;
         createBuildingCost(0, 0, 0, 0, 2);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

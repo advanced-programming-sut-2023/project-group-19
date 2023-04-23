@@ -74,24 +74,28 @@ public class Weapon extends Building implements BuildingConstantFunctions {
         hp=400;
         names = Names.ARMOURER;
         createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     public void blacksmith() {
         hp=500;
         names = Names.BLACKSMITH;
         createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     public void fletcher() {
         hp=400;
         names = Names.FLETCHER;
         createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     public void poleTurner() {
         hp=400;
         names = Names.POLE_TURNER;
         createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     @Override

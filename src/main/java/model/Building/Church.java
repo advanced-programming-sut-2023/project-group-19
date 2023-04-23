@@ -57,6 +57,7 @@ public class Church extends Building implements BuildingConstantFunctions {
         names = Names.SMALL_CHURCH;
         Manage.getCurrentEmpire().popularity+=2;
         createBuildingCost(0, 0, 250, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     public void bigChurch() {
@@ -64,6 +65,7 @@ public class Church extends Building implements BuildingConstantFunctions {
         names = Names.BIG_CHURCH;
         Manage.getCurrentEmpire().popularity+=2;
         createBuildingCost(0, 0, 1000, 0, 0);
+        createBuildingWorkersNeeded(0 , 0);
     }
 
     @Override

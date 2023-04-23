@@ -57,7 +57,7 @@ public class Armoury extends Building implements BuildingConstantFunctions {
         currentCapacity=0;
         names = Names.ARMOURY;
         createBuildingCost(5, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0 , 1);
     }
 
     @Override
