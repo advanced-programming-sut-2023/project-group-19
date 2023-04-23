@@ -41,6 +41,9 @@ public class BuildingMenu {
                     }
                 }
             }
+            else if (input.equals("exit")){
+                return;
+            }
             else {
                 System.out.println(BuildingCommands.INVALID_COMMAND.getName());
             }

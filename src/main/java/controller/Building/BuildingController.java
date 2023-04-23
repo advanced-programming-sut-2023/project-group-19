@@ -600,14 +600,11 @@ public class BuildingController {
         return BuildingMessages.INVALID_COORDINATE;
     }
 
-    public BuildingMessages repairBuilding(Matcher xGroup, Matcher yGroup) {
+    public static BuildingMessages repairBuilding(Building building) {
         // TODO A MENU FOR COMMANDS AFTER SELECTING THE BUILDING TO SEE WHICH CHANGE IS GONNA BE APPLIED
         ///TODO SHOULD WE PRINT THE HP OF EVERY BUILDING IN SELECT BUILDING? ----> i dont think soo(Arian)
         //TODO AFTER COMPLETING THE ARMIES SEARCH TO SEE IF ENEMIES ARE IN THE GIVEN POSITION
-        int x = Integer.parseInt(xGroup.group("x"));
-        int y = Integer.parseInt(yGroup.group("y"));
         int requiredStone = 50;
-        Building building = findSelectedBuilding(x, y);
         if (building != null) {
             int currentHp = building.getHp();
             int maxHp = building.getMaxHp();

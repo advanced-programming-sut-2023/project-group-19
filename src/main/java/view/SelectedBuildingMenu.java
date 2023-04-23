@@ -1,9 +1,9 @@
 package view;
 
+import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import model.Building.Building;
 import model.Empire;
-import view.Commands.BuildingCommands;
 import view.Commands.SelectedBuildingCommands;
 import view.Messages.SelectedBuildingMessages;
 
@@ -74,6 +74,9 @@ public class SelectedBuildingMenu {
                 else {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
+            }
+            else if (SelectedBuildingCommands.getMatcher(input , SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null){
+                System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
             }
             else if (buildingName.equals("shop")){
                 ShopMenu shopMenu = new ShopMenu();
