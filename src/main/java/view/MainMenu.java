@@ -25,14 +25,14 @@ public class MainMenu {
                 System.out.println("logged out");
                 return;
             }else if((matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP)) != null){
-                showMap(command);
+                showMap(command,scanner);
             }
             else System.out.println("Invalid command!");
         }
     }
     public static void logoutUser(){
     }
-    public static void showMap(String command){
+    public static void showMap(String command,Scanner scanner) throws IOException, InterruptedException {
         Matcher matcher ;
         matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP_X);
         if(matcher == null){
@@ -47,6 +47,8 @@ public class MainMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        CreateMapController.showMap(x,y);
+        System.out.println(CreateMapController.showMap(x,y));
+        CreateMapMenu.run(scanner);
+
     }
 }

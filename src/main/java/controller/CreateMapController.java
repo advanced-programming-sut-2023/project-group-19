@@ -26,9 +26,6 @@ public class CreateMapController {
         uplimit = x - 2 ;
         rightLimit = y + 9 ;
         leftLimit = y - 9 ;
-//        System.out.println(y);
-//        System.out.println(leftLimit);
-//        System.out.println(rightLimit);
         if(uplimit < 0) uplimit = 1 ;
         if(downLimit > size) downLimit = size ;
         if(leftLimit < 0) leftLimit = 1 ;
@@ -47,6 +44,7 @@ public class CreateMapController {
         for (i = 1; i <= height; i++) {
 
             for(int k =  yVar ; k <= rightLimit ; k ++) {
+                boolean isThingThere = true ;
                 for (j = 1; j <= length; j++) {
 
                     if (i == 1 || i == height || j == 1 || j == length) {
@@ -64,32 +62,18 @@ public class CreateMapController {
                             if(name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = 'T';
-                        }else if(row == x - 1 && k - 1 == y - 1){
-                            type = '#';
                         }else type = ' ';
                         square.append(type);
                     }
                 }
             }
-//            System.out.println(row);
-//            System.out.println(x - 1);
-//            System.out.println("---------------------------------");
             square.append("\n");
         }
-//        System.out.println(square.toString());
         return square.toString() ;
-        //defult state for lengthOfMap is 19
-        //defult state for height is 5
     }
     public static String makeMap(){
         int lengthOfMap = rightLimit - leftLimit + 1 ;
-//        System.out.println(uplimit);
-//        System.out.println(downLimit);
-//        System.out.println(lengthOfMap);
         StringBuilder sb = new StringBuilder();
-        String squaresIntoLine ;
-//        System.out.println(uplimit);
-//        System.out.println(downLimit);
         for(int i = uplimit ; i <= downLimit ; i ++) {
             for(int k = 0 ; k < 8 * lengthOfMap ; k ++){
                 sb.append("-");
@@ -99,6 +83,10 @@ public class CreateMapController {
         }
         return sb.toString();
 
+    }
+
+    public static String  moveMap(int deltaX , int deltaY){
+        return showMap(x + deltaX , y + deltaY);
     }
 }
 //downlimit

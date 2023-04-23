@@ -5,20 +5,30 @@ import model.Building.Building;
 import model.Building.StoneGateWay;
 import model.Building.Tower;
 import model.Empire;
+import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import model.Obstacle.Tree;
 import model.User;
 import view.LoginMenu;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-        Map.CreateMap(200);
-//        if(Map.getBuildingMap()[0][6].get(0) == null) System.out.println("yes");
-        System.out.println(CreateMapController.showMap(30,40));
+//        Map.CreateMap(200);
+//        Empire emoire = new Empire();
+//        Army army = new Army(emoire);
+//        Map.getTroopMap()[199][197].add(army);
+//        System.out.println(CreateMapController.showMap(199,199));
+
+        String regex =  "(?<number>\\d+)";
+        Matcher matcher =
+
 
 //        System.out.println(Manage.allUsers.size());
 //        User user2 = new User("afgjfgj" , "12jgjg3" , "mamagjjgjd" , "String emgjgjail", "String rjgjgjgjgecoveryQuestion", "Strgjgjgjing slogan", 0);

@@ -4,7 +4,7 @@ import model.Building.Names;
 
 public class Tree extends Obstacle {
 
-    public void desertTree(){
+    public  void desertTree(){
         name = ObstacleName.DESERT_TREE;
     }
     public void cherryTree(){
