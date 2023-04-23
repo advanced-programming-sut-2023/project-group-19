@@ -20,10 +20,10 @@ public class Main {
         Map.CreateMap(200);
         Empire emoire = new Empire();
         Army army = new Army(emoire);
-        int x = 200;
-        int y = 200;
-        //show map -x 198 -y 199
-        Map.getGroundType()[199][199].add(GroundType.STONE_ROCK);
+        int x = 1;
+        int y = 1;
+        //show map -x 2 -y 5
+//        Map.getGroundType()[2][2].add(GroundType.STONE_ROCK);
         Map.getTroopMap()[x - 1][y - 1].add(army);
         Scanner scanner = new Scanner(System.in);
         LoginMenu.run(scanner);

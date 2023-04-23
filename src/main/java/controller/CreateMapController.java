@@ -40,10 +40,10 @@ public class CreateMapController {
         rightLimit = y + 9;
         leftLimit = y - 9;
 
-        if(uplimit < 0) uplimit = 1 ;
-        if(downLimit > size) downLimit = size ;
-        if(leftLimit < 0) leftLimit = 1 ;
-        if(rightLimit > size) rightLimit = size ;
+        if(uplimit <= 0) uplimit = 1 ;
+        if(downLimit >= size) downLimit = size ;
+        if(leftLimit <= 0) leftLimit = 1 ;
+        if(rightLimit >= size) rightLimit = size ;
         return makeMap();
     }
     static String makeSquare(int row) {
