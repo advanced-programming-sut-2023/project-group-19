@@ -35,7 +35,9 @@ public class Wall extends Building {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -46,19 +48,19 @@ public class Wall extends Building {
     public void bigWall(int x, int y) {
         name = Names.BIG_WALL;
         createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void smallWall(int x, int y) {
         name = Names.SMALL_WALL;
         createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void stair(int x, int y) {
         name = Names.STAIR;
         createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override

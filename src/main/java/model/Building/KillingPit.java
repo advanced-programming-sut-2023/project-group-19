@@ -34,7 +34,9 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -43,10 +45,10 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
 
 
     public void killingPit() {
-        damage=100;
+        damage = 100;
         name = Names.KILLING_PIT;
         createBuildingCost(6, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
 

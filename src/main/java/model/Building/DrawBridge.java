@@ -17,6 +17,7 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
     public Names getNames() {
         return names;
     }
+
     public boolean bridgeOpen = false;
 
     public boolean isBridgeOpen() {
@@ -49,6 +50,7 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
     int x;
     int y;
 
@@ -86,21 +88,23 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
 
     }
 
-    public void drawBridge( int x  ,int y) {//check how to reduce the cost of building it from Government Cash
+    public void drawBridge(int x, int y) {//check how to reduce the cost of building it from Government Cash
         this.x = x;
         this.y = y;
         names = Names.DRAW_BRIDGE;
         bridgeState = true;//passable
         createBuildingCost(10, 0, 0, 0, 0);
         Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 10);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override

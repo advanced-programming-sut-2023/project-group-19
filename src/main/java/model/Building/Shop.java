@@ -91,6 +91,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
     public String showBuildingName() {
         return "shop";
     }
+
     public HashMap<String, Integer> cost = new HashMap<>();
 
     //TODO call createBuildingCost before usage
@@ -101,15 +102,18 @@ public class Shop extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
 
     }
+
     public void shop() {
         names = Names.PITCH_DITCH;
         createBuildingCost(5, 0, 0, 0, 2);
-        createBuildingWorkersNeeded(0 , 1);
+        createBuildingWorkersNeeded(0, 1);
     }
 }

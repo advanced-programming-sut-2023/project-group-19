@@ -45,7 +45,9 @@ public class Church extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -55,17 +57,17 @@ public class Church extends Building implements BuildingConstantFunctions {
     public void smallChurch() {
         //TODO: PRIESTS INSIDE SMALL CHURCH
         names = Names.SMALL_CHURCH;
-        Manage.getCurrentEmpire().popularity+=2;
+        Manage.getCurrentEmpire().popularity += 2;
         createBuildingCost(0, 0, 250, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void bigChurch() {
         //TODO: PRODUCING PRIEST & TRAINING THEM
         names = Names.BIG_CHURCH;
-        Manage.getCurrentEmpire().popularity+=2;
+        Manage.getCurrentEmpire().popularity += 2;
         createBuildingCost(0, 0, 1000, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override

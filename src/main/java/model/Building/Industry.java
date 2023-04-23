@@ -96,7 +96,9 @@ public class Industry extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -104,48 +106,48 @@ public class Industry extends Building implements BuildingConstantFunctions {
     }
 
     public void mill() {
-        rateOfMill=0;//TODO: NO IDEA
+        rateOfMill = 0;//TODO: NO IDEA
         names = Names.MILL;
         createBuildingCost(20, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 3);
+        createBuildingWorkersNeeded(0, 3);
     }
 
     public void ironDig() {
-        rateOfIronDig =0;//TODO:NO IDEA
-        groundType=GroundType.IRON;
+        rateOfIronDig = 0;//TODO:NO IDEA
+        groundType = GroundType.IRON;
         names = Names.IRON_DIG;
         createBuildingCost(20, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 2);
+        createBuildingWorkersNeeded(0, 2);
     }
 
     public void oxTether() {
-        rateOfOxTether=0;//TODO:NO IDEA
+        rateOfOxTether = 0;//TODO:NO IDEA
         names = Names.OX_TETHER;
         createBuildingCost(5, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 1);
+        createBuildingWorkersNeeded(0, 1);
     }
 
     public void pitchRig() {
-        rateOfPitchRig=0;//TODO:NO IDEA
+        rateOfPitchRig = 0;//TODO:NO IDEA
         names = Names.PITCH_RIG;
-        groundType=GroundType.PLAIN;
+        groundType = GroundType.PLAIN;
         createBuildingCost(20, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 1);
+        createBuildingWorkersNeeded(0, 1);
     }
 
     public void quarry() {
-        rateOfQuarry=0;//TODO: NO IDEA
-        capacityOfQuarry=50;
+        rateOfQuarry = 0;//TODO: NO IDEA
+        capacityOfQuarry = 50;
         names = Names.QUARRY;
         createBuildingCost(20, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 3);
+        createBuildingWorkersNeeded(0, 3);
     }
 
     public void woodCutter() {
-        rateOfWoodCuter=0;//TODO: NO IDEA
+        rateOfWoodCuter = 0;//TODO: NO IDEA
         names = Names.WOODCUTTER;
         createBuildingCost(3, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 1);
+        createBuildingWorkersNeeded(0, 1);
     }
 
     @Override

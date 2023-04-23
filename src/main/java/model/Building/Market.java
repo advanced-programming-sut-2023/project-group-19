@@ -9,6 +9,7 @@ public class Market extends Building implements BuildingConstantFunctions {
     public Market(Empire government) {
         super(government);
     }
+
     private int hp;
     private Names names;
 
@@ -37,7 +38,9 @@ public class Market extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -45,10 +48,12 @@ public class Market extends Building implements BuildingConstantFunctions {
     }
 
     public void market() {
-        hp=300;
+        hp = 300;
         names = Names.MARKET;
         createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
+
     @Override
     public int maxHp() {
         return 0;

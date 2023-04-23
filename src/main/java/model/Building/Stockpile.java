@@ -9,8 +9,8 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    public final int maxFoodCapacity=200;
-    public final int maxIndustryCapacity=200;
+    public final int maxFoodCapacity = 200;
+    public final int maxIndustryCapacity = 200;
     private int currentFoodCapacity;
     private int currentIndustryCapacity;
     private Names names;
@@ -54,7 +54,9 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -63,16 +65,16 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
 
     public void industryStockpile() {
         //TODO:INCREASE THE CURRENT CAPACITY EVERY TIME YOU ADD A THING TO STOCKPILE
-        currentIndustryCapacity=0;
+        currentIndustryCapacity = 0;
         names = Names.STOCKPILE;
         createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void foodProcessingStockpile() {
         names = Names.FOOD_PROCESSING_STOCKPILE;
         createBuildingCost(5, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
 

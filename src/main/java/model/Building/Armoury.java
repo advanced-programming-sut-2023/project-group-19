@@ -44,7 +44,9 @@ public class Armoury extends Building implements BuildingConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -53,11 +55,11 @@ public class Armoury extends Building implements BuildingConstantFunctions {
 
     public void armoury() {
         //TODO: Add weapons to armoury
-        capacity=50;
-        currentCapacity=0;
+        capacity = 50;
+        currentCapacity = 0;
         names = Names.ARMOURY;
         createBuildingCost(5, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0 , 1);
+        createBuildingWorkersNeeded(0, 1);
     }
 
     @Override
