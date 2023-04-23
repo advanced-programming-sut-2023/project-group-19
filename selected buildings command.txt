@@ -1,5 +1,5 @@
 ********      selecting buildings command      ********
-notice : the commands are exact and fit and extra spaces and things are not accepted
+notice : the commands are exact and fit soo extra spaces and characters are not accepted
 
 ********************************************************
 1 - small stone gatehouse / big stone gatehouse
