@@ -1,14 +1,13 @@
 package model.Human.Troop;
 
-import model.Building.Building;
 import model.Building.BuildingConstantFunctions;
 import model.Building.Names;
 import model.Empire;
 
 import java.util.HashMap;
 
-public class SiegeTent extends Army implements BuildingConstantFunctions {
-    public SiegeTent(Empire government) {
+public class SiegeTroops extends Army implements BuildingConstantFunctions {
+    public SiegeTroops(Empire government) {
         super(government);
     }
 
@@ -19,9 +18,6 @@ public class SiegeTent extends Army implements BuildingConstantFunctions {
     }
 
     //TODO add WORKER
-    public void siegeTent() {
-        names = Names.SIEGE_TENT;
-    }
 
     @Override
     public int maxHp() {

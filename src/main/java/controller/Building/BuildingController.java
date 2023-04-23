@@ -2,7 +2,7 @@ package controller.Building;
 
 import model.Building.*;
 import model.Empire;
-import model.Human.Troop.SiegeTent;
+import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import view.Commands.BuildingMessages;
