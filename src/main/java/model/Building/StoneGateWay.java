@@ -12,14 +12,24 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     }
 
     private static Names name;
-    private int capacity;
+    private int maxCapacity;
 
-    public int getCapacity() {
-        return capacity;
+    private int currentCapacity;
+
+    public int getMaxCapacity() {
+        return maxCapacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(int currentCapacity) {
+        this.currentCapacity = currentCapacity;
     }
 
     public static Names getNames() {
@@ -83,7 +93,7 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         hp = 500;
         maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
-        capacity = 8;
+        maxCapacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
@@ -92,7 +102,7 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         hp = 700;
         maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
-        capacity = 10;
+        maxCapacity = 10;
         createBuildingWorkersNeeded(0, 0);
         createBuildingCost(0, 20, 0, 0, 0);
     }
