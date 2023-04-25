@@ -6,7 +6,7 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class SiegeTroops extends Army implements BuildingConstantFunctions {
+public class SiegeTroops extends Army implements BuildingConstantFunctions  {
     public SiegeTroops(Empire government) {
         super(government);
     }

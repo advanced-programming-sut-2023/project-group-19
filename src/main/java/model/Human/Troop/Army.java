@@ -5,13 +5,9 @@ import model.Human.Human;
 import model.Human.Names;
 
 public class Army extends Human {
+    // TODO : show armys name
     public Army(Empire government) {
         super(government);
-    }
-    private Names names;
-
-    public Names getNames() {
-        return names;
     }
 
     private String armyForm;
