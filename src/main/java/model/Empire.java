@@ -454,7 +454,7 @@ public class Empire {
     public HashMap<String, Integer> productionBuildingRate = new HashMap<>();
 
     {
-        productionBuildingRate.put("ironMine", 20);
+        productionBuildingRate.put("ironMine", 25);
         productionBuildingRate.put("pitchRig", 4);
         productionBuildingRate.put("quarry", 12);
         productionBuildingRate.put("woodCutter", 20);

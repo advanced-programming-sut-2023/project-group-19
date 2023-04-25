@@ -6,9 +6,6 @@ import model.Manage;
 import model.Map;
 import view.Commands.BuildingMessages;
 
-import javax.swing.text.AsyncBoxView;
-import javax.xml.catalog.CatalogFeatures;
-
 public class BuildingController {
     public static int size;
     public static Building selectedBuilding;
