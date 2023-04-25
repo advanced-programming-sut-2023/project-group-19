@@ -20,6 +20,8 @@ public enum Names {
     MOUNTED_SIEGE_EQUIPMENT("Mounted Siege Equipment"),
     ARMOURY("Armoury"),
     ARMOUR("Armour"),
+    TORTURE_CHAMBER("torture chamber"),
+    GARDEN("garden"),
     TUNNEL("Tunnel"),
     WEAPON("Weapon"),
     WORKSHOP("Workshop"),
@@ -29,6 +31,12 @@ public enum Names {
     ENGINEER_GUILD("Engineer Guild"),
     KILLING_PIT("Killing Pit"),
     STABLE("Stable"),
+    CATAPULT("catapult"),
+    TREBUCHET("trebuchet"),
+    SIEGE_TOWER("siegeTower"),
+    FIRE_BALISTA("fireBalista"),
+    BATTERING_RAM("batteringRam"),
+    PORTABLE_SHIELD("portableShield"),
     APPLE_FARM("Apple Farm"),
     DAIRY_PRODUCT("Dairy Product"),
     OAT_FARM("Oat Farm"),
@@ -69,6 +77,7 @@ public enum Names {
     SIEGE("Siege"),
     TUNNELER("Tunneler"),
     HOP("Hop"),
+    SHOP("shop"),
     MERCENARY_POST("Mercenary Post"),
     LADDER_MAN("Ladder Man"),
     OIL_SMELTER("Oil Smelter"),
@@ -76,6 +85,14 @@ public enum Names {
     CAGED_WAR_DOGS("Caged War Dogs"),
     SIEGE_TENT("Siege Tent");
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     Names(String s) {
         this.name = s;

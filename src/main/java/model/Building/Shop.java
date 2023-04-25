@@ -61,6 +61,16 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     }
 
+    private Names names;
+
+    public Names getNames() {
+        return names;
+    }
+
+    public void setNames(Names names) {
+        this.names = names;
+    }
+
 
     @Override
     public int maxHp() {
@@ -75,5 +85,35 @@ public class Shop extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return "shop";
+    }
+
+    public HashMap<String, Integer> cost = new HashMap<>();
+
+    //TODO call createBuildingCost before usage
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        cost.put("wood", wood);
+        cost.put("stone", stone);
+        cost.put("gold", gold);
+        cost.put("iron", iron);
+        cost.put("oil", oil);
+    }
+
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
+    public void shop() {
+        names = Names.PITCH_DITCH;
+        createBuildingCost(5, 0, 0, 0, 2);
+        createBuildingWorkersNeeded(0, 1);
     }
 }

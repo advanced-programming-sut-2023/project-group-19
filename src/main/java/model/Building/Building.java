@@ -7,10 +7,26 @@ import java.util.HashMap;
 public abstract class Building implements BuildingConstantFunctions {
     private Empire owner;
     private String requiredGroundType;
+    private boolean castleType;
+
+    public boolean isCastleType() {
+        return castleType;
+    }
+
+    public void setCastleType(boolean castleType) {
+        this.castleType = castleType;
+    }
+
+    public Names getName() {
+        return name;
+    }
+
     private Names name;
     private int hp;
     private int maxHp;
     public HashMap<String, Integer> cost = new HashMap<>();
+
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
@@ -28,8 +44,12 @@ public abstract class Building implements BuildingConstantFunctions {
         return maxHp;
     }
 
-    public Names getName() {
+    public Names getNameEnum() {
         return name;
+    }
+
+    public String showBuildingName() {
+        return name.getName();
     }
 
     public void setName(Names name) {

@@ -1,20 +1,33 @@
 package model;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
     private static HashMap<Integer,String> securityQuestions = new HashMap<>();
+    private static ArrayList<String> randomSlogans = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;
     }
 
+    public static ArrayList<String> getRandomSlogans() {
+        return randomSlogans;
+    }
+
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
     static {
-        securityQuestions.put(1,"What is my father's name?");
-        securityQuestions.put(2,"What was my first pet's name?");
-        securityQuestions.put(3,"What is my mother's last name?");
+        securityQuestions.put(1,"What is my father\'s name?");
+        securityQuestions.put(2,"What was my first pet\'s name?");
+        securityQuestions.put(3,"What is my mother\'s last name?");
+        //
+        randomSlogans.add("I march to death...Though I wish it was my own...");
+        randomSlogans.add("They think I\'m monster...and I prove them right");
+        //TODO
+
+
     }
 
     public static User getCurrentUser() {

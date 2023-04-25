@@ -54,12 +54,21 @@ public class Inn extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     public void inn() {
         //TODO: FUNCTION FOR POPULARITY RATE CHANGE ACCORDING TO DOC
         //TODO: RATE???
-        wineUsage=5;//5 liters per day
+        wineUsage = 5;//5 liters per day
         name = Names.INN;
         createBuildingCost(20, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0, 1);
     }
 
     @Override
@@ -75,5 +84,10 @@ public class Inn extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
     }
 }

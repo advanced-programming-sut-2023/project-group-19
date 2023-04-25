@@ -75,29 +75,41 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     public void barracks() {
-        costOfBarracks=50;
+        costOfBarracks = 50;
         name = Names.BARRACK;
         createBuildingCost(0, 15, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void mercenary() {
-        costOfMercenary=30;
+        costOfMercenary = 30;
         name = Names.MERCENARY_POST;
         createBuildingCost(10, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void engineerGuild() {
         //TODO : ADD ENGINEERS AND LADDERMAN TO THE ARRAYLIST OF SPECIALIZED BUILDING
-        costOfEngineer=40;
-        costOfLadderMan=20;
+        costOfEngineer = 40;
+        costOfLadderMan = 20;
         name = Names.ENGINEER_GUILD;
         createBuildingCost(10, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void tunnelerGuild() {
         name = Names.TUNNELER;
         createBuildingCost(10, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -113,5 +125,10 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
     }
 }

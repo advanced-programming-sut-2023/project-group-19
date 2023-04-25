@@ -4,7 +4,7 @@ import model.Empire;
 import model.Human.Human;
 
 public class Engineer extends Army {
-    Engineer(Empire government) {
+    public Engineer(Empire government) {
         super(government);
     }
 

@@ -36,20 +36,31 @@ public class Wall extends Building {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     //TODO only need stone to build the wall
     public void bigWall(int x, int y) {
         name = Names.BIG_WALL;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void smallWall(int x, int y) {
         name = Names.SMALL_WALL;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void stair(int x, int y) {
         name = Names.STAIR;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -65,5 +76,10 @@ public class Wall extends Building {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
     }
 }

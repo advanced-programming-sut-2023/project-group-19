@@ -26,10 +26,19 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     //TODO oil per 5 square
     public void pitchDitch() {
         names = Names.PITCH_DITCH;
         createBuildingCost(0, 0, 0, 0, 2);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -45,5 +54,10 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

@@ -1,4 +1,4 @@
-package view.Commands;
+package view.Messages;
 
 public enum BuildingMessages {
     INVALID_COORDINATE("Invalid coordinate!"),
@@ -11,11 +11,22 @@ public enum BuildingMessages {
     FULL_CAPACITY_OF_BUILDING("The gatehouse's capacity is full!"),
     HP_ALREADY_FULL("the building is at max hp!"),
     SUCCESSFUL_REPAIR("building repaired successfully"),
+    SUCCESSFUL_SELECT("building selected successfully"),
     INSUFFICIENT_STONE("insufficient stone"),
     INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING("empire doesnt have enough resources to build the building"),
     CONTINUE("Continue"),
+    BUILDING_IS_NOT_FOR_THIS_EMPIRE("this building does not belong to this empire"),
     SUCCESS("building created successfully");
     private String messages;
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
+
     BuildingMessages(String messages) {
         this.messages=messages;
     }

@@ -2,8 +2,8 @@ package model.Human;
 
 import model.Empire;
 
-public class Stray extends Human {
-    Stray(Empire government) {
+public class Peasants extends Human {
+    Peasants(Empire government) {
         super(government);
     }
 

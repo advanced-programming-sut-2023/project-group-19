@@ -1,7 +1,6 @@
 package model.Human.Troop;
 
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 public class ArabArmy extends Army {
@@ -15,7 +14,7 @@ public class ArabArmy extends Army {
         return names;
     }
 
-    private String armyForm;
+    private String ArmyForm;
 
     public void setNames(Names names) {
         this.names = names;
@@ -23,12 +22,12 @@ public class ArabArmy extends Army {
 
     @Override
     public String getArmyForm() {
-        return armyForm;
+        return ArmyForm;
     }
 
     @Override
     public void setArmyForm(String armyForm) {
-        this.armyForm = armyForm;
+        ArmyForm = armyForm;
     }
 
     private int hp;
@@ -79,55 +78,37 @@ public class ArabArmy extends Army {
         this.attackPower = attackPower;
     }
 
-    public void archer() {
-        names = Names.ARCHER;
+    public void ArcherBow() {
+        names = Names.ARCHER_BOW;
 
     }
 
-    public void Crossbowmen() {
-        names = Names.CROSSBOWMEN;
+    public void Slaves() {
+        names = Names.SLAVES;
 
     }
 
-    public void SpearMen() {
-        names = Names.SPEAR_MEN;
+    public void Slingers() {
+        names = Names.SLINGERS;
 
     }
 
-    public void PikeMen() {
-        names = Names.PIKE_MEN;
+    public void Assassins() {
+        names = Names.ASSASSINS;
+    }
+
+    public void HorseArchers() {
+        names = Names.HORSE_ARCHERS;
 
     }
 
-    public void MaceMen() {
-        names = Names.MACE_MEN;
+    public void ArabianSwordsmen() {
+        names = Names.ARABIAN_SWORDSMEN;
 
     }
 
-    public void Swordsmen() {
-        names = Names.SWORDSMEN;
+    public void FireThrowers() {
+        names = Names.FireThrowers;
 
     }
-
-    public void Knight() {
-        names = Names.KNIGHT;
-
-    }
-
-    public void Tunneler() {
-        names = Names.TUNNELER;
-
-    }
-
-    public void LadderMen() {
-        names = Names.LADDER_MEN;
-
-    }
-
-    public void BlackMonk() {
-        names = Names.BLACK_MONK;
-
-    }
-
-
 }
