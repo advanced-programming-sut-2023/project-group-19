@@ -52,12 +52,27 @@ public class BuildingController {
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
     }
 
+    public boolean validationOfStairsLocation(int x , int y){
+        if (Map.getBuildingMap()[x-1][y].get(0) instanceof StoneGateWay || Map.getBuildingMap()[x+1][y].get(0) instanceof StoneGateWay
+        || Map.getBuildingMap()[x][y-1].get(0) instanceof StoneGateWay || Map.getBuildingMap()[x][y+1].get(0) instanceof StoneGateWay
+        || Map.getBuildingMap()[x-1][y].get(0) instanceof Wall || Map.getBuildingMap()[x+1][y].get(0) instanceof Wall
+        || Map.getBuildingMap()[x][y-1].get(0) instanceof Wall || Map.getBuildingMap()[x][y+1].get(0) instanceof Wall ){
+            return true;
+        }return false;
+    }
     //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
-    public BuildingMessages callBuildingFunction(int x, int y, String type) {
+    public BuildingMessages callBuildingFunction(int x, int y, String type ,Scanner scanner) {
+        String direction;
+        Names directionOfGate;
         switch (type) {
             case "Small Stone Gatehouse":
+                System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
+                direction = scanner.nextLine();
+                if (Names.getMatcher(direction , Names.NS) != null) directionOfGate = Names.NS;
+                else if (Names.getMatcher(direction , Names.WE) != null) directionOfGate = Names.WE;
+                else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
-                smallStoneGateWay.smallGateWay();
+                smallStoneGateWay.smallGateWay(directionOfGate);
                 if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
                     buildingCheckout(smallStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, smallStoneGateWay);
@@ -68,8 +83,13 @@ public class BuildingController {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
             case "Big Stone Gatehouse":
+                System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
+                direction = scanner.nextLine();
+                if (Names.getMatcher(direction , Names.NS) != null) directionOfGate = Names.NS;
+                else if (Names.getMatcher(direction , Names.WE) != null) directionOfGate = Names.WE;
+                else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
-                bigStoneGateWay.bigGateWay();
+                bigStoneGateWay.bigGateWay(directionOfGate);
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
                     buildingCheckout(bigStoneGateWay, currentEmpire);
                     Map.AddToBuildingMap(x, y, bigStoneGateWay);
@@ -584,12 +604,49 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
+            case "Big Wall":
+                Wall bigWall = new Wall(currentEmpire);
+                bigWall.bigWall();
+                if (empireHasEnoughResourcesToBuildTheBuilding(bigWall , currentEmpire)){
+                    buildingCheckout(bigWall , currentEmpire);
+                    Map.AddToBuildingMap(x , y , bigWall);
+                    Map.notBuildable[x][y] = true ;
+                    Map.notPassable[x][y] = true ;
+                    return BuildingMessages.SUCCESS;
+                }else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
+            case "Small Wall":
+                Wall smallWall = new Wall(currentEmpire);
+                smallWall.smallWall();
+                if (empireHasEnoughResourcesToBuildTheBuilding(smallWall , currentEmpire)){
+                    buildingCheckout(smallWall , currentEmpire);
+                    Map.AddToBuildingMap(x , y , smallWall);
+                    Map.notBuildable[x][y] = true ;
+                    Map.notPassable[x][y] = true ;
+                    return BuildingMessages.SUCCESS;
+                }else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
+            case "Stairs":
+                Wall stairs = new Wall(currentEmpire);
+                stairs.stair();
+                if (empireHasEnoughResourcesToBuildTheBuilding(stairs , currentEmpire)){
+                    if (validationOfStairsLocation(x , y)) {
+                        buildingCheckout(stairs, currentEmpire);
+                        Map.AddToBuildingMap(x, y, stairs);
+                        Map.notBuildable[x][y] = true;
+                        Map.notPassable[x][y] = false;
+                    }else return BuildingMessages.INPROPER_COORDINATE;
+                }else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
         }
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
 
     //TODO : check the ground type while adding the buildings in callBuildingFunction
-    public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup) {
+    public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup , Scanner scanner) {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         String type = typeGroup.group("type");
@@ -598,7 +655,7 @@ public class BuildingController {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                     if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
                         if (HasBuildingInThisPlace(x, y)) {
-                            callBuildingFunction(x, y, type);
+                            callBuildingFunction(x, y, type ,scanner);
                             break;
                         } else return BuildingMessages.INVALID_BUILDING_NAME;
                     }

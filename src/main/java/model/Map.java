@@ -27,6 +27,14 @@ public class Map {
         return groundType;
     }
 
+    public static ArrayList<Obstacle>[][] getObstacleMap() {
+        return obstacleMap;
+    }
+
+    public static ArrayList<Army>[][] getTroopMap() {
+        return troopMap;
+    }
+
     public static void CreateMap(int size){
         buildingMap=new ArrayList[size][size];
         for(int i = 0 ; i < size ; i++){

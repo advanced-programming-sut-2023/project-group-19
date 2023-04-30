@@ -2,7 +2,8 @@ package view.Commands;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public enum TradeMenuCommands {
-    TRADE("\\s*trade\\s+-t\\s.+"),
+    TRADE("\\s*trade\\s+-t\\s+.+"),
+    FORMAT_OF_NUMBER_FOR_SELECTED_BUILDING("\\s*\\d+\\s*"),
     SEND_REQUEST_RESOURCE_TYPE_CHECK("(?<resourceType>(-t\\s+(?=\"+)[^-]+)\"{1}|(-t\\s+(?=\"{0})[^\\s-]+))"),
     SEND_REQUEST_RESOURCE_AMOUNT_CHECK("(?<resourceAmount>-a\\s+\\d+)"),
     SEND_REQUEST_RESOURCE_PRICE_CHECK("?<resourcePrice>-p\\s+\\d+"),
@@ -13,6 +14,8 @@ public enum TradeMenuCommands {
     TRADE_ACCEPTED_ID_CHECK("?<id>(-i\\s+(?=\"+)[^-]+)\"{1}|(-i\\s+(?=\"{0})[^\\s-]+))"),
     TRADE_ACCEPTED_MESSAGE_CHECK("?<tradeMessage>(-m\\s+(?=\"+)[^-]+)\"{1}|(-m\\s+(?=\"{0})[^\\s-]+)"),
     SENDER_OF_REQUEST("Sender:\\s+(?<sender>.*)"),
+    RESOURCE_TYPE("Requested resource:\\s(?<type>.*)"),
+    RESOURCE_AMOUNT_OF_REQUEST("Amount of resource:\\s(?<amount>).*"),
     MESSAGE_OF_REQUEST_OR_DONATION("Attached Message:\\s+(?<message>.*)"),
     LOGOUT("\\s*Logout");
 

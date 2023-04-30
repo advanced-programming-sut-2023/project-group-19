@@ -43,12 +43,12 @@ public class ShopController {
         if (chosenGood != null){
             if (amount <= ShopMenu.currentShop.getCapacity() && amount%5==0){
                 if (checkStorageOfUser(nameOfGood , amount)) {
+                    validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
                     String answer = scanner.nextLine();
                     if (ShopMenuCommands.getMatcher(answer , ShopMenuCommands.OPERATION_ACCEPTED) != null) {
                         Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
                         ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() + chosenGood.getValue());
                         setResourceCount(nameOfGood, amount, "Buy");
-                        validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
                         return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
                     }else if (ShopMenuCommands.getMatcher(answer , ShopMenuCommands.OPERATION_CANCELLED) != null){
                         return ShopMenuMessages.OPERATION_CANCELLED;
@@ -65,6 +65,7 @@ public class ShopController {
         if (chosenGood != null){
             if (amount <= getResourceCount(nameOfGood).getValue()){
                 if (checkStorageOfShop(nameOfGood , amount)){
+                    validationFormForSelling(nameOfGood , chosenGood.getValue(), amount);
                     String answer = scanner.nextLine();
                     if (ShopMenuCommands.getMatcher(answer , ShopMenuCommands.OPERATION_ACCEPTED) != null) {
                         Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() + chosenGood.getValue());

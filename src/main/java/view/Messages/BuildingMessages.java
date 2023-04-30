@@ -2,6 +2,9 @@ package view.Messages;
 
 public enum BuildingMessages {
     INVALID_COORDINATE("Invalid coordinate!"),
+    ENTER_DIRECTION("Choose a direction for your considered building!"),
+    INVALID_DIRECTION("The given direction is invalid!"),
+    INPROPER_COORDINATE("The chosen coordinate is not proper for this type of building!"),
     NO_ACCESS("You don't have the permission to select your enemy's building!"),
     EMPTY_CELL("The given cell is empty!"),
     FILLED_CELL("The given cell is filled with another building!"),
@@ -16,7 +19,8 @@ public enum BuildingMessages {
     INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING("empire doesnt have enough resources to build the building"),
     CONTINUE("Continue"),
     BUILDING_IS_NOT_FOR_THIS_EMPIRE("this building does not belong to this empire"),
-    SUCCESS("building created successfully");
+    SUCCESS("building created successfully"),
+    ;
     private String messages;
 
     public String getMessages() {

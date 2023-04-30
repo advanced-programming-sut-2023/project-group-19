@@ -3,7 +3,6 @@ import controller.*;
 import model.Building.Shop;
 import view.Commands.ShopMenuCommands;
 import view.Messages.ShopMenuMessages;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -14,7 +13,6 @@ public class ShopMenu {
     public void run(Scanner scanner , Shop shop){
         currentShop=shop;
         String command;
-        Matcher matcher;
         Matcher itemName;
         Matcher itemAmount;
         ShopMenuMessages commandValidation;
@@ -22,7 +20,7 @@ public class ShopMenu {
         while (true){
             command = scanner.nextLine();
             if (ShopMenuCommands.getMatcher(command , ShopMenuCommands.SHOW_PRICE_LIST) != null){
-                shopController.showPricelist();
+                shopController.showPriceList();
             } else if (ShopMenuCommands.getMatcher(command , ShopMenuCommands.BUY) != null) {
                 itemName = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_NAME_CHECK);
                 itemAmount = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_AMOUNT_CHECK);

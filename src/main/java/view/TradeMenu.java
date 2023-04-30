@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 public class TradeMenu {
     public static String currentMenu;
 
-    public static void run(Scanner scanner){
+    public void run(Scanner scanner){
         String command;
         Matcher id;
         Matcher price;
@@ -29,16 +29,18 @@ public class TradeMenu {
                 price = TradeMenuCommands.getMatcher(command , TradeMenuCommands.SEND_REQUEST_RESOURCE_PRICE_CHECK);
                 message = TradeMenuCommands.getMatcher(command , TradeMenuCommands.SEND_REQUEST_RESOURCE_MESSAGE_CHECK);
                 commandValidation = checkTradeCommandFormat(resourceType , resourceAmount , price , message);
-                if (commandValidation.equals(TradeMenuMessages.SUCCESS)) tradeController.sendRequest(resourceType , resourceAmount , price , message);
-                else System.out.println(commandValidation.getMessages());
+                if (commandValidation.getMessages().equals(TradeMenuMessages.SUCCESS.getMessages())){
+                    tradeController.sendRequest(resourceType , resourceAmount , price , message);
+                } else System.out.println(commandValidation.getMessages());
             } else if (TradeMenuCommands.getMatcher(command , TradeMenuCommands.SHOW_TRADE_LIST) !=null ) {
                 tradeController.showTradeList();
             } else if (TradeMenuCommands.getMatcher(command , TradeMenuCommands.TRADE_ACCEPTED) != null) {
                 id = TradeMenuCommands.getMatcher(command , TradeMenuCommands.TRADE_ACCEPTED_ID_CHECK);
                 message = TradeMenuCommands.getMatcher(command , TradeMenuCommands.TRADE_ACCEPTED_MESSAGE_CHECK);
                 commandValidation = checkTradeAcceptanceFormat(id , message);
-                if (commandValidation.equals(TradeMenuMessages.VALID_COMMAND)) tradeController.tradeAcceptance(id , message);
-                else System.out.println(commandValidation.getMessages());
+                if (commandValidation.getMessages().equals(TradeMenuMessages.VALID_COMMAND.getMessages())){
+                    tradeController.tradeAcceptance(id , message);
+                } else System.out.println(commandValidation.getMessages());
             }else if (TradeMenuCommands.getMatcher(command , TradeMenuCommands.SHOW_TRADE_HISTORY) != null ){
                 tradeController.showTradeHistory();
             } else if (TradeMenuCommands.getMatcher(command , TradeMenuCommands.LOGOUT) != null) {

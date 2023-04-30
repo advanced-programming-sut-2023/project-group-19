@@ -31,12 +31,6 @@ public enum Names {
     ENGINEER_GUILD("Engineer Guild"),
     KILLING_PIT("Killing Pit"),
     STABLE("Stable"),
-    CATAPULT("catapult"),
-    TREBUCHET("trebuchet"),
-    SIEGE_TOWER("siegeTower"),
-    FIRE_BALISTA("fireBalista"),
-    BATTERING_RAM("batteringRam"),
-    PORTABLE_SHIELD("portableShield"),
     APPLE_FARM("Apple Farm"),
     DAIRY_PRODUCT("Dairy Product"),
     OAT_FARM("Oat Farm"),
@@ -83,7 +77,11 @@ public enum Names {
     OIL_SMELTER("Oil Smelter"),
     PITCH_DITCH("Pitch Ditch"),
     CAGED_WAR_DOGS("Caged War Dogs"),
-    SIEGE_TENT("Siege Tent");
+    SIEGE_TENT("Siege Tent"),
+    NS("North-South"),
+    WE("West-East"),
+    BIG_WALL_THICKNESS("Thick"),
+    SMALL_WALL_THICKNESS("Thin"),;
     private String name;
 
     public String getName() {

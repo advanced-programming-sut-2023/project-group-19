@@ -19,10 +19,13 @@ public class TradeController {
             System.out.println(number+". "+empire.getName());
             number++;
         }
-        System.out.println("Enter the number of your considered empire : ");
-        int chosenEmpire=scanner.nextInt();
-        if (chosenEmpire < 1 || chosenEmpire > number) System.out.println("The number you've entered is invalid!");
-        else setSelectedEmpire(chosenEmpire);
+        /*System.out.println("Enter the number of your considered empire : ");
+        String numberOfChosenEmpire=scanner.nextLine();
+        if (TradeMenuCommands.getMatcher(numberOfChosenEmpire , TradeMenuCommands.FORMAT_OF_NUMBER_FOR_SELECTED_BUILDING) != null) {
+            int chosenEmpire = Integer.parseInt(numberOfChosenEmpire);
+            if (chosenEmpire < 1 || chosenEmpire > number) System.out.println("The number you've entered is invalid!");
+            else setSelectedEmpire(chosenEmpire);
+        }else System.out.println(TradeMenuMessages.INVALID_ANSWER_FOR_SELECTED_EMPIRE.getMessages());*/
     }
 
     public void showRequests(){
@@ -85,30 +88,30 @@ public class TradeController {
         String request;
         String donation;
         String idOfEmpire = id.group("id");
-        String messageFromEmpire=message.group("tradeMessage");
+        String messageFromEmpire = message.group("tradeMessage");
         Empire empire=Manage.getEmpireByNickname(idOfEmpire);
         if (empire!=null) {
             if (messageFromEmpire != null) {
                 if ((request=findRequest(idOfEmpire, messageFromEmpire, empire)) != null) {
-                    matcher=TradeMenuCommands.getMatcher(request , TradeMenuCommands.SEND_REQUEST_RESOURCE_AMOUNT_CHECK);
-                    int amount=Integer.parseInt(matcher.group("resourceAmount"));
-                    matcher=TradeMenuCommands.getMatcher(request , TradeMenuCommands.SEND_REQUEST_RESOURCE_TYPE_CHECK);
-                    String requestResource=matcher.group("resourceType");
+                    matcher=TradeMenuCommands.getMatcher(request , TradeMenuCommands.RESOURCE_AMOUNT_OF_REQUEST);
+                    int amount=Integer.parseInt(matcher.group("amount"));
+                    matcher=TradeMenuCommands.getMatcher(request , TradeMenuCommands.RESOURCE_TYPE);
+                    String requestResource=matcher.group("type");
                     if (getResourceCount(requestResource)!=-1) {
                         if (empire.getResourcesCount() + amount <= empire.getResourcesCapacity()) {
                             setResourceCount(requestResource , amount , idOfEmpire);
                             setResourceCount(requestResource , amount , Manage.getCurrentEmpire().getName());
                             StringTokenizer stringToken = new StringTokenizer(request , "Status");
                             request = stringToken.nextToken();
-                            request=request.concat("\nStatus: Accepted");
+                            request=request.concat("Status: Accepted");
                             return TradeMenuMessages.SUCCESS;
                         }
                     }
                 } else if ((donation=findDonation(idOfEmpire, messageFromEmpire, empire) )!= null) {
-                    matcher=TradeMenuCommands.getMatcher(donation , TradeMenuCommands.SEND_REQUEST_RESOURCE_AMOUNT_CHECK);
-                    int amount=Integer.parseInt(matcher.group("resourceAmount"));
-                    matcher=TradeMenuCommands.getMatcher(donation , TradeMenuCommands.SEND_REQUEST_RESOURCE_TYPE_CHECK);
-                    String requestResource=matcher.group("resourceType");
+                    matcher=TradeMenuCommands.getMatcher(donation , TradeMenuCommands.RESOURCE_AMOUNT_OF_REQUEST);
+                    int amount=Integer.parseInt(matcher.group("amount"));
+                    matcher=TradeMenuCommands.getMatcher(donation , TradeMenuCommands.RESOURCE_TYPE);
+                    String requestResource=matcher.group("type");
                     if (getResourceCount(requestResource)!=-1 && getResourceCount(requestResource) >= amount) {
                         if (empire.getResourcesCount() + amount <= empire.getResourcesCapacity()) {
                             setResourceCount(requestResource , amount , idOfEmpire);

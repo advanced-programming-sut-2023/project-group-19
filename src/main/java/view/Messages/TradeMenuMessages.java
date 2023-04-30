@@ -15,6 +15,7 @@ public enum TradeMenuMessages {
     NOT_ENOUGH_RESOURCES("The empire doesn't have enough resource to be shared or traded!"),
     NOT_ENOUGH_SPACE("The guest empire doesn't have enough capacity to save the mentioned good!"),
     INVALID_EMPIRE("There's no empire with the given name in the game!"),
+    INVALID_ANSWER_FOR_SELECTED_EMPIRE("The format of your entry was invalid.You're back to the TradeMenu!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
     SUCCESS("The trade operation has been done completely!");

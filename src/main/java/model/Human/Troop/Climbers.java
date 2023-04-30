@@ -1,17 +1,32 @@
 package model.Human.Troop;
 
 import model.Empire;
-
-public class FightTools extends Army {
-    public FightTools(Empire government) {
+import model.Human.Human;
+import model.Human.Names;
+public class Climbers extends Army {
+    public Climbers(Empire government) {
         super(government);
     }
 
+    private Names names;
     private int hp;
+    private int maxHp;
     private int speed;
     private int defencePower;
     private int attackPower;
     private int attackRange;
+
+    public int xCoordinate;
+
+    public int yCoordinate;
+
+    public void setNames(Names names) {
+        this.names = names;
+    }
+
+    public Names getNames() {
+        return names;
+    }
 
     @Override
     public int getHp() {
@@ -23,67 +38,72 @@ public class FightTools extends Army {
         this.hp = hp;
     }
 
-    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
     public int getSpeed() {
         return speed;
     }
 
-    @Override
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    @Override
     public int getDefencePower() {
         return defencePower;
     }
 
-    @Override
     public void setDefencePower(int defencePower) {
         this.defencePower = defencePower;
     }
 
-    @Override
     public int getAttackPower() {
         return attackPower;
     }
 
-    @Override
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
 
-    @Override
     public int getAttackRange() {
         return attackRange;
     }
 
-    @Override
     public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
     }
-    //TODO : DELETE THIS CLASS
-    public void portableShield() {
+
+    public void SpearMen() {
+        hp = 500;
+        maxHp = 500;
+        names = Names.SPEAR_MEN;
 
     }
 
-    public void ram() {
+    public void MaceMen() {
+        hp = 675;
+        maxHp = 675;
+        names = Names.MACE_MEN;
 
     }
 
-    public void conquerTower() {
+    public void LadderMen() {
+        hp = 500;
+        maxHp = 500;
+        names = Names.LADDER_MEN;
 
     }
 
-    public void normalCatapult() {
-
-    }
-
-    public void specialCatapult() {
-
-    }
-
-    public void fireThrower() {
+    public void Assassins() {
+        hp = 800;
+        maxHp = 800;
+        names = Names.ASSASSINS;
 
     }
 }
+

@@ -1,47 +1,31 @@
 package model.Human.Troop;
 
 import model.Empire;
+import model.Human.Human;
 import model.Human.Names;
 
-public class ArabArmy extends Army {
-    public ArabArmy(Empire government) {
+public class Tunneler extends Army {
+    public Tunneler(Empire government) {
         super(government);
     }
-
     private Names names;
+    private int hp;
+    private int maxHp;
+    private int speed;
+    private int defencePower;
+    private int attackPower;
+    private int attackRange;
+    public int xCoordinate;
+
+    public int yCoordinate;
+
 
     public Names getNames() {
         return names;
     }
 
-    private String ArmyForm;
-
     public void setNames(Names names) {
         this.names = names;
-    }
-
-    @Override
-    public String getArmyForm() {
-        return ArmyForm;
-    }
-
-    @Override
-    public void setArmyForm(String armyForm) {
-        ArmyForm = armyForm;
-    }
-
-    private int hp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
-
-    public int getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
     }
 
     @Override
@@ -52,6 +36,14 @@ public class ArabArmy extends Army {
     @Override
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
 
     public int getSpeed() {
@@ -76,5 +68,19 @@ public class ArabArmy extends Army {
 
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
+    }
+
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    public void Tunneler(int x , int y) {
+        names = Names.TUNNELER;
+        xCoordinate = x;
+        yCoordinate = y;
     }
 }
