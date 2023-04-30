@@ -13,9 +13,6 @@ public class SiegeTroops extends Army implements BuildingConstantFunctions {
 
     private Names names;
 
-    public Names getNames() {
-        return names;
-    }
 
     //TODO add WORKER
 
