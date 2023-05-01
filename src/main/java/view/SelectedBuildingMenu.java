@@ -3,6 +3,7 @@ package view;
 import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import model.Building.Building;
+import model.Building.Shop;
 import model.Empire;
 import view.Commands.SelectedBuildingCommands;
 import view.Messages.SelectedBuildingMessages;
@@ -77,7 +78,7 @@ public class SelectedBuildingMenu {
                 System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
             } else if (buildingName.equals("shop")) {
                 ShopMenu shopMenu = new ShopMenu();
-                shopMenu.run(scanner);
+                shopMenu.run(scanner , (Shop) selectedBuilding);
             } else if (input.equals("exit")) {
                 return;
             } else {

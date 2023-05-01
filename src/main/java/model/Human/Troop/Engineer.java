@@ -4,6 +4,8 @@ import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
 
+import java.util.List;
+
 public class Engineer extends Army {
     public Engineer(Empire government) {
         super(government);
@@ -11,6 +13,7 @@ public class Engineer extends Army {
 
     private int hp;
     private int maxHp;
+    public int restOfMoves;
     private Names names;
 
     @Override
@@ -34,7 +37,8 @@ public class Engineer extends Army {
 
     public boolean isBossOfOilSmelter;
     public boolean isBowlFullOfOil;
-
+    public List<Integer> myPath;
+    public Names typeOfArmy;
     public int getDefencePower() {
         return defencePower;
     }
@@ -75,6 +79,10 @@ public class Engineer extends Army {
         isBowlFullOfOil = bowlFullOfOil;
     }
 
+    public Names getTypeOfArmy() {
+        return typeOfArmy;
+    }
+
     public Names getNames() {
         return names;
     }
@@ -82,8 +90,44 @@ public class Engineer extends Army {
     public void engineer(int x , int y){
         hp = 1000;
         maxHp = 1000;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.ENGINEER;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 5;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+    @Override
+    public int speed() {
+        return speed;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
     }
 }

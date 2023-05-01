@@ -6,7 +6,7 @@ public enum GameMenuMessages {
     NO_UNIT_IN_CELL("The chosen cell doesn't contain any unit!"),
     NO_UNIT_SELECTED("You haven't selected a unit yet!"),
     LOCATION_CONTAINS_BUILDING("The chosen coordinate contains a building"),
-    LOCATION_CONTAINS_WATERSOURCES("The chosen coordinate contains water sources that units can't pass!"),
+    LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES("The chosen coordinate contains water sources or high towers which can't be moved to them at once!!"),
     EMPTY_COORDINATE_FIELD("Some of your coordinate fields are empty!"),
     EMPTY_DIRECTION_FIELD("The direction field is empty in your entry!"),
     EMPTY_EQUIPMENT_FIELD("The equipment field is empty in your entry!"),
@@ -21,8 +21,11 @@ public enum GameMenuMessages {
     IMPROPER_UNIT("The type of unit you've selected is improper"),
     DITCH_FILLED("The ditch is filled!"),
     TUNNEL_DUG("The tunnel dug successfully!"),
+    ARMY_DEPLOYED("Your army deployed completely!"),
+    ARMY_IN_PROCESS_OF_DEPLOYING("Your army will be deployed in forward turns!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
+    CONTINUE("Continue!"),
     LOGOUT("Logout"),;
     private String messages;
 

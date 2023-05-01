@@ -20,7 +20,8 @@ public class ShopMenu {
         while (true){
             command = scanner.nextLine();
             if (ShopMenuCommands.getMatcher(command , ShopMenuCommands.SHOW_PRICE_LIST) != null){
-                shopController.showPriceList();
+                //TODO : Fix showPriceList
+                //shopController.showPriceList();
             } else if (ShopMenuCommands.getMatcher(command , ShopMenuCommands.BUY) != null) {
                 itemName = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_NAME_CHECK);
                 itemAmount = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_AMOUNT_CHECK);

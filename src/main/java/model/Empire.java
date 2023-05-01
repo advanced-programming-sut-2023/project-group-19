@@ -34,7 +34,6 @@ public class Empire {
 
     public ArrayList<Army> empireArmy = new ArrayList<>();
 
-
     public int getPeasantCount() {
         return PeasantCount;
     }

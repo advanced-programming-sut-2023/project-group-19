@@ -29,7 +29,10 @@ public enum Names {
     BATTERING_RAM("batteringRam"),
     PORTABLE_SHIELD("portableShield"),
     VERTICAL("Vertical"),
-    HORIZONTAL("Horizontal"),;
+    HORIZONTAL("Horizontal"),
+    STANDING_AMRY("standing"),
+    DEFENSIVE_ARMY("defensive"),
+    OFFENSIVE("offensive"),;
 
     private String name;
 

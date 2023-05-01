@@ -12,12 +12,15 @@ import model.Manage;
 import model.Map;
 import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
+
+import java.util.List;
 import java.util.regex.Matcher;
 
 
 public class GameController {
     public Human selectedUnit;
     public Empire currentEnemy;
+    public int currentTurn;
     public GameMenuMessages selectUnit(Matcher x , Matcher y){
         int xCoordinate = Integer.parseInt(x.group("x"));
         int yCoordinate = Integer.parseInt(y.group("y"));
@@ -30,15 +33,51 @@ public class GameController {
     public GameMenuMessages moveUnit(Matcher x , Matcher y){
         int xCoordinate = Integer.parseInt(x.group("x"));
         int yCoordinate = Integer.parseInt(y.group("y"));
-        if (selectedUnit != null){
+        //if (selectedUnit != null){
             if (Map.getBuildingMap()[xCoordinate][yCoordinate].get(0) == null){
-                if (validFinalLocation(xCoordinate , yCoordinate)){
+                if (validFinalLocation(xCoordinate , yCoordinate) && !isTower(xCoordinate , yCoordinate)){
                     if (!isTrebuchet()) {
-                        //TODO : The rest of it requires pathfinding algorithm
-                    }return GameMenuMessages.UNABLE_TO_MOVE_TREBUCHET;
-                }return GameMenuMessages.LOCATION_CONTAINS_WATERSOURCES;
+                        for (Army myArmy : Manage.getCurrentEmpire().empireArmy) {
+                            PathFindingController.startX = myArmy.getCurrentX() - 1;
+                            PathFindingController.startY = myArmy.getCurrentY() - 1;
+                            PathFindingController.goalX = xCoordinate - 1;
+                            PathFindingController.goalY = yCoordinate - 1;
+                            List<Integer> pathList = PathFindingController.pathFinding();
+                            myArmy.myPath = pathList;
+                            if (pathList != null) {
+                                int movesLeftToDestination = pathList.size();
+                                if (movesLeftToDestination <= myArmy.speed()) {
+                                    Map.getTroopMap()[myArmy.getCurrentX()][myArmy.getCurrentY()].remove(myArmy);
+                                    myArmy.xCoordinate = pathList.get(movesLeftToDestination) / PathFindingController.size;
+                                    myArmy.yCoordinate = pathList.get(movesLeftToDestination) % PathFindingController.size;
+                                    Map.getTroopMap()[xCoordinate][yCoordinate].add(myArmy);
+                                    myArmy.restOfMoves = 0;
+                                    myArmy.myPath = null;
+                                    //TODO : Remember that you should delete an army if its hp <= 0 from myArmy
+                                } else if (movesLeftToDestination > myArmy.speed()) {
+                                    Map.getTroopMap()[myArmy.getCurrentX()][myArmy.getCurrentY()].remove(myArmy);
+                                    myArmy.xCoordinate = pathList.get(myArmy.speed()) / PathFindingController.size;
+                                    myArmy.yCoordinate = pathList.get(myArmy.speed()) % PathFindingController.size;
+                                    Map.getTroopMap()[myArmy.xCoordinate][myArmy.yCoordinate].add(myArmy);
+                                    myArmy.restOfMoves = movesLeftToDestination - myArmy.speed();
+                                    //TODO : Every time you enter gameMenu and every turn you should call isMyArmyDeployed
+                                    //TODO : And then restOfPath
+                                }
+                            }
+                        }
+                        if (!isMyArmyDeployed()) return GameMenuMessages.ARMY_DEPLOYED;
+                        else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
+                    }else return GameMenuMessages.UNABLE_TO_MOVE_TREBUCHET;
+                }else return GameMenuMessages.LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES;
             }return GameMenuMessages.LOCATION_CONTAINS_BUILDING;
-        }return GameMenuMessages.NO_UNIT_SELECTED;
+        //}return GameMenuMessages.NO_UNIT_SELECTED;
+    }
+    public boolean isMyArmyDeployed(){
+        for (Army myArmy : Manage.getCurrentEmpire().empireArmy){
+            if (myArmy.restOfMoves != 0){
+                return true;
+            }
+        }return false;
     }
     public boolean isTrebuchet(){
         if (selectedUnit instanceof ArchersAndThrowers){

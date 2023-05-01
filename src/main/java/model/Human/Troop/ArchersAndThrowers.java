@@ -6,8 +6,9 @@ import model.Human.Human;
 import model.Human.Names;
 
 import java.util.HashMap;
+import java.util.List;
 
-public class ArchersAndThrowers extends Army  {
+public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public ArchersAndThrowers(Empire government) {
         super(government);
     }
@@ -18,11 +19,12 @@ public class ArchersAndThrowers extends Army  {
     private int defencePower;
     private int attackPower;
     private int attackRange;
-
     public int xCoordinate;
-
     public int yCoordinate;
+    public int restOfMoves;
+    public List<Integer> myPath;
     public Names shieldDirection;
+    public Names typeOfArmy;
 
     public void setNames(Names names) {
         this.names = names;
@@ -32,27 +34,12 @@ public class ArchersAndThrowers extends Army  {
     }
 
     @Override
-    public int getHp() {
-        return hp;
-    }
-
-    @Override
     public void setHp(int hp) {
         this.hp = hp;
     }
-
-    public int getMaxHp() {
-        return maxHp;
-    }
-
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
-
-    public int getSpeed() {
-        return speed;
-    }
-
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -81,16 +68,13 @@ public class ArchersAndThrowers extends Army  {
         this.attackRange = attackRange;
     }
 
-    public int getxCoordinate() {
-        return xCoordinate;
-    }
-
-    public int getyCoordinate() {
-        return yCoordinate;
-    }
 
     public Names getShieldDirection() {
         return shieldDirection;
+    }
+
+    public Names getTypeOfArmy() {
+        return typeOfArmy;
     }
 
     public HashMap<String, Integer> cost = new HashMap<>();
@@ -113,50 +97,59 @@ public class ArchersAndThrowers extends Army  {
     public void archer(int x , int y) {
         hp = 475;
         maxHp = 475;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.ARCHER;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 7;
 
     }
     public void Crossbowmen(int x , int y) {
         hp = 700;
         maxHp = 700;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.CROSSBOWMEN;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 3;
 
     }
     public void ArcherBow(int x , int y) {
         hp = 475;
         maxHp = 475;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.ARCHER_BOW;
         xCoordinate = x;
         yCoordinate = y;
-
+        speed = 7;
     }
     public void Slingers(int x , int y) {
         hp = 700;
         maxHp = 700;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.SLINGERS;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 7;
     }
     public void HorseArchers(int x , int y) {
         hp = 850;
         maxHp = 850;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.HORSE_ARCHERS;
         xCoordinate = x;
         yCoordinate = y;
-
+        speed = 9;
     }
     public void FireThrowers(int x , int y) {
         hp = 850;
         maxHp = 850;
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.FireThrowers;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 9;
     }
-
     public void catapult(int x , int y){
         names = Names.CATAPULT;
         xCoordinate = x;
@@ -203,4 +196,40 @@ public class ArchersAndThrowers extends Army  {
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1,0);
     }
+
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public int speed() {
+        return speed;
+    }
+
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
+    }
+
 }

@@ -2,6 +2,8 @@ package model.Human;
 
 import model.Empire;
 
+import java.util.List;
+
 public class Worker extends Human {
 
     Worker(Empire government) {
@@ -9,6 +11,12 @@ public class Worker extends Human {
     }
 
     private int hp = 1;
+    private int maxHp;
+    private int speed;
+    private int xCoordinate;
+    private int yCoordinate;
+    public int restOfMoves;
+    public List<Integer> myPath;
 
     @Override
     public int getHp() {
@@ -25,8 +33,6 @@ public class Worker extends Human {
 
     private int attackPower;
 
-    private int speed;
-
     public int getDefencePower() {
         return defencePower;
     }
@@ -42,12 +48,42 @@ public class Worker extends Human {
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
 
-    public int getSpeed() {
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public int speed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
     }
 }

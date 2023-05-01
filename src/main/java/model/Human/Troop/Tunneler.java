@@ -4,7 +4,9 @@ import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
 
-public class Tunneler extends Army {
+import java.util.List;
+
+public class Tunneler extends Army implements HumanConstantFunctions{
     public Tunneler(Empire government) {
         super(government);
     }
@@ -16,10 +18,10 @@ public class Tunneler extends Army {
     private int attackPower;
     private int attackRange;
     public int xCoordinate;
-
     public int yCoordinate;
-
-
+    public int restOfMoves;
+    public Names typeOfArmy;
+    public List<Integer> myPath;
     public Names getNames() {
         return names;
     }
@@ -29,17 +31,8 @@ public class Tunneler extends Army {
     }
 
     @Override
-    public int getHp() {
-        return hp;
-    }
-
-    @Override
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public int getMaxHp() {
-        return maxHp;
     }
 
     public void setMaxHp(int maxHp) {
@@ -48,10 +41,6 @@ public class Tunneler extends Army {
 
     public int getSpeed() {
         return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public int getDefencePower() {
@@ -78,9 +67,50 @@ public class Tunneler extends Army {
         this.attackRange = attackRange;
     }
 
+    public Names getTypeOfArmy() {
+        return typeOfArmy;
+    }
+
     public void Tunneler(int x , int y) {
+        typeOfArmy = Names.STANDING_AMRY;
         names = Names.TUNNELER;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 7;
+    }
+
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public int speed() {
+        return speed;
+    }
+
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
     }
 }

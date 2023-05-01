@@ -3,7 +3,10 @@ package model.Human.Troop;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
-public class Climbers extends Army {
+
+import java.util.List;
+
+public class Climbers extends Army implements HumanConstantFunctions{
     public Climbers(Empire government) {
         super(government);
     }
@@ -19,7 +22,9 @@ public class Climbers extends Army {
     public int xCoordinate;
 
     public int yCoordinate;
-
+    public Names typeOfArmy;
+    public int restOfMoves;
+    public List<Integer> myPath;
     public void setNames(Names names) {
         this.names = names;
     }
@@ -29,17 +34,8 @@ public class Climbers extends Army {
     }
 
     @Override
-    public int getHp() {
-        return hp;
-    }
-
-    @Override
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    public int getMaxHp() {
-        return maxHp;
     }
 
     public void setMaxHp(int maxHp) {
@@ -78,32 +74,71 @@ public class Climbers extends Army {
         this.attackRange = attackRange;
     }
 
+    public Names getTypeOfArmy() {
+        return typeOfArmy;
+    }
+
     public void SpearMen() {
         hp = 500;
         maxHp = 500;
         names = Names.SPEAR_MEN;
-
+        speed = 5;
     }
 
     public void MaceMen() {
         hp = 675;
         maxHp = 675;
         names = Names.MACE_MEN;
-
+        speed = 5;
     }
 
     public void LadderMen() {
         hp = 500;
         maxHp = 500;
         names = Names.LADDER_MEN;
-
+        speed = 7;
     }
 
     public void Assassins() {
         hp = 800;
         maxHp = 800;
         names = Names.ASSASSINS;
+        speed = 5;
+    }
 
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public int speed() {
+        return speed;
+    }
+
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
     }
 }
 

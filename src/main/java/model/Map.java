@@ -12,15 +12,7 @@ public class Map {
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
 
-    public static ArrayList<Army>[][] getTroopMap() {
-        return troopMap;
-    }
-
     public static ArrayList<Obstacle>[][] obstacleMap;
-
-    public static ArrayList<Obstacle>[][] getObstacleMap() {
-        return obstacleMap;
-    }
 
     public static ArrayList<GroundType>[][] groundType ;
     public static boolean[][] notPassable; // for troop
@@ -33,7 +25,6 @@ public class Map {
     public static void AddToBuildingMap(int x , int y , Building newBuilding) {
         buildingMap[x][y].add(newBuilding);
     }
-
 
     public static ArrayList<Obstacle>[][] getObstacleMap() {
         return obstacleMap;

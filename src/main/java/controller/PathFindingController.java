@@ -1,5 +1,7 @@
 package controller;
 
+import model.Map;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,10 +56,10 @@ public class PathFindingController {
                 return path;
             }
             List<Integer> lastNode = g.get(last);
-            List<Integer> newpath = new ArrayList<>(path);
+            List<Integer> newPath = new ArrayList<>(path);
             if (findBestNode(lastNode, path) != 0) {
-                newpath.add(findBestNode(lastNode, path));
-                queue.offer(newpath);
+                newPath.add(findBestNode(lastNode, path));
+                queue.offer(newPath);
             } else {
                 return path;
             }
@@ -95,7 +97,7 @@ public class PathFindingController {
     }
 
     //TODO : take care that when you want to pass the x and y make sure to -1 them
-    public static int size;
+    public static int size = Map.mapSize;
     public static int goalX;
     public static int goalY;
     public static int startX;
@@ -113,8 +115,5 @@ public class PathFindingController {
             return findPaths(g, src, dst);
         }
         return null;
-        //benazammmmmmmmmmm ke dorost kar mikone
     }
-
-
 }

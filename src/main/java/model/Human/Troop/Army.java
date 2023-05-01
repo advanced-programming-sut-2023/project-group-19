@@ -4,7 +4,9 @@ import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
 
-public class Army extends Human {
+import java.util.List;
+
+public class Army extends Human{
     public Army(Empire government) {
         super(government);
     }
@@ -16,10 +18,16 @@ public class Army extends Human {
 
     private String armyForm;
     private int hp;
+    private int maxHp;
     private int speed;
     private int defencePower;
     private int attackPower;
     private int attackRange;
+
+    public int xCoordinate;
+    public int yCoordinate;
+    public int restOfMoves;
+    public List<Integer> myPath;
 
     @Override
     public int getHp() {
@@ -70,4 +78,40 @@ public class Army extends Human {
     public void setArmyForm(String armyForm) {
         this.armyForm = armyForm;
     }
+
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+
+    @Override
+    public int speed() {
+        return speed;
+    }
+
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
+    }
+
 }
