@@ -30,7 +30,7 @@ public class BuildingController {
     }
 
     public boolean correctGroundType(int x, int y, Building newBuilding) {
-        return Map.getGroundType()[x][y].get(0).equals(newBuilding.getRequiredGroundType());
+        return Map.getGroundType()[x][y].get(0).getGroundType().equals(newBuilding.getRequiredGroundType());
     }
 
     public Building findSelectedBuilding(int x, int y) {
@@ -76,8 +76,8 @@ public class BuildingController {
             case "Small Stone Gatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
-                if (Names.getMatcher(direction , Names.NS) != null) directionOfGate = Names.NS;
-                else if (Names.getMatcher(direction , Names.WE) != null) directionOfGate = Names.WE;
+                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
+                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
                 else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay(directionOfGate);
@@ -97,8 +97,8 @@ public class BuildingController {
             case "Big Stone Gatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
-                if (Names.getMatcher(direction , Names.NS) != null) directionOfGate = Names.NS;
-                else if (Names.getMatcher(direction , Names.WE) != null) directionOfGate = Names.WE;
+                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
+                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
                 else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay(directionOfGate);
@@ -839,8 +839,7 @@ public class BuildingController {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                     if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
                         if (HasBuildingInThisPlace(x, y)) {
-                            callBuildingFunction(x, y, type ,scanner);
-                            break;
+                            return callBuildingFunction(x, y, type ,scanner);
                         } else return BuildingMessages.INVALID_BUILDING_NAME;
                     }
                 }

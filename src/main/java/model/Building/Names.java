@@ -97,7 +97,6 @@ public enum Names {
     }
 
     public static Matcher getMatcher(String input, Names names) {
-        Matcher matcher = Pattern.compile(names.name).matcher(input);
-        return matcher;
+        return Pattern.compile(names.name).matcher(input);
     }
 }
