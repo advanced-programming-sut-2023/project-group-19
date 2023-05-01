@@ -3,6 +3,7 @@ package view.Messages;
 public enum ProfileMenuMessage {
     INVALID_FORM_USERNAME,
     SUCCESS,
+    SIMILAR__OLD_NEW_PASSWORD,
     INCORRECT_PASSWORD ,
     WEAK_PASSWORD_FOR_LOWERCASE,
     WEAK_PASSWORD_FOR_UPPERCASE,

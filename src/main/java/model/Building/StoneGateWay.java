@@ -16,13 +16,24 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     private static Names direction;
     private boolean isGateOpen;
     private boolean isGateConquered;
+    private int maxCapacity;
 
-    public int getCapacity() {
-        return capacity;
+    private int currentCapacity;
+
+    public int getMaxCapacity() {
+        return maxCapacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(int currentCapacity) {
+        this.currentCapacity = currentCapacity;
     }
 
     public static Names getNames() {
