@@ -47,7 +47,8 @@ public class BuildingController {
     }
 
     public boolean empireHasEnoughWorkersToBuildTheBuilding(Building building, Empire empire) {
-        return (building.workersNeeded.get("engineer") <= empire.getEngineerCount() && building.workersNeeded.get("worker") <= empire.getWorkerCount());
+        return (building.workersNeeded.get("engineer") <= empire.getEngineerCount() &&
+                building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
     public void buildingCheckout(Building building, Empire empire) {
@@ -792,11 +793,16 @@ public class BuildingController {
                 Wall bigWall = new Wall(currentEmpire);
                 bigWall.bigWall();
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigWall , currentEmpire)){
-                    buildingCheckout(bigWall , currentEmpire);
-                    Map.AddToBuildingMap(x , y , bigWall);
-                    Map.notBuildable[x][y] = true ;
-                    Map.notPassable[x][y] = true ;
-                    return BuildingMessages.SUCCESS;
+                    if(empireHasEnoughWorkersToBuildTheBuilding(bigWall , currentEmpire)) {
+                        buildingCheckout(bigWall, currentEmpire);
+                        Map.AddToBuildingMap(x, y, bigWall);
+                        Map.notBuildable[x][y] = true;
+                        Map.notPassable[x][y] = true;
+                        return BuildingMessages.SUCCESS;
+                    }
+                    else {
+                        return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                    }
                 }else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
@@ -804,11 +810,16 @@ public class BuildingController {
                 Wall smallWall = new Wall(currentEmpire);
                 smallWall.smallWall();
                 if (empireHasEnoughResourcesToBuildTheBuilding(smallWall , currentEmpire)){
-                    buildingCheckout(smallWall , currentEmpire);
-                    Map.AddToBuildingMap(x , y , smallWall);
-                    Map.notBuildable[x][y] = true ;
-                    Map.notPassable[x][y] = true ;
-                    return BuildingMessages.SUCCESS;
+                    if(empireHasEnoughWorkersToBuildTheBuilding(smallWall , currentEmpire)) {
+                        buildingCheckout(smallWall, currentEmpire);
+                        Map.AddToBuildingMap(x, y, smallWall);
+                        Map.notBuildable[x][y] = true;
+                        Map.notPassable[x][y] = true;
+                        return BuildingMessages.SUCCESS;
+                    }
+                    else {
+                        return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                    }
                 }else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
@@ -816,12 +827,17 @@ public class BuildingController {
                 Wall stairs = new Wall(currentEmpire);
                 stairs.stair();
                 if (empireHasEnoughResourcesToBuildTheBuilding(stairs , currentEmpire)){
-                    if (validationOfStairsLocation(x , y)) {
-                        buildingCheckout(stairs, currentEmpire);
-                        Map.AddToBuildingMap(x, y, stairs);
-                        Map.notBuildable[x][y] = true;
-                        Map.notPassable[x][y] = false;
-                    }else return BuildingMessages.INPROPER_COORDINATE;
+                    if(empireHasEnoughWorkersToBuildTheBuilding(stairs , currentEmpire)) {
+                        if (validationOfStairsLocation(x, y)) {
+                            buildingCheckout(stairs, currentEmpire);
+                            Map.AddToBuildingMap(x, y, stairs);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = false;
+                        } else return BuildingMessages.INPROPER_COORDINATE;
+                    }
+                    else {
+                        return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                    }
                 }else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
