@@ -37,6 +37,8 @@ public class Engineer extends Army {
 
     public boolean isBossOfOilSmelter;
     public boolean isBowlFullOfOil;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
     public Names typeOfArmy;
     public int getDefencePower() {
@@ -124,6 +126,16 @@ public class Engineer extends Army {
     @Override
     public int restOfMoves() {
         return restOfMoves;
+    }
+
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
     }
 
     @Override

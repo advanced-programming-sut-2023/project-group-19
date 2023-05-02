@@ -76,8 +76,8 @@ public class BuildingController {
             case "Small Stone Gatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
-                if (Names.getMatcher(direction , Names.NS) != null) directionOfGate = Names.NS;
-                else if (Names.getMatcher(direction , Names.WE) != null) directionOfGate = Names.WE;
+                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
+                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
                 else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay(directionOfGate);
@@ -97,8 +97,8 @@ public class BuildingController {
             case "Big Stone Gatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
-                if (Names.getMatcher(direction , Names.NS) != null) directionOfGate = Names.NS;
-                else if (Names.getMatcher(direction , Names.WE) != null) directionOfGate = Names.WE;
+                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
+                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
                 else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay(directionOfGate);

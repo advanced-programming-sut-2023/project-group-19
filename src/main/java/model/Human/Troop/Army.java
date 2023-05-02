@@ -26,8 +26,10 @@ public class Army extends Human{
 
     public int xCoordinate;
     public int yCoordinate;
-    public int restOfMoves;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
+    public int restOfMoves;
 
     @Override
     public int getHp() {
@@ -110,8 +112,17 @@ public class Army extends Human{
     }
 
     @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
+    }
+
+    @Override
     public List<Integer> myPath() {
         return myPath;
     }
-
 }

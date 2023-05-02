@@ -22,6 +22,8 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public int xCoordinate;
     public int yCoordinate;
     public int restOfMoves;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
     public Names shieldDirection;
     public Names typeOfArmy;
@@ -226,10 +228,18 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public int restOfMoves() {
         return restOfMoves;
     }
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
+    }
 
     @Override
     public List<Integer> myPath() {
         return myPath;
     }
-
 }

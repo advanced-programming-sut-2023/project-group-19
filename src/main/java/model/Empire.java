@@ -10,8 +10,8 @@ import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
-    //TODO : Lord Character
-    //TODO : Castle Building
+    // TODO : Lord Character
+    // TODO : Castle Building
 
     public User getUser() {
         return user;
@@ -1083,7 +1083,6 @@ public class Empire {
         } else {
             empire.setFoodRateNumber(-2);
         }
-
     }
 
     public String showFoodList(Empire empire) {
