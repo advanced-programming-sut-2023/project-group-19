@@ -218,6 +218,7 @@ public class BuildingController {
                 if (empireHasEnoughResourcesToBuildTheBuilding(armoury, currentEmpire)) {
                     if (empireHasEnoughWorkersToBuildTheBuilding(armoury, currentEmpire)) {
                         buildingCheckout(armoury, currentEmpire);
+                        currentEmpire.setWeaponsCapacity(currentEmpire.getWeaponsCapacity() + armoury.getCapacity());
                         Map.AddToBuildingMap(x, y, armoury);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
@@ -234,6 +235,7 @@ public class BuildingController {
                 if (empireHasEnoughResourcesToBuildTheBuilding(barracks, currentEmpire)) {
                     if (empireHasEnoughWorkersToBuildTheBuilding(barracks, currentEmpire)) {
                         buildingCheckout(barracks, currentEmpire);
+//                        currentEmpire.setba
                         Map.AddToBuildingMap(x, y, barracks);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
