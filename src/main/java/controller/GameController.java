@@ -1,6 +1,7 @@
 package controller;
 
 import model.Building.*;
+import model.Empire;
 import model.GroundType;
 import model.Human.Names;
 import model.Human.Troop.*;
@@ -37,6 +38,37 @@ public class GameController {
             else return GameMenuMessages.NO_UNIT_IN_CELL;
         }
         return GameMenuMessages.NO_UNIT_IN_CELL;
+    }
+    private static boolean isArcher(Army army) {
+        if (army instanceof ArchersAndThrowers) return true;
+        else return false;
+    }
+
+    public GameMenuMessages attackAllSelectedArchers(int x, int y) {
+        x--;
+        y--;
+        for (Army army : selectedUnit) {
+            if (!isArcher(army)) continue;
+            for (Army enemy : Map.getTroopMap()[x][y]) {
+                if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
+                int newHitPoint = enemy.hp() - army.getAttackPower();
+                enemy.setHp(newHitPoint);
+                break;
+            }
+        }
+        return GameMenuMessages.SUCCESS;
+    }
+
+    public GameMenuMessages disbandUnit() {
+        if (selectedUnit.isEmpty()) return GameMenuMessages.INVALID_COMMAND;
+        for (Army army : selectedUnit) {
+            int x = army.getCurrentX() - 1;
+            int y = army.getCurrentY() - 1;
+            Empire empire = army.getEmpire();
+            empire.empireArmy.remove(army);
+            Map.getTroopMap()[x][y].remove(army);
+        }
+        return GameMenuMessages.SUCCESS;
     }
 
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
