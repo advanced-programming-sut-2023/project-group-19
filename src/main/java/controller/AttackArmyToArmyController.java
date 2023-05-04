@@ -66,7 +66,6 @@ public class AttackArmyToArmyController {
             }
         }
         return convertedArrayList ;
-
     }
 
     private static ArrayList<Empire> getEmpiers(ArrayList<Army> armies){
