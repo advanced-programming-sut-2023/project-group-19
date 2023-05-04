@@ -1215,19 +1215,4 @@ public class Empire {
         FunctionBuildingController.transformWoodToBow();
         FunctionBuildingController.transformWoodToSpearOrPeak();
     }
-//TODO CHECK this part with dorsa
-
-//    public void setPopularityBasedOnReligion() {
-//        for (int x = 0; x < Map.mapSize; x++) {
-//            for (int y = 0; y < Map.mapSize; y++) {
-//                if (Map.getBuildingMap()[x][y].get(0).getName().equals(Names.BIG_CHURCH)
-//                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
-//                    Manage.getCurrentEmpire().setPopularity(Manage.getCurrentEmpire().getPopularity() + 2);
-//                } else if (Map.getBuildingMap()[x][y].get(0).getName().equals(Names.SMALL_CHURCH)
-//                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
-//                    Manage.getCurrentEmpire().setPopularity(Manage.getCurrentEmpire().getPopularity() + 1);
-//                }
-//            }
-//        }
-//    }
 }
