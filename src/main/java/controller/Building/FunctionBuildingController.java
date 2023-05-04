@@ -81,8 +81,8 @@ public class FunctionBuildingController {
 
     public static void transformIronToSwordOrMace() {
         int empiresIronCount = empire.getIronCount();
-        int blacksmithBuildingRate = empire.getBarracksBuildingRate();
-        int blacksmithBuildingCount = empire.getBarracksBuildingCount();
+        int blacksmithBuildingRate = empire.getBlacksmithBuildingRate();
+        int blacksmithBuildingCount = empire.getBlacksmithBuildingCount();
         if (empire.getWeaponsCount() + 2 * blacksmithBuildingRate * blacksmithBuildingCount <= empire.getWeaponsCapacity()) {
             if (blacksmithBuildingRate * blacksmithBuildingCount * 2 <= empiresIronCount) {
                 empire.setIronCount(empire.getIronCount() - 2 * blacksmithBuildingRate * blacksmithBuildingCount);
