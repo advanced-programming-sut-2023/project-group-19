@@ -10,6 +10,7 @@ public enum BuildingCommands {
     BUILDING_COMMANDS_SELECT_BUILDING("select building"),
 
     BUILDING_COMMANDS_FIND_DROP_BUILDING_TYPE("-type\\s+(?<type>\\w+)"),
+
     INVALID_COMMAND("invalid command"),
 
     ;

@@ -8,6 +8,15 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
     public KillingPit(Empire government) {
         super(government);
     }
+    private boolean killingPitIsOn = true;
+
+    public boolean isKillingPitIsOn() {
+        return killingPitIsOn;
+    }
+
+    public void setKillingPitIsOn(boolean killingPitIsOn) {
+        this.killingPitIsOn = killingPitIsOn;
+    }
 
     private int damage;
     private Names name;

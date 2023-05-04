@@ -13,7 +13,7 @@ public enum Names {
     SQUARE_TOWER("Square Tower"),
     ROUND_TOWER("Round Tower"),
     IRON_DIG("Iron Dig"),
-    FOOD_PROCESSING_STOCKPILE("Food Processing Stockpile"),
+    FOOD_STOCKPILE("Food Stockpile"),
     HOUSE("House"),
     TURRET("Turret"),
     RANGED_UNITS("Ranged Units"),
@@ -59,7 +59,7 @@ public enum Names {
     TUNNEL_ENTRANCE("Tunnel Entrance"),
     APOTHECARY("Apothecary"),
     WOODCUTTER("Wood Cutter"),
-    STOCKPILE("Stockpile"),
+    RESOURCES_STOCKPILE("resources Stockpile"),
     QUARRY("Quarry"),
     PITCH_RIG("Pitch Rig"),
     MARKET("Market"),
@@ -97,7 +97,6 @@ public enum Names {
     }
 
     public static Matcher getMatcher(String input, Names names) {
-        Matcher matcher = Pattern.compile(names.name).matcher(input);
-        return matcher;
+        return Pattern.compile(names.name).matcher(input);
     }
 }

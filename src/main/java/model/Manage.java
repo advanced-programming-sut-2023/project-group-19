@@ -38,10 +38,10 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Shop");
         namesOfAllPossibleBuildings.add("Siege Tent");
         namesOfAllPossibleBuildings.add("Stable");
-        namesOfAllPossibleBuildings.add("Industry Stockpile");
-        namesOfAllPossibleBuildings.add("Food Processing Stockpile");
-        namesOfAllPossibleBuildings.add("Small GateWay");
-        namesOfAllPossibleBuildings.add("Big GateWay");
+        namesOfAllPossibleBuildings.add("Resources Stockpile");
+        namesOfAllPossibleBuildings.add("Food Stockpile");
+        namesOfAllPossibleBuildings.add("Small Stone Gatehouse");
+        namesOfAllPossibleBuildings.add("Big Stone Gatehouse");
         namesOfAllPossibleBuildings.add("Lookout Tower");
         namesOfAllPossibleBuildings.add("Perimeter Tower");
         namesOfAllPossibleBuildings.add("Defend Tower");

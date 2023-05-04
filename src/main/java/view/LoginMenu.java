@@ -1,5 +1,4 @@
 package view;
-import com.google.gson.JsonSyntaxException;
 import controller.JsonController;
 import model.* ;
 //import controller.Controller;

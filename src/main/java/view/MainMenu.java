@@ -2,7 +2,7 @@ package view;
 
 import controller.ShowMapController;
 import controller.JsonController;
-import controller.MainMenuController;
+import model.User;
 import view.Commands.MainMenuCommands;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class MainMenu {
                 System.out.println("entered profile menu successfully");
                 ProfileMenu.run(scanner);
             }else if(MainMenuCommands.getMatcher(command,MainMenuCommands.LOGOUT) != null){
-                MainMenuController.logout();
+                User.setCurrentUser(null);
                 JsonController.emptyFile();
                 System.out.println("logged out");
                 return;

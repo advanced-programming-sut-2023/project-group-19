@@ -7,7 +7,6 @@ import java.security.PublicKey;
 
 public class FunctionBuildingController {
     public static Empire empire;
-
     public static void transformWheatToFlour() {
         int empiresWheatCount = empire.getWheatCount();
         int millRate = empire.getMillRate();
@@ -32,6 +31,20 @@ public class FunctionBuildingController {
             } else {
                 empire.setFlour(0);
                 empire.setBread(empire.getBread() + empiresFlourCount);
+            }
+        }
+    }
+    public static void increasePopularityWithBeer() {
+        int empiresBeerCount = empire.getBeer();
+        int innRate = empire.getInnRate();
+        int innCount = empire.getInnCount();
+        if (empire.getFoodCount() + innRate * innCount <= empire.getFoodCapacity()) {
+            if (innRate * innCount <= empiresBeerCount) {
+                empire.setBeer(empiresBeerCount - innRate * innCount);
+                empire.setPopularity(empire.getPopularity() + innCount);
+            } else {
+                empire.setBeer(0);
+                empire.setPopularity(empire.getPopularity() + empiresBeerCount/innRate);
             }
         }
     }

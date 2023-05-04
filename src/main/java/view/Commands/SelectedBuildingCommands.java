@@ -18,7 +18,12 @@ public enum SelectedBuildingCommands {
     SELECTED_BUILDING_COMMANDS_CREATE_UNIT("createunit"),
     SELECTED_BUILDING_COMMANDS_REPAIR("repair"),
     SELECTED_BUILDING_COMMANDS_FIND_CREATE_UNIT_TYPE("-t\\s+(?<type>\\w+)"),
+    REPAIR_SHOW_NAME("small stone gatehouse|Big Stone Gatehouse|Draw Bridge|" +
+            "Lookout Tower|Perimeter Tower|Defend Tower|Square Tower|Round Tower|" +
+            "Armoury|Barracks|Mercenary|Engineer Guild|Killing Pit|Oil Smelter|" +
+            "Pitch Ditch|Caged War Dogs|Siege Tent|Stable|"),
     SELECTED_BUILDING_COMMANDS_FIND_COUNT("-c\\s+(?<count>\\d+)");
+
 
 
     private Pattern name;
