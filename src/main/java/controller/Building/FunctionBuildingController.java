@@ -7,7 +7,6 @@ import java.security.PublicKey;
 
 public class FunctionBuildingController {
     public static Empire empire;
-    //TODO add the inn building to this part
     public static void transformWheatToFlour() {
         int empiresWheatCount = empire.getWheatCount();
         int millRate = empire.getMillRate();

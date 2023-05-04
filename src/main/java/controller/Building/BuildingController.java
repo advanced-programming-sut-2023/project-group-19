@@ -81,7 +81,6 @@ public class BuildingController {
         return false;
     }
 
-    //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
     public BuildingMessages callBuildingFunction(int x, int y, String type, Scanner scanner) {
         String direction;
         Names directionOfGate;
@@ -94,7 +93,7 @@ public class BuildingController {
                 else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
                 smallStoneGateWay.smallGateWay(directionOfGate);
-                if(correctGroundType(x , y , smallStoneGateWay )) {
+                if (correctGroundType(x, y, smallStoneGateWay)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
                             buildingCheckout(smallStoneGateWay, currentEmpire);
@@ -108,8 +107,7 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Big Stone Gatehouse":
@@ -120,7 +118,7 @@ public class BuildingController {
                 else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
                 bigStoneGateWay.bigGateWay(directionOfGate);
-                if(correctGroundType(x , y , bigStoneGateWay )) {
+                if (correctGroundType(x, y, bigStoneGateWay)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
                             buildingCheckout(bigStoneGateWay, currentEmpire);
@@ -134,14 +132,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Draw Bridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
                 drawBridge.drawBridge(x, y);
-                if(correctGroundType(x , y , drawBridge )) {
+                if (correctGroundType(x, y, drawBridge)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(drawBridge, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(drawBridge, currentEmpire)) {
                             buildingCheckout(drawBridge, currentEmpire);
@@ -155,14 +152,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Lookout Tower":
                 Tower lookoutTower = new Tower(currentEmpire);
                 lookoutTower.lookoutTower();
-                if(correctGroundType(x , y , lookoutTower )) {
+                if (correctGroundType(x, y, lookoutTower)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(lookoutTower, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(lookoutTower, currentEmpire)) {
                             buildingCheckout(lookoutTower, currentEmpire);
@@ -176,14 +172,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Perimeter Tower":
                 Tower perimeterTower = new Tower(currentEmpire);
                 perimeterTower.perimeterTower();
-                if(correctGroundType(x , y , perimeterTower )) {
+                if (correctGroundType(x, y, perimeterTower)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(perimeterTower, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(perimeterTower, currentEmpire)) {
                             buildingCheckout(perimeterTower, currentEmpire);
@@ -197,14 +192,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Defend Tower":
                 Tower defendTower = new Tower(currentEmpire);
                 defendTower.defendTower();
-                if(correctGroundType(x , y , defendTower )) {
+                if (correctGroundType(x, y, defendTower)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(defendTower, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(defendTower, currentEmpire)) {
                             buildingCheckout(defendTower, currentEmpire);
@@ -218,14 +212,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Square Tower":
                 Tower squareTower = new Tower(currentEmpire);
                 squareTower.squareTower();
-                if(correctGroundType(x , y , squareTower )) {
+                if (correctGroundType(x, y, squareTower)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(squareTower, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(squareTower, currentEmpire)) {
                             buildingCheckout(squareTower, currentEmpire);
@@ -239,14 +232,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Round Tower":
                 Tower roundTower = new Tower(currentEmpire);
                 roundTower.roundTower();
-                if(correctGroundType(x , y , roundTower )) {
+                if (correctGroundType(x, y, roundTower)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(roundTower, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(roundTower, currentEmpire)) {
                             buildingCheckout(roundTower, currentEmpire);
@@ -260,14 +252,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Armoury":
                 Armoury armoury = new Armoury(currentEmpire);
                 armoury.armoury();
-                if(correctGroundType(x , y , armoury )) {
+                if (correctGroundType(x, y, armoury)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(armoury, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(armoury, currentEmpire)) {
                             buildingCheckout(armoury, currentEmpire);
@@ -282,14 +273,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Barrack":
                 PrepareLaboursAndFighters barracks = new PrepareLaboursAndFighters(currentEmpire);
                 barracks.barracks();
-                if(correctGroundType(x , y , barracks )) {
+                if (correctGroundType(x, y, barracks)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(barracks, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(barracks, currentEmpire)) {
                             buildingCheckout(barracks, currentEmpire);
@@ -303,14 +293,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Mercenary Post":
                 PrepareLaboursAndFighters mercenaryPost = new PrepareLaboursAndFighters(currentEmpire);
                 mercenaryPost.mercenary();
-                if(correctGroundType(x , y , mercenaryPost )) {
+                if (correctGroundType(x, y, mercenaryPost)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(mercenaryPost, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(mercenaryPost, currentEmpire)) {
                             buildingCheckout(mercenaryPost, currentEmpire);
@@ -324,14 +313,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Engineer Guild":
                 PrepareLaboursAndFighters engineerGuild = new PrepareLaboursAndFighters(currentEmpire);
                 engineerGuild.engineerGuild();
-                if(correctGroundType(x , y , engineerGuild )) {
+                if (correctGroundType(x, y, engineerGuild)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(engineerGuild, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(engineerGuild, currentEmpire)) {
                             buildingCheckout(engineerGuild, currentEmpire);
@@ -345,14 +333,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Killing Pit":
                 KillingPit killingPit = new KillingPit(currentEmpire);
                 killingPit.killingPit();
-                if(correctGroundType(x , y , killingPit )) {
+                if (correctGroundType(x, y, killingPit)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(killingPit, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(killingPit, currentEmpire)) {
                             buildingCheckout(killingPit, currentEmpire);
@@ -366,15 +353,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Inn":
-                // TODO : add inn to the functional buildings and then fix this part
                 Inn inn = new Inn(currentEmpire);
                 inn.inn();
-                if(correctGroundType(x , y , inn )) {
+                if (correctGroundType(x, y, inn)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(inn, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(inn, currentEmpire)) {
                             buildingCheckout(inn, currentEmpire);
@@ -388,14 +373,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Mill":
                 Industry mill = new Industry(currentEmpire);
                 mill.mill();
-                if(correctGroundType(x , y , mill )) {
+                if (correctGroundType(x, y, mill)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(mill, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(mill, currentEmpire)) {
                             buildingCheckout(mill, currentEmpire);
@@ -410,14 +394,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Iron Dig":
                 Industry ironDig = new Industry(currentEmpire);
                 ironDig.ironDig();
-                if(correctGroundType(x , y , ironDig )) {
+                if (correctGroundType(x, y, ironDig)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(ironDig, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(ironDig, currentEmpire)) {
                             buildingCheckout(ironDig, currentEmpire);
@@ -432,14 +415,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Market":
                 Market market = new Market(currentEmpire);
                 market.market();
-                if(correctGroundType(x , y , market )) {
+                if (correctGroundType(x, y, market)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(market, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(market, currentEmpire)) {
                             buildingCheckout(market, currentEmpire);
@@ -453,14 +435,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Ox Tether":
                 Industry oxTether = new Industry(currentEmpire);
                 oxTether.oxTether();
-                if(correctGroundType(x , y , oxTether )) {
+                if (correctGroundType(x, y, oxTether)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(oxTether, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(oxTether, currentEmpire)) {
                             buildingCheckout(oxTether, currentEmpire);
@@ -475,14 +456,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Pitch Rig":
                 Industry pitchRig = new Industry(currentEmpire);
                 pitchRig.pitchRig();
-                if(correctGroundType(x , y , pitchRig )) {
+                if (correctGroundType(x, y, pitchRig)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(pitchRig, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(pitchRig, currentEmpire)) {
                             buildingCheckout(pitchRig, currentEmpire);
@@ -497,14 +477,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Quarry":
                 Industry quarry = new Industry(currentEmpire);
                 quarry.quarry();
-                if(correctGroundType(x , y , quarry )) {
+                if (correctGroundType(x, y, quarry)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(quarry, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(quarry, currentEmpire)) {
                             buildingCheckout(quarry, currentEmpire);
@@ -519,14 +498,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Food Stockpile":
                 Stockpile foodStockpile = new Stockpile(currentEmpire);
                 foodStockpile.foodStockpile();
-                if(correctGroundType(x , y , foodStockpile )) {
+                if (correctGroundType(x, y, foodStockpile)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(foodStockpile, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(foodStockpile, currentEmpire)) {
                             if (canBuildStockpile(x, y)) {
@@ -545,14 +523,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Resources Stockpile":
                 Stockpile resourcesStockpile = new Stockpile(currentEmpire);
                 resourcesStockpile.resourcesStockpile();
-                if(correctGroundType(x , y ,resourcesStockpile )) {
+                if (correctGroundType(x, y, resourcesStockpile)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
                             if (canBuildStockpile(x, y)) {
@@ -571,14 +548,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Wood Cutter":
                 Industry woodCutter = new Industry(currentEmpire);
                 woodCutter.woodCutter();
-                if(correctGroundType(x , y , woodCutter )) {
+                if (correctGroundType(x, y, woodCutter)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(woodCutter, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(woodCutter, currentEmpire)) {
                             buildingCheckout(woodCutter, currentEmpire);
@@ -593,14 +569,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "House":
                 House house = new House(currentEmpire);
                 house.house();
-                if(correctGroundType(x , y , house )) {
+                if (correctGroundType(x, y, house)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(house, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(house, currentEmpire)) {
                             buildingCheckout(house, currentEmpire);
@@ -616,14 +591,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Small Church":
                 Church smallChurch = new Church(currentEmpire);
                 smallChurch.smallChurch();
-                if(correctGroundType(x , y , smallChurch )) {
+                if (correctGroundType(x, y, smallChurch)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(smallChurch, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(smallChurch, currentEmpire)) {
                             buildingCheckout(smallChurch, currentEmpire);
@@ -638,14 +612,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Big Church":
                 Church bigChurch = new Church(currentEmpire);
                 bigChurch.bigChurch();
-                if(correctGroundType(x , y , bigChurch )) {
+                if (correctGroundType(x, y, bigChurch)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(bigChurch, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(bigChurch, currentEmpire)) {
                             buildingCheckout(bigChurch, currentEmpire);
@@ -661,14 +634,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Armourer":
                 Weapon armourer = new Weapon(currentEmpire);
                 armourer.armourer();
-                if(correctGroundType(x , y , armourer)) {
+                if (correctGroundType(x, y, armourer)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(armourer, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(armourer, currentEmpire)) {
                             buildingCheckout(armourer, currentEmpire);
@@ -683,14 +655,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Blacksmith":
                 Weapon blackSmith = new Weapon(currentEmpire);
                 blackSmith.blacksmith();
-                if(correctGroundType(x , y , blackSmith )) {
+                if (correctGroundType(x, y, blackSmith)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(blackSmith, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(blackSmith, currentEmpire)) {
                             buildingCheckout(blackSmith, currentEmpire);
@@ -705,14 +676,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Fletcher":
                 Weapon fletcher = new Weapon(currentEmpire);
                 fletcher.fletcher();
-                if(correctGroundType(x , y , fletcher )) {
+                if (correctGroundType(x, y, fletcher)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(fletcher, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(fletcher, currentEmpire)) {
                             buildingCheckout(fletcher, currentEmpire);
@@ -727,14 +697,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Pole Turner":
                 Weapon poleTurner = new Weapon(currentEmpire);
                 poleTurner.poleTurner();
-                if(correctGroundType(x , y ,poleTurner )) {
+                if (correctGroundType(x, y, poleTurner)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(poleTurner, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(poleTurner, currentEmpire)) {
                             buildingCheckout(poleTurner, currentEmpire);
@@ -749,14 +718,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Oil Smelter":
                 OilSmelter oilSmelter = new OilSmelter(currentEmpire);
                 oilSmelter.oilSmelter();
-                if(correctGroundType(x , y , oilSmelter )) {
+                if (correctGroundType(x, y, oilSmelter)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(oilSmelter, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(oilSmelter, currentEmpire)) {
                             buildingCheckout(oilSmelter, currentEmpire);
@@ -770,14 +738,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Pitch Ditch":
                 PitchDitch pitchDitch = new PitchDitch(currentEmpire);
                 pitchDitch.pitchDitch();
-                if(correctGroundType(x , y , pitchDitch )) {
+                if (correctGroundType(x, y, pitchDitch)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(pitchDitch, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(pitchDitch, currentEmpire)) {
                             buildingCheckout(pitchDitch, currentEmpire);
@@ -791,14 +758,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Caged War Dogs":
                 CagedWarDogs cagedWarDogs = new CagedWarDogs(currentEmpire);
                 cagedWarDogs.cagedWarDogs();
-                if(correctGroundType(x , y , cagedWarDogs )) {
+                if (correctGroundType(x, y, cagedWarDogs)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(cagedWarDogs, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(cagedWarDogs, currentEmpire)) {
                             buildingCheckout(cagedWarDogs, currentEmpire);
@@ -812,14 +778,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Siege Tent":
                 SiegeTent siegeTent = new SiegeTent(currentEmpire);
                 siegeTent.siegeTent();
-                if(correctGroundType(x , y , siegeTent )) {
+                if (correctGroundType(x, y, siegeTent)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(siegeTent, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(siegeTent, currentEmpire)) {
                             buildingCheckout(siegeTent, currentEmpire);
@@ -833,14 +798,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Stable":
                 Stable stable = new Stable(currentEmpire);
                 stable.stable();
-                if(correctGroundType(x , y , stable )) {
+                if (correctGroundType(x, y, stable)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(stable, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(stable, currentEmpire)) {
                             buildingCheckout(stable, currentEmpire);
@@ -855,14 +819,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Apple Farm":
                 Goods appleFarm = new Goods(currentEmpire);
                 appleFarm.appleFarm();
-                if(correctGroundType(x , y , appleFarm)) {
+                if (correctGroundType(x, y, appleFarm)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(appleFarm, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(appleFarm, currentEmpire)) {
                             buildingCheckout(appleFarm, currentEmpire);
@@ -877,14 +840,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Dairy Product":
                 Goods dairyProduct = new Goods(currentEmpire);
                 dairyProduct.dairyProduct();
-                if(correctGroundType(x , y , dairyProduct )) {
+                if (correctGroundType(x, y, dairyProduct)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(dairyProduct, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(dairyProduct, currentEmpire)) {
                             buildingCheckout(dairyProduct, currentEmpire);
@@ -899,14 +861,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Oat Farm":
                 Goods oatFarm = new Goods(currentEmpire);
                 oatFarm.oatFarm();
-                if(correctGroundType(x , y , oatFarm )) {
+                if (correctGroundType(x, y, oatFarm)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(oatFarm, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(oatFarm, currentEmpire)) {
                             buildingCheckout(oatFarm, currentEmpire);
@@ -921,14 +882,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Hunting Post":
                 Goods huntingPost = new Goods(currentEmpire);
                 huntingPost.huntingPost();
-                if(correctGroundType(x , y , huntingPost )) {
+                if (correctGroundType(x, y, huntingPost)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(huntingPost, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(huntingPost, currentEmpire)) {
                             buildingCheckout(huntingPost, currentEmpire);
@@ -943,14 +903,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Wheat Farm":
                 Goods wheatFarm = new Goods(currentEmpire);
                 wheatFarm.wheatFarm();
-                if(correctGroundType(x , y , wheatFarm)) {
+                if (correctGroundType(x, y, wheatFarm)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(wheatFarm, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(wheatFarm, currentEmpire)) {
                             buildingCheckout(wheatFarm, currentEmpire);
@@ -965,14 +924,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Bakery":
                 Goods bakery = new Goods(currentEmpire);
                 bakery.bakery();
-                if(correctGroundType(x , y , bakery )) {
+                if (correctGroundType(x, y, bakery)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(bakery, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(bakery, currentEmpire)) {
                             buildingCheckout(bakery, currentEmpire);
@@ -987,14 +945,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Bear Factory":
                 Goods bearFactory = new Goods(currentEmpire);
                 bearFactory.bearFactory();
-                if(correctGroundType(x , y , bearFactory )) {
+                if (correctGroundType(x, y, bearFactory)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(bearFactory, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(bearFactory, currentEmpire)) {
                             buildingCheckout(bearFactory, currentEmpire);
@@ -1009,15 +966,14 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
                 //TODO : add fear impact on production buildings and soldiers
             case "garden":
                 FearControl garden = new FearControl(currentEmpire);
                 garden.garden();
-                if(correctGroundType(x , y , garden )) {
+                if (correctGroundType(x, y, garden)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(garden, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(garden, currentEmpire)) {
                             buildingCheckout(garden, currentEmpire);
@@ -1039,7 +995,7 @@ public class BuildingController {
             case "torture chamber":
                 FearControl tortureChamber = new FearControl(currentEmpire);
                 tortureChamber.tortureChamber();
-                if(correctGroundType(x , y , tortureChamber )) {
+                if (correctGroundType(x, y, tortureChamber)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(tortureChamber, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(tortureChamber, currentEmpire)) {
                             buildingCheckout(tortureChamber, currentEmpire);
@@ -1056,8 +1012,7 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Big Wall":
@@ -1079,7 +1034,7 @@ public class BuildingController {
             case "Small Wall":
                 Wall smallWall = new Wall(currentEmpire);
                 smallWall.smallWall();
-                if(correctGroundType(x , y , smallWall )) {
+                if (correctGroundType(x, y, smallWall)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(smallWall, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(smallWall, currentEmpire)) {
                             buildingCheckout(smallWall, currentEmpire);
@@ -1093,14 +1048,13 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Stairs":
                 Wall stairs = new Wall(currentEmpire);
                 stairs.stair();
-                if(correctGroundType(x , y , stairs )) {
+                if (correctGroundType(x, y, stairs)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(stairs, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(stairs, currentEmpire)) {
                             if (validationOfStairsLocation(x, y)) {
@@ -1115,8 +1069,7 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
         }
@@ -1181,21 +1134,5 @@ public class BuildingController {
         } else {
             return BuildingMessages.CONTINUE;
         }
-    }
-
-    public void increaseCapacityLimitation(int capacity) {
-        currentEmpire.setMaxPossiblePopulation(currentEmpire.getMaxPossiblePopulation() + capacity);
-    }
-
-    public void SelectedBuilding(Matcher xGroup, Matcher yGroup) {
-        int x = Integer.parseInt(xGroup.group("x"));
-        int y = Integer.parseInt(yGroup.group("y"));
-        Building building = findSelectedBuilding(x, y);
-        SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
-        SelectedBuildingController.empire = currentEmpire;
-        SelectedBuildingController.selectedBuilding = building;
-        //TODO : i have defined the algorithm of the chosen buildings in the selectedBuildingController soo the only thing that must be done is that
-        //TODO --> is to properly call that functions in maybe a menu !
-//        System.out.println(building.showBuildingName());
     }
 }
