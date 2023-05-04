@@ -12,10 +12,20 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     private Names names;
     public boolean fireState;
     public boolean digState;
+    private boolean pitchDitchIsOn = true;
     public boolean digCompleted;
 
+    public boolean isPitchDitchIsOn() {
+        return pitchDitchIsOn;
+    }
+
+    public void setPitchDitchIsOn(boolean pitchDitchIsOn) {
+        this.pitchDitchIsOn = pitchDitchIsOn;
+    }
+
     public Names getNames() {
-        return names;
+        return names
+                ;
     }
 
     public boolean isFireState() {

@@ -19,6 +19,7 @@ public enum BuildingMessages {
     INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING("empire doesnt have enough resources to build the building"),
     NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING("empire doesnt have enough resources to build the building"),
     CONTINUE("Continue"),
+    STOCK_PILE_ERROR("cant build a stock pile in here"),
     BUILDING_IS_NOT_FOR_THIS_EMPIRE("this building does not belong to this empire"),
     SUCCESS("building created successfully"),
     ;

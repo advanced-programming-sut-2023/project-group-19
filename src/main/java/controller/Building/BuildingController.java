@@ -43,7 +43,7 @@ public class BuildingController {
     public boolean empireHasEnoughResourcesToBuildTheBuilding(Building building, Empire empire) {
         return building.cost.get("wood") <= empire.getWoodCount() && building.cost.get("stone") <= empire.getStoneCount() &&
                 building.cost.get("gold") <= empire.getGoldCount() && building.cost.get("gold") <= empire.getIronCount() &&
-                building.cost.get("oil") <= empire.getOilAmount();
+                building.cost.get("oil") / 5 <= empire.getOilAmount();
     }
 
     public boolean empireHasEnoughWorkersToBuildTheBuilding(Building building, Empire empire) {
@@ -51,26 +51,38 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
+    public boolean canBuildStockpile(int x, int y) {
+        if (Map.buildingMap[x + 1][y].get(0).getName().getName().equals("Stockpile") ||
+                Map.buildingMap[x - 1][y].get(0).getName().getName().equals("Stockpile") ||
+                Map.buildingMap[x][y + 1].get(0).getName().getName().equals("Stockpile") ||
+                Map.buildingMap[x][y - 1].get(0).getName().getName().equals("Stockpile")) {
+            return true;
+        }
+        return false;
+    }
+
     public void buildingCheckout(Building building, Empire empire) {
         empire.setWoodCount(empire.getWoodCount() - building.cost.get("wood"));
         empire.setStoneCount(empire.getStoneCount() - building.cost.get("stone"));
         empire.setGoldCount(empire.getGoldCount() - building.cost.get("gold"));
         empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
-        empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil"));
+        empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil") / 5);
         empire.setWorkerCount(empire.getWorkerCount() - building.workersNeeded.get("engineer"));
         empire.setEngineerCount(empire.getEngineerCount() - building.workersNeeded.get("worker"));
     }
 
-    public boolean validationOfStairsLocation(int x , int y){
-        if (Map.getBuildingMap()[x-1][y].get(0) instanceof StoneGateWay || Map.getBuildingMap()[x+1][y].get(0) instanceof StoneGateWay
-        || Map.getBuildingMap()[x][y-1].get(0) instanceof StoneGateWay || Map.getBuildingMap()[x][y+1].get(0) instanceof StoneGateWay
-        || Map.getBuildingMap()[x-1][y].get(0) instanceof Wall || Map.getBuildingMap()[x+1][y].get(0) instanceof Wall
-        || Map.getBuildingMap()[x][y-1].get(0) instanceof Wall || Map.getBuildingMap()[x][y+1].get(0) instanceof Wall ){
+    public boolean validationOfStairsLocation(int x, int y) {
+        if (Map.getBuildingMap()[x - 1][y].get(0) instanceof StoneGateWay || Map.getBuildingMap()[x + 1][y].get(0) instanceof StoneGateWay
+                || Map.getBuildingMap()[x][y - 1].get(0) instanceof StoneGateWay || Map.getBuildingMap()[x][y + 1].get(0) instanceof StoneGateWay
+                || Map.getBuildingMap()[x - 1][y].get(0) instanceof Wall || Map.getBuildingMap()[x + 1][y].get(0) instanceof Wall
+                || Map.getBuildingMap()[x][y - 1].get(0) instanceof Wall || Map.getBuildingMap()[x][y + 1].get(0) instanceof Wall) {
             return true;
-        }return false;
+        }
+        return false;
     }
+
     //TODO : TAKE CARE THAT BEFORE CREATING A BUILDING WE MUST FIRST CHECK THAT EMPIRE HAS THE REQUIRED RESOURCES TO BUILD THAT BUILDING
-    public BuildingMessages callBuildingFunction(int x, int y, String type ,Scanner scanner) {
+    public BuildingMessages callBuildingFunction(int x, int y, String type, Scanner scanner) {
         String direction;
         Names directionOfGate;
         switch (type) {
@@ -235,7 +247,6 @@ public class BuildingController {
                 if (empireHasEnoughResourcesToBuildTheBuilding(barracks, currentEmpire)) {
                     if (empireHasEnoughWorkersToBuildTheBuilding(barracks, currentEmpire)) {
                         buildingCheckout(barracks, currentEmpire);
-//                        currentEmpire.setba
                         Map.AddToBuildingMap(x, y, barracks);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
@@ -295,6 +306,7 @@ public class BuildingController {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
             case "Inn":
+                // TODO : add inn to the functional buildings and then fix this part
                 Inn inn = new Inn(currentEmpire);
                 inn.inn();
                 if (empireHasEnoughResourcesToBuildTheBuilding(inn, currentEmpire)) {
@@ -317,6 +329,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(mill, currentEmpire)) {
                         buildingCheckout(mill, currentEmpire);
                         Map.AddToBuildingMap(x, y, mill);
+                        currentEmpire.setMillCount(currentEmpire.getMillCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -333,6 +346,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(ironDig, currentEmpire)) {
                         buildingCheckout(ironDig, currentEmpire);
                         Map.AddToBuildingMap(x, y, ironDig);
+                        currentEmpire.setIronMineCount(currentEmpire.getIronMineCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -364,6 +378,7 @@ public class BuildingController {
                 if (empireHasEnoughResourcesToBuildTheBuilding(oxTether, currentEmpire)) {
                     if (empireHasEnoughWorkersToBuildTheBuilding(oxTether, currentEmpire)) {
                         buildingCheckout(oxTether, currentEmpire);
+                        currentEmpire.setOxTetherCount(currentEmpire.getOxTetherCount() + 1);
                         Map.AddToBuildingMap(x, y, oxTether);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
@@ -380,6 +395,7 @@ public class BuildingController {
                 if (empireHasEnoughResourcesToBuildTheBuilding(pitchRig, currentEmpire)) {
                     if (empireHasEnoughWorkersToBuildTheBuilding(pitchRig, currentEmpire)) {
                         buildingCheckout(pitchRig, currentEmpire);
+                        currentEmpire.setPitchRigCount(currentEmpire.getPitchRigCount() + 1);
                         Map.AddToBuildingMap(x, y, pitchRig);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
@@ -397,6 +413,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(quarry, currentEmpire)) {
                         buildingCheckout(quarry, currentEmpire);
                         Map.AddToBuildingMap(x, y, quarry);
+                        currentEmpire.setQuarryCount(currentEmpire.getQuarryCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -406,16 +423,42 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Stockpile":
-                Stockpile stockpile = new Stockpile(currentEmpire);
-                stockpile.industryStockpile();
-                if (empireHasEnoughResourcesToBuildTheBuilding(stockpile, currentEmpire)) {
-                    if (empireHasEnoughWorkersToBuildTheBuilding(stockpile, currentEmpire)) {
-                        buildingCheckout(stockpile, currentEmpire);
-                        Map.AddToBuildingMap(x, y, stockpile);
-                        Map.notBuildable[x][y] = true;
-                        Map.notPassable[x][y] = true;
-                        return BuildingMessages.SUCCESS;
+            case "Food Stockpile":
+                Stockpile foodStockpile = new Stockpile(currentEmpire);
+                foodStockpile.foodStockpile();
+                if (empireHasEnoughResourcesToBuildTheBuilding(foodStockpile, currentEmpire)) {
+                    if (empireHasEnoughWorkersToBuildTheBuilding(foodStockpile, currentEmpire)) {
+                        if (canBuildStockpile(x, y)) {
+                            buildingCheckout(foodStockpile, currentEmpire);
+                            Map.AddToBuildingMap(x, y, foodStockpile);
+                            currentEmpire.setFoodCapacity(currentEmpire.getFoodCapacity() + foodStockpile.maxFoodCapacity);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.STOCK_PILE_ERROR;
+                        }
+                    } else {
+                        return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                    }
+                } else {
+                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                }
+            case "Resources Stockpile":
+                Stockpile resourcesStockpile = new Stockpile(currentEmpire);
+                resourcesStockpile.resourcesStockpile();
+                if (empireHasEnoughResourcesToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
+                    if (empireHasEnoughWorkersToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
+                        if (canBuildStockpile(x, y)) {
+                            buildingCheckout(resourcesStockpile, currentEmpire);
+                            Map.AddToBuildingMap(x, y, resourcesStockpile);
+                            currentEmpire.setResourcesCapacity(currentEmpire.getResourcesCapacity() + resourcesStockpile.maxResourcesCapacity);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.STOCK_PILE_ERROR;
+                        }
                     } else {
                         return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                     }
@@ -429,6 +472,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(woodCutter, currentEmpire)) {
                         buildingCheckout(woodCutter, currentEmpire);
                         Map.AddToBuildingMap(x, y, woodCutter);
+                        currentEmpire.setWoodCutterCount(currentEmpire.getWoodCutterCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -445,6 +489,8 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(house, currentEmpire)) {
                         buildingCheckout(house, currentEmpire);
                         Map.AddToBuildingMap(x, y, house);
+                        currentEmpire.setPopulation(currentEmpire.getPopulation() + house.getCapacity());
+                        currentEmpire.setPeasantCount(currentEmpire.getPeasantCount() + house.getCapacity());
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -461,6 +507,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(smallChurch, currentEmpire)) {
                         buildingCheckout(smallChurch, currentEmpire);
                         Map.AddToBuildingMap(x, y, smallChurch);
+                        currentEmpire.setPopularity(currentEmpire.popularity + smallChurch.getPopularityIncreaseRate());
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -477,6 +524,8 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(bigChurch, currentEmpire)) {
                         buildingCheckout(bigChurch, currentEmpire);
                         Map.AddToBuildingMap(x, y, bigChurch);
+                        currentEmpire.setPopularity(currentEmpire.getPopularity() + bigChurch.getPopularityIncreaseRate());
+                        currentEmpire.setPriestCount(currentEmpire.getPriestCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -493,6 +542,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(armourer, currentEmpire)) {
                         buildingCheckout(armourer, currentEmpire);
                         Map.AddToBuildingMap(x, y, armourer);
+                        currentEmpire.setArmourerBuildingCount(currentEmpire.getArmourerBuildingCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -509,6 +559,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(blackSmith, currentEmpire)) {
                         buildingCheckout(blackSmith, currentEmpire);
                         Map.AddToBuildingMap(x, y, blackSmith);
+                        currentEmpire.setBlacksmithBuildingCount(currentEmpire.getBlacksmithBuildingCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -525,6 +576,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(fletcher, currentEmpire)) {
                         buildingCheckout(fletcher, currentEmpire);
                         Map.AddToBuildingMap(x, y, fletcher);
+                        currentEmpire.setFletcherBuildingCount(currentEmpire.getFletcherBuildingCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -541,22 +593,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(poleTurner, currentEmpire)) {
                         buildingCheckout(poleTurner, currentEmpire);
                         Map.AddToBuildingMap(x, y, poleTurner);
-                        Map.notBuildable[x][y] = true;
-                        Map.notPassable[x][y] = true;
-                        return BuildingMessages.SUCCESS;
-                    } else {
-                        return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
-                    }
-                } else {
-                    return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                }
-            case "Tunnel":
-                Tunnel tunnel = new Tunnel(currentEmpire);
-                tunnel.tunnel();
-                if (empireHasEnoughResourcesToBuildTheBuilding(tunnel, currentEmpire)) {
-                    if (empireHasEnoughWorkersToBuildTheBuilding(tunnel, currentEmpire)) {
-                        buildingCheckout(tunnel, currentEmpire);
-                        Map.AddToBuildingMap(x, y, tunnel);
+                        currentEmpire.setPoleTurnerBuildingCount(currentEmpire.getPoleTurnerBuildingCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -637,6 +674,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(stable, currentEmpire)) {
                         buildingCheckout(stable, currentEmpire);
                         Map.AddToBuildingMap(x, y, stable);
+                        currentEmpire.setStableBuildingCount(currentEmpire.getStableBuildingCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -653,6 +691,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(appleFarm, currentEmpire)) {
                         buildingCheckout(appleFarm, currentEmpire);
                         Map.AddToBuildingMap(x, y, appleFarm);
+                        currentEmpire.setAppleFarmCount(currentEmpire.getAppleFarmCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -669,6 +708,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(dairyProduct, currentEmpire)) {
                         buildingCheckout(dairyProduct, currentEmpire);
                         Map.AddToBuildingMap(x, y, dairyProduct);
+                        currentEmpire.setDairyFactoryRate(currentEmpire.getDairyFactoryRate() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -685,6 +725,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(oatFarm, currentEmpire)) {
                         buildingCheckout(oatFarm, currentEmpire);
                         Map.AddToBuildingMap(x, y, oatFarm);
+                        currentEmpire.setOatFarmCount(currentEmpire.getOatFarmCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -701,6 +742,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(huntingPost, currentEmpire)) {
                         buildingCheckout(huntingPost, currentEmpire);
                         Map.AddToBuildingMap(x, y, huntingPost);
+                        currentEmpire.setHuntingPostCount(currentEmpire.getHuntingPostCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -717,6 +759,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(wheatFarm, currentEmpire)) {
                         buildingCheckout(wheatFarm, currentEmpire);
                         Map.AddToBuildingMap(x, y, wheatFarm);
+                        currentEmpire.setWheatFarmCount(currentEmpire.getWheatFarmCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -733,6 +776,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(bakery, currentEmpire)) {
                         buildingCheckout(bakery, currentEmpire);
                         Map.AddToBuildingMap(x, y, bakery);
+                        currentEmpire.setBakeryCount(currentEmpire.getBakeryCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -749,6 +793,7 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(bearFactory, currentEmpire)) {
                         buildingCheckout(bearFactory, currentEmpire);
                         Map.AddToBuildingMap(x, y, bearFactory);
+                        currentEmpire.setBeerFactoryCount(currentEmpire.getBeerFactoryCount() + 1);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -766,6 +811,9 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(garden, currentEmpire)) {
                         buildingCheckout(garden, currentEmpire);
                         Map.AddToBuildingMap(x, y, garden);
+                        if (currentEmpire.getFearRateNumber() != -5) {
+                            currentEmpire.setFearRateNumber(currentEmpire.getFearRateNumber() - 1);
+                        }
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -782,6 +830,9 @@ public class BuildingController {
                     if (empireHasEnoughWorkersToBuildTheBuilding(tortureChamber, currentEmpire)) {
                         buildingCheckout(tortureChamber, currentEmpire);
                         Map.AddToBuildingMap(x, y, tortureChamber);
+                        if (currentEmpire.getFearRateNumber() != 5) {
+                            currentEmpire.setFearRateNumber(currentEmpire.getFearRateNumber() + 1);
+                        }
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
@@ -794,53 +845,50 @@ public class BuildingController {
             case "Big Wall":
                 Wall bigWall = new Wall(currentEmpire);
                 bigWall.bigWall();
-                if (empireHasEnoughResourcesToBuildTheBuilding(bigWall , currentEmpire)){
-                    if(empireHasEnoughWorkersToBuildTheBuilding(bigWall , currentEmpire)) {
+                if (empireHasEnoughResourcesToBuildTheBuilding(bigWall, currentEmpire)) {
+                    if (empireHasEnoughWorkersToBuildTheBuilding(bigWall, currentEmpire)) {
                         buildingCheckout(bigWall, currentEmpire);
                         Map.AddToBuildingMap(x, y, bigWall);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
-                    }
-                    else {
+                    } else {
                         return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                     }
-                }else {
+                } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
             case "Small Wall":
                 Wall smallWall = new Wall(currentEmpire);
                 smallWall.smallWall();
-                if (empireHasEnoughResourcesToBuildTheBuilding(smallWall , currentEmpire)){
-                    if(empireHasEnoughWorkersToBuildTheBuilding(smallWall , currentEmpire)) {
+                if (empireHasEnoughResourcesToBuildTheBuilding(smallWall, currentEmpire)) {
+                    if (empireHasEnoughWorkersToBuildTheBuilding(smallWall, currentEmpire)) {
                         buildingCheckout(smallWall, currentEmpire);
                         Map.AddToBuildingMap(x, y, smallWall);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
                         return BuildingMessages.SUCCESS;
-                    }
-                    else {
+                    } else {
                         return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                     }
-                }else {
+                } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
             case "Stairs":
                 Wall stairs = new Wall(currentEmpire);
                 stairs.stair();
-                if (empireHasEnoughResourcesToBuildTheBuilding(stairs , currentEmpire)){
-                    if(empireHasEnoughWorkersToBuildTheBuilding(stairs , currentEmpire)) {
+                if (empireHasEnoughResourcesToBuildTheBuilding(stairs, currentEmpire)) {
+                    if (empireHasEnoughWorkersToBuildTheBuilding(stairs, currentEmpire)) {
                         if (validationOfStairsLocation(x, y)) {
                             buildingCheckout(stairs, currentEmpire);
                             Map.AddToBuildingMap(x, y, stairs);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = false;
                         } else return BuildingMessages.INPROPER_COORDINATE;
-                    }
-                    else {
+                    } else {
                         return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                     }
-                }else {
+                } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
         }
@@ -848,7 +896,7 @@ public class BuildingController {
     }
 
     //TODO : check the ground type while adding the buildings in callBuildingFunction
-    public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup , Scanner scanner) {
+    public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup, Scanner scanner) {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         String type = typeGroup.group("type");
@@ -857,7 +905,7 @@ public class BuildingController {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                     if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
                         if (HasBuildingInThisPlace(x, y)) {
-                            return callBuildingFunction(x, y, type ,scanner);
+                            return callBuildingFunction(x, y, type, scanner);
                         } else return BuildingMessages.INVALID_BUILDING_NAME;
                     }
                 }

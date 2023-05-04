@@ -30,10 +30,19 @@ public class Empire {
     private int resourcesCount;
     private int maxPossiblePopulation;
     private int PeasantCount;
+    private int priestCount;
     private int troopCount;
     private int workerCount;
 
     public ArrayList<Army> empireArmy = new ArrayList<>();
+
+    public int getPriestCount() {
+        return priestCount;
+    }
+
+    public void setPriestCount(int priestCount) {
+        this.priestCount = priestCount;
+    }
 
     public int getPeasantCount() {
         return PeasantCount;
@@ -799,51 +808,51 @@ public class Empire {
     }
 
     public int getCatapultCount() {
-        return popularityFactors.get("catapult");
+        return siegeTentTroopsCount.get("catapult");
     }
 
     public void setCatapultCount(int catapultCount) {
-        popularityFactors.replace("catapult", catapultCount);
+        siegeTentTroopsCount.replace("catapult", catapultCount);
     }
 
     public int getTrebuchetCount() {
-        return popularityFactors.get("trebuchet");
+        return siegeTentTroopsCount.get("trebuchet");
     }
 
     public void setTrebuchetCount(int trebuchetCount) {
-        popularityFactors.replace("trebuchet", trebuchetCount);
+        siegeTentTroopsCount.replace("trebuchet", trebuchetCount);
     }
 
     public int getSiegeTowerCount() {
-        return popularityFactors.get("siegeTower");
+        return siegeTentTroopsCount.get("siegeTower");
     }
 
     public void setSiegeTowerCount(int siegeTowerCount) {
-        popularityFactors.replace("siegeTower", siegeTowerCount);
+        siegeTentTroopsCount.replace("siegeTower", siegeTowerCount);
     }
 
     public int getFireBalistaCount() {
-        return popularityFactors.get("fireBalista");
+        return siegeTentTroopsCount.get("fireBalista");
     }
 
     public void setFireBalistaCount(int fireBalistaCount) {
-        popularityFactors.replace("fireBalista", fireBalistaCount);
+        siegeTentTroopsCount.replace("fireBalista", fireBalistaCount);
     }
 
     public int getBatteringRamCount() {
-        return popularityFactors.get("batteringRam");
+        return siegeTentTroopsCount.get("batteringRam");
     }
 
     public void setBatteringRamCount(int batteringRamCount) {
-        popularityFactors.replace("batteringRam", batteringRamCount);
+        siegeTentTroopsCount.replace("batteringRam", batteringRamCount);
     }
 
     public int getPortableShieldCount() {
-        return popularityFactors.get("portableShield");
+        return siegeTentTroopsCount.get("portableShield");
     }
 
     public void setPortableShieldCount(int portableShieldCount) {
-        popularityFactors.replace("portableShield", portableShieldCount);
+        siegeTentTroopsCount.replace("portableShield", portableShieldCount);
     }
 
     public HashMap<String, Integer> getAllWeaponTools() {
