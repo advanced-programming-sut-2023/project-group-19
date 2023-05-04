@@ -17,6 +17,7 @@ public class Map {
     public static ArrayList<GroundType>[][] groundType ;
     public static boolean[][] notPassable; // for troop
     public static boolean[][] notBuildable; // for building
+    public static boolean[][] wallPassable;
 
     public static ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
@@ -61,6 +62,7 @@ public class Map {
         }
         notPassable = new boolean[size][size];
         notBuildable = new boolean[size][size];
+        wallPassable = new boolean[size][size];
     }
 
     public static ArrayList<GroundType>[][] getGroundType() {
