@@ -12,6 +12,7 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     }
 
     private static Names name;
+    public boolean flagOfEnemy;
     private int capacity;
     private static Names direction;
     private boolean isGateOpen;

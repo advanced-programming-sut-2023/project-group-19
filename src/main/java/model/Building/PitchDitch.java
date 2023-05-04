@@ -11,6 +11,7 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
 
     private Names names;
     public boolean fireState;
+    public int digState;
     public boolean digState;
     private boolean pitchDitchIsOn = true;
     public boolean digCompleted;
@@ -32,13 +33,10 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
         return fireState;
     }
 
-    public boolean isDigState() {
+    public int isDigState() {
         return digState;
     }
 
-    public boolean isDigCompletely() {
-        return digCompleted;
-    }
 
     public HashMap<String, Integer> cost = new HashMap<>();
 

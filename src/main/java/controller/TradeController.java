@@ -96,7 +96,7 @@ public class TradeController {
                         if (empire.getResourcesCount() + amount <= empire.getResourcesCapacity()) {
                             setResourceCount(requestResource , amount , idOfEmpire);
                             setResourceCount(requestResource , amount , Manage.getCurrentEmpire().getName());
-                            request=request.concat("Status: Accepted");
+                            request=request.concat("Accepted");
                             return TradeMenuMessages.SUCCESS;
                         }
                     }

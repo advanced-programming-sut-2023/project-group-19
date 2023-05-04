@@ -112,8 +112,8 @@ public class Soldiers extends Army implements HumanConstantFunctions{
     }
 
     public void Slaves(int x , int y) {
-        hp = 375;
-        maxHp = 375;
+        hp = 400;
+        maxHp = 400;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.SLAVES;
         xCoordinate = x;

@@ -28,6 +28,7 @@ public enum Names {
     FIRE_BALLISTA("fireBallista"),
     BATTERING_RAM("batteringRam"),
     PORTABLE_SHIELD("portableShield"),
+    WORKER("worker"),
     VERTICAL("Vertical"),
     HORIZONTAL("Horizontal"),
     STANDING_AMRY("standing"),
