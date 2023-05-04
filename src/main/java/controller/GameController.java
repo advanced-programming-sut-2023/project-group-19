@@ -142,7 +142,7 @@ public class GameController {
     }
 
     public void PitchDitchHauntsEnemy(int xOfPitch, int yOfPitch) {
-        //TODO : Is there any possible unit or whatever which throws fire except firethrowers?
+        //TODO : Is there any possible unit or whatever which throws fire except fire-throwers?
         if (!Map.getBuildingMap()[xOfPitch][yOfPitch].isEmpty() &&
                 Map.getBuildingMap()[xOfPitch][yOfPitch].get(0) instanceof PitchDitch) {
             if (selectedUnit.get(0) instanceof ArchersAndThrowers) {
@@ -217,7 +217,7 @@ public class GameController {
                 if (validationOfArmiesType(Names.SPEAR_MEN.getName())) {
                     PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
                     Map.getBuildingMap()[x][y].add(0, pitchDitch);
-                    pitchDitch.digState = 0;
+                    pitchDitch.digState = false;
                     for (Army army : selectedUnit) {
                         Map.getTroopMap()[x][y].add(army);
                         //TODO : IF THERE'S ENEMY THERE
@@ -228,10 +228,10 @@ public class GameController {
     }
     public GameMenuMessages removePitchDitch(int x, int y) {
         if (Map.getBuildingMap()[x][y].get(0) instanceof PitchDitch) {
-            if (((PitchDitch) Map.getBuildingMap()[x][y].get(0)).digState == 1) {
+            if (((PitchDitch) Map.getBuildingMap()[x][y].get(0)).digState) {
                 Map.getBuildingMap()[x][y].remove(0);
                 return GameMenuMessages.BUILDING_REMOVED;
-            } else if (((PitchDitch) Map.getBuildingMap()[x][y].get(0)).digState == 0) {
+            } else if (!((PitchDitch) Map.getBuildingMap()[x][y].get(0)).digState) {
                 Map.getBuildingMap()[x][y].remove(0);
                 return GameMenuMessages.DITCH_DIGGING_STOPPED;
             }
@@ -282,29 +282,19 @@ public class GameController {
         }
     }
     public boolean checkIfRemoveTroopsPossible(int hpOfTroops) {
-        if (hpOfTroops <= 0) {
-            return true;
-        }
-        return false;
+        return hpOfTroops <= 0;
     }
 
     public boolean checkIfRemoveBuildingPossible(int hpOfBuilding) {
-        if (hpOfBuilding <= 0) {
-            return true;
-        }
-        return false;
+        return hpOfBuilding <= 0;
     }
     public boolean isGate(int x , int y){
-        if (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.SMALL_STONE_GATE_HOUSE) ||
-                Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.BIG_STONE_GATE_HOUSE)){
-            return true;
-        }return false;
+        return Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.SMALL_STONE_GATE_HOUSE) ||
+                Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.BIG_STONE_GATE_HOUSE);
     }
     public boolean isWall(int x , int y){
-        if (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.SMALL_WALL) ||
-                Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.BIG_WALL)){
-            return true;
-        }return false;
+        return Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.SMALL_WALL) ||
+                Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.BIG_WALL);
     }
     public boolean isTower(int x, int y) {
         if (Map.getBuildingMap()[x][y].get(0).getOwner() != Manage.getCurrentEmpire()) {
@@ -338,15 +328,13 @@ public class GameController {
         return -1;
     }
     public boolean validLocationForSiegeTower(int x , int y){
-        if (Map.getBuildingMap()[x+1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
-            || Map.getBuildingMap()[x+1][y].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
-            || Map.getBuildingMap()[x-1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
-            || Map.getBuildingMap()[x-1][y].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
-            || Map.getBuildingMap()[x][y-1].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
-            || Map.getBuildingMap()[x][y-1].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
-            || Map.getBuildingMap()[x][y+1].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
-            || Map.getBuildingMap()[x][y+1].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())){
-            return true;
-        }return false;
+        return Map.getBuildingMap()[x + 1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
+                || Map.getBuildingMap()[x + 1][y].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
+                || Map.getBuildingMap()[x - 1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
+                || Map.getBuildingMap()[x - 1][y].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
+                || Map.getBuildingMap()[x][y - 1].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
+                || Map.getBuildingMap()[x][y - 1].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
+                || Map.getBuildingMap()[x][y + 1].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
+                || Map.getBuildingMap()[x][y + 1].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName());
     }
 }
