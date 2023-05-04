@@ -363,13 +363,25 @@ public class Empire {
         productionBuildingRate.replace("dairyFactory", dairyFactoryRate);
     }
 
-
+    //TODO : take care of this part
     public int getIronMineCount() {
         return productionBuildingCount.get("ironMine");
     }
 
     public void setIronMineCount(int ironMineCount) {
         productionBuildingCount.replace("ironMine", ironMineCount);
+    }
+
+    public int getInnCount() {
+        return productionBuildingCount.get("inn");
+    }
+
+    public int getInnRate() {
+        return productionBuildingRate.get("inn");
+    }
+
+    public void setInnCount(int innCount) {
+        productionBuildingCount.replace("inn", innCount);
     }
 
     public int getOxTetherCount() {
@@ -949,6 +961,7 @@ public class Empire {
         productionBuildingRate.put("mill", 5);
         productionBuildingRate.put("dairyFactory", 5);
         productionBuildingRate.put("wheatFactory", 20);
+        productionBuildingRate.put("inn", 5);
     }
 
     public HashMap<String, Integer> createWeaponBuildingCount = new HashMap<>();
@@ -959,6 +972,7 @@ public class Empire {
         createWeaponBuildingCount.put("fletcher", 0);
         createWeaponBuildingCount.put("poleTurner", 0);
         createWeaponBuildingCount.put("stable", 0);
+        createWeaponBuildingCount.put("inn", 0);
 
     }
 
@@ -1194,20 +1208,22 @@ public class Empire {
         FunctionBuildingController.empire = this;
         FunctionBuildingController.transformWheatToFlour();
         FunctionBuildingController.transformFlourToBread();
+        FunctionBuildingController.increasePopularityWithBeer();
         FunctionBuildingController.transformOatToBeer();
         FunctionBuildingController.transformIronToMetalArmour();
         FunctionBuildingController.transformIronToSwordOrMace();
         FunctionBuildingController.transformWoodToBow();
         FunctionBuildingController.transformWoodToSpearOrPeak();
     }
-    public void setPopularityBasedOnReligion(){
-        for (int x = 0 ; x < Map.mapSize ; x++){
-            for (int y = 0 ; y < Map.mapSize ; y++){
+
+    public void setPopularityBasedOnReligion() {
+        for (int x = 0; x < Map.mapSize; x++) {
+            for (int y = 0; y < Map.mapSize; y++) {
                 if (Map.getBuildingMap()[x][y].get(0).getName().equals(Names.BIG_CHURCH)
-                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())){
+                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
                     Manage.getCurrentEmpire().setPopularity(Manage.getCurrentEmpire().getPopularity() + 2);
                 } else if (Map.getBuildingMap()[x][y].get(0).getName().equals(Names.SMALL_CHURCH)
-                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())){
+                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
                     Manage.getCurrentEmpire().setPopularity(Manage.getCurrentEmpire().getPopularity() + 1);
                 }
             }

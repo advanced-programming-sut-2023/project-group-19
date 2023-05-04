@@ -35,6 +35,20 @@ public class FunctionBuildingController {
             }
         }
     }
+    public static void increasePopularityWithBeer() {
+        int empiresBeerCount = empire.getBeer();
+        int innRate = empire.getInnRate();
+        int innCount = empire.getInnCount();
+        if (empire.getFoodCount() + innRate * innCount <= empire.getFoodCapacity()) {
+            if (innRate * innCount <= empiresBeerCount) {
+                empire.setBeer(empiresBeerCount - innRate * innCount);
+                empire.setPopularity(empire.getPopularity() + innCount);
+            } else {
+                empire.setBeer(0);
+                empire.setPopularity(empire.getPopularity() + empiresBeerCount/innRate);
+            }
+        }
+    }
 
     public static void transformOatToBeer() {
         int empiresOatCount = empire.getOatCount();
