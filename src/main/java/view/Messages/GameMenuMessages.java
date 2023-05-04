@@ -3,7 +3,7 @@ package view.Messages;
 public enum GameMenuMessages {
     SELECT_UNIT_SUCCEEDED("The considered unit is chosen!"),
     WRONG_UNIT_FOR_COMMAND("This command can't be done by the selected unit!"),
-    NO_UNIT_IN_CELL("The chosen cell doesn't contain any unit!"),
+    NO_UNIT_IN_CELL("The chosen cell doesn't contain any unit that belongs to your empire!"),
     NO_UNIT_SELECTED("You haven't selected a unit yet!"),
     LOCATION_CONTAINS_BUILDING("The chosen coordinate contains a building"),
     LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES("The chosen coordinate contains water sources or high towers which can't be moved to them at once!!"),
