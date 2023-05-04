@@ -9,7 +9,18 @@ import java.util.List;
 public class Army extends Human{
     public Army(Empire government) {
         super(government);
+        this.empire = government;
     }
+    private Empire empire;
+
+    public Empire getEmpire() {
+        return empire;
+    }
+
+    public void setEmpire(Empire empire) {
+        this.empire = empire;
+    }
+
     private Names names;
 
     public Names getNames() {
@@ -26,8 +37,10 @@ public class Army extends Human{
 
     public int xCoordinate;
     public int yCoordinate;
-    public int restOfMoves;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
+    public int restOfMoves;
 
     @Override
     public int getHp() {
@@ -110,8 +123,17 @@ public class Army extends Human{
     }
 
     @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
+    }
+
+    @Override
     public List<Integer> myPath() {
         return myPath;
     }
-
 }

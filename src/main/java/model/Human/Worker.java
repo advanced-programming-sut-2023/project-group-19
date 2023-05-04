@@ -15,9 +15,10 @@ public class Worker extends Human {
     private int speed;
     private int xCoordinate;
     private int yCoordinate;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public int restOfMoves;
     public List<Integer> myPath;
-
     @Override
     public int getHp() {
         return hp;
@@ -52,6 +53,18 @@ public class Worker extends Human {
         this.speed = speed;
     }
 
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
     @Override
     public int maxHp() {
         return maxHp;
@@ -80,6 +93,15 @@ public class Worker extends Human {
     @Override
     public int restOfMoves() {
         return restOfMoves;
+    }
+
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
     }
 
     @Override

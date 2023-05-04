@@ -6,7 +6,7 @@ public class Tunnel extends Building implements BuildingConstantFunctions {
     public Tunnel(Empire government) {
         super(government);
     }
-
+    public int length;
     private Names names;
 
     public Names getNames() {
@@ -16,6 +16,10 @@ public class Tunnel extends Building implements BuildingConstantFunctions {
     public void tunnel() {
         names = Names.TUNNEL;
 
+    }
+
+    public int getLength() {
+        return length;
     }
 
     @Override

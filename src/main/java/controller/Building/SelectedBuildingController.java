@@ -2,10 +2,8 @@ package controller.Building;
 
 import model.Building.Building;
 import model.Building.DrawBridge;
-import model.Human.Troop.Army;
+import model.Human.Troop.*;
 import model.Empire;
-import model.Human.Troop.EuropeArmy;
-import model.Human.Troop.ArabArmy;
 import model.Map;
 import view.Messages.SelectedBuildingMessages;
 
@@ -15,8 +13,10 @@ import java.util.regex.Matcher;
 public class SelectedBuildingController {
     public static Empire empire;
     public static Building selectedBuilding;
-    //TODO : all the troops made in here . their functions is not called in the functions soo after fixing the troops class it must be added
 
+    //TODO : add the tunneler troop to one of the buildings
+    //TODO : all the troops made in here . their functions is not called in the functions soo after fixing the troops class it must be added
+    //TODO REMOVE THE ARAB ARMY AND EUROPE ARMY
     public SelectedBuildingMessages gatehouse(Matcher matcherTaxRate) {
         int taxRate = Integer.parseInt(matcherTaxRate.group("taxRate"));
         if (taxRate > 7 | taxRate < -3) {
@@ -58,53 +58,54 @@ public class SelectedBuildingController {
         empire.setSpearCount(empire.getSpearCount() - allWeaponTools.get("spear") * troopCount);
         empire.setPeakCount(empire.getPeakCount() - allWeaponTools.get("peak") * troopCount);
         empire.setHorseCount(empire.getHorseCount() - allWeaponTools.get("horse") * troopCount);
-        switch (troopName) { //add troops created to the empire army
+        switch (troopName) {
             case "archer":
                 empire.setEuropeArcherCount(empire.getEuropeArcherCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy archer = new ArabArmy(empire);
+                    ArchersAndThrowers archer = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(archer);
                 }
             case "spearMan":
                 empire.setSpearManCount(empire.getSpearManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy spearMan = new ArabArmy(empire);
+                    Climbers spearMan = new Climbers(empire);
                     empire.empireArmy.add(spearMan);
                 }
             case "maceMan":
                 empire.setMaceManCount(empire.getMaceManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy maceMan = new ArabArmy(empire);
+                    Climbers maceMan = new Climbers(empire);
                     empire.empireArmy.add(maceMan);
                 }
             case "crossbowMan":
                 empire.setCrossbowManCount(empire.getCrossbowManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy crossbowMan = new ArabArmy(empire);
+                    ArchersAndThrowers crossbowMan = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(crossbowMan);
                 }
             case "pikeMan":
                 empire.setPikeManCount(empire.getPikeManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy pikeMan = new ArabArmy(empire);
+                    Soldiers pikeMan = new Soldiers(empire);
                     empire.empireArmy.add(pikeMan);
                 }
             case "swordMan":
                 empire.setSwordManCount(empire.getSwordManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy swordMan = new ArabArmy(empire);
+                    Soldiers swordMan = new Soldiers(empire);
                     empire.empireArmy.add(swordMan);
                 }
             case "knight":
                 empire.setKnightCount(empire.getKnightCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    ArabArmy knight = new ArabArmy(empire);
+                    Soldiers knight = new Soldiers(empire);
                     empire.empireArmy.add(knight);
                 }
         }
     }
 
-    public SelectedBuildingMessages empireHasEnoughRecoursesToBuyTroopFromBarracks(Empire empire, HashMap<String, Integer> listOfTroopsBuyPrice, HashMap<String, Integer> allWeaponTools, String troopName, int troopCount) {
+    public SelectedBuildingMessages empireHasEnoughRecoursesToBuyTroopFromBarracks(Empire empire, HashMap<String, Integer> listOfTroopsBuyPrice,
+                                                                                   HashMap<String, Integer> allWeaponTools, String troopName, int troopCount) {
         int empiresGoldCount = empire.getGoldCount();
         int empiresPeasantCount = empire.getPeasantCount();
         if (empiresPeasantCount < troopCount) return SelectedBuildingMessages.NOT_ENOUGH_PEASANTS;
@@ -235,43 +236,43 @@ public class SelectedBuildingController {
             case "arabianBow":
                 empire.setArabianBowCount(empire.getArabianBowCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy arabianBow = new EuropeArmy(empire);
+                    ArchersAndThrowers arabianBow = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(arabianBow);
                 }
             case "slave":
                 empire.setSlaveCount(empire.getSlaveCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy slave = new EuropeArmy(empire);
+                    Soldiers slave = new Soldiers(empire);
                     empire.empireArmy.add(slave);
                 }
             case "slinger":
                 empire.setSlingerCount(empire.getSlingerCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy slinger = new EuropeArmy(empire);
+                    ArchersAndThrowers slinger = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(slinger);
                 }
             case "assassin":
                 empire.setAssassinCount(empire.getAssassinCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy assassin = new EuropeArmy(empire);
+                    Climbers assassin = new Climbers(empire);
                     empire.empireArmy.add(assassin);
                 }
             case "horseArcher":
                 empire.setHorseArcherCount(empire.getHorseArcherCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy horseArcher = new EuropeArmy(empire);
+                    ArchersAndThrowers horseArcher = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(horseArcher);
                 }
             case "arabianSwordMan":
                 empire.setArabianSwordManCount(empire.getArabianSwordManCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy arabianSwordMan = new EuropeArmy(empire);
+                    Soldiers arabianSwordMan = new Soldiers(empire);
                     empire.empireArmy.add(arabianSwordMan);
                 }
             case "fireThrower":
                 empire.setFireThrowerCount(empire.getFireThrowerCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    EuropeArmy fireThrower = new EuropeArmy(empire);
+                    ArchersAndThrowers fireThrower = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(fireThrower);
                 }
         }
@@ -363,9 +364,17 @@ public class SelectedBuildingController {
                 empire.setEngineerCount(empire.getEngineerCount() + troopCount);
                 empire.setEngineerCount(empire.getEngineerCount() + troopCount);
             case "ladderMan":
+                for (int i = 0; i < troopCount; i++) {
+                    Climbers ladderMan = new Climbers(empire);
+                    empire.empireArmy.add(ladderMan);
+                }
                 empire.setLadderManCount(empire.getLadderManCount() + troopCount);
                 empire.setLadderManCount(empire.getLadderManCount() + troopCount);
             case "tunneler":
+                for (int i = 0; i < troopCount; i++) {
+                    Tunneler tunneler = new Tunneler(empire);
+                    empire.empireArmy.add(tunneler);
+                }
                 empire.setTunnelerCount(empire.getTunnelerCount() + troopCount);
                 empire.setTunnelerCount(empire.getTunnelerCount() + troopCount);
         }
@@ -382,23 +391,23 @@ public class SelectedBuildingController {
             engineerGuildTroopPrice.put("tunneler", 30);
         }
         switch (troopName) {
-            case "arabianBow":
+            case "engineer":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromMercenary(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count);
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
                     return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count));
                 }
-            case "slave":
+            case "ladderMan":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromMercenary(empire, engineerGuildTroopPrice.get("slave"), troopName, count);
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
                     return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count));
                 }
-            case "slinger":
+            case "tunneler":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromMercenary(empire, engineerGuildTroopPrice.get("slinger"), troopName, count);
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
                     return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count));
@@ -431,37 +440,37 @@ public class SelectedBuildingController {
             case "catapult":
                 empire.setCatapultCount(empire.getCatapultCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    Army catapult = new Army(empire);
+                    ArchersAndThrowers catapult = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(catapult);
                 }
             case "trebuchet":
                 empire.setTrebuchetCount(empire.getTrebuchetCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    Army trebuchet = new Army(empire);
+                    ArchersAndThrowers trebuchet = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(trebuchet);
                 }
             case "siegeTower":
                 empire.setSiegeTowerCount(empire.getSiegeTowerCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    Army siegeTower = new Army(empire);
+                    ArchersAndThrowers siegeTower = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(siegeTower);
                 }
             case "fireBalista":
                 empire.setFireBalistaCount(empire.getFireBalistaCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    Army fireBalista = new Army(empire);
+                    ArchersAndThrowers fireBalista = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(fireBalista);
                 }
             case "batteringRam":
                 empire.setBatteringRamCount(empire.getBatteringRamCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    Army batteringRam = new Army(empire);
+                    ArchersAndThrowers batteringRam = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(batteringRam);
                 }
             case "portableShield":
                 empire.setPortableShieldCount(empire.getPortableShieldCount() + 3 * troopCount);
                 for (int i = 0; i < troopCount; i++) {
-                    Army portableShield = new Army(empire);
+                    ArchersAndThrowers portableShield = new ArchersAndThrowers(empire);
                     empire.empireArmy.add(portableShield);
                 }
         }
@@ -543,7 +552,7 @@ public class SelectedBuildingController {
         empire.setTroopCount(empire.getTroopCount() + troopCount);
         empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
         for (int i = 0; i < troopCount; i++) {
-            Army BlackMonk = new Army(empire);
+            Soldiers BlackMonk = new Soldiers(empire);
             empire.empireArmy.add(BlackMonk);
         }
     }

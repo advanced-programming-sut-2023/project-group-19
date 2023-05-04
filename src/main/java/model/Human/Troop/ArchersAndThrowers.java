@@ -22,6 +22,9 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public int xCoordinate;
     public int yCoordinate;
     public int restOfMoves;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
+    public int height;
     public List<Integer> myPath;
     public Names shieldDirection;
     public Names typeOfArmy;
@@ -102,7 +105,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
-
+        attackRange = 8;
     }
     public void Crossbowmen(int x , int y) {
         hp = 700;
@@ -112,7 +115,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 3;
-
+        attackRange = 4;
     }
     public void ArcherBow(int x , int y) {
         hp = 475;
@@ -122,6 +125,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
+        attackRange = 8;
     }
     public void Slingers(int x , int y) {
         hp = 700;
@@ -131,6 +135,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
+        attackRange = 2;
     }
     public void HorseArchers(int x , int y) {
         hp = 850;
@@ -140,6 +145,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
+        attackRange = 6;
     }
     public void FireThrowers(int x , int y) {
         hp = 850;
@@ -149,6 +155,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
+        attackRange = 6 ;
     }
     public void catapult(int x , int y){
         names = Names.CATAPULT;
@@ -181,15 +188,19 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
 
     }
     public void batteringRam(int x , int y){
+        hp = 600;
+        maxHp = 600;
         names = Names.BATTERING_RAM;
         xCoordinate = x;
         yCoordinate = y;
+        speed = 7;
+        attackPower = 700;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4,0);
     }
     public void portableShield(int x , int y){
-        hp = 850;
-        maxHp = 850;
+        hp = 475;
+        maxHp = 475;
         names = Names.PORTABLE_SHIELD;
         xCoordinate = x;
         yCoordinate = y;
@@ -226,10 +237,18 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public int restOfMoves() {
         return restOfMoves;
     }
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
+    }
 
     @Override
     public List<Integer> myPath() {
         return myPath;
     }
-
 }

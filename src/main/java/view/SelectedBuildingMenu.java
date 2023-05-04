@@ -72,10 +72,15 @@ public class SelectedBuildingMenu {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
             }
-            //TODO : add the show current buildings hp function
             //TODO : consider the situation of not being able to repair because of the enemies being close too that building we want to repair
             else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
-                System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
+                if(SelectedBuildingCommands.getMatcher(buildingName , SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+                    System.out.println(selectedBuilding.getHp());
+                    System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
+                }
+                else{
+                    System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
+                }
             } else if (buildingName.equals("shop")) {
                 ShopMenu shopMenu = new ShopMenu();
                 shopMenu.run(scanner , (Shop) selectedBuilding);

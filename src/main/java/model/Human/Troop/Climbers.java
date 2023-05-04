@@ -24,6 +24,8 @@ public class Climbers extends Army implements HumanConstantFunctions{
     public int yCoordinate;
     public Names typeOfArmy;
     public int restOfMoves;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
     public void setNames(Names names) {
         this.names = names;
@@ -134,6 +136,16 @@ public class Climbers extends Army implements HumanConstantFunctions{
     @Override
     public int restOfMoves() {
         return restOfMoves;
+    }
+
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
     }
 
     @Override

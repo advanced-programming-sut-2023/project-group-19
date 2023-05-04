@@ -10,6 +10,8 @@ public interface HumanConstantFunctions {
     public int getCurrentX();
     public int getCurrentY();
     public int restOfMoves();
+    public int getGoalX();
+    public int getGoalY();
     public List<Integer> myPath();
 
 }

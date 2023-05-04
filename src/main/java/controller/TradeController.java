@@ -11,6 +11,8 @@ import model.TradableGoods;
 
 public class TradeController {
     public static String currentMenu;
+    public int indexOfRequest;
+    public int indexOfDonation;
     public static Empire selectedEmpire=null;
     public void showAllEmpires(Scanner scanner){
         int number=1;
@@ -19,13 +21,6 @@ public class TradeController {
             System.out.println(number+". "+empire.getName());
             number++;
         }
-        /*System.out.println("Enter the number of your considered empire : ");
-        String numberOfChosenEmpire=scanner.nextLine();
-        if (TradeMenuCommands.getMatcher(numberOfChosenEmpire , TradeMenuCommands.FORMAT_OF_NUMBER_FOR_SELECTED_BUILDING) != null) {
-            int chosenEmpire = Integer.parseInt(numberOfChosenEmpire);
-            if (chosenEmpire < 1 || chosenEmpire > number) System.out.println("The number you've entered is invalid!");
-            else setSelectedEmpire(chosenEmpire);
-        }else System.out.println(TradeMenuMessages.INVALID_ANSWER_FOR_SELECTED_EMPIRE.getMessages());*/
     }
 
     public void showRequests(){
@@ -51,7 +46,7 @@ public class TradeController {
                                     "Requested resource: " + typeOfResource + "\n" +
                                     "Amount of resource: " + amountOfResource + "\n" +
                                     "Attached Message: " + messageAttachedToRequest + "\n" +
-                                    "Status: Not Accepted Yet!";
+                                    "Status: ";
                             if (cost == 0) selectedEmpire.getDonation().add(request);
                             else selectedEmpire.getRequest().add(request);
                             System.out.println("Your request is sent to " + selectedEmpire + " court!");
@@ -79,7 +74,7 @@ public class TradeController {
         int number = 1 ;
         System.out.println("Donation List :");
         for (String donation : Manage.getCurrentEmpire().getDonation()){
-            System.out.println(number+". "+donation);
+            System.out.println(number+". "+donation+" id:");
             number++;
         }
     }
@@ -101,9 +96,7 @@ public class TradeController {
                         if (empire.getResourcesCount() + amount <= empire.getResourcesCapacity()) {
                             setResourceCount(requestResource , amount , idOfEmpire);
                             setResourceCount(requestResource , amount , Manage.getCurrentEmpire().getName());
-                            StringTokenizer stringToken = new StringTokenizer(request , "Status");
-                            request = stringToken.nextToken();
-                            request=request.concat("Status: Accepted");
+                            request=request.concat("Accepted");
                             return TradeMenuMessages.SUCCESS;
                         }
                     }
@@ -239,6 +232,20 @@ public class TradeController {
         }
     }
     public void showTradeHistory(){
-
+        System.out.println("Notifications : ");
+        System.out.println("List Of New Donations : ");
+        for (int i = 0 ; i < Manage.getCurrentEmpire().getDonation().size() ; i++){
+            if (i >= indexOfDonation){
+                System.out.println(Manage.getCurrentEmpire().getDonation().get(i));
+            }
+        }
+        indexOfDonation = Manage.getCurrentEmpire().getDonation().size();
+        System.out.println("List Of New Requests : ");
+        for (int j = 0 ; j < Manage.getCurrentEmpire().getRequest().size() ; j++){
+            if (j >= indexOfRequest){
+                System.out.println(Manage.getCurrentEmpire().getRequest().get(j));
+            }
+        }
+        indexOfRequest = Manage.getCurrentEmpire().getRequest().size();
     }
 }

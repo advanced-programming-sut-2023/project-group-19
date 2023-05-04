@@ -1,6 +1,7 @@
 package model;
 
 import controller.Building.FunctionBuildingController;
+import model.Building.Names;
 import model.Human.Troop.Army;
 
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
-    //TODO : Lord Character
-    //TODO : Castle Building
+    // TODO : Lord Character
+    // TODO : Castle Building
 
     public User getUser() {
         return user;
@@ -29,10 +30,19 @@ public class Empire {
     private int resourcesCount;
     private int maxPossiblePopulation;
     private int PeasantCount;
+    private int priestCount;
     private int troopCount;
     private int workerCount;
 
     public ArrayList<Army> empireArmy = new ArrayList<>();
+
+    public int getPriestCount() {
+        return priestCount;
+    }
+
+    public void setPriestCount(int priestCount) {
+        this.priestCount = priestCount;
+    }
 
     public int getPeasantCount() {
         return PeasantCount;
@@ -353,13 +363,25 @@ public class Empire {
         productionBuildingRate.replace("dairyFactory", dairyFactoryRate);
     }
 
-
+    //TODO : take care of this part
     public int getIronMineCount() {
         return productionBuildingCount.get("ironMine");
     }
 
     public void setIronMineCount(int ironMineCount) {
         productionBuildingCount.replace("ironMine", ironMineCount);
+    }
+
+    public int getInnCount() {
+        return productionBuildingCount.get("inn");
+    }
+
+    public int getInnRate() {
+        return productionBuildingRate.get("inn");
+    }
+
+    public void setInnCount(int innCount) {
+        productionBuildingCount.replace("inn", innCount);
     }
 
     public int getOxTetherCount() {
@@ -798,51 +820,51 @@ public class Empire {
     }
 
     public int getCatapultCount() {
-        return popularityFactors.get("catapult");
+        return siegeTentTroopsCount.get("catapult");
     }
 
     public void setCatapultCount(int catapultCount) {
-        popularityFactors.replace("catapult", catapultCount);
+        siegeTentTroopsCount.replace("catapult", catapultCount);
     }
 
     public int getTrebuchetCount() {
-        return popularityFactors.get("trebuchet");
+        return siegeTentTroopsCount.get("trebuchet");
     }
 
     public void setTrebuchetCount(int trebuchetCount) {
-        popularityFactors.replace("trebuchet", trebuchetCount);
+        siegeTentTroopsCount.replace("trebuchet", trebuchetCount);
     }
 
     public int getSiegeTowerCount() {
-        return popularityFactors.get("siegeTower");
+        return siegeTentTroopsCount.get("siegeTower");
     }
 
     public void setSiegeTowerCount(int siegeTowerCount) {
-        popularityFactors.replace("siegeTower", siegeTowerCount);
+        siegeTentTroopsCount.replace("siegeTower", siegeTowerCount);
     }
 
     public int getFireBalistaCount() {
-        return popularityFactors.get("fireBalista");
+        return siegeTentTroopsCount.get("fireBalista");
     }
 
     public void setFireBalistaCount(int fireBalistaCount) {
-        popularityFactors.replace("fireBalista", fireBalistaCount);
+        siegeTentTroopsCount.replace("fireBalista", fireBalistaCount);
     }
 
     public int getBatteringRamCount() {
-        return popularityFactors.get("batteringRam");
+        return siegeTentTroopsCount.get("batteringRam");
     }
 
     public void setBatteringRamCount(int batteringRamCount) {
-        popularityFactors.replace("batteringRam", batteringRamCount);
+        siegeTentTroopsCount.replace("batteringRam", batteringRamCount);
     }
 
     public int getPortableShieldCount() {
-        return popularityFactors.get("portableShield");
+        return siegeTentTroopsCount.get("portableShield");
     }
 
     public void setPortableShieldCount(int portableShieldCount) {
-        popularityFactors.replace("portableShield", portableShieldCount);
+        siegeTentTroopsCount.replace("portableShield", portableShieldCount);
     }
 
     public HashMap<String, Integer> getAllWeaponTools() {
@@ -939,6 +961,7 @@ public class Empire {
         productionBuildingRate.put("mill", 5);
         productionBuildingRate.put("dairyFactory", 5);
         productionBuildingRate.put("wheatFactory", 20);
+        productionBuildingRate.put("inn", 5);
     }
 
     public HashMap<String, Integer> createWeaponBuildingCount = new HashMap<>();
@@ -949,6 +972,7 @@ public class Empire {
         createWeaponBuildingCount.put("fletcher", 0);
         createWeaponBuildingCount.put("poleTurner", 0);
         createWeaponBuildingCount.put("stable", 0);
+        createWeaponBuildingCount.put("inn", 0);
 
     }
 
@@ -1083,10 +1107,9 @@ public class Empire {
         } else {
             empire.setFoodRateNumber(-2);
         }
-
     }
 
-    public String showFoodList(Empire empire) {
+    public String showFoodList() {
         return "apple :" + allFood.get("apple") + '\n' +
                 "bread :" + allFood.get("bread") + '\n' +
                 "cheese :" + allFood.get("cheese") + '\n' +
@@ -1145,7 +1168,7 @@ public class Empire {
         }
     }
 
-    public void independentProductionBuilding() { //part 1 of 5TYPE algorithm
+    public void independentProductionBuilding() {
         if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") <= resourcesCapacity) {
             stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
         }
@@ -1181,15 +1204,15 @@ public class Empire {
         }
     }
 
-    public void functionBuildings() { //part 2 of 5TYPE algorithm
+    public void functionBuildings() {
         FunctionBuildingController.empire = this;
         FunctionBuildingController.transformWheatToFlour();
         FunctionBuildingController.transformFlourToBread();
         FunctionBuildingController.transformOatToBeer();
+        FunctionBuildingController.increasePopularityWithBeer();
         FunctionBuildingController.transformIronToMetalArmour();
         FunctionBuildingController.transformIronToSwordOrMace();
         FunctionBuildingController.transformWoodToBow();
         FunctionBuildingController.transformWoodToSpearOrPeak();
     }
-
 }
