@@ -1208,8 +1208,8 @@ public class Empire {
         FunctionBuildingController.empire = this;
         FunctionBuildingController.transformWheatToFlour();
         FunctionBuildingController.transformFlourToBread();
-        FunctionBuildingController.increasePopularityWithBeer();
         FunctionBuildingController.transformOatToBeer();
+        FunctionBuildingController.increasePopularityWithBeer();
         FunctionBuildingController.transformIronToMetalArmour();
         FunctionBuildingController.transformIronToSwordOrMace();
         FunctionBuildingController.transformWoodToBow();
