@@ -89,7 +89,7 @@ public class Tower extends Building {
     }
 
     public void lookoutTower() {
-        hp = -800;
+        hp = 800;
         maxHp = 800;
         fireRange = 650;
         defendRange = 700;
@@ -99,7 +99,7 @@ public class Tower extends Building {
     }
 
     public void perimeterTower() {
-        hp = -800;
+        hp = 800;
         maxHp = 800;
         fireRange = 650;
         defendRange = 700;
@@ -109,7 +109,7 @@ public class Tower extends Building {
     }
 
     public void defendTower() {
-        hp = -1000;
+        hp = 1000;
         maxHp = 1000;
         fireRange = 650;
         defendRange = 900;
@@ -119,7 +119,7 @@ public class Tower extends Building {
     }
 
     public void squareTower() {
-        hp = -800;
+        hp = 800;
         maxHp = 800;
         fireRange = 650;
         defendRange = 800;
@@ -129,8 +129,8 @@ public class Tower extends Building {
     }
 
     public void roundTower() {
-        hp = -850;
-        maxHp = 800;
+        hp = 850;
+        maxHp = 850;
         fireRange = 650;
         defendRange = 700;
         name = Names.ROUND_TOWER;

@@ -6,12 +6,14 @@ import javax.print.attribute.standard.MediaSize;
 import java.util.HashMap;
 
 public class Wall extends Building {
-    Wall(Empire government) {
+    public Wall(Empire government) {
         super(government);
     }
 
     private int hp;
-    private Names name;
+    private int maxHp;
+    private static Names name;
+    private static Names thickness;
 
     public int getHp() {
         return hp;
@@ -23,6 +25,16 @@ public class Wall extends Building {
 
     public Names getName() {
         return name;
+    }
+
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
 
     public HashMap<String, Integer> cost = new HashMap<>();
@@ -45,19 +57,27 @@ public class Wall extends Building {
     }
 
     //TODO only need stone to build the wall
-    public void bigWall(int x, int y) {
+    public void bigWall() {
+        hp = 750;
+        maxHp = 750;
         name = Names.BIG_WALL;
+        thickness = Names.BIG_WALL_THICKNESS;
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
-    public void smallWall(int x, int y) {
+    public void smallWall() {
+        hp = 500;
+        maxHp = 500;
         name = Names.SMALL_WALL;
+        thickness = Names.SMALL_WALL_THICKNESS;
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
-    public void stair(int x, int y) {
+    public void stair() {
+        hp = 450;
+        maxHp = 450;
         name = Names.STAIR;
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);

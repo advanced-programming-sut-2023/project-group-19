@@ -1,4 +1,5 @@
 import controller.JsonController;
+import controller.PathFindingController;
 import model.Building.Names;
 import model.Building.SiegeTent;
 import model.Building.StoneGateWay;
@@ -11,6 +12,8 @@ import view.Commands.BuildingCommands;
 import view.LoginMenu;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static java.lang.Math.floor;
@@ -41,10 +44,28 @@ public class Main {
 //            System.out.println("no user logged in");
 //        }
 
+        // TODO : pathfinding sample
+
+//        Map.CreateMap(200);
+//        Map.mapSize = 200;
+//        Map.notPassable[5][5] = true;
+//        PathFindingController.size = Map.mapSize;
+//        PathFindingController.notPassable = Map.notPassable;
+//        PathFindingController.goalX = 199;
+//        PathFindingController.goalY = 199;
+//        PathFindingController.startX = 0;
+//        PathFindingController.startY = 0;
+//        List<Integer> path = PathFindingController.pathFinding();
+//        int maxMove = 5;
+//        if(path == null)
+//            System.out.println("not possible move");
+//        else {
+//            System.out.println("x : " + path.get(maxMove ) / Map.mapSize + " y : " + path.get(maxMove ) % Map.mapSize);
+//        }
+
 
 
 //        Empire empire = new Empire();
-//        Map.CreateMap(200);
 //        StoneGateWay stoneGateWay = new StoneGateWay(empire);
 //        stoneGateWay.smallGateWay();
 //        SiegeTent siegeTent = new SiegeTent(empire);

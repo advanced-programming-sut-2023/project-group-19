@@ -12,6 +12,10 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     }
 
     private static Names name;
+    private int capacity;
+    private static Names direction;
+    private boolean isGateOpen;
+    private boolean isGateConquered;
     private int maxCapacity;
 
     private int currentCapacity;
@@ -68,7 +72,14 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.hp = hp;
     }
 
-//    public HashMap<String, Integer> cost = new HashMap<>();
+    public boolean isGateOpen() {
+        return isGateOpen;
+    }
+
+    public boolean isGateConquered() {
+        return isGateConquered;
+    }
+    //    public HashMap<String, Integer> cost = new HashMap<>();
 
     //TODO: call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
@@ -89,20 +100,22 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
 
     //TODO make a condition in the Building menu to see whether we have Gateway or not if we don't make an error
     //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
-    public void smallGateWay() {
+    public void smallGateWay(Names directionOfGate) {
         hp = 500;
         maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
-        maxCapacity = 8;
+        direction = directionOfGate;
+        capacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
-    public void bigGateWay() {
+    public void bigGateWay(Names directionOfGate) {
         hp = 700;
         maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
-        maxCapacity = 10;
+        direction = directionOfGate;
+        capacity = 10;
         createBuildingWorkersNeeded(0, 0);
         createBuildingCost(0, 20, 0, 0, 0);
     }

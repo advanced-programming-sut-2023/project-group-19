@@ -77,38 +77,4 @@ public class ArabArmy extends Army {
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
-
-    public void ArcherBow() {
-        names = Names.ARCHER_BOW;
-
-    }
-
-    public void Slaves() {
-        names = Names.SLAVES;
-
-    }
-
-    public void Slingers() {
-        names = Names.SLINGERS;
-
-    }
-
-    public void Assassins() {
-        names = Names.ASSASSINS;
-    }
-
-    public void HorseArchers() {
-        names = Names.HORSE_ARCHERS;
-
-    }
-
-    public void ArabianSwordsmen() {
-        names = Names.ARABIAN_SWORDSMEN;
-
-    }
-
-    public void FireThrowers() {
-        names = Names.FireThrowers;
-
-    }
 }

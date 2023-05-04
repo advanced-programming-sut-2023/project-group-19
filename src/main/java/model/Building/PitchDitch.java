@@ -10,9 +10,24 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     }
 
     private Names names;
+    public boolean fireState;
+    public boolean digState;
+    public boolean digCompleted;
 
     public Names getNames() {
         return names;
+    }
+
+    public boolean isFireState() {
+        return fireState;
+    }
+
+    public boolean isDigState() {
+        return digState;
+    }
+
+    public boolean isDigCompletely() {
+        return digCompleted;
     }
 
     public HashMap<String, Integer> cost = new HashMap<>();

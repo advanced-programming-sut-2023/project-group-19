@@ -10,6 +10,8 @@ import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
+    //TODO : Lord Character
+    //TODO : Castle Building
 
     public User getUser() {
         return user;
@@ -31,7 +33,6 @@ public class Empire {
     private int workerCount;
 
     public ArrayList<Army> empireArmy = new ArrayList<>();
-
 
     public int getPeasantCount() {
         return PeasantCount;
@@ -844,6 +845,29 @@ public class Empire {
         popularityFactors.replace("portableShield", portableShieldCount);
     }
 
+    public HashMap<String, Integer> getAllWeaponTools() {
+        return allWeaponTools;
+    }
+
+    public HashMap<String, Integer> getStores() {
+        return stores;
+    }
+
+    public HashMap<String, Integer> getEuropeTroopCount() {
+        return europeTroopCount;
+    }
+
+    public HashMap<String, Integer> getArabTroopCount() {
+        return arabTroopCount;
+    }
+
+    public HashMap<String, Integer> getEngineerGuildTroopCount() {
+        return engineerGuildTroopCount;
+    }
+
+    public HashMap<String, Integer> getSiegeTentTroopsCount() {
+        return siegeTentTroopsCount;
+    }
 
     // TODO call createFoodList function before usage
     public HashMap<String, Integer> allFood = new HashMap<>();
@@ -986,7 +1010,7 @@ public class Empire {
         siegeTentTroopsCount.put("catapult", 0);
         siegeTentTroopsCount.put("trebuchet", 0);
         siegeTentTroopsCount.put("siegeTower", 0);
-        siegeTentTroopsCount.put("fireBalista", 0);
+        siegeTentTroopsCount.put("fireBallista", 0);
         siegeTentTroopsCount.put("batteringRam", 0);
         siegeTentTroopsCount.put("portableShield", 0);
     }

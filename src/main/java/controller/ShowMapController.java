@@ -122,7 +122,6 @@ public class ShowMapController {
 
         return makeMap();
     }
-    // TODO : show army name
     public static String showDetail(int x , int y){
         Building building ;
         String buildingName = "empty";
@@ -136,7 +135,7 @@ public class ShowMapController {
         }
         if(!Map.getTroopMap()[x][y].isEmpty()){
             army = Map.getTroopMap()[x][y].get(0);
-//            armyName = String.valueOf(army.get);
+            armyName = String.valueOf(army.getNames());
             numOfArmy = Map.getTroopMap()[x][y].size();
         }
         if(!Map.getGroundType()[x][y].isEmpty()){

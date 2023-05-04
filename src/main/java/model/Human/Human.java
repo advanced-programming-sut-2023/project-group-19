@@ -1,8 +1,9 @@
 package model.Human;
 
 import model.Empire;
+import model.Human.Troop.HumanConstantFunctions;
 
-public abstract class Human {
+public abstract class Human implements HumanConstantFunctions {
     private Empire owner;
     private int hp;
 
