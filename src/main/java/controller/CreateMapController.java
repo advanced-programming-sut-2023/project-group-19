@@ -10,6 +10,11 @@ import model.Obstacle.WaterSources;
 public class CreateMapController {
     private static boolean mapIsBuilded = false ;
     private static int sizeOfMap ;
+
+    public static int getSizeOfMap() {
+        return sizeOfMap;
+    }
+
     public static String CreateMap(int size){
         mapIsBuilded = true ;
         if(size != 200 && size != 400) return "You must choose size 200 or 400";

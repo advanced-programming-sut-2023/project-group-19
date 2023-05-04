@@ -9,7 +9,18 @@ import java.util.List;
 public class Army extends Human{
     public Army(Empire government) {
         super(government);
+        this.empire = government;
     }
+    private Empire empire;
+
+    public Empire getEmpire() {
+        return empire;
+    }
+
+    public void setEmpire(Empire empire) {
+        this.empire = empire;
+    }
+
     private Names names;
 
     public Names getNames() {
