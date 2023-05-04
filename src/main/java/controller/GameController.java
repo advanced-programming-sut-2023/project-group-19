@@ -38,17 +38,18 @@ public class GameController {
                     setPathForUnits(xCoordinate ,yCoordinate);
                     for (Army myUnit : Manage.getCurrentEmpire().empireArmy) {
                         List<Integer> pathList = myUnit.myPath;
-                        if (pathList != null) {
+                        if (pathList != null && pathList.size() != 0) {
+                            //TODO : REMOVE EVERY ELEMENT OF PATHLIST AFTER MOVING TO THE COORDINATE
                             for (int i = 0; i < pathList.size(); i++) {
-                                int movesLeftToDestination = pathList.size() - i - 1;
-                                myUnit.goalXCoordinate = pathList.get(movesLeftToDestination) / PathFindingController.size;
-                                myUnit.goalYCoordinate = pathList.get(movesLeftToDestination) % PathFindingController.size;
+                                myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
+                                myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                 Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
                                 if (Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof KillingPit
                                         || Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof PitchDitch) {
                                     Manage.getCurrentEmpire().empireArmy.remove(myUnit);
                                     break;
                                 }
+                                //TODO : RemoveTroop function
                                 myUnit.xCoordinate = myUnit.goalXCoordinate;
                                 myUnit.yCoordinate = myUnit.goalYCoordinate;
                                 Map.getTroopMap()[myUnit.xCoordinate][myUnit.yCoordinate].add(myUnit);
@@ -58,18 +59,18 @@ public class GameController {
                             }
                         }
                     }
-                    if (!isMyArmyDeployed()) return GameMenuMessages.ARMY_DEPLOYED;
+                    if (isMyArmyDeployed()) return GameMenuMessages.ARMY_DEPLOYED;
                     else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
                 }else return GameMenuMessages.UNABLE_TO_MOVE_TREBUCHET;
-            }return GameMenuMessages.LOCATION_CONTAINS_BUILDING;
+            }return GameMenuMessages.LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES;
         }return GameMenuMessages.NO_UNIT_SELECTED;
     }
 
     public void setPathForUnits(int xCoordinate , int yCoordinate){
-        for (int i = 0 ; i < Manage.getCurrentEmpire().empireArmy.size() ; i++){
+        for (int i = 0 ; i < Manage.getCurrentEmpire().empireArmy.size() ; i++){//TODO: REMOVE THE OUTER FOR
             Army myArmy = Manage.getCurrentEmpire().empireArmy.get(i);
-            for (int j = 0 ; j < selectedUnit.size() ; j++){
-                if (selectedUnit.get(j).equals(myArmy)){
+            for (Army army : selectedUnit) {
+                if (army.equals(myArmy)) {
                     PathFindingController.startX = myArmy.getCurrentX() - 1;
                     PathFindingController.startY = myArmy.getCurrentY() - 1;
                     PathFindingController.goalX = xCoordinate - 1;
@@ -83,25 +84,25 @@ public class GameController {
     public boolean isMyArmyDeployed(){
         for (Army myArmy : selectedUnit){
             if (myArmy.myPath != null){
-                return true;
+                return false;
             }
-        }return false;
+        }return true;
     }
     public boolean isTrebuchet(){
-        if (selectedUnit.get(0) instanceof ArchersAndThrowers){
-            if (((ArchersAndThrowers)selectedUnit.get(0)).getNames().equals(Names.TREBUCHET)){
-                return true;
+        for (int i = 0 ; i < selectedUnit.size() ; i++) {
+            if (selectedUnit.get(i) instanceof ArchersAndThrowers) {
+                if (((ArchersAndThrowers) selectedUnit.get(i)).getNames().equals(Names.TREBUCHET)) {
+                    return true;
+                }
             }
-        }return false;
+        }
+        return false;
     }
     public boolean validFinalLocation(int x , int y){
-        if (Map.getObstacleMap()[x][y].get(0).getName() == ObstacleName.BIG_POND
-        ||  Map.getObstacleMap()[x][y].get(0).getName() == ObstacleName.SMALL_POND
-        ||  Map.getObstacleMap()[x][y].get(0).getName() == ObstacleName.RIVER
-        ||  Map.getObstacleMap()[x][y].get(0).getName() == ObstacleName.SEA){
-            return false;
-        }
-        return true;
+        return Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.BIG_POND
+                && Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.SMALL_POND
+                && Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.RIVER
+                && Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.SEA;
     }
 
     public void TowersGame(){
@@ -153,13 +154,13 @@ public class GameController {
         ArchersAndThrowers shieldDown = new ArchersAndThrowers(Manage.getCurrentEmpire());
         ArchersAndThrowers shieldRight = new ArchersAndThrowers(Manage.getCurrentEmpire());
         ArchersAndThrowers shieldLeft = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        shieldUp.portableShield(x, y);
+        shieldUp.portableShield(x, y+1);
         shieldUp.shieldDirection = Names.VERTICAL;
-        shieldDown.portableShield(x, y);
+        shieldDown.portableShield(x, y-1);
         shieldDown.shieldDirection = Names.VERTICAL;
-        shieldRight.portableShield(x, y);
+        shieldRight.portableShield(x+1, y);
         shieldRight.shieldDirection = Names.HORIZONTAL;
-        shieldLeft.portableShield(x, y);
+        shieldLeft.portableShield(x-1, y);
         shieldLeft.shieldDirection = Names.HORIZONTAL;
     }
     /*public void damageByBatteringRam(int x  , int y ){

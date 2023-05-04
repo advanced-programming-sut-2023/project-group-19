@@ -1,26 +1,26 @@
 package view;
 
-import controller.EmpireController;
-import model.Empire;
 import model.Manage;
 import view.Commands.EmpireCommands;
+import view.Messages.EmpireMessages;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class EmpireMenu {
-    //TODO : CALL FOODDIVERSITY AND RELIGION FUNCTION EVERY TURN IN GAME MENU
+    //TODO : CALL FOOD DIVERSITY AND RELIGION FUNCTION EVERY TURN IN GAME MENU
     public void run(Scanner scanner){
         Matcher matcher;
-        EmpireController empireController = new EmpireController();
+
         while (true){
             String command = scanner.nextLine();
             if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FACTORS) != null){
-                System.out.println(empireController.showPopularityFactors());
+                System.out.println(EmpireMessages.POPULARITY_FACTOR.getMessages());
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_POPULARITY) != null) {
                 System.out.println("Your Popularity is :" + Manage.getCurrentEmpire().getPopularity());
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FOOD_LIST) != null) {
-                System.out.println(empireController.showFoodList());
+                String foodList = Manage.getCurrentEmpire().showFoodList();
+                System.out.println(foodList);
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SET_FOOD_RATE_NUMBER) != null) {
                 Manage.getCurrentEmpire().findFoodDiversity();
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FOOD_RATE) != null) {
