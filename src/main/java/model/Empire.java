@@ -6,6 +6,7 @@ import model.Human.Troop.Army;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static java.lang.Math.E;
 import static java.lang.Math.floor;
 
 public class Empire {
@@ -16,9 +17,22 @@ public class Empire {
     public User getUser() {
         return user;
     }
-
+//    private static ArrayList<Empire>
     public void setUser(User user) {
         this.user = user;
+    }
+    private static ArrayList<Empire> empires = new ArrayList<>();
+
+    public static ArrayList<Empire> getEmpires() {
+        return empires;
+    }
+
+    static{
+        for(User user : User.users){
+            Empire empire = new Empire();
+            empire.setUser(user);
+            empires.add(empire);
+        }
     }
 
     private int foodCapacity = 50;

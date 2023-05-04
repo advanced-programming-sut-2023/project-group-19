@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.web.WebHistory;
 import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Human.Troop.Soldiers;
 
@@ -9,9 +10,11 @@ import java.lang.reflect.Array;
 import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
+import model.* ;
 
 public class AttackArmyToArmyController {
+    private static int mapSize = CreateMapController.getSizeOfMap();
     public static void createArmy(Empire empire , int number , ArrayList<Army> armies){
         for(int i = 0 ; i  < number ; i ++){
             Soldiers soldier = new Soldiers(empire);
@@ -83,6 +86,59 @@ public class AttackArmyToArmyController {
         }
         return divisionArmy ;
     }
+
+    private static boolean isArcher(Army army){
+        if(army instanceof ArchersAndThrowers) return true ;
+        else return  false ;
+    }
+
+    private static void findArchers(){
+        for(Empire empire : Empire.getEmpires()){
+            for(Army army : empire.empireArmy){
+                if(!isArcher(army)) continue;
+                findEnemyForArcher(army);
+            }
+        }
+    }
+    private static final int archerRange = 2 ;
+    private static void findEnemyForArcher(Army army){
+        int x = army.xCoordinate - 1;
+        int y = army.yCoordinate - 1;
+        int x1 = 0 , x2 = 0 , y1 = 0  , y2 = 0;
+        // battle with archer and swordman is done!
+        for(Army enemy : Map.getTroopMap()[x][y]){
+            if(enemy.getEmpire().equals(army.getEmpire())) return;
+        }
+        for(int i = 1 ; i <= archerRange ; i ++){
+            x1 = x - i ;
+            x2 = x + i ;
+            y1 = y - i ;
+            y2 = y + i ;
+            if(x1 <= 0) x1 = 0 ;
+            if(x2 >= mapSize) x2 = mapSize - 1 ;
+            if(y1 <= 0) y1 = 0 ;
+            if(y2 >= mapSize) y2 = mapSize - 1;
+            if(applyDamageWithArcher(x,y,x1,x2,y1,y2,army)) return;
+        }
+
+//        for(int i = 1 ; i <= archerRange ; i ++){
+//        }
+    }
+
+    private static boolean applyDamageWithArcher(int x , int y ,int x1, int x2, int y1, int y2, Army army) {
+        for(int i = x1 ; i <= x2 ; i ++){
+            for(int j = y1 ; j <= y2 ; j ++){
+                for(Army enemy : Map.getTroopMap()[i][j]){
+                    if(enemy.getEmpire().equals(army.getEmpire())) continue;
+                    int newHitPoint = enemy.hp() - army.getAttackPower();
+                    enemy.setHp(newHitPoint);
+                    return true ;
+                }
+            }
+        }
+        return false ;
+    }
+
 
 
 }

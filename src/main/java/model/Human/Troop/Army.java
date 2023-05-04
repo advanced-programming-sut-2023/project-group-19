@@ -11,6 +11,7 @@ public class Army extends Human{
     public Army(Empire government) {
         super(government);
         this.empire = government ;
+
     }
 
     public Empire getEmpire() {
