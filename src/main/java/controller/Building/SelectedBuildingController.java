@@ -58,7 +58,7 @@ public class SelectedBuildingController {
         empire.setSpearCount(empire.getSpearCount() - allWeaponTools.get("spear") * troopCount);
         empire.setPeakCount(empire.getPeakCount() - allWeaponTools.get("peak") * troopCount);
         empire.setHorseCount(empire.getHorseCount() - allWeaponTools.get("horse") * troopCount);
-        switch (troopName) { //add troops created to the empire army
+        switch (troopName) {
             case "archer":
                 empire.setEuropeArcherCount(empire.getEuropeArcherCount() + troopCount);
                 for (int i = 0; i < troopCount; i++) {
