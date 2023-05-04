@@ -2,16 +2,19 @@ package view;
 
 import controller.GameController;
 import model.Empire;
+import model.Manage;
 import model.User;
 import view.Commands.GameMenuCommands;
 import view.Messages.GameMenuMessages;
 
+import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class GameMenu {
     public static User currentUser;
     public static Empire currentEmpire;
+    public GameController gameController = new GameController();
     public void run(Scanner scanner){
         Matcher x1;
         Matcher y1;
@@ -22,23 +25,25 @@ public class GameMenu {
         Matcher direction;
         Matcher equipment;
         Matcher count;
-        GameController gameController = new GameController();
         GameMenuMessages gameMenuMessages;
         while(true){
             String command = scanner.nextLine();
             if (GameMenuCommands.getMatcher(command , GameMenuCommands.SELECT_UNITS) != null){
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_Y);
+                System.out.println(x1.group("x") + y1.group("y"));
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1 , y1);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())){
-                    gameController.selectUnit(x1 , y1);
+                    System.out.println(gameController.selectUnit(x1 , y1).getMessages());
                 }else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_Y);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1 , y1);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())){
-                    gameController.moveUnit(x1 , y1);
+                    int xCoordinate = Integer.parseInt(x1.group("x"));
+                    int yCoordinate = Integer.parseInt(y1.group("y"));
+                    gameController.moveUnit(xCoordinate , yCoordinate);
                 }else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.PATROL_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X1);

@@ -23,6 +23,8 @@ public class Soldiers extends Army implements HumanConstantFunctions{
     public int yCoordinate;
     public int restOfMoves;
     public Names typeOfArmy;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
     public Names getNames() {
         return names;
@@ -156,6 +158,16 @@ public class Soldiers extends Army implements HumanConstantFunctions{
     @Override
     public int restOfMoves() {
         return restOfMoves;
+    }
+
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
     }
 
     @Override

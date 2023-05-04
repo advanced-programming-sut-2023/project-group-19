@@ -1,6 +1,7 @@
 package model;
 
 import controller.Building.FunctionBuildingController;
+import model.Building.Names;
 import model.Human.Troop.Army;
 
 import java.util.ArrayList;
@@ -10,8 +11,8 @@ import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
-    //TODO : Lord Character
-    //TODO : Castle Building
+    // TODO : Lord Character
+    // TODO : Castle Building
 
     public User getUser() {
         return user;
@@ -1083,10 +1084,9 @@ public class Empire {
         } else {
             empire.setFoodRateNumber(-2);
         }
-
     }
 
-    public String showFoodList(Empire empire) {
+    public String showFoodList() {
         return "apple :" + allFood.get("apple") + '\n' +
                 "bread :" + allFood.get("bread") + '\n' +
                 "cheese :" + allFood.get("cheese") + '\n' +
@@ -1191,5 +1191,17 @@ public class Empire {
         FunctionBuildingController.transformWoodToBow();
         FunctionBuildingController.transformWoodToSpearOrPeak();
     }
-
+    public void setPopularityBasedOnReligion(){
+        for (int x = 0 ; x < Map.mapSize ; x++){
+            for (int y = 0 ; y < Map.mapSize ; y++){
+                if (Map.getBuildingMap()[x][y].get(0).getName().equals(Names.BIG_CHURCH)
+                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())){
+                    Manage.getCurrentEmpire().setPopularity(Manage.getCurrentEmpire().getPopularity() + 2);
+                } else if (Map.getBuildingMap()[x][y].get(0).getName().equals(Names.SMALL_CHURCH)
+                        && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())){
+                    Manage.getCurrentEmpire().setPopularity(Manage.getCurrentEmpire().getPopularity() + 1);
+                }
+            }
+        }
+    }
 }

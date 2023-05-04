@@ -4,10 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum GameMenuCommands {
-    SELECT_UNITS("select unit to .+"),
+    SELECT_UNITS("select unit .+"),
     MOVE_UNITS("move unit to .+"),
-    COORDINATE_X("-x (?<x>.+)"),
-    COORDINATE_Y("-y (?<y>.+)"),
+    COORDINATE_X("-x (?<x>\\d+)"),
+    COORDINATE_Y("-y (?<y>\\d+)"),
     TYPE_OF_UNIT("-s (?<type>standing|defensive|offensive)"),
     SET_UNIT("set\\s+"),
     PATROL_UNIT("patrol unit .+"),
