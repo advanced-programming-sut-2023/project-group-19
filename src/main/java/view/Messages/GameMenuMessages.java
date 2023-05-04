@@ -24,6 +24,7 @@ public enum GameMenuMessages {
     ARMY_DEPLOYED("Your army deployed completely!"),
     ARMY_IN_PROCESS_OF_DEPLOYING("Your army will be deployed in forward turns!"),
     VALID_COMMAND("Valid command!"),
+    SUCCESS("Successfully done!"),
     INVALID_COMMAND("Invalid command!"),
     CONTINUE("Continue!"),
     LOGOUT("Logout"),;

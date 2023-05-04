@@ -33,12 +33,16 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())){
                     gameController.selectUnit(x1 , y1);
                 }else System.out.println(gameMenuMessages.getMessages());
-            } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.MOVE_UNITS) != null) {
+            }else if(GameMenuCommands.getMatcher(command, GameMenuCommands.DISBAND_UNIT) != null){
+                gameMenuMessages = gameController.disbandUnit();
+                System.out.println(gameMenuMessages.getMessages());
+            }
+            else if (GameMenuCommands.getMatcher(command , GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_Y);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1 , y1);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())){
-                    gameController.moveUnit(x1 , y1);
+                    gameController.moveUnit(Integer.parseInt(x1.group("x")) , Integer.parseInt(y1.group("y")));
                 }else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.PATROL_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X1);
@@ -66,7 +70,10 @@ public class GameMenu {
                     y1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_Y1);
                     gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1 , y1);
                     if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())){
-                        //TODO : Attack function
+                        int x = Integer.parseInt(x1.group("x"));
+                        int y = Integer.parseInt(x1.group("y"));
+                        GameMenuMessages messages = gameController.attackAllSelectedArchers(x,y);
+                        System.out.println(messages.getMessages());
                     }else System.out.println(gameMenuMessages.getMessages());
                 }
             } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.POUR_OIL) != null) {

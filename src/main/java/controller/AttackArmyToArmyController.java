@@ -136,10 +136,13 @@ public class AttackArmyToArmyController {
         }
     }
     private static final int archerRange = 2 ;
+    //TODO : height of tower
     private static void findEnemyForArcher(Army army){
         int x = army.xCoordinate - 1;
         int y = army.yCoordinate - 1;
         int x1 = 0 , x2 = 0 , y1 = 0  , y2 = 0;
+        // 3 3
+        // (2 , 4) , (2 , 4 )
 
         for(int i = 1 ; i <= archerRange ; i ++){
             x1 = x - i ;

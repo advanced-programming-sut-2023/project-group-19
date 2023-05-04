@@ -35,7 +35,7 @@ public class GameController {
         if(army instanceof ArchersAndThrowers) return true ;
         else return  false ;
     }
-    public void  attackAllSelectedArchers(int x , int y){
+    public GameMenuMessages  attackAllSelectedArchers(int x , int y){
         x -- ;
         y -- ;
         for(Army army : selectedUnit){
@@ -47,8 +47,10 @@ public class GameController {
                 break;
             }
         }
+        return GameMenuMessages.SUCCESS;
     }
-    public void disbandUnit(){
+    public GameMenuMessages disbandUnit(){
+        if(selectedUnit.isEmpty()) return GameMenuMessages.INVALID_COMMAND ;
         for(Army army : selectedUnit){
             int x = army.getCurrentX() - 1 ;
             int y = army.getCurrentY() - 1 ;
@@ -56,6 +58,7 @@ public class GameController {
             empire.empireArmy.remove(army);
             Map.getTroopMap()[x][y].remove(army);
         }
+        return GameMenuMessages.SUCCESS ;
     }
 
     public GameMenuMessages moveUnit(int xCoordinate , int yCoordinate){
@@ -91,6 +94,7 @@ public class GameController {
                 }else return GameMenuMessages.UNABLE_TO_MOVE_TREBUCHET;
             }return GameMenuMessages.LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES;
         }return GameMenuMessages.NO_UNIT_SELECTED;
+        //TODO : jolgeh
     }
 
     public void setPathForUnits(int xCoordinate , int yCoordinate){
