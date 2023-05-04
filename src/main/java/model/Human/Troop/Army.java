@@ -7,9 +7,16 @@ import model.Human.Names;
 import java.util.List;
 
 public class Army extends Human{
+    private Empire empire ;
     public Army(Empire government) {
         super(government);
+        this.empire = government ;
     }
+
+    public Empire getEmpire() {
+        return empire;
+    }
+
     private Names names;
 
     public Names getNames() {
