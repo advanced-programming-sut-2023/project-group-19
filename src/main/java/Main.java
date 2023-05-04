@@ -20,6 +20,51 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //        System.out.println(BuildingCommands.INVALID_COMMAND.getName());
 //        System.out.println(Names.APOTHECARY.equals(Names.APOTHECARY));
 //        System.out.println((int) floor(34 * 1.6));
@@ -44,7 +89,7 @@ public class Main {
 //            System.out.println("no user logged in");
 //        }
 
-        // TODO : pathfinding sample
+// TODO : pathfinding sample
 
 //        Map.CreateMap(200);
 //        Map.mapSize = 200;
@@ -77,5 +122,3 @@ public class Main {
 //        Map.buildingMap[0][0].add(stoneGateWay);
 //        System.out.println(Map.buildingMap[0][0].get(0).hp());
 //        LoginMenu.run(new Scanner(System.in));
-    }
-}

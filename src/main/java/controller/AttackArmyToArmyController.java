@@ -32,7 +32,14 @@ public class AttackArmyToArmyController {
         }
     }
     private static void killUnit(ArrayList<Army> armies){
-        armies.removeIf(army -> army.getHp() <= 0);
+//        armies.removeIf(army -> army.getHp() <= 0);
+        for(Army army : armies){
+            if(army.getHp() <= 0){
+                Empire empire = army.getEmpire();
+                empire.empireArmy.remove(army);
+                armies.remove(army);
+            }
+        }
     }
     private static void takeDamageToArmies(ArrayList<Army> redTeam , ArrayList<Army> blueTeam){
         int i = 0 ;
@@ -76,4 +83,6 @@ public class AttackArmyToArmyController {
         }
         return divisionArmy ;
     }
+
+
 }
