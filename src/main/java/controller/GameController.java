@@ -4,7 +4,6 @@ import model.Building.*;
 import model.GroundType;
 import model.Human.Names;
 import model.Human.Troop.*;
-import model.Human.Worker;
 import model.Manage;
 import model.Map;
 import model.Obstacle.ObstacleName;
@@ -18,7 +17,7 @@ public class GameController {
     //TODO : Remember that you should delete an army if its hp <= 0 from myUnit
     //TODO : Every time you enter gameMenu and every turn you should call isMyArmyDeployed
     //TODO : All buildings require fire state boolean
-    //TODO : Check the output of your Funtions
+    //TODO : Check the output of your Functions
     public ArrayList<Army> selectedUnit = new ArrayList<>();
 
     public GameMenuMessages selectUnit(Matcher x, Matcher y) {
@@ -132,9 +131,9 @@ public class GameController {
 
     public GameMenuMessages killingPitHauntsEnemy(int x, int y, Army enemy) {
         if (Map.getBuildingMap()[x][y].get(0) instanceof KillingPit) {
-            for (int i = 0; i < Map.getTroopMap().length; i++) {
+            for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
                 int index = findTroopInMap(x, y, enemy);
-                removeTroopFromMyArmy(Map.getTroopMap()[x][y].get(index));
+                Manage.getCurrentEmpire().empireArmy.remove(Map.getTroopMap()[x][y].get(index));
                 Map.getTroopMap()[x][y].remove(index);
             }
             return GameMenuMessages.SUCCESS;
@@ -149,29 +148,20 @@ public class GameController {
             if (selectedUnit.get(0) instanceof ArchersAndThrowers) {
                 if (selectedUnit.get(0).getNames().getName().equals(Names.FireThrowers.getName())) {
                     ((PitchDitch) Map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
-                    removeAllObjectsOnPitchDitch(xOfPitch, yOfPitch);
+                    Map.getBuildingMap()[xOfPitch][yOfPitch].clear();
+                    Map.getTroopMap()[xOfPitch][yOfPitch].clear();
+                    Map.getObstacleMap()[xOfPitch][yOfPitch].clear();
                     //TODO :  Ashes on the ground
                 }
             }
         }
     }
+    public GameMenuMessages BoilingPetrol(int xOfOilSmelter, int yOfOilSmelter) {
+        if (Map.getBuildingMap()[xOfOilSmelter][yOfOilSmelter].get(0) instanceof  OilSmelter){
+            if (selectedUnit.get(0).getNames().getName().equals(Names.ENGINEER.getName())){
 
-    public void removeAllObjectsOnPitchDitch(int xOfPitch, int yOfPitch) {
-        for (int i = 1; i < Map.getBuildingMap()[xOfPitch][yOfPitch].size(); i++) {
-            Map.getBuildingMap()[xOfPitch][yOfPitch].remove(i);
-            i--;
-        }
-        for (int j = 0; j < Map.getTroopMap()[xOfPitch][yOfPitch].size(); j++) {
-            Map.getTroopMap()[xOfPitch][yOfPitch].remove(j);
-            j--;
-        }
-        for (int k = 0; k < Map.getObstacleMap()[xOfPitch][yOfPitch].size(); k++) {
-            Map.getObstacleMap()[xOfPitch][yOfPitch].remove(k);
-            k--;
-        }
-    }
-    public void BoilingPetrol(int x, int y) {
-
+            }else return GameMenuMessages.IMPROPER_UNIT;
+        }return GameMenuMessages.IMPROPER_LOCATION;
     }
 
     public void conquerGates() {
@@ -180,7 +170,7 @@ public class GameController {
 
     public void defenceByPortableShields(int x, int y) {
         ArchersAndThrowers shield = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        shield.portableShield(x, y + 1);//TODO:set the direction
+        shield.portableShield(x, y);//TODO:set the direction
         shield.shieldDirection = Names.VERTICAL;
         Manage.getCurrentEmpire().empireArmy.add(0, shield);
     }
@@ -203,7 +193,8 @@ public class GameController {
     public void damageByFireThrowersOnBuildings(int x , int y , ArchersAndThrowers fireBallista){
         if (fireBallista.getNames().getName().equals(Names.FIRE_BALLISTA.getName())) {
             if (!Map.getBuildingMap()[x][y].isEmpty()) {
-                if (isDefenceBuildingOfEnemy(x, y)) {
+                if (isDefenceBuildingOfEnemy(x, y)) {//todo : why?
+                    //TODO : Define range
                     int index = Map.getBuildingMap()[x][y].size() - 1;
                     int hpOfBuildings = Map.getBuildingMap()[x][y].get(index).getHp() - fireBallista.getAttackPower();
                     if (checkIfRemoveBuildingPossible(hpOfBuildings)) Map.getBuildingMap()[x][y].remove(index);
@@ -264,6 +255,7 @@ public class GameController {
             && (!isTower(x , y) || Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.LOOKOUT_TOWER))){
             if (validationOfArmiesType(Names.TUNNELER.getName())){
                 //TODO: CALL MOVE UNIT FOR TUNNELERS
+                //todo : remove buildings according to direction
                 Map.getBuildingMap()[x][y] = null;
                 Tunnel tunnel = new Tunnel(Manage.getCurrentEmpire());
                 tunnel.length = selectedUnit.get(0).speed();
@@ -285,7 +277,7 @@ public class GameController {
     }
 
     public void seigeTowersAction(int x , int y){
-        if (validLocationForSeigeTower(x, y)){
+        if (validLocationForSiegeTower(x, y)){
             //TODO :Check Call move units
         }
     }
@@ -345,22 +337,7 @@ public class GameController {
         }
         return -1;
     }
-    public int sumAllHpsOfTroopsInACell(int x, int y) {
-        int sum = 0;
-        for (Army army : Map.getTroopMap()[x][y]) {
-            sum += army.getHp();
-        }
-        return sum;
-    }
-
-    public void removeTroopFromMyArmy(Army army) {
-        for (Army myArmy : Manage.getCurrentEmpire().empireArmy) {
-            if (myArmy.equals(army)) {
-                Manage.getCurrentEmpire().empireArmy.remove(myArmy);
-            }
-        }
-    }
-    public boolean validLocationForSeigeTower(int x , int y){
+    public boolean validLocationForSiegeTower(int x , int y){
         if (Map.getBuildingMap()[x+1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
             || Map.getBuildingMap()[x+1][y].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
             || Map.getBuildingMap()[x-1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())

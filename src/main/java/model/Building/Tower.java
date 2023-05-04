@@ -17,7 +17,7 @@ public class Tower extends Building {
     private int defendRange;
     //TODO setter for isBig
     private boolean isBig = false;
-
+    private final int maxCapacity = 20;
 
     public Names getNames() {
         return name;
