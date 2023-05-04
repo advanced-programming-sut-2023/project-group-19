@@ -483,12 +483,12 @@ public class Empire {
         createWeaponBuildingRate.replace("armourer", armourerBuildingRate);
     }
 
-    public int getBlacksmithBuildingRate() {
-        return createWeaponBuildingRate.get("blacksmith");
+    public int getBarracksBuildingRate() {
+        return createWeaponBuildingRate.get("barracks");
     }
 
-    public void setBlacksmithBuildingRate(int blacksmithBuildingRate) {
-        createWeaponBuildingRate.replace("blacksmith", blacksmithBuildingRate);
+    public void setBarracksBuildingRate(int barracksBuildingRate) {
+        createWeaponBuildingRate.replace("barracks", barracksBuildingRate);
     }
 
     public int getFletcherBuildingRate() {
@@ -516,12 +516,12 @@ public class Empire {
         createWeaponBuildingCount.replace("armourer", armourerBuildingCount);
     }
 
-    public int getBlacksmithBuildingCount() {
-        return createWeaponBuildingCount.get("blacksmith");
+    public int getBarracksBuildingCount() {
+        return createWeaponBuildingCount.get("barracks");
     }
 
-    public void setBlacksmithBuildingCount(int blacksmithBuildingCount) {
-        createWeaponBuildingCount.replace("armourer", blacksmithBuildingCount);
+    public void setBarracksBuildingCount(int barracksBuildingCount) {
+        createWeaponBuildingCount.replace("armourer", barracksBuildingCount);
     }
 
     public int getStableBuildingCount() {
@@ -946,7 +946,7 @@ public class Empire {
 
     {
         createWeaponBuildingCount.put("armourer", 0);
-        createWeaponBuildingCount.put("blacksmith", 0);
+        createWeaponBuildingCount.put("barracks", 0);
         createWeaponBuildingCount.put("fletcher", 0);
         createWeaponBuildingCount.put("poleTurner", 0);
         createWeaponBuildingCount.put("stable", 0);
@@ -957,7 +957,7 @@ public class Empire {
 
     {
         createWeaponBuildingRate.put("armourer", 5);
-        createWeaponBuildingRate.put("blacksmith", 5);
+        createWeaponBuildingRate.put("barracks", 5);
         createWeaponBuildingRate.put("fletcher", 5);
         createWeaponBuildingRate.put("poleTurner", 5);
         createWeaponBuildingRate.put("stable", 4);
