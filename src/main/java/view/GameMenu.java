@@ -25,6 +25,7 @@ public class GameMenu {
         Matcher direction;
         Matcher equipment;
         Matcher count;
+        //TODO : Fix the regex of coordinates
         GameMenuMessages gameMenuMessages;
         while(true){
             String command = scanner.nextLine();

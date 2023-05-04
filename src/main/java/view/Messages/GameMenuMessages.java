@@ -2,7 +2,6 @@ package view.Messages;
 
 public enum GameMenuMessages {
     SELECT_UNIT_SUCCEEDED("The considered unit is chosen!"),
-    WRONG_UNIT_FOR_COMMAND("This command can't be done by the selected unit!"),
     NO_UNIT_IN_CELL("The chosen cell doesn't contain any unit that belongs to your empire!"),
     NO_UNIT_SELECTED("You haven't selected a unit yet!"),
     LOCATION_CONTAINS_BUILDING("The chosen coordinate contains a building"),
@@ -17,8 +16,8 @@ public enum GameMenuMessages {
     BUILDING_REMOVED("The building removed successfully!"),
     INCOMPLETE_PITCH_DITCH("You can't remove an incomplete ditch!"),
     FILLING_YOUR_DITCH("This action can't be done.You're filling your ditch!"),
-    IMPROPER_LOCATION("The coordinate you've selected is improper!"),
     IMPROPER_UNIT("The type of unit you've selected is improper"),
+    IMPROPER_LOCATION("The chosen location is improper!"),
     DITCH_FILLED("The ditch is filled!"),
     TUNNEL_DUG("The tunnel dug successfully!"),
     ARMY_DEPLOYED("Your army deployed completely!"),
@@ -26,6 +25,7 @@ public enum GameMenuMessages {
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
     CONTINUE("Continue!"),
+    SUCCESS("The order is successfully done!"),
     LOGOUT("Logout"),;
     private String messages;
 
