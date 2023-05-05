@@ -158,7 +158,7 @@ public class GameController {
         for(Army army : Manage.getCurrentEmpire().empireArmy){
             if(army.getEnemy() == null) continue;
             selectedUnit.add(army);
-            gameController.moveUnit(army.getEnemy().xCoordinate,army.getEnemy().yCoordinate);
+            gameController.moveUnit(army.getEnemy().xCoordinate - 1,army.getEnemy().yCoordinate - 1);
             selectedUnit.clear();
         }
     }
@@ -172,7 +172,7 @@ public class GameController {
                 for(Army enemy : Map.getTroopMap()[i][j]){
                     if(enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate,army.getEnemy().yCoordinate);
+                    gameController.moveUnit(army.getEnemy().xCoordinate - 1,army.getEnemy().yCoordinate - 1);
                     return true ;
                 }
             }
