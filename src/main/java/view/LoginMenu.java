@@ -1,5 +1,4 @@
 package view;
-import com.google.gson.JsonSyntaxException;
 import controller.JsonController;
 import model.* ;
 //import controller.Controller;
@@ -12,21 +11,20 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 public class LoginMenu {
-
-
     public static void run(Scanner scanner) throws InterruptedException, IOException {
         JsonController.readDataFile("User.json");
         JsonController.saveAllUsersFileData();
         isLoggedUser(scanner);
+        System.out.println("Welcome to Login menu!");
         String command ;
         Matcher matcher ;
         while(true){
             command = scanner.nextLine();
-            if((matcher = LoginAndRegisterCommands.getMatcher(command , LoginAndRegisterCommands.FOR_REGISTER)) != null){
+            if((LoginAndRegisterCommands.getMatcher(command , LoginAndRegisterCommands.FOR_REGISTER)) != null){
                 checkElementsToRegisterUser(command,scanner);
-            }else if((matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.LOGIN)) != null){
+            }else if((LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.LOGIN)) != null){
                 EnterToLogin(command,scanner);
-            }else if((matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK)) != null){
+            }else if((LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.FORGOT_MY_PASSWORD)) != null){
                 ForgotPasswordCheck(command,scanner);
             }else System.out.println("Invalid command!");
         }
@@ -45,57 +43,58 @@ public class LoginMenu {
         JsonController.readDataFile("LoggedInUser.json");
         User user = JsonController.saveLoggedInUserFileData();
         if(user != null){
-            User.setCurrentUser(user);
-            System.out.println("login successfully");
+            User orgUser = User.getUserByName(user.getUsername());
+            User.setCurrentUser(orgUser);
+            System.out.println("Login successfully");
             MainMenu.run(scanner);
         }
     }
     //user create -u armin -p mamad mamad -email hhh -n kazem -s dd
     private static int numberToWait = 1 ;
-    private static void ForgotPasswordCheck(String command,Scanner scanner){
+    private static void ForgotPasswordCheck(String command,Scanner scanner) throws IOException {
         String username;
         Matcher matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
         if(matcher != null)username = matcher.group("username").replaceAll("\"","");
         else {
-            System.out.println("username not found!");
+            System.out.println("Username not found!");
             return;
         }
         User user = User.getUserByName(username);
         if(user == null) {
-            System.out.println("this user not exist!");
+            System.out.println("This user does not exist!");
             return;
         }
         String secQuestion = (User.getSecurityQuestions().get(user.getRecoveryQuestionNumber()));
-        System.out.println("your security question is " + secQuestion + ".please answer it\n");
+        System.out.println("For recovering password answer the following question:\n " + secQuestion);
         String answer = scanner.nextLine();
         if(answer.equals(user.getRecoveryQuestion())){
-            System.out.println("please enter your new password :");
+            System.out.println("Please enter your new password: ");
             answer = scanner.nextLine();
             RegisterMessages message =  LoginController.changePassword(user,answer);
             switch (message){
                 case WEAK_PASSWORD_FOR_LENGTH:
-                    System.out.println("length of your password is must be at least 6 characters");
+                    System.out.println("Length of your password must be at least 6 characters!");
                     return;
                 case WEAK_PASSWORD_FOR_LOWERCASE:
-                    System.out.println("you should use lowercase chars");
+                    System.out.println("You should use lowercase characters");
                     return;
                 case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
-                    System.out.println("you should use chars exept alphbetical");
+                    System.out.println("You should use chars except alphabetical!");
                     return;
                 case WEAK_PASSWORD_FOR_UPPERCASE:
-                    System.out.println("you should use uppercase chars");
+                    System.out.println("You should use uppercase characters!");
                     return;
                 case WEAK_PASSWORD_FOR_NUMBER:
-                    System.out.println("you should use numbsers into your pssword");
+                    System.out.println("You should use numbers into your password!");
                     return;
                 case SUCCESS:
-                    System.out.println("password changing is done!");
+                    System.out.println("Password changing is done!");
                     return;
             }
 
 
         }else{
-            System.out.println("this not correct!try agian");
+            System.out.println("This is not correct.Try again!");
             return;
         }
 
@@ -112,29 +111,30 @@ public class LoginMenu {
             System.out.println("invalid command");
             return;
         }
-        matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.IS_LOGGED_USER);
-        if(matcher != null){
-            String result = LoginController.isLoggedUser(username);
-            System.out.println(result);
-            if(result.equals("this user is not exist!")) return;
-        }
-        System.out.println(username);
+
         System.out.println(password);
         RegisterMessages message = LoginController.loginUser(username , password);
         System.out.println(username + " \n" + password);
         System.out.println(message);
         switch (message){
             case NOT_EXIST_USERNAME :
-                System.out.println("not exist username");
+                System.out.println("Username does not exist!");
                 return;
             case NOT_SIMILAR_PASSWORD :
-                System.out.println("incorrect form of password");
+                System.out.println("Wrong password!");
                 Thread.sleep(5000L * numberToWait);
+                //TODO : has problem
                 numberToWait ++ ;
                 return;
             case SUCCESS:
+                matcher = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.IS_LOGGED_USER);
+                if(matcher != null){
+                    String result = LoginController.isLoggedUser(username);
+                    System.out.println(result);
+                    if(result.equals("This user dose not exist!")) return;
+                }
                 numberToWait = 1 ;
-                System.out.println("login successfully");
+                System.out.println("Login successfully!");
                 MainMenu.run(scanner);
                 return;
         }
@@ -174,7 +174,7 @@ public class LoginMenu {
     }
     private static void sendInformationsOfRegisterUser(String username , String password , String confirmPassword ,
                                                        String email , String nickname , String slogan , Scanner scanner) throws IOException {
-//        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
+        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
 //        System.out.println(password);
 //        System.out.println(confirmPassword);
 //        System.out.println(email);
@@ -183,12 +183,12 @@ public class LoginMenu {
         switch (message){
             case USERNAME_REPETED :
                 username = LoginController.makeUserNameForUser(username);
-                System.out.println("your name is repeted but the name of " + username + " is exist now. would you like to use it? type yes if you want!");
+                System.out.println("Your name is repeated but the name " + username + " exists now. Would you like to use it? Type yes if you want!");
                 String answer = scanner.nextLine();
-                if(answer.equals("yes"))
+                if(answer.equals("yes") || answer.equals("Yes"))
                     sendInformationsOfRegisterUser(username,password,confirmPassword,email,nickname,slogan,scanner);
                 else {
-                    System.out.println("try agian");
+                    System.out.println("Try again");
                     return;
                 }
                 break;
@@ -199,51 +199,51 @@ public class LoginMenu {
                 break;
             case GET_RANDOM_PASSWORD:
                 password = LoginController.generateRandomPassword();
-                System.out.println("your random password is " + password + " please type it");
+                System.out.println("Your random password is " + password + ".Please type it");
                 String ans = scanner.nextLine();
                 while(true){
                     if(ans.equals(password)) {
                         sendInformationsOfRegisterUser(username,password,password,email,nickname,slogan,scanner);
                         break;
                     }
-                    System.out.println("try again!");
+                    System.out.println("Try again!");
                     ans = scanner.nextLine();
                 }
                 return;
             case INCORRECT_FORM_OF_USERNAME:
-                System.out.println("your form of username is invalid!");
+                System.out.println("Your format of username is invalid!");
                 return;
             case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
-                System.out.println("you should use chars exept alphabetical");
+                System.out.println("You should use chars except alphabetical!");
                 return;
             case WEAK_PASSWORD_FOR_LENGTH:
                 System.out.println("length of your password is must be at least 6 characters");
                 return;
             case WEAK_PASSWORD_FOR_LOWERCASE:
-                System.out.println("you should use lowercase chars");
+                System.out.println("You should use lowercase characters!");
                 return;
             case WEAK_PASSWORD_FOR_UPPERCASE:
-                System.out.println("you should use uppercase chars");
+                System.out.println("You should use uppercase characters!");
                 return;
             case WEAK_PASSWORD_FOR_NUMBER:
-                System.out.println("you should use numbers into your pssword");
+                System.out.println("You should use number inside your password!");
                 return;
             case NOT_SIMILAR_PASSWORD:
-                System.out.println("not similar your password");
+                System.out.println("Not similar your password!");
                 return;
             case INVALID_FORM_EMAIL:
-                System.out.println("invalid form email");
+                System.out.println("Invalid form of email!");
                 return;
             case REPETED_EMAIL:
-                System.out.println("your email is repeated");
+                System.out.println("Your email is repeated!");
                 return;
             case EMPTY_FIELD:
-                System.out.println("has empty field");
+                System.out.println("Your given entry has empty field!");
                 return;
             case SUCCESS:
                 String[] list = askSecurityQuestion(scanner);
                 if(list == null) {
-                    System.out.println("yoy have to fix whole fields correctly");
+                    System.out.println("There is something wrong with your entry!");
                     return;
                 }
                 else{
@@ -251,7 +251,7 @@ public class LoginMenu {
 //                    User user = new User(username,password,nickname,email,list[1],slogan,Integer.parseInt(list[0]));
                 }
 //                System.out.println(Manage.allUsers.size());
-                System.out.println("register succseefully");
+                System.out.println("register successfully");
         }
 
     }

@@ -13,6 +13,16 @@ public class Church extends Building implements BuildingConstantFunctions {
 
     private int smallChurchPopularity;
     private int bigChurchPopularity;
+    private int popularityIncreaseRate;
+
+    public int getPopularityIncreaseRate() {
+        return popularityIncreaseRate;
+    }
+
+    public void setPopularityIncreaseRate(int popularityIncreaseRate) {
+        this.popularityIncreaseRate = popularityIncreaseRate;
+    }
+
     private Names names;
 
     public int getSmallChurchPopularity() {
@@ -46,18 +56,28 @@ public class Church extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     public void smallChurch() {
         //TODO: PRIESTS INSIDE SMALL CHURCH
         names = Names.SMALL_CHURCH;
-        Manage.getCurrentEmpire().popularity+=2;
+        popularityIncreaseRate = 1;
         createBuildingCost(0, 0, 250, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void bigChurch() {
         //TODO: PRODUCING PRIEST & TRAINING THEM
         names = Names.BIG_CHURCH;
-        Manage.getCurrentEmpire().popularity+=2;
+        popularityIncreaseRate = 2;
         createBuildingCost(0, 0, 1000, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -73,5 +93,10 @@ public class Church extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

@@ -9,18 +9,18 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    public final int maxFoodCapacity=200;
-    public final int maxIndustryCapacity=200;
+    public final int maxFoodCapacity = 100;
+    public final int maxResourcesCapacity = 100;
     private int currentFoodCapacity;
-    private int currentIndustryCapacity;
+    private int currentResourcesCapacity;
     private Names names;
 
     public int getMaxFoodCapacity() {
         return maxFoodCapacity;
     }
 
-    public int getMaxIndustryCapacity() {
-        return maxIndustryCapacity;
+    public int getMaxResourcesCapacity() {
+        return maxResourcesCapacity;
     }
 
     public int getCurrentFoodCapacity() {
@@ -31,12 +31,12 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
         this.currentFoodCapacity = currentFoodCapacity;
     }
 
-    public int getCurrentIndustryCapacity() {
-        return currentIndustryCapacity;
+    public int getCurrentResourcesCapacity() {
+        return currentResourcesCapacity;
     }
 
-    public void setCurrentIndustryCapacity(int currentIndustryCapacity) {
-        this.currentIndustryCapacity = currentIndustryCapacity;
+    public void setCurrentResourcesCapacity(int currentResourcesCapacity) {
+        this.currentResourcesCapacity = currentResourcesCapacity;
     }
 
     public Names getNames() {
@@ -55,16 +55,26 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
-    public void industryStockpile() {
-        //TODO:INCREASE THE CURRENT CAPACITY EVERY TIME YOU ADD A THING TO STOCKPILE
-        currentIndustryCapacity=0;
-        names = Names.STOCKPILE;
-        createBuildingCost(0, 0, 0, 0, 0);
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
     }
 
-    public void foodProcessingStockpile() {
-        names = Names.FOOD_PROCESSING_STOCKPILE;
+    public void resourcesStockpile() {
+        //TODO:INCREASE THE CURRENT CAPACITY EVERY TIME YOU ADD A THING TO STOCKPILE
+        currentResourcesCapacity = 0;
+        names = Names.RESOURCES_STOCKPILE;
+        createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
+    }
+
+    public void foodStockpile() {
+        names = Names.FOOD_STOCKPILE;
         createBuildingCost(5, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
 
@@ -81,5 +91,10 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

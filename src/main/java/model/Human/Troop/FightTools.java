@@ -62,7 +62,7 @@ public class FightTools extends Army {
     public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
     }
-
+    //TODO : DELETE THIS CLASS
     public void portableShield() {
 
     }
@@ -86,6 +86,4 @@ public class FightTools extends Army {
     public void fireThrower() {
 
     }
-
-
 }

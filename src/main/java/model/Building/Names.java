@@ -13,13 +13,15 @@ public enum Names {
     SQUARE_TOWER("Square Tower"),
     ROUND_TOWER("Round Tower"),
     IRON_DIG("Iron Dig"),
-    FOOD_PROCESSING_STOCKPILE("Food Processing Stockpile"),
+    FOOD_STOCKPILE("Food Stockpile"),
     HOUSE("House"),
     TURRET("Turret"),
     RANGED_UNITS("Ranged Units"),
     MOUNTED_SIEGE_EQUIPMENT("Mounted Siege Equipment"),
     ARMOURY("Armoury"),
     ARMOUR("Armour"),
+    TORTURE_CHAMBER("torture chamber"),
+    GARDEN("garden"),
     TUNNEL("Tunnel"),
     WEAPON("Weapon"),
     WORKSHOP("Workshop"),
@@ -57,7 +59,7 @@ public enum Names {
     TUNNEL_ENTRANCE("Tunnel Entrance"),
     APOTHECARY("Apothecary"),
     WOODCUTTER("Wood Cutter"),
-    STOCKPILE("Stockpile"),
+    RESOURCES_STOCKPILE("resources Stockpile"),
     QUARRY("Quarry"),
     PITCH_RIG("Pitch Rig"),
     MARKET("Market"),
@@ -69,20 +71,32 @@ public enum Names {
     SIEGE("Siege"),
     TUNNELER("Tunneler"),
     HOP("Hop"),
+    SHOP("shop"),
     MERCENARY_POST("Mercenary Post"),
     LADDER_MAN("Ladder Man"),
     OIL_SMELTER("Oil Smelter"),
     PITCH_DITCH("Pitch Ditch"),
     CAGED_WAR_DOGS("Caged War Dogs"),
-    SIEGE_TENT("Siege Tent");
+    SIEGE_TENT("Siege Tent"),
+    NS("North-South"),
+    WE("West-East"),
+    BIG_WALL_THICKNESS("Thick"),
+    SMALL_WALL_THICKNESS("Thin"),;
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     Names(String s) {
         this.name = s;
     }
 
     public static Matcher getMatcher(String input, Names names) {
-        Matcher matcher = Pattern.compile(names.name).matcher(input);
-        return matcher;
+        return Pattern.compile(names.name).matcher(input);
     }
 }

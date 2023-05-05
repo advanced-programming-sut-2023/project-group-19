@@ -3,6 +3,8 @@ package model.Building;
 import model.Empire;
 import model.GroundType;
 
+import java.util.HashMap;
+
 public class StoneGateWay extends Building implements BuildingConstantFunctions {
     public StoneGateWay(Empire government) {
         super(government);
@@ -10,14 +12,29 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     }
 
     private static Names name;
+    public boolean flagOfEnemy;
     private int capacity;
+    private static Names direction;
+    private boolean isGateOpen;
+    private boolean isGateConquered;
+    private int maxCapacity;
 
-    public int getCapacity() {
-        return capacity;
+    private int currentCapacity;
+
+    public int getMaxCapacity() {
+        return maxCapacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(int currentCapacity) {
+        this.currentCapacity = currentCapacity;
     }
 
     public static Names getNames() {
@@ -56,7 +73,14 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.hp = hp;
     }
 
-//    public HashMap<String, Integer> cost = new HashMap<>();
+    public boolean isGateOpen() {
+        return isGateOpen;
+    }
+
+    public boolean isGateConquered() {
+        return isGateConquered;
+    }
+    //    public HashMap<String, Integer> cost = new HashMap<>();
 
     //TODO: call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
@@ -67,21 +91,33 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     //TODO make a condition in the Building menu to see whether we have Gateway or not if we don't make an error
     //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
-    public void smallGateWay() {
+    public void smallGateWay(Names directionOfGate) {
         hp = 500;
         maxHP = 500;
         name = Names.SMALL_STONE_GATE_HOUSE;
+        direction = directionOfGate;
         capacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
-    public void bigGateWay() {
+    public void bigGateWay(Names directionOfGate) {
         hp = 700;
         maxHP = 700;
         name = Names.BIG_STONE_GATE_HOUSE;
+        direction = directionOfGate;
         capacity = 10;
+        createBuildingWorkersNeeded(0, 0);
         createBuildingCost(0, 20, 0, 0, 0);
     }
 
@@ -98,5 +134,10 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     @Override
     public String groundType() {
         return groundType;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
     }
 }

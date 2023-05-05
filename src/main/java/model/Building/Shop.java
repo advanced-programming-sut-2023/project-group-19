@@ -3,6 +3,7 @@ package model.Building;
 import model.Empire;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Shop extends Building implements BuildingConstantFunctions {
 
@@ -10,9 +11,9 @@ public class Shop extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private HashMap<String, Integer> listOfGoodsBuyPrice = new HashMap<>(); // good name and its buy price
+    private LinkedHashMap<String, Integer> listOfGoodsBuyPrice = new LinkedHashMap<>(); // good name and its buy price
 
-    {//price as 5
+    {//price for 5
         listOfGoodsBuyPrice.put("meat", 40);
         listOfGoodsBuyPrice.put("hops", 75);
         listOfGoodsBuyPrice.put("barrel", 100);
@@ -35,9 +36,9 @@ public class Shop extends Building implements BuildingConstantFunctions {
         listOfGoodsBuyPrice.put("cheese", 40);
     }
 
-    private HashMap<String, Integer> listOfGoodsSellPrice = new HashMap<>(); // good name and its sell price
+    private LinkedHashMap<String, Integer> listOfGoodsSellPrice = new LinkedHashMap<>(); // good name and its sell price
 
-    {//price as 1
+    {//price for 1
         listOfGoodsSellPrice.put("meat", 5);
         listOfGoodsSellPrice.put("hops", 10);
         listOfGoodsSellPrice.put("barrel", 15);
@@ -61,6 +62,18 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     }
 
+    private Names names;
+    private int goldCount;
+    private int capacity;
+
+    public Names getNames() {
+        return names;
+    }
+
+    public void setNames(Names names) {
+        this.names = names;
+    }
+
 
     @Override
     public int maxHp() {
@@ -75,5 +88,59 @@ public class Shop extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    public int getGoldCount() {
+        return goldCount;
+    }
+
+    public void setGoldCount(int goldCount) {
+        this.goldCount = goldCount;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return "shop";
+    }
+
+    public HashMap<String, Integer> cost = new HashMap<>();
+
+    //TODO call createBuildingCost before usage
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        cost.put("wood", wood);
+        cost.put("stone", stone);
+        cost.put("gold", gold);
+        cost.put("iron", iron);
+        cost.put("oil", oil);
+    }
+
+    public HashMap<String, Integer> getListOfGoodsBuyPrice() {
+        return listOfGoodsBuyPrice;
+    }
+
+    public HashMap<String, Integer> getListOfGoodsSellPrice() {
+        return listOfGoodsSellPrice;
+    }
+
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
+    public void shop() {
+        names = Names.SHOP;
+        createBuildingCost(5, 0, 0, 0, 2);
+        createBuildingWorkersNeeded(0, 1);
     }
 }

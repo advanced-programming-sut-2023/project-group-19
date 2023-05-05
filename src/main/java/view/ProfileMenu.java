@@ -5,11 +5,12 @@ import model.User;
 import view.Commands.*;
 import view.Messages.ProfileMenuMessage;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ProfileMenu {
-    public static void run(Scanner scanner){
+    public static void run(Scanner scanner) throws IOException {
         String command ;
         Matcher matcher ;
         while(true){
@@ -19,10 +20,10 @@ public class ProfileMenu {
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_NICKNAME_CHANGE)) != null){
                 changingNickname(matcher.group("nickname").replaceAll("\"",""));
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_PASSWORD_CHANGE)) != null){
-                changingPassword(matcher.group("old").replaceAll("\"",""), matcher.group("new").replaceAll("\"",""),scanner);
+                changingPassword(command,scanner);
             }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_EMAIL_CHANGE)) != null){
                 changingEmail(matcher.group("email").replaceAll("\"",""));
-            }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.SHOW_SLOGAN_CHANGE)) != null){
+            }else if((matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_SLOGAN_CHANGE)) != null){
                 changeSlogan(command);
             }else if(command.matches("\\s*profile\\s+display\\s+highscore\\s*")){
                 System.out.println(ProfileController.showHighScore());
@@ -41,7 +42,7 @@ public class ProfileMenu {
         }
 
     }
-    private static void changeSlogan(String command){
+    private static void changeSlogan(String command) throws IOException {
         String result = null ;
         Matcher matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_SLOGAN_CHANGE);
         if(matcher != null) result = matcher.group("slogan").replaceAll("\"","");
@@ -50,7 +51,7 @@ public class ProfileMenu {
 
 
     }
-    private static void changingEmail(String newEmail){
+    private static void changingEmail(String newEmail) throws IOException {
         ProfileMenuMessage message = ProfileController.changeEmail(newEmail);
         switch (message){
             case SUCCESS :
@@ -61,7 +62,7 @@ public class ProfileMenu {
                 return;
         }
     }
-    private static void changingUsername(String username){
+    private static void changingUsername(String username) throws IOException {
         ProfileMenuMessage message = ProfileController.changeUsername(username);
         switch (message){
             case INVALID_FORM_USERNAME :
@@ -72,11 +73,27 @@ public class ProfileMenu {
                 return;
         }
     }
-    private static void changingNickname(String nickname){
+    private static void changingNickname(String nickname) throws IOException {
         ProfileMenuMessage message = ProfileController.changeNickname(nickname);
         System.out.println("nickname changed successfully");
     }
-    private static void changingPassword(String oldPassword , String newPassword , Scanner scanner){
+    private static void changingPassword(String command , Scanner scanner) throws IOException {
+        Matcher matcher ;
+        String oldPassword ;
+        String newPassword ;
+        matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_GET_OLD_PASSWORD);
+        if(matcher!=null) oldPassword = matcher.group("old");
+        else {
+            System.out.println("Please do this correctly");
+            return;
+        }
+        matcher = ProfileMenuCommands.getMatcher(command,ProfileMenuCommands.PROFILE_GET_NEW_PASSWORD);
+        if(matcher!=null) newPassword = matcher.group("new");
+        else {
+            System.out.println("Please do this correctly");
+            return;
+        }
+        System.out.println(newPassword + "    " + oldPassword);
         ProfileMenuMessage message = ProfileController.changingPasswordErrorHandelling(oldPassword,newPassword);
         switch (message){
             case INCORRECT_PASSWORD :

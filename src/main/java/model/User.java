@@ -51,7 +51,7 @@ public class User {
     private String slogan;
     private int recoveryQuestionNumber;
     private int highScore;
-    private static ArrayList<User> users = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
     private int rank;
 
     public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) throws IOException {

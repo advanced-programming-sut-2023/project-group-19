@@ -35,9 +35,18 @@ public class Stable extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     public void stable() {
         names = Names.STABLE;
         createBuildingCost(20, 0, 400, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -53,5 +62,10 @@ public class Stable extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

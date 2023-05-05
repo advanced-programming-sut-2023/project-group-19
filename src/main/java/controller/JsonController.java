@@ -62,7 +62,9 @@ public class JsonController {
         Gson gson = builder.create();
         Type allUsersType = new TypeToken<ArrayList<User>>(){}.getType();
         if(content == null) return;
-        Manage.allUsers = gson.fromJson(content , allUsersType);
+//        Manage.allUsers = gson.fromJson(content , allUsersType);
+        User.users = gson.fromJson(content , allUsersType);
+        Manage.allUsers = User.users;
     }
     public static User saveLoggedInUserFileData(){
         GsonBuilder builder = new GsonBuilder();

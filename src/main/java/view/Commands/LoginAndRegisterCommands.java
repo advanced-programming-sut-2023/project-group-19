@@ -7,8 +7,7 @@ public enum LoginAndRegisterCommands {
 
     FOR_REGISTER("\\s*user\\s+create"),
     REGISTER_USERNAME_CHECK("-u\\s+(?<username>(?=\")\"[^\"]+\"|\\S+)"),
-    REGISTER_PASSWORD_CHECK("-p\\s+(?<password>(?=\")\"[^\"-]+\"|[^ -]+)\\s(?<confirmPassword>(?=\")\"[^\"-]+\"|[^ -]+)?"),
-    REGISTER_PASSWORD_CHECK_2("(?<confirmPassword>(?=\")\"[^\"-]+\"|[^ -]+)?\\s*-p\\s+(?<password>(?=\")\"[^\"-]+\"|[^ -]+)"),
+    REGISTER_PASSWORD_CHECK("-p\\s+(?<password>(?=\")\"[^\"-]+\"|\\S+)\\s(?<confirmPassword>(?=\")\"[^\"-]+\"|\\S+)?"),
     REGISTER_EMAIL_CHECK("(--email|-e)\\s+(?<email>(?=\")\"[^\"]+\"|\\S+)"),
     REGISTER_NICKNAME_CHECK("-n\\s+(?<nickname>(?=\")\"[^\"]+\"|\\S+)"),
     REGISTER_SLOGAN_CHECK("-s\\s+(?<slogan>(?=\")\"[^\"]+\"|\\S+)"),
@@ -20,7 +19,7 @@ public enum LoginAndRegisterCommands {
     IS_LOGGED_USER("--stay-logged-in"),
     LOGIN_GET_USERNAME("-u\\s+(?<username>(?=\")\"[^\"]+\"|\\S+)"),
     LOGIN_GET_PASSWORD("-p\\s+(?<password>(?=\")\"[^\"]+\"|\\S+)"),
-    FORGOT_MY_PASSWORD("forgot my password"),
+    FORGOT_MY_PASSWORD("forgot my password -u\\s+(?<username>(?=\")\"[^\"]+\"|\\S+)"),
     ASK_SEQURITY_QUESTION("question pick");
     String regex ;
     LoginAndRegisterCommands(String regex){

@@ -2,13 +2,19 @@ package model.Human.Troop;
 
 import model.Empire;
 import model.Human.Human;
+import model.Human.Names;
+
+import java.util.List;
 
 public class Engineer extends Army {
-    Engineer(Empire government) {
+    public Engineer(Empire government) {
         super(government);
     }
 
-    private int hp = 1;
+    private int hp;
+    private int maxHp;
+    public int restOfMoves;
+    private Names names;
 
     @Override
     public int getHp() {
@@ -23,9 +29,18 @@ public class Engineer extends Army {
     private int defencePower;
 
     private int attackPower;
-
     private int speed;
 
+    public int xCoordinate;
+
+    public int yCoordinate;
+
+    public boolean isBossOfOilSmelter;
+    public boolean isBowlFullOfOil;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
+    public List<Integer> myPath;
+    public Names typeOfArmy;
     public int getDefencePower() {
         return defencePower;
     }
@@ -48,5 +63,83 @@ public class Engineer extends Army {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public boolean isBossOfOilSmelter() {
+        return isBossOfOilSmelter;
+    }
+
+    public void setBossOfOilSmelter(boolean bossOfOilSmelter) {
+        isBossOfOilSmelter = bossOfOilSmelter;
+    }
+
+    public boolean isBowlFullOfOil() {
+        return isBowlFullOfOil;
+    }
+
+    public void setBowlFullOfOil(boolean bowlFullOfOil) {
+        isBowlFullOfOil = bowlFullOfOil;
+    }
+
+    public Names getTypeOfArmy() {
+        return typeOfArmy;
+    }
+
+    public Names getNames() {
+        return names;
+    }
+
+    public void engineer(int x , int y){
+        hp = 1000;
+        maxHp = 1000;
+        typeOfArmy = Names.STANDING_AMRY;
+        names = Names.ENGINEER;
+        xCoordinate = x;
+        yCoordinate = y;
+        speed = 5;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return yCoordinate;
+    }
+
+    @Override
+    public int getCurrentX() {
+        return xCoordinate;
+    }
+
+    @Override
+    public int maxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public int hp() {
+        return hp;
+    }
+    @Override
+    public int speed() {
+        return speed;
+    }
+
+    @Override
+    public int restOfMoves() {
+        return restOfMoves;
+    }
+
+    @Override
+    public int getGoalX() {
+        return goalXCoordinate;
+    }
+
+    @Override
+    public int getGoalY() {
+        return goalYCoordinate;
+    }
+
+    @Override
+    public List<Integer> myPath() {
+        return myPath;
     }
 }

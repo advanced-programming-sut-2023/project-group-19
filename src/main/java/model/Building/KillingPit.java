@@ -8,9 +8,20 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
     public KillingPit(Empire government) {
         super(government);
     }
+    private boolean killingPitIsOn = true;
+
+    public boolean isKillingPitIsOn() {
+        return killingPitIsOn;
+    }
+
+    public void setKillingPitIsOn(boolean killingPitIsOn) {
+        this.killingPitIsOn = killingPitIsOn;
+    }
 
     private int damage;
     private Names name;
+    private int hp ;
+    private int maxHp;
 
     public Names getName() {
         return name;
@@ -35,10 +46,21 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+    }
+
+
     public void killingPit() {
-        damage=100;
+        hp = 900 ;
+        maxHp = 900 ;
+        damage = 700;
         name = Names.KILLING_PIT;
         createBuildingCost(6, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
 
@@ -55,5 +77,10 @@ public class KillingPit extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
     }
 }

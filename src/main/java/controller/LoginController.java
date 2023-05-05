@@ -15,7 +15,7 @@ import java.util.Random ;
 import static controller.JsonController.saveAllUsersFileData;
 
 public class LoginController {
-//    static {
+    //    static {
 //        saveAllUsersFileData();
 //    }
     public static RegisterMessages checkErrorForRegister(String username , String password , String confirmPassword ,
@@ -24,7 +24,7 @@ public class LoginController {
             return RegisterMessages.EMPTY_FIELD;
         }
         if(User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED ;
-        if(!username.matches(".*[A-Za-z0-9_].*")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
+        if(!username.matches("[A-Za-z0-9_]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if(slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
         if(password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD ;
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
@@ -35,23 +35,23 @@ public class LoginController {
         if(!password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         String changedEmail = email.toLowerCase() ;
         if(User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPETED_EMAIL;
-        if(!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]*\\.+[A-Za-z0-9\\.]*")) return RegisterMessages.INVALID_FORM_EMAIL ;
+        if(!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]+\\.+[A-Za-z0-9\\.]+")) return RegisterMessages.INVALID_FORM_EMAIL ;
         return RegisterMessages.SUCCESS ;
     }
-    public static RegisterMessages changePassword(User user , String password){
+    public static RegisterMessages changePassword(User user , String password) throws IOException {
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if(!password.matches(".*[\\W\\_].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
         if(!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if(!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if(password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
-        user.setPassword(password);
+        user.setPassword(getHashCode(password));
+        JsonController.writeIntoFile(Manage.allUsers , "User.json");
         return RegisterMessages.SUCCESS;
     }
     public static void register(String username , String password , String nickname , String email , String answeroFSecQuestion
             , String slogan , String numberOfSecQuesion) throws IOException {
         String newPassword = getHashCode(password);
         User user = new User(username,newPassword,nickname,email,answeroFSecQuestion,slogan,Integer.parseInt(numberOfSecQuesion));
-        user.setPassword(password);
 //        user.addUserToAllUsersArrayList(user);
     }
     public static RegisterMessages checkSecurityAsks(int number , String answer , String confirmAnswer){
@@ -66,18 +66,14 @@ public class LoginController {
     public static String isLoggedUser(String username) throws IOException {
         User user ;
         if((user = User.getUserByName(username)) == null ) return "this user is not exist!";
-        String password = user.getPassword();
-        String newPassword = getHashCode(password);
-        user.setPassword(newPassword);
         JsonController.writeIntoFile(user,"LoggedInUser.json");
-        user.setPassword(password);
         return "your username for next login is saved!";
     }
     public static RegisterMessages loginUser(String username , String password){
         User user ;
         if((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME ;
         System.out.println(user.getPassword());
-        if(!user.getPassword().equals(password)) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
+        if(!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         User.setCurrentUser(user);
         return RegisterMessages.SUCCESS ;
     }

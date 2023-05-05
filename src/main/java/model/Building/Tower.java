@@ -80,49 +80,62 @@ public class Tower extends Building {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     public void lookoutTower() {
-        hp=-800;
-        maxHp=800;
-        fireRange=650;
-        defendRange=700;
+        hp = 800;
+        maxHp = 800;
+        fireRange = 650;
+        defendRange = 700;
         name = Names.LOOKOUT_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void perimeterTower() {
-        hp=-800;
-        maxHp=800;
-        fireRange=650;
-        defendRange=700;
+        hp = 800;
+        maxHp = 800;
+        fireRange = 650;
+        defendRange = 700;
         name = Names.PERIMETER_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void defendTower() {
-        hp=-1000;
-        maxHp=1000;
-        fireRange=650;
-        defendRange=900;
+        hp = 1000;
+        maxHp = 1000;
+        fireRange = 650;
+        defendRange = 900;
         name = Names.DEFEND_TOWER;
         createBuildingCost(0, 15, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void squareTower() {
-        hp=-800;
-        maxHp=800;
-        fireRange=650;
-        defendRange=800;
+        hp = 800;
+        maxHp = 800;
+        fireRange = 650;
+        defendRange = 800;
         name = Names.SQUARE_TOWER;
         createBuildingCost(0, 35, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void roundTower() {
-        hp=-850;
-        maxHp=800;
-        fireRange=650;
-        defendRange=700;
+        hp = 850;
+        maxHp = 850;
+        fireRange = 650;
+        defendRange = 700;
         name = Names.ROUND_TOWER;
         createBuildingCost(0, 40, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -138,5 +151,10 @@ public class Tower extends Building {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return name.getName();
     }
 }

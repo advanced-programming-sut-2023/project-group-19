@@ -6,11 +6,7 @@ import java.util.ArrayList;
 
 public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
-    public static ArrayList<User> allUsers = new ArrayList<>();
-    public static void mamad(){
-        System.out.println("yes");
-    }
-    public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
+    public final static ArrayList<String> namesOfAllPossibleBuildings=new ArrayList<>();
     {
         namesOfAllPossibleBuildings.add("Armoury");
         namesOfAllPossibleBuildings.add("Barracks");
@@ -42,10 +38,10 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Shop");
         namesOfAllPossibleBuildings.add("Siege Tent");
         namesOfAllPossibleBuildings.add("Stable");
-        namesOfAllPossibleBuildings.add("Industry Stockpile");
-        namesOfAllPossibleBuildings.add("Food Processing Stockpile");
-        namesOfAllPossibleBuildings.add("Small GateWay");
-        namesOfAllPossibleBuildings.add("Big GateWay");
+        namesOfAllPossibleBuildings.add("Resources Stockpile");
+        namesOfAllPossibleBuildings.add("Food Stockpile");
+        namesOfAllPossibleBuildings.add("Small Stone Gatehouse");
+        namesOfAllPossibleBuildings.add("Big Stone Gatehouse");
         namesOfAllPossibleBuildings.add("Lookout Tower");
         namesOfAllPossibleBuildings.add("Perimeter Tower");
         namesOfAllPossibleBuildings.add("Defend Tower");
@@ -63,7 +59,7 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Pole Turner");
     }
     private static Empire currentEmpire;
-
+    public static ArrayList<User> allUsers = new ArrayList<>();
     public static Empire getCurrentEmpire() {
         return currentEmpire;
     }

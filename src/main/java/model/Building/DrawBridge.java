@@ -18,6 +18,20 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         return names;
     }
 
+    public boolean bridgeOpen = false;
+
+    public boolean isBridgeOpen() {
+        return bridgeOpen;
+    }
+
+    public void setBridgeOpen(boolean bridgeOpen) {
+        this.bridgeOpen = bridgeOpen;
+    }
+
+    public void setNames(Names names) {
+        this.names = names;
+    }
+
     private int hp;
     private static int defaultHP = 500;
 
@@ -35,6 +49,25 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    int x;
+    int y;
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Boolean getBridgeState() {
@@ -56,11 +89,22 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
-    public void drawBridge() {//check how to reduce the cost of building it from Government Cash
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
+    public void drawBridge(int x, int y) {//check how to reduce the cost of building it from Government Cash
+        this.x = x;
+        this.y = y;
         names = Names.DRAW_BRIDGE;
         bridgeState = true;//passable
         createBuildingCost(10, 0, 0, 0, 0);
         Manage.getCurrentEmpire().setStoneCount(Manage.getCurrentEmpire().getStoneCount() - 10);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -76,5 +120,10 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

@@ -1,10 +1,7 @@
 package view;
 
-import model.Map;
 import controller.*;
 import view.Commands.CreateMapCommands;
-import view.Commands.LoginAndRegisterCommands;
-import view.Commands.MainMenuCommands;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -20,10 +17,154 @@ public class CreateMapMenu {
                 movingMap(command);
             }else if((matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_DETAIL)) != null){
                 showDetail(command);
+            }else if((matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.CREATE_MAP)) != null){
+                System.out.println(CreateMapController.CreateMap(Integer.parseInt(matcher.group("size"))));
+            }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE) != null){
+                settextureOneByOne(command);
+            }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.CLEAR) != null){
+                clearAnIndex(command);
+            }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.DROP_ROCK) != null){
+                dropRock(command);
+            }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.DROP_TREE) != null){
+                dropTree(command);
             }
             else System.out.println("invalid command");
         }
 
+    }
+    public static void dropTree(String command){
+        Matcher matcher ;
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+        String type ;
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_TYPE);
+        if(matcher == null ){
+            System.out.println("try again!");
+            return;
+        }
+        type = matcher.group("type");
+        System.out.println(CreateMapController.dropTree(x,y,type));
+    }
+    public static void dropRock(String command){
+        Matcher matcher ;
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+        String type ;
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.GET_DIRCTION);
+        if(matcher == null ){
+            System.out.println("try again!");
+            return;
+        }
+        type = matcher.group("direction");
+        System.out.println(CreateMapController.dropRock(x,y,type));
+    }
+    public static void clearAnIndex(String command){
+        Matcher matcher ;
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        System.out.println(CreateMapController.clear(x,y));
+    }
+    public static void settextureOneByOne(String command){
+        int x = 0;
+        int y = 0;
+        String type = null ;
+        Matcher matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_X);
+        if(matcher == null){
+            setTextureGroup(command);
+            return;
+        }
+        x = Integer.parseInt(matcher.group("x"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_Y);
+        if(matcher == null ){
+            System.out.println("try again!");
+            return;
+        }
+        y = Integer.parseInt(matcher.group("y"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_TYPE);
+        if(matcher == null ){
+            System.out.println("try again!");
+            return;
+        }
+        type = matcher.group("type");
+        System.out.println(CreateMapController.settextureOneByOne(x,y,type));
+    }
+    public static void setTextureGroup(String command){
+        int x1 = 0;
+        int x2 = 0;
+        int y1 = 0;
+        int y2 = 0;
+        String type = null ;
+        Matcher matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_X1);
+        if(matcher == null){
+            System.out.println("try again");
+            return;
+        }
+        x1 = Integer.parseInt(matcher.group("x1"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_X2);
+        if(matcher == null){
+            System.out.println("try again");
+            return;
+        }
+        x2 = Integer.parseInt(matcher.group("x2"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_Y1);
+        if(matcher == null ){
+            System.out.println("try again");
+            return;
+        }
+        y1 = Integer.parseInt(matcher.group("y1"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_Y2);
+        if(matcher == null){
+            System.out.println("try again");
+            return;
+        }
+        y2 = Integer.parseInt(matcher.group("y2"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SET_TEXTURE_TYPE);
+        if(matcher == null ){
+            System.out.println("try again");
+            return;
+        }
+        type = matcher.group("type");
+        System.out.println(CreateMapController.settextureGroup(x1,x2,y1,y2,type));
     }
 
     public static void movingMap(String command){
@@ -64,24 +205,24 @@ public class CreateMapMenu {
         }
         int deltaX = up + down ;
         int deltaY = right + left  ;
-        System.out.println(CreateMapController.moveMap(deltaX,deltaY));
+        System.out.println(ShowMapController.moveMap(deltaX,deltaY));
 
     }
     public static void showDetail(String command){
         Matcher matcher ;
-        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_DETAIL_X);
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
         if(matcher == null){
             System.out.println("fill elements of map correctly!");
             return;
         }
         int x = Integer.parseInt(matcher.group("x"));
 
-        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_DETAIL_Y);
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
         if(matcher == null){
             System.out.println("fill elements of map correctly!");
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(CreateMapController.showDetail(x,y));
+        System.out.println(ShowMapController.showDetail(x,y));
     }
 }

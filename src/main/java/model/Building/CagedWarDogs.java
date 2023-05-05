@@ -8,6 +8,7 @@ public class CagedWarDogs extends Building implements BuildingConstantFunctions 
     public CagedWarDogs(Empire government) {
         super(government);
     }
+
     private int hp;
 
     @Override
@@ -37,10 +38,19 @@ public class CagedWarDogs extends Building implements BuildingConstantFunctions 
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     public void cagedWarDogs() {
-        hp=500;
+        hp = 500;
         names = Names.CAGED_WAR_DOGS;
         createBuildingCost(10, 0, 100, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -56,5 +66,10 @@ public class CagedWarDogs extends Building implements BuildingConstantFunctions 
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

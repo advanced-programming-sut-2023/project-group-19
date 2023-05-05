@@ -8,22 +8,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Map {
+    public static int mapSize;
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
 
-    public static ArrayList<Army>[][] getTroopMap() {
-        return troopMap;
-    }
-
     public static ArrayList<Obstacle>[][] obstacleMap;
-
-    public static ArrayList<Obstacle>[][] getObstacleMap() {
-        return obstacleMap;
-    }
 
     public static ArrayList<GroundType>[][] groundType ;
     public static boolean[][] notPassable; // for troop
     public static boolean[][] notBuildable; // for building
+    public static boolean[][] wallPassable; // for special soldiers
 
     public static ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
@@ -33,6 +27,13 @@ public class Map {
         buildingMap[x][y].add(newBuilding);
     }
 
+    public static ArrayList<Obstacle>[][] getObstacleMap() {
+        return obstacleMap;
+    }
+
+    public static ArrayList<Army>[][] getTroopMap() {
+        return troopMap;
+    }
 
     public static void CreateMap(int size){
         buildingMap=new ArrayList[size][size];
@@ -61,6 +62,7 @@ public class Map {
         }
         notPassable = new boolean[size][size];
         notBuildable = new boolean[size][size];
+        wallPassable = new boolean[size][size];
     }
 
     public static ArrayList<GroundType>[][] getGroundType() {

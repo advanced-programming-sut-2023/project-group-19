@@ -10,10 +10,33 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     }
 
     private Names names;
+    public boolean fireState;
+    public int digState;
+    public boolean digState;
+    private boolean pitchDitchIsOn = true;
+    public boolean digCompleted;
+
+    public boolean isPitchDitchIsOn() {
+        return pitchDitchIsOn;
+    }
+
+    public void setPitchDitchIsOn(boolean pitchDitchIsOn) {
+        this.pitchDitchIsOn = pitchDitchIsOn;
+    }
 
     public Names getNames() {
-        return names;
+        return names
+                ;
     }
+
+    public boolean isFireState() {
+        return fireState;
+    }
+
+    public int isDigState() {
+        return digState;
+    }
+
 
     public HashMap<String, Integer> cost = new HashMap<>();
 
@@ -26,10 +49,19 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
+
+    }
+
     //TODO oil per 5 square
     public void pitchDitch() {
         names = Names.PITCH_DITCH;
         createBuildingCost(0, 0, 0, 0, 2);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
@@ -45,5 +77,10 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
+    }
+
+    @Override
+    public String showBuildingName() {
+        return names.getName();
     }
 }

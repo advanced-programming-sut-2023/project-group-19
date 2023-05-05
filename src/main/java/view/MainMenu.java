@@ -1,17 +1,17 @@
 package view;
 
-import controller.CreateMapController;
+import controller.ShowMapController;
 import controller.JsonController;
-import controller.MainMenuController;
+import model.User;
 import view.Commands.MainMenuCommands;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class MainMenu {
     public static void run(Scanner scanner) throws InterruptedException, IOException {
+        System.out.println("Welcome to Main menu!");
         String command ;
         Matcher matcher ;
         while (true){
@@ -20,7 +20,7 @@ public class MainMenu {
                 System.out.println("entered profile menu successfully");
                 ProfileMenu.run(scanner);
             }else if(MainMenuCommands.getMatcher(command,MainMenuCommands.LOGOUT) != null){
-                MainMenuController.logout();
+                User.setCurrentUser(null);
                 JsonController.emptyFile();
                 System.out.println("logged out");
                 return;
@@ -47,7 +47,7 @@ public class MainMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(CreateMapController.showMap(x,y,false));
+        System.out.println(ShowMapController.showMap(x,y,false));
         CreateMapMenu.run(scanner);
 
     }
