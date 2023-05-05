@@ -152,6 +152,7 @@ public class GameController {
             return false;
         }
     }
+    // range archer + height aecher - enemy height
     //TODO : Before every next turn please call it!
     private void setEnemyToTarget(){
         for(Army army : Manage.getCurrentEmpire().empireArmy){
