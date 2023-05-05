@@ -75,19 +75,20 @@ public class GameController {
         return GameMenuMessages.SUCCESS;
     }
     {
-        gameController.defenceState();
+        gameController.setStateArmy();
     }
-    private void defenceState(){
+    private void setStateArmy(){
         selectedUnit.clear();
         for(Empire empire : Manage.allEmpires){
             for(Army army : empire.empireArmy){
+                if(isArcher(army) || army.getArmyForm().equals(Army.StateOfEnemy.STANDING)) continue;
                 selectedUnit.add(army);
-                findEnemyInRange(army);
+                findEnemyInRange(army,army.getArmyForm());
                 selectedUnit.clear();
             }
         }
     }
-    private static void findEnemyInRange(Army army){
+    private static void findEnemyInRange(Army army,Army.StateOfEnemy State){
         int x = army.xCoordinate - 1;
         int y = army.yCoordinate - 1;
         int x1 = 0 , x2 = 0 , y1 = 0  , y2 = 0;
@@ -100,10 +101,39 @@ public class GameController {
             if(x2 >= mapSize) x2 = mapSize - 1 ;
             if(y1 <= 0) y1 = 0 ;
             if(y2 >= mapSize) y2 = mapSize - 1;
-            if(moveUnitToEnemyLocation(x,y,x1,x2,y1,y2,army)) return;
+            if(State.equals(Army.StateOfEnemy.OFFENSIVE))
+                if(moveUnitToEnemyLocationAngry(x,y,x1,x2,y1,y2,army)) return;
+            else{
+                if(moveUnitToEnemyLocationDefensive(x,y,x1,x2,y1,y2,army)) return;
+                }
         }
     }
-    private static boolean moveUnitToEnemyLocation(int x , int y  , int x1 , int x2 , int y1 , int y2 , Army army){
+
+    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army) {
+        for(Army enemy : Map.getTroopMap()[x][y]){
+            if(!enemy.getEmpire().equals(army.getEmpire())) return true ;
+        }
+        for(int i = x1 ; i <= x2 ; i ++){
+            for(int j = y1 ; j <= y2 ; j ++){
+                for(Army enemy : Map.getTroopMap()[i][j]){
+                    if(!army.getEmpire().equals(enemy.getEmpire())){
+                        if(army.getPastXcordinate() == 500 && army.getPastYcordinate() == 500){
+                            army.setPastXcordinate(x);
+                            army.setPastYcordinate(y);
+                            gameController.moveUnit(i,j);
+                        }else{
+                            
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private static boolean moveUnitToEnemyLocationAngry(int x , int y  , int x1 , int x2 , int y1 , int y2 , Army army){
         for(Army enemy : Map.getTroopMap()[x][y]){
             if(!enemy.getEmpire().equals(army.getEmpire())) return true ;
         }

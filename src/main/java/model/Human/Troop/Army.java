@@ -23,17 +23,42 @@ public class Army extends Human{
 
     private Names names;
 
+    public enum StateOfEnemy{
+        STANDING,
+        DEFENSIVE,
+        OFFENSIVE ;
+    }
+
     public Names getNames() {
         return names;
     }
 
-    private String armyForm;
+    private StateOfEnemy armyForm;
     private int hp;
     private int maxHp;
     private int speed;
     private int defencePower;
     private int attackPower;
     private int attackRange;
+    private int pastXcordinate = 500;
+
+    public int getPastXcordinate() {
+        return pastXcordinate;
+    }
+
+    public void setPastXcordinate(int pastXcordinate) {
+        this.pastXcordinate = pastXcordinate;
+    }
+
+    public int getPastYcordinate() {
+        return pastYcordinate;
+    }
+
+    public void setPastYcordinate(int pastYcordinate) {
+        this.pastYcordinate = pastYcordinate;
+    }
+
+    private int pastYcordinate = 500;
 
     public int xCoordinate;
     public int yCoordinate;
@@ -84,11 +109,11 @@ public class Army extends Human{
         this.attackRange = attackRange;
     }
 
-    public String getArmyForm() {
+    public StateOfEnemy getArmyForm() {
         return armyForm;
     }
 
-    public void setArmyForm(String armyForm) {
+    public void setArmyForm(StateOfEnemy armyForm) {
         this.armyForm = armyForm;
     }
 
