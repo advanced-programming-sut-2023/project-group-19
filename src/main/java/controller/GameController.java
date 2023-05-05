@@ -19,7 +19,6 @@ public class GameController {
     //TODO : Every time you enter gameMenu and every turn you should call isMyArmyDeployed
     //TODO : All buildings require fire state boolean
     //TODO : Check the output of your Functions
-    //TODO : Check the output of your Functions
     private static int mapSize = CreateMapController.getSizeOfMap();
     public static GameController gameController = new GameController();
 
@@ -404,7 +403,7 @@ public class GameController {
         if (isGate(x, y) || isWall(x, y) || isTower(x, y)) {
             if (batteringRam.getNames().getName().equals(Names.BATTERING_RAM.getName())) {
                 selectedUnit.add(batteringRam);
-                //moveUnit(x,y);
+                moveUnit(x,y);
                 int damage = Map.getBuildingMap()[x][y].get(0).getHp() - (selectedUnit.get(0)).getAttackPower();
                 Map.getBuildingMap()[x][y].get(0).setHp(damage);
                 if (checkIfRemoveBuildingPossible(damage)) Map.getBuildingMap()[x][y].remove(0);
@@ -421,8 +420,35 @@ public class GameController {
     public void damageByTrebuchet(int x, int y) {
 
     }
-
+    public void setRangeLookingForEnemy(ArchersAndThrowers seige){
+        int floorOfX = seige.getCurrentX() - seige.getAttackRange();
+        int floorOfY = seige.getCurrentY() -seige.getAttackRange();
+        int ceilOfX = seige.getCurrentX() + seige.getAttackRange();
+        int ceilOfY = seige.getCurrentY() + seige.getAttackRange();
+        if (floorOfX < 0) floorOfX = 0;
+        if (floorOfY < 0) floorOfY = 0;
+        if (ceilOfX > Map.mapSize) ceilOfX = Map.mapSize;
+        if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize;
+        LookForEnemyInRange(floorOfX , floorOfY , ceilOfX ,ceilOfY , seige);
+    }
+    public void LookForEnemyInRange(int floorX,int floorY,int ceilX,int ceilY ,ArchersAndThrowers seige){
+        for (int i = floorX ; i <= ceilX ; i++){
+            for (int j = floorY ; j <= ceilY ; j++ ){
+                if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
+                if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())){
+                    Map.getBuildingMap()[i][j].remove(0);
+                } else if (!Map.getTroopMap()[i][j].isEmpty()) {
+                    for (int k = 0 ; k < Map.getTroopMap()[i][j].size() ; k++){
+                        if (Map.getTroopMap()[i][j].get(k).getOwner().equals(Manage.getCurrentEmpire())){
+                            Map.getTroopMap()[i][j].get(k).setHp(0);
+                        }
+                    }
+                }
+            }
+        }
+    }
     //TODO : ACCORDING TO ARMIN'S CODE
+
     public void damageByFireThrowersOnBuildings(int x, int y, Army fireBallista) {
         if (fireBallista.getNames().getName().equals(Names.FIRE_BALLISTA.getName())) {
             if (!Map.getBuildingMap()[x][y].isEmpty()) {
@@ -595,5 +621,11 @@ public class GameController {
         for (Army army : selectedUnit) {
             Manage.getCurrentEmpire().empireArmy.remove(army);
         }
+    }
+    public void fight(){
+
+    }
+    private void fightForArchers(){
+        AttackArmyToArmyController.battleWithEnemy();
     }
 }

@@ -8,10 +8,11 @@ import model.Human.Names;
 import java.util.HashMap;
 import java.util.List;
 
-public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
+public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public ArchersAndThrowers(Empire government) {
         super(government);
     }
+
     private Names names;
     private int hp;
     private int maxHp;
@@ -36,6 +37,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public void setNames(Names names) {
         this.names = names;
     }
+
     public Names getNames() {
         return names;
     }
@@ -44,9 +46,11 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public void setHp(int hp) {
         this.hp = hp;
     }
+
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -93,6 +97,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
+
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
@@ -101,7 +106,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
 
     }
 
-    public void archer(int x , int y) {
+    public void archer(int x, int y) {
         hp = 475;
         maxHp = 475;
         typeOfArmy = Names.STANDING_AMRY;
@@ -111,7 +116,8 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         speed = 7;
         attackRange = 3;
     }
-    public void Crossbowmen(int x , int y) {
+
+    public void Crossbowmen(int x, int y) {
         hp = 700;
         maxHp = 700;
         typeOfArmy = Names.STANDING_AMRY;
@@ -121,7 +127,8 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         speed = 3;
         attackRange = 4;
     }
-    public void ArcherBow(int x , int y) {
+
+    public void ArcherBow(int x, int y) {
         hp = 475;
         maxHp = 475;
         typeOfArmy = Names.STANDING_AMRY;
@@ -131,7 +138,8 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         speed = 7;
         attackRange = 8;
     }
-    public void Slingers(int x , int y) {
+
+    public void Slingers(int x, int y) {
         hp = 700;
         maxHp = 700;
         typeOfArmy = Names.STANDING_AMRY;
@@ -141,7 +149,8 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         speed = 7;
         attackRange = 2;
     }
-    public void HorseArchers(int x , int y) {
+
+    public void HorseArchers(int x, int y) {
         hp = 850;
         maxHp = 850;
         typeOfArmy = Names.STANDING_AMRY;
@@ -151,7 +160,8 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         speed = 9;
         attackRange = 5;
     }
-    public void FireThrowers(int x , int y) {
+
+    public void FireThrowers(int x, int y) {
         hp = 850;
         maxHp = 850;
         typeOfArmy = Names.STANDING_AMRY;
@@ -159,24 +169,27 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
-        attackRange = 4 ;
+        attackRange = 4;
     }
-    public void catapult(int x , int y){
+
+    public void catapult(int x, int y) {
         names = Names.CATAPULT;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
-        createBuildingWorkersNeeded(2,0);
+        createBuildingWorkersNeeded(2, 0);
     }
-    public void trebuchet(int x , int y){
-        names =Names.TREBUCHET;
+
+    public void trebuchet(int x, int y) {
+        names = Names.TREBUCHET;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
-        createBuildingWorkersNeeded(3,0);
+        createBuildingWorkersNeeded(3, 0);
 
     }
-    public void siegeTower(int x , int y){
+
+    public void siegeTower(int x, int y) {
         names = Names.SIEGE_TOWER;
         xCoordinate = x;
         yCoordinate = y;
@@ -184,14 +197,15 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
 
     }
 
-    public void fireBallista(int x , int y){
+    public void fireBallista(int x, int y) {
         names = Names.FIRE_BALLISTA;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
 
     }
-    public void batteringRam(int x , int y){
+
+    public void batteringRam(int x, int y) {
         hp = 600;
         maxHp = 600;
         names = Names.BATTERING_RAM;
@@ -200,16 +214,23 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         speed = 7;
         attackPower = 700;
         createBuildingCost(0, 0, 150, 0, 0);
-        createBuildingWorkersNeeded(4,0);
+        createBuildingWorkersNeeded(4, 0);
     }
-    public void portableShield(int x , int y){
+
+    public void portableShield(int x, int y) {
         hp = 475;
         maxHp = 475;
         names = Names.PORTABLE_SHIELD;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 5, 0, 0);
-        createBuildingWorkersNeeded(1,0);
+        createBuildingWorkersNeeded(1, 0);
+    }
+
+    public static boolean isSeigeTroop(Army army) {
+        return army.getNames().equals(Names.CATAPULT) || army.getNames().equals(Names.TREBUCHET)
+                || army.getNames().equals(Names.PORTABLE_SHIELD) || army.getNames().equals(Names.BATTERING_RAM)
+                || army.getNames().equals(Names.FIRE_BALLISTA) || army.getNames().equals(Names.SIEGE_TOWER);
     }
 
     @Override
@@ -241,6 +262,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
     public int restOfMoves() {
         return restOfMoves;
     }
+
     @Override
     public int getGoalX() {
         return goalXCoordinate;
