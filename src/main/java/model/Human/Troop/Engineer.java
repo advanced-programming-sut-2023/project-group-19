@@ -6,7 +6,9 @@ import model.Human.Names;
 
 import java.util.List;
 
-public class Engineer extends Army {
+import java.util.List;
+
+public class Engineer extends Army implements HumanConstantFunctions {
     public Engineer(Empire government) {
         super(government);
     }
@@ -34,11 +36,13 @@ public class Engineer extends Army {
     public int xCoordinate;
 
     public int yCoordinate;
-
-    public boolean isBossOfOilSmelter;
     public boolean isBowlFullOfOil;
+    public int startXCoordinate;
+    public int startYCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
     public List<Integer> myPath;
     public Names typeOfArmy;
     public int getDefencePower() {
@@ -64,15 +68,6 @@ public class Engineer extends Army {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-    public boolean isBossOfOilSmelter() {
-        return isBossOfOilSmelter;
-    }
-
-    public void setBossOfOilSmelter(boolean bossOfOilSmelter) {
-        isBossOfOilSmelter = bossOfOilSmelter;
-    }
-
     public boolean isBowlFullOfOil() {
         return isBowlFullOfOil;
     }
@@ -141,5 +136,25 @@ public class Engineer extends Army {
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }

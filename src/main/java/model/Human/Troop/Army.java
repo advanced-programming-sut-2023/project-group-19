@@ -3,10 +3,11 @@ package model.Human.Troop;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
+import model.Human.Names;
 
 import java.util.List;
 
-public class Army extends Human{
+public class Army extends Human {
     public Army(Empire government) {
         super(government);
         this.empire = government;
@@ -31,24 +32,27 @@ public class Army extends Human{
     }
 
     private Names names;
-
-    public enum StateOfEnemy{
-        STANDING,
-        DEFENSIVE,
-        OFFENSIVE ;
-    }
-
     public Names getNames() {
         return names;
     }
 
-    private StateOfEnemy armyForm;
+    private String armyForm;
     private int hp;
     private int maxHp;
     private int speed;
     private int defencePower;
     private int attackPower;
     private int attackRange;
+    public int startXCoordinate;
+    public int startYCoordinate;
+    public int xCoordinate;
+    public int yCoordinate;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
+    public List<Integer> myPath;
+    public int restOfMoves;
     private int pastXcordinate = 500;
 
     public int getPastXcordinate() {
@@ -68,14 +72,6 @@ public class Army extends Human{
     }
 
     private int pastYcordinate = 500;
-
-    public int xCoordinate;
-    public int yCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public List<Integer> myPath;
-    public int restOfMoves;
-
     @Override
     public int getHp() {
         return hp;
@@ -118,11 +114,11 @@ public class Army extends Human{
         this.attackRange = attackRange;
     }
 
-    public StateOfEnemy getArmyForm() {
+    public String getArmyForm() {
         return armyForm;
     }
 
-    public void setArmyForm(StateOfEnemy armyForm) {
+    public void setArmyForm(String armyForm) {
         this.armyForm = armyForm;
     }
 
@@ -169,5 +165,25 @@ public class Army extends Human{
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }

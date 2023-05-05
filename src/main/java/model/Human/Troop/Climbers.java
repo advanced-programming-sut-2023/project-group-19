@@ -24,8 +24,13 @@ public class Climbers extends Army implements HumanConstantFunctions{
     public int yCoordinate;
     public Names typeOfArmy;
     public int restOfMoves;
+    public int startXCoordinate;
+    public int startYCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
+    public boolean ladderIsOn;
     public List<Integer> myPath;
     public void setNames(Names names) {
         this.names = names;
@@ -78,6 +83,10 @@ public class Climbers extends Army implements HumanConstantFunctions{
 
     public Names getTypeOfArmy() {
         return typeOfArmy;
+    }
+
+    public boolean isLadderIsOn() {
+        return ladderIsOn;
     }
 
     public void SpearMen() {
@@ -151,6 +160,26 @@ public class Climbers extends Army implements HumanConstantFunctions{
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }
 

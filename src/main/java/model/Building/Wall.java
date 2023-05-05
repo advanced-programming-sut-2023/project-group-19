@@ -14,6 +14,7 @@ public class Wall extends Building {
     private int maxHp;
     private static Names name;
     private static Names thickness;
+    public boolean enemyConqueredWall;
 
     public int getHp() {
         return hp;
@@ -35,6 +36,10 @@ public class Wall extends Building {
     @Override
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
+    }
+
+    public boolean isEnemyConqueredWall() {
+        return enemyConqueredWall;
     }
 
     public HashMap<String, Integer> cost = new HashMap<>();

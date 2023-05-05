@@ -21,8 +21,12 @@ public class Tunneler extends Army implements HumanConstantFunctions{
     public int yCoordinate;
     public int restOfMoves;
     public Names typeOfArmy;
+    public int startXCoordinate;
+    public int startYCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
     public List<Integer> myPath;
     public Names getNames() {
         return names;
@@ -124,5 +128,25 @@ public class Tunneler extends Army implements HumanConstantFunctions{
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }

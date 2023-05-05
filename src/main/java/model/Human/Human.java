@@ -8,11 +8,16 @@ import java.util.List;
 public abstract class Human implements HumanConstantFunctions {
     private Empire owner;
     private int hp;
+    public int maxHp;
     public int xCoordinate;
     public int yCoordinate;
     public int restOfMoves;
+    public int startXCoordinate;
+    public int startYCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
     public List<Integer> myPath;
 
     public int getHp() {
@@ -37,27 +42,27 @@ public abstract class Human implements HumanConstantFunctions {
 
     @Override
     public int maxHp() {
-        return 0;
+        return maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return hp;
     }
 
     @Override
     public int speed() {
-        return 0;
+        return speed();
     }
 
     @Override
     public int getCurrentX() {
-        return 0;
+        return xCoordinate;
     }
 
     @Override
     public int getCurrentY() {
-        return 0;
+        return yCoordinate;
     }
 
     @Override
@@ -67,16 +72,36 @@ public abstract class Human implements HumanConstantFunctions {
 
     @Override
     public int getGoalX() {
-        return 0;
+        return goalXCoordinate;
     }
 
     @Override
     public int getGoalY() {
-        return 0;
+        return goalYCoordinate;
     }
 
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }

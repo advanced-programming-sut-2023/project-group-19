@@ -16,7 +16,6 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     private int capacity;
     private static Names direction;
     private boolean isGateOpen;
-    private boolean isGateConquered;
     private int maxCapacity;
 
     private int currentCapacity;
@@ -77,8 +76,8 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         return isGateOpen;
     }
 
-    public boolean isGateConquered() {
-        return isGateConquered;
+    public void setGateOpen(boolean gateOpen) {
+        isGateOpen = gateOpen;
     }
     //    public HashMap<String, Integer> cost = new HashMap<>();
 
