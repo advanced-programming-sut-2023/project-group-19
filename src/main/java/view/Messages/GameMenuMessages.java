@@ -10,11 +10,9 @@ public enum GameMenuMessages {
     EMPTY_DIRECTION_FIELD("The direction field is empty in your entry!"),
     EMPTY_EQUIPMENT_FIELD("The equipment field is empty in your entry!"),
     UNABLE_TO_MOVE_TREBUCHET("You can't move a trebuchet!"),
-    ATTACKING_YOURSELF("This action can't be done.You're attacking yourself!"),
     DITCH_DIGGING_STOPPED("The ditch digging operation stopped due to your order!"),
     WRONG_COORDINATE_FOR_BUILDING_TYPE("The chosen coordinate doesn't contain required type of building!"),
     BUILDING_REMOVED("The building removed successfully!"),
-    INCOMPLETE_PITCH_DITCH("You can't remove an incomplete ditch!"),
     FILLING_YOUR_DITCH("This action can't be done.You're filling your ditch!"),
     IMPROPER_UNIT("The type of unit you've selected is improper"),
     IMPROPER_LOCATION("The chosen location is improper!"),
@@ -22,9 +20,9 @@ public enum GameMenuMessages {
     TUNNEL_DUG("The tunnel dug successfully!"),
     ARMY_DEPLOYED("Your army deployed completely!"),
     ARMY_IN_PROCESS_OF_DEPLOYING("Your army will be deployed in forward turns!"),
+    CONQUERED_GATE("You conquered the gate of enemy my lord!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
-    CONTINUE("Continue!"),
     SUCCESS("The order is successfully done!"),
     LOGOUT("Logout"),;
     private String messages;
