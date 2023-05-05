@@ -126,7 +126,7 @@ public class GameController {
             army.myPath = PathFindingController.pathFinding();
         }
     }
-
+    //TODO : Cancel selected unit where is necessary
     public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
         PathFindingController.startX = patrol.getCurrentX() - 1;
         PathFindingController.startY = patrol.getCurrentY() - 1;
