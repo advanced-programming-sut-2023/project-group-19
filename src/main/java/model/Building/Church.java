@@ -12,21 +12,32 @@ public class Church extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
+    private int popularityIncreaseRate;
+
+    public int getPopularityIncreaseRate() {
+        return popularityIncreaseRate;
+    }
+
+    public void setPopularityIncreaseRate(int popularityIncreaseRate) {
+        this.popularityIncreaseRate = popularityIncreaseRate;
+    }
+
+
     public Names getNames() {
         return this.name;
     }
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        this.cost.put("wood", wood);
-        this.cost.put("stone", stone);
-        this.cost.put("gold", gold);
-        this.cost.put("iron", iron);
-        this.cost.put("oil", oil);
+        cost.put("wood", wood);
+        cost.put("stone", stone);
+        cost.put("gold", gold);
+        cost.put("iron", iron);
+        cost.put("oil", oil);
     }
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        this.workersNeeded.put("engineer", engineer);
-        this.workersNeeded.put("worker", worker);
+        workersNeeded.put("engineer", engineer);
+        workersNeeded.put("worker", worker);
 
     }
 
@@ -35,15 +46,17 @@ public class Church extends Building implements BuildingConstantFunctions {
         this.hp = 500;
         this.maxHp = 500;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        popularityIncreaseRate = 1;
         createBuildingCost(0, 0, 250, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void bigChurch() {
         this.name = Names.BIG_CHURCH;
-        this.hp = 500;
-        this.maxHp = 500;
+        this.hp = 1000;
+        this.maxHp = 1000;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        popularityIncreaseRate = 2;
         createBuildingCost(0, 0, 1000, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
