@@ -6,7 +6,7 @@ import model.Human.Names;
 
 import java.util.List;
 
-public class Army extends Human{
+public class Army extends Human implements HumanConstantFunctions{
     public Army(Empire government) {
         super(government);
         this.empire = government;
@@ -34,11 +34,14 @@ public class Army extends Human{
     private int defencePower;
     private int attackPower;
     private int attackRange;
-
+    public int startXCoordinate;
+    public int startYCoordinate;
     public int xCoordinate;
     public int yCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
 
@@ -135,5 +138,25 @@ public class Army extends Human{
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }

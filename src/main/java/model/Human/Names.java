@@ -33,7 +33,8 @@ public enum Names {
     HORIZONTAL("Horizontal"),
     STANDING_AMRY("standing"),
     DEFENSIVE_ARMY("defensive"),
-    OFFENSIVE("offensive"),;
+    OFFENSIVE("offensive"),
+    PATROL_UNIT("patrol unit");
 
     private String name;
 

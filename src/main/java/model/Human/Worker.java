@@ -1,10 +1,11 @@
 package model.Human;
 
 import model.Empire;
+import model.Human.Troop.HumanConstantFunctions;
 
 import java.util.List;
 
-public class Worker extends Human {
+public class Worker extends Human implements HumanConstantFunctions {
 
     Worker(Empire government) {
         super(government);
@@ -15,8 +16,12 @@ public class Worker extends Human {
     private int speed;
     private int xCoordinate;
     private int yCoordinate;
+    public int startXCoordinate;
+    public int startYCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
     public int restOfMoves;
     public List<Integer> myPath;
     @Override
@@ -107,5 +112,25 @@ public class Worker extends Human {
     @Override
     public List<Integer> myPath() {
         return myPath;
+    }
+
+    @Override
+    public int getStartX() {
+        return startXCoordinate;
+    }
+
+    @Override
+    public int getStartY() {
+        return startYCoordinate;
+    }
+
+    @Override
+    public int getFinalX() {
+        return finalXCoordinate;
+    }
+
+    @Override
+    public int getFinalY() {
+        return finalYCoordinate;
     }
 }

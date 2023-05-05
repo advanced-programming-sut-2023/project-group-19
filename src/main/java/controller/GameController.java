@@ -11,6 +11,7 @@ import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -99,7 +100,11 @@ public class GameController {
                                 i--;
                             }
                             if (pathList.size() <= myUnit.speed()) {
-                                myUnit.myPath = null;
+                                if (myUnit.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
+                                    setPathForPatrols(myUnit.getStartX(), myUnit.getStartY(), myUnit);
+                                } else {
+                                    myUnit.myPath = null;
+                                }
                             }
                         }
                     }
@@ -120,6 +125,14 @@ public class GameController {
             PathFindingController.goalY = yCoordinate - 1;
             army.myPath = PathFindingController.pathFinding();
         }
+    }
+
+    public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
+        PathFindingController.startX = patrol.getCurrentX() - 1;
+        PathFindingController.startY = patrol.getCurrentY() - 1;
+        PathFindingController.goalX = xCoordinate - 1;
+        PathFindingController.goalY = yCoordinate - 1;
+        patrol.myPath = PathFindingController.pathFinding();
     }
 
     public boolean isMyArmyDeployed() {
@@ -153,6 +166,29 @@ public class GameController {
         return (Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof KillingPit ||
                 Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof PitchDitch) &&
                 !(myUnit.getNames().getName().equals(Names.SPEAR_MEN.getName()));
+    }
+
+    public void patrolUnit(int x1, int y1, int x2, int y2) {
+        setCoordinatesForPatrols(x1, y1, x2, y2);
+        String unitMoved = moveUnit(x2, y2).getMessages();
+    }
+
+    public void setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
+        for (Army army : selectedUnit) {
+            army.setArmyForm(Names.PATROL_UNIT.getName());
+            army.startXCoordinate = x1;
+            army.startYCoordinate = y1;
+            army.finalXCoordinate = x2;
+            army.finalYCoordinate = y2;
+        }
+    }
+
+    public void stopPetrols() {
+        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+            if (army.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
+                army.setArmyForm(Names.STANDING_AMRY.getName());
+            }
+        }
     }
     /*public void TowersGame() {
         //if (selectedUnit instanceof A)
@@ -334,7 +370,6 @@ public class GameController {
         return number == selectedUnit.size();
     }
 
-    //############################################################Debugged until here###################################################################################
     public GameMenuMessages digTunnel(int x, int y) {
         if (Map.getBuildingMap()[x][y].get(0) != null && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH)
                 && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.KILLING_PIT)
