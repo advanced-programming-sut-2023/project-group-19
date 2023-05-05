@@ -32,7 +32,7 @@ public class CreateMapController {
             if(waterSources == null) return "Choose type correctly";
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
             Map.notBuildable[x - 1][y - 1] = true ;
-            if(!type.equals("jolgeh")) Map.notPassable[x - 1][y - 1] = true ;
+            if(!type.equals("Plain")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
         Map.getGroundType()[x - 1][y - 1].add(groundType);

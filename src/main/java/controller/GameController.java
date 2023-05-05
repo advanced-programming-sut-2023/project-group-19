@@ -74,6 +74,7 @@ public class GameController {
         }
         return GameMenuMessages.SUCCESS;
     }
+    //TODO : run after chaange turn
     {
         gameController.setStateArmy();
     }
@@ -86,7 +87,6 @@ public class GameController {
             findEnemyInRange(army,army.getArmyForm());
             selectedUnit.clear();
         }
-
     }
     private static void findEnemyInRange(Army army,Army.StateOfEnemy State){
         int x = army.xCoordinate - 1;
@@ -128,9 +128,10 @@ public class GameController {
         }
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
+                if(i == x && j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (!army.getEmpire().equals(enemy.getEmpire())) {
-                        if (army.getPastXcordinate() == 500 && army.getPastYcordinate() == 500) {
+                        if (army.getPastXcordinate() == x && army.getPastYcordinate() == y) {
                             army.setPastXcordinate(x);
                             army.setPastYcordinate(y);
                             gameController.moveUnit(i, j);
@@ -153,12 +154,12 @@ public class GameController {
         }
     }
     // range archer + height aecher - enemy height
-    //TODO : Before every next turn please call it!
+    //TODO : After every next turn please call it!
     private void setEnemyToTarget(){
         for(Army army : Manage.getCurrentEmpire().empireArmy){
             if(army.getEnemy() == null) continue;
             selectedUnit.add(army);
-            gameController.moveUnit(army.getEnemy().xCoordinate - 1,army.getEnemy().yCoordinate - 1);
+            gameController.moveUnit(army.getEnemy().xCoordinate ,army.getEnemy().yCoordinate);
             selectedUnit.clear();
         }
     }
@@ -172,7 +173,7 @@ public class GameController {
                 for(Army enemy : Map.getTroopMap()[i][j]){
                     if(enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate - 1,army.getEnemy().yCoordinate - 1);
+                    gameController.moveUnit(army.getEnemy().xCoordinate,army.getEnemy().yCoordinate);
                     return true ;
                 }
             }
