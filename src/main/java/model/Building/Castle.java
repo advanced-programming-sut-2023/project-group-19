@@ -77,4 +77,9 @@ public class Castle extends Building implements BuildingConstantFunctions{
     public String groundType() {
         return null;
     }
+
+    @Override
+    public int height() {
+        return 0;
+    }
 }

@@ -41,7 +41,10 @@ public class Main {
         Wall wall = new Wall(empire);
         wall.bigWall();
         Map.getBuildingMap()[0][0].add(wall);
-        System.out.println(Map.getBuildingMap()[0][0].get(0).cost.get("stone"));
+        Tower tower = new Tower(empire);
+        tower.lookoutTower();
+        System.out.println(tower.hp);
+        System.out.println(Map.getBuildingMap()[0][0].get(0).getHp());
 
 
 
