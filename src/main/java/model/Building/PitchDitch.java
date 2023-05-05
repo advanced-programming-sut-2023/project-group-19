@@ -11,8 +11,7 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     }
 
     public boolean fireState;
-    public int digState;
-    //    public boolean digState;
+    public boolean digState;
     private boolean pitchDitchIsOn = true;
     public boolean digCompleted;
 
@@ -32,7 +31,7 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
         return fireState;
     }
 
-    public int isDigState() {
+    public boolean isDigState() {
         return digState;
     }
 
