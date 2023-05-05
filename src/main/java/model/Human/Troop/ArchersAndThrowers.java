@@ -109,7 +109,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
-        attackRange = 8;
+        attackRange = 3;
     }
     public void Crossbowmen(int x , int y) {
         hp = 700;
@@ -149,7 +149,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
-        attackRange = 6;
+        attackRange = 5;
     }
     public void FireThrowers(int x , int y) {
         hp = 850;
@@ -159,7 +159,7 @@ public class ArchersAndThrowers extends Army  implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
-        attackRange = 6 ;
+        attackRange = 4 ;
     }
     public void catapult(int x , int y){
         names = Names.CATAPULT;

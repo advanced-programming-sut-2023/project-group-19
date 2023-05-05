@@ -3,12 +3,24 @@ package model.Human.Troop;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
+import model.Human.Names;
 
 import java.util.List;
 
-public class Army extends Human implements HumanConstantFunctions{
+public class Army extends Human {
     public Army(Empire government) {
         super(government);
+        this.empire = government;
+    }
+    private Empire empire;
+    private Army enemy ;
+
+    public Army getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Army enemy) {
+        this.enemy = enemy;
         this.empire = government;
     }
     private Empire empire;
@@ -27,7 +39,27 @@ public class Army extends Human implements HumanConstantFunctions{
         return names;
     }
 
-    private String armyForm;
+    public Empire getEmpire() {
+        return empire;
+    }
+
+    public void setEmpire(Empire empire) {
+        this.empire = empire;
+    }
+
+    private Names names;
+
+    public enum StateOfEnemy{
+        STANDING,
+        DEFENSIVE,
+        OFFENSIVE ;
+    }
+
+    public Names getNames() {
+        return names;
+    }
+
+    private StateOfEnemy armyForm;
     private int hp;
     private int maxHp;
     private int speed;
@@ -42,6 +74,32 @@ public class Army extends Human implements HumanConstantFunctions{
     public int goalYCoordinate;
     public int finalXCoordinate;
     public int finalYCoordinate;
+    public List<Integer> myPath;
+    public int restOfMoves;
+    private int pastXcordinate = 500;
+
+    public int getPastXcordinate() {
+        return pastXcordinate;
+    }
+
+    public void setPastXcordinate(int pastXcordinate) {
+        this.pastXcordinate = pastXcordinate;
+    }
+
+    public int getPastYcordinate() {
+        return pastYcordinate;
+    }
+
+    public void setPastYcordinate(int pastYcordinate) {
+        this.pastYcordinate = pastYcordinate;
+    }
+
+    private int pastYcordinate = 500;
+
+    public int xCoordinate;
+    public int yCoordinate;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
 
@@ -87,11 +145,11 @@ public class Army extends Human implements HumanConstantFunctions{
         this.attackRange = attackRange;
     }
 
-    public String getArmyForm() {
+    public StateOfEnemy getArmyForm() {
         return armyForm;
     }
 
-    public void setArmyForm(String armyForm) {
+    public void setArmyForm(StateOfEnemy armyForm) {
         this.armyForm = armyForm;
     }
 

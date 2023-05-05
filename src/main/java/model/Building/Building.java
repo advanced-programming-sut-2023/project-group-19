@@ -6,6 +6,16 @@ import java.util.HashMap;
 
 public abstract class Building implements BuildingConstantFunctions {
     private Empire owner;
+    private int height ;
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     private String requiredGroundType;
     private boolean castleType;
 
