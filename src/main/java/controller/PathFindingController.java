@@ -67,7 +67,8 @@ public class PathFindingController {
         return null;
     }
 
-    public static void constructGraph(List<List<Integer>> g, boolean[][] map) {
+    public static void constructGraph(List<List<Integer>> g, boolean[][] map)
+    {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (map[i][j])
@@ -95,6 +96,34 @@ public class PathFindingController {
             }
         }
     }
+    public static void graphForWalls(List<List<Integer>> g, boolean[][] map){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (map[i][j])
+                    continue;
+                if (i != size - 1) {
+                    if (map[i + 1][j]) {
+                        g.get(size * i + j).add(size * (i + 1) + j);
+                    }
+                }
+                if (i != 0) {
+                    if (map[i - 1][j]) {
+                        g.get(size * i + j).add(size * (i - 1) + j);
+                    }
+                }
+                if (j != size - 1) {
+                    if (map[i][j + 1]) {
+                        g.get(size * i + j).add(size * i + j + 1);
+                    }
+                }
+                if (j != 0) {
+                    if (map[i][j - 1]) {
+                        g.get(size * i + j).add(size * i + j - 1);
+                    }
+                }
+            }
+        }
+    }
 
     //TODO : take care that when you want to pass the x and y make sure to -1 them
     public static int size = Map.mapSize;
@@ -103,6 +132,7 @@ public class PathFindingController {
     public static int startX;
     public static int startY;
     public static boolean[][] notPassable;
+    public static boolean[][] wall;
 
     public static List<Integer> pathFinding() {
         List<List<Integer>> g = new ArrayList<>();
@@ -110,7 +140,8 @@ public class PathFindingController {
             g.add(new ArrayList<>());
         }
         constructGraph(g, notPassable);
-                                        
+        //TODO : optional if you want to include the walls
+//        graphForWalls(g , wall);
         if (!notPassable[goalX][goalY]) {
             int src = startX * size + startY, dst = goalX * size + goalY;
             return findPaths(g, src, dst);
