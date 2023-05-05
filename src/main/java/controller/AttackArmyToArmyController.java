@@ -92,6 +92,20 @@ public class AttackArmyToArmyController {
         archerRange =  army.getAttackRange() + height ;
     }
 
+    public static Empire empire ;
+    //into manage class we should define setter to currentEmpire
+    private static void changeTurn(){
+        int size = Manage.getAllEmpires().size();
+        if(size == 1) return;//Winner
+        empire = Manage.getCurrentEmpire();
+        int indexOfCurrentEmpire = Manage.getAllEmpires().indexOf(empire);
+        int newIndex = (indexOfCurrentEmpire + 1) % size ;
+        Empire newEmpire = Manage.getAllEmpires().get(newIndex);
+        // gathering resources
+        //change current empire
+
+    }
+
     private static boolean applyDamageWithArcher(int x , int y ,int x1, int x2, int y1, int y2, Army army) {
         for(int i = x1 ; i <= x2 ; i ++){
             for(int j = y1 ; j <= y2 ; j ++){
