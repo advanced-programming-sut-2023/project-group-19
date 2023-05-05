@@ -5,14 +5,12 @@ import model.Empire;
 import model.GroundType;
 import model.Human.Names;
 import model.Human.Troop.*;
-import model.Human.Worker;
 import model.Manage;
 import model.Map;
 import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -21,7 +19,7 @@ public class GameController {
     //TODO : Every time you enter gameMenu and every turn you should call isMyArmyDeployed
     //TODO : All buildings require fire state boolean
     //TODO : Check the output of your Functions
-    //TODO : Check the output of your Funtions
+    //TODO : Check the output of your Functions
     private static int mapSize = CreateMapController.getSizeOfMap();
     public static GameController gameController = new GameController();
 
@@ -75,61 +73,63 @@ public class GameController {
         }
         return GameMenuMessages.SUCCESS;
     }
-    //TODO : run after chaange turn
+
+    //TODO : run after change turn
     {
         gameController.setStateArmy();
     }
-    private void setStateArmy(){
+
+    private void setStateArmy() {
         selectedUnit.clear();
 
-        for(Army army : Manage.getCurrentEmpire().empireArmy){
-            if(isArcher(army) || army.getArmyForm().equals(Army.StateOfEnemy.STANDING)) continue;
+        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName())) continue;
             selectedUnit.add(army);
-            findEnemyInRange(army,army.getArmyForm());
+            findEnemyInRange(army, army.getArmyForm());
             selectedUnit.clear();
         }
     }
-    private static void findEnemyInRange(Army army,Army.StateOfEnemy State){
+
+    private static void findEnemyInRange(Army army, String State) {
         int x = army.xCoordinate - 1;
         int y = army.yCoordinate - 1;
-        int x1 = 0 , x2 = 0 , y1 = 0  , y2 = 0;
-        for(int i = 1 ; i <= army.getAttackRange() ; i ++){
-            x1 = x - i ;
-            x2 = x + i ;
-            y1 = y - i ;
-            y2 = y + i ;
-            if(x1 <= 0) x1 = 0 ;
-            if(x2 >= mapSize) x2 = mapSize - 1 ;
-            if(y1 <= 0) y1 = 0 ;
-            if(y2 >= mapSize) y2 = mapSize - 1;
-            if(State.equals(Army.StateOfEnemy.OFFENSIVE))
-                if(moveUnitToEnemyLocationAngry(x,y,x1,x2,y1,y2,army)) return;
-            else{
-                if(moveUnitToEnemyLocationDefensive(x,y,x1,x2,y1,y2,army,i)) return;
+        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+        for (int i = 1; i <= army.getAttackRange(); i++) {
+            x1 = x - i;
+            x2 = x + i;
+            y1 = y - i;
+            y2 = y + i;
+            if (x1 <= 0) x1 = 0;
+            if (x2 >= mapSize) x2 = mapSize - 1;
+            if (y1 <= 0) y1 = 0;
+            if (y2 >= mapSize) y2 = mapSize - 1;
+            if (State.equals(Names.OFFENSIVE.getName()))
+                if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army)) return;
+                else {
+                    if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
                 }
         }
     }
-    private static boolean isSameGridIntoRange(int x , int y , Army army , int choosedX , int choosedY){
-        int x1 = x - army.getAttackRange() ;
-        int x2 = x + army.getAttackRange() ;
-        int y1 = y - army.getAttackRange() ;
-        int y2 = y + army.getAttackRange() ;
-        if(x1 <= 0) x1 = 0 ;
-        if(x2 >= mapSize) x2 = mapSize - 1 ;
-        if(y1 <= 0) y1 = 0 ;
-        if(y2 >= mapSize) y2 = mapSize - 1;
-        if(choosedX >= x1 && choosedX <= x2 &&  choosedY >= y1 && choosedY <= y2){
-            return true ;
-        }else return false ;
+
+    private static boolean isSameGridIntoRange(int x, int y, Army army, int chosenX, int chosenY) {
+        int x1 = x - army.getAttackRange();
+        int x2 = x + army.getAttackRange();
+        int y1 = y - army.getAttackRange();
+        int y2 = y + army.getAttackRange();
+        if (x1 <= 0) x1 = 0;
+        if (x2 >= mapSize) x2 = mapSize - 1;
+        if (y1 <= 0) y1 = 0;
+        if (y2 >= mapSize) y2 = mapSize - 1;
+        return chosenX >= x1 && chosenX <= x2 && chosenY >= y1 && chosenY <= y2;
     }
 
-    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army,int range) {
+    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                if(i == x && j == y) continue;
+                if (i == x && j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (!army.getEmpire().equals(enemy.getEmpire())) {
                         if (army.getPastXcordinate() == x && army.getPastYcordinate() == y) {
@@ -154,32 +154,33 @@ public class GameController {
             return false;
         }
     }
-    // range archer + height aecher - enemy height
+
+    // range archer + height archer - enemy height
     //TODO : After every next turn please call it!
-    private void setEnemyToTarget(){
-        for(Army army : Manage.getCurrentEmpire().empireArmy){
-            if(army.getEnemy() == null) continue;
+    private void setEnemyToTarget() {
+        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+            if (army.getEnemy() == null) continue;
             selectedUnit.add(army);
-            gameController.moveUnit(army.getEnemy().xCoordinate ,army.getEnemy().yCoordinate);
+            gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             selectedUnit.clear();
         }
     }
 
-    private static boolean moveUnitToEnemyLocationAngry(int x , int y  , int x1 , int x2 , int y1 , int y2 , Army army){
-        for(Army enemy : Map.getTroopMap()[x][y]){
-            if(!enemy.getEmpire().equals(army.getEmpire())) return true ;
+    private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army) {
+        for (Army enemy : Map.getTroopMap()[x][y]) {
+            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
-        for(int i = x1 ; i <= x2 ; i ++){
-            for(int j = y1 ; j <= y2 ; j ++){
-                for(Army enemy : Map.getTroopMap()[i][j]){
-                    if(enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
+        for (int i = x1; i <= x2; i++) {
+            for (int j = y1; j <= y2; j++) {
+                for (Army enemy : Map.getTroopMap()[i][j]) {
+                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate,army.getEnemy().yCoordinate);
-                    return true ;
+                    gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                    return true;
                 }
             }
         }
-        return false ;
+        return false;
     }
 
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
@@ -237,6 +238,7 @@ public class GameController {
             army.myPath = PathFindingController.pathFinding();
         }
     }
+
     //TODO : Cancel selected unit where is necessary
     public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
         PathFindingController.startX = patrol.getCurrentX() - 1;
@@ -294,7 +296,7 @@ public class GameController {
         }
     }
 
-    public void stopPetrols() {
+    public void stopPatrols() {
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (army.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
                 army.setArmyForm(Names.STANDING_AMRY.getName());

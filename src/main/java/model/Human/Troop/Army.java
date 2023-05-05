@@ -21,22 +21,6 @@ public class Army extends Human {
 
     public void setEnemy(Army enemy) {
         this.enemy = enemy;
-        this.empire = government;
-    }
-    private Empire empire;
-
-    public Empire getEmpire() {
-        return empire;
-    }
-
-    public void setEmpire(Empire empire) {
-        this.empire = empire;
-    }
-
-    private Names names;
-
-    public Names getNames() {
-        return names;
     }
 
     public Empire getEmpire() {
@@ -48,18 +32,11 @@ public class Army extends Human {
     }
 
     private Names names;
-
-    public enum StateOfEnemy{
-        STANDING,
-        DEFENSIVE,
-        OFFENSIVE ;
-    }
-
     public Names getNames() {
         return names;
     }
 
-    private StateOfEnemy armyForm;
+    private String armyForm;
     private int hp;
     private int maxHp;
     private int speed;
@@ -95,14 +72,6 @@ public class Army extends Human {
     }
 
     private int pastYcordinate = 500;
-
-    public int xCoordinate;
-    public int yCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public List<Integer> myPath;
-    public int restOfMoves;
-
     @Override
     public int getHp() {
         return hp;
@@ -145,11 +114,11 @@ public class Army extends Human {
         this.attackRange = attackRange;
     }
 
-    public StateOfEnemy getArmyForm() {
+    public String getArmyForm() {
         return armyForm;
     }
 
-    public void setArmyForm(StateOfEnemy armyForm) {
+    public void setArmyForm(String armyForm) {
         this.armyForm = armyForm;
     }
 
