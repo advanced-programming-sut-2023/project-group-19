@@ -15,11 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
+
 public class GameController {
     //TODO : Remember that you should delete an army if its hp <= 0 from myUnit
     //TODO : Every time you enter gameMenu and every turn you should call isMyArmyDeployed
     //TODO : All buildings require fire state boolean
     //TODO : Check the output of your Funtions
+    private static int mapSize = CreateMapController.getSizeOfMap();
+    public static GameController gameController = new GameController();
+
     public ArrayList<Army> selectedUnit = new ArrayList<>();
 
     public GameMenuMessages selectUnit(Matcher x, Matcher y) {
@@ -69,6 +73,50 @@ public class GameController {
             Map.getTroopMap()[x][y].remove(army);
         }
         return GameMenuMessages.SUCCESS;
+    }
+    {
+        gameController.defenceState();
+    }
+    private void defenceState(){
+        selectedUnit.clear();
+        for(Empire empire : Manage.allEmpires){
+            for(Army army : empire.empireArmy){
+                selectedUnit.add(army);
+                findEnemyInRange(army);
+                selectedUnit.clear();
+            }
+        }
+    }
+    private static void findEnemyInRange(Army army){
+        int x = army.xCoordinate - 1;
+        int y = army.yCoordinate - 1;
+        int x1 = 0 , x2 = 0 , y1 = 0  , y2 = 0;
+        for(int i = 1 ; i <= army.getAttackRange() ; i ++){
+            x1 = x - i ;
+            x2 = x + i ;
+            y1 = y - i ;
+            y2 = y + i ;
+            if(x1 <= 0) x1 = 0 ;
+            if(x2 >= mapSize) x2 = mapSize - 1 ;
+            if(y1 <= 0) y1 = 0 ;
+            if(y2 >= mapSize) y2 = mapSize - 1;
+            if(moveUnitToEnemyLocation(x,y,x1,x2,y1,y2,army)) return;
+        }
+    }
+    private static boolean moveUnitToEnemyLocation(int x , int y  , int x1 , int x2 , int y1 , int y2 , Army army){
+        for(Army enemy : Map.getTroopMap()[x][y]){
+            if(!enemy.getEmpire().equals(army.getEmpire())) return true ;
+        }
+        for(int i = x1 ; i <= x2 ; i ++){
+            for(int j = y1 ; j <= y2 ; j ++){
+                for(Army enemy : Map.getTroopMap()[i][j]){
+                    if(enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
+                    gameController.moveUnit(x,y);
+                    return true ;
+                }
+            }
+        }
+        return false ;
     }
 
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {

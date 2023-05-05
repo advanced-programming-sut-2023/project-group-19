@@ -37,6 +37,8 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())){
                     System.out.println(gameController.selectUnit(x1 , y1).getMessages());
                 }else System.out.println(gameMenuMessages.getMessages());
+
+
             } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_Y);
@@ -46,6 +48,8 @@ public class GameMenu {
                     int yCoordinate = Integer.parseInt(y1.group("y"));
                     gameController.moveUnit(xCoordinate , yCoordinate);
                 }else System.out.println(gameMenuMessages.getMessages());
+
+
             } else if (GameMenuCommands.getMatcher(command , GameMenuCommands.PATROL_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_X1);
                 y1 = GameMenuCommands.getMatcher(command , GameMenuCommands.COORDINATE_Y1);

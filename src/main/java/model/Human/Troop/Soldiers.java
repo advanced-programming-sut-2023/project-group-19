@@ -79,6 +79,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         names = Names.BLACK_MONK;
         xCoordinate = x;
         yCoordinate = y;
+        attackRange = 3 ;
         speed = 3;
     }
     public void Knight(int x , int y) {
@@ -88,6 +89,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         names = Names.KNIGHT;
         xCoordinate = x;
         yCoordinate = y;
+        attackRange = 5 ;
         speed = 9;
     }
 
@@ -98,6 +100,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         names = Names.SWORDSMEN;
         xCoordinate = x;
         yCoordinate = y;
+        attackRange = 3 ;
         speed = 1;
     }
 
@@ -108,6 +111,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         names = Names.PIKE_MEN;
         xCoordinate = x;
         yCoordinate = y;
+        attackRange = 3 ;
         speed = 3;
     }
 
@@ -118,6 +122,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         names = Names.SLAVES;
         xCoordinate = x;
         yCoordinate = y;
+        attackRange = 2 ;
         speed = 7;
     }
     public void ArabianSwordsmen(int x , int y) {
@@ -127,6 +132,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         names = Names.ARABIAN_SWORDSMEN;
         xCoordinate = x;
         yCoordinate = y;
+        attackRange = 4 ;
         speed = 9;
     }
 
