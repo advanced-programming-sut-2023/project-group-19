@@ -19,10 +19,14 @@ public class GameController {
     //TODO : Every time you enter gameMenu and every turn you should call isMyArmyDeployed
     //TODO : All buildings require fire state boolean
     //TODO : Check the output of your Functions
+    //TODO : CALL MAKE SIEGE MACHINE... EVERY TURN
+    //TODO : SAVE PAST COORDINATE OF ALL ARMIES
+    //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     private static int mapSize = CreateMapController.getSizeOfMap();
     public static GameController gameController = new GameController();
 
     public ArrayList<Army> selectedUnit = new ArrayList<>();
+    public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
 
     public GameMenuMessages selectUnit(Matcher x, Matcher y) {
         int flag = 0;
@@ -80,7 +84,6 @@ public class GameController {
 
     private void setStateArmy() {
         selectedUnit.clear();
-
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName())) continue;
             selectedUnit.add(army);
@@ -158,13 +161,22 @@ public class GameController {
     //TODO : After every next turn please call it!
     private void setEnemyToTarget() {
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
+            checkIfTargetIsAlive(army);
             if (army.getEnemy() == null) continue;
             selectedUnit.add(army);
             gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             selectedUnit.clear();
         }
     }
-
+    private static void checkIfTargetIsAlive(Army army){
+        Empire empire = army.getEnemy().getOwner();
+        for (Army army1 : empire.empireArmy){
+            if (army1.equals(army.getEnemy())){
+                return;
+            }
+        }
+        army.setEnemy(null);
+    }
     private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army) {
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
@@ -181,7 +193,7 @@ public class GameController {
         }
         return false;
     }
-
+    //TODO : Special condition which we call setStateArmy first
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
         if (selectedUnit.size() != 0) {
             if (validFinalLocation(xCoordinate, yCoordinate)) {
@@ -403,7 +415,7 @@ public class GameController {
         if (isGate(x, y) || isWall(x, y) || isTower(x, y)) {
             if (batteringRam.getNames().getName().equals(Names.BATTERING_RAM.getName())) {
                 selectedUnit.add(batteringRam);
-                moveUnit(x,y);
+                moveUnit(x, y);
                 int damage = Map.getBuildingMap()[x][y].get(0).getHp() - (selectedUnit.get(0)).getAttackPower();
                 Map.getBuildingMap()[x][y].get(0).setHp(damage);
                 if (checkIfRemoveBuildingPossible(damage)) Map.getBuildingMap()[x][y].remove(0);
@@ -413,41 +425,79 @@ public class GameController {
         return GameMenuMessages.IMPROPER_LOCATION;
     }
 
-    public void damageByCatapult(int x, int y) {
-
-    }
-
-    public void damageByTrebuchet(int x, int y) {
-
-    }
-    public void setRangeLookingForEnemy(ArchersAndThrowers seige){
-        int floorOfX = seige.getCurrentX() - seige.getAttackRange();
-        int floorOfY = seige.getCurrentY() -seige.getAttackRange();
-        int ceilOfX = seige.getCurrentX() + seige.getAttackRange();
-        int ceilOfY = seige.getCurrentY() + seige.getAttackRange();
-        if (floorOfX < 0) floorOfX = 0;
-        if (floorOfY < 0) floorOfY = 0;
-        if (ceilOfX > Map.mapSize) ceilOfX = Map.mapSize;
-        if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize;
-        LookForEnemyInRange(floorOfX , floorOfY , ceilOfX ,ceilOfY , seige);
-    }
-    public void LookForEnemyInRange(int floorX,int floorY,int ceilX,int ceilY ,ArchersAndThrowers seige){
-        for (int i = floorX ; i <= ceilX ; i++){
-            for (int j = floorY ; j <= ceilY ; j++ ){
-                if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
-                if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())){
-                    Map.getBuildingMap()[i][j].remove(0);
-                } else if (!Map.getTroopMap()[i][j].isEmpty()) {
-                    for (int k = 0 ; k < Map.getTroopMap()[i][j].size() ; k++){
-                        if (Map.getTroopMap()[i][j].get(k).getOwner().equals(Manage.getCurrentEmpire())){
-                            Map.getTroopMap()[i][j].get(k).setHp(0);
-                        }
-                    }
-                }
+    public void setSieges() {
+        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+            if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
+                || army.getNames().equals(Names.FireThrowers)) {
+                throwers.add((ArchersAndThrowers) army);
             }
         }
     }
-    //TODO : ACCORDING TO ARMIN'S CODE
+
+    public void makeSiegesWorkAutomatically() {
+        if (!throwers.isEmpty()) {
+            for (ArchersAndThrowers throwers : throwers) {
+                setRangeLookingForEnemy(throwers);
+            }
+        }
+    }
+
+    public void setRangeLookingForEnemy(ArchersAndThrowers seige) {
+        int floorOfX = 0, floorOfY, ceilOfX, ceilOfY;
+        for (int i = 1 ; i <= seige.getAttackRange() ; i++) {
+            floorOfX = seige.getCurrentX() - i;
+            floorOfY = seige.getCurrentY() - i;
+            ceilOfX = seige.getCurrentX() + i;
+            ceilOfY = seige.getCurrentY() + i;
+            if (floorOfX < 0) floorOfX = 0;
+            if (floorOfY < 0) floorOfY = 0;
+            if (ceilOfX > Map.mapSize) ceilOfX = Map.mapSize - 1;
+            if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize - 1;
+            if (LookForEnemyInRangeForBuilding(floorOfX, floorOfY, ceilOfX, ceilOfY, seige)) return;
+        }
+        for (int i = 1 ; i <= seige.getAttackRange() ; i++) {
+            floorOfX = seige.getCurrentX() - i;
+            floorOfY = seige.getCurrentY() - i;
+            ceilOfX = seige.getCurrentX() + i;
+            ceilOfY = seige.getCurrentY() + i;
+            if (floorOfX < 0) floorOfX = 0;
+            if (floorOfY < 0) floorOfY = 0;
+            if (ceilOfX > Map.mapSize) ceilOfX = Map.mapSize - 1;
+            if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize - 1;
+            if (LookForEnemyInRangeForTroops(floorOfX, floorOfY, ceilOfX, ceilOfY, seige)) return;
+        }
+
+    }
+
+    public boolean LookForEnemyInRangeForBuilding(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers seige) {
+        for (int i = floorX; i <= ceilX; i++) {
+            for (int j = floorY; j <= ceilY; j++) {
+                if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
+                if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
+                    Map.getBuildingMap()[i][j].remove(0);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean LookForEnemyInRangeForTroops(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers seige) {
+        for (int i = floorX; i <= ceilX; i++) {
+            for (int j = floorY; j <= ceilY; j++) {
+                if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
+                if (!Map.getTroopMap()[i][j].isEmpty()) {
+                    for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
+                        if (!Map.getTroopMap()[i][j].get(k).getOwner().equals(Manage.getCurrentEmpire())) {
+                            Map.getTroopMap()[i][j].get(k).setHp(0);
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public void damageByFireThrowersOnBuildings(int x, int y, Army fireBallista) {
         if (fireBallista.getNames().getName().equals(Names.FIRE_BALLISTA.getName())) {
@@ -622,10 +672,10 @@ public class GameController {
             Manage.getCurrentEmpire().empireArmy.remove(army);
         }
     }
-    public void fight(){
 
-    }
-    private void fightForArchers(){
+    public void fight() {
         AttackArmyToArmyController.battleWithEnemy();
+        makeSiegesWorkAutomatically();
+        //TODO : NEXT TURN
     }
 }

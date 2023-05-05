@@ -85,6 +85,17 @@ public class AttackArmyToArmyController {
             if (y2 >= mapSize) y2 = mapSize - 1;
             if (applyDamageWithArcher(x, y, x1, x2, y1, y2, army)) return;
         }
+        for (int i = 1; i <= archerRange; i++) {
+            x1 = x - i;
+            x2 = x + i;
+            y1 = y - i;
+            y2 = y + i;
+            if (x1 <= 0) x1 = 0;
+            if (x2 >= mapSize) x2 = mapSize - 1;
+            if (y1 <= 0) y1 = 0;
+            if (y2 >= mapSize) y2 = mapSize - 1;
+            if (applyDamageWithBuildingByArcher(x, y, x1, x2, y1, y2, army)) return;
+        }
     }
     private static void findBuildingToBeAttacked(Army army){
         int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
@@ -121,6 +132,20 @@ public class AttackArmyToArmyController {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
                     enemy.setHp(newHitPoint);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private static boolean applyDamageWithBuildingByArcher(int x, int y, int x1, int x2, int y1, int y2, Army army){
+        for (int i = x1; i <= x2; i++) {
+            for (int j = y1; j <= y2; j++) {
+                if (i == x || j == y) continue;
+                for (Building building : Map.getBuildingMap()[i][j]) {
+                    if (building.getOwner().equals(army.getEmpire()) || building.getHp() <= 0) continue;
+                    int newHitPoint = building.hp() - army.getAttackPower();
+                    building.setHp(newHitPoint);
                     return true;
                 }
             }
