@@ -12,6 +12,15 @@ public class Army extends Human{
         this.empire = government;
     }
     private Empire empire;
+    private Army enemy ;
+
+    public Army getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Army enemy) {
+        this.enemy = enemy;
+    }
 
     public Empire getEmpire() {
         return empire;

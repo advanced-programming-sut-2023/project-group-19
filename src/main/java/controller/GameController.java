@@ -79,14 +79,14 @@ public class GameController {
     }
     private void setStateArmy(){
         selectedUnit.clear();
-        for(Empire empire : Manage.allEmpires){
-            for(Army army : empire.empireArmy){
-                if(isArcher(army) || army.getArmyForm().equals(Army.StateOfEnemy.STANDING)) continue;
-                selectedUnit.add(army);
-                findEnemyInRange(army,army.getArmyForm());
-                selectedUnit.clear();
-            }
+
+        for(Army army : Manage.getCurrentEmpire().empireArmy){
+            if(isArcher(army) || army.getArmyForm().equals(Army.StateOfEnemy.STANDING)) continue;
+            selectedUnit.add(army);
+            findEnemyInRange(army,army.getArmyForm());
+            selectedUnit.clear();
         }
+
     }
     private static void findEnemyInRange(Army army,Army.StateOfEnemy State){
         int x = army.xCoordinate - 1;
@@ -152,6 +152,15 @@ public class GameController {
             return false;
         }
     }
+    //TODO : Before every next turn please call it!
+    private void setEnemyToTarget(){
+        for(Army army : Manage.getCurrentEmpire().empireArmy){
+            if(army.getEnemy() == null) continue;
+            selectedUnit.add(army);
+            gameController.moveUnit(army.getEnemy().xCoordinate,army.getEnemy().yCoordinate);
+            selectedUnit.clear();
+        }
+    }
 
     private static boolean moveUnitToEnemyLocationAngry(int x , int y  , int x1 , int x2 , int y1 , int y2 , Army army){
         for(Army enemy : Map.getTroopMap()[x][y]){
@@ -161,7 +170,8 @@ public class GameController {
             for(int j = y1 ; j <= y2 ; j ++){
                 for(Army enemy : Map.getTroopMap()[i][j]){
                     if(enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    gameController.moveUnit(x,y);
+                    army.setEnemy(enemy);
+                    gameController.moveUnit(army.getEnemy().xCoordinate,army.getEnemy().yCoordinate);
                     return true ;
                 }
             }
