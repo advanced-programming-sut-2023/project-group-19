@@ -6,7 +6,7 @@ import model.GroundType;
 import java.util.HashMap;
 
 public class Castle extends Building implements BuildingConstantFunctions {
-    Castle(Empire government) {
+    public Castle(Empire government) {
         super(government);
     }
 

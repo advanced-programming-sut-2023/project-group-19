@@ -25,14 +25,13 @@ public class Goods extends Building implements BuildingConstantFunctions {
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         this.workersNeeded.put("engineer", engineer);
         this.workersNeeded.put("worker", worker);
-
     }
-
+    //TODO : decide the required ground type to build the farms
     public void appleFarm() {
         this.name = Names.APPLE_FARM;
         this.hp = 500;
         this.maxHp = 500;
-        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.requiredGroundType = GroundType.FILLFUL_DASH.getGroundType();
         createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
@@ -50,7 +49,7 @@ public class Goods extends Building implements BuildingConstantFunctions {
         this.name = Names.OAT_FARM;
         this.hp = 500;
         this.maxHp = 500;
-        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.requiredGroundType = GroundType.FILLFUL_DASH.getGroundType();
         createBuildingCost(15, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
@@ -68,7 +67,7 @@ public class Goods extends Building implements BuildingConstantFunctions {
         this.name = Names.WHEAT_FARM;
         this.hp = 500;
         this.maxHp = 500;
-        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.requiredGroundType = GroundType.FILLFUL_DASH.getGroundType();
         createBuildingCost(15, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }

@@ -73,7 +73,7 @@ public class Industry extends Building implements BuildingConstantFunctions {
         this.name = Names.QUARRY;
         this.hp = 500;
         this.maxHp = 500;
-        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.requiredGroundType = GroundType.STONE.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 3);
     }
