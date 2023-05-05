@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.* ;
+import model.Building.* ;
 
 public class AttackArmyToArmyController {
     private static int mapSize = CreateMapController.getSizeOfMap();
@@ -64,9 +65,9 @@ public class AttackArmyToArmyController {
             }
         }
     }
-    private static final int archerRange = 2 ;
-    //TODO : height of tower
+    private static int archerRange;
     private static void findEnemyInRange(Army army){
+        determineRange(army);
         int x = army.xCoordinate - 1;
         int y = army.yCoordinate - 1;
         int x1 = 0 , x2 = 0 , y1 = 0  , y2 = 0;
@@ -81,6 +82,14 @@ public class AttackArmyToArmyController {
             if(y2 >= mapSize) y2 = mapSize - 1;
             if(applyDamageWithArcher(x,y,x1,x2,y1,y2,army)) return;
         }
+    }
+
+    private static void determineRange(Army army) {
+        int height ;
+        ArrayList<Building> buildings = Map.getBuildingMap()[army.xCoordinate][army.yCoordinate];
+        if(buildings.isEmpty()) height = 0 ;
+        else height = buildings.get(0).getHeight();
+        archerRange =  army.getAttackRange() + height ;
     }
 
     private static boolean applyDamageWithArcher(int x , int y ,int x1, int x2, int y1, int y2, Army army) {

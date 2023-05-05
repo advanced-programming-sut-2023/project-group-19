@@ -31,6 +31,8 @@ public class CreateMapController {
             WaterSources waterSources = WaterSources.getWaterSourcesByName("type");
             if(waterSources == null) return "Choose type correctly";
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
+            Map.notBuildable[x - 1][y - 1] = true ;
+            if(!type.equals("jolgeh")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
         Map.getGroundType()[x - 1][y - 1].add(groundType);
@@ -61,6 +63,8 @@ public class CreateMapController {
         Map.getBuildingMap()[x - 1][y - 1].clear();
         Map.getGroundType()[x - 1][y - 1].clear();
         Map.getGroundType()[x - 1][y - 1].clear();
+        Map.notPassable[x - 1][y - 1] = false ;
+        Map.notBuildable[x - 1][y - 1] = false ;
         return "Clear successfully";
     }
     public static String dropRock(int x , int y , String type){
@@ -102,6 +106,7 @@ public class CreateMapController {
             return "Selected tree does not exist";
         }
         Map.obstacleMap[x - 1][y - 1].add(tree);
+        Map.notBuildable[x - 1][y - 1] = true ;
         return "successfully";
     }
 
