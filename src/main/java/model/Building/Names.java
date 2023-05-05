@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Names {
+    CASTLE("castle"),
     SMALL_STONE_GATE_HOUSE("Small Stone Gatehouse"),
     BIG_STONE_GATE_HOUSE("Big Stone Gatehouse"),
     DRAW_BRIDGE("Draw Bridge"),

@@ -4,24 +4,37 @@ import model.Empire;
 
 import java.util.HashMap;
 
-public class Stable extends Building implements BuildingConstantFunctions {
-    public Stable(Empire government) {
+public class Castle extends Building implements BuildingConstantFunctions{
+    Castle(Empire government) {
         super(government);
     }
-
-    private int rate;
     private Names names;
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
     public Names getNames() {
         return names;
+    }
+    private int hp ;
+    private int maxHp;
+    private String requiredGroundType;
+
+
+    @Override
+    public int getHp() {
+        return hp;
+    }
+
+    @Override
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    @Override
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    @Override
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
 
     public HashMap<String, Integer> cost = new HashMap<>();
@@ -42,12 +55,11 @@ public class Stable extends Building implements BuildingConstantFunctions {
         workersNeeded.put("worker", worker);
 
     }
-
-    public void stable() {
-        names = Names.STABLE;
-        this.hp = 50;
-        this.maxHp = 50;
-        createBuildingCost(20, 0, 400, 0, 0);
+    public void castle(){
+        hp = 3000;
+        maxHp = 3000;
+        names = Names.CASTLE;
+        createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
@@ -64,10 +76,5 @@ public class Stable extends Building implements BuildingConstantFunctions {
     @Override
     public String groundType() {
         return null;
-    }
-
-    @Override
-    public String showBuildingName() {
-        return names.getName();
     }
 }

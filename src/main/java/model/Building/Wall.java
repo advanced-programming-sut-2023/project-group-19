@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 
 import javax.print.attribute.standard.MediaSize;
 import java.util.HashMap;
@@ -10,26 +11,53 @@ public class Wall extends Building {
         super(government);
     }
 
-    private int hp;
-    private int maxHp;
-    private static Names name;
-    private static Names thickness;
-
-    public int getHp() {
-        return hp;
+    //TODO call createBuildingCost before usage
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void createBuildingWorkersNeeded(int engineer, int worker) {
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
     }
 
-    public Names getName() {
-        return name;
+    public void bigWall() {
+        this.hp = 1000;
+        this.maxHp = 1000;
+        this.height = 4;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.name = Names.BIG_WALL;
+        createBuildingCost(0, 25, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
+    }
+
+    public void smallWall() {
+        this.hp = 1000;
+        this.maxHp = 1000;
+        this.height = 3;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.name = Names.SMALL_WALL;
+        createBuildingCost(0, 15, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
+    }
+
+    public void stair() {
+        this.hp = 450;
+        this.maxHp = 450;
+        this.height = 2;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.name = Names.STAIR;
+        createBuildingCost(0, 10, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
     public int getMaxHp() {
-        return maxHp;
+        return this.maxHp;
     }
 
     @Override
@@ -37,65 +65,24 @@ public class Wall extends Building {
         this.maxHp = maxHp;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
-    }
-
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
-
-    public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
-
-    }
-
-    //TODO only need stone to build the wall
-    public void bigWall() {
-        hp = 750;
-        maxHp = 750;
-        name = Names.BIG_WALL;
-        thickness = Names.BIG_WALL_THICKNESS;
-        createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0, 0);
-    }
-
-    public void smallWall() {
-        hp = 500;
-        maxHp = 500;
-        name = Names.SMALL_WALL;
-        thickness = Names.SMALL_WALL_THICKNESS;
-        createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0, 0);
-    }
-
-    public void stair() {
-        hp = 450;
-        maxHp = 450;
-        name = Names.STAIR;
-        createBuildingCost(0, 0, 0, 0, 0);
-        createBuildingWorkersNeeded(0, 0);
-    }
-
     @Override
     public int maxHp() {
-        return 0;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 import model.Map;
 
 import java.util.HashMap;
@@ -10,17 +11,13 @@ public class Tower extends Building {
         super(government);
     }
 
-    private int hp;
-    private int maxHp;
-    private Names name;
     private int fireRange;
     private int defendRange;
-    //TODO setter for isBig
     private boolean isBig = false;
 
 
     public Names getNames() {
-        return name;
+        return this.name;
     }
 
     public void setNames(Names names) {
@@ -53,7 +50,7 @@ public class Tower extends Building {
 
     @Override
     public int getMaxHp() {
-        return maxHp;
+        return this.maxHp;
     }
 
     @Override
@@ -62,99 +59,109 @@ public class Tower extends Building {
     }
 
     public int getHp() {
-        return hp;
+        return this.hp;
     }
 
     public void setHp(int hp) {
         this.hp = hp;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
     }
 
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
-
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
 
     }
 
     public void lookoutTower() {
-        hp = 800;
-        maxHp = 800;
-        fireRange = 650;
-        defendRange = 700;
-        name = Names.LOOKOUT_TOWER;
+        this.hp = 800;
+        this.maxHp = 800;
+        fireRange = 4;
+        defendRange = 4;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 4;
+        this.name = Names.LOOKOUT_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void perimeterTower() {
-        hp = 800;
-        maxHp = 800;
-        fireRange = 650;
-        defendRange = 700;
-        name = Names.PERIMETER_TOWER;
+        this.hp = 800;
+        this.maxHp = 800;
+        fireRange = 3;
+        defendRange = 3;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 2;
+        this.name = Names.PERIMETER_TOWER;
         createBuildingCost(0, 10, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void defendTower() {
-        hp = 1000;
-        maxHp = 1000;
-        fireRange = 650;
-        defendRange = 900;
-        name = Names.DEFEND_TOWER;
+        this.hp = 1000;
+        this.maxHp = 1000;
+        fireRange = 3;
+        defendRange = 3;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 2;
+        this.name = Names.DEFEND_TOWER;
         createBuildingCost(0, 15, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void squareTower() {
-        hp = 800;
-        maxHp = 800;
-        fireRange = 650;
-        defendRange = 800;
-        name = Names.SQUARE_TOWER;
+        this.hp = 800;
+        this.maxHp = 800;
+        fireRange = 3;
+        defendRange = 3;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 2;
+        this.name = Names.SQUARE_TOWER;
         createBuildingCost(0, 35, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void roundTower() {
-        hp = 850;
-        maxHp = 850;
-        fireRange = 650;
-        defendRange = 700;
-        name = Names.ROUND_TOWER;
+        this.hp = 850;
+        this.maxHp = 850;
+        fireRange = 3;
+        defendRange = 3;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 2;
+        this.name = Names.ROUND_TOWER;
         createBuildingCost(0, 40, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
     public int maxHp() {
-        return 0;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return name.getName();
+        return this.name.getName();
     }
 }

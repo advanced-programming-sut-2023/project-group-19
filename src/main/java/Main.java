@@ -1,9 +1,6 @@
 import controller.JsonController;
 import controller.PathFindingController;
-import model.Building.Names;
-import model.Building.SiegeTent;
-import model.Building.StoneGateWay;
-import model.Building.Tower;
+import model.Building.*;
 import model.Empire;
 import model.Human.Troop.Army;
 import model.Manage;
@@ -22,14 +19,32 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-        Scanner scanner = new Scanner(System.in);
+
+
+//        Scanner scanner = new Scanner(System.in);
+//        Empire empire = new Empire();
+//        Map.CreateMap(200);
+//        Army army =new Army(empire);
+//        Army army1 =new Army(empire);
+//        Map.getTroopMap()[1][1].add(army);
+//        Map.getTroopMap()[1][1].add(army1);
+//        GameMenu gameMenu = new GameMenu();
+//        gameMenu.run(scanner);
+
+
+
+
+
         Empire empire = new Empire();
+        empire.setName("arian");
         Map.CreateMap(200);
-        Army army =new Army(empire);
-        Army army1 =new Army(empire);
-        Map.getTroopMap()[1][1].add(army);
-        Map.getTroopMap()[1][1].add(army1);
-        GameMenu gameMenu = new GameMenu();
-        gameMenu.run(scanner);
+        Wall wall = new Wall(empire);
+        wall.bigWall();
+        Map.getBuildingMap()[0][0].add(wall);
+        System.out.println(Map.getBuildingMap()[0][0].get(0).cost.get("stone"));
+
+
+
+
     }
 }
