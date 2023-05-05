@@ -11,162 +11,104 @@ public class Industry extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private int rateOfMill;
-    private int rateOfIronDig;
-    private int rateOfOxTether;
-    private int rateOfPitchRig;
-    private int rateOfQuarry;
-    private int rateOfWoodCuter;
-    private int capacityOfQuarry;
-    private Names names;
-    private GroundType groundType;
-
-    public int getRateOfMill() {
-        return rateOfMill;
-    }
-
-    public void setRateOfMill(int rateOfMill) {
-        this.rateOfMill = rateOfMill;
-    }
-
-    public int getRateOfIronDig() {
-        return rateOfIronDig;
-    }
-
-    public void setRateOfIronDig(int rateOfIronDig) {
-        this.rateOfIronDig = rateOfIronDig;
-    }
-
-    public int getRateOfOxTether() {
-        return rateOfOxTether;
-    }
-
-    public void setRateOfOxTether(int rateOfOxTether) {
-        this.rateOfOxTether = rateOfOxTether;
-    }
-
-    public int getRateOfPitchRig() {
-        return rateOfPitchRig;
-    }
-
-    public void setRateOfPitchRig(int rateOfPitchRig) {
-        this.rateOfPitchRig = rateOfPitchRig;
-    }
-
-    public int getRateOfQuarry() {
-        return rateOfQuarry;
-    }
-
-    public void setRateOfQuarry(int rateOfQuarry) {
-        this.rateOfQuarry = rateOfQuarry;
-    }
-
-    public int getRateOfWoodCuter() {
-        return rateOfWoodCuter;
-    }
-
-    public void setRateOfWoodCuter(int rateOfWoodCuter) {
-        this.rateOfWoodCuter = rateOfWoodCuter;
-    }
-
-    public int getCapacityOfQuarry() {
-        return capacityOfQuarry;
-    }
-
-    public void setCapacityOfQuarry(int capacityOfQuarry) {
-        this.capacityOfQuarry = capacityOfQuarry;
-    }
-
     public Names getNames() {
-        return names;
+        return this.name;
     }
 
     public void setNames(Names names) {
-        this.names = names;
+        this.name = names;
     }
 
-    //TODO add worker
-    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
     }
-
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
 
     }
 
     public void mill() {
-        rateOfMill = 0;//TODO: NO IDEA
-        names = Names.MILL;
+        this.name = Names.MILL;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 3);
     }
 
     public void ironDig() {
-        rateOfIronDig = 0;//TODO:NO IDEA
-        groundType = GroundType.IRON;
-        names = Names.IRON_DIG;
+        this.name = Names.IRON_DIG;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.IRON.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 2);
     }
 
     public void oxTether() {
-        rateOfOxTether = 0;//TODO:NO IDEA
-        names = Names.OX_TETHER;
+        this.name = Names.OX_TETHER;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void pitchRig() {
-        rateOfPitchRig = 0;//TODO:NO IDEA
-        names = Names.PITCH_RIG;
-        groundType = GroundType.PLAIN;
+        this.name = Names.PITCH_RIG;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.PLAIN.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void quarry() {
-        rateOfQuarry = 0;//TODO: NO IDEA
-        capacityOfQuarry = 50;
-        names = Names.QUARRY;
+        this.name = Names.QUARRY;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.STONE.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 3);
     }
 
     public void woodCutter() {
-        rateOfWoodCuter = 0;//TODO: NO IDEA
-        names = Names.WOODCUTTER;
+        this.name = Names.WOODCUTTER;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(3, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     @Override
     public int maxHp() {
-        return 0;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return names.getName();
+        return this.name.getName();
     }
 }

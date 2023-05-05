@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 
 import java.util.HashMap;
 
@@ -9,9 +10,9 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private Names names;
     public boolean fireState;
-    public boolean digState;
+    public int digState;
+    //    public boolean digState;
     private boolean pitchDitchIsOn = true;
     public boolean digCompleted;
 
@@ -24,56 +25,62 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
     }
 
     public Names getNames() {
-        return names
-                ;
+        return this.name;
     }
 
     public boolean isFireState() {
         return fireState;
     }
-    public HashMap<String, Integer> cost = new HashMap<>();
 
-    //TODO call createBuildingCost before usage
-    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+    public int isDigState() {
+        return digState;
     }
 
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
+    public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
+    }
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
 
     }
 
-    //TODO oil per 5 square
     public void pitchDitch() {
-        names = Names.PITCH_DITCH;
+        this.hp = 100;
+        this.maxHp = 100;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.name = Names.PITCH_DITCH;
         createBuildingCost(0, 0, 0, 0, 2);
         createBuildingWorkersNeeded(0, 0);
     }
 
     @Override
     public int maxHp() {
-        return 0;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return names.getName();
+        return this.name.getName();
     }
 }

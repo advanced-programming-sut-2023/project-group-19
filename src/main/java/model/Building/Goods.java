@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 
 import java.util.HashMap;
 
@@ -9,107 +10,108 @@ public class Goods extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private int rate;
-    private Names names;
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
     public Names getNames() {
-        return names;
+        return this.name;
     }
 
-    //TODO add WORKER
-    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
     }
-
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
-
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
     }
-
+    //TODO : decide the required ground type to build the farms
     public void appleFarm() {
-        rate = 20;
-        names = Names.APPLE_FARM;
+        this.name = Names.APPLE_FARM;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.FILLFUL_DASH.getGroundType();
         createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void dairyProduct() {
-        rate = 5;
-        names = Names.DAIRY_PRODUCT;
+        this.name = Names.DAIRY_PRODUCT;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(10, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void oatFarm() {
-        rate = 20;
-        names = Names.OAT_FARM;
+        this.name = Names.OAT_FARM;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.FILLFUL_DASH.getGroundType();
         createBuildingCost(15, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void huntingPost() {
-        rate = 15;
-        names = Names.HUNTING_POST;
+        this.name = Names.HUNTING_POST;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void wheatFarm() {
-        rate = 20;
-        names = Names.WHEAT_FARM;
+        this.name = Names.WHEAT_FARM;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.FILLFUL_DASH.getGroundType();
         createBuildingCost(15, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void bakery() {
-        rate = 5;
-        names = Names.BAKERY;
+        this.name = Names.BAKERY;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(10, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     public void bearFactory() {
-        rate = 5;
-        names = Names.BEAR_FACTORY;
+        this.name = Names.BEAR_FACTORY;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(10, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
     @Override
     public int maxHp() {
-        return 999999999;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 999999999;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return names.getName();
+        return this.name.getName();
     }
 }

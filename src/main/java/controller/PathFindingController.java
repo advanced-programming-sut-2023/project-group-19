@@ -110,6 +110,7 @@ public class PathFindingController {
             g.add(new ArrayList<>());
         }
         constructGraph(g, notPassable);
+                                        
         if (!notPassable[goalX][goalY]) {
             int src = startX * size + startY, dst = goalX * size + goalY;
             return findPaths(g, src, dst);

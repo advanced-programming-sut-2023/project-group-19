@@ -53,6 +53,7 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Big Wall");
         namesOfAllPossibleBuildings.add("Small Wall");
         namesOfAllPossibleBuildings.add("Stair");
+        namesOfAllPossibleBuildings.add("Castle");
         namesOfAllPossibleBuildings.add("Armourer");
         namesOfAllPossibleBuildings.add("Blacksmith");
         namesOfAllPossibleBuildings.add("Fletcher");

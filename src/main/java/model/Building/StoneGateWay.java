@@ -11,11 +11,36 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
 
     }
 
-    private static Names name;
     public boolean flagOfEnemy;
     private int capacity;
     private static Names direction;
     private boolean isGateOpen;
+    private boolean isGateConquered;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public static Names getDirection() {
+        return direction;
+    }
+
+    public static void setDirection(Names direction) {
+        StoneGateWay.direction = direction;
+    }
+
+    public void setGateOpen(boolean gateOpen) {
+        isGateOpen = gateOpen;
+    }
+
+    public void setGateConquered(boolean gateConquered) {
+        isGateConquered = gateConquered;
+    }
+
     private int maxCapacity;
 
     private int currentCapacity;
@@ -36,36 +61,9 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.currentCapacity = currentCapacity;
     }
 
-    public static Names getNames() {
-        return name;
-    }
-
-    public void setNames(Names names) {
-        name = names;
-    }
-
-    private int hp;
-    private int maxHP;
-    private String groundType = GroundType.DEFAULT.getGroundType();
-
-    public String getGroundType() {
-        return groundType;
-    }
-
-    public void setGroundType(String groundType) {
-        this.groundType = groundType;
-    }
-
-    public int getMaxHP() {
-        return maxHP;
-    }
-
-    public void setMaxHP(int maxHP) {
-        this.maxHP = maxHP;
-    }
 
     public int getHp() {
-        return hp;
+        return this.hp;
     }
 
     public void setHp(int hp) {
@@ -76,34 +74,31 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         return isGateOpen;
     }
 
-    public void setGateOpen(boolean gateOpen) {
-        isGateOpen = gateOpen;
+    public boolean isGateConquered() {
+        return isGateConquered;
     }
-    //    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO: call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
     }
 
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
 
     }
 
     //TODO make a condition in the Building menu to see whether we have Gateway or not if we don't make an error
-    //TODO TAX FUNCTION IN GOVERNMENT MENU FOR GATES
     public void smallGateWay(Names directionOfGate) {
-        hp = 500;
-        maxHP = 500;
-        name = Names.SMALL_STONE_GATE_HOUSE;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.name = Names.SMALL_STONE_GATE_HOUSE;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 2;
         direction = directionOfGate;
         capacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
@@ -111,9 +106,11 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     }
 
     public void bigGateWay(Names directionOfGate) {
-        hp = 700;
-        maxHP = 700;
-        name = Names.BIG_STONE_GATE_HOUSE;
+        this.hp = 700;
+        this.maxHp = 700;
+        this.name = Names.BIG_STONE_GATE_HOUSE;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        this.height = 2;
         direction = directionOfGate;
         capacity = 10;
         createBuildingWorkersNeeded(0, 0);
@@ -122,21 +119,26 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
 
     @Override
     public int maxHp() {
-        return maxHP;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return hp;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return groundType;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return name.getName();
+        return this.name.getName();
     }
 }

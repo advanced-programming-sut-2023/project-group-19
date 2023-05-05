@@ -85,6 +85,29 @@ public class BuildingController {
         String direction;
         Names directionOfGate;
         switch (type) {
+            case "Castle":
+                Castle castle = new Castle(currentEmpire);
+                castle.castle();
+                if (correctGroundType(x, y, castle)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(castle, currentEmpire)) {
+                        if (empireHasEnoughWorkersToBuildTheBuilding(castle, currentEmpire)) {
+                            buildingCheckout(castle, currentEmpire);
+                            Map.AddToBuildingMap(x, y, castle);
+                            Empire.castleXCoordinate = x;
+                            Empire.castleYCCoordinate = y;
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            Map.wallPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                        }
+                    } else {
+                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                    }
+                } else {
+                    return BuildingMessages.IMPROPER_GROUND_TYPE;
+                }
             case "Small Stone Gatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
