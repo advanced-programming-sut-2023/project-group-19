@@ -36,7 +36,6 @@ public class Armoury extends Building implements BuildingConstantFunctions {
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         this.workersNeeded.put("engineer", engineer);
         this.workersNeeded.put("worker", worker);
-
     }
 
     public void armoury() {
