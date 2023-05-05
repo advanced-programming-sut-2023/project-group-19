@@ -34,8 +34,6 @@ public class Engineer extends Army {
     public int xCoordinate;
 
     public int yCoordinate;
-
-    public boolean isBossOfOilSmelter;
     public boolean isBowlFullOfOil;
     public int goalXCoordinate;
     public int goalYCoordinate;
@@ -64,15 +62,6 @@ public class Engineer extends Army {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-    public boolean isBossOfOilSmelter() {
-        return isBossOfOilSmelter;
-    }
-
-    public void setBossOfOilSmelter(boolean bossOfOilSmelter) {
-        isBossOfOilSmelter = bossOfOilSmelter;
-    }
-
     public boolean isBowlFullOfOil() {
         return isBowlFullOfOil;
     }

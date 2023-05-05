@@ -26,6 +26,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
     public int restOfMoves;
     public int goalXCoordinate;
     public int goalYCoordinate;
+    public boolean ladderIsOn;
     public List<Integer> myPath;
     public void setNames(Names names) {
         this.names = names;
@@ -78,6 +79,10 @@ public class Climbers extends Army implements HumanConstantFunctions{
 
     public Names getTypeOfArmy() {
         return typeOfArmy;
+    }
+
+    public boolean isLadderIsOn() {
+        return ladderIsOn;
     }
 
     public void SpearMen() {

@@ -14,7 +14,7 @@ public class Tower extends Building {
     private int fireRange;
     private int defendRange;
     private boolean isBig = false;
-
+    private final int maxCapacity = 20;
 
     public Names getNames() {
         return this.name;
