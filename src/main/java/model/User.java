@@ -17,7 +17,7 @@ public class User {
     public static ArrayList<String> getRandomSlogans() {
         return randomSlogans;
     }
-
+    public static ArrayList<User> loginUsers = new ArrayList<>();
     public static ArrayList<User> getUsers() {
         return users;
     }
@@ -30,9 +30,8 @@ public class User {
         randomSlogans.add("I march to death...Though I wish it was my own...");
         randomSlogans.add("They think I\'m monster...and I prove them right");
         //TODO
-
-
     }
+
 
     public static User getCurrentUser() {
         return currentUser;

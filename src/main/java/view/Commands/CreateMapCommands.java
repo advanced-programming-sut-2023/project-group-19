@@ -22,7 +22,9 @@ public enum CreateMapCommands {
     CLEAR("clear"),
 
     SET_TEXTURE_TYPE("-x\\s+(?<type>\\S+)"),
-    SHOW_DETAIL("show\\s+detail");
+    SHOW_DETAIL("show\\s+detail"),
+    LOCATE_CASTLE("locate\\s+castle")
+    ;
 
     String regex ;
     CreateMapCommands(String regex){

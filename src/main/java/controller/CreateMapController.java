@@ -6,8 +6,13 @@ import model.Obstacle.Obstacle;
 import model.Obstacle.Stone;
 import model.Obstacle.Tree;
 import model.Obstacle.WaterSources;
+import model.* ;
+import model.Building.*;
 
 public class CreateMapController {
+    public static boolean mapIsReadyForGame = false ;
+    public static int numberOfEmpiers ;
+
     private static boolean mapIsBuilded = false ;
     private static int sizeOfMap ;
 
@@ -71,8 +76,8 @@ public class CreateMapController {
         if(!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s")) return "Choose direction correctly!";
         if (!mapIsBuilded) return "You first must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
-        for(int i = x ; i <= x ; i ++){
-            for(int j = y ; j <= y ; j ++){
+        for(int i = 1 ; i <= x ; i ++){
+            for(int j = 1 ; j <= y ; j ++){
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
@@ -84,8 +89,8 @@ public class CreateMapController {
     public static String dropTree(int x , int y , String type){
         if (!mapIsBuilded) return "You first must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
-        for(int i = x ; i <= x ; i ++){
-            for(int j = y ; j <= y ; j ++){
+        for(int i = 1 ; i <= x ; i ++){
+            for(int j = 1 ; j <= y ; j ++){
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
@@ -109,5 +114,34 @@ public class CreateMapController {
         Map.notBuildable[x - 1][y - 1] = true ;
         return "successfully";
     }
-
+    public static int indexOfUser = 0 ;
+    
+    public static String locateCatle(int x , int y) {
+        int numberOfUsers = User.loginUsers.size();
+        if(numberOfEmpiers == numberOfUsers) return "you must have more user to continue!";
+        if (!mapIsBuilded) return "You first must build a map!";
+        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
+        for(int i = 1 ; i <= x ; i ++){
+            for(int j = 1 ; j <= y ; j ++){
+                if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
+            }
+        }
+        if(!Map.getGroundType()[x][y].get(0).equals(GroundType.DEFAULT)) return "The type of buiding must be default";
+        if(numberOfUsers < 2) return "More user must be added";
+        if(numberOfUsers > 8){
+            while (numberOfUsers > 8){
+                User.loginUsers.remove(numberOfUsers - 1);
+                numberOfUsers  -- ;
+            }
+        }
+        
+        Empire empire = new Empire();
+        empire.setUser(User.loginUsers.get(indexOfUser));
+        indexOfUser ++ ;
+        Building building = new Castle(empire);
+        Map.getBuildingMap()[x][y].add(building);
+        numberOfEmpiers ++ ;
+        
+        return "Successfully done!";
+    }
 }

@@ -27,11 +27,34 @@ public class CreateMapMenu {
                 dropRock(command);
             }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.DROP_TREE) != null){
                 dropTree(command);
+            }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.LOCATE_CASTLE) != null){
+                locateCatle(command);
             }
             else System.out.println("invalid command");
         }
 
     }
+
+    private static void locateCatle(String command) {
+        Matcher matcher ;
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+        String type ;
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
+        if(matcher == null){
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        System.out.println(CreateMapController.locateCatle(x,y));
+
+    }
+
     public static void dropTree(String command){
         Matcher matcher ;
         matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
