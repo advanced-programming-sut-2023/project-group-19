@@ -1,7 +1,10 @@
 package view;
 
+import controller.CreateMapController;
+import controller.NextTurnController;
 import controller.ShowMapController;
 import controller.JsonController;
+import model.Map;
 import model.User;
 import view.Commands.MainMenuCommands;
 
@@ -27,12 +30,17 @@ public class MainMenu {
                 return;
             }else if((matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP)) != null){
                 if(showMap(command,scanner)){
-                    //function to game menu!
+                    NextTurnController nextTurnController = new NextTurnController();
+                    nextTurnController.game(scanner);
+                    CreateMapController.recovery();
                 }
             }
             else System.out.println("Invalid command!");
         }
     }
+
+
+
     public static boolean showMap(String command,Scanner scanner) throws IOException, InterruptedException {
         Matcher matcher ;
         matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP_X);

@@ -13,13 +13,24 @@ public class CreateMapController {
     public static boolean mapIsReadyForGame = false ;
     public static int numberOfEmpiers ;
 
-    private static boolean mapIsBuilded = false ;
+    public static boolean mapIsBuilded = false ;
     private static int sizeOfMap ;
 
     public static int getSizeOfMap() {
         return sizeOfMap;
     }
 
+    public static void recovery() {
+        for(int i = 0 ; i < sizeOfMap ; i ++){
+            for(int j = 0 ; j < sizeOfMap ; j ++){
+                Map.getBuildingMap()[i][j].clear();
+                Map.getTroopMap()[i][j].clear();
+                Map.getObstacleMap()[i][j].clear();
+                Map.getGroundType()[i][j].clear();
+                mapIsBuilded = false ;
+            }
+        }
+    }
     public static String CreateMap(int size){
         mapIsBuilded = true ;
         if(size != 200 && size != 400) return "You must choose size 200 or 400";
