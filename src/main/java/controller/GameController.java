@@ -569,7 +569,7 @@ public class GameController {
             Map.getTroopMap()[x][y].add(shield);
         }
         return GameMenuMessages.LOCATION_CONTAINS_BUILDING;
-    }*/
+    }
 
     //TODO: STILL HAVE BUGS
     public GameMenuMessages damageByBatteringRam(int x, int y, ArchersAndThrowers batteringRam) { //TODO : The given coordinate is for the target
