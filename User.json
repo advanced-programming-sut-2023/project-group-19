@@ -1,23 +1,12 @@
 [
   {
-    "username": "ali",
-    "password": "123",
-    "nickname": "mamad",
-    "email": "String email",
-    "recoveryQuestion": "String recoveryQuestion",
-    "slogan": "String slogan",
+    "username": "a",
+    "password": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "nickname": "a",
+    "email": "sedc@s.dc",
+    "recoveryQuestion": "a",
+    "slogan": "a",
     "recoveryQuestionNumber": 2,
-    "highScore": 0,
-    "rank": 0
-  },
-  {
-    "username": "afgjfgj",
-    "password": "12jgjg3",
-    "nickname": "mamagjjgjd",
-    "email": "String emgjgjail",
-    "recoveryQuestion": "String rjgjgjgjgecoveryQuestion",
-    "slogan": "Strgjgjgjing slogan",
-    "recoveryQuestionNumber": 0,
     "highScore": 0,
     "rank": 0
   }

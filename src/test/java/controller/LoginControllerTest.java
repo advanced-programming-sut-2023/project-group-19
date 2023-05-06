@@ -113,6 +113,26 @@ class LoginControllerTest {
         Assertions.assertNotEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
     }
 
+    @Test
+    public void repeted() throws IOException {
+        LoginController.register("a","a",
+                "a","sedc@s.dc","a", "a","2");
+
+        RegisterMessages message = LoginController.checkErrorForRegister
+                ("a","dsfc","ass",
+                        "sedcsdc","sdfcd","dsds");
+
+        Assertions.assertEquals(message,RegisterMessages.USERNAME_REPETED);
+
+        message = LoginController.checkErrorForRegister
+                ("ajjk","G6*ffff","G6*ffff",
+                        "sEdc@s.dc","sdfcd","dsds");
+
+        Assertions.assertEquals(message,RegisterMessages.REPETED_EMAIL);
+
+
+
+    }
 
 
 
