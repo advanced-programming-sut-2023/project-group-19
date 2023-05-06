@@ -8,12 +8,10 @@ import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
 import model.Obstacle.ObstacleName;
-import model.Obstacle.WaterSources;
 import view.Messages.GameMenuMessages;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.RecursiveTask;
 import java.util.regex.Matcher;
 
 public class GameController {
@@ -93,152 +91,167 @@ public class GameController {
             selectedUnit.clear();
         }
     }
-    private static GameMenuMessages dropUnit(Matcher x1,Matcher y1 , Matcher count , Matcher type){
+
+    private static GameMenuMessages dropUnit(Matcher x1, Matcher y1, Matcher count, Matcher type) {
         int x = Integer.parseInt(x1.group("x"));
         int y = Integer.parseInt(y1.group("y"));
         int countOfUnits = Integer.parseInt(count.group("count"));
         String typeOfUnit = type.group("type");
-        if (checkGroundTypeForUnits(x,y)){
-            if (checkTypeOfUnitWithLocation(x,y,typeOfUnit)){
-                addUnitsToMap(x,y,countOfUnits,typeOfUnit);
-                return GameMenuMessages.SUCCESS;
+        if (checkGroundTypeForUnits(x, y)) {
+            if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
+                if (empireHaveEnoughSoldiers(countOfUnits, typeOfUnit)) {
+                    addUnitsToMap(x, y, countOfUnits, typeOfUnit);
+                    return GameMenuMessages.SUCCESS;
+                }
+                return GameMenuMessages.NOT_ENOUGH_UNITS_AVAILABLE;
             }
             return GameMenuMessages.IMPROPER_UNIT;
         }
         return GameMenuMessages.IMPROPER_LOCATION;
     }
 
-    private static boolean isSpearMan(String type){
-        return type.equals(Names.SPEAR_MEN.getName());
+    private static boolean empireHaveEnoughSoldiers(int count, String type) {
+        for (java.util.Map.Entry<String, Integer> europeTroops : Manage.getCurrentEmpire().europeTroopCount.entrySet()) {
+            if (europeTroops.getKey().equals(type)) {
+                return europeTroops.getValue() <= count;
+            }
+        }
+        for (java.util.Map.Entry<String, Integer> arabTroops : Manage.getCurrentEmpire().arabTroopCount.entrySet()) {
+            if (arabTroops.getKey().equals(type)) {
+                return arabTroops.getValue() <= count;
+            }
+        }
+        return false;
     }
-    private static void addUnitsToMap(int x , int y,int count , String typeOfUnit){
-        for (int i = 0 ; i < count ; i++){
-            switch (typeOfUnit){
+
+    private static void addUnitsToMap(int x, int y, int count, String typeOfUnit) {
+        for (int i = 0; i < count; i++) {
+            switch (typeOfUnit) {
                 case "Archer":
                     ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    archer.archer(x,y);
+                    archer.archer(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archer);
                     Map.getTroopMap()[x][y].add(archer);
                 case "Crossbowmen":
                     ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    crossBowMan.Crossbowmen(x,y);
+                    crossBowMan.Crossbowmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
                     Map.getTroopMap()[x][y].add(crossBowMan);
                 case "ArcherBow":
                     ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    archerBow.ArcherBow(x,y);
+                    archerBow.ArcherBow(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archerBow);
                     Map.getTroopMap()[x][y].add(archerBow);
                 case "Slingers":
                     ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    slingers.Slingers(x,y);
+                    slingers.Slingers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slingers);
                     Map.getTroopMap()[x][y].add(slingers);
                 case "HorseArchers":
                     ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    horseArcher.HorseArchers(x,y);
+                    horseArcher.HorseArchers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(horseArcher);
                     Map.getTroopMap()[x][y].add(horseArcher);
                 case "FireThrowers":
                     ArchersAndThrowers fireThrower = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    fireThrower.FireThrowers(x,y);
+                    fireThrower.FireThrowers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(fireThrower);
                     Map.getTroopMap()[x][y].add(fireThrower);
                 case "Catapult":
                     ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    catapult.catapult(x,y);
+                    catapult.catapult(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(catapult);
                     Map.getTroopMap()[x][y].add(catapult);
                     Map.getTroopMap()[x][y].add(catapult);
                 case "Trebuchet":
                     ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    trebuchet.trebuchet(x,y);
+                    trebuchet.trebuchet(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(trebuchet);
                     Map.getTroopMap()[x][y].add(trebuchet);
                 case "SiegeTower":
                     ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    siegeTower.siegeTower(x,y);
+                    siegeTower.siegeTower(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(siegeTower);
                     Map.getTroopMap()[x][y].add(siegeTower);
                 case "FireBallista":
                     ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    fireBallista.fireBallista(x,y);
+                    fireBallista.fireBallista(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(fireBallista);
                     Map.getTroopMap()[x][y].add(fireBallista);
                 case "BatteringRam":
                     ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    batteringRam.batteringRam(x,y);
+                    batteringRam.batteringRam(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(batteringRam);
                     Map.getTroopMap()[x][y].add(batteringRam);
                 case "PortableShield":
                     ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    portableShield.portableShield(x,y);
+                    portableShield.portableShield(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(portableShield);
                     Map.getTroopMap()[x][y].add(portableShield);
                 case "SpearMen":
                     Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
-                    spearMen.SpearMen(x,y);
+                    spearMen.SpearMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(spearMen);
                     Map.getTroopMap()[x][y].add(spearMen);
                 case "MaceMen":
                     Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
-                    maceMen.MaceMen(x,y);
+                    maceMen.MaceMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(maceMen);
                     Map.getTroopMap()[x][y].add(maceMen);
                 case "LadderMen":
                     Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
-                    ladderMen.LadderMen(x,y);
+                    ladderMen.LadderMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(ladderMen);
                     Map.getTroopMap()[x][y].add(ladderMen);
                 case "Assassins":
                     Climbers assassin = new Climbers(Manage.getCurrentEmpire());
-                    assassin.Assassins(x,y);
+                    assassin.Assassins(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(assassin);
                     Map.getTroopMap()[x][y].add(assassin);
                 case "Engineer":
                     Engineer engineer = new Engineer(Manage.getCurrentEmpire());
-                    engineer.engineer(x,y);
+                    engineer.engineer(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(engineer);
                     Map.getTroopMap()[x][y].add(engineer);
                 case "BlackMonk":
                     Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
-                    blackMonk.BlackMonk(x,y);
+                    blackMonk.BlackMonk(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(blackMonk);
                     Map.getTroopMap()[x][y].add(blackMonk);
                 case "Knight":
                     Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
-                    knight.Knight(x,y);
+                    knight.Knight(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(knight);
                     Map.getTroopMap()[x][y].add(knight);
                 case "Swordsmen":
                     Soldiers swordMen = new Soldiers(Manage.getCurrentEmpire());
-                    swordMen.Swordsmen(x,y);
+                    swordMen.Swordsmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(swordMen);
                     Map.getTroopMap()[x][y].add(swordMen);
                 case "PikeMen":
                     Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
-                    pikeMen.PikeMen(x,y);
+                    pikeMen.PikeMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(pikeMen);
                     Map.getTroopMap()[x][y].add(pikeMen);
                 case "Slaves":
                     Soldiers slave = new Soldiers(Manage.getCurrentEmpire());
-                    slave.Slaves(x,y);
+                    slave.Slaves(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slave);
                     Map.getTroopMap()[x][y].add(slave);
                 case "ArabianSwordsmen":
                     Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
-                    arabSwordMen.ArabianSwordsmen(x,y);
+                    arabSwordMen.ArabianSwordsmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
                     Map.getTroopMap()[x][y].add(arabSwordMen);
                 case "Tunneler":
                     Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
-                    tunneler.Tunneler(x,y);
+                    tunneler.Tunneler(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(tunneler);
                     Map.getTroopMap()[x][y].add(tunneler);
             }
         }
     }
-    private static boolean checkGroundTypeForUnits(int x , int y){
+    private static boolean checkGroundTypeForUnits(int x, int y) {
         return !Map.getGroundType()[x][y].get(0).getGroundType().equals(GroundType.PLAIN.getGroundType())
                 && !Map.getGroundType()[x][y].get(0).getGroundType().equals(GroundType.STONE.getGroundType())
                 && !Map.getGroundType()[x][y].get(0).getGroundType().equals(ObstacleName.BIG_POND.getObstacleName())
@@ -247,12 +260,13 @@ public class GameController {
                 && !Map.getGroundType()[x][y].get(0).getGroundType().equals(ObstacleName.SEA.getObstacleName());
     }
 
-    private static boolean checkTypeOfUnitWithLocation(int x, int y ,String type){
+    private static boolean checkTypeOfUnitWithLocation(int x, int y, String type) {
         return (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL) && type.equals(Names.TUNNELER.getName())
                 || ((!Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL) && !type.equals(Names.TUNNELER.getName())
                 && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH) && !type.equals(Names.SPEAR_MEN.getName())))
                 || (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH) && !type.equals(Names.SPEAR_MEN.getName())));
     }
+
     private static void findEnemyInRange(Army army, String State) {
         int x = army.xCoordinate - 1;
         int y = army.yCoordinate - 1;
@@ -329,15 +343,17 @@ public class GameController {
             selectedUnit.clear();
         }
     }
-    private static void checkIfTargetIsAlive(Army army){
+
+    private static void checkIfTargetIsAlive(Army army) {
         Empire empire = army.getEnemy().getOwner();
-        for (Army army1 : empire.empireArmy){
-            if (army1.equals(army.getEnemy())){
+        for (Army army1 : empire.empireArmy) {
+            if (army1.equals(army.getEnemy())) {
                 return;
             }
         }
         army.setEnemy(null);
     }
+
     private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army) {
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
@@ -354,6 +370,7 @@ public class GameController {
         }
         return false;
     }
+
     //TODO : Special condition which we call setStateArmy first
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
         if (selectedUnit.size() != 0) {
@@ -458,7 +475,7 @@ public class GameController {
         int xTwo = Integer.parseInt(x2.group("x"));
         int yOne = Integer.parseInt(y1.group("y"));
         int yTwo = Integer.parseInt(y2.group("y"));
-        setCoordinatesForPatrols(xOne,yOne,xTwo,yTwo);
+        setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo);
         String unitMoved = moveUnit(xTwo, yTwo).getMessages();
     }
 
@@ -479,6 +496,7 @@ public class GameController {
             }
         }
     }
+
     public GameMenuMessages killingPitHauntsEnemy(int x, int y) {
         if (Map.getBuildingMap()[x][y].get(0) instanceof KillingPit) {
             for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
@@ -550,7 +568,7 @@ public class GameController {
                 } else System.out.println(unitMoved);
             } else return GameMenuMessages.IMPROPER_UNIT;
         }return GameMenuMessages.IMPROPER_LOCATION;
-    }
+    }*/
 
     public GameMenuMessages defenceByPortableShields(int x, int y) {
         ArchersAndThrowers shield = new ArchersAndThrowers(Manage.getCurrentEmpire());
@@ -560,7 +578,7 @@ public class GameController {
             Map.getTroopMap()[x][y].add(shield);
         }
         return GameMenuMessages.LOCATION_CONTAINS_BUILDING;
-    }*/
+    }
 
     //TODO: STILL HAVE BUGS
     public GameMenuMessages damageByBatteringRam(int x, int y, ArchersAndThrowers batteringRam) { //TODO : The given coordinate is for the target
@@ -580,7 +598,7 @@ public class GameController {
     public void setSieges() {
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
-                || army.getNames().equals(Names.FireThrowers)) {
+                    || army.getNames().equals(Names.FireThrowers)) {
                 throwers.add((ArchersAndThrowers) army);
             }
         }
@@ -596,7 +614,7 @@ public class GameController {
 
     public void setRangeLookingForEnemy(ArchersAndThrowers seige) {
         int floorOfX = 0, floorOfY, ceilOfX, ceilOfY;
-        for (int i = 1 ; i <= seige.getAttackRange() ; i++) {
+        for (int i = 1; i <= seige.getAttackRange(); i++) {
             floorOfX = seige.getCurrentX() - i;
             floorOfY = seige.getCurrentY() - i;
             ceilOfX = seige.getCurrentX() + i;
@@ -607,7 +625,7 @@ public class GameController {
             if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize - 1;
             if (LookForEnemyInRangeForBuilding(floorOfX, floorOfY, ceilOfX, ceilOfY, seige)) return;
         }
-        for (int i = 1 ; i <= seige.getAttackRange() ; i++) {
+        for (int i = 1; i <= seige.getAttackRange(); i++) {
             floorOfX = seige.getCurrentX() - i;
             floorOfY = seige.getCurrentY() - i;
             ceilOfX = seige.getCurrentX() + i;
@@ -832,9 +850,9 @@ public class GameController {
         makeSiegesWorkAutomatically();
         //TODO : NEXT TURN
     }
-    public static void removeEmpireFromGame(Empire empire){
-        for(int i = 0 ; i < empire.empireArmy.size() ; i++)
-        {
+
+    public static void removeEmpireFromGame(Empire empire) {
+        for (int i = 0; i < empire.empireArmy.size(); i++) {
             int x = empire.empireArmy.get(i).xCoordinate;
             int y = empire.empireArmy.get(i).yCoordinate;
             Map.troopMap[x][y].remove(empire.empireArmy.get(i));
