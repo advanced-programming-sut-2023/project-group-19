@@ -52,8 +52,7 @@ public class AttackArmyToArmyController {
         int y = army.yCoordinate ;
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-            int newHitPoint = enemy.hp() - army.getAttackPower() + enemy.getDefencePower();
-            GameController.removeKilledUnitFromEmpireHashmap(enemy.getNames().getName() , enemy.getEmpire());
+            int newHitPoint = enemy.hp() - army.getAttackPower();
             enemy.setHp(newHitPoint);
             return;
         }

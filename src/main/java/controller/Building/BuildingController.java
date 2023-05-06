@@ -1157,6 +1157,8 @@ public class BuildingController {
                 if (Map.getBuildingMap()[x][y].get(0).getOwner().getName().equals(currentEmpire.getName())) {
                     if (currentEmpire.getName().equals(Map.getBuildingMap()[x][y].get(0).getOwner().getName())) {
                         selectedBuilding = Map.getBuildingMap()[x][y].get(0);
+                        SelectedBuildingMenu.buildingXCoordinate = x;
+                        SelectedBuildingMenu.buildingYCoordinate = y;
                         return BuildingMessages.SUCCESSFUL_SELECT;
                     }
                     return BuildingMessages.BUILDING_IS_NOT_FOR_THIS_EMPIRE;

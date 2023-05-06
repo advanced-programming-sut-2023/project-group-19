@@ -14,6 +14,8 @@ import java.util.regex.Matcher;
 
 public class SelectedBuildingMenu {
     public static Building selectedBuilding;
+    public static int buildingXCoordinate;
+    public static int buildingYCoordinate;
     String input;
 
     public void run(Scanner scanner) {
