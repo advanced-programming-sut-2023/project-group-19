@@ -5,8 +5,11 @@ import model.Building.Castle;
 import model.Empire;
 import model.Manage;
 import model.Map;
+import model.User;
 import view.GameMenu;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class NextTurnController {
@@ -23,7 +26,14 @@ public class NextTurnController {
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
                 callEndingTurnFunctions(gameController);
-            } else break;
+            } else {
+                User user = Manage.getAllEmpires().get(0).getUser();
+                int oldScore = user.getHighScore();
+                int newScore = oldScore + 100;
+                user.setHighScore(newScore);
+                Collections.sort(User.users);
+                break;
+            }
         }
     }
 

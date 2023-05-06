@@ -217,8 +217,10 @@ public class AttackArmyToArmyController {
                 if (y2 >= mapSize) y2 = mapSize - 1;
                 for(int len =  x1 ; len <= x2 ; len ++){
                     for(int h = y1 ; h <= y2 ; h ++){
-                        if(!Map.notPassable[len][h]) gameController.moveUnit(len,h);
-                        return true;
+                        if(!Map.notPassable[len][h]) {
+                            gameController.moveUnit(len,h);
+                            return true ;
+                        }
                     }
                 }
             }
