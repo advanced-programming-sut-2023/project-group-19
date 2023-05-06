@@ -109,10 +109,6 @@ public class GameController {
         return GameMenuMessages.IMPROPER_LOCATION;
     }
 
-    private static boolean isSpearMan(String type) {
-        return type.equals(Names.SPEAR_MEN.getName());
-    }
-
     private static void addUnitsToMap(int x, int y, int count, String typeOfUnit) {
         for (int i = 0; i < count; i++) {
             switch (typeOfUnit) {
@@ -501,21 +497,6 @@ public class GameController {
         }
     }
 
-    public GameMenuMessages killingPitHauntsEnemy(int x, int y) {
-        if (Map.getBuildingMap()[x][y].get(0) instanceof KillingPit) {
-            for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
-                int index = findTroopInMap(x, y);
-                if (index != -1) {
-                    Empire empireEnemy = Map.getTroopMap()[x][y].get(index).getOwner();
-                    empireEnemy.empireArmy.remove(Map.getTroopMap()[x][y].get(index));
-                    Map.getTroopMap()[x][y].remove(index);
-                }
-            }
-            return GameMenuMessages.SUCCESS;
-        }
-        return GameMenuMessages.WRONG_COORDINATE_FOR_BUILDING_TYPE;
-    }
-
     public GameMenuMessages PitchDitchHauntsEnemy(int xOfPitch, int yOfPitch) {
         if (!Map.getBuildingMap()[xOfPitch][yOfPitch].isEmpty() &&
                 Map.getBuildingMap()[xOfPitch][yOfPitch].get(0) instanceof PitchDitch) {
@@ -524,8 +505,6 @@ public class GameController {
                 Map.getBuildingMap()[xOfPitch][yOfPitch].clear();
                 Map.getTroopMap()[xOfPitch][yOfPitch].clear();
                 Map.getObstacleMap()[xOfPitch][yOfPitch].clear();
-                //TODO :  Ashes on the ground
-                //TODO : Manghal atish??
             }
             return GameMenuMessages.IMPROPER_UNIT;
         }
@@ -542,7 +521,7 @@ public class GameController {
         return number == selectedUnit.size();
     }
 
-    public GameMenuMessages BoilingPetrol(int xOfOilSmelter, int yOfOilSmelter) {
+    public GameMenuMessages pourOil(int xOfOilSmelter, int yOfOilSmelter) {
         //Todo: the boss of oils-melter is set at the moment it created so no need to check it
         //TODO : IN THE FIGHT ALGORITHM WE SHOULD CALL THESE FUNCTIONS ALL AFTER MOVING
         if (Map.getBuildingMap()[xOfOilSmelter][yOfOilSmelter].get(0) instanceof OilSmelter) {
@@ -565,7 +544,7 @@ public class GameController {
                 for (int j = 0; j < Map.wall[i].length; j++) {
                     if (!Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())
                             && isWall(i, j)) {
-                        if (checkIfWallIsBesideGate(i , j ,xOfGate ,yOfGate)) {
+                        if (checkIfWallIsBesideGate(i, j, xOfGate, yOfGate)) {
                             selectedUnit.clear();
                             Climbers ladderMan = new Climbers(Manage.getCurrentEmpire());
                             selectedUnit.add(ladderMan);
@@ -576,8 +555,8 @@ public class GameController {
                             ladderMan.LadderMen(xOfLadderMan, yOfLadderMan);
                             Map.getTroopMap()[xOfLadderMan][yOfLadderMan].add(ladderMan);
                             Manage.getCurrentEmpire().empireArmy.add(ladderMan);
-                            ((StoneGateWay)Map.getBuildingMap()[xOfGate][yOfGate].get(0)).flagOfEnemy = true;
-                            ((StoneGateWay)Map.getBuildingMap()[xOfGate][yOfGate].get(0)).setGateOpen(true);
+                            ((StoneGateWay) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).flagOfEnemy = true;
+                            ((StoneGateWay) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).setGateOpen(true);
                             return GameMenuMessages.SUCCESS;
                         }
                     }
@@ -901,6 +880,59 @@ public class GameController {
             Map.troopMap[x][y].remove(empire.empireArmy.get(i));
             empire.empireArmy.remove(i);
             i--;
+        }
+    }
+
+    public void removeKilledUnitFromEmpireHashmap(String troopName, Empire empire) {
+        switch (troopName) {
+            case "archer":
+                empire.setEuropeArcherCount(empire.getEuropeArcherCount() - 1);
+            case "spearMan":
+                empire.setSpearManCount(empire.getSpearManCount() - 1);
+            case "maceMan":
+                empire.setMaceManCount(empire.getMaceManCount() - 1);
+            case "crossbowMan":
+                empire.setCrossbowManCount(empire.getCrossbowManCount() - 1);
+            case "pikeMan":
+                empire.setPikeManCount(empire.getPikeManCount() - 1);
+            case "swordMan":
+                empire.setSwordManCount(empire.getSwordManCount() - 1);
+            case "knight":
+                empire.setKnightCount(empire.getKnightCount() - 1);
+            case "blackMonk":
+                empire.setBlackMonkCount(empire.getBlackMonkCount() - 1);
+            case "catapult":
+                empire.setCatapultCount(empire.getCatapultCount() - 1);
+            case "trebuchet":
+                empire.setTrebuchetCount(empire.getTrebuchetCount() - 1);
+            case "siegeTower":
+                empire.setSiegeTowerCount(empire.getSiegeTowerCount() - 1);
+            case "fireBalista":
+                empire.setFireBalistaCount(empire.getFireBalistaCount() - 1);
+            case "batteringRam":
+                empire.setBatteringRamCount(empire.getBatteringRamCount() - 1);
+            case "portableShield":
+                empire.setPortableShieldCount(empire.getPortableShieldCount() - 1);
+            case "arabianBow":
+                empire.setArabianBowCount(empire.getArabianBowCount() - 1);
+            case "slave":
+                empire.setSlaveCount(empire.getSlaveCount() - 1);
+            case "slinger":
+                empire.setSlingerCount(empire.getSlingerCount() - 1);
+            case "assassin":
+                empire.setAssassinCount(empire.getAssassinCount() - 1);
+            case "horseArcher":
+                empire.setHorseArcherCount(empire.getHorseArcherCount() - 1);
+            case "arabianSwordMan":
+                empire.setArabianSwordManCount(empire.getArabianSwordManCount() - 1);
+            case "fireThrower":
+                empire.setFireThrowerCount(empire.getFireThrowerCount() - 1);
+            case "engineer":
+                empire.setEngineerCount(empire.getEngineerCount() - 1);
+            case "ladderMan":
+                empire.setLadderManCount(empire.getLadderManCount() - 1);
+            case "tunneler":
+                empire.setTunnelerCount(empire.getTunnelerCount() - 1);
         }
     }
 }
