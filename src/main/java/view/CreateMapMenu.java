@@ -44,31 +44,36 @@ public class CreateMapMenu {
             }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.DROP_TREE) != null){
                 dropTree(command);
             }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.LOCATE_CASTLE) != null){
-                locateCatle(command);
+                String result = locateCatle(command);
+                if(result.equals("Successfully done!")){
+                    if(checkToGameMenu()) return true ;
+                }
             }
             else System.out.println("invalid command");
         }
 
     }
 
-    private static void locateCatle(String command) {
+    private static String locateCatle(String command) {
         Matcher matcher ;
         matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
         if(matcher == null){
-            System.out.println("fill elements of map correctly!");
-            return;
+            return ("fill elements of map correctly!");
         }
         int x = Integer.parseInt(matcher.group("x"));
-        String type ;
 
         matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
         if(matcher == null){
-            System.out.println("fill elements of map correctly!");
-            return;
+            return ("fill elements of map correctly!");
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(CreateMapController.locateCatle(x,y));
-
+        return (CreateMapController.locateCatle(x,y));
+    }
+    private static boolean checkToGameMenu(){
+        int numberOfUsers = User.loginUsers.size();
+        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+            return true ;
+        } return false ;
     }
 
     public static void dropTree(String command){
@@ -265,10 +270,5 @@ public class CreateMapMenu {
         String result = ShowMapController.showDetail(x,y);
         System.out.println(result);
     }
-    private void checkToGameMenu(){
-        int numberOfUsers = User.loginUsers.size();
-        if(CreateMapController.numberOfEmpiers == numberOfUsers){
-            //gameMenuController ;
-        }
-    }
+
 }

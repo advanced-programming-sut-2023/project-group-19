@@ -128,7 +128,7 @@ public class CreateMapController {
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
-        if(!Map.getGroundType()[x][y].get(0).equals(GroundType.DEFAULT)) return "The type of buiding must be default";
+        if(!Map.getGroundType()[x][y].get(0).equals(GroundType.DEFAULT)) return "";
         
         Empire empire = new Empire();
         Manage.allEmpires.add(empire);
@@ -137,7 +137,7 @@ public class CreateMapController {
         Building building = new Castle(empire);
         Map.getBuildingMap()[x][y].add(building);
         numberOfEmpiers ++ ;
-        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;
+//        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;
 
         
         return "Successfully done!";
