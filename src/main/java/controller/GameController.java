@@ -370,24 +370,28 @@ public class GameController {
                         List<Integer> pathList = myUnit.myPath;
                         if (pathList != null && pathList.size() != 0) {
                             for (int i = 0; i < pathList.size(); i++) {
-                                myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
-                                myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
-                                Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
-                                if (validSquareBySquareCell(myUnit)) {
-                                    Manage.getCurrentEmpire().empireArmy.remove(myUnit);
-                                    break;
+                                if(myUnit.restOfMoves != 0) {
+                                    // goal in here means next
+                                    myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
+                                    myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
+                                    Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
+                                    if (validSquareBySquareCell(myUnit)) {
+                                        Manage.getCurrentEmpire().empireArmy.remove(myUnit);
+                                        break;
+                                    }
+                                    if (Map.getObstacleMap()[xCoordinate][yCoordinate].get(0).getName().getObstacleName()
+                                            .equals(GroundType.PLAIN.getGroundType())) {
+                                        Manage.getCurrentEmpire().empireArmy.remove(myUnit);
+                                        break;
+                                    }
+                                    //TODO : RemoveTroop function
+                                    myUnit.xCoordinate = myUnit.goalXCoordinate;
+                                    myUnit.yCoordinate = myUnit.goalYCoordinate;
+                                    myUnit.restOfMoves--;
+                                    Map.getTroopMap()[myUnit.xCoordinate][myUnit.yCoordinate].add(myUnit);
+                                    pathList.remove(i);
+                                    i--;
                                 }
-                                if (Map.getObstacleMap()[xCoordinate][yCoordinate].get(0).getName().getObstacleName()
-                                        .equals(GroundType.PLAIN.getGroundType())) {
-                                    Manage.getCurrentEmpire().empireArmy.remove(myUnit);
-                                    break;
-                                }
-                                //TODO : RemoveTroop function
-                                myUnit.xCoordinate = myUnit.goalXCoordinate;
-                                myUnit.yCoordinate = myUnit.goalYCoordinate;
-                                Map.getTroopMap()[myUnit.xCoordinate][myUnit.yCoordinate].add(myUnit);
-                                pathList.remove(i);
-                                i--;
                             }
                             if (pathList.size() <= myUnit.speed()) {
                                 if (myUnit.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
@@ -839,7 +843,7 @@ public class GameController {
         makeSiegesWorkAutomatically();
         //TODO : NEXT TURN
     }
-    public static void removeEmpireFromGame(Empire empire){
+    public static void removeEmpireTroopsFromGame(Empire empire){
         for(int i = 0 ; i < empire.empireArmy.size() ; i++)
         {
             int x = empire.empireArmy.get(i).xCoordinate;

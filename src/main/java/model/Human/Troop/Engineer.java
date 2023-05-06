@@ -92,6 +92,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 5;
+        restOfMoves = 5;
     }
 
     @Override

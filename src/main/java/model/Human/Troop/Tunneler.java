@@ -83,6 +83,7 @@ public class Tunneler extends Army implements HumanConstantFunctions{
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
+        restOfMoves = 7;
     }
 
     @Override

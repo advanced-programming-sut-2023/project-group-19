@@ -114,6 +114,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
+        restOfMoves = 7;
         attackRange = 3;
     }
 
@@ -125,6 +126,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 3;
+        restOfMoves = 3;
         attackRange = 4;
     }
 
@@ -136,6 +138,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
+        restOfMoves = 7;
         attackRange = 8;
     }
 
@@ -147,6 +150,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
+        restOfMoves = 7;
         attackRange = 2;
     }
 
@@ -158,6 +162,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
+        restOfMoves = 9;
         attackRange = 5;
     }
 
@@ -169,6 +174,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
+        restOfMoves = 9;
         attackRange = 4;
     }
 

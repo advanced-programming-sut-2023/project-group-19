@@ -93,8 +93,8 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(castle, currentEmpire)) {
                             buildingCheckout(castle, currentEmpire);
                             Map.AddToBuildingMap(x, y, castle);
-                            Empire.castleXCoordinate = x;
-                            Empire.castleYCCoordinate = y;
+                            currentEmpire.castleXCoordinate = x;
+                            currentEmpire.castleYCCoordinate = y;
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
