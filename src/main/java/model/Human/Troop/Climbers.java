@@ -89,28 +89,36 @@ public class Climbers extends Army implements HumanConstantFunctions{
         return ladderIsOn;
     }
 
-    public void SpearMen() {
+    public void SpearMen(int x , int y) {
+        xCoordinate = x;
+        yCoordinate = y;
         hp = 500;
         maxHp = 500;
         names = Names.SPEAR_MEN;
         speed = 5;
     }
 
-    public void MaceMen() {
+    public void MaceMen(int x , int y) {
+        xCoordinate = x;
+        yCoordinate = y;
         hp = 675;
         maxHp = 675;
         names = Names.MACE_MEN;
         speed = 5;
     }
 
-    public void LadderMen() {
+    public void LadderMen(int x , int y) {
+        xCoordinate = x;
+        yCoordinate = y;
         hp = 500;
         maxHp = 500;
         names = Names.LADDER_MEN;
         speed = 7;
     }
 
-    public void Assassins() {
+    public void Assassins(int x , int y) {
+        xCoordinate = x;
+        yCoordinate = y;
         hp = 800;
         maxHp = 800;
         names = Names.ASSASSINS;
