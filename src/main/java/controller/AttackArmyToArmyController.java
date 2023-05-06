@@ -231,8 +231,6 @@ public class AttackArmyToArmyController {
             }
         }
         return false ;
-
-
     }
 
 
