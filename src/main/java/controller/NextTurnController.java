@@ -48,6 +48,7 @@ public class NextTurnController {
     }
 
     public void callEndingTurnFunctions(GameController gameController) {
+        gameController.cagedWarDogsAttack();
         gameController.fight();
         playerHasLost();
     }

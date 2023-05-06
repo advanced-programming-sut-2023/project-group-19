@@ -573,7 +573,7 @@ public class GameController {
         }
         return GameMenuMessages.SUCCESS;
     }
-    public static void cagedWarDogsAttack(){
+    public void cagedWarDogsAttack(){
         for (int j = 0 ; j < Empire.cagedWarDogsCoordinate.size() ; j++) {
             int x = Empire.cagedWarDogsCoordinate.get(j) / Map.mapSize;
             int y = Empire.cagedWarDogsCoordinate.get(j) / Map.mapSize;
