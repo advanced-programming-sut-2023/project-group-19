@@ -28,7 +28,7 @@ public class Empire {
     private int foodCount;
     private int weaponsCapacity = 50;
     private int weaponsCount;
-    private int resourcesCapacity = 100;
+    private int resourcesCapacity = 150;
     private int resourcesCount;
     private int maxPossiblePopulation;
     private int PeasantCount;
@@ -121,6 +121,25 @@ public class Empire {
     private int foodDiversity;
     private int taxRateNumber;
     private int fearRateNumber;
+    private double fearWorkerImpact = 0;
+    private double fearTroopImpact = 0;
+
+
+    public double getFearWorkerImpact() {
+        return fearWorkerImpact;
+    }
+
+    public void setFearWorkerImpact(double fearWorkerImpact) {
+        this.fearWorkerImpact = fearWorkerImpact;
+    }
+
+    public double getFearTroopImpact() {
+        return fearTroopImpact;
+    }
+
+    public void setFearTroopImpact(double fearTroopImpact) {
+        this.fearTroopImpact = fearTroopImpact;
+    }
 
     public int getOatCount() {
         return stores.get("oat");
@@ -1044,9 +1063,10 @@ public class Empire {
     public ArrayList<String> request = new ArrayList<>();
     public ArrayList<String> donation = new ArrayList<>();
 
-    //TODO : MAKE SURE TO CALL THIS FUNCTION EVERY TIME ITS THE PLAYERS TURN BEFORE ANYTHING
-    // call these functions in the order that has been written in this part
-
+    public void setFearFactor() {
+        fearWorkerImpact = 1 - fearRateNumber * 0.1;
+        fearTroopImpact = 1 + fearRateNumber * 0.1;
+    }
 
     public void findFoodDiversity() {
         int foodDiversity = 0;
@@ -1065,7 +1085,6 @@ public class Empire {
         }
     }
 
-    //TODO : call this function as the last one
     public void givingPeopleFood(Empire empire) {
         double foodPerPearson = 0;
         int foodRate = empire.getFoodRateNumber();
@@ -1171,43 +1190,42 @@ public class Empire {
     }
 
     public void independentProductionBuilding() {
-        if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") <= resourcesCapacity) {
-            stores.replace("iron", stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine"));
+        if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact <= resourcesCapacity) {
+            stores.replace("iron", (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact));
         }
-        if (resourcesCount + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") <= resourcesCapacity) {
-            stores.replace("oil", stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig"));
+        if (resourcesCount + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") * fearWorkerImpact <= resourcesCapacity) {
+            stores.replace("oil", (int) (stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") * fearWorkerImpact));
         }
-        if (resourcesCount + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") <= resourcesCapacity) {
-            stores.replace("stone", stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry"));
+        if (resourcesCount + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") * fearWorkerImpact <= resourcesCapacity) {
+            stores.replace("stone", (int) (stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") * fearWorkerImpact));
         }
-        if (resourcesCount + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") <= resourcesCapacity) {
-            stores.replace("wood", stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter"));
+        if (resourcesCount + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") * fearWorkerImpact <= resourcesCapacity) {
+            stores.replace("wood", (int) (stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") * fearWorkerImpact));
         }
-        if (foodCount + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") <= foodCapacity) {
-            allFood.replace("apple", allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm"));
+        if (foodCount + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") * fearWorkerImpact <= foodCapacity) {
+            allFood.replace("apple", (int) (allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") * fearWorkerImpact));
         }
-        if (resourcesCount + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") <= resourcesCapacity) {
-            stores.replace("oat", stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm"));
+        if (resourcesCount + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") * fearWorkerImpact <= resourcesCapacity) {
+            stores.replace("oat", (int) (stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") * fearWorkerImpact));
         }
-        if (foodCount + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") <= foodCapacity) {
-            allFood.replace("meat", allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost"));
+        if (foodCount + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") * fearWorkerImpact <= foodCapacity) {
+            allFood.replace("meat", (int) (allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") * fearWorkerImpact));
         }
-        if (resourcesCount + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") <= resourcesCapacity) {
-            stores.replace("wheat", stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory"));
+        if (resourcesCount + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") * fearWorkerImpact <= resourcesCapacity) {
+            stores.replace("wheat", (int) (stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") * fearWorkerImpact));
         }
-        if (foodCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") <= foodCapacity) {
-            allFood.replace("cheese", allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
+        if (foodCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact <= foodCapacity) {
+            allFood.replace("cheese", (int) (allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact));
         }
-        if (weaponsCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") <= weaponsCapacity) {
-            allWeaponTools.replace("leatherArmour", allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory"));
+        if (weaponsCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact <= weaponsCapacity) {
+            allWeaponTools.replace("leatherArmour", (int) (allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact));
         }
-        if (weaponsCount + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") <= weaponsCapacity) {
-            allWeaponTools.replace("horse", allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable"));
+        if (weaponsCount + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
+            allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") * fearWorkerImpact));
         }
     }
 
     public void functionBuildings() {
-        FunctionBuildingController.empire = this;
         FunctionBuildingController.transformWheatToFlour();
         FunctionBuildingController.transformFlourToBread();
         FunctionBuildingController.transformOatToBeer();

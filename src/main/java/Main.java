@@ -2,6 +2,7 @@ import controller.JsonController;
 import controller.PathFindingController;
 import model.Building.*;
 import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
@@ -37,16 +38,9 @@ public class Main {
         Empire empire = new Empire();
         empire.setName("arian");
         Map.CreateMap(200);
-        Wall wall = new Wall(empire);
-        wall.bigWall();
-        Map.getBuildingMap()[0][0].add(wall);
-        Tower tower = new Tower(empire);
-        tower.lookoutTower();
-        System.out.println(tower.hp);
-        System.out.println(Map.getBuildingMap()[0][0].get(0).getHp());
-
-
-
-
+        ArchersAndThrowers archer = new ArchersAndThrowers(empire);
+        archer.setAttackPower(5);
+        Map.getTroopMap()[4][5].add(archer);
+        System.out.println(archer.getAttackPower());
     }
 }

@@ -21,6 +21,7 @@ public enum GameMenuMessages {
     ARMY_DEPLOYED("Your army deployed completely!"),
     ARMY_IN_PROCESS_OF_DEPLOYING("Your army will be deployed in forward turns!"),
     CONQUERED_GATE("You conquered the gate of enemy my lord!"),
+    NOT_ENOUGH_UNITS_AVAILABLE("There's something wrong with the type of unit or the number of it available in empire!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
     SUCCESS("The order is successfully done!"),

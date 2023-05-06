@@ -14,7 +14,7 @@ public class Map {
 
     public static ArrayList<Obstacle>[][] obstacleMap;
 
-    public static ArrayList<GroundType>[][] groundType ;
+    public static ArrayList<GroundType>[][] groundType;
     public static boolean[][] notPassable; // for troop
     public static boolean[][] notBuildable; // for building
     public static boolean[][] wallPassable; // for special soldiers
@@ -24,7 +24,7 @@ public class Map {
         return buildingMap;
     }
 
-    public static void AddToBuildingMap(int x , int y , Building newBuilding) {
+    public static void AddToBuildingMap(int x, int y, Building newBuilding) {
         buildingMap[x][y].add(newBuilding);
     }
 
@@ -36,29 +36,34 @@ public class Map {
         return troopMap;
     }
 
-    public static void CreateMap(int size){
-        buildingMap=new ArrayList[size][size];
-        for(int i = 0 ; i < size ; i++){
-            for(int j = 0 ; j < size ; j++){
+    public static void CreateMap(int size) {
+        buildingMap = new ArrayList[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 buildingMap[i][j] = new ArrayList<>();
             }
         }
-        troopMap=new ArrayList[size][size];
-        for(int i = 0 ; i < size ; i++){
-            for(int j = 0 ; j < size ; j++){
+        troopMap = new ArrayList[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 troopMap[i][j] = new ArrayList<>();
             }
         }
-        obstacleMap=new ArrayList[size][size];
-        for(int i = 0 ; i < size ; i++){
-            for(int j = 0 ; j < size ; j++){
+        obstacleMap = new ArrayList[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 obstacleMap[i][j] = new ArrayList<>();
             }
         }
-        groundType=new ArrayList[size][size];
-        for(int i = 0 ; i < size ; i++){
-            for(int j = 0 ; j < size ; j++){
+        groundType = new ArrayList[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 groundType[i][j] = new ArrayList<>();
+            }
+        }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                groundType[i][j].add(GroundType.DEFAULT);
             }
         }
         notPassable = new boolean[size][size];
@@ -69,6 +74,6 @@ public class Map {
     }
 
     public static ArrayList<GroundType>[][] getGroundType() {
-        return groundType ;
+        return groundType;
     }
 }

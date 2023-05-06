@@ -35,7 +35,7 @@ public class ShopController {
             }
         }
     }
-
+    //TODO : Item amount would be a scale
     public ShopMenuMessages buyItem(Matcher itemName , Matcher itemAmount , Scanner scanner){
         String nameOfGood = itemName.group("itemName");
         Map.Entry<String , Integer> chosenGood = findGoodToBuy(nameOfGood);

@@ -1,20 +1,22 @@
 package controller.Building;
 
 import model.Empire;
+import model.Manage;
 
 import javax.swing.plaf.PanelUI;
 import java.security.PublicKey;
 
 public class FunctionBuildingController {
-    public static Empire empire;
-
+    public static Empire empire = Manage.getCurrentEmpire();
+    public static double fearWorkerImpact = empire.getFearWorkerImpact();
     public static void transformWheatToFlour() {
+
         int empiresWheatCount = empire.getWheatCount();
         int millRate = empire.getMillRate();
         int millCount = empire.getMillCount();
-        if (millRate * millCount <= empiresWheatCount) {
-            empire.setWheatCount(empiresWheatCount - millRate * millCount);
-            empire.setFlour(empire.getFlour() + millRate * millCount);
+        if (millRate * millCount * fearWorkerImpact <= empiresWheatCount) {
+            empire.setWheatCount((int) (empiresWheatCount - millRate * millCount * fearWorkerImpact));
+            empire.setFlour((int) (empire.getFlour() + millRate * millCount * fearWorkerImpact));
         } else {
             empire.setWheatCount(0);
             empire.setFlour(empire.getFlour() + empiresWheatCount);
@@ -25,10 +27,10 @@ public class FunctionBuildingController {
         int empiresFlourCount = empire.getFlour();
         int backerRate = empire.getBakeryRate();
         int backerCount = empire.getBakeryCount();
-        if (empire.getFoodCount() + backerRate * backerCount <= empire.getFoodCapacity()) {
-            if (backerRate * backerCount <= empiresFlourCount) {
-                empire.setFlour(empiresFlourCount - backerRate * backerCount);
-                empire.setBread(empire.getBread() + backerRate * backerCount);
+        if (empire.getFoodCount() + backerRate * backerCount * fearWorkerImpact <= empire.getFoodCapacity()) {
+            if (backerRate * backerCount * fearWorkerImpact <= empiresFlourCount) {
+                empire.setFlour((int) (empiresFlourCount - backerRate * backerCount * fearWorkerImpact));
+                empire.setBread((int) (empire.getBread() + backerRate * backerCount * fearWorkerImpact));
             } else {
                 empire.setFlour(0);
                 empire.setBread(empire.getBread() + empiresFlourCount);
@@ -40,10 +42,10 @@ public class FunctionBuildingController {
         int empiresBeerCount = empire.getBeer();
         int innRate = empire.getInnRate();
         int innCount = empire.getInnCount();
-        if (empire.getFoodCount() + innRate * innCount <= empire.getFoodCapacity()) {
-            if (innRate * innCount <= empiresBeerCount) {
-                empire.setBeer(empiresBeerCount - innRate * innCount);
-                empire.setPopularity(empire.getPopularity() + innCount);
+        if (empire.getFoodCount() + innRate * innCount * fearWorkerImpact <= empire.getFoodCapacity()) {
+            if (innRate * innCount * fearWorkerImpact <= empiresBeerCount) {
+                empire.setBeer((int) (empiresBeerCount - innRate * innCount * fearWorkerImpact));
+                empire.setPopularity((int) (empire.getPopularity() + innCount * fearWorkerImpact));
             } else {
                 empire.setBeer(0);
                 empire.setPopularity(empire.getPopularity() + empiresBeerCount / innRate);
@@ -55,9 +57,9 @@ public class FunctionBuildingController {
         int empiresOatCount = empire.getOatCount();
         int beerFactoryRate = empire.getBeerFactoryRate();
         int beerFactoryCount = empire.getBeerFactoryCount();
-        if (beerFactoryRate * beerFactoryCount <= empiresOatCount) {
-            empire.setOatCount(empiresOatCount - beerFactoryRate * beerFactoryCount);
-            empire.setBeer(empire.getBeer() + beerFactoryRate * beerFactoryCount);
+        if (beerFactoryRate * beerFactoryCount * fearWorkerImpact <= empiresOatCount) {
+            empire.setOatCount((int) (empiresOatCount - beerFactoryRate * beerFactoryCount * fearWorkerImpact));
+            empire.setBeer((int) (empire.getBeer() + beerFactoryRate * beerFactoryCount * fearWorkerImpact));
         } else {
             empire.setOatCount(0);
             empire.setBeer(empire.getBeer() + empiresOatCount);
@@ -68,10 +70,10 @@ public class FunctionBuildingController {
         int empiresIronCount = empire.getIronCount();
         int armourerBuildingRate = empire.getArmourerBuildingRate();
         int armourerBuildingCount = empire.getArmourerBuildingCount();
-        if (empire.getWeaponsCount() + armourerBuildingRate * armourerBuildingCount <= empire.getWeaponsCapacity()) {
-            if (armourerBuildingRate * armourerBuildingCount <= empiresIronCount) {
-                empire.setIronCount(empiresIronCount - armourerBuildingRate * armourerBuildingCount);
-                empire.setMetalArmourCount(empire.getMetalArmourCount() + armourerBuildingRate * armourerBuildingCount);
+        if (empire.getWeaponsCount() + armourerBuildingRate * armourerBuildingCount * fearWorkerImpact <= empire.getWeaponsCapacity()) {
+            if (armourerBuildingRate * armourerBuildingCount * fearWorkerImpact <= empiresIronCount) {
+                empire.setIronCount((int) (empiresIronCount - armourerBuildingRate * armourerBuildingCount * fearWorkerImpact));
+                empire.setMetalArmourCount((int) (empire.getMetalArmourCount() + armourerBuildingRate * armourerBuildingCount * fearWorkerImpact));
             } else {
                 empire.setIronCount(0);
                 empire.setMetalArmourCount(empire.getMetalArmourCount() + empiresIronCount);
@@ -83,10 +85,10 @@ public class FunctionBuildingController {
         int empiresWoodCount = empire.getWoodCount();
         int fletcherBuildingRate = empire.getFletcherBuildingRate();
         int fletcherBuildingCount = empire.getFletcherBuildingCount();
-        if (empire.getWeaponsCount() + fletcherBuildingRate * fletcherBuildingCount <= empire.getWeaponsCapacity()) {
-            if (fletcherBuildingRate * fletcherBuildingCount <= empiresWoodCount) {
-                empire.setWoodCount(empiresWoodCount - fletcherBuildingRate * fletcherBuildingCount);
-                empire.setBowCount(empire.getBowCount() + fletcherBuildingRate * fletcherBuildingCount);
+        if (empire.getWeaponsCount() + fletcherBuildingRate * fletcherBuildingCount * fearWorkerImpact <= empire.getWeaponsCapacity()) {
+            if (fletcherBuildingRate * fletcherBuildingCount * fearWorkerImpact <= empiresWoodCount) {
+                empire.setWoodCount((int) (empiresWoodCount - fletcherBuildingRate * fletcherBuildingCount * fearWorkerImpact));
+                empire.setBowCount((int) (empire.getBowCount() + fletcherBuildingRate * fletcherBuildingCount * fearWorkerImpact));
             } else {
                 empire.setWoodCount(0);
                 empire.setBowCount(empire.getBowCount() + empiresWoodCount);
@@ -98,11 +100,11 @@ public class FunctionBuildingController {
         int empiresIronCount = empire.getIronCount();
         int blacksmithBuildingRate = empire.getBlacksmithBuildingRate();
         int blacksmithBuildingCount = empire.getBlacksmithBuildingCount();
-        if (empire.getWeaponsCount() + 2 * blacksmithBuildingRate * blacksmithBuildingCount <= empire.getWeaponsCapacity()) {
-            if (blacksmithBuildingRate * blacksmithBuildingCount * 2 <= empiresIronCount) {
-                empire.setIronCount(empire.getIronCount() - 2 * blacksmithBuildingRate * blacksmithBuildingCount);
-                empire.setSwordCount(empire.getSwordCount() + blacksmithBuildingRate * blacksmithBuildingCount);
-                empire.setMaceCount(empire.getMaceCount() + blacksmithBuildingRate * blacksmithBuildingCount);
+        if (empire.getWeaponsCount() + 2 * blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact <= empire.getWeaponsCapacity()) {
+            if (blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact * 2  <= empiresIronCount) {
+                empire.setIronCount((int) (empire.getIronCount() - 2 * blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact));
+                empire.setSwordCount((int) (empire.getSwordCount() + blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact));
+                empire.setMaceCount((int) (empire.getMaceCount() + blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact));
             } else {
                 empire.setIronCount(0);
                 empire.setSwordCount(empire.getSwordCount() + empiresIronCount / 2);
@@ -125,11 +127,11 @@ public class FunctionBuildingController {
         int empiresWoodCount = empire.getWoodCount();
         int poleTurnerBuildingRate = empire.getPoleTurnerBuildingRate();
         int poleTurnerBuildingCount = empire.getPoleTurnerBuildingCount();
-        if (empire.getWeaponsCount() + 2 * poleTurnerBuildingRate * poleTurnerBuildingCount <= empire.getWeaponsCapacity()) {
-            if (poleTurnerBuildingRate * poleTurnerBuildingCount * 2 <= empiresWoodCount) {
-                empire.setWoodCount(empire.getWoodCount() - 2 * poleTurnerBuildingRate * poleTurnerBuildingCount);
-                empire.setSpearCount(empire.getSpearCount() + poleTurnerBuildingRate * poleTurnerBuildingCount);
-                empire.setPeakCount(empire.getPeakCount() + poleTurnerBuildingRate * poleTurnerBuildingCount);
+        if (empire.getWeaponsCount() + 2 * poleTurnerBuildingRate * poleTurnerBuildingCount * fearWorkerImpact <= empire.getWeaponsCapacity()) {
+            if (poleTurnerBuildingRate * poleTurnerBuildingCount * fearWorkerImpact * 2 <= empiresWoodCount) {
+                empire.setWoodCount((int) (empire.getWoodCount() - 2 * poleTurnerBuildingRate * poleTurnerBuildingCount * fearWorkerImpact));
+                empire.setSpearCount((int) (empire.getSpearCount() + poleTurnerBuildingRate * poleTurnerBuildingCount * fearWorkerImpact));
+                empire.setPeakCount((int) (empire.getPeakCount() + poleTurnerBuildingRate * poleTurnerBuildingCount * fearWorkerImpact));
             } else {
                 empire.setWoodCount(0);
                 empire.setSpearCount(empire.getSpearCount() + empiresWoodCount / 2);
