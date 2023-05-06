@@ -138,6 +138,7 @@ public class AttackArmyToArmyController {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
                     enemy.setHp(newHitPoint);
+                    enemy.setArcherAttacker((ArchersAndThrowers)army);
                     return true;
                 }
             }
@@ -161,4 +162,18 @@ public class AttackArmyToArmyController {
         }
         return false;
     }
+
+    public static void setFightMode(){
+        Empire empire = Manage.getCurrentEmpire();
+        for(Army army : empire.empireArmy){
+            if(!army.isIntFight()) continue;
+            setFightModeIntoArmy(army);
+        }
+    }
+    private static void setFightModeIntoArmy(Army army){
+
+    }
+
+
+
 }

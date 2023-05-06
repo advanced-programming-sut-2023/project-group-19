@@ -48,6 +48,7 @@ public class NextTurnController {
     }
 
     public void callEndingTurnFunctions(GameController gameController) {
+        gameController.setStateArmy();
         gameController.fight();
         playerHasLost();
     }
@@ -73,6 +74,4 @@ public class NextTurnController {
             }
         }
     }
-
-
 }
