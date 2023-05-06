@@ -13,7 +13,7 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
 
     public boolean flagOfEnemy;
     private int capacity;
-    private static Names direction;
+    private Names direction;
     private boolean isGateOpen;
     private boolean isGateConquered;
 
@@ -25,12 +25,12 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.capacity = capacity;
     }
 
-    public static Names getDirection() {
+    public Names getDirection() {
         return direction;
     }
 
-    public static void setDirection(Names direction) {
-        StoneGateWay.direction = direction;
+    public void setDirection(Names direction) {
+        this.direction = direction;
     }
 
     public void setGateOpen(boolean gateOpen) {
