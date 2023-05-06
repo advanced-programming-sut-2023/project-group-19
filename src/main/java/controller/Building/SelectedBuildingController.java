@@ -120,7 +120,10 @@ public class SelectedBuildingController {
         int requiredSpear = allWeaponTools.get("spear") * troopCount;
         int requiredPeak = allWeaponTools.get("peak") * troopCount;
         int requiredHorse = allWeaponTools.get("horse") * troopCount;
-        if (!(requiredLeatherArmour < empire.getLeatherArmourCount() && requiredMetalArmour < empire.getMetalArmourCount() && requiredBow < empire.getBowCount() && requiredSword < empire.getSwordCount() && requiredMace < empire.getMaceCount() && requiredSpear < empire.getSpearCount() && requiredPeak < empire.getPeakCount() && requiredHorse < empire.getHorseCount())) {
+        if (!(requiredLeatherArmour < empire.getLeatherArmourCount() && requiredMetalArmour < empire.getMetalArmourCount()
+                && requiredBow < empire.getBowCount() && requiredSword < empire.getSwordCount() &&
+                requiredMace < empire.getMaceCount() && requiredSpear < empire.getSpearCount() &&
+                requiredPeak < empire.getPeakCount() && requiredHorse < empire.getHorseCount())) {
             return SelectedBuildingMessages.NOT_ENOUGH_RESOURCES;
         }
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
@@ -215,8 +218,9 @@ public class SelectedBuildingController {
                 } else {
                     return empireHasEnoughRecoursesToBuyTroopFromBarracks(empire, listOfTroopsBuyPrice, allWeaponTools, troopName, count);
                 }
+            default:
+                return null;
         }
-        return null;
 
     }
 
@@ -344,8 +348,10 @@ public class SelectedBuildingController {
                 } else {
                     return enoughResourcesToBuyFromMercenary(empire, listOfTroopsBuyPrice.get("fireThrower"), troopName, count);
                 }
+            default:
+                return null;
         }
-        return null;
+
     }
 
     public SelectedBuildingMessages enoughResourcesToBuyFromEngineerGuild(Empire empire, int troopPrice, String troopName, int troopCount) {
@@ -363,20 +369,17 @@ public class SelectedBuildingController {
         switch (troopName) {
             case "engineer":
                 empire.setEngineerCount(empire.getEngineerCount() + troopCount);
-                empire.setEngineerCount(empire.getEngineerCount() + troopCount);
             case "ladderMan":
                 for (int i = 0; i < troopCount; i++) {
                     Climbers ladderMan = new Climbers(empire);
                     empire.empireArmy.add(ladderMan);
                 }
                 empire.setLadderManCount(empire.getLadderManCount() + troopCount);
-                empire.setLadderManCount(empire.getLadderManCount() + troopCount);
             case "tunneler":
                 for (int i = 0; i < troopCount; i++) {
                     Tunneler tunneler = new Tunneler(empire);
                     empire.empireArmy.add(tunneler);
                 }
-                empire.setTunnelerCount(empire.getTunnelerCount() + troopCount);
                 empire.setTunnelerCount(empire.getTunnelerCount() + troopCount);
         }
     }
@@ -413,8 +416,10 @@ public class SelectedBuildingController {
                 } else {
                     return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count));
                 }
+            default:
+                return null;
         }
-        return null;
+
     }
 
     public void shop() {
@@ -534,8 +539,10 @@ public class SelectedBuildingController {
                 } else {
                     return (enoughResourcesToBuyFromSiegeTent(empire, siegeTentTroopsPrice.get("portableShield"), count / 3));
                 }
+            default:
+                return null;
         }
-        return null;
+
     }
 
     public SelectedBuildingMessages enoughResourcesToBuyFromChurch(Empire empire, int troopPrice, int troopCount) {
@@ -554,6 +561,7 @@ public class SelectedBuildingController {
         empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
         for (int i = 0; i < troopCount; i++) {
             Soldiers BlackMonk = new Soldiers(empire);
+            empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
             empire.empireArmy.add(BlackMonk);
         }
     }
@@ -561,10 +569,8 @@ public class SelectedBuildingController {
     public SelectedBuildingMessages church(Matcher matcherCount) {
         int count = Integer.parseInt(matcherCount.group("count"));
         HashMap<String, Integer> churchTroopsPrice = new HashMap<>();
-
         {
             churchTroopsPrice.put("blackMonk", 20);
-
         }
         if (enoughResourcesToBuyFromChurch(empire, churchTroopsPrice.get("blackMonk"), count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
             buyFromChurch(empire, churchTroopsPrice.get("blackMonk"), count);
