@@ -5,6 +5,7 @@ import controller.Building.SelectedBuildingController;
 import model.Building.Building;
 import model.Building.Shop;
 import model.Empire;
+import model.Manage;
 import view.Commands.SelectedBuildingCommands;
 import view.Messages.SelectedBuildingMessages;
 
@@ -12,7 +13,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class SelectedBuildingMenu {
-    public static Empire currentEmpire;
+    public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
     String input;
 

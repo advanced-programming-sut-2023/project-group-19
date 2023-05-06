@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameController;
+import controller.NextTurnController;
 import model.Building.Shop;
 import model.Empire;
 import model.Manage;
@@ -15,7 +16,7 @@ import java.util.regex.Matcher;
 public class GameMenu {
     public static User currentUser;
     public static Empire currentEmpire;
-    public GameController gameController = new GameController();
+    public static GameController gameController ;
 
     public void run(Scanner scanner) {
         Matcher x1;
@@ -131,6 +132,9 @@ public class GameMenu {
                 BuildingMenu buildingMenu = new BuildingMenu();
                 buildingMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.LOGOUT) != null) {
+                Manage.allEmpires.remove(currentEmpire);
+                GameController.removeEmpireFromGame(currentEmpire);
+                NextTurnController.index--;
                 break;
             } else System.out.println(GameMenuMessages.INVALID_COMMAND.getMessages());
         }
