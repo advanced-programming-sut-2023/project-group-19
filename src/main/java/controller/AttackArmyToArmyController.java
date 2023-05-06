@@ -5,13 +5,18 @@ package controller;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
+import model.Human.Troop.Soldiers;
 
+import java.lang.reflect.Array;
+import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.*;
 import model.Building.*;
 
 public class AttackArmyToArmyController {
+    public static double fearTroopImpact = Manage.getCurrentEmpire().getFearTroopImpact();
     private static int mapSize = CreateMapController.getSizeOfMap();
 
     public static void battleWithEnemy() {

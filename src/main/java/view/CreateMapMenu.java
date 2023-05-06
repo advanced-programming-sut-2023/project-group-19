@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import model.User;
 import view.Commands.CreateMapCommands;
 
 import java.util.Scanner;
@@ -8,7 +9,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CreateMapMenu {
-    public static void run(Scanner scanner){
+    public static boolean run(Scanner scanner){
+        int numberOfUsers = User.loginUsers.size();
+        if(numberOfUsers < 2){
+            System.out.println("More user must be added");
+            return false;
+        }
+        if(numberOfUsers > 8){
+            while (numberOfUsers > 8){
+                User.loginUsers.remove(numberOfUsers - 1);
+                numberOfUsers  -- ;
+            }
+        }
+//        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+//            System.out.println("you must have more user to continue!");
+//            return false;
+//        }
         String command ;
         Matcher matcher ;
         while(true){
@@ -27,11 +43,39 @@ public class CreateMapMenu {
                 dropRock(command);
             }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.DROP_TREE) != null){
                 dropTree(command);
+            }else if(CreateMapCommands.getMatcher(command,CreateMapCommands.LOCATE_CASTLE) != null){
+                String result = locateCatle(command);
+                if(result.equals("Successfully done!")){
+                    if(checkToGameMenu()) return true ;
+                }
             }
             else System.out.println("invalid command");
         }
 
     }
+
+    private static String locateCatle(String command) {
+        Matcher matcher ;
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
+        if(matcher == null){
+            return ("fill elements of map correctly!");
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+
+        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_Y);
+        if(matcher == null){
+            return ("fill elements of map correctly!");
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        return (CreateMapController.locateCatle(x,y));
+    }
+    private static boolean checkToGameMenu(){
+        int numberOfUsers = User.loginUsers.size();
+        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+            return true ;
+        } return false ;
+    }
+
     public static void dropTree(String command){
         Matcher matcher ;
         matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.SHOW_X);
@@ -223,6 +267,8 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showDetail(x,y));
+        String result = ShowMapController.showDetail(x,y);
+        System.out.println(result);
     }
+
 }

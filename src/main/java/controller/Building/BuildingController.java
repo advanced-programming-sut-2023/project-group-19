@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 public class BuildingController {
     public static int size;
 
-    public static Empire currentEmpire;
+    public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
 
     public BuildingMessages checkCoordinate(int x, int y) {
@@ -51,11 +51,11 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
-    public boolean canBuildStockpile(int x, int y) {
-        if (Map.buildingMap[x + 1][y].get(0).getName().getName().equals("Stockpile") ||
-                Map.buildingMap[x - 1][y].get(0).getName().getName().equals("Stockpile") ||
-                Map.buildingMap[x][y + 1].get(0).getName().getName().equals("Stockpile") ||
-                Map.buildingMap[x][y - 1].get(0).getName().getName().equals("Stockpile")) {
+    public boolean canBuildStockpile(int x, int y ,  String BuildingName ) {
+        if (Map.buildingMap[x + 1][y].get(0).getName().getName().equals(BuildingName) ||
+                Map.buildingMap[x - 1][y].get(0).getName().getName().equals(BuildingName) ||
+                Map.buildingMap[x][y + 1].get(0).getName().getName().equals(BuildingName) ||
+                Map.buildingMap[x][y - 1].get(0).getName().getName().equals(BuildingName)) {
             return true;
         }
         return false;
@@ -535,7 +535,7 @@ public class BuildingController {
                 if (correctGroundType(x, y, foodStockpile)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(foodStockpile, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(foodStockpile, currentEmpire)) {
-                            if (canBuildStockpile(x, y)) {
+                            if (canBuildStockpile(x, y , "Food Stockpile")) {
                                 buildingCheckout(foodStockpile, currentEmpire);
                                 Map.AddToBuildingMap(x, y, foodStockpile);
                                 currentEmpire.setFoodCapacity(currentEmpire.getFoodCapacity() + foodStockpile.maxFoodCapacity);
@@ -561,7 +561,7 @@ public class BuildingController {
                 if (correctGroundType(x, y, resourcesStockpile)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
-                            if (canBuildStockpile(x, y)) {
+                            if (canBuildStockpile(x, y ,"Resources Stockpile")) {
                                 buildingCheckout(resourcesStockpile, currentEmpire);
                                 Map.AddToBuildingMap(x, y, resourcesStockpile);
                                 currentEmpire.setResourcesCapacity(currentEmpire.getResourcesCapacity() + resourcesStockpile.maxResourcesCapacity);

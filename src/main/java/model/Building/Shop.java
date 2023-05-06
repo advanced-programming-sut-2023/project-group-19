@@ -64,9 +64,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
     }
 
     private int goldCount = this.getOwner().getGoldCount();
-
-    // TODO : fill the capacity part
-    private int capacity;
+    private int capacity = 200;
 
     public Names getNames() {
         return this.name;

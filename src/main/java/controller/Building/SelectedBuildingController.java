@@ -4,6 +4,7 @@ import model.Building.Building;
 import model.Building.DrawBridge;
 import model.Human.Troop.*;
 import model.Empire;
+import model.Manage;
 import model.Map;
 import view.Messages.SelectedBuildingMessages;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class SelectedBuildingController {
-    public static Empire empire;
+    public static Empire empire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
 
     //TODO : add the tunneler troop to one of the buildings

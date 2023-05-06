@@ -13,14 +13,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class SelectedBuildingMenu {
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
     String input;
 
     public void run(Scanner scanner) {
         SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
         SelectedBuildingController.selectedBuilding = selectedBuilding;
-        SelectedBuildingController.empire = currentEmpire;
         String buildingName = selectedBuilding.getNameEnum().getName();
         while (true) {
             input = scanner.nextLine();

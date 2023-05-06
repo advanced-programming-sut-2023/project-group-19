@@ -75,6 +75,7 @@ public class LoginController {
         System.out.println(user.getPassword());
         if(!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD ;
         User.setCurrentUser(user);
+        User.loginUsers.add(user);
         return RegisterMessages.SUCCESS ;
     }
     public static String makeUserNameForUser(String username){

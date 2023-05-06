@@ -1,12 +1,13 @@
 package controller.Building;
 
 import model.Empire;
+import model.Manage;
 
 import javax.swing.plaf.PanelUI;
 import java.security.PublicKey;
 
 public class FunctionBuildingController {
-    public static Empire empire;
+    public static Empire empire = Manage.getCurrentEmpire();
     public static double fearWorkerImpact = empire.getFearWorkerImpact();
     public static void transformWheatToFlour() {
 

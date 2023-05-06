@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface HumanConstantFunctions {
     public int maxHp();
-
     public int hp();
     public int speed();
     public int getCurrentX();

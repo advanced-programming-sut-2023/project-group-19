@@ -26,30 +26,32 @@ public class MainMenu {
                 System.out.println("logged out");
                 return;
             }else if((matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP)) != null){
-                showMap(command,scanner);
+                if(showMap(command,scanner)){
+                    //function to game menu!
+                }
             }
             else System.out.println("Invalid command!");
         }
     }
     public static void logoutUser(){
     }
-    public static void showMap(String command,Scanner scanner) throws IOException, InterruptedException {
+    public static boolean showMap(String command,Scanner scanner) throws IOException, InterruptedException {
         Matcher matcher ;
         matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP_X);
         if(matcher == null){
             System.out.println("fill elements of map correctly!");
-            return;
+            return false;
         }
         int x = Integer.parseInt(matcher.group("x"));
 
         matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP_Y);
         if(matcher == null){
             System.out.println("fill elements of map correctly!");
-            return;
+            return false;
         }
         int y = Integer.parseInt(matcher.group("y"));
         System.out.println(ShowMapController.showMap(x,y,false));
-        CreateMapMenu.run(scanner);
+        return CreateMapMenu.run(scanner);
 
     }
 }
