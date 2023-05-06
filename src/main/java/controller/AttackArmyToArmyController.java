@@ -12,6 +12,7 @@ import model.*;
 import model.Building.*;
 
 public class AttackArmyToArmyController {
+    public static double fearTroopImpact = Manage.getCurrentEmpire().getFearTroopImpact();
     private static int mapSize = CreateMapController.getSizeOfMap();
 
     public static void battleWithEnemy() {
@@ -21,7 +22,6 @@ public class AttackArmyToArmyController {
         findArcher();
         killUnit();
     }
-
     //TODO : jolgeh
     //TODO : sleep in login and register
     private static void killUnit() {
@@ -47,7 +47,7 @@ public class AttackArmyToArmyController {
         int y = army.yCoordinate ;
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-            int newHitPoint = enemy.hp() - army.getAttackPower();
+            int newHitPoint = (int) (enemy.hp() - army.getAttackPower() * fearTroopImpact);
             enemy.setHp(newHitPoint);
             return;
         }
@@ -106,7 +106,7 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (Map.getBuildingMap()[i][j].isEmpty() || Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) continue;
-                int newHp = Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower();
+                int newHp = (int) (Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower() * fearTroopImpact);
                 Map.getBuildingMap()[i][j].get(0).setHp(newHp);
                 return;
             }
@@ -126,7 +126,7 @@ public class AttackArmyToArmyController {
                 if (i == x || j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    int newHitPoint = enemy.hp() - army.getAttackPower();
+                    int newHitPoint = (int) (enemy.hp() - army.getAttackPower() * fearTroopImpact);
                     enemy.setHp(newHitPoint);
                     return true;
                 }
@@ -140,7 +140,7 @@ public class AttackArmyToArmyController {
                 if (i == x || j == y) continue;
                 for (Building building : Map.getBuildingMap()[i][j]) {
                     if (building.getOwner().equals(army.getEmpire()) || building.getHp() <= 0) continue;
-                    int newHitPoint = building.hp() - army.getAttackPower();
+                    int newHitPoint = (int) (building.hp() - army.getAttackPower() * fearTroopImpact);
                     building.setHp(newHitPoint);
                     return true;
                 }
@@ -149,74 +149,3 @@ public class AttackArmyToArmyController {
         return false;
     }
 }
-
-//    public static void createArmy(Empire empire , int number , ArrayList<Army> armies){
-//        for(int i = 0 ; i  < number ; i ++){
-//            Soldiers soldier = new Soldiers(empire);
-//            soldier.ArabianSwordsmen(3,3);
-//            armies.add(soldier);
-//        }
-//    }
-//    public static void gatheringArmiesArrayTakingDamageAndKill(ArrayList<Army> armies){
-//        ArrayList<Empire> empires = getEmpiers(armies);
-//        HashMap<Empire,ArrayList<Army>> divisionArmy = divideSoliders(empires,armies);
-//        ArrayList<ArrayList<Army>> armiesIntoArrayList = convertHashMapIntoArrayList(divisionArmy);
-//        for(int i = 0 ; i < armiesIntoArrayList.size() ; i ++){
-//            for(int j = i + 1 ; j < armiesIntoArrayList.size() ; j ++){
-//                takeDamageToArmies(armiesIntoArrayList.get(i),armiesIntoArrayList.get(j));
-//                takeDamageToArmies(armiesIntoArrayList.get(j),armiesIntoArrayList.get(i));
-//                killUnit(armies);
-//            }
-//        }
-//    }
-//    private static void killUnit(ArrayList<Army> armies){
-////        armies.removeIf(army -> army.getHp() <= 0);
-//        for(Army army : armies){
-//            if(army.getHp() <= 0){
-//                Empire empire = army.getEmpire();
-//                empire.empireArmy.remove(army);
-//                armies.remove(army);
-//            }
-//        }
-//    }
-//    private static void takeDamageToArmies(ArrayList<Army> redTeam , ArrayList<Army> blueTeam){
-//        int i = 0 ;
-//        for(int j = 0 ; j < redTeam.size() ; j ++){
-//            if(blueTeam.get(i).getHp() <= 0 && i != blueTeam.size() - 1) i ++ ;
-//            else if(blueTeam.get(i).getHp() <= 0 && i == blueTeam.size() - 1) break;
-//            int newHitPoint = blueTeam.get(i).getHp() - redTeam.get(j).getAttackPower();
-//            blueTeam.get(i).setHp(newHitPoint);
-//        }
-//    }
-//    private static ArrayList<ArrayList<Army>> convertHashMapIntoArrayList
-//            (HashMap<Empire,ArrayList<Army>> divisionArmy){
-//        /////////  //// /// //
-//        ArrayList<ArrayList<Army>> convertedArrayList = new ArrayList<>();
-//        for(Empire empire : divisionArmy.keySet()){
-//            int i = 0 ;
-//            convertedArrayList.add(new ArrayList<>());
-//            for(Army army : divisionArmy.get(empire)){
-//                convertedArrayList.get(i).add(army);
-//                i ++ ;
-//            }
-//        }
-//        return convertedArrayList ;
-//    }
-//
-//    private static ArrayList<Empire> getEmpiers(ArrayList<Army> armies){
-//        ArrayList<Empire> empires = new ArrayList<>();
-//        for(Army army : (armies)){
-//            if(!empires.contains(army.getEmpire())) empires.add(army.getEmpire());
-//        }
-//        return empires  ;
-//    }
-//    private static HashMap<Empire,ArrayList<Army>>  divideSoliders(ArrayList<Empire> empires,ArrayList<Army> armies){
-//        HashMap<Empire,ArrayList<Army>> divisionArmy = new HashMap<>();
-//        for(Empire empire : empires){
-//            divisionArmy.put(empire,new ArrayList<>());
-//            for(Army army : armies){
-//                if(army.getEmpire().equals(empire)) divisionArmy.get(empire).add(army);
-//            }
-//        }
-//        return divisionArmy ;
-//    }

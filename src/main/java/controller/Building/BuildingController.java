@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 public class BuildingController {
     public static int size;
 
-    public static Empire currentEmpire;
+    public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
 
     public BuildingMessages checkCoordinate(int x, int y) {
@@ -51,11 +51,11 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
-    public boolean canBuildStockpile(int x, int y) {
-        if (Map.buildingMap[x + 1][y].get(0).getName().getName().equals("Stockpile") ||
-                Map.buildingMap[x - 1][y].get(0).getName().getName().equals("Stockpile") ||
-                Map.buildingMap[x][y + 1].get(0).getName().getName().equals("Stockpile") ||
-                Map.buildingMap[x][y - 1].get(0).getName().getName().equals("Stockpile")) {
+    public boolean canBuildStockpile(int x, int y ,  String BuildingName ) {
+        if (Map.buildingMap[x + 1][y].get(0).getName().getName().equals(BuildingName) ||
+                Map.buildingMap[x - 1][y].get(0).getName().getName().equals(BuildingName) ||
+                Map.buildingMap[x][y + 1].get(0).getName().getName().equals(BuildingName) ||
+                Map.buildingMap[x][y - 1].get(0).getName().getName().equals(BuildingName)) {
             return true;
         }
         return false;
@@ -463,27 +463,6 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Market":
-                Market market = new Market(currentEmpire);
-                market.market();
-                if (correctGroundType(x, y, market)) {
-                    if (empireHasEnoughResourcesToBuildTheBuilding(market, currentEmpire)) {
-                        if (empireHasEnoughWorkersToBuildTheBuilding(market, currentEmpire)) {
-                            buildingCheckout(market, currentEmpire);
-                            Map.AddToBuildingMap(x, y, market);
-                            Map.notBuildable[x][y] = true;
-                            Map.notPassable[x][y] = true;
-                            Map.wallPassable[x][y] = true;
-                            return BuildingMessages.SUCCESS;
-                        } else {
-                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
-                        }
-                    } else {
-                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                    }
-                } else {
-                    return BuildingMessages.IMPROPER_GROUND_TYPE;
-                }
             case "Ox Tether":
                 Industry oxTether = new Industry(currentEmpire);
                 oxTether.oxTether();
@@ -556,7 +535,7 @@ public class BuildingController {
                 if (correctGroundType(x, y, foodStockpile)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(foodStockpile, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(foodStockpile, currentEmpire)) {
-                            if (canBuildStockpile(x, y)) {
+                            if (canBuildStockpile(x, y , "Food Stockpile")) {
                                 buildingCheckout(foodStockpile, currentEmpire);
                                 Map.AddToBuildingMap(x, y, foodStockpile);
                                 currentEmpire.setFoodCapacity(currentEmpire.getFoodCapacity() + foodStockpile.maxFoodCapacity);
@@ -582,7 +561,7 @@ public class BuildingController {
                 if (correctGroundType(x, y, resourcesStockpile)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(resourcesStockpile, currentEmpire)) {
-                            if (canBuildStockpile(x, y)) {
+                            if (canBuildStockpile(x, y ,"Resources Stockpile")) {
                                 buildingCheckout(resourcesStockpile, currentEmpire);
                                 Map.AddToBuildingMap(x, y, resourcesStockpile);
                                 currentEmpire.setResourcesCapacity(currentEmpire.getResourcesCapacity() + resourcesStockpile.maxResourcesCapacity);

@@ -11,7 +11,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class BuildingMenu {
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
     String input;
     BuildingController buildingController = new BuildingController();
 

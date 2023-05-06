@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ShopMenu {
-    public static String currentMenu;
     public static Shop currentShop;
 
     public void run(Scanner scanner , Shop shop){

@@ -1226,7 +1226,6 @@ public class Empire {
     }
 
     public void functionBuildings() {
-        FunctionBuildingController.empire = this;
         FunctionBuildingController.transformWheatToFlour();
         FunctionBuildingController.transformFlourToBread();
         FunctionBuildingController.transformOatToBeer();
