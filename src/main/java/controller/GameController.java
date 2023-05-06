@@ -694,8 +694,10 @@ public class GameController {
                 if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
                 if (!Map.getTroopMap()[i][j].isEmpty()) {
                     for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
-                        if (!Map.getTroopMap()[i][j].get(k).getOwner().equals(Manage.getCurrentEmpire())) {
-                            Map.getTroopMap()[i][j].get(k).setHp(0);
+                        Army army = Map.getTroopMap()[i][j].get(k);
+                        if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
+                            army.setHp(0);
+                            removeKilledUnitFromEmpireHashmap(army.getNames().getName() , army.getEmpire());
                         }
                     }
                     return true;
@@ -887,7 +889,7 @@ public class GameController {
         }
     }
 
-    public void removeKilledUnitFromEmpireHashmap(String troopName, Empire empire) {
+    public static void removeKilledUnitFromEmpireHashmap(String troopName, Empire empire) {
         switch (troopName) {
             case "archer":
                 empire.setEuropeArcherCount(empire.getEuropeArcherCount() - 1);
