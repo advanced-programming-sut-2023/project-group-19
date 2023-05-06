@@ -5,8 +5,12 @@ package controller;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
+import model.Human.Troop.Soldiers;
 
+import java.lang.reflect.Array;
+import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.*;
 import model.Building.*;
@@ -22,6 +26,7 @@ public class AttackArmyToArmyController {
         findArcher();
         killUnit();
     }
+
     //TODO : jolgeh
     //TODO : sleep in login and register
     private static void killUnit() {
@@ -47,7 +52,7 @@ public class AttackArmyToArmyController {
         int y = army.yCoordinate ;
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-            int newHitPoint = (int) (enemy.hp() - army.getAttackPower() * fearTroopImpact);
+            int newHitPoint = enemy.hp() - army.getAttackPower();
             enemy.setHp(newHitPoint);
             return;
         }
@@ -106,7 +111,7 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (Map.getBuildingMap()[i][j].isEmpty() || Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) continue;
-                int newHp = (int) (Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower() * fearTroopImpact);
+                int newHp = Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower();
                 Map.getBuildingMap()[i][j].get(0).setHp(newHp);
                 return;
             }
@@ -126,7 +131,7 @@ public class AttackArmyToArmyController {
                 if (i == x || j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    int newHitPoint = (int) (enemy.hp() - army.getAttackPower() * fearTroopImpact);
+                    int newHitPoint = enemy.hp() - army.getAttackPower();
                     enemy.setHp(newHitPoint);
                     return true;
                 }
@@ -140,7 +145,7 @@ public class AttackArmyToArmyController {
                 if (i == x || j == y) continue;
                 for (Building building : Map.getBuildingMap()[i][j]) {
                     if (building.getOwner().equals(army.getEmpire()) || building.getHp() <= 0) continue;
-                    int newHitPoint = (int) (building.hp() - army.getAttackPower() * fearTroopImpact);
+                    int newHitPoint = building.hp() - army.getAttackPower();
                     building.setHp(newHitPoint);
                     return true;
                 }
