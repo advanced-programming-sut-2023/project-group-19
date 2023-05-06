@@ -33,8 +33,6 @@ public class MainMenu {
             else System.out.println("Invalid command!");
         }
     }
-    public static void logoutUser(){
-    }
     public static boolean showMap(String command,Scanner scanner) throws IOException, InterruptedException {
         Matcher matcher ;
         matcher = MainMenuCommands.getMatcher(command,MainMenuCommands.SHOW_MAP_X);
