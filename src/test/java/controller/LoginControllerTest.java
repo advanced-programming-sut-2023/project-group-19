@@ -17,9 +17,9 @@ import view.Messages.*;
 
 class LoginControllerTest {
     @Test
-    public void checkRegisterError(){
+    public void checkRegisterErrorPassword(){
         RegisterMessages message = LoginController.checkErrorForRegister
-                ("dsfcjd^$%","dsfc","ass",
+                ("ds f cj *","dsfc","ass",
                 "sedcsdc","sdfcd","dsds");
         Assertions.assertEquals(message,RegisterMessages.INCORRECT_FORM_OF_USERNAME);
 
@@ -29,11 +29,16 @@ class LoginControllerTest {
         Assertions.assertEquals(message,RegisterMessages.GET_RANDOM_PASSWORD);
 
         message = LoginController.checkErrorForRegister
-                ("dsfcjd","random",null,
+                ("dsfcjd",null,null,
                         "sedcsdc","sdfcd","dsds");
         Assertions.assertEquals(message,RegisterMessages.EMPTY_FIELD);
 
         message = LoginController.checkErrorForRegister
+                ("dsfcjd","random",null,
+                        "sedcsdc","sdfcd","dsds");
+        Assertions.assertEquals(message,RegisterMessages.GET_RANDOM_PASSWORD);
+
+        message = LoginController.checkErrorForRegister
                 ("dsfcjd","random","df",
                         "sedcsdc","sdfcd","random");
         Assertions.assertEquals(message,RegisterMessages.GET_RANDOM_SLOGANS);
@@ -43,13 +48,72 @@ class LoginControllerTest {
                         "sedcsdc","sdfcd","random");
         Assertions.assertEquals(message,RegisterMessages.GET_RANDOM_SLOGANS);
 
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","GGHG","df",
+                        "sedcsdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE);
 
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","GGHGfgf","df",
+                        "sedcsdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NUMBER);
 
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","GGHGf76gf","df",
+                        "sedcsdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL);
 
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*f","df",
+                        "sedcsdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_LENGTH);
 
-
-
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*fjjjjj","df",
+                        "sedcsdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.NOT_SIMILAR_PASSWORD);
     }
+    @Test
+    public void checkkRegisterEmail(){
+
+        RegisterMessages message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        "sedcsdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        "sedc@sdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        "@sdc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        "s.dc","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        "s.d@c","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+
+
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        "s.d@c.","sdfcd","rvefdv");
+        Assertions.assertEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+
+        message = LoginController.checkErrorForRegister
+                ("dsfcjd","G6*ffff","G6*ffff",
+                        ".@c.kj","sdfcd","rvefdv");
+        Assertions.assertNotEquals(message,RegisterMessages.INVALID_FORM_EMAIL);
+    }
+
+
 
 
 
