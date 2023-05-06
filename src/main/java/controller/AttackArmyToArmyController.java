@@ -113,6 +113,10 @@ public class AttackArmyToArmyController {
                 if (Map.getBuildingMap()[i][j].isEmpty() || Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) continue;
                 int newHp = Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower();
                 Map.getBuildingMap()[i][j].get(0).setHp(newHp);
+                if (Map.getBuildingMap()[i][j].get(0) instanceof Wall){
+                    Map.notPassable[i][j] = false;
+                    Map.wall[i][j] = false;
+                }
                 if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0){
                     Map.getBuildingMap()[i][j].remove(0);
                 }
