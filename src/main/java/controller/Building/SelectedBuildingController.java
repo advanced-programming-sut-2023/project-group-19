@@ -1,5 +1,6 @@
 package controller.Building;
 
+import controller.GameController;
 import model.Building.Building;
 import model.Building.DrawBridge;
 import model.Human.Troop.*;
@@ -29,7 +30,13 @@ public class SelectedBuildingController {
 
     public SelectedBuildingMessages drawBridge(Matcher matcherBridgeCondition) {
         String bridgeCondition = matcherBridgeCondition.group("bridgeCondition");
-        if (bridgeCondition.equals("down")) {
+        if(GameController.enemyInRange(((DrawBridge) selectedBuilding).getX() , ((DrawBridge) selectedBuilding).getY())){
+            int x = ((DrawBridge) selectedBuilding).getX();
+            int y = ((DrawBridge) selectedBuilding).getY();
+            Map.notPassable[x][y] = false;
+            return SelectedBuildingMessages.ENEMY_IN_RANGE;
+        }
+        else if (bridgeCondition.equals("down")) {
             if (((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_OPEN;
             ((DrawBridge) selectedBuilding).setBridgeOpen(true);
             int x = ((DrawBridge) selectedBuilding).getX();

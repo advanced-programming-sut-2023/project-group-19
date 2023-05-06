@@ -770,6 +770,7 @@ public class BuildingController {
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
+                            Empire.pourOilCoordinate.add(x * size + y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
