@@ -34,6 +34,14 @@ public enum GameMenuCommands {
     ENTER_BUILDING_MENU("Enter BuildingMenu"),
     ENTER_EMPIRE_MENU("Enter EmpireMenu"),
     NEXT_TURN("Next Turn"),
+    TURN_PITCH_DITCH_ON("fire shot .+"),
+    CONQUER_GATES("conquer gate .+"),
+    SET_PORTABLE_SHIELD("set portable shield .+"),
+    ATTACK_BY_BATTERING_RAM("battering ram .+"),
+    DIG_DITCH("dig ditch .+"),
+    REMOVE_DITCH("remove ditch .+"),
+    FILL_DITCH("fill ditch .+"),
+    MOVE_BY_SIEGE_TOWER("attack seigeTower .+"),
     LOGOUT("Logout"),
     ;
     String regex;
