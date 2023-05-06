@@ -141,6 +141,8 @@ public class CreateMapController {
         Building building = new Castle(empire);
         Map.getBuildingMap()[x][y].add(building);
         numberOfEmpiers ++ ;
+        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;
+
         
         return "Successfully done!";
     }
