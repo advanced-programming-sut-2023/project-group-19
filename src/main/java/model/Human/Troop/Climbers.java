@@ -98,6 +98,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         speed = 5;
         attackPower = 500;
         defencePower = 200;
+        restOfMoves = 5;
     }
 
     public void MaceMen(int x , int y) {
@@ -109,6 +110,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         speed = 5;
         attackPower = 700;
         defencePower = 250;
+        restOfMoves = 5;
     }
 
     public void LadderMen(int x , int y) {
@@ -120,6 +122,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         speed = 7;
         attackPower = 0;
         defencePower = 20;
+        restOfMoves = 7;
     }
 
     public void Assassins(int x , int y) {
@@ -131,6 +134,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         speed = 5;
         attackPower = 600;
         defencePower = 150;
+        restOfMoves = 5;
     }
 
     @Override

@@ -137,7 +137,7 @@ public class GameMenu {
                 empire.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.LOGOUT) != null) {
                 Manage.allEmpires.remove(currentEmpire);
-                GameController.removeEmpireFromGame(currentEmpire);
+                GameController.removeEmpireTroopsFromGame(currentEmpire);
                 NextTurnController.index--;
                 return;
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.NEXT_TURN) != null) {

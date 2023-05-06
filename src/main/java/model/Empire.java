@@ -10,10 +10,8 @@ import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
-    // TODO : Lord Character
-    // TODO : Castle Building
-    public static int castleXCoordinate;
-    public static int castleYCCoordinate;
+    public int castleXCoordinate;
+    public int castleYCCoordinate;
 
 
     public User getUser() {
@@ -383,8 +381,6 @@ public class Empire {
     public void setDairyFactoryRate(int dairyFactoryRate) {
         productionBuildingRate.replace("dairyFactory", dairyFactoryRate);
     }
-
-    //TODO : take care of this part
     public int getIronMineCount() {
         return productionBuildingCount.get("ironMine");
     }
@@ -911,8 +907,6 @@ public class Empire {
     public HashMap<String, Integer> getSiegeTentTroopsCount() {
         return siegeTentTroopsCount;
     }
-
-    // TODO call createFoodList function before usage
     public HashMap<String, Integer> allFood = new HashMap<>();
 
     {

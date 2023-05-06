@@ -85,6 +85,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         yCoordinate = y;
         attackRange = 3 ;
         speed = 3;
+        restOfMoves = 3;
         attackPower = 500;
         defencePower = 150;
     }
@@ -99,6 +100,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         speed = 9;
         attackPower = 1000;
         defencePower = 450;
+        restOfMoves = 9;
     }
 
     public void Swordsmen(int x , int y) {
@@ -112,6 +114,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         speed = 1;
         attackPower = 800;
         defencePower = 100;
+        restOfMoves = 1;
     }
 
     public void PikeMen(int x , int y) {
@@ -123,6 +126,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         yCoordinate = y;
         attackRange = 3 ;
         speed = 3;
+        restOfMoves = 3;
         attackPower = 600;
         defencePower = 350;
     }
@@ -136,6 +140,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         yCoordinate = y;
         attackRange = 2 ;
         speed = 7;
+        restOfMoves = 7;
         attackPower = 200;
         defencePower = 20;
     }
@@ -148,6 +153,7 @@ public class Soldiers extends Army implements HumanConstantFunctions{
         yCoordinate = y;
         attackRange = 4 ;
         speed = 9;
+        restOfMoves = 9;
         attackPower = 800;
         defencePower = 450;
     }
