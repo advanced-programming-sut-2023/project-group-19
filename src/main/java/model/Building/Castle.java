@@ -5,20 +5,9 @@ import model.GroundType;
 
 import java.util.HashMap;
 
-public class House extends Building implements BuildingConstantFunctions {
-
-    public House(Empire government) {
+public class Castle extends Building implements BuildingConstantFunctions {
+    public Castle(Empire government) {
         super(government);
-    }
-
-    private int capacity;
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public Names getNames() {
@@ -39,13 +28,12 @@ public class House extends Building implements BuildingConstantFunctions {
 
     }
 
-    public void house() {
-        capacity = 8;
-        this.name = Names.HOUSE;
-        this.hp = 400;
-        this.maxHp = 400;
+    public void castle() {
+        this.hp = 3000;
+        this.maxHp = 3000;
+        this.name = Names.CASTLE;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
-        createBuildingCost(6, 0, 0, 0, 0);
+        createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 

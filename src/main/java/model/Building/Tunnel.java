@@ -38,6 +38,11 @@ public class Tunnel extends Building implements BuildingConstantFunctions {
     }
 
     @Override
+    public int height() {
+        return 0;
+    }
+
+    @Override
     public String showBuildingName() {
         return names.getName();
     }

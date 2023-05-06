@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 
 import java.util.HashMap;
 
@@ -13,7 +14,6 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
     public final int maxResourcesCapacity = 100;
     private int currentFoodCapacity;
     private int currentResourcesCapacity;
-    private Names names;
 
     public int getMaxFoodCapacity() {
         return maxFoodCapacity;
@@ -40,39 +40,36 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
     }
 
     public Names getNames() {
-        return names;
+        return this.name;
     }
-
-    //TODO add WORKER
-    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
-        cost.put("wood", wood);
-        cost.put("stone", stone);
-        cost.put("gold", gold);
-        cost.put("iron", iron);
-        cost.put("oil", oil);
+        this.cost.put("wood", wood);
+        this.cost.put("stone", stone);
+        this.cost.put("gold", gold);
+        this.cost.put("iron", iron);
+        this.cost.put("oil", oil);
     }
-
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
-        workersNeeded.put("engineer", engineer);
-        workersNeeded.put("worker", worker);
+        this.workersNeeded.put("engineer", engineer);
+        this.workersNeeded.put("worker", worker);
 
     }
 
     public void resourcesStockpile() {
-        //TODO:INCREASE THE CURRENT CAPACITY EVERY TIME YOU ADD A THING TO STOCKPILE
-        currentResourcesCapacity = 0;
-        names = Names.RESOURCES_STOCKPILE;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.name = Names.RESOURCES_STOCKPILE;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void foodStockpile() {
-        names = Names.FOOD_STOCKPILE;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.name = Names.FOOD_STOCKPILE;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
@@ -80,21 +77,26 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
 
     @Override
     public int maxHp() {
-        return 0;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return names.getName();
+        return this.name.getName();
     }
 }

@@ -1,7 +1,6 @@
 package model;
 
 import controller.Building.FunctionBuildingController;
-import model.Building.Names;
 import model.Human.Troop.Army;
 
 import java.util.ArrayList;
@@ -13,6 +12,9 @@ public class Empire {
     private User user;
     // TODO : Lord Character
     // TODO : Castle Building
+    public static int castleXCoordinate;
+    public static int castleYCCoordinate;
+
 
     public User getUser() {
         return user;

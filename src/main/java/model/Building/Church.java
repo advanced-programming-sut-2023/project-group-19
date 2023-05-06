@@ -1,6 +1,7 @@
 package model.Building;
 
 import model.Empire;
+import model.GroundType;
 import model.Manage;
 
 import java.util.HashMap;
@@ -11,8 +12,6 @@ public class Church extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private int smallChurchPopularity;
-    private int bigChurchPopularity;
     private int popularityIncreaseRate;
 
     public int getPopularityIncreaseRate() {
@@ -23,31 +22,11 @@ public class Church extends Building implements BuildingConstantFunctions {
         this.popularityIncreaseRate = popularityIncreaseRate;
     }
 
-    private Names names;
-
-    public int getSmallChurchPopularity() {
-        return smallChurchPopularity;
-    }
-
-    public void setSmallChurchPopularity(int smallChurchPopularity) {
-        this.smallChurchPopularity = smallChurchPopularity;
-    }
-
-    public int getBigChurchPopularity() {
-        return bigChurchPopularity;
-    }
-
-    public void setBigChurchPopularity(int bigChurchPopularity) {
-        this.bigChurchPopularity = bigChurchPopularity;
-    }
 
     public Names getNames() {
-        return names;
+        return this.name;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
-
-    //TODO call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         cost.put("wood", wood);
         cost.put("stone", stone);
@@ -56,8 +35,6 @@ public class Church extends Building implements BuildingConstantFunctions {
         cost.put("oil", oil);
     }
 
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
-
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
         workersNeeded.put("worker", worker);
@@ -65,16 +42,20 @@ public class Church extends Building implements BuildingConstantFunctions {
     }
 
     public void smallChurch() {
-        //TODO: PRIESTS INSIDE SMALL CHURCH
-        names = Names.SMALL_CHURCH;
+        this.name = Names.SMALL_CHURCH;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         popularityIncreaseRate = 1;
         createBuildingCost(0, 0, 250, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
 
     public void bigChurch() {
-        //TODO: PRODUCING PRIEST & TRAINING THEM
-        names = Names.BIG_CHURCH;
+        this.name = Names.BIG_CHURCH;
+        this.hp = 1000;
+        this.maxHp = 1000;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         popularityIncreaseRate = 2;
         createBuildingCost(0, 0, 1000, 0, 0);
         createBuildingWorkersNeeded(0, 0);
@@ -82,21 +63,26 @@ public class Church extends Building implements BuildingConstantFunctions {
 
     @Override
     public int maxHp() {
-        return 0;
+        return this.maxHp;
     }
 
     @Override
     public int hp() {
-        return 0;
+        return this.hp;
     }
 
     @Override
     public String groundType() {
-        return null;
+        return this.requiredGroundType;
+    }
+
+    @Override
+    public int height() {
+        return this.height;
     }
 
     @Override
     public String showBuildingName() {
-        return names.getName();
+        return this.name.getName();
     }
 }
