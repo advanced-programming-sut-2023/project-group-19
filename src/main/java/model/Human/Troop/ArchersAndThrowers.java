@@ -116,6 +116,9 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         speed = 7;
         restOfMoves = 7;
         attackRange = 3;
+        attackPower = 200;
+        defencePower = 50;
+        restOfMoves = 7;
     }
 
     public void Crossbowmen(int x, int y) {
@@ -128,6 +131,9 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         speed = 3;
         restOfMoves = 3;
         attackRange = 4;
+        attackPower = 200;
+        defencePower = 50;
+        restOfMoves = 3;
     }
 
     public void ArcherBow(int x, int y) {
@@ -140,6 +146,9 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         speed = 7;
         restOfMoves = 7;
         attackRange = 8;
+        attackPower = 600;
+        defencePower = 150;
+        restOfMoves = 7;
     }
 
     public void Slingers(int x, int y) {
@@ -152,6 +161,9 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         speed = 7;
         restOfMoves = 7;
         attackRange = 2;
+        attackPower = 300;
+        defencePower = 50;
+        restOfMoves = 7;
     }
 
     public void HorseArchers(int x, int y) {
@@ -164,6 +176,9 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         speed = 9;
         restOfMoves = 9;
         attackRange = 5;
+        attackPower = 1000;
+        defencePower = 350;
+        restOfMoves = 9;
     }
 
     public void FireThrowers(int x, int y) {
@@ -176,31 +191,53 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         speed = 9;
         restOfMoves = 9;
         attackRange = 4;
+        attackPower = 800;
+        defencePower = 150;
+        restOfMoves = 9;
     }
 
     public void catapult(int x, int y) {
+        hp = 850;
+        maxHp = 850;
         names = Names.CATAPULT;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(2, 0);
+        attackRange = 2;
+        attackPower = 600;
+        defencePower = 150;
+        speed = 3 ;
+        restOfMoves = 3;
     }
 
     public void trebuchet(int x, int y) {
+        hp = 900;
+        maxHp = 900;
         names = Names.TREBUCHET;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(3, 0);
-
+        attackRange = 2;
+        attackPower = 600;
+        defencePower = 150;
+        speed = 3 ;
+        restOfMoves = 3;
     }
 
     public void siegeTower(int x, int y) {
+        hp = 1000;
+        maxHp = 1000;
         names = Names.SIEGE_TOWER;
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
-
+        attackRange = 2;
+        attackPower = 0;
+        defencePower = 200;
+        speed = 3 ;
+        restOfMoves = 3;
     }
 
     public void fireBallista(int x, int y) {
@@ -208,17 +245,23 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         createBuildingCost(0, 0, 150, 0, 0);
-
+        attackRange = 2;
+        attackPower = 800;
+        defencePower = 150;
+        speed = 3 ;
+        restOfMoves = 3;
     }
 
     public void batteringRam(int x, int y) {
-        hp = 600;
-        maxHp = 600;
+        hp = 1200;
+        maxHp = 1200;
         names = Names.BATTERING_RAM;
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
         attackPower = 700;
+        defencePower = 100;
+        restOfMoves = 7;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
     }
@@ -229,6 +272,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         names = Names.PORTABLE_SHIELD;
         xCoordinate = x;
         yCoordinate = y;
+        defencePower = 400;
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
     }

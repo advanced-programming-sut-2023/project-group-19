@@ -9,8 +9,8 @@ public class Peasants extends Human implements HumanConstantFunctions {
     Peasants(Empire government) {
         super(government);
     }
-
-    private int hp = 1;
+    private Names names;
+    private int hp;
     private int maxHp;
     private int speed;
     private int xCoordinate;
@@ -23,6 +23,15 @@ public class Peasants extends Human implements HumanConstantFunctions {
     public int finalXCoordinate;
     public int finalYCoordinate;
     public List<Integer> myPath;
+    public void peasant(int x, int y) {
+        hp = 50;
+        maxHp = 50;
+        names = Names.PEASANT;
+        xCoordinate = x;
+        yCoordinate = y;
+        speed = 1;
+        restOfMoves = 1;
+    }
 
     @Override
     public int getHp() {

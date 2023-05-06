@@ -12,10 +12,11 @@ import view.GameMenu;
 import view.LoginMenu;
 
 import java.io.IOException;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 import static java.lang.Math.floor;
-import static java.lang.Math.signum;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
@@ -31,23 +32,24 @@ public class Main {
 //        GameMenu gameMenu = new GameMenu();
 //        gameMenu.run(scanner);
 
-
-
-
-
         Empire empire = new Empire();
         empire.setName("arian");
         Map.CreateMap(200);
-        Wall wall = new Wall(empire);
-        wall.bigWall();
-        Map.getBuildingMap()[0][0].add(wall);
-        Tower tower = new Tower(empire);
-        tower.lookoutTower();
-        System.out.println(tower.hp);
-        System.out.println(Map.getBuildingMap()[0][0].get(0).getHp());
-
-
-
-
+        ArchersAndThrowers archer = new ArchersAndThrowers(empire);
+        archer.ArcherBow(0,0);
+        ArchersAndThrowers shield = new ArchersAndThrowers(empire);
+        shield.portableShield(3,4);
+        ArchersAndThrowers archer2 = new ArchersAndThrowers(empire);
+        archer2.HorseArchers(2,2);
+        ArchersAndThrowers archer3 = new ArchersAndThrowers(empire);
+        archer3.batteringRam(5,6);
+        ArrayList <ArchersAndThrowers> arrayList = new ArrayList<>();
+        arrayList.add(archer);
+        arrayList.add(archer2);
+        arrayList.add(archer3);
+        arrayList.add(0,shield);
+        for (ArchersAndThrowers i : arrayList) {
+            System.out.println(i.getNames().getName());
+        }
     }
 }
