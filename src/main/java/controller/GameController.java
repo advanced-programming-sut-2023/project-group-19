@@ -861,7 +861,6 @@ public class GameController {
     public void fight() {
         AttackArmyToArmyController.battleWithEnemy();
         makeSiegesWorkAutomatically();
-        //TODO : NEXT TURN
     }
     public static void removeEmpireTroopsFromGame(Empire empire){
         for(int i = 0 ; i < empire.empireArmy.size() ; i++)
