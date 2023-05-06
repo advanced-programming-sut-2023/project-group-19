@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 
 
 public class TradeMenu {
-    public static String currentMenu;
 
     public void run(Scanner scanner){
         String command;

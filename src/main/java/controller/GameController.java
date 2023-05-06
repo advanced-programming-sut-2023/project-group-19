@@ -26,8 +26,7 @@ public class GameController {
     //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
     private static int mapSize = CreateMapController.getSizeOfMap();
-    public static GameController gameController = new GameController();
-
+    public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
     public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
 
@@ -79,11 +78,11 @@ public class GameController {
         }
         return GameMenuMessages.SUCCESS;
     }
-
-    //TODO : run after change turn
-    {
-        gameController.setStateArmy();
-    }
+//
+//    //TODO : run after change turn
+//    {
+//        gameController.setStateArmy();
+//    }
 
     private void setStateArmy() {
         selectedUnit.clear();
@@ -832,5 +831,15 @@ public class GameController {
         AttackArmyToArmyController.battleWithEnemy();
         makeSiegesWorkAutomatically();
         //TODO : NEXT TURN
+    }
+    public static void removeEmpireFromGame(Empire empire){
+        for(int i = 0 ; i < empire.empireArmy.size() ; i++)
+        {
+            int x = empire.empireArmy.get(i).xCoordinate;
+            int y = empire.empireArmy.get(i).yCoordinate;
+            Map.troopMap[x][y].remove(empire.empireArmy.get(i));
+            empire.empireArmy.remove(i);
+            i--;
+        }
     }
 }

@@ -140,8 +140,7 @@ public class PathFindingController {
             g.add(new ArrayList<>());
         }
         constructGraph(g, notPassable);
-        //TODO : optional if you want to include the walls
-//        graphForWalls(g , wall);
+        graphForWalls(g , wall);
         if (!notPassable[goalX][goalY]) {
             int src = startX * size + startY, dst = goalX * size + goalY;
             return findPaths(g, src, dst);

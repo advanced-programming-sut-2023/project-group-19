@@ -67,7 +67,7 @@ public class Manage {
     public static ArrayList<String> getNamesOfAllPossibleBuildings(){
         return getNamesOfAllPossibleBuildings();
     }
-    private void setCurrentEmpire(Empire currentEmpire) {
+    public static void setCurrentEmpire(Empire currentEmpire) {
         Manage.currentEmpire = currentEmpire;
     }
     public static ArrayList<Empire> getAllEmpires() {
