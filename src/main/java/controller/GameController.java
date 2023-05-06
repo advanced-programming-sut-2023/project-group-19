@@ -573,6 +573,29 @@ public class GameController {
         }
         return GameMenuMessages.SUCCESS;
     }
+    public static void cagedWarDogsAttack(){
+        for (int j = 0 ; j < Empire.cagedWarDogsCoordinate.size() ; j++) {
+            int x = Empire.cagedWarDogsCoordinate.get(j) / Map.mapSize;
+            int y = Empire.cagedWarDogsCoordinate.get(j) / Map.mapSize;
+            int floorOfX, floorOfY, ceilOfX, ceilOfY;
+            for (int i = 0 ; i < 3 ; i++){
+                floorOfX = x - i ;
+                floorOfY = y - i ;
+                ceilOfX = x + i ;
+                ceilOfY = y + i ;
+                for (int m = floorOfX ; m <= ceilOfX ; m++){
+                    for (int n = floorOfY ; n <= ceilOfY ; n++){
+                        if (!Map.getTroopMap()[m][n].isEmpty()){
+                            if (killedByDogs(m , n)) {
+                                Map.getBuildingMap()[x][y].clear();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     public void killTroopsOfEnemy(int x , int y , int killCount){
         for (int i = 0 ; i < Map.getTroopMap()[x][y].size() ; i++){
             Army army = Map.getTroopMap()[x][y].get(i);
@@ -583,6 +606,18 @@ public class GameController {
                 killCount--;
             }
         }
+    }
+
+    public static boolean killedByDogs(int x , int y){
+        for (int i = 0 ; i < Map.getTroopMap()[x][y].size() ; i++){
+            if (!Map.getTroopMap()[x][y].get(i).getOwner().equals(Manage.getCurrentEmpire())){
+                Map.getTroopMap()[x][y].remove(Map.getTroopMap()[x][y].get(i));
+                Empire empire = Map.getTroopMap()[x][y].get(i).getEmpire();
+                empire.empireArmy.remove(Map.getTroopMap()[x][y].get(i));
+                return true;
+            }
+        }
+        return false;
     }
     public GameMenuMessages conquerGates(Matcher x1, Matcher y1) {
         int xOfGate = Integer.parseInt(x1.group("x"));
