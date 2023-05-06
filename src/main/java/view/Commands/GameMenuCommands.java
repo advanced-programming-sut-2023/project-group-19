@@ -11,6 +11,7 @@ public enum GameMenuCommands {
     TYPE_OF_UNIT("-s (?<type>standing|defensive|offensive)"),
     SET_UNIT("set\\s+.+"),
     PATROL_UNIT("patrol unit .+"),
+    STOP_PATROL_UNIT("stop patrol .+"),
     COORDINATE_X1("-x1 (?<x>.+)"),
     COORDINATE_Y1("-y1 (?<y>.+)"),
     COORDINATE_X2("-x2 (?<x>.+)"),
