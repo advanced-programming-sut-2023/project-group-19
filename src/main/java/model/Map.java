@@ -15,8 +15,8 @@ public class Map {
     public static ArrayList<Obstacle>[][] obstacleMap;
 
     public static ArrayList<GroundType>[][] groundType;
-    public static boolean[][] notPassable; // for troop
     public static boolean[][] notBuildable; // for building
+    public static boolean[][] notPassable; // for troop
     public static boolean[][] wallPassable; // for special soldiers
     public static boolean[][] wall; // for wall
 

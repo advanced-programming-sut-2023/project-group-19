@@ -133,7 +133,7 @@ public class GameMenu {
                 buildingMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.LOGOUT) != null) {
                 Manage.allEmpires.remove(currentEmpire);
-                GameController.removeEmpireFromGame(currentEmpire);
+                GameController.removeEmpireTroopsFromGame(currentEmpire);
                 NextTurnController.index--;
                 break;
             } else System.out.println(GameMenuMessages.INVALID_COMMAND.getMessages());

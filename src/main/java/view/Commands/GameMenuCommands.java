@@ -32,7 +32,7 @@ public enum GameMenuCommands {
     ENTER_SHOP_MENU("Enter ShopMenu\\s+.+"),
     ENTER_TRADE_MENU("Enter TradeMenu"),
     ENTER_BUILDING_MENU("Enter BuildingMenu"),
-    LOGOUT("Logout"),;
+    LOGOUT("Logout");
     String regex;
     GameMenuCommands(String regex){
         this.regex = regex ;

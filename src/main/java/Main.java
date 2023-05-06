@@ -12,10 +12,10 @@ import view.GameMenu;
 import view.LoginMenu;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
 import static java.lang.Math.floor;
+import static java.lang.Math.signum;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
@@ -38,9 +38,16 @@ public class Main {
         Empire empire = new Empire();
         empire.setName("arian");
         Map.CreateMap(200);
-        ArchersAndThrowers archer = new ArchersAndThrowers(empire);
-        archer.setAttackPower(5);
-        Map.getTroopMap()[4][5].add(archer);
-        System.out.println(archer.getAttackPower());
+        Wall wall = new Wall(empire);
+        wall.bigWall();
+        Map.getBuildingMap()[0][0].add(wall);
+        Tower tower = new Tower(empire);
+        tower.lookoutTower();
+        System.out.println(tower.hp);
+        System.out.println(Map.getBuildingMap()[0][0].get(0).getHp());
+
+
+
+
     }
 }
