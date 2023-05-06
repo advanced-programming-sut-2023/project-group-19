@@ -463,27 +463,6 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Market":
-                Market market = new Market(currentEmpire);
-                market.market();
-                if (correctGroundType(x, y, market)) {
-                    if (empireHasEnoughResourcesToBuildTheBuilding(market, currentEmpire)) {
-                        if (empireHasEnoughWorkersToBuildTheBuilding(market, currentEmpire)) {
-                            buildingCheckout(market, currentEmpire);
-                            Map.AddToBuildingMap(x, y, market);
-                            Map.notBuildable[x][y] = true;
-                            Map.notPassable[x][y] = true;
-                            Map.wallPassable[x][y] = true;
-                            return BuildingMessages.SUCCESS;
-                        } else {
-                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
-                        }
-                    } else {
-                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-                    }
-                } else {
-                    return BuildingMessages.IMPROPER_GROUND_TYPE;
-                }
             case "Ox Tether":
                 Industry oxTether = new Industry(currentEmpire);
                 oxTether.oxTether();
