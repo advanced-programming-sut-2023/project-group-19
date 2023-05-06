@@ -16,8 +16,10 @@ public class AttackArmyToArmyController {
     private static int mapSize = CreateMapController.getSizeOfMap();
 
     public static void battleWithEnemy() {
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            findEnemyToFight(army);
+        for (Empire empire : Manage.allEmpires) {
+            for (Army army : Manage.getCurrentEmpire().empireArmy) {
+                findEnemyToFight(army);
+            }
         }
         findArcher();
         killUnit();
@@ -28,8 +30,8 @@ public class AttackArmyToArmyController {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
                 if (army.getHp() <= 0) {
-                    int x = army.xCoordinate - 1;
-                    int y = army.yCoordinate - 1;
+                    int x = army.xCoordinate ;
+                    int y = army.yCoordinate ;
                     Map.getTroopMap()[x][y].remove(army);
                     empire.empireArmy.remove(army);
                 }
@@ -67,8 +69,8 @@ public class AttackArmyToArmyController {
 
     private static void findEnemyInRange(Army army) {
         determineRange(army);
-        int x = army.xCoordinate - 1;
-        int y = army.yCoordinate - 1;
+        int x = army.xCoordinate ;
+        int y = army.yCoordinate ;
         int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
         for (int i = 1; i <= archerRange; i++) {
             x1 = x - i;
