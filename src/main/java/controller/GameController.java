@@ -257,8 +257,8 @@ public class GameController {
     }
 
     private static void findEnemyInRange(Army army, String State) {
-        int x = army.xCoordinate - 1;
-        int y = army.yCoordinate - 1;
+        int x = army.xCoordinate ;
+        int y = army.yCoordinate ;
         int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
         for (int i = 1; i <= army.getAttackRange(); i++) {
             x1 = x - i;
@@ -297,11 +297,15 @@ public class GameController {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
+                    if(army.getPastXcordinate() == army.getCurrentX() && army.getPastYcordinate() == army.getCurrentY()){
+                        army.hasMovedForDeffensiveState = false ;
+                    }
                     if (!army.getEmpire().equals(enemy.getEmpire())) {
-                        if (army.getPastXcordinate() == x && army.getPastYcordinate() == y) {
+                        if (!army.hasMovedForDeffensiveState) {
                             army.setPastXcordinate(x);
                             army.setPastYcordinate(y);
                             gameController.moveUnit(i, j);
+                            army.hasMovedForDeffensiveState = true ;
                             return true;
                         }
                         if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
@@ -309,7 +313,6 @@ public class GameController {
                             return true;
                         }
                     }
-                    //TODO : fight wall
                 }
             }
         }

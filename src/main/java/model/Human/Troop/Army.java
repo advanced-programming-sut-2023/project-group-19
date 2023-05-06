@@ -14,6 +14,7 @@ public class Army extends Human {
     }
     private Empire empire;
     private Army enemy ;
+    public boolean hasMovedForDeffensiveState = false ;
 
     public Army getEnemy() {
         return enemy;
