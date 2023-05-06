@@ -87,6 +87,7 @@ public class Tunneler extends Army implements HumanConstantFunctions{
         speed = 7;
         attackPower = 300;
         defencePower = 50;
+        restOfMoves = 7;
     }
 
     @Override

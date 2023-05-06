@@ -94,6 +94,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
         speed = 5;
         attackPower = 0;
         defencePower = 30;
+        restOfMoves = 5;
     }
 
     @Override
