@@ -413,16 +413,25 @@ public class GameController {
 
     public void setPathForUnits(int xCoordinate, int yCoordinate) {
         for (Army army : selectedUnit) {
+            if (army.getNames().getName().equals(Names.ASSASSINS.getName())) {
+                PathFindingController.notPassable = Map.wallPassable;
+            }else{
+                PathFindingController.notPassable = Map.notPassable;
+            }
+            PathFindingController.wall = Map.wall;
             PathFindingController.startX = army.getCurrentX() - 1;
             PathFindingController.startY = army.getCurrentY() - 1;
             PathFindingController.goalX = xCoordinate - 1;
             PathFindingController.goalY = yCoordinate - 1;
             army.myPath = PathFindingController.pathFinding();
+
         }
     }
 
     //TODO : Cancel selected unit where is necessary
     public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
+        PathFindingController.notPassable = Map.notPassable;
+        PathFindingController.wall = Map.wall;
         PathFindingController.startX = patrol.getCurrentX() - 1;
         PathFindingController.startY = patrol.getCurrentY() - 1;
         PathFindingController.goalX = xCoordinate - 1;
@@ -561,17 +570,16 @@ public class GameController {
                 } else System.out.println(unitMoved);
             } else return GameMenuMessages.IMPROPER_UNIT;
         }return GameMenuMessages.IMPROPER_LOCATION;
-    }
-
+    }*/
     public GameMenuMessages defenceByPortableShields(int x, int y) {
         ArchersAndThrowers shield = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        if (Map.getBuildingMap()[x][y].isEmpty()) {
+        if (Map.getTroopMap()[x][y].isEmpty()) {
             shield.portableShield(x, y);
             Manage.getCurrentEmpire().empireArmy.add(0, shield);
             Map.getTroopMap()[x][y].add(shield);
         }
         return GameMenuMessages.LOCATION_CONTAINS_BUILDING;
-    }*/
+    }
 
     //TODO: STILL HAVE BUGS
     public GameMenuMessages damageByBatteringRam(int x, int y, ArchersAndThrowers batteringRam) { //TODO : The given coordinate is for the target
@@ -587,14 +595,29 @@ public class GameController {
         }
         return GameMenuMessages.IMPROPER_LOCATION;
     }
-
-    public void setSieges() {
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
-                || army.getNames().equals(Names.FireThrowers)) {
-                throwers.add((ArchersAndThrowers) army);
+    private static void killUnit() {
+        for (Empire empire : Manage.getAllEmpires()) {
+            for (Army army : empire.empireArmy) {
+                if (army.getHp() <= 0) {
+                    int x = army.xCoordinate - 1;
+                    int y = army.yCoordinate - 1;
+                    Map.getTroopMap()[x][y].remove(army);
+                    empire.empireArmy.remove(army);
+                }
             }
         }
+    }
+    public void setSieges() {
+        for (Empire empire : Manage.getAllEmpires()) {
+            for (Army army : empire.empireArmy) {
+                if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
+                        || army.getNames().equals(Names.FireThrowers)) {
+                    throwers.add((ArchersAndThrowers) army);
+                }
+            }
+            makeSiegesWorkAutomatically();
+        }
+        killUnit();
     }
 
     public void makeSiegesWorkAutomatically() {
@@ -841,7 +864,6 @@ public class GameController {
     public void fight() {
         AttackArmyToArmyController.battleWithEnemy();
         makeSiegesWorkAutomatically();
-        //TODO : NEXT TURN
     }
     public static void removeEmpireTroopsFromGame(Empire empire){
         for(int i = 0 ; i < empire.empireArmy.size() ; i++)

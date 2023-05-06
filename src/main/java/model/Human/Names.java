@@ -29,6 +29,7 @@ public enum Names {
     BATTERING_RAM("batteringRam"),
     PORTABLE_SHIELD("portableShield"),
     WORKER("worker"),
+    PEASANT("peasant"),
     VERTICAL("Vertical"),
     HORIZONTAL("Horizontal"),
     STANDING_AMRY("standing"),
