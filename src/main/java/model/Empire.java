@@ -13,6 +13,7 @@ public class Empire {
     public int castleXCoordinate;
     public int castleYCCoordinate;
     public static ArrayList<Integer> pourOilCoordinate;
+    public static ArrayList<Integer> cagedWarDogsCoordinate;
 
 
     public User getUser() {
