@@ -12,6 +12,7 @@ public class Empire {
     private User user;
     public int castleXCoordinate;
     public int castleYCCoordinate;
+    public static ArrayList<Integer> pourOilCoordinate;
 
 
     public User getUser() {
