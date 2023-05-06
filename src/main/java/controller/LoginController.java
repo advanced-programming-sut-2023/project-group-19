@@ -59,10 +59,6 @@ public class LoginController {
         if(answer.equals(confirmAnswer)) return RegisterMessages.IS_OK_ASKS;
         else return RegisterMessages.TRY_ANOTHER_SEC_ASK;
     }
-    public static String checkIfRepetedUserName(String username){
-        if(User.getUserByName(username) != null) username = makeUserNameForUser(username);
-        return username ;
-    }
     public static String isLoggedUser(String username) throws IOException {
         User user ;
         if((user = User.getUserByName(username)) == null ) return "this user is not exist!";

@@ -145,6 +145,56 @@ class LoginControllerTest {
         message = LoginController.checkSecurityAsks(2,"t","t");
         Assertions.assertNotEquals(message,RegisterMessages.TRY_ANOTHER_SEC_ASK);
     }
+    @Test
+    public void checkLoginUnit() throws IOException {
+        LoginController.register("a","a",
+                "a","sedc@s.dc","a", "a","2");
+
+        RegisterMessages message = LoginController.loginUser("c","j");
+        Assertions.assertEquals(message,RegisterMessages.NOT_EXIST_USERNAME);
+
+        message = LoginController.loginUser("a","j");
+        Assertions.assertEquals(message,RegisterMessages.NOT_SIMILAR_PASSWORD);
+
+        message = LoginController.loginUser("a","a");
+        Assertions.assertEquals(message,RegisterMessages.SUCCESS);
+    }
+    @Test
+    public void checkIsLoggedUserUnit() throws IOException {
+        LoginController.register("a","a",
+                "a","sedc@s.dc","a", "a","2");
+
+        String message = LoginController.isLoggedUser("kk");
+        Assertions.assertEquals(message,"this user is not exist!");
+
+        message = LoginController.isLoggedUser("a");
+        Assertions.assertEquals(message,"your username for next login is saved!");
+    }
+
+    @Test
+    public void checkForgetPassword() throws IOException {
+        User user = new User("a","a","a","a","s","a",5);
+
+        RegisterMessages message = LoginController.changePassword(user,"G6*f");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_LENGTH);
+
+        message = LoginController.changePassword(user,"6*f");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE);
+
+        message = LoginController.changePassword(user,"G*f");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NUMBER);
+
+        message = LoginController.changePassword(user,"G6f");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL);
+
+        message = LoginController.changePassword(user,"G6*");
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE);
+
+        message = LoginController.changePassword(user,"G6*yyyy");
+        Assertions.assertEquals(message,RegisterMessages.SUCCESS);
+    }
+
+
 
 
 
