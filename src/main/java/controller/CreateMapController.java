@@ -27,6 +27,8 @@ public class CreateMapController {
                 Map.getTroopMap()[i][j].clear();
                 Map.getObstacleMap()[i][j].clear();
                 Map.getGroundType()[i][j].clear();
+                User.loginUsers.clear();
+                User.loginUsers.add(User.getCurrentUser());
                 mapIsBuilded = false ;
             }
         }

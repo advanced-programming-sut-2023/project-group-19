@@ -194,8 +194,8 @@ public class AttackArmyToArmyController {
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
-        for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
+        for (int i = x1 ; i <= x2; i++) {
+            for (int j = y1 ; j <= y2; j++) {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     gameController.moveUnit(enemy.xCoordinate, enemy.yCoordinate);
@@ -206,11 +206,16 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if(Map.getBuildingMap()[i][j].isEmpty()) continue;
+                Building building = Map.getBuildingMap()[i][j].get(0);
                 int left = 0, right = 0, up = 0, down = 0;
-                x1 = army.getCurrentX() - 1;
-                x2 = army.getCurrentX() + 1;
-                y1 = army.getCurrentY() - 1;
-                y2 = army.getCurrentY() + 1;
+
+                int xBuilding = 0 ;
+                int yBuilding = 0 ;
+
+                x1 = xBuilding-  1;
+                x2 = xBuilding + 1;
+                y1 = yBuilding - 1;
+                y2 = yBuilding + 1;
                 if (x1 <= 0) x1 = 0;
                 if (x2 >= mapSize) x2 = mapSize - 1;
                 if (y1 <= 0) y1 = 0;
