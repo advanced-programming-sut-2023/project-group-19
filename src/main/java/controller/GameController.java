@@ -524,8 +524,66 @@ public class GameController {
         }
         return number == selectedUnit.size();
     }
+    //TODO : Conditions for not getting out of borders
+    public GameMenuMessages pourOil(String direction){
+        int y0fPossibleEnemy;
+        int xOfPossibleEnemy;
+        int killCount = Manage.getCurrentEmpire().getEngineerCount();
+        for (int j = 0 ; j < Empire.pourOilCoordinate.size() ; j++) {
+            int x = Empire.pourOilCoordinate.get(j) / Map.mapSize;
+            int y = Empire.pourOilCoordinate.get(j) % Map.mapSize;
+            if (direction.equals(Names.NORTH.getName())) {
+                for (int i = -1; i <= 1; i++) {
+                    y0fPossibleEnemy = y + i;
+                    if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
+                        if (killCount != 0) {
+                            killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
+                        }
+                    }
+                }
+            } else if (direction.equals(Names.SOUTH.getName())) {
+                for (int i = -1; i <= 1; i++) {
+                    y0fPossibleEnemy = y + i;
+                    if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
+                        if (killCount != 0) {
+                            killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
+                        }
+                    }
+                }
+            } else if (direction.equals(Names.WEST.getName())) {
+                for (int i = -1; i <= 1; i++) {
+                    xOfPossibleEnemy = x + i;
+                    if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
+                        if (killCount != 0) {
+                            killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
+                        }
+                    }
+                }
 
-
+            } else if (direction.equals(Names.EAST.getName())) {
+                for (int i = -1; i <= 1; i++) {
+                    xOfPossibleEnemy = x + i;
+                    if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
+                        if (killCount != 0) {
+                            killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
+                        }
+                    }
+                }
+            }
+        }
+        return GameMenuMessages.SUCCESS;
+    }
+    public void killTroopsOfEnemy(int x , int y , int killCount){
+        for (int i = 0 ; i < Map.getTroopMap()[x][y].size() ; i++){
+            Army army = Map.getTroopMap()[x][y].get(i);
+            if (!army.getOwner().equals(Manage.getCurrentEmpire()) && killCount != 0){
+                Map.getTroopMap()[army.xCoordinate][army.yCoordinate].remove(army);
+                Manage.getEmpireByNickname(army.getOwner().getName()).empireArmy.remove(army);
+                i--;
+                killCount--;
+            }
+        }
+    }
     public GameMenuMessages conquerGates(Matcher x1, Matcher y1) {
         int xOfGate = Integer.parseInt(x1.group("x"));
         int yOfGate = Integer.parseInt(y1.group("y"));
