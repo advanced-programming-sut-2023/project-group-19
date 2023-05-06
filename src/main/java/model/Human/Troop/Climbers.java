@@ -96,6 +96,8 @@ public class Climbers extends Army implements HumanConstantFunctions{
         maxHp = 500;
         names = Names.SPEAR_MEN;
         speed = 5;
+        attackPower = 500;
+        defencePower = 200;
     }
 
     public void MaceMen(int x , int y) {
@@ -105,6 +107,8 @@ public class Climbers extends Army implements HumanConstantFunctions{
         maxHp = 675;
         names = Names.MACE_MEN;
         speed = 5;
+        attackPower = 700;
+        defencePower = 250;
     }
 
     public void LadderMen(int x , int y) {
@@ -114,6 +118,8 @@ public class Climbers extends Army implements HumanConstantFunctions{
         maxHp = 500;
         names = Names.LADDER_MEN;
         speed = 7;
+        attackPower = 0;
+        defencePower = 20;
     }
 
     public void Assassins(int x , int y) {
@@ -123,6 +129,8 @@ public class Climbers extends Army implements HumanConstantFunctions{
         maxHp = 800;
         names = Names.ASSASSINS;
         speed = 5;
+        attackPower = 600;
+        defencePower = 150;
     }
 
     @Override

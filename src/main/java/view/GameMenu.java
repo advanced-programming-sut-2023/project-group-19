@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 public class GameMenu {
     public static User currentUser;
     public static Empire currentEmpire;
-    public static GameController gameController ;
+    public static GameController gameController;
 
     public void run(Scanner scanner) {
         Matcher x1;
@@ -29,6 +29,7 @@ public class GameMenu {
         Matcher equipment;
         Matcher count;
         //TODO : Fix the regex of coordinates
+        //TODO : .find
         GameMenuMessages gameMenuMessages;
         while (true) {
             String command = scanner.nextLine();
@@ -55,7 +56,7 @@ public class GameMenu {
                 y2 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y2);
                 gameMenuMessages = checkFormatOfDoubleCoordinateCommands(x1, y1, x2, y2);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                   gameController.patrolUnit(x1, y1, x2, y2);
+                    gameController.patrolUnit(x1, y1, x2, y2);
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.SET_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
@@ -87,7 +88,7 @@ public class GameMenu {
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    System.out.println(gameController.digTunnel(x1,y1).getMessages());
+                    System.out.println(gameController.digTunnel(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.BUILD_EQUIPMENT) != null) {
                 equipment = GameMenuCommands.getMatcher(command, GameMenuCommands.EQUIPMENT);
@@ -119,11 +120,11 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
-                if (checkFormatOfSingleCoordinateCommands(x1,y1).getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                if (checkFormatOfSingleCoordinateCommands(x1, y1).getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     int x = Integer.parseInt(x1.group("x"));
                     int y = Integer.parseInt(y1.group("y"));
                     ShopMenu shopMenu = new ShopMenu();
-                    shopMenu.run(scanner,(Shop) Map.getBuildingMap()[x][y].get(0));
+                    shopMenu.run(scanner, (Shop) Map.getBuildingMap()[x][y].get(0));
                 }
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
@@ -131,11 +132,16 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_BUILDING_MENU) != null) {
                 BuildingMenu buildingMenu = new BuildingMenu();
                 buildingMenu.run(scanner);
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_EMPIRE_MENU) != null) {
+                EmpireMenu empire = new EmpireMenu();
+                empire.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.LOGOUT) != null) {
                 Manage.allEmpires.remove(currentEmpire);
                 GameController.removeEmpireFromGame(currentEmpire);
                 NextTurnController.index--;
-                break;
+                return;
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.NEXT_TURN) != null) {
+                return;
             } else System.out.println(GameMenuMessages.INVALID_COMMAND.getMessages());
         }
     }

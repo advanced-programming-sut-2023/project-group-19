@@ -29,10 +29,13 @@ public enum GameMenuCommands {
     DROP_BUILDING("dropbuilding .+"),
     DROP_UNIT("dropunit .+"),
     COUNT("-c (?<count>.+)"),
-    ENTER_SHOP_MENU("Enter ShopMenu\\s+.+"),
+    ENTER_SHOP_MENU("Enter ShopMenu"),
     ENTER_TRADE_MENU("Enter TradeMenu"),
     ENTER_BUILDING_MENU("Enter BuildingMenu"),
-    LOGOUT("Logout"),;
+    ENTER_EMPIRE_MENU("Enter EmpireMenu"),
+    NEXT_TURN("Next Turn"),
+    LOGOUT("Logout"),
+    ;
     String regex;
     GameMenuCommands(String regex){
         this.regex = regex ;

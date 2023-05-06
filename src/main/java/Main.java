@@ -12,6 +12,7 @@ import view.GameMenu;
 import view.LoginMenu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -31,16 +32,24 @@ public class Main {
 //        GameMenu gameMenu = new GameMenu();
 //        gameMenu.run(scanner);
 
-
-
-
-
         Empire empire = new Empire();
         empire.setName("arian");
         Map.CreateMap(200);
         ArchersAndThrowers archer = new ArchersAndThrowers(empire);
-        archer.setAttackPower(5);
-        Map.getTroopMap()[4][5].add(archer);
-        System.out.println(archer.getAttackPower());
+        archer.ArcherBow(0,0);
+        ArchersAndThrowers shield = new ArchersAndThrowers(empire);
+        shield.portableShield(3,4);
+        ArchersAndThrowers archer2 = new ArchersAndThrowers(empire);
+        archer2.HorseArchers(2,2);
+        ArchersAndThrowers archer3 = new ArchersAndThrowers(empire);
+        archer3.batteringRam(5,6);
+        ArrayList <ArchersAndThrowers> arrayList = new ArrayList<>();
+        arrayList.add(archer);
+        arrayList.add(archer2);
+        arrayList.add(archer3);
+        arrayList.add(0,shield);
+        for (ArchersAndThrowers i : arrayList) {
+            System.out.println(i.getNames().getName());
+        }
     }
 }

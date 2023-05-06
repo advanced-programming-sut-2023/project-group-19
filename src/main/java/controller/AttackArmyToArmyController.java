@@ -113,6 +113,9 @@ public class AttackArmyToArmyController {
                 if (Map.getBuildingMap()[i][j].isEmpty() || Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) continue;
                 int newHp = Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower();
                 Map.getBuildingMap()[i][j].get(0).setHp(newHp);
+                if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0){
+                    Map.getBuildingMap()[i][j].remove(0);
+                }
                 return;
             }
         }
@@ -143,10 +146,13 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (i == x || j == y) continue;
-                for (Building building : Map.getBuildingMap()[i][j]) {
-                    if (building.getOwner().equals(army.getEmpire()) || building.getHp() <= 0) continue;
-                    int newHitPoint = building.hp() - army.getAttackPower();
-                    building.setHp(newHitPoint);
+                if (!Map.getBuildingMap()[i][j].isEmpty()){
+                    if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0){
+                        Map.getBuildingMap()[i][j].remove(0);
+                    }
+                    if (Map.getBuildingMap()[i][j].get(0).getOwner().equals(army.getEmpire())) continue;
+                    int newHitPoint = Map.getBuildingMap()[i][j].get(0).hp() - army.getAttackPower();
+                    Map.getBuildingMap()[i][j].get(0).setHp(newHitPoint);
                     return true;
                 }
             }

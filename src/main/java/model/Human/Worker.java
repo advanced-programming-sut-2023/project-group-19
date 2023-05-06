@@ -11,7 +11,8 @@ public class Worker extends Human implements HumanConstantFunctions {
         super(government);
     }
 
-    private int hp = 1;
+    private int hp;
+    private Names names;
     private int maxHp;
     private int speed;
     private int xCoordinate;
@@ -68,6 +69,15 @@ public class Worker extends Human implements HumanConstantFunctions {
 
     public void setyCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
+    }
+    public void worker(int x, int y) {
+        hp = 50;
+        maxHp = 50;
+        names = Names.WORKER;
+        xCoordinate = x;
+        yCoordinate = y;
+        speed = 1;
+        restOfMoves = 1;
     }
 
     @Override
