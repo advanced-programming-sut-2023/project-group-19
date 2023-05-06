@@ -117,6 +117,10 @@ public class CreateMapController {
     public static int indexOfUser = 0 ;
     
     public static String locateCatle(int x , int y) {
+        int numberOfUsers = User.loginUsers.size();
+        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+            return "you must have more user to continue!" ;
+        }
         if (!mapIsBuilded) return "You first must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
         for(int i = 1 ; i <= x ; i ++){

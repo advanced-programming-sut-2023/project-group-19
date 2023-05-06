@@ -9,11 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CreateMapMenu {
-    public static void run(Scanner scanner){
+    public static boolean run(Scanner scanner){
         int numberOfUsers = User.loginUsers.size();
         if(numberOfUsers < 2){
             System.out.println("More user must be added");
-            return;
+            return false;
         }
         if(numberOfUsers > 8){
             while (numberOfUsers > 8){
@@ -21,10 +21,10 @@ public class CreateMapMenu {
                 numberOfUsers  -- ;
             }
         }
-        if(CreateMapController.numberOfEmpiers == numberOfUsers){
-            System.out.println("you must have more user to continue!");
-            return;
-        }
+//        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+//            System.out.println("you must have more user to continue!");
+//            return false;
+//        }
         String command ;
         Matcher matcher ;
         while(true){
@@ -262,6 +262,13 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showDetail(x,y));
+        String result = ShowMapController.showDetail(x,y);
+        System.out.println(result);
+    }
+    private void checkToGameMenu(){
+        int numberOfUsers = User.loginUsers.size();
+        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+            //gameMenuController ;
+        }
     }
 }
