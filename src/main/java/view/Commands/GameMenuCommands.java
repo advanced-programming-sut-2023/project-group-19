@@ -9,7 +9,7 @@ public enum GameMenuCommands {
     COORDINATE_X("-x (?<x>\\d+)"),
     COORDINATE_Y("-y (?<y>\\d+)"),
     TYPE_OF_UNIT("-s (?<type>standing|defensive|offensive)"),
-    SET_UNIT("set\\s+"),
+    SET_UNIT("set\\s+.+"),
     PATROL_UNIT("patrol unit .+"),
     COORDINATE_X1("-x1 (?<x>.+)"),
     COORDINATE_Y1("-y1 (?<y>.+)"),
@@ -28,7 +28,7 @@ public enum GameMenuCommands {
     DROP_BUILDING("dropbuilding .+"),
     DROP_UNIT("dropunit .+"),
     COUNT("-c (?<count>.+)"),
-    ENTER_SHOP_MENU("Enter ShopMenu"),
+    ENTER_SHOP_MENU("Enter ShopMenu\\s+.+"),
     ENTER_TRADE_MENU("Enter TradeMenu"),
     ENTER_BUILDING_MENU("Enter BuildingMenu"),
     LOGOUT("Logout"),;

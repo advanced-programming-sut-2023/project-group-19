@@ -91,7 +91,30 @@ public class GameController {
             selectedUnit.clear();
         }
     }
+    private static GameMenuMessages dropUnit(Matcher x1,Matcher y1 , Matcher count , Matcher type){
+        int x = Integer.parseInt(x1.group("x"));
+        int y = Integer.parseInt(y1.group("y"));
+        int countOfUnits = Integer.parseInt(count.group("count"));
+        String typeOfUnit = type.group("type");
+        return GameMenuMessages.SUCCESS;
+    }
 
+    private static boolean isSpearMan(String type){
+        return type.equals(Names.SPEAR_MEN.getName());
+    }
+    private static void addUnitsToMap(int x , int y,int count , String typeOfUnit){
+        for (int i = 0 ; i < count ; i++){
+            switch (typeOfUnit){
+                case "Archer":
+                    ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    archer.archer(x,y);
+                    Manage.getCurrentEmpire().empireArmy.add(archer);
+                    Map.getTroopMap()[x][y].add(archer);
+                case "Crossbowmen":
+
+            }
+        }
+    }
     private static void findEnemyInRange(Army army, String State) {
         int x = army.xCoordinate - 1;
         int y = army.yCoordinate - 1;
@@ -292,9 +315,13 @@ public class GameController {
                 !(myUnit.getNames().getName().equals(Names.SPEAR_MEN.getName()));
     }
 
-    public void patrolUnit(int x1, int y1, int x2, int y2) {
-        setCoordinatesForPatrols(x1, y1, x2, y2);
-        String unitMoved = moveUnit(x2, y2).getMessages();
+    public void patrolUnit(Matcher x1, Matcher y1, Matcher x2, Matcher y2) {
+        int xOne = Integer.parseInt(x1.group("x"));
+        int xTwo = Integer.parseInt(x2.group("x"));
+        int yOne = Integer.parseInt(y1.group("y"));
+        int yTwo = Integer.parseInt(y2.group("y"));
+        setCoordinatesForPatrols(xOne,yOne,xTwo,yTwo);
+        String unitMoved = moveUnit(xTwo, yTwo).getMessages();
     }
 
     public void setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
@@ -559,7 +586,9 @@ public class GameController {
         return number == selectedUnit.size();
     }
 
-    public GameMenuMessages digTunnel(int x, int y) {
+    public GameMenuMessages digTunnel(Matcher x1, Matcher y1) {
+        int x = Integer.parseInt(x1.group("x"));
+        int y = Integer.parseInt(y1.group("y"));
         if (Map.getBuildingMap()[x][y].get(0) != null && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH)
                 && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.KILLING_PIT)
                 && (!isTower(x, y) || Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.LOOKOUT_TOWER))) {

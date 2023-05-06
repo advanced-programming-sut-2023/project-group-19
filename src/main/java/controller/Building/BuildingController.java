@@ -1091,6 +1091,7 @@ public class BuildingController {
                         Map.AddToBuildingMap(x, y, bigWall);
                         Map.notBuildable[x][y] = true;
                         Map.notPassable[x][y] = true;
+                        Map.wall[x][y] = true;
                         return BuildingMessages.SUCCESS;
                     } else {
                         return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
@@ -1108,6 +1109,7 @@ public class BuildingController {
                             Map.AddToBuildingMap(x, y, smallWall);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
+                            Map.wall[x][y] = true;
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
