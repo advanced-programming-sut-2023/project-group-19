@@ -649,7 +649,7 @@ public class GameController {
     }
 
     public void setRangeLookingForEnemy(ArchersAndThrowers seige) {
-        int floorOfX = 0, floorOfY, ceilOfX, ceilOfY;
+        int floorOfX, floorOfY, ceilOfX, ceilOfY;
         for (int i = 1; i <= seige.getAttackRange(); i++) {
             floorOfX = seige.getCurrentX() - i;
             floorOfY = seige.getCurrentY() - i;
@@ -697,7 +697,7 @@ public class GameController {
                         Army army = Map.getTroopMap()[i][j].get(k);
                         if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
                             army.setHp(0);
-                            removeKilledUnitFromEmpireHashmap(army.getNames().getName() , army.getEmpire());
+                            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
                         }
                     }
                     return true;
@@ -941,4 +941,37 @@ public class GameController {
                 empire.setTunnelerCount(empire.getTunnelerCount() - 1);
         }
     }
+
+    public static boolean enemyInRange(int x, int y) {
+        int floorOfX, floorOfY, ceilOfX, ceilOfY;
+        for (int i = 0; i < 3; i++) {
+            floorOfX = x - i;
+            floorOfY = y - i;
+            ceilOfX = x + i;
+            ceilOfY = y + i;
+            for (int j = floorOfX ; j <= ceilOfX ; j++) {
+                for (int k = floorOfY ; k <= ceilOfY ; k++) {
+                    if (j == x && k == y) continue;
+                    if (isEnemyBuilding(j, k) || isEnemyUnit(j, k)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isEnemyBuilding(int j, int k) {
+        return !Map.getBuildingMap()[j][k].isEmpty() && !Map.getBuildingMap()[j][k].get(0).getOwner().equals(Manage.getCurrentEmpire());
+    }
+
+    private static boolean isEnemyUnit(int j, int k) {
+        for (Army army : Map.getTroopMap()[j][k]){
+            if (!army.getOwner().equals(Manage.getCurrentEmpire())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
