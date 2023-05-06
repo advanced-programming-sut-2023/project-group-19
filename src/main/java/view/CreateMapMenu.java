@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import model.User;
 import view.Commands.CreateMapCommands;
 
 import java.util.Scanner;
@@ -9,6 +10,21 @@ import java.util.regex.Pattern;
 
 public class CreateMapMenu {
     public static void run(Scanner scanner){
+        int numberOfUsers = User.loginUsers.size();
+        if(numberOfUsers < 2){
+            System.out.println("More user must be added");
+            return;
+        }
+        if(numberOfUsers > 8){
+            while (numberOfUsers > 8){
+                User.loginUsers.remove(numberOfUsers - 1);
+                numberOfUsers  -- ;
+            }
+        }
+        if(CreateMapController.numberOfEmpiers == numberOfUsers){
+            System.out.println("you must have more user to continue!");
+            return;
+        }
         String command ;
         Matcher matcher ;
         while(true){
