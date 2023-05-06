@@ -28,6 +28,7 @@ public class Tunneler extends Army implements HumanConstantFunctions{
     public int finalXCoordinate;
     public int finalYCoordinate;
     public List<Integer> myPath;
+    public boolean fight;
     public Names getNames() {
         return names;
     }

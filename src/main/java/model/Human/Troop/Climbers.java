@@ -30,6 +30,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
     public int goalYCoordinate;
     public int finalXCoordinate;
     public int finalYCoordinate;
+    public boolean fight;
     public boolean ladderIsOn;
     public List<Integer> myPath;
     public void setNames(Names names) {

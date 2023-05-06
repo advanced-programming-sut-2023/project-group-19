@@ -33,6 +33,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public List<Integer> myPath;
     public Names shieldDirection;
     public Names typeOfArmy;
+    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;

@@ -44,6 +44,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
     public int finalXCoordinate;
     public int finalYCoordinate;
     public List<Integer> myPath;
+    public boolean fight;
     public Names typeOfArmy;
     public int getDefencePower() {
         return defencePower;
