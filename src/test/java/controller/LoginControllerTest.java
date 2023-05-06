@@ -114,7 +114,7 @@ class LoginControllerTest {
     }
 
     @Test
-    public void repeted() throws IOException {
+    public void repetedElements() throws IOException {
         LoginController.register("a","a",
                 "a","sedc@s.dc","a", "a","2");
 
@@ -129,9 +129,21 @@ class LoginControllerTest {
                         "sEdc@s.dc","sdfcd","dsds");
 
         Assertions.assertEquals(message,RegisterMessages.REPETED_EMAIL);
+    }
 
+    @Test
+    public void checkSecurityAsksUnit(){
+        RegisterMessages message = LoginController.checkSecurityAsks(2,"d","t");
+        Assertions.assertEquals(message,RegisterMessages.TRY_ANOTHER_SEC_ASK);
 
+        message = LoginController.checkSecurityAsks(4,"d","t");
+        Assertions.assertEquals(message,RegisterMessages.TRY_ANOTHER_SEC_ASK);
 
+        message = LoginController.checkSecurityAsks(2,null,"t");
+        Assertions.assertEquals(message,RegisterMessages.TRY_ANOTHER_SEC_ASK);
+
+        message = LoginController.checkSecurityAsks(2,"t","t");
+        Assertions.assertNotEquals(message,RegisterMessages.TRY_ANOTHER_SEC_ASK);
     }
 
 
