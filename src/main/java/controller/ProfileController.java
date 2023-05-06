@@ -79,8 +79,13 @@ public class ProfileController {
     public static int showHighScore(){
         return User.getCurrentUser().getHighScore();
     }
-    public static int showRank(){
-        return User.getCurrentUser().getRank();
+    public static int showRank() throws IOException {
+        User user = User.getCurrentUser();
+        int rank = user.getRank();
+        User.getCurrentUser().setRank();
+        JsonController.writeIntoFile(User.users , "User.json");
+        changeFiedsOfCurrentUser(user);
+        return rank ;
     }
     public static String showSlogan(){
         String slogan = User.getCurrentUser().getSlogan();

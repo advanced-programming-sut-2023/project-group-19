@@ -140,11 +140,11 @@ public class User implements Comparable<User>{
     }
 
     public int getRank() {
-        return users.indexOf(this) + 1;
+        return rank;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setRank() {
+        this.rank = users.indexOf(this) + 1 ;
     }
     public static User getUserByName(String username){
         for(User user : users){
