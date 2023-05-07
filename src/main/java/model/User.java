@@ -3,10 +3,11 @@ import controller.JsonController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import model.Manage;
 
-public class User {
+public class User implements Comparable<User>{
     private static HashMap<Integer,String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
 
@@ -52,6 +53,9 @@ public class User {
     private int highScore;
     public static ArrayList<User> users = new ArrayList<>();
     private int rank;
+    public static ArrayList<User> getColone(){
+        return new ArrayList<>(users);
+    }
 
     public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) throws IOException {
         this.username = username;
@@ -62,6 +66,7 @@ public class User {
         this.slogan = slogan;
         this.recoveryQuestionNumber = recoveryQuestionNumber;
         users.add(this);
+        Collections.sort(users);
         //
         Manage.allUsers.add(this);
         JsonController.writeIntoFile(Manage.allUsers , "User.json");
@@ -138,14 +143,20 @@ public class User {
         return rank;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setRank() {
+        this.rank = users.indexOf(this) + 1 ;
     }
     public static User getUserByName(String username){
         for(User user : users){
             if(user.getUsername().equals(username)) return user ;
         }
         return null ;
+    }
+
+    public int compareTo(User o) {
+        if(highScore != o.getHighScore()) return o.highScore - highScore ;
+        if(!username.equals(o.username)) return (username.compareTo(o.username));
+        return 0 ;
     }
     public static User getUserByEmail(String email){
         String changedEmail ;

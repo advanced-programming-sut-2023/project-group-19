@@ -10,7 +10,6 @@ import model.User;
 import view.Commands.BuildingCommands;
 import view.GameMenu;
 import view.LoginMenu;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class Main {
 //        Map.getTroopMap()[1][1].add(army1);
 //        GameMenu gameMenu = new GameMenu();
 //        gameMenu.run(scanner);
-
+        
         Empire empire = new Empire();
         empire.setName("arian");
         Map.CreateMap(200);
