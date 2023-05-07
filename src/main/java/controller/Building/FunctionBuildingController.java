@@ -9,6 +9,7 @@ import java.security.PublicKey;
 public class FunctionBuildingController {
     public static Empire empire = Manage.getCurrentEmpire();
     public static double fearWorkerImpact = empire.getFearWorkerImpact();
+
     public static void transformWheatToFlour() {
 
         int empiresWheatCount = empire.getWheatCount();
@@ -101,7 +102,7 @@ public class FunctionBuildingController {
         int blacksmithBuildingRate = empire.getBlacksmithBuildingRate();
         int blacksmithBuildingCount = empire.getBlacksmithBuildingCount();
         if (empire.getWeaponsCount() + 2 * blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact <= empire.getWeaponsCapacity()) {
-            if (blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact * 2  <= empiresIronCount) {
+            if (blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact * 2 <= empiresIronCount) {
                 empire.setIronCount((int) (empire.getIronCount() - 2 * blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact));
                 empire.setSwordCount((int) (empire.getSwordCount() + blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact));
                 empire.setMaceCount((int) (empire.getMaceCount() + blacksmithBuildingRate * blacksmithBuildingCount * fearWorkerImpact));

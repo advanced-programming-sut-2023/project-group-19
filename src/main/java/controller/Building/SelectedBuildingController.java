@@ -30,13 +30,12 @@ public class SelectedBuildingController {
 
     public SelectedBuildingMessages drawBridge(Matcher matcherBridgeCondition) {
         String bridgeCondition = matcherBridgeCondition.group("bridgeCondition");
-        if(GameController.enemyInRange(((DrawBridge) selectedBuilding).getX() , ((DrawBridge) selectedBuilding).getY())){
+        if (GameController.enemyInRange(((DrawBridge) selectedBuilding).getX(), ((DrawBridge) selectedBuilding).getY())) {
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
             Map.notPassable[x][y] = false;
             return SelectedBuildingMessages.ENEMY_IN_RANGE;
-        }
-        else if (bridgeCondition.equals("down")) {
+        } else if (bridgeCondition.equals("down")) {
             if (((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_OPEN;
             ((DrawBridge) selectedBuilding).setBridgeOpen(true);
             int x = ((DrawBridge) selectedBuilding).getX();
@@ -69,46 +68,18 @@ public class SelectedBuildingController {
         switch (troopName) {
             case "archer":
                 empire.setEuropeArcherCount(empire.getEuropeArcherCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers archer = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(archer);
-                }
             case "spearMan":
                 empire.setSpearManCount(empire.getSpearManCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Climbers spearMan = new Climbers(empire);
-                    empire.empireArmy.add(spearMan);
-                }
             case "maceMan":
                 empire.setMaceManCount(empire.getMaceManCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Climbers maceMan = new Climbers(empire);
-                    empire.empireArmy.add(maceMan);
-                }
             case "crossbowMan":
                 empire.setCrossbowManCount(empire.getCrossbowManCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers crossbowMan = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(crossbowMan);
-                }
             case "pikeMan":
                 empire.setPikeManCount(empire.getPikeManCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Soldiers pikeMan = new Soldiers(empire);
-                    empire.empireArmy.add(pikeMan);
-                }
             case "swordMan":
                 empire.setSwordManCount(empire.getSwordManCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Soldiers swordMan = new Soldiers(empire);
-                    empire.empireArmy.add(swordMan);
-                }
             case "knight":
                 empire.setKnightCount(empire.getKnightCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Soldiers knight = new Soldiers(empire);
-                    empire.empireArmy.add(knight);
-                }
         }
     }
 
@@ -247,46 +218,18 @@ public class SelectedBuildingController {
         switch (troopName) {
             case "arabianBow":
                 empire.setArabianBowCount(empire.getArabianBowCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers arabianBow = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(arabianBow);
-                }
             case "slave":
                 empire.setSlaveCount(empire.getSlaveCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Soldiers slave = new Soldiers(empire);
-                    empire.empireArmy.add(slave);
-                }
             case "slinger":
                 empire.setSlingerCount(empire.getSlingerCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers slinger = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(slinger);
-                }
             case "assassin":
                 empire.setAssassinCount(empire.getAssassinCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Climbers assassin = new Climbers(empire);
-                    empire.empireArmy.add(assassin);
-                }
             case "horseArcher":
                 empire.setHorseArcherCount(empire.getHorseArcherCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers horseArcher = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(horseArcher);
-                }
             case "arabianSwordMan":
                 empire.setArabianSwordManCount(empire.getArabianSwordManCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    Soldiers arabianSwordMan = new Soldiers(empire);
-                    empire.empireArmy.add(arabianSwordMan);
-                }
             case "fireThrower":
                 empire.setFireThrowerCount(empire.getFireThrowerCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers fireThrower = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(fireThrower);
-                }
         }
     }
 
@@ -377,16 +320,8 @@ public class SelectedBuildingController {
             case "engineer":
                 empire.setEngineerCount(empire.getEngineerCount() + troopCount);
             case "ladderMan":
-                for (int i = 0; i < troopCount; i++) {
-                    Climbers ladderMan = new Climbers(empire);
-                    empire.empireArmy.add(ladderMan);
-                }
                 empire.setLadderManCount(empire.getLadderManCount() + troopCount);
             case "tunneler":
-                for (int i = 0; i < troopCount; i++) {
-                    Tunneler tunneler = new Tunneler(empire);
-                    empire.empireArmy.add(tunneler);
-                }
                 empire.setTunnelerCount(empire.getTunnelerCount() + troopCount);
         }
     }
@@ -429,13 +364,6 @@ public class SelectedBuildingController {
 
     }
 
-    public void shop() {
-        //TODO : pass this function to the shop menu
-        // actually this function shouldn't exist  this is just a sign to know that we must pass it to the shop menu
-
-    }
-
-    //TODO : check the siegeTent algorithm later because i feel i have had a mistake in it but cant see it right now
     public SelectedBuildingMessages enoughResourcesToBuyFromSiegeTent(Empire empire, int troopPrice, int troopCount) {
         int empiresGoldCount = empire.getGoldCount();
         int empiresEngineerCount = empire.getEngineerCount();
@@ -452,40 +380,16 @@ public class SelectedBuildingController {
         switch (troopName) {
             case "catapult":
                 empire.setCatapultCount(empire.getCatapultCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers catapult = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(catapult);
-                }
             case "trebuchet":
                 empire.setTrebuchetCount(empire.getTrebuchetCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers trebuchet = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(trebuchet);
-                }
             case "siegeTower":
                 empire.setSiegeTowerCount(empire.getSiegeTowerCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers siegeTower = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(siegeTower);
-                }
             case "fireBalista":
                 empire.setFireBalistaCount(empire.getFireBalistaCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers fireBalista = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(fireBalista);
-                }
             case "batteringRam":
                 empire.setBatteringRamCount(empire.getBatteringRamCount() + troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers batteringRam = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(batteringRam);
-                }
             case "portableShield":
                 empire.setPortableShieldCount(empire.getPortableShieldCount() + 3 * troopCount);
-                for (int i = 0; i < troopCount; i++) {
-                    ArchersAndThrowers portableShield = new ArchersAndThrowers(empire);
-                    empire.empireArmy.add(portableShield);
-                }
         }
     }
 
@@ -566,11 +470,6 @@ public class SelectedBuildingController {
         empire.setPeasantCount(empire.getEngineerCount() - troopCount);
         empire.setTroopCount(empire.getTroopCount() + troopCount);
         empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
-        for (int i = 0; i < troopCount; i++) {
-            Soldiers BlackMonk = new Soldiers(empire);
-            empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
-            empire.empireArmy.add(BlackMonk);
-        }
     }
 
     public SelectedBuildingMessages church(Matcher matcherCount) {

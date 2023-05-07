@@ -67,8 +67,7 @@ public class PathFindingController {
         return null;
     }
 
-    public static void constructGraph(List<List<Integer>> g, boolean[][] map)
-    {
+    public static void constructGraph(List<List<Integer>> g, boolean[][] map) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (map[i][j])
@@ -96,7 +95,8 @@ public class PathFindingController {
             }
         }
     }
-    public static void graphForWalls(List<List<Integer>> g, boolean[][] map){
+
+    public static void graphForWalls(List<List<Integer>> g, boolean[][] map) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (map[i][j])
@@ -140,7 +140,7 @@ public class PathFindingController {
             g.add(new ArrayList<>());
         }
         constructGraph(g, notPassable);
-        graphForWalls(g , wall);
+        graphForWalls(g, wall);
         if (!notPassable[goalX][goalY]) {
             int src = startX * size + startY, dst = goalX * size + goalY;
             return findPaths(g, src, dst);

@@ -43,11 +43,11 @@ public class NextTurnController {
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
-        currentEmpire.setFearFactor();
-        currentEmpire.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
+        EmpireController.setFearFactor();
+        EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
-        currentEmpire.functionBuildings();
-        currentEmpire.givingPeopleFood(currentEmpire);
+        EmpireController.functionBuildings();
+        EmpireController.givingPeopleFood(currentEmpire);
         resetTroopsMovesLeft();
         gameController.setEnemyToTarget();
     }

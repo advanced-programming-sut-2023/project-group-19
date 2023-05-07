@@ -46,6 +46,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
     public List<Integer> myPath;
     public boolean fight;
     public Names typeOfArmy;
+
     public int getDefencePower() {
         return defencePower;
     }
@@ -69,6 +70,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
     public boolean isBowlFullOfOil() {
         return isBowlFullOfOil;
     }
@@ -85,7 +87,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
         return names;
     }
 
-    public void engineer(int x , int y){
+    public void engineer(int x, int y) {
         hp = 1000;
         maxHp = 1000;
         typeOfArmy = Names.STANDING_AMRY;
@@ -117,6 +119,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
     public int hp() {
         return hp;
     }
+
     @Override
     public int speed() {
         return speed;

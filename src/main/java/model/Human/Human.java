@@ -28,7 +28,7 @@ public abstract class Human implements HumanConstantFunctions {
         this.hp = hp;
     }
 
-    public Human (Empire government){
+    public Human(Empire government) {
         this.owner = government;
     }
 
