@@ -21,7 +21,7 @@ public class AttackArmyToArmyController {
 
     public static void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
-            for (Army army : Manage.getCurrentEmpire().empireArmy) {
+            for (Army army : empire.empireArmy) {
                 findEnemyToFight(army);
             }
         }
@@ -166,7 +166,7 @@ public class AttackArmyToArmyController {
     public static void setFightMode(GameController gameController){
         Empire empire = Manage.getCurrentEmpire();
         for(Army army : empire.empireArmy){
-            if(!army.isIntFight() || isArcher(army)) continue;
+            if(!army.isIntFight() || isArcher(army) || army.myPath != null) continue;
             findEnemyForFightMode(army,gameController);
         }
     }
@@ -203,25 +203,26 @@ public class AttackArmyToArmyController {
                 }
             }
         }
+        int left = 0, right = 0, up = 0, down = 0;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if(Map.getBuildingMap()[i][j].isEmpty()) continue;
                 Building building = Map.getBuildingMap()[i][j].get(0);
-                int left = 0, right = 0, up = 0, down = 0;
+
 
                 int xBuilding = i ;
                 int yBuilding = j ;
 
-                x1 = xBuilding -  1;
-                x2 = xBuilding + 1;
-                y1 = yBuilding - 1;
-                y2 = yBuilding + 1;
-                if (x1 <= 0) x1 = 0;
-                if (x2 >= mapSize) x2 = mapSize - 1;
-                if (y1 <= 0) y1 = 0;
-                if (y2 >= mapSize) y2 = mapSize - 1;
-                for(int len =  x1 ; len <= x2 ; len ++){
-                    for(int h = y1 ; h <= y2 ; h ++){
+                up = xBuilding -  1;
+                down = xBuilding + 1;
+                left = yBuilding - 1;
+                right = yBuilding + 1;
+                if (left <= 0) left = 0;
+                if (right >= mapSize) right = mapSize - 1;
+                if (up <= 0) up = 0;
+                if (down >= mapSize) down = mapSize - 1;
+                for(int len =  up ; len <= down ; len ++){
+                    for(int h = left ; h <= right ; h ++){
                         if(!Map.notPassable[len][h]) {
                             gameController.moveUnit(len,h);
                             return true ;

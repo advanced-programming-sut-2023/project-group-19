@@ -26,8 +26,7 @@ public class GameController {
     //TODO : SAVE PAST COORDINATE OF ALL ARMIES
     //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
-    public static double fearTroopImpact = Manage.getCurrentEmpire().getFearTroopImpact();
-    private static int mapSize = CreateMapController.getSizeOfMap();
+    private static final int mapSize = CreateMapController.getSizeOfMap();
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
     public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
@@ -110,7 +109,7 @@ public class GameController {
     public void setStateArmy() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName()) || army.isIntFight ) continue;
+            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName()) || army.isIntFight || army.myPath != null) continue;
             selectedUnit.add(army);
             findEnemyInRange(army, army.getArmyForm());
             selectedUnit.clear();
