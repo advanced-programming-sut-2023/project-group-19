@@ -53,9 +53,8 @@ public class WaterSources extends Obstacle {
         } else if (name.equals("beach")) {
             waterSources.beach();
         } else return null;
-        return waterSources ;
+        return waterSources;
     }
-
 
 
 }

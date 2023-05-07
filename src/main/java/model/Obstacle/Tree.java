@@ -4,19 +4,23 @@ import model.Building.Names;
 
 public class Tree extends Obstacle {
 
-    public  void desertTree(){
+    public void desertTree() {
         name = ObstacleName.DESERT_TREE;
     }
-    public void cherryTree(){
+
+    public void cherryTree() {
         name = ObstacleName.CherryTree;
     }
-    public void oliveTree(){
+
+    public void oliveTree() {
         name = ObstacleName.OliveTree;
     }
-    public void coconutTree(){
+
+    public void coconutTree() {
         name = ObstacleName.CoconutTree;
     }
-    public void dateTree(){
+
+    public void dateTree() {
         name = ObstacleName.DateTree;
     }
 

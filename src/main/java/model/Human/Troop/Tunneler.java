@@ -6,10 +6,11 @@ import model.Human.Names;
 
 import java.util.List;
 
-public class Tunneler extends Army implements HumanConstantFunctions{
+public class Tunneler extends Army implements HumanConstantFunctions {
     public Tunneler(Empire government) {
         super(government);
     }
+
     private Names names;
     private int hp;
     private int maxHp;
@@ -29,6 +30,7 @@ public class Tunneler extends Army implements HumanConstantFunctions{
     public int finalYCoordinate;
     public List<Integer> myPath;
     public boolean fight;
+
     public Names getNames() {
         return names;
     }
@@ -78,7 +80,7 @@ public class Tunneler extends Army implements HumanConstantFunctions{
         return typeOfArmy;
     }
 
-    public void Tunneler(int x , int y) {
+    public void Tunneler(int x, int y) {
         hp = 100;
         maxHp = 100;
         typeOfArmy = Names.STANDING_AMRY;

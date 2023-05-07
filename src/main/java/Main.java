@@ -11,13 +11,11 @@ import view.Commands.BuildingCommands;
 import view.EmpireMenu;
 import view.GameMenu;
 import view.LoginMenu;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-
 import static java.lang.Math.floor;
 
 public class Main {
