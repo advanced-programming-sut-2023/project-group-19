@@ -79,17 +79,27 @@ public class ProfileController {
     public static int showHighScore(){
         return User.getCurrentUser().getHighScore();
     }
-    public static int showRank(){
-        return User.getCurrentUser().getRank();
+    public static int showRank() throws IOException {
+        User user = User.getCurrentUser();
+        User.getCurrentUser().setRank();
+        int rank = user.getRank();
+        JsonController.writeIntoFile(User.users , "User.json");
+        changeFiedsOfCurrentUser(user);
+        return rank ;
     }
     public static String showSlogan(){
         String slogan = User.getCurrentUser().getSlogan();
         if(slogan.equals("empty")) return "Slogan is empty!";
         else return slogan ;
     }
-    public static String showDisplay(){
+    public static String showDisplay() throws IOException {
         String slogan ;
         User user = User.getCurrentUser();
+        User.getCurrentUser().setRank();
+        JsonController.writeIntoFile(User.users , "User.json");
+        changeFiedsOfCurrentUser(user);
+
+
         if(user.getSlogan() == null) slogan = "empty";
         else slogan = user.getSlogan();
         String text ;

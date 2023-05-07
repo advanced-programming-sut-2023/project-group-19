@@ -5,8 +5,10 @@ import model.Building.Castle;
 import model.Empire;
 import model.Manage;
 import model.Map;
+import model.User;
 import view.GameMenu;
 
+import java.util.Collections;
 import java.util.Scanner;
 
 public class NextTurnController {
@@ -19,11 +21,18 @@ public class NextTurnController {
                 GameController gameController = new GameController();
                 setGameController(gameController);
                 findCurrentEmpire();
-                callStartingTurnFunctions();
+                callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
                 callEndingTurnFunctions(gameController);
-            } else break;
+            } else {
+                User user = Manage.getAllEmpires().get(0).getUser();
+                int oldScore = user.getHighScore();
+                int newScore = oldScore + 100;
+                user.setHighScore(newScore);
+                Collections.sort(User.users);
+                break;
+            }
         }
     }
 
@@ -33,13 +42,14 @@ public class NextTurnController {
         index = index++ % Manage.allEmpires.size();
     }
 
-    public void callStartingTurnFunctions() {
+    public void callStartingTurnFunctions(GameController gameController) {
         currentEmpire.setFearFactor();
         currentEmpire.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
         currentEmpire.functionBuildings();
         currentEmpire.givingPeopleFood(currentEmpire);
         resetTroopsMovesLeft();
+        gameController.setEnemyToTarget();
     }
 
     public void setGameController(GameController gameController) {
@@ -49,6 +59,8 @@ public class NextTurnController {
 
     public void callEndingTurnFunctions(GameController gameController) {
         gameController.cagedWarDogsAttack();
+        gameController.setStateArmy();
+        AttackArmyToArmyController.setFightMode(gameController);
         gameController.fight();
         playerHasLost();
     }

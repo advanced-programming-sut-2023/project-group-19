@@ -24,7 +24,7 @@ public class LoginController {
             return RegisterMessages.EMPTY_FIELD;
         }
         if(User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED ;
-        if(!username.matches("[A-Za-z0-9_]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
+        if(!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if(slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
         if(password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD ;
         if(!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;

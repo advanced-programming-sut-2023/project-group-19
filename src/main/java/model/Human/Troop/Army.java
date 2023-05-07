@@ -12,6 +12,24 @@ public class Army extends Human {
         super(government);
         this.empire = government;
     }
+
+    public boolean isIntFight = false ;
+
+    public boolean isIntFight() {
+        return isIntFight;
+    }
+
+    public boolean hasMovedForDeffensiveState = false ;
+
+    private ArchersAndThrowers archerAttacker = null ;
+
+    public ArchersAndThrowers getArcherAttacker() {
+        return archerAttacker;
+    }
+
+    public void setArcherAttacker(ArchersAndThrowers archerAttacker) {
+        this.archerAttacker = archerAttacker;
+    }
     private Empire empire;
     private Army enemy ;
 

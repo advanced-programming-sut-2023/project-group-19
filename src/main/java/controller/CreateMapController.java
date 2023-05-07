@@ -13,13 +13,26 @@ public class CreateMapController {
     public static boolean mapIsReadyForGame = false ;
     public static int numberOfEmpiers ;
 
-    private static boolean mapIsBuilded = false ;
+    public static boolean mapIsBuilded = false ;
     private static int sizeOfMap ;
 
     public static int getSizeOfMap() {
         return sizeOfMap;
     }
 
+    public static void recovery() {
+        for(int i = 0 ; i < sizeOfMap ; i ++){
+            for(int j = 0 ; j < sizeOfMap ; j ++){
+                Map.getBuildingMap()[i][j].clear();
+                Map.getTroopMap()[i][j].clear();
+                Map.getObstacleMap()[i][j].clear();
+                Map.getGroundType()[i][j].clear();
+                User.loginUsers.clear();
+                User.loginUsers.add(User.getCurrentUser());
+                mapIsBuilded = false ;
+            }
+        }
+    }
     public static String CreateMap(int size){
         mapIsBuilded = true ;
         if(size != 200 && size != 400) return "You must choose size 200 or 400";
@@ -115,7 +128,7 @@ public class CreateMapController {
         return "successfully";
     }
     public static int indexOfUser = 0 ;
-    
+
     public static String locateCatle(int x , int y) {
         int numberOfUsers = User.loginUsers.size();
         if(CreateMapController.numberOfEmpiers == numberOfUsers){
@@ -129,7 +142,7 @@ public class CreateMapController {
             }
         }
         if(!Map.getGroundType()[x][y].get(0).equals(GroundType.DEFAULT)) return "";
-        
+
         Empire empire = new Empire();
         Manage.allEmpires.add(empire);
         empire.setUser(User.loginUsers.get(indexOfUser));
@@ -139,7 +152,7 @@ public class CreateMapController {
         numberOfEmpiers ++ ;
 //        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;
 
-        
+
         return "Successfully done!";
     }
 }
