@@ -19,7 +19,7 @@ public enum GameMenuCommands {
     COORDINATE_X2("-x2 (?<x>\\d+)"),
     COORDINATE_Y2("-y2 (?<y>\\d+)"),
     ATTACK("attack .+"),
-    ATTACK_BY_SOLDIERS("-e (?<enemyx>\\d+) (?<enemyy>\\d+)"),
+    ATTACK_BY_SOLDIERS("-e (?<x>\\d+) (?<y>\\d+)"),
     POUR_OIL("pour oil .+"),
     DIRECTION("-d (?<direction>\\D+)"),
     DIG_TUNNEL("dig tunnel .+"),

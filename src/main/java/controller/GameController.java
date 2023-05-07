@@ -60,8 +60,8 @@ public class GameController {
         return GameMenuMessages.NO_UNIT_IN_CELL;
     }
     public GameMenuMessages readyToAttack(Matcher enemy) {
-        int x = Integer.parseInt(enemy.group("enemyx"));
-        int y = Integer.parseInt(enemy.group("enemyy"));
+        int x = Integer.parseInt(enemy.group("x"));
+        int y = Integer.parseInt(enemy.group("y"));
         for (Army army : selectedUnit ){
             army.isIntFight = true;
         }
@@ -251,7 +251,7 @@ public class GameController {
     private static void findEnemyInRange(Army army, String State) {
         int x = army.xCoordinate ;
         int y = army.yCoordinate ;
-        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+        int x1, x2 , y1, y2 ;
         for (int i = 1; i <= army.getAttackRange(); i++) {
             x1 = x - i;
             x2 = x + i;

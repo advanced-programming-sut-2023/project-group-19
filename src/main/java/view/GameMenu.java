@@ -102,10 +102,10 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.BUILD_EQUIPMENT) != null) {
                 equipment = GameMenuCommands.getMatcher(command, GameMenuCommands.EQUIPMENT);
                 if (equipment != null) {
-                    gameController.buildEquipment(equipment);
+                    System.out.println(gameController.buildEquipment(equipment));
                 } else System.out.println(GameMenuMessages.EMPTY_EQUIPMENT_FIELD.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DISBAND_UNIT) != null) {
-                gameController.disbandUnit();
+                System.out.println(gameController.disbandUnit());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_MAP_MENU) != null) {
                 CreateMapMenu createMapMenu = new CreateMapMenu();
                 createMapMenu.run(scanner);
