@@ -744,37 +744,37 @@ public class GameController {
         }
     }
 
-    public void setRangeLookingForEnemy(ArchersAndThrowers seige) {
+    public void setRangeLookingForEnemy(ArchersAndThrowers siege) {
         int floorOfX, floorOfY, ceilOfX, ceilOfY;
-        for (int i = 1; i <= seige.getAttackRange(); i++) {
-            floorOfX = seige.getCurrentX() - i;
-            floorOfY = seige.getCurrentY() - i;
-            ceilOfX = seige.getCurrentX() + i;
-            ceilOfY = seige.getCurrentY() + i;
+        for (int i = 1; i <= siege.getAttackRange(); i++) {
+            floorOfX = siege.getCurrentX() - i;
+            floorOfY = siege.getCurrentY() - i;
+            ceilOfX = siege.getCurrentX() + i;
+            ceilOfY = siege.getCurrentY() + i;
             if (floorOfX < 0) floorOfX = 0;
             if (floorOfY < 0) floorOfY = 0;
             if (ceilOfX > Map.mapSize) ceilOfX = Map.mapSize - 1;
             if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize - 1;
-            if (LookForEnemyInRangeForBuilding(floorOfX, floorOfY, ceilOfX, ceilOfY, seige)) return;
+            if (LookForEnemyInRangeForBuilding(floorOfX, floorOfY, ceilOfX, ceilOfY, siege)) return;
         }
-        for (int i = 1; i <= seige.getAttackRange(); i++) {
-            floorOfX = seige.getCurrentX() - i;
-            floorOfY = seige.getCurrentY() - i;
-            ceilOfX = seige.getCurrentX() + i;
-            ceilOfY = seige.getCurrentY() + i;
+        for (int i = 1; i <= siege.getAttackRange(); i++) {
+            floorOfX = siege.getCurrentX() - i;
+            floorOfY = siege.getCurrentY() - i;
+            ceilOfX = siege.getCurrentX() + i;
+            ceilOfY = siege.getCurrentY() + i;
             if (floorOfX < 0) floorOfX = 0;
             if (floorOfY < 0) floorOfY = 0;
             if (ceilOfX > Map.mapSize) ceilOfX = Map.mapSize - 1;
             if (ceilOfY > Map.mapSize) ceilOfY = Map.mapSize - 1;
-            if (LookForEnemyInRangeForTroops(floorOfX, floorOfY, ceilOfX, ceilOfY, seige)) return;
+            if (LookForEnemyInRangeForTroops(floorOfX, floorOfY, ceilOfX, ceilOfY, siege)) return;
         }
 
     }
 
-    public boolean LookForEnemyInRangeForBuilding(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers seige) {
+    public boolean LookForEnemyInRangeForBuilding(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers siege) {
         for (int i = floorX; i <= ceilX; i++) {
             for (int j = floorY; j <= ceilY; j++) {
-                if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
+                if (i == siege.getCurrentX() && j == siege.getCurrentY()) continue;
                 if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
                     Map.getBuildingMap()[i][j].remove(0);
                     return true;
@@ -784,10 +784,10 @@ public class GameController {
         return false;
     }
 
-    public boolean LookForEnemyInRangeForTroops(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers seige) {
+    public boolean LookForEnemyInRangeForTroops(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers siege) {
         for (int i = floorX; i <= ceilX; i++) {
             for (int j = floorY; j <= ceilY; j++) {
-                if (i == seige.getCurrentX() && j == seige.getCurrentY()) continue;
+                if (i == siege.getCurrentX() && j == siege.getCurrentY()) continue;
                 if (!Map.getTroopMap()[i][j].isEmpty()) {
                     for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
                         Army army = Map.getTroopMap()[i][j].get(k);
@@ -940,26 +940,6 @@ public class GameController {
         return false;
     }
 
-    public boolean isDefenceBuildingOfEnemy(int x, int y) {
-        if (Map.getBuildingMap()[x][y].get(0).getOwner() != Manage.getCurrentEmpire()) {
-            return Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PERIMETER_TOWER) ||
-                    Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.DEFEND_TOWER) ||
-                    Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.SQUARE_TOWER) ||
-                    Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.KILLING_PIT) ||
-                    Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_RIG);
-        }
-        return false;
-    }
-
-    public int findTroopInMap(int x, int y) {
-        for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
-            if (!Map.getTroopMap()[x][y].get(i).getOwner().getName().equals(Manage.getCurrentEmpire().getName())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public boolean validLocationForSiegeTower(int x, int y) {
         return Map.getBuildingMap()[x + 1][y].get(0).getName().getName().equals(model.Building.Names.BIG_WALL.getName())
                 || Map.getBuildingMap()[x + 1][y].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName())
@@ -971,15 +951,9 @@ public class GameController {
                 || Map.getBuildingMap()[x][y + 1].get(0).getName().getName().equals(model.Building.Names.SMALL_WALL.getName());
     }
 
-    public void removeAllSelectedUnits() {
-        for (Army army : selectedUnit) {
-            Manage.getCurrentEmpire().empireArmy.remove(army);
-        }
-    }
-
     public void fight() {
         AttackArmyToArmyController.battleWithEnemy();
-        makeSiegesWorkAutomatically();
+        setSieges();
     }
 
     public static void removeEmpireTroopsFromGame(Empire empire) {
