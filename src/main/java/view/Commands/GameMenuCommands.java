@@ -17,7 +17,7 @@ public enum GameMenuCommands {
     COORDINATE_X2("-x2 (?<x>.+)"),
     COORDINATE_Y2("-y2 (?<y>.+)"),
     ATTACK("attack .+"),
-    ATTACK_BY_SOLDIERS("-e (?<enemy's x>.+) (?<enemy's y>.+)"),
+    ATTACK_BY_SOLDIERS("-e (?<enemyx>\\d) (?<enemyy>\\d)"),
     POUR_OIL("pour oil .+"),
     DIRECTION("-d (?<direction>.+)"),
     DIG_TUNNEL("dig tunnel .+"),
@@ -41,7 +41,7 @@ public enum GameMenuCommands {
     DIG_DITCH("dig ditch .+"),
     REMOVE_DITCH("remove ditch .+"),
     FILL_DITCH("fill ditch .+"),
-    MOVE_BY_SIEGE_TOWER("attack seigeTower .+"),
+    MOVE_BY_SIEGE_TOWER("attack siegeTower .+"),
     LOGOUT("Logout"),
     ;
     String regex;
