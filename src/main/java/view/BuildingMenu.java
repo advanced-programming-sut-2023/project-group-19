@@ -15,6 +15,7 @@ public class BuildingMenu {
     BuildingController buildingController = new BuildingController();
 
     public void run(Scanner scanner) {
+        System.out.println("Welcome to BuildingMenu!");
         while (true) {
             input = scanner.nextLine();
             if (BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING) != null) {

@@ -11,7 +11,7 @@ public enum ShopMenuCommands {
     SELL("\\s*sell\\s+"),
     OPERATION_ACCEPTED("\\s*yes|Yes\\s*"),
     OPERATION_CANCELLED("\\s*no|No\\s*"),
-    LOGOUT("\\s*logout\\s*");
+    LOGOUT("\\s*Logout\\s*");
     String regex;
     ShopMenuCommands(String regex){
         this.regex = regex ;

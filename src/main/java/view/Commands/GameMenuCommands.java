@@ -1,5 +1,7 @@
 package view.Commands;
 
+import view.GameMenu;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,14 +24,14 @@ public enum GameMenuCommands {
     DIRECTION("-d (?<direction>\\D+)"),
     DIG_TUNNEL("dig tunnel .+"),
     BUILD_EQUIPMENT("build .+"),
-    EQUIPMENT("-q (?<equipment name>.+)"),
+    EQUIPMENT("-q (?<equipmentName>.+)"),
     DISBAND_UNIT("disband unit"),
     ENTER_MAP_MENU("Enter MapMenu"),
     TYPE("-t (?<type>.+)"),
     DROP_BUILDING("dropbuilding .+"),
     DROP_UNIT("dropunit .+"),
     COUNT("-c (?<count>\\d+)"),
-    ENTER_SHOP_MENU("Enter ShopMenu"),
+    ENTER_SHOP_MENU("Enter ShopMenu .+"),
     ENTER_TRADE_MENU("Enter TradeMenu"),
     ENTER_BUILDING_MENU("Enter BuildingMenu"),
     ENTER_EMPIRE_MENU("Enter EmpireMenu"),
@@ -44,13 +46,20 @@ public enum GameMenuCommands {
     MOVE_BY_SIEGE_TOWER("attack siegeTower .+"),
     LOGOUT("Logout"),
     ;
-    String regex;
-    GameMenuCommands(String regex){
-        this.regex = regex ;
+    private Pattern name;
+    public Pattern getName() {
+        return name;
     }
-    public static Matcher getMatcher(String command , GameMenuCommands mainRegex){
-        Matcher matcher = Pattern.compile(mainRegex.regex).matcher(command);
-        if(matcher.find()) return matcher ;
-        return null ;
+
+    public void setName(Pattern name) {
+        this.name = name;
+    }
+
+    GameMenuCommands(String name) {
+        this.name = Pattern.compile(name);
+    }
+    public static Matcher getMatcher(String input, GameMenuCommands command) {
+        Matcher matcher = command.name.matcher(input);
+        return matcher.matches() ? matcher : null;
     }
 }

@@ -18,6 +18,7 @@ public class TradeMenu {
         Matcher resourceType;
         Matcher resourceAmount;
         TradeMenuMessages commandValidation;
+        System.out.println("Welcome to TradeMenu!");
         TradeController tradeController = new TradeController();
         tradeController.showAllEmpires(scanner);
         while (true){

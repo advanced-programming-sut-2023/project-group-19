@@ -9,13 +9,13 @@ import java.util.regex.Matcher;
 public class ShopMenu {
     public static Shop currentShop;
 
-    public void run(Scanner scanner , Shop shop){
-        currentShop=shop;
+    public void run(Scanner scanner){
         String command;
         Matcher itemName;
         Matcher itemAmount;
         ShopMenuMessages commandValidation;
         ShopController shopController = new ShopController();
+        System.out.println("Welcome to ShopMenu!");
         while (true){
             command = scanner.nextLine();
             if (ShopMenuCommands.getMatcher(command , ShopMenuCommands.SHOW_PRICE_LIST) != null){

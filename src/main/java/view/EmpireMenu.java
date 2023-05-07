@@ -11,7 +11,7 @@ public class EmpireMenu {
     //TODO : CALL FOOD DIVERSITY AND RELIGION FUNCTION EVERY TURN IN GAME MENU
     public void run(Scanner scanner){
         Matcher matcher;
-
+        System.out.println("Welcome to EmpireMenu!");
         while (true){
             String command = scanner.nextLine();
             if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FACTORS) != null){

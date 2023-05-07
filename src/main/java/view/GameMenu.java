@@ -179,15 +179,9 @@ public class GameMenu {
                     System.out.println(gameController.siegeTowersAction(x1, y1));
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
-                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
-                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
-                if (checkFormatOfSingleCoordinateCommands(x1, y1).getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    int x = Integer.parseInt(x1.group("x"));
-                    int y = Integer.parseInt(y1.group("y"));
-                    ShopMenu shopMenu = new ShopMenu();
-                    shopMenu.run(scanner, (Shop) Map.getBuildingMap()[x][y].get(0));
-                }
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
+                ShopMenu shopMenu = new ShopMenu();
+                shopMenu.run(scanner);
+            }else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
                 tradeMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_BUILDING_MENU) != null) {
