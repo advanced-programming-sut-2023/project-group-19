@@ -73,18 +73,18 @@ public class GameMenu {
                 type = GameMenuCommands.getMatcher(command, GameMenuCommands.TYPE_OF_UNIT);
                 gameMenuMessages = checkFormatOfCoordinateCommandsWithType(x1, y1, type);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    //todo : set unit
+                    System.out.println(gameController.setFormOfUnit(x1,y1,type));
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK) != null) {
                 enemy = GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK_BY_SOLDIERS);
                 if (enemy != null) {
-                    //TODO : Attack function
+                    System.out.println(gameController.readyToAttack(enemy));
                 } else {
                     x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                     y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
                     gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
                     if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                        //TODO : AeroAttack function
+                        System.out.println(gameController.attackAllSelectedArchers(x1,y1));
                     } else System.out.println(gameMenuMessages.getMessages());
                 }
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.POUR_OIL) != null) {

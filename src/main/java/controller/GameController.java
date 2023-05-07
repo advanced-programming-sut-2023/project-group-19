@@ -54,7 +54,33 @@ public class GameController {
         return army instanceof ArchersAndThrowers;
     }
 
-    public GameMenuMessages attackAllSelectedArchers(int x, int y) {
+    public GameMenuMessages setFormOfUnit(Matcher xCoordinate, Matcher yCoordinate ,Matcher form){
+        int x = Integer.parseInt(xCoordinate.group("x"));
+        int y = Integer.parseInt(yCoordinate.group("y"));
+        String formOfUnit = form.group("type");
+        if (!Map.getTroopMap()[x][y].isEmpty()){
+            for (Army army : Map.getTroopMap()[x][y]){
+                if (army.getOwner().equals(Manage.getCurrentEmpire())){
+                    army.setArmyForm(formOfUnit);
+                }
+            }
+            return GameMenuMessages.SUCCESS;
+        }
+        return GameMenuMessages.NO_UNIT_IN_CELL;
+    }
+    public GameMenuMessages readyToAttack(Matcher enemy) {
+        int x = Integer.parseInt(enemy.group("enemyx"));
+        int y = Integer.parseInt(enemy.group("enemyy"));
+        for (Army army : selectedUnit ){
+            army.isIntFight = true;
+        }
+        setPathForUnits(x,y);
+        moveUnit(x,y);
+        return GameMenuMessages.ATTACK_ORDER_HANDELED;
+    }
+    public GameMenuMessages attackAllSelectedArchers(Matcher xCoordinate , Matcher yCoordinate) {
+        int x = Integer.parseInt(xCoordinate.group("x"));
+        int y = Integer.parseInt(yCoordinate.group("y"));
         x--;
         y--;
         for (Army army : selectedUnit) {

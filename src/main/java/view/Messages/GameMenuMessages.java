@@ -23,6 +23,7 @@ public enum GameMenuMessages {
     CONQUERED_GATE("You conquered the gate of enemy my lord!"),
     NOT_ENOUGH_UNITS_AVAILABLE("There's something wrong with the type of unit or the number of it available in empire!"),
     WRONG_SIEGE_NAME("The name of siege you've entered is invalid!"),
+    ATTACK_ORDER_HANDELED("Your attack order is given to soldiers!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
     SUCCESS("The order is successfully done!"),
