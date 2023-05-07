@@ -73,7 +73,7 @@ public class GameMenu {
                 type = GameMenuCommands.getMatcher(command, GameMenuCommands.TYPE_OF_UNIT);
                 gameMenuMessages = checkFormatOfCoordinateCommandsWithType(x1, y1, type);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    System.out.println(gameController.setFormOfUnit(x1,y1,type));
+                    System.out.println(gameController.setFormOfUnit(x1, y1, type));
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK) != null) {
                 enemy = GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK_BY_SOLDIERS);
@@ -84,7 +84,7 @@ public class GameMenu {
                     y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
                     gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
                     if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                        System.out.println(gameController.attackAllSelectedArchers(x1,y1));
+                        System.out.println(gameController.attackAllSelectedArchers(x1, y1));
                     } else System.out.println(gameMenuMessages.getMessages());
                 }
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.POUR_OIL) != null) {
@@ -181,7 +181,7 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
                 ShopMenu shopMenu = new ShopMenu();
                 shopMenu.run(scanner);
-            }else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
                 tradeMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_BUILDING_MENU) != null) {

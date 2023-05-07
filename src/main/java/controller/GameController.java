@@ -48,7 +48,7 @@ public class GameController {
     }
 
     public GameMenuMessages setFormOfUnit(Matcher xCoordinate, Matcher yCoordinate, Matcher form) {
-        int flag = 0 ;
+        int flag = 0;
         int x = Integer.parseInt(xCoordinate.group("x"));
         int y = Integer.parseInt(yCoordinate.group("y"));
         String formOfUnit = form.group("type");
@@ -56,7 +56,7 @@ public class GameController {
             if (!Map.getTroopMap()[x][y].isEmpty()) {
                 for (Army army : Map.getTroopMap()[x][y]) {
                     if (army.getOwner().equals(Manage.getCurrentEmpire())) {
-                        flag = 1 ;
+                        flag = 1;
                         army.setArmyForm(formOfUnit);
                     }
                 }

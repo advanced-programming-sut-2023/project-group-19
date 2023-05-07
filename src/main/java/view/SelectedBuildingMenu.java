@@ -73,18 +73,15 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
-            }
-            else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
-                if(SelectedBuildingCommands.getMatcher(buildingName , SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+            } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
+                if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
                     System.out.println(selectedBuilding.getHp());
-                    if(GameController.enemyInRange(buildingXCoordinate , buildingYCoordinate)) {
+                    if (GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
                         System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
-                    }
-                    else {
+                    } else {
                         System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE.getName());
                     }
-                }
-                else{
+                } else {
                     System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                 }
             } else if (buildingName.equals("shop")) {

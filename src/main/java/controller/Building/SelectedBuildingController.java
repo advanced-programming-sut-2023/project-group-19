@@ -30,13 +30,12 @@ public class SelectedBuildingController {
 
     public SelectedBuildingMessages drawBridge(Matcher matcherBridgeCondition) {
         String bridgeCondition = matcherBridgeCondition.group("bridgeCondition");
-        if(GameController.enemyInRange(((DrawBridge) selectedBuilding).getX() , ((DrawBridge) selectedBuilding).getY())){
+        if (GameController.enemyInRange(((DrawBridge) selectedBuilding).getX(), ((DrawBridge) selectedBuilding).getY())) {
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
             Map.notPassable[x][y] = false;
             return SelectedBuildingMessages.ENEMY_IN_RANGE;
-        }
-        else if (bridgeCondition.equals("down")) {
+        } else if (bridgeCondition.equals("down")) {
             if (((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_OPEN;
             ((DrawBridge) selectedBuilding).setBridgeOpen(true);
             int x = ((DrawBridge) selectedBuilding).getX();
