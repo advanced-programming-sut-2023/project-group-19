@@ -1,5 +1,6 @@
 package view;
 
+import controller.EmpireController;
 import model.Manage;
 import view.Commands.EmpireCommands;
 import view.Messages.EmpireMessages;
@@ -15,14 +16,18 @@ public class EmpireMenu {
         while (true){
             String command = scanner.nextLine();
             if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FACTORS) != null){
-                System.out.println(EmpireMessages.POPULARITY_FACTOR.getMessages());
+                System.out.println("Popularity Factors :\n" +
+                                "1.Food : " + Manage.getCurrentEmpire().getPopularityFactorFood() + '\n' +
+                                "2.Tax : " + Manage.getCurrentEmpire().getPopularityFactorTax() + '\n' +
+                                "3.Religion : " + Manage.getCurrentEmpire().getPopularityFactorReligious() + '\n' +
+                                "4.Fear : " + Manage.getCurrentEmpire().getPopularityFactorFear());
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_POPULARITY) != null) {
                 System.out.println("Your Popularity is :" + Manage.getCurrentEmpire().getPopularity());
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FOOD_LIST) != null) {
-                String foodList = Manage.getCurrentEmpire().showFoodList();
-                System.out.println(foodList);
+                String foodList = EmpireController.showFoodList();
+                System.out.print(foodList);
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SET_FOOD_RATE_NUMBER) != null) {
-                Manage.getCurrentEmpire().findFoodDiversity();
+                EmpireController.findFoodDiversity();
             } else if (EmpireCommands.getMatcher(command , EmpireCommands.SHOW_FOOD_RATE) != null) {
                 System.out.println("Your food rate is :"+Manage.getCurrentEmpire().getFearRateNumber());
             } else if ((matcher = EmpireCommands.getMatcher(command , EmpireCommands.SET_TAX_RATE_NUMBER)) != null) {
