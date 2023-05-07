@@ -80,11 +80,6 @@ public class GameController {
         }
         return GameMenuMessages.SUCCESS;
     }
-//
-//    //TODO : run after change turn
-//    {
-//        gameController.setStateArmy();
-//    }
 
     public void setStateArmy() {
         selectedUnit.clear();
@@ -323,9 +318,9 @@ public class GameController {
         }
     }
 
-    // range archer + height archer - enemy height
     //TODO : After every next turn please call it!
     public void setEnemyToTarget() {
+        selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             checkIfTargetIsAlive(army);
             if (army.getEnemy() == null) continue;

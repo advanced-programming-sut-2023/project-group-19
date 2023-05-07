@@ -212,7 +212,7 @@ public class AttackArmyToArmyController {
                 int xBuilding = i ;
                 int yBuilding = j ;
 
-                x1 = xBuilding-  1;
+                x1 = xBuilding -  1;
                 x2 = xBuilding + 1;
                 y1 = yBuilding - 1;
                 y2 = yBuilding + 1;
