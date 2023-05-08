@@ -15,9 +15,6 @@ public class Army extends Human {
 
     public boolean isIntFight = false;
 
-    public boolean isIntFight() {
-        return isIntFight;
-    }
 
     public boolean hasMovedForDeffensiveState = false;
 
@@ -34,8 +31,6 @@ public class Army extends Human {
     private Empire empire;
     private Army enemy;
 
-    private boolean isIntFight = false ;
-
     public boolean isIntFight() {
         return isIntFight;
     }
@@ -44,17 +39,8 @@ public class Army extends Human {
         isIntFight = intFight;
     }
 
-    private ArchersAndThrowers archerAttacker = null ;
 
-    public ArchersAndThrowers getArcherAttacker() {
-        return archerAttacker;
-    }
 
-    public void setArcherAttacker(ArchersAndThrowers archerAttacker) {
-        this.archerAttacker = archerAttacker;
-    }
-
-    public boolean hasMovedForDeffensiveState = false ;
 
     public Army getEnemy() {
         return enemy;
