@@ -16,11 +16,9 @@ public class MainMenu {
     public static void run(Scanner scanner) throws InterruptedException, IOException {
         System.out.println("Welcome to Main menu!");
         String command;
-        Matcher matcher;
         while (true) {
             command = scanner.nextLine();
-
-            if ((matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.ENTER_PROFILE_MENU)) != null) {
+            if (MainMenuCommands.getMatcher(command, MainMenuCommands.ENTER_PROFILE_MENU) != null) {
                 System.out.println("entered profile menu successfully");
                 ProfileMenu.run(scanner);
             } else if (MainMenuCommands.getMatcher(command, MainMenuCommands.LOGOUT) != null) {
@@ -28,7 +26,7 @@ public class MainMenu {
                 JsonController.emptyFile();
                 System.out.println("logged out");
                 return;
-            } else if ((matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP)) != null) {
+            } else if (MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP) != null) {
                 if (showMap(command, scanner)) {
                     NextTurnController nextTurnController = new NextTurnController();
                     nextTurnController.game(scanner);

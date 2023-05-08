@@ -102,11 +102,7 @@ public class LoginMenu {
             System.out.println("invalid command");
             return;
         }
-
-        System.out.println(password);
         RegisterMessages message = LoginController.loginUser(username, password);
-        System.out.println(username + " \n" + password);
-        System.out.println(message);
         switch (message) {
             case NOT_EXIST_USERNAME:
                 System.out.println("Username does not exist!");
@@ -127,7 +123,6 @@ public class LoginMenu {
                 numberToWait = 1;
                 System.out.println("Login successfully!");
                 MainMenu.run(scanner);
-                return;
         }
     }
 

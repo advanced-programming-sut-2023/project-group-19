@@ -15,7 +15,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class GameMenu {
-    public static User currentUser;
     public static Empire currentEmpire;
     public static GameController gameController;
 
@@ -29,7 +28,6 @@ public class GameMenu {
         Matcher direction;
         Matcher equipment;
         Matcher count;
-        //TODO : Fix the regex of coordinates
         GameMenuMessages gameMenuMessages;
         while (true) {
             String command = scanner.nextLine();
