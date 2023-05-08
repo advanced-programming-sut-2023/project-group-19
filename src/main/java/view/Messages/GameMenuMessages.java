@@ -27,6 +27,7 @@ public enum GameMenuMessages {
     COORDINATES_OUT_OF_BOUNDS("The given coordinate is out of bound!"),
     INVALID_NUMBER_OF_UNITS_TO_DROP("The number you entered is invalid!"),
     NOT_ENOUGH_UNITS_TO_DEPLOY("You don't have enough units with given type to deploy or use!"),
+    INVALID_DIRECTION("The given direction is invalid!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
     SUCCESS("The order is successfully done!"),

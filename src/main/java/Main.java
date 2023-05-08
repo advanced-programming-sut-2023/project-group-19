@@ -7,6 +7,7 @@ import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.BuildingMenu;
 import view.Commands.BuildingCommands;
 import view.EmpireMenu;
 import view.GameMenu;
@@ -25,7 +26,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Empire empire = new Empire();
         Manage.setCurrentEmpire(empire);
-
+        empire.setName("arian");
+        Map.CreateMap(200);
+        Manage.getAllEmpires().add(empire);
 
 //          Scanner scanner = new Scanner(System.in);
 //        Empire empire = new Empire();
@@ -57,9 +60,6 @@ public class Main {
 //            System.out.println(i.getNames().getName());
 //        }
 
-        empire.setName("arian");
-        Map.CreateMap(200);
-        Manage.getAllEmpires().add(empire);
         Shop shop = new Shop(empire);
         shop.shop();
         Map.getBuildingMap()[1][5].add(shop);
