@@ -72,7 +72,10 @@ public class ShowMapController {
                         if (length == j) square.append("  ");
                     } else {
                         String type = "";
-                        if (!(Map.getBuildingMap()[row][k - 1]).isEmpty()) {
+                         if (row == x - 1 && k - 1 == y - 1) {
+                            type = "&";
+                        }
+                        else if (!(Map.getBuildingMap()[row][k - 1]).isEmpty()) {
 
                             type = "B";
                         } else if (!(Map.getTroopMap()[row][k - 1]).isEmpty()) type = "S";
@@ -88,8 +91,6 @@ public class ShowMapController {
                             if (name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = "T";
-                        } else if (row == x - 1 && k - 1 == y - 1) {
-                            type = "&";
                         } else type = " ";
                         if (!Map.getGroundType()[row][k - 1].isEmpty()) {
                             if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DEFAULT))
@@ -109,9 +110,11 @@ public class ShowMapController {
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.STONE))
                                 type = ANSI_RED_BACKGROUND + type + ANSI_RESET;
                         }
-                        if(!Map.getObstacleMap()[row][k - 1].isEmpty() &&
-                                Map.getObstacleMap()[row][k - 1].get(0) instanceof WaterSources)
-                            type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
+//                        if(!Map.getObstacleMap()[row][k - 1].isEmpty() &&
+//                                Map.getObstacleMap()[row][k - 1].get(0) instanceof WaterSources) {
+//                            type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
+//                        }
+
                         square.append(type);
                     }
                 }

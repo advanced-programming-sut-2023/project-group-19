@@ -54,11 +54,8 @@ public class CreateMapController {
             if(!type.equals("Plain")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
-        System.out.println("><><><><><><>");
         Map.getGroundType()[x - 1][y - 1].clear();
-        System.out.println(groundType);
         Map.getGroundType()[x - 1][y - 1].add(groundType);
-        System.out.println(Map.getGroundType()[x - 1][y - 1].get(0));
         return "Change is done successfully!";
     }
     public static String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type){
