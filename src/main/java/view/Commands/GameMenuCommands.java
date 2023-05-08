@@ -30,7 +30,7 @@ public enum GameMenuCommands {
     TYPE(".*-t (?<type>\\S+).*"),
     DROP_UNIT("dropunit .+"),
     COUNT(".*-c (?<count>\\d+).*"),
-    ENTER_SHOP_MENU("Enter ShopMenu"),
+    ENTER_SHOP_MENU("Enter ShopMenu .+"),
     ENTER_TRADE_MENU("Enter TradeMenu"),
     ENTER_BUILDING_MENU("Enter BuildingMenu"),
     ENTER_EMPIRE_MENU("Enter EmpireMenu"),

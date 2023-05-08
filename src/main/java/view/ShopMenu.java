@@ -11,12 +11,13 @@ import java.util.regex.Matcher;
 public class ShopMenu {
     public static Shop currentShop;
 
-    public void run(Scanner scanner) {
+    public void run(Scanner scanner  , Shop shop) {
         String command;
         Matcher itemName;
         Matcher itemAmount;
         ShopMenuMessages commandValidation;
         ShopController shopController = new ShopController();
+        currentShop = shop;
         System.out.println("Welcome to ShopMenu!");
         while (true) {
             command = scanner.nextLine();

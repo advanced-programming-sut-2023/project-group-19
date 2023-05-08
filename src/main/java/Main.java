@@ -28,6 +28,7 @@ public class Main {
         Manage.setCurrentEmpire(empire);
         empire.setName("arian");
         Map.CreateMap(200);
+        Map.mapSize = 200;
         Manage.getAllEmpires().add(empire);
 
 //          Scanner scanner = new Scanner(System.in);

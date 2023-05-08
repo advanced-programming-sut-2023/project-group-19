@@ -86,7 +86,7 @@ public class SelectedBuildingMenu {
                 }
             } else if (buildingName.equals("shop")) {
                 ShopMenu shopMenu = new ShopMenu();
-                shopMenu.run(scanner);
+                shopMenu.run(scanner , (Shop) selectedBuilding);
             } else if (input.equals("exit")) {
                 return;
             } else {

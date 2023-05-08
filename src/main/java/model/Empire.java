@@ -838,6 +838,9 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
+    public int getMeatCount(){
+        return allFood.get("meat");
+    }
 
     public int getCatapultCount() {
         return siegeTentTroopsCount.get("catapult");
@@ -886,7 +889,12 @@ public class Empire {
     public void setPortableShieldCount(int portableShieldCount) {
         siegeTentTroopsCount.replace("portableShield", portableShieldCount);
     }
-
+    public int getAppleCount(){
+        return allFood.get("apple");
+    }
+    public int getCheeseCount(){
+        return allFood.get("cheese");
+    }
     public HashMap<String, Integer> getAllWeaponTools() {
         return allWeaponTools;
     }

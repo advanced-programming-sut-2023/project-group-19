@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Building.Building;
 import model.Building.Shop;
 import view.Commands.ShopMenuCommands;
 import view.Messages.ShopMenuMessages;
@@ -24,12 +25,12 @@ public class ShopController {
             for (Map.Entry<String, Integer> goodsForSelling : ShopMenu.currentShop.getListOfGoodsSellPrice().entrySet()) {
                 String nameOfGoodsForSelling = goodsForSelling.getKey();
                 if (nameOfGoodsForBuying.equals(nameOfGoodsForSelling)) {
-                    int resourceCount = getResourceCount(nameOfGoodsForBuying).getValue();
-                    System.out.println(number + ". ");
+                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying);
+                    System.out.print(number + ". ");
                     System.out.println("Name: " + nameOfGoodsForBuying);
-                    System.out.println("Buying Price: " + goodsForBuying.getValue());
-                    System.out.println("Sell Price: " + goodsForSelling.getValue());
-                    System.out.println("Resource count: " + resourceCount);
+                    System.out.println("\s\s\sBuying Price: " + goodsForBuying.getValue());
+                    System.out.println("\s\s\sSell Price: " + goodsForSelling.getValue());
+                    System.out.println("\s\s\sResource count: " + resourceCount);
                     number++;
                     break;
                 }
@@ -201,5 +202,48 @@ public class ShopController {
 
     public boolean checkStorageOfShop(String resourceName, int amount) {
         return findGoodToBuy(resourceName).getValue() + amount <= Manage.getCurrentEmpire().getResourcesCapacity();
+    }
+    public int getNumberOfGoods(String goodName) {
+        switch (goodName){
+            case "meat":
+                return model.Manage.getCurrentEmpire().getMeatCount();
+            case "hops":
+                return Manage.getCurrentEmpire().getOatCount();
+            case "barrel":
+            case "ironArmor":
+                return 0;
+            case "leatherArmor":
+            case "sword":
+                return Manage.getCurrentEmpire().getSwordCount();
+            case "ironAxe":
+                return 0;
+            case "crossbow":
+                return 0;
+            case "mace":
+                return Manage.getCurrentEmpire().getMaceCount();
+            case "bow":
+                return Manage.getCurrentEmpire().getBowCount();
+            case "dart":
+                return 0;
+            case "oil":
+                return Manage.getCurrentEmpire().getOilAmount();
+            case "iron":
+               return Manage.getCurrentEmpire().getIronCount();
+            case "stone":
+                return Manage.getCurrentEmpire().getStoneCount();
+            case "wood":
+                return Manage.getCurrentEmpire().getWoodCount();
+            case "flour":
+                return Manage.getCurrentEmpire().getFlour();
+            case "wheat":
+                return Manage.getCurrentEmpire().getWheatCount();
+            case "bead":
+                return 0;
+            case "apple":
+                return Manage.getCurrentEmpire().getAppleCount();
+            case "cheese":
+                return Manage.getCurrentEmpire().getCheeseCount();
+        }
+        return 0;
     }
 }
