@@ -27,7 +27,7 @@ public class Main {
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
 
-//        LoginMenu.run(new Scanner(System.in));
+        LoginMenu.run(new Scanner(System.in));
 
 
 //          Scanner scanner = new Scanner(System.in);
