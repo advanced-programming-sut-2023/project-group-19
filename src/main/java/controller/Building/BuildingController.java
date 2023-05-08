@@ -52,10 +52,10 @@ public class BuildingController {
     }
 
     public boolean canBuildStockpile(int x, int y, String BuildingName) {
-        if (Map.buildingMap[x + 1][y].get(0).getName().getName().equals(BuildingName) ||
-                Map.buildingMap[x - 1][y].get(0).getName().getName().equals(BuildingName) ||
-                Map.buildingMap[x][y + 1].get(0).getName().getName().equals(BuildingName) ||
-                Map.buildingMap[x][y - 1].get(0).getName().getName().equals(BuildingName)) {
+        if (Map.buildingMap[x + 1][y].get(0).getName().equals(BuildingName) ||
+                Map.buildingMap[x - 1][y].get(0).getName().equals(BuildingName) ||
+                Map.buildingMap[x][y + 1].get(0).getName().equals(BuildingName) ||
+                Map.buildingMap[x][y - 1].get(0).getName().equals(BuildingName)) {
             return true;
         }
         return false;
@@ -406,6 +406,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(inn, currentEmpire)) {
                             buildingCheckout(inn, currentEmpire);
                             Map.AddToBuildingMap(x, y, inn);
+                            currentEmpire.setInnCount(currentEmpire.getInnCount() + 1);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;

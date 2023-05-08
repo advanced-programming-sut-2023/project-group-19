@@ -11,8 +11,8 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
     }
 
 
-    public Names getName() {
-        return this.name;
+    public String getName() {
+        return this.name.getName();
     }
 
     public void setName(Names name) {

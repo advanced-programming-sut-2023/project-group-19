@@ -8,8 +8,8 @@ public abstract class Building implements BuildingConstantFunctions {
     private Empire owner;
     public String requiredGroundType;
 
-    public Names getName() {
-        return name;
+    public String getName() {
+        return name.getName();
     }
 
     public Names name;
