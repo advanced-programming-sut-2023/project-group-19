@@ -93,11 +93,8 @@ public class CreateMapController {
         if(!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s")) return "Choose direction correctly!";
         if (!mapIsBuilded) return "You first must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
-        for(int i = 1 ; i <= x ; i ++){
-            for(int j = 1 ; j <= y ; j ++){
-                if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
-            }
-        }
+        if(Map.notBuildable[x - 1][y - 1]) return "Is occupied";
+
         Map.obstacleMap[x - 1][y - 1].add(new Stone());
         Map.notPassable[x - 1][y - 1] = true ;
         Map.notBuildable[x - 1][y - 1] = true ;

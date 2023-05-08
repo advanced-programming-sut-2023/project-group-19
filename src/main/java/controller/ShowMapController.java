@@ -87,7 +87,9 @@ public class ShowMapController {
 //                        }
                         else if (!(Map.getObstacleMap()[row][k - 1]).isEmpty()) {
                             obstacle = Map.getObstacleMap()[row][k - 1].get(0);
+                             System.out.println(obstacle);
                             ObstacleName name = obstacle.getName();
+                             System.out.println(name);
                             if (name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = "T";
@@ -110,11 +112,6 @@ public class ShowMapController {
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.STONE))
                                 type = ANSI_RED_BACKGROUND + type + ANSI_RESET;
                         }
-//                        if(!Map.getObstacleMap()[row][k - 1].isEmpty() &&
-//                                Map.getObstacleMap()[row][k - 1].get(0) instanceof WaterSources) {
-//                            type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
-//                        }
-
                         square.append(type);
                     }
                 }
