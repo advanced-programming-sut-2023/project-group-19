@@ -13,6 +13,7 @@ public enum ShopMenuCommands {
     SELL("\\s*sell\\s+"),
     OPERATION_ACCEPTED("\\s*yes|Yes\\s*"),
     OPERATION_CANCELLED("\\s*no|No\\s*"),
+
     LOGOUT("\\s*Logout\\s*");
     private Pattern name;
     public Pattern getName() {

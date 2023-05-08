@@ -20,11 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
 import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-
+        String command = "drop building -x  1 -y 2";
+        System.out.println(BuildingCommands.getMatcher(command, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING));
 
 //        Scanner scanner = new Scanner(System.in);
 //        EmpireMenu empireMenu = new EmpireMenu();
