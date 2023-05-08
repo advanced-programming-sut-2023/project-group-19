@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 public class ShopController {
     public static String currentMenu;
 
-    public void showPricelist() {
+    public void showPriceList() {
         int number = 1;
         System.out.println("Attention:");
         System.out.println("Buying prices are settled for 5 numbers of every good.");
