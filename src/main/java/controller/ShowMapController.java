@@ -169,7 +169,7 @@ public class ShowMapController {
 
         String buildingName = "empty";
         if(!Map.getBuildingMap()[x - 1][y - 1].isEmpty()){
-            buildingName = Map.getBuildingMap()[x - 1][y - 1].get(0).getName().getName();
+            buildingName = Map.getBuildingMap()[x - 1][y - 1].get(0).getName();
         }
         return "Grounf type is :" + groundType + "\n"+ "army is: " + army + " \n" + "building: " + buildingName ;
 
