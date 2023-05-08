@@ -54,6 +54,7 @@ public class CreateMapController {
             if(!type.equals("Plain")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
+        Map.getGroundType()[x - 1][y - 1].clear();
         Map.getGroundType()[x - 1][y - 1].add(groundType);
         return "Change is done successfully!";
     }
@@ -108,8 +109,11 @@ public class CreateMapController {
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
-        if(!Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.FILLFUL_DASH) &&
-                !Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.GRASS)) return "not good type of ground!";
+        if(Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.IRON) &&
+                Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE_ROCK) &&
+                Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE) &&
+                Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE)
+        ) return "not good type of ground!";
         Tree tree = new Tree();;
         if(type.equals("desertTree")){
             tree.desertTree();

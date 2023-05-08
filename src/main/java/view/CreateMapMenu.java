@@ -3,18 +3,16 @@ package view;
 import controller.*;
 import model.User;
 import view.Commands.CreateMapCommands;
+import view.Commands.MainMenuCommands;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CreateMapMenu {
-    public static void run(Scanner scanner) {
+    public static void run(Scanner scanner) throws IOException, InterruptedException {
         int numberOfUsers = User.loginUsers.size();
-        if (numberOfUsers < 2) {
-            System.out.println("More user must be added");
-            return ;
-        }
         if (numberOfUsers > 8) {
             while (numberOfUsers > 8) {
                 User.loginUsers.remove(numberOfUsers - 1);
@@ -45,7 +43,11 @@ public class CreateMapMenu {
                 dropTree(command);
             } else if (CreateMapCommands.getMatcher(command, CreateMapCommands.LOCATE_CASTLE) != null) {
                 System.out.println(locateCatle(command));
-            }else if(command.matches("\\s*exit\\s*")){
+            }
+            else if ((matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP)) != null) {
+                showMap(command);
+            }
+            else if(command.matches("\\s*exit\\s*")){
                 System.out.println("Exit");
                 return ;
             }
@@ -246,6 +248,24 @@ public class CreateMapMenu {
         int deltaX = up + down;
         int deltaY = right + left;
         System.out.println(ShowMapController.moveMap(deltaX, deltaY));
+
+    }
+    public static void showMap(String command) throws IOException, InterruptedException {
+        Matcher matcher;
+        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
+        if (matcher == null) {
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+
+        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
+        if (matcher == null) {
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        System.out.println(ShowMapController.showMap(x, y, false));
 
     }
 

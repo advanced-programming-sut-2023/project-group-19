@@ -34,6 +34,7 @@ public class ShowMapController {
     static int downLimit;
 
     public static String showMap(int xInput, int yInput, boolean isMove) {
+        if(!CreateMapController.mapIsBuilded)  return "first build a map!";
         if ((xInput <= 0 || xInput > size) || (yInput <= 0 || yInput > size)) return "fill correctly;" +
                 "your numbers out of bounds";
         x = xInput;
@@ -93,6 +94,8 @@ public class ShowMapController {
                         if (!Map.getGroundType()[row][k - 1].isEmpty()) {
                             if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DEFAULT))
                                 type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
+                            else if(Map.getObstacleMap()[row][k - 1].get(0) instanceof WaterSources)
+                                type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GROUND_WITH_STONE))
                                 type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.IRON))
@@ -132,6 +135,7 @@ public class ShowMapController {
     }
 
     public static String moveMap(int deltaX, int deltaY) {
+        if(!CreateMapController.mapIsBuilded)  return "first build a map!";
         leftLimit += deltaY;
         rightLimit += deltaY;
         uplimit += deltaX;
@@ -143,6 +147,7 @@ public class ShowMapController {
     }
 
     public static String showDetail(int x, int y) {
+        if(!CreateMapController.mapIsBuilded)  return "first build a map!";
         String groundType = Map.getGroundType()[x][y].get(0).getGroundType();
         if(groundType.equals(GroundType.DEFAULT.getGroundType())){
             if(Map.getObstacleMap()[x - 1][y - 1].get(0) instanceof WaterSources){

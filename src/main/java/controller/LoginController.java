@@ -82,7 +82,7 @@ public class LoginController {
     public static RegisterMessages loginUser(String username, String password) {
         User user;
         if ((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME;
-        System.out.println(user.getPassword());
+//        System.out.println(user.getPassword());
         if (!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         User.setCurrentUser(user);
         User.loginUsers.add(user);
