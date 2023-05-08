@@ -6,7 +6,7 @@ import model.Human.Names;
 
 import java.util.List;
 
-public class Climbers extends Army implements HumanConstantFunctions{
+public class Climbers extends Army implements HumanConstantFunctions {
     public Climbers(Empire government) {
         super(government);
     }
@@ -30,8 +30,10 @@ public class Climbers extends Army implements HumanConstantFunctions{
     public int goalYCoordinate;
     public int finalXCoordinate;
     public int finalYCoordinate;
+    public boolean fight;
     public boolean ladderIsOn;
     public List<Integer> myPath;
+
     public void setNames(Names names) {
         this.names = names;
     }
@@ -89,7 +91,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         return ladderIsOn;
     }
 
-    public void SpearMen(int x , int y) {
+    public void SpearMen(int x, int y) {
         xCoordinate = x;
         yCoordinate = y;
         hp = 500;
@@ -101,7 +103,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         restOfMoves = 5;
     }
 
-    public void MaceMen(int x , int y) {
+    public void MaceMen(int x, int y) {
         xCoordinate = x;
         yCoordinate = y;
         hp = 675;
@@ -113,7 +115,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         restOfMoves = 5;
     }
 
-    public void LadderMen(int x , int y) {
+    public void LadderMen(int x, int y) {
         xCoordinate = x;
         yCoordinate = y;
         hp = 500;
@@ -125,7 +127,7 @@ public class Climbers extends Army implements HumanConstantFunctions{
         restOfMoves = 7;
     }
 
-    public void Assassins(int x , int y) {
+    public void Assassins(int x, int y) {
         xCoordinate = x;
         yCoordinate = y;
         hp = 800;

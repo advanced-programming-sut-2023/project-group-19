@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 
 public class Shop extends Building implements BuildingConstantFunctions {
 
-    Shop(Empire government) {
+    public Shop(Empire government) {
         super(government);
     }
 

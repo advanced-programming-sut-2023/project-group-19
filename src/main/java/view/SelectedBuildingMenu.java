@@ -2,6 +2,7 @@ package view;
 
 import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
+import controller.GameController;
 import model.Building.Building;
 import model.Building.Shop;
 import model.Empire;
@@ -14,6 +15,8 @@ import java.util.regex.Matcher;
 
 public class SelectedBuildingMenu {
     public static Building selectedBuilding;
+    public static int buildingXCoordinate;
+    public static int buildingYCoordinate;
     String input;
 
     public void run(Scanner scanner) {
@@ -70,19 +73,20 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
-            }
-            //TODO : consider the situation of not being able to repair because of the enemies being close too that building we want to repair
-            else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
-                if(SelectedBuildingCommands.getMatcher(buildingName , SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+            } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
+                if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
                     System.out.println(selectedBuilding.getHp());
-                    System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
-                }
-                else{
+                    if (GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
+                        System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
+                    } else {
+                        System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE.getName());
+                    }
+                } else {
                     System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                 }
             } else if (buildingName.equals("shop")) {
                 ShopMenu shopMenu = new ShopMenu();
-                shopMenu.run(scanner , (Shop) selectedBuilding);
+                shopMenu.run(scanner);
             } else if (input.equals("exit")) {
                 return;
             } else {

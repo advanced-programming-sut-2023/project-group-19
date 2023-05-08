@@ -8,9 +8,9 @@ import model.Manage;
 import model.Map;
 import model.User;
 import view.Commands.BuildingCommands;
+import view.EmpireMenu;
 import view.GameMenu;
 import view.LoginMenu;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,15 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
 
 
-//        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        EmpireMenu empireMenu = new EmpireMenu();
+        Empire empire = new Empire();
+        Manage.setCurrentEmpire(empire);
+        Map.CreateMap(200);
+        empireMenu.run(scanner);
+
+
+//          Scanner scanner = new Scanner(System.in);
 //        Empire empire = new Empire();
 //        Map.CreateMap(200);
 //        Army army =new Army(empire);
@@ -32,24 +40,33 @@ public class Main {
 //        GameMenu gameMenu = new GameMenu();
 //        gameMenu.run(scanner);
 
-        Empire empire = new Empire();
+//        Empire empire = new Empire();
+//        empire.setName("arian");
+//        Map.CreateMap(200);
+//        ArchersAndThrowers archer = new ArchersAndThrowers(empire);
+//        archer.ArcherBow(0,0);
+//        ArchersAndThrowers shield = new ArchersAndThrowers(empire);
+//        shield.portableShield(3,4);
+//        ArchersAndThrowers archer2 = new ArchersAndThrowers(empire);
+//        archer2.HorseArchers(2,2);
+//        ArchersAndThrowers archer3 = new ArchersAndThrowers(empire);
+//        archer3.batteringRam(5,6);
+//        ArrayList <ArchersAndThrowers> arrayList = new ArrayList<>();
+//        arrayList.add(archer);
+//        arrayList.add(archer2);
+//        arrayList.add(archer3);
+//        arrayList.add(0,shield);
+//        for (ArchersAndThrowers i : arrayList) {
+//            System.out.println(i.getNames().getName());
+//        }
+
         empire.setName("arian");
         Map.CreateMap(200);
-        ArchersAndThrowers archer = new ArchersAndThrowers(empire);
-        archer.ArcherBow(0,0);
-        ArchersAndThrowers shield = new ArchersAndThrowers(empire);
-        shield.portableShield(3,4);
-        ArchersAndThrowers archer2 = new ArchersAndThrowers(empire);
-        archer2.HorseArchers(2,2);
-        ArchersAndThrowers archer3 = new ArchersAndThrowers(empire);
-        archer3.batteringRam(5,6);
-        ArrayList <ArchersAndThrowers> arrayList = new ArrayList<>();
-        arrayList.add(archer);
-        arrayList.add(archer2);
-        arrayList.add(archer3);
-        arrayList.add(0,shield);
-        for (ArchersAndThrowers i : arrayList) {
-            System.out.println(i.getNames().getName());
-        }
+        Manage.getAllEmpires().add(empire);
+        Shop shop = new Shop(empire);
+        shop.shop();
+        Map.getBuildingMap()[1][5].add(shop);
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.run(scanner);
     }
 }

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
-    public final static ArrayList<String> namesOfAllPossibleBuildings=new ArrayList<>();
+    public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
+
     {
         namesOfAllPossibleBuildings.add("Armoury");
         namesOfAllPossibleBuildings.add("Barracks");
@@ -59,23 +60,29 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Fletcher");
         namesOfAllPossibleBuildings.add("Pole Turner");
     }
+
     private static Empire currentEmpire;
     public static ArrayList<User> allUsers = new ArrayList<>();
+
     public static Empire getCurrentEmpire() {
         return currentEmpire;
     }
-    public static ArrayList<String> getNamesOfAllPossibleBuildings(){
+
+    public static ArrayList<String> getNamesOfAllPossibleBuildings() {
         return getNamesOfAllPossibleBuildings();
     }
+
     public static void setCurrentEmpire(Empire currentEmpire) {
         Manage.currentEmpire = currentEmpire;
     }
+
     public static ArrayList<Empire> getAllEmpires() {
         return allEmpires;
     }
-    public static Empire getEmpireByNickname(String nickname){
-        for (Empire empire : allEmpires){
-            if (empire.getName().equals(nickname)){
+
+    public static Empire getEmpireByNickname(String nickname) {
+        for (Empire empire : allEmpires) {
+            if (empire.getName().equals(nickname)) {
                 return empire;
             }
         }

@@ -6,10 +6,11 @@ import model.Human.Names;
 
 import java.util.List;
 
-public class Soldiers extends Army implements HumanConstantFunctions{
+public class Soldiers extends Army implements HumanConstantFunctions {
     public Soldiers(Empire government) {
         super(government);
     }
+
     private Names names;
     private int hp;
     private int maxHp;
@@ -30,6 +31,8 @@ public class Soldiers extends Army implements HumanConstantFunctions{
     public int finalXCoordinate;
     public int finalYCoordinate;
     public List<Integer> myPath;
+    public boolean fight;
+
     public Names getNames() {
         return names;
     }
@@ -42,9 +45,11 @@ public class Soldiers extends Army implements HumanConstantFunctions{
     public void setHp(int hp) {
         this.hp = hp;
     }
+
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -72,86 +77,89 @@ public class Soldiers extends Army implements HumanConstantFunctions{
     public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
     }
+
     public Names getTypeOfArmy() {
         return typeOfArmy;
     }
 
-    public void BlackMonk(int x , int y) {
+    public void BlackMonk(int x, int y) {
         hp = 300;
         maxHp = 300;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.BLACK_MONK;
         xCoordinate = x;
         yCoordinate = y;
-        attackRange = 3 ;
+        attackRange = 3;
         speed = 3;
         restOfMoves = 3;
         attackPower = 500;
         defencePower = 150;
     }
-    public void Knight(int x , int y) {
+
+    public void Knight(int x, int y) {
         hp = 900;
         maxHp = 900;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.KNIGHT;
         xCoordinate = x;
         yCoordinate = y;
-        attackRange = 5 ;
+        attackRange = 5;
         speed = 9;
         attackPower = 1000;
         defencePower = 450;
         restOfMoves = 9;
     }
 
-    public void Swordsmen(int x , int y) {
+    public void Swordsmen(int x, int y) {
         hp = 650;
         maxHp = 650;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.SWORDSMEN;
         xCoordinate = x;
         yCoordinate = y;
-        attackRange = 3 ;
+        attackRange = 3;
         speed = 1;
         attackPower = 800;
         defencePower = 100;
         restOfMoves = 1;
     }
 
-    public void PikeMen(int x , int y) {
+    public void PikeMen(int x, int y) {
         hp = 500;
         maxHp = 500;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.PIKE_MEN;
         xCoordinate = x;
         yCoordinate = y;
-        attackRange = 3 ;
+        attackRange = 3;
         speed = 3;
         restOfMoves = 3;
         attackPower = 600;
         defencePower = 350;
     }
 
-    public void Slaves(int x , int y) {
+    public void Slaves(int x, int y) {
         hp = 400;
         maxHp = 400;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.SLAVES;
         xCoordinate = x;
         yCoordinate = y;
-        attackRange = 2 ;
+        attackRange = 2;
         speed = 7;
         restOfMoves = 7;
         attackPower = 200;
         defencePower = 20;
     }
-    public void ArabianSwordsmen(int x , int y) {
+
+    public void ArabianSwordsmen(int x, int y) {
         hp = 700;
         maxHp = 700;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.ARABIAN_SWORDSMEN;
         xCoordinate = x;
         yCoordinate = y;
-        attackRange = 4 ;
+        attackRange = 4;
         speed = 9;
         restOfMoves = 9;
         attackPower = 800;

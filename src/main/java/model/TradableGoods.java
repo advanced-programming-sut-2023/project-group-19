@@ -47,9 +47,9 @@ public enum TradableGoods {
     PORTABLE_SHIELD("portableShield");
 
 
-    private  String goodName;
+    private String goodName;
 
-    TradableGoods (String goodName) {
+    TradableGoods(String goodName) {
         this.goodName = goodName;
     }
 

@@ -33,6 +33,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public List<Integer> myPath;
     public Names shieldDirection;
     public Names typeOfArmy;
+    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;
@@ -207,7 +208,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         attackRange = 2;
         attackPower = 600;
         defencePower = 150;
-        speed = 3 ;
+        speed = 3;
         restOfMoves = 3;
     }
 
@@ -222,7 +223,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         attackRange = 2;
         attackPower = 600;
         defencePower = 150;
-        speed = 3 ;
+        speed = 3;
         restOfMoves = 3;
     }
 
@@ -236,7 +237,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         attackRange = 2;
         attackPower = 0;
         defencePower = 200;
-        speed = 3 ;
+        speed = 3;
         restOfMoves = 3;
     }
 
@@ -248,7 +249,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         attackRange = 2;
         attackPower = 800;
         defencePower = 150;
-        speed = 3 ;
+        speed = 3;
         restOfMoves = 3;
     }
 

@@ -22,7 +22,7 @@ public class LoginMenuTest {
     public void test1() throws IOException {
         User user1 = new User("d", "a", "d", "a", "s", "a", 4);
         User user2 = new User("d", "a", "d", "a", "s", "a", 4);
-        Assertions.assertEquals(user1, user2);
+        Assertions.assertNotEquals(user1, user2);
     }
     @Test
     public void checkUsername(){

@@ -58,30 +58,39 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     gameController.patrolUnit(x1, y1, x2, y2);
                 } else System.out.println(gameMenuMessages.getMessages());
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.STOP_PATROL_UNIT) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    int xCoordinate = Integer.parseInt(x1.group("x"));
+                    int yCoordinate = Integer.parseInt(y1.group("y"));
+                    System.out.println(gameController.stopPatrols().getMessages());
+                } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.SET_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
                 type = GameMenuCommands.getMatcher(command, GameMenuCommands.TYPE_OF_UNIT);
                 gameMenuMessages = checkFormatOfCoordinateCommandsWithType(x1, y1, type);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    //todo : set unit
+                    System.out.println(gameController.setFormOfUnit(x1, y1, type));
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK) != null) {
                 enemy = GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK_BY_SOLDIERS);
                 if (enemy != null) {
-                    //TODO : Attack function
+                    System.out.println(gameController.readyToAttack(enemy));
                 } else {
                     x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                     y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
                     gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
                     if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                        //TODO : Attack function
+                        System.out.println(gameController.attackAllSelectedArchers(x1, y1));
                     } else System.out.println(gameMenuMessages.getMessages());
                 }
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.POUR_OIL) != null) {
                 direction = GameMenuCommands.getMatcher(command, GameMenuCommands.DIRECTION);
                 if (direction != null) {
-                    //TODO : Armin's function
+                    System.out.println(gameController.pourOil(direction.group("direction")));
                 } else System.out.println(GameMenuMessages.EMPTY_DIRECTION_FIELD.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DIG_TUNNEL) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
@@ -93,21 +102,13 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.BUILD_EQUIPMENT) != null) {
                 equipment = GameMenuCommands.getMatcher(command, GameMenuCommands.EQUIPMENT);
                 if (equipment != null) {
-                    //TODO : function?
+                    System.out.println(gameController.buildEquipment(equipment));
                 } else System.out.println(GameMenuMessages.EMPTY_EQUIPMENT_FIELD.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DISBAND_UNIT) != null) {
-                gameController.disbandUnit();
+                System.out.println(gameController.disbandUnit());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_MAP_MENU) != null) {
                 CreateMapMenu createMapMenu = new CreateMapMenu();
-                CreateMapMenu.run(scanner);
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DROP_BUILDING) != null) {
-                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
-                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
-                type = GameMenuCommands.getMatcher(command, GameMenuCommands.TYPE);
-                gameMenuMessages = checkFormatOfCoordinateCommandsWithType(x1, y1, type);
-                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    //TODO : Attach to building menu
-                } else System.out.println(gameMenuMessages.getMessages());
+                createMapMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DROP_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
@@ -115,17 +116,71 @@ public class GameMenu {
                 count = GameMenuCommands.getMatcher(command, GameMenuCommands.COUNT);
                 gameMenuMessages = checkFormatOfCoordinateCommandsWithTypeAndCount(x1, y1, type, count);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    //TODO : Armin's function
+                    System.out.println(gameController.dropUnit(x1, y1, count, type));
                 } else System.out.println(gameMenuMessages.getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.TURN_PITCH_DITCH_ON) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
-                if (checkFormatOfSingleCoordinateCommands(x1, y1).getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    int x = Integer.parseInt(x1.group("x"));
-                    int y = Integer.parseInt(y1.group("y"));
-                    ShopMenu shopMenu = new ShopMenu();
-                    shopMenu.run(scanner, (Shop) Map.getBuildingMap()[x][y].get(0));
-                }
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.PitchDitchHauntsEnemy(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.CONQUER_GATES) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.conquerGates(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.SET_PORTABLE_SHIELD) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.defenceByPortableShields(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK_BY_BATTERING_RAM) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.damageByBatteringRam(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DIG_DITCH) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.digDitch(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.REMOVE_DITCH) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.removePitchDitch(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.FILL_DITCH) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.fillDitch(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_BY_SIEGE_TOWER) != null) {
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
+                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(gameController.siegeTowersAction(x1, y1));
+                } else System.out.println(gameMenuMessages.getMessages());
+            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
+                ShopMenu shopMenu = new ShopMenu();
+                shopMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
                 tradeMenu.run(scanner);

@@ -17,6 +17,7 @@ public enum ObstacleName {
     STONE("Stone"),
     ;
     private String obstacleName;
+
     ObstacleName(String obstacleName) {
         this.obstacleName = obstacleName;
     }

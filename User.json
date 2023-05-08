@@ -1,12 +1,23 @@
 [
   {
-    "username": "a",
-    "password": "16bad6c7d3008ffee266511ea606f4be398ea33f505de5d0cce8d7743f12861a",
-    "nickname": "a",
+    "username": "d",
+    "password": "a",
+    "nickname": "d",
     "email": "a",
     "recoveryQuestion": "s",
     "slogan": "a",
-    "recoveryQuestionNumber": 5,
+    "recoveryQuestionNumber": 4,
+    "highScore": 0,
+    "rank": 0
+  },
+  {
+    "username": "d",
+    "password": "a",
+    "nickname": "d",
+    "email": "a",
+    "recoveryQuestion": "s",
+    "slogan": "a",
+    "recoveryQuestionNumber": 4,
     "highScore": 0,
     "rank": 0
   }

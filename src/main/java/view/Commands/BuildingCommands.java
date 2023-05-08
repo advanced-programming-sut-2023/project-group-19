@@ -12,7 +12,7 @@ public enum BuildingCommands {
     BUILDING_COMMANDS_FIND_DROP_BUILDING_TYPE("-type\\s+(?<type>\\w+)"),
 
     INVALID_COMMAND("invalid command"),
-
+    LOGOUT("Logout"),
     ;
 
     private Pattern name;
