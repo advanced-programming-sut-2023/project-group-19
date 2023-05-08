@@ -206,6 +206,7 @@ public class CreateMapMenu {
             return;
         }
         type = matcher.group("type");
+        System.out.println("x 1 is :" + x1 + "x2 is : " + x2 + "y1 : " + y1 + "y2 : " + y2 + "type : " + type);
         System.out.println(CreateMapController.settextureGroup(x1, x2, y1, y2, type));
     }
 

@@ -94,8 +94,6 @@ public class ShowMapController {
                         if (!Map.getGroundType()[row][k - 1].isEmpty()) {
                             if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DEFAULT))
                                 type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
-                            else if(Map.getObstacleMap()[row][k - 1].get(0) instanceof WaterSources)
-                                type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GROUND_WITH_STONE))
                                 type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.IRON))
@@ -111,6 +109,9 @@ public class ShowMapController {
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.STONE))
                                 type = ANSI_RED_BACKGROUND + type + ANSI_RESET;
                         }
+                        if(!Map.getObstacleMap()[row][k - 1].isEmpty() &&
+                                Map.getObstacleMap()[row][k - 1].get(0) instanceof WaterSources)
+                            type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
                         square.append(type);
                     }
                 }
@@ -136,12 +137,13 @@ public class ShowMapController {
 
     public static String moveMap(int deltaX, int deltaY) {
         if(!CreateMapController.mapIsBuilded)  return "first build a map!";
+        if (leftLimit + deltaY <= 0 || rightLimit + deltaY > size ||
+                uplimit + deltaX <= 0 || downLimit + deltaX > size) return "fill correctly;" +
+                "your location out of bounds";
         leftLimit += deltaY;
         rightLimit += deltaY;
         uplimit += deltaX;
         downLimit += deltaX;
-        if (leftLimit <= 0 || rightLimit > size || uplimit <= 0 || downLimit > size) return "fill correctly;" +
-                "your location out of bounds";
 
         return makeMap();
     }

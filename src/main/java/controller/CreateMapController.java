@@ -47,15 +47,18 @@ public class CreateMapController {
         if(Map.notBuildable[x - 1][y - 1]) return "Is occupied";
         GroundType groundType = GroundType.getEnumGroundType(type);
         if(groundType == null){
-            WaterSources waterSources = WaterSources.getWaterSourcesByName("type");
+            WaterSources waterSources = WaterSources.getWaterSourcesByName(type);
             if(waterSources == null) return "Choose type correctly";
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
             Map.notBuildable[x - 1][y - 1]  = true ;
             if(!type.equals("Plain")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
+        System.out.println("><><><><><><>");
         Map.getGroundType()[x - 1][y - 1].clear();
+        System.out.println(groundType);
         Map.getGroundType()[x - 1][y - 1].add(groundType);
+        System.out.println(Map.getGroundType()[x - 1][y - 1].get(0));
         return "Change is done successfully!";
     }
     public static String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type){
@@ -69,8 +72,10 @@ public class CreateMapController {
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
+        System.out.println(groundType);
         for(int i = x1 ; i <= x2 ; i ++){
             for(int j = y1 ; j <= y2 ; j ++){
+                Map.getGroundType()[i - 1][j - 1].clear();
                 Map.getGroundType()[i - 1][j - 1].add(groundType);
             }
         }
