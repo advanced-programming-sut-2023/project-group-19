@@ -29,33 +29,40 @@ public class MainMenu {
                 System.out.println("logged out");
                 return;
             } else if ((matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP)) != null) {
-                if (showMap(command, scanner)) {
-                    NextTurnController nextTurnController = new NextTurnController();
-                    nextTurnController.game(scanner);
-                    CreateMapController.recovery();
-                }
-            } else System.out.println("Invalid command!");
+                showMap(command,scanner);
+            } else if(command.matches("\\s*enter\\s+game\\s+menu")){
+                enterGameMenu(scanner);
+            }
+            else System.out.println("Invalid command!");
         }
     }
 
-
-    public static boolean showMap(String command, Scanner scanner) throws IOException, InterruptedException {
+    private static void enterGameMenu(Scanner scanner) throws IOException, InterruptedException {
+        if(CreateMapController.numberOfEmpiers >= 2){
+            NextTurnController nextTurnController = new NextTurnController();
+            nextTurnController.game(scanner);
+            CreateMapController.recovery();
+        }else {
+            System.out.println("more castle must be build!");
+        }
+    }
+    public static void showMap(String command, Scanner scanner) throws IOException, InterruptedException {
         Matcher matcher;
         matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
         if (matcher == null) {
             System.out.println("fill elements of map correctly!");
-            return false;
+            return;
         }
         int x = Integer.parseInt(matcher.group("x"));
 
         matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
         if (matcher == null) {
             System.out.println("fill elements of map correctly!");
-            return false;
+            return;
         }
         int y = Integer.parseInt(matcher.group("y"));
         System.out.println(ShowMapController.showMap(x, y, false));
-        return CreateMapMenu.run(scanner);
+        CreateMapMenu.run(scanner);
 
     }
 }
