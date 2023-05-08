@@ -43,14 +43,14 @@ public class CreateMapController {
     }
     public static String settextureOneByOne(int x,int y,String type){
         if (!mapIsBuilded) return "At first.You must build a map!";
-        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
+        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
         if(Map.notBuildable[x - 1][y - 1]) return "Is occupied";
         GroundType groundType = GroundType.getEnumGroundType(type);
         if(groundType == null){
             WaterSources waterSources = WaterSources.getWaterSourcesByName("type");
             if(waterSources == null) return "Choose type correctly";
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
-            Map.notBuildable[x - 1][y - 1] = true ;
+            Map.notBuildable[x - 1][y - 1]  = true ;
             if(!type.equals("Plain")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }

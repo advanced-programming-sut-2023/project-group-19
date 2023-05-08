@@ -48,9 +48,8 @@ public class CreateMapMenu {
                 if (result.equals("Successfully done!")) {
                     if (checkToGameMenu()) return true;
                 }
-            } else System.out.println("invalid command");
+            }else System.out.println("invalid command");
         }
-
     }
 
     private static String locateCatle(String command) {

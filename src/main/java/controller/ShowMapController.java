@@ -2,10 +2,14 @@ package controller;
 
 import model.*;
 import model.Building.Building;
+import model.Human.Names;
 import model.Human.Troop.Army;
 import model.Obstacle.Obstacle;
 
 import model.Obstacle.ObstacleName;
+import model.Obstacle.WaterSources;
+
+import java.util.HashMap;
 
 public class ShowMapController {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -133,29 +137,63 @@ public class ShowMapController {
     }
 
     public static String showDetail(int x, int y) {
-        Building building;
-        String buildingName = "empty";
-        Army army;
-        String armyName = "empty";
-        String grounfType = "empty";
-        int numOfArmy = 0;
-        if (!Map.getBuildingMap()[x][y].isEmpty()) {
-            building = Map.getBuildingMap()[x][y].get(0);
-            buildingName = String.valueOf(building.getName());
+        String groundType = Map.getGroundType()[x][y].get(0).getGroundType();
+        if(groundType.equals(GroundType.DEFAULT.getGroundType())){
+            if(Map.getObstacleMap()[x - 1][y - 1].get(0) instanceof WaterSources){
+                WaterSources waterSources = (WaterSources) Map.getObstacleMap()[x - 1][y - 1].get(0);
+                groundType = waterSources.getName().getObstacleName();
+            }
         }
-        if (!Map.getTroopMap()[x][y].isEmpty()) {
-            army = Map.getTroopMap()[x][y].get(0);
-            armyName = String.valueOf(army.getNames());
-            numOfArmy = Map.getTroopMap()[x][y].size();
+        StringBuilder soildersString = new StringBuilder("\n");
+        HashMap<Names,Integer> soilders = new HashMap<>();
+        for(Army army : Map.getTroopMap()[x - 1][y - 1]){
+            if(soilders.containsKey(army.getNames())){
+               int number = soilders.get(army.getNames()) ;
+               number ++ ;
+               soilders.put(army.getNames(),number);
+            }else{
+                soilders.put(army.getNames(),0);
+            }
         }
-        if (!Map.getGroundType()[x][y].isEmpty()) {
-            grounfType = Map.getGroundType()[x][y].get(0).getGroundType();
+        for(Names key : soilders.keySet()){
+            String text = key.getName() + ": " + soilders.get(key) + "\n" ;
+            soildersString.append(text);
         }
-        return "Building: " + buildingName + "\n" +
-                "army: " + armyName + " --> " + numOfArmy + "\n" +
-                "ground type: " + grounfType;
+        String army = soildersString.toString();
 
+        String buildingName = "empty";
+        if(!Map.getBuildingMap()[x - 1][y - 1].isEmpty()){
+            buildingName = Map.getBuildingMap()[x - 1][y - 1].get(0).getName().getName();
+        }
+        return "Grounf type is :" + groundType + "\n"+ "army is: " + army + " \n" + "building: " + buildingName ;
 
     }
 
+
+
 }
+
+//    Building building;
+//        String buildingName = "empty";
+//        Army army;
+//        String armyName = "empty";
+//        String grounfType = "empty";
+//        int numOfArmy = 0;
+//        if (!Map.getBuildingMap()[x][y].isEmpty()) {
+//            building = Map.getBuildingMap()[x][y].get(0);
+//            buildingName = String.valueOf(building.getName());
+//        }
+//        if (!Map.getTroopMap()[x][y].isEmpty()) {
+//            army = Map.getTroopMap()[x][y].get(0);
+//            armyName = String.valueOf(army.getNames());
+//            numOfArmy = Map.getTroopMap()[x][y].size();
+//        }
+//        if (!Map.getGroundType()[x][y].isEmpty()) {
+//            grounfType = Map.getGroundType()[x][y].get(0).getGroundType();
+//        }
+//        return "Building: " + buildingName + "\n" +
+//                "army: " + armyName + " --> " + numOfArmy + "\n" +
+//                "ground type: " + grounfType;
+//
+//
+//    }
