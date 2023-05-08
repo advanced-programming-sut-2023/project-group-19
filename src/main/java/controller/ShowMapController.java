@@ -75,6 +75,12 @@ public class ShowMapController {
 
                             type = "B";
                         } else if (!(Map.getTroopMap()[row][k - 1]).isEmpty()) type = "S";
+//                        else if(Manage.getCurrentEmpire() != null &&
+//                                !(Map.getTroopMap()[row][k - 1]).isEmpty()){
+//                            for(Army army : Map.getTroopMap()[row][k - 1]){
+//
+//                            }
+//                        }
                         else if (!(Map.getObstacleMap()[row][k - 1]).isEmpty()) {
                             obstacle = Map.getObstacleMap()[row][k - 1].get(0);
                             ObstacleName name = obstacle.getName();

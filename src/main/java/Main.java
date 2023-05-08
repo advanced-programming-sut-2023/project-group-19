@@ -22,12 +22,14 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
 
 
-        Scanner scanner = new Scanner(System.in);
-        EmpireMenu empireMenu = new EmpireMenu();
-        Empire empire = new Empire();
-        Manage.setCurrentEmpire(empire);
-        Map.CreateMap(200);
-        empireMenu.run(scanner);
+//        Scanner scanner = new Scanner(System.in);
+//        EmpireMenu empireMenu = new EmpireMenu();
+//        Empire empire = new Empire();
+//        Manage.setCurrentEmpire(empire);
+//        Map.CreateMap(200);
+//        empireMenu.run(scanner);
+
+        LoginMenu.run(new Scanner(System.in));
 
 
 //          Scanner scanner = new Scanner(System.in);
@@ -60,13 +62,13 @@ public class Main {
 //            System.out.println(i.getNames().getName());
 //        }
 
-        empire.setName("arian");
-        Map.CreateMap(200);
-        Manage.getAllEmpires().add(empire);
-        Shop shop = new Shop(empire);
-        shop.shop();
-        Map.getBuildingMap()[1][5].add(shop);
-        GameMenu gameMenu = new GameMenu();
-        gameMenu.run(scanner);
+//        empire.setName("arian");
+//        Map.CreateMap(200);
+//        Manage.getAllEmpires().add(empire);
+//        Shop shop = new Shop(empire);
+//        shop.shop();
+//        Map.getBuildingMap()[1][5].add(shop);
+//        GameMenu gameMenu = new GameMenu();
+//        gameMenu.run(scanner);
     }
 }
