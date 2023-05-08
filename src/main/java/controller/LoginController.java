@@ -58,7 +58,6 @@ public class LoginController {
             , String slogan, String numberOfSecQuesion) throws IOException {
         String newPassword = getHashCode(password);
         User user = new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
-//        user.addUserToAllUsersArrayList(user);
     }
 
     public static RegisterMessages checkSecurityAsks(int number, String answer, String confirmAnswer) {
@@ -138,7 +137,7 @@ public class LoginController {
     public static String getRandomSlogan() {
         int size = User.getRandomSlogans().size();
         Random random = new Random();
-        int index = random.nextInt(size - 1);
+        int index = random.nextInt(size);
         return (User.getRandomSlogans().get(index));
     }
 

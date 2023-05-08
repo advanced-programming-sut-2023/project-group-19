@@ -12,10 +12,8 @@ import view.EmpireMenu;
 import view.GameMenu;
 import view.LoginMenu;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
 import static java.lang.Math.floor;
 
 public class Main {
@@ -29,7 +27,7 @@ public class Main {
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
 
-        LoginMenu.run(new Scanner(System.in));
+//        LoginMenu.run(new Scanner(System.in));
 
 
 //          Scanner scanner = new Scanner(System.in);
