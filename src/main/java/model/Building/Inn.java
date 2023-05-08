@@ -10,8 +10,8 @@ public class Inn extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    public Names getName() {
-        return this.name;
+    public String getName() {
+        return this.name.getName();
     }
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {

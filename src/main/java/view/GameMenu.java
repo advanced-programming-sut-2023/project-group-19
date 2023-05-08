@@ -141,13 +141,6 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(gameController.conquerGates(x1, y1));
                 } else System.out.println(gameMenuMessages.getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.SET_PORTABLE_SHIELD) != null) {
-                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
-                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);
-                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
-                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    System.out.println(gameController.defenceByPortableShields(x1, y1));
-                } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ATTACK_BY_BATTERING_RAM) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);

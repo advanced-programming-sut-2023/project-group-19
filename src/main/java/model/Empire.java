@@ -120,9 +120,9 @@ public class Empire {
     private int totalFoodCount;
     private int foodDiversity;
     private int taxRateNumber;
-    private int fearRateNumber;
-    private double fearWorkerImpact = 0;
-    private double fearTroopImpact = 0;
+    private int fearRateNumber = 1;
+    private double fearWorkerImpact = 1;
+    private double fearTroopImpact = 1;
 
 
     public double getFearWorkerImpact() {
@@ -1092,8 +1092,8 @@ public class Empire {
         if (weaponsCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact <= weaponsCapacity) {
             allWeaponTools.replace("leatherArmour", (int) (allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact));
         }
-        if (weaponsCount + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
-            allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") * fearWorkerImpact));
+        if (weaponsCount + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
+            allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact));
         }
     }
 

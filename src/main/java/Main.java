@@ -1,3 +1,4 @@
+import controller.EmpireController;
 import controller.JsonController;
 import controller.PathFindingController;
 import model.Building.*;
@@ -11,9 +12,14 @@ import view.Commands.BuildingCommands;
 import view.EmpireMenu;
 import view.GameMenu;
 import view.LoginMenu;
-import java.io.IOException;
-import java.util.*;
 
+import javax.sound.sampled.Line;
+import javax.swing.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 import static java.lang.Math.floor;
 
 public class Main {
@@ -27,18 +33,31 @@ public class Main {
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
 
-        LoginMenu.run(new Scanner(System.in));
 
-
-//          Scanner scanner = new Scanner(System.in);
 //        Empire empire = new Empire();
+//        Manage.setCurrentEmpire(empire);
 //        Map.CreateMap(200);
+//        Industry woodCutter = new Industry(empire);
+//        woodCutter.woodCutter();
+//        Map.buildingMap[0][0].add(woodCutter);
+//        System.out.println(Map.buildingMap[0][0].get(0).getName());
+//        empire.setFearRateNumber(-5);
+//        EmpireController.setFearFactor();
+//        System.out.println(empire.getResourcesCapacity());
+//        System.out.println(empire.getFearWorkerImpact());
+//        empire.setWoodCutterCount(1);
+//        System.out.println(empire.getWoodCutterCount());
+//        empire.independentProductionBuilding();
+//        System.out.println(empire.getWoodCount());
+
+
 //        Army army =new Army(empire);
 //        Army army1 =new Army(empire);
 //        Map.getTroopMap()[1][1].add(army);
 //        Map.getTroopMap()[1][1].add(army1);
 //        GameMenu gameMenu = new GameMenu();
 //        gameMenu.run(scanner);
+
 
 //        Empire empire = new Empire();
 //        empire.setName("arian");
@@ -60,6 +79,7 @@ public class Main {
 //            System.out.println(i.getNames().getName());
 //        }
 
+
 //        empire.setName("arian");
 //        Map.CreateMap(200);
 //        Manage.getAllEmpires().add(empire);
@@ -68,5 +88,7 @@ public class Main {
 //        Map.getBuildingMap()[1][5].add(shop);
 //        GameMenu gameMenu = new GameMenu();
 //        gameMenu.run(scanner);
+
+
     }
 }
