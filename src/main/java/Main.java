@@ -25,9 +25,10 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-        String command = "drop building -x  1 -y 2";
-        System.out.println(BuildingCommands.getMatcher(command, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING));
-
+//        String command = "drop building -x  1 -y 2";
+//        System.out.println(BuildingCommands.getMatcher(command, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING));
+        Scanner scanner = new Scanner(System.in);
+        LoginMenu.run(scanner);
 //        Scanner scanner = new Scanner(System.in);
 //        EmpireMenu empireMenu = new EmpireMenu();
 //        Empire empire = new Empire();
