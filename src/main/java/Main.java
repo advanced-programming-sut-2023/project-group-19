@@ -23,11 +23,8 @@ public class Main {
 
 
         Scanner scanner = new Scanner(System.in);
-        EmpireMenu empireMenu = new EmpireMenu();
         Empire empire = new Empire();
         Manage.setCurrentEmpire(empire);
-        Map.CreateMap(200);
-        empireMenu.run(scanner);
 
 
 //          Scanner scanner = new Scanner(System.in);

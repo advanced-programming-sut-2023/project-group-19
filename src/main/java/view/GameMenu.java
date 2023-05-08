@@ -42,6 +42,7 @@ public class GameMenu {
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
+                System.out.println(x1.group("x"));
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
@@ -194,7 +195,7 @@ public class GameMenu {
         }
     }
 
-    public GameMenuMessages checkFormatOfSingleCoordinateCommands(Matcher x1, Matcher y1) {
+    public GameMenuMessages checkFormatOfSingleCoordinateCommands(Matcher x1, Matcher y1 ) {
         if (x1 != null && y1 != null) {
             return GameMenuMessages.VALID_COMMAND;
         }
