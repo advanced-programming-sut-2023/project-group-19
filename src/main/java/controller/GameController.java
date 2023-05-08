@@ -429,7 +429,7 @@ public class GameController {
             if (selectedUnit.size() != 0) {
                 if (validFinalLocation(xCoordinate, yCoordinate)) {
                     if (!isTrebuchet()) {
-                        if (!isPatrol()) setPathForUnits(xCoordinate, yCoordinate);
+                        setPathForUnits(xCoordinate, yCoordinate);
                         for (Army myUnit : Manage.getCurrentEmpire().empireArmy) {
                             List<Integer> pathList = myUnit.myPath;
                             if (pathList != null && pathList.size() != 0) {
