@@ -8,6 +8,7 @@ import model.Obstacle.Obstacle;
 
 import model.Obstacle.ObstacleName;
 import model.Obstacle.WaterSources;
+import model.Obstacle.*;
 
 import java.util.HashMap;
 
@@ -93,11 +94,13 @@ public class ShowMapController {
                             if (name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = "T";
+                            else if (obstacle instanceof WaterSources) {
+                                type = " ";
+                                type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
+                            }else type = " ";
                         } else type = " ";
                         if (!Map.getGroundType()[row][k - 1].isEmpty()) {
-                            if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DEFAULT))
-                                type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
-                            else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GROUND_WITH_STONE))
+                            if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GROUND_WITH_STONE))
                                 type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.IRON))
                                 type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
