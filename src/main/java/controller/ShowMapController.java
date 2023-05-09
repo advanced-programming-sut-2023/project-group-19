@@ -158,11 +158,16 @@ public class ShowMapController {
 
     public static String showDetail(int x, int y) {
         if(!CreateMapController.mapIsBuilded)  return "first build a map!";
+        String obstacleName = "empty";
         String groundType = Map.getGroundType()[x - 1][y - 1].get(0).getGroundType();
         if(groundType.equals(GroundType.DEFAULT.getGroundType())){
-            if(!Map.getObstacleMap()[x - 1][y - 1].isEmpty()  && Map.getObstacleMap()[x - 1][y - 1].get(0) instanceof WaterSources){
-                WaterSources waterSources = (WaterSources) Map.getObstacleMap()[x - 1][y - 1].get(0);
-                groundType = waterSources.getName().getObstacleName();
+            if(!Map.getObstacleMap()[x - 1][y - 1].isEmpty() ){
+                if(Map.getObstacleMap()[x - 1][y - 1].get(0) instanceof WaterSources) {
+                    WaterSources waterSources = (WaterSources) Map.getObstacleMap()[x - 1][y - 1].get(0);
+                    groundType = waterSources.getName().getObstacleName();
+                }else{
+                    obstacleName = Map.getObstacleMap()[x - 1][y - 1].get(0).getName().getObstacleName();
+                }
             }
         }
         StringBuilder soildersString = new StringBuilder("\n");
@@ -186,7 +191,7 @@ public class ShowMapController {
         if(!Map.getBuildingMap()[x - 1][y - 1].isEmpty()){
             buildingName = Map.getBuildingMap()[x - 1][y - 1].get(0).getName();
         }
-        return "Grounf type is :" + groundType + "\n"+ "army is: " + army + " \n" + "building: " + buildingName ;
+        return "Grounf type is :" + groundType + "\n" + "obstacle name is: " + obstacleName + "\n" + "army is: " + army + " \n" + "building: " + buildingName ;
 
     }
 
