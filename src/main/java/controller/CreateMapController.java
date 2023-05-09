@@ -52,10 +52,14 @@ public class CreateMapController {
 //            Map.getGroundType()[x - 1][y - 1].clear();
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
             Map.notBuildable[x - 1][y - 1]  = true ;
-            if(!type.equals("Plain")) Map.notPassable[x - 1][y - 1] = true ;
+            if(!type.equals("Plain") && !type.equals("smallPond")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
         Map.getGroundType()[x - 1][y - 1].clear();
+        if(groundType.equals(GroundType.STONE)){
+            Map.notPassable[x - 1][y - 1] = true ;
+            Map.notBuildable[x - 1][y - 1] = true ;
+        }
         Map.getGroundType()[x - 1][y - 1].add(groundType);
         return "Change is done successfully!";
     }
@@ -65,14 +69,10 @@ public class CreateMapController {
         if(x1 < 1 || x2 > sizeOfMap || y1 < 1 || y2 > sizeOfMap) return "Yure location is out of bounds";
         GroundType groundType = GroundType.getEnumGroundType(type);
         if(groundType == null) return "Choose type correctly";
-        for(int i = x1 ; i <= x2 ; i ++){
-            for(int j = y1 ; j <= y2 ; j ++){
-                if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
-            }
-        }
         System.out.println(groundType);
         for(int i = x1 ; i <= x2 ; i ++){
             for(int j = y1 ; j <= y2 ; j ++){
+                if(Map.notBuildable[i - 1][j - 1]) return "x:  " + i + " and y: " + j + " is Is occupied";
                 Map.getGroundType()[i - 1][j - 1].clear();
                 Map.getGroundType()[i - 1][j - 1].add(groundType);
             }
