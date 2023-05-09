@@ -39,16 +39,18 @@ public class ShopController {
         Map.Entry<String, Integer> chosenGood = findGoodToBuy(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (checkTheCapacity(amount,chosenGood.getKey(),ownerOfShop)) {
+            if (getNumberOfGoods(chosenGood.getKey() , ownerOfShop) >= amount) {
                 if (checkTheCapacity(amount, chosenGood.getKey(), Manage.getCurrentEmpire())) {
-                    validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
-                    String answer = scanner.nextLine();
-                    if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
-                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
-                        ownerOfShop.setGoldCount(ownerOfShop.getGoldCount() + chosenGood.getValue());
-                        setNumberOfGoods(Manage.getCurrentEmpire(),ownerOfShop,amount,chosenGood.getKey());
-                        return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
-                    } else return ShopMenuMessages.OPERATION_CANCELLED;
+                    if (enoughMoneyToBuy(Manage.getCurrentEmpire() , chosenGood.getValue())) {
+                        validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
+                        String answer = scanner.nextLine();
+                        if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
+                            Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
+                            ownerOfShop.setGoldCount(ownerOfShop.getGoldCount() + chosenGood.getValue());
+                            setNumberOfGoods(Manage.getCurrentEmpire(), ownerOfShop, amount*5, chosenGood.getKey());
+                            return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
+                        } else return ShopMenuMessages.OPERATION_CANCELLED;
+                    } else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
                 } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_EMPIRE;
             } else return ShopMenuMessages.INVALID_AMOUNT_TO_BUY;
         }
@@ -60,16 +62,18 @@ public class ShopController {
         Map.Entry<String, Integer> chosenGood = findGoodToSell(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (checkTheCapacity(amount,chosenGood.getKey(),Manage.getCurrentEmpire())) {
+            if (getNumberOfGoods(chosenGood.getKey() , Manage.getCurrentEmpire()) >= amount) {
                 if (checkTheCapacity(amount, chosenGood.getKey() ,ownerOfShop)) {
-                    validationFormForSelling(nameOfGood, chosenGood.getValue(), amount);
-                    String answer = scanner.nextLine();
-                    if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
-                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() + chosenGood.getValue());
-                        ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() - chosenGood.getValue());
-                        setNumberOfGoods(ownerOfShop,Manage.getCurrentEmpire(),amount,chosenGood.getKey());
-                        return ShopMenuMessages.SELLING_OPERATION_SUCCEEDED;
-                    } else return ShopMenuMessages.OPERATION_CANCELLED;
+                    if (enoughMoneyToBuy(ownerOfShop , chosenGood.getValue())) {
+                        validationFormForSelling(nameOfGood, chosenGood.getValue(), amount);
+                        String answer = scanner.nextLine();
+                        if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
+                            Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() + chosenGood.getValue()*amount);
+                            ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() - chosenGood.getValue()*amount);
+                            setNumberOfGoods(ownerOfShop, Manage.getCurrentEmpire(), amount, chosenGood.getKey());
+                            return ShopMenuMessages.SELLING_OPERATION_SUCCEEDED;
+                        } else return ShopMenuMessages.OPERATION_CANCELLED;
+                    }else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
                 } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_SHOP;
             } else return ShopMenuMessages.NOT_ENOUGH_AMOUNT_TO_SELL;
         }
@@ -102,7 +106,7 @@ public class ShopController {
 
     public void validationFormForSelling(String goodName, int price, int amount) {
         System.out.println("Dear seller from " + Manage.getCurrentEmpire().getName() + " Empire\n" +
-                "You've wanted to sell product : " + goodName + " in " + amount + " quantity , with price : " + price + "\n" +
+                "You've wanted to sell product : " + goodName + " in " + amount + " quantity , with price : " + price*amount + "\n" +
                 "We need your approval before buying your product.If you're certain about your offer,please enter yes.\n" +
                 "Otherwise,the deal will be cancelled.");
     }
@@ -229,5 +233,8 @@ public class ShopController {
             case "cheese" -> count + empire.getCheeseCount() <= empire.getFoodCapacity();
             default -> false;
         };
+    }
+    public boolean enoughMoneyToBuy(Empire empire , int price){
+        return empire.getGoldCount() >= price;
     }
 }

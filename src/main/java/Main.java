@@ -69,6 +69,9 @@ public class Main {
         shop.setOwner(empire);
         empire.setAppleCount(6);
         empire.setCheeseCount(3);
+        empire1.setLeatherArmour(15);
+        empire1.setOilAmount(17);
+        empire1.setGoldCount(100000);
         Map.getBuildingMap()[1][5].add(shop);
         GameMenu gameMenu = new GameMenu();
         gameMenu.run(scanner);

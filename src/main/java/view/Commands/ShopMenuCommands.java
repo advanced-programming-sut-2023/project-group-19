@@ -10,7 +10,7 @@ public enum ShopMenuCommands {
     BUY("buy .+"),
     ITEM_NAME_CHECK(".*-i (?<itemName>\\S+).*"),
     ITEM_AMOUNT_CHECK(".*-a (?<itemAmount>\\d+).*"),
-    SELL("\\s*sell\\s+"),
+    SELL("sell .+"),
     OPERATION_ACCEPTED("\\s*yes|Yes\\s*"),
     OPERATION_CANCELLED("\\s*no|No\\s*"),
     LOGOUT("\\s*Logout\\s*");
