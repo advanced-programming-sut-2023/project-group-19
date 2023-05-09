@@ -72,6 +72,7 @@ public class User implements Comparable<User> {
         this.recoveryQuestionNumber = recoveryQuestionNumber;
         users.add(this);
         Collections.sort(users);
+        System.out.println(users.size());
         //
         Manage.allUsers.add(this);
         JsonController.writeIntoFile(Manage.allUsers, "User.json");

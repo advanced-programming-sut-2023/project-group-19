@@ -39,6 +39,7 @@ public class ProfileMenu {
                 System.out.println("exit");
                 return;
             }
+            //TODO : exit has bug
             else {
                 System.out.println("invalid command!");
             }
