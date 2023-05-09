@@ -44,6 +44,7 @@ public class Main {
         empire.setUser(newUser);
         empire.setWorkerCount(5);
         empire.setWoodCount(20);
+        empire.setStoneCount(30);
         BuildingMenu buildingMenu = new BuildingMenu();
         buildingMenu.run(scanner);
 //        Industry woodCutter = new Industry(empire);
