@@ -2,7 +2,7 @@ package view.Commands;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public enum TradeMenuCommands {
-    TRADE("\\s*trade\\s+-t\\s+.+"),
+    TRADE("trade -t .+"),
     FORMAT_OF_NUMBER_FOR_SELECTED_BUILDING("\\s*\\d+\\s*"),
     SEND_REQUEST_RESOURCE_TYPE_CHECK("(?<resourceType>(-t\\s+(?=\"+)[^-]+)\"{1}|(-t\\s+(?=\"{0})[^\\s-]+))"),
     SEND_REQUEST_RESOURCE_AMOUNT_CHECK("(?<resourceAmount>-a\\s+\\d+)"),

@@ -12,12 +12,11 @@ import view.Messages.TradeMenuMessages;
 import model.TradableGoods;
 
 public class TradeController {
-    public static String currentMenu;
     public int indexOfRequest;
     public int indexOfDonation;
     public static Empire selectedEmpire = null;
 
-    public void showAllEmpires(Scanner scanner) {
+    public void showAllEmpires() {
         int number = 1;
         System.out.println("List of all empires :");
         for (Empire empire : Manage.getAllEmpires()) {
