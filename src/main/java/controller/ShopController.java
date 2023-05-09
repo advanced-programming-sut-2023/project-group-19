@@ -111,21 +111,22 @@ public class ShopController {
         return switch (goodName) {
             case "meat" -> empire.getMeatCount();
             case "hops" -> empire.getOatCount();
-            case "barrel" -> 0;
-            case "ironArmor" -> 0;
-            case "leatherArmor", "sword" -> empire.getSwordCount();
-            case "ironAxe" -> 0;
-            case "crossbow" -> 0;
+            case "barrel" -> empire.getBeerCount();
+            case "ironArmor" -> empire.getMetalArmour();
+            case "leatherArmor" -> empire.getLeatherArmour();
+            case "sword" -> empire.getSwordCount();
+            //case "ironAxe" -> 0;
+            //case "crossbow" -> 0;
             case "mace" -> empire.getMaceCount();
             case "bow" -> empire.getBowCount();
-            case "dart" -> 0;
+            //case "dart" -> 0;
             case "oil" -> empire.getOilAmount();
             case "iron" -> empire.getIronCount();
             case "stone" -> empire.getStoneCount();
             case "wood" -> empire.getWoodCount();
             case "flour" -> empire.getFlour();
             case "wheat" -> empire.getWheatCount();
-            case "bead" -> 0;
+            //case "bead" -> 0;
             case "apple" -> empire.getAppleCount();
             case "cheese" -> empire.getCheeseCount();
             default -> 0;
@@ -135,55 +136,72 @@ public class ShopController {
         switch (goodName) {
             case "meat" -> {
                 customer.setMeatCount(customer.getMeatCount() + count);
-                seller.setMeatCount(customer.getMeatCount() - count);
+                seller.setMeatCount(seller.getMeatCount() - count);
             }
             case "hops" -> {
                 customer.setOatCount(customer.getOatCount() + count);
-                seller.setOatCount(customer.getOatCount() - count);
+                seller.setOatCount(seller.getOatCount() - count);
             }
-            case "barrel", "ironArmor", "leatherArmor", "sword" -> {
+            case "barrel" -> {
+                customer.setBeerCount(customer.getBeerCount() + count);
+                seller.setBeerCount(seller.getBeerCount() - count);
+            }
+            case "ironArmour" -> {
+                customer.setMetalArmour(customer.getMetalArmour() + count);
+                seller.setMetalArmour(seller.getMetalArmour() - count);
+            }
+            case "leatherArmour" -> {
+                customer.setLeatherArmour(customer.getLeatherArmour() + count);
+                seller.setLeatherArmour(seller.getLeatherArmour() - count);
+            }
+            case "sword" -> {
                 customer.setSwordCount(customer.getSwordCount() + count);
-                seller.setSwordCount(customer.getSwordCount() - count);
+                seller.setSwordCount(seller.getSwordCount() - count);
             }
-            case "ironAxe", "crossbow", "mace" -> {
-                customer.setMaceCount(customer.getMaceCount() + count);
-                seller.setMaceCount(customer.getMaceCount() - count);
-            }
+            //case "ironAxe";
+            //case "crossbow";
             case "bow" -> {
                 customer.setBowCount(customer.getBowCount() + count);
-                seller.setBowCount(customer.getBowCount() - count);
+                seller.setBowCount(seller.getBowCount() - count);
             }
-            case "dart", "oil" -> {
+            case "mace" -> {
+                customer.setMaceCount(customer.getMaceCount() + count);
+                seller.setMaceCount(seller.getMaceCount() - count);
+            }
+
+            //case "dart";
+            case  "oil" -> {
                 customer.setOilAmount(customer.getOilAmount() + count);
-                seller.setOilAmount(customer.getOilAmount() - count);
+                seller.setOilAmount(seller.getOilAmount() - count);
             }
             case "iron" -> {
                 customer.setIronCount(customer.getIronCount() + count);
-                seller.setIronCount(customer.getIronCount() - count);
+                seller.setIronCount(seller.getIronCount() - count);
             }
             case "stone" -> {
                 customer.setStoneCount(customer.getStoneCount() + count);
-                seller.setStoneCount(customer.getStoneCount() - count);
+                seller.setStoneCount(seller.getStoneCount() - count);
             }
             case "wood" -> {
                 customer.setWoodCount(customer.getWoodCount() + count);
-                seller.setWoodCount(customer.getWoodCount() - count);
+                seller.setWoodCount(seller.getWoodCount() - count);
             }
             case "flour" -> {
                 customer.setFlour(customer.getFlour() + count);
-                seller.setFlour(customer.getFlour() - count);
+                seller.setFlour(seller.getFlour() - count);
             }
             case "wheat" -> {
                 customer.setWheatCount(customer.getWheatCount() + count);
-                seller.setWheatCount(customer.getWheatCount() - count);
+                seller.setWheatCount(seller.getWheatCount() - count);
             }
-            case "bead", "apple" -> {
+            //case "bead";
+            case "apple" -> {
                 customer.setAppleCount(customer.getAppleCount() + count);
-                seller.setAppleCount(customer.getAppleCount() - count);
+                seller.setAppleCount(seller.getAppleCount() - count);
             }
             case "cheese" -> {
                 customer.setCheeseCount(customer.getCheeseCount() + count);
-                seller.setCheeseCount(customer.getCheeseCount() - count);
+                seller.setCheeseCount(seller.getCheeseCount() - count);
             }
         }
     }
@@ -191,16 +209,23 @@ public class ShopController {
         return switch (goodName) {
             case "meat" -> count + empire.getMeatCount() <= empire.getFoodCapacity();
             case "hops" -> count + empire.getOatCount() <= empire.getFoodCapacity();
-            case "barrel", "ironArmor", "leatherArmor", "sword" -> count + empire.getSwordCount() <= empire.getResourcesCapacity() ;
-            case "ironAxe", "crossbow", "mace" -> count + empire.getMaceCount() <= empire.getResourcesCapacity();
-            case "bow" -> count + empire.getBowCount()<= empire.getResourcesCapacity();
-            case "dart", "oil" -> count + empire.getOilAmount() <= empire.getFoodCapacity();
+            case "barrel" -> count + empire.getBeerCount() <= empire.getFoodCapacity();
+            case"ironArmor" -> count + empire.getMetalArmour() <= empire.getWeaponsCapacity();
+            case "leatherArmor" -> count + empire.getLeatherArmour() <= empire.getWeaponsCapacity();
+            case "sword" -> count + empire.getSwordCount()<= empire.getWeaponsCapacity();
+            //case "ironAxe";
+            //case "crossbow";
+            case  "mace" -> count + empire.getMaceCount() <= empire.getWeaponsCapacity();
+            case "bow" -> count + empire.getBowCount()<= empire.getWeaponsCapacity();
+            //case "dart";
+            case "oil" -> count + empire.getOilAmount() <= empire.getFoodCapacity();
             case "iron" -> count + empire.getIronCount() <= empire.getResourcesCapacity();
             case "stone" -> count + empire.getStoneCount() <=  empire.getResourcesCapacity();
             case "wood" -> count +  empire.getWoodCount() <= empire.getResourcesCapacity();
             case "flour" -> count + empire.getFlour() <= empire.getFoodCapacity();
             case "wheat" -> count + empire.getWheatCount() <= empire.getFoodCapacity() ;
-            case "bead", "apple" -> count + empire.getAppleCount() <= empire.getFoodCapacity();
+            //case "bead";
+            case "apple" -> count + empire.getAppleCount() <= empire.getFoodCapacity();
             case "cheese" -> count + empire.getCheeseCount() <= empire.getFoodCapacity();
             default -> false;
         };

@@ -627,7 +627,24 @@ public class Empire {
     public void setSwordCount(int swordCount) {
         allWeaponTools.replace("sword", swordCount);
     }
-
+    public void setBeerCount(int beerCount){
+        stores.replace("beer",beerCount);
+    }
+    public int getBeerCount(){
+        return stores.get("beer");
+    }
+    public int getMetalArmour(){
+        return allWeaponTools.get("metalArmour");
+    }
+    public void setMetalArmour(int metalArmour){
+        allWeaponTools.replace("metalArmour",metalArmour);
+    }
+    public int getLeatherArmour(){
+        return allWeaponTools.get("leatherArmour");
+    }
+    public void setLeatherArmour(int leatherArmour){
+        allWeaponTools.replace("leatherArmour",leatherArmour);
+    }
     public int getMaceCount() {
         return allWeaponTools.get("mace");
     }
