@@ -666,6 +666,17 @@ public class GameController {
         return direction.equals(Names.NORTH.getName()) || direction.equals(Names.SOUTH.getName())
                 || direction.equals(Names.WEST.getName()) || direction.equals(Names.EAST.getName());
     }
+    public boolean findShop(Matcher x1 , Matcher y1){
+        int x= Integer.parseInt(x1.group("x"));
+        int y = Integer.parseInt(y1.group("y"));
+        if (validCoordinates(x,y)){
+            if (Map.getBuildingMap()[x][y].get(0) instanceof Shop){
+                return true;
+            }
+
+        }
+        return false;
+    }
     public void cagedWarDogsAttack() {
         for (int j = 0; j < Empire.cagedWarDogsCoordinate.size(); j++) {
             int x = Empire.cagedWarDogsCoordinate.get(j) / mapSize;

@@ -8,6 +8,7 @@ import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.BuildingMenu;
 import view.Commands.BuildingCommands;
 import view.EmpireMenu;
 import view.GameMenu;

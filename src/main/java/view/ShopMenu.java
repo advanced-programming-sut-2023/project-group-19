@@ -11,11 +11,12 @@ import java.util.regex.Matcher;
 public class ShopMenu {
     public static Shop currentShop;
 
-    public void run(Scanner scanner) {
+    public void run(Scanner scanner  , Shop shop) {
         String command;
         Matcher itemName;
         Matcher itemAmount;
         ShopMenuMessages commandValidation;
+        currentShop = shop;
         ShopController shopController = new ShopController();
         System.out.println("Welcome to ShopMenu!");
         while (true) {
@@ -27,14 +28,14 @@ public class ShopMenu {
                 itemAmount = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_AMOUNT_CHECK);
                 commandValidation = checkCommandFormat(itemName, itemAmount);
                 if (commandValidation.getMessages().equals(ShopMenuMessages.VALID_COMMAND.getMessages())) {
-                    shopController.buyItem(itemName, itemAmount, scanner);
+                    System.out.println(shopController.buyItem(itemName, itemAmount, scanner).getMessages());
                 } else System.out.println(commandValidation.getMessages());
             } else if (ShopMenuCommands.getMatcher(command, ShopMenuCommands.SELL) != null) {
                 itemName = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_NAME_CHECK);
                 itemAmount = ShopMenuCommands.getMatcher(command, ShopMenuCommands.ITEM_AMOUNT_CHECK);
                 commandValidation = checkCommandFormat(itemName, itemAmount);
                 if (commandValidation.getMessages().equals(ShopMenuMessages.VALID_COMMAND.getMessages())) {
-                    shopController.sellItem(itemName, itemAmount, scanner);
+                    System.out.println(shopController.sellItem(itemName, itemAmount, scanner).getMessages());
                 } else System.out.println(commandValidation.getMessages());
             } else if (ShopMenuCommands.getMatcher(command, ShopMenuCommands.LOGOUT) != null) {
                 break;

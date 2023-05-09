@@ -35,7 +35,6 @@ public class Empire {
     private int priestCount;
     private int troopCount;
     private int workerCount;
-
     public ArrayList<Army> empireArmy = new ArrayList<>();
 
     public int getPriestCount() {
@@ -628,7 +627,24 @@ public class Empire {
     public void setSwordCount(int swordCount) {
         allWeaponTools.replace("sword", swordCount);
     }
-
+    public void setBeerCount(int beerCount){
+        stores.replace("beer",beerCount);
+    }
+    public int getBeerCount(){
+        return stores.get("beer");
+    }
+    public int getMetalArmour(){
+        return allWeaponTools.get("metalArmour");
+    }
+    public void setMetalArmour(int metalArmour){
+        allWeaponTools.replace("metalArmour",metalArmour);
+    }
+    public int getLeatherArmour(){
+        return allWeaponTools.get("leatherArmour");
+    }
+    public void setLeatherArmour(int leatherArmour){
+        allWeaponTools.replace("leatherArmour",leatherArmour);
+    }
     public int getMaceCount() {
         return allWeaponTools.get("mace");
     }
@@ -838,6 +854,9 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
+    public int getMeatCount(){
+        return allFood.get("meat");
+    }
 
     public int getCatapultCount() {
         return siegeTentTroopsCount.get("catapult");
@@ -886,7 +905,21 @@ public class Empire {
     public void setPortableShieldCount(int portableShieldCount) {
         siegeTentTroopsCount.replace("portableShield", portableShieldCount);
     }
-
+    public int getAppleCount(){
+        return allFood.get("apple");
+    }
+    public void setAppleCount(int appleCount){
+        allFood.replace("apple",appleCount);
+    }
+    public int getCheeseCount(){
+        return allFood.get("cheese");
+    }
+    public void setCheeseCount(int cheeseCount){
+        allFood.replace("cheese",cheeseCount);
+    }
+    public void setMeatCount(int meatCount){
+        allFood.replace("meat",meatCount);
+    }
     public HashMap<String, Integer> getAllWeaponTools() {
         return allWeaponTools;
     }

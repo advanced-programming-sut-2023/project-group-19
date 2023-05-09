@@ -21,7 +21,7 @@ public class TradeMenu {
         TradeMenuMessages commandValidation;
         System.out.println("Welcome to TradeMenu!");
         TradeController tradeController = new TradeController();
-        tradeController.showAllEmpires(scanner);
+        tradeController.showAllEmpires();
         while (true) {
             command = scanner.nextLine();
             if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.TRADE) != null) {

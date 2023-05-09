@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 
 public class GameMenu {
     public static Empire currentEmpire;
-    public static GameController gameController;
+    public static GameController gameController = new GameController();
 
     public void run(Scanner scanner) {
         Matcher x1;
@@ -169,8 +169,15 @@ public class GameMenu {
                     System.out.println(gameController.siegeTowersAction(x1, y1));
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
-                ShopMenu shopMenu = new ShopMenu();
-                shopMenu.run(scanner);
+                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
+                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
+                if (gameController.findShop(x1 , y1)) {
+                    int x= Integer.parseInt(x1.group("x"));
+                    int y = Integer.parseInt(y1.group("y"));
+                    Shop shop  = (Shop) Map.getBuildingMap()[x][y].get(0);
+                    ShopMenu shopMenu = new ShopMenu();
+                    shopMenu.run(scanner , shop);
+                }else System.out.println(GameMenuMessages.IMPROPER_LOCATION.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
                 tradeMenu.run(scanner);
