@@ -1,13 +1,10 @@
 import controller.EmpireController;
 import controller.JsonController;
 import controller.PathFindingController;
+import model.*;
 import model.Building.*;
-import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
-import model.Manage;
-import model.Map;
-import model.User;
 import view.BuildingMenu;
 import view.Commands.BuildingCommands;
 import view.EmpireMenu;
@@ -40,10 +37,13 @@ public class Main {
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
 
-
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         Empire empire = new Empire();
         Manage.setCurrentEmpire(empire);
         Map.CreateMap(200);
+        empire.setUser(newUser);
+        empire.setWorkerCount(5);
+        empire.setWoodCount(20);
         BuildingMenu buildingMenu = new BuildingMenu();
         buildingMenu.run(scanner);
 //        Industry woodCutter = new Industry(empire);
