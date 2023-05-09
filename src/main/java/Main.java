@@ -27,8 +27,12 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
 //        String command = "drop building -x  1 -y 2";
 //        System.out.println(BuildingCommands.getMatcher(command, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING));
+
+
         Scanner scanner = new Scanner(System.in);
-        LoginMenu.run(scanner);
+//        LoginMenu.run(scanner);
+
+
 //        Scanner scanner = new Scanner(System.in);
 //        EmpireMenu empireMenu = new EmpireMenu();
 //        Empire empire = new Empire();
@@ -37,9 +41,11 @@ public class Main {
 //        empireMenu.run(scanner);
 
 
-//        Empire empire = new Empire();
-//        Manage.setCurrentEmpire(empire);
-//        Map.CreateMap(200);
+        Empire empire = new Empire();
+        Manage.setCurrentEmpire(empire);
+        Map.CreateMap(200);
+        BuildingMenu buildingMenu = new BuildingMenu();
+        buildingMenu.run(scanner);
 //        Industry woodCutter = new Industry(empire);
 //        woodCutter.woodCutter();
 //        Map.buildingMap[0][0].add(woodCutter);

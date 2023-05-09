@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 
 
 public class BuildingController {
-    public static int size;
+    public static int size = Map.mapSize;
 
     public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
@@ -108,7 +108,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Small Stone Gatehouse":
+            case "SmallStoneGatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
                 if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
@@ -134,7 +134,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Big Stone Gatehouse":
+            case "BigStoneGatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
                 direction = scanner.nextLine();
                 if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
@@ -160,7 +160,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Draw Bridge":
+            case "DrawBridge":
                 DrawBridge drawBridge = new DrawBridge(currentEmpire);
                 drawBridge.drawBridge(x, y);
                 if (correctGroundType(x, y, drawBridge)) {
@@ -182,7 +182,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Lookout Tower":
+            case "LookoutTower":
                 Tower lookoutTower = new Tower(currentEmpire);
                 lookoutTower.lookoutTower();
                 if (correctGroundType(x, y, lookoutTower)) {
@@ -204,7 +204,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Perimeter Tower":
+            case "PerimeterTower":
                 Tower perimeterTower = new Tower(currentEmpire);
                 perimeterTower.perimeterTower();
                 if (correctGroundType(x, y, perimeterTower)) {
@@ -226,7 +226,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Defend Tower":
+            case "DefendTower":
                 Tower defendTower = new Tower(currentEmpire);
                 defendTower.defendTower();
                 if (correctGroundType(x, y, defendTower)) {
@@ -248,7 +248,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Square Tower":
+            case "SquareTower":
                 Tower squareTower = new Tower(currentEmpire);
                 squareTower.squareTower();
                 if (correctGroundType(x, y, squareTower)) {
@@ -270,7 +270,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Round Tower":
+            case "RoundTower":
                 Tower roundTower = new Tower(currentEmpire);
                 roundTower.roundTower();
                 if (correctGroundType(x, y, roundTower)) {
@@ -335,7 +335,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Mercenary Post":
+            case "MercenaryPost":
                 PrepareLaboursAndFighters mercenaryPost = new PrepareLaboursAndFighters(currentEmpire);
                 mercenaryPost.mercenary();
                 if (correctGroundType(x, y, mercenaryPost)) {
@@ -356,7 +356,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Engineer Guild":
+            case "EngineerGuild":
                 PrepareLaboursAndFighters engineerGuild = new PrepareLaboursAndFighters(currentEmpire);
                 engineerGuild.engineerGuild();
                 if (correctGroundType(x, y, engineerGuild)) {
@@ -377,7 +377,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Killing Pit":
+            case "KillingPit":
                 KillingPit killingPit = new KillingPit(currentEmpire);
                 killingPit.killingPit();
                 if (correctGroundType(x, y, killingPit)) {
@@ -442,7 +442,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Iron Dig":
+            case "IronDig":
                 Industry ironDig = new Industry(currentEmpire);
                 ironDig.ironDig();
                 if (correctGroundType(x, y, ironDig)) {
@@ -464,7 +464,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Ox Tether":
+            case "OxTether":
                 Industry oxTether = new Industry(currentEmpire);
                 oxTether.oxTether();
                 if (correctGroundType(x, y, oxTether)) {
@@ -486,7 +486,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Pitch Rig":
+            case "PitchRig":
                 Industry pitchRig = new Industry(currentEmpire);
                 pitchRig.pitchRig();
                 if (correctGroundType(x, y, pitchRig)) {
@@ -530,7 +530,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Food Stockpile":
+            case "FoodStockpile":
                 Stockpile foodStockpile = new Stockpile(currentEmpire);
                 foodStockpile.foodStockpile();
                 if (correctGroundType(x, y, foodStockpile)) {
@@ -556,7 +556,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Resources Stockpile":
+            case "ResourcesStockpile":
                 Stockpile resourcesStockpile = new Stockpile(currentEmpire);
                 resourcesStockpile.resourcesStockpile();
                 if (correctGroundType(x, y, resourcesStockpile)) {
@@ -582,7 +582,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Wood Cutter":
+            case "WoodCutter":
                 Industry woodCutter = new Industry(currentEmpire);
                 woodCutter.woodCutter();
                 if (correctGroundType(x, y, woodCutter)) {
@@ -627,7 +627,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Small Church":
+            case "SmallChurch":
                 Church smallChurch = new Church(currentEmpire);
                 smallChurch.smallChurch();
                 if (correctGroundType(x, y, smallChurch)) {
@@ -649,7 +649,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Big Church":
+            case "BigChurch":
                 Church bigChurch = new Church(currentEmpire);
                 bigChurch.bigChurch();
                 if (correctGroundType(x, y, bigChurch)) {
@@ -738,7 +738,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Pole Turner":
+            case "PoleTurner":
                 Weapon poleTurner = new Weapon(currentEmpire);
                 poleTurner.poleTurner();
                 if (correctGroundType(x, y, poleTurner)) {
@@ -760,7 +760,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Oil Smelter":
+            case "OilSmelter":
                 OilSmelter oilSmelter = new OilSmelter(currentEmpire);
                 oilSmelter.oilSmelter();
                 if (correctGroundType(x, y, oilSmelter)) {
@@ -782,7 +782,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Pitch Ditch":
+            case "PitchDitch":
                 PitchDitch pitchDitch = new PitchDitch(currentEmpire);
                 pitchDitch.pitchDitch();
                 if (correctGroundType(x, y, pitchDitch)) {
@@ -803,7 +803,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Caged War Dogs":
+            case "CagedWarDogs":
                 CagedWarDogs cagedWarDogs = new CagedWarDogs(currentEmpire);
                 cagedWarDogs.cagedWarDogs();
                 if (correctGroundType(x, y, cagedWarDogs)) {
@@ -825,7 +825,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Siege Tent":
+            case "SiegeTent":
                 SiegeTent siegeTent = new SiegeTent(currentEmpire);
                 siegeTent.siegeTent();
                 if (correctGroundType(x, y, siegeTent)) {
@@ -868,7 +868,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Apple Farm":
+            case "AppleFarm":
                 Goods appleFarm = new Goods(currentEmpire);
                 appleFarm.appleFarm();
                 if (correctGroundType(x, y, appleFarm)) {
@@ -890,7 +890,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Dairy Product":
+            case "DairyProduct":
                 Goods dairyProduct = new Goods(currentEmpire);
                 dairyProduct.dairyProduct();
                 if (correctGroundType(x, y, dairyProduct)) {
@@ -912,7 +912,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Oat Farm":
+            case "OatFarm":
                 Goods oatFarm = new Goods(currentEmpire);
                 oatFarm.oatFarm();
                 if (correctGroundType(x, y, oatFarm)) {
@@ -934,7 +934,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Hunting Post":
+            case "HuntingPost":
                 Goods huntingPost = new Goods(currentEmpire);
                 huntingPost.huntingPost();
                 if (correctGroundType(x, y, huntingPost)) {
@@ -956,7 +956,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Wheat Farm":
+            case "WheatFarm":
                 Goods wheatFarm = new Goods(currentEmpire);
                 wheatFarm.wheatFarm();
                 if (correctGroundType(x, y, wheatFarm)) {
@@ -1000,7 +1000,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Bear Factory":
+            case "BearFactory":
                 Goods bearFactory = new Goods(currentEmpire);
                 bearFactory.bearFactory();
                 if (correctGroundType(x, y, bearFactory)) {
@@ -1046,7 +1046,7 @@ public class BuildingController {
                     }
                 }
                 return BuildingMessages.IMPROPER_GROUND_TYPE;
-            case "torture chamber":
+            case "TortureChamber":
                 FearControl tortureChamber = new FearControl(currentEmpire);
                 tortureChamber.tortureChamber();
                 if (correctGroundType(x, y, tortureChamber)) {
@@ -1070,7 +1070,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Big Wall":
+            case "BigWall":
                 Wall bigWall = new Wall(currentEmpire);
                 bigWall.bigWall();
                 if (empireHasEnoughResourcesToBuildTheBuilding(bigWall, currentEmpire)) {
@@ -1087,7 +1087,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                 }
-            case "Small Wall":
+            case "SmallWall":
                 Wall smallWall = new Wall(currentEmpire);
                 smallWall.smallWall();
                 if (correctGroundType(x, y, smallWall)) {
@@ -1137,6 +1137,7 @@ public class BuildingController {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         String type = typeGroup.group("type");
+        System.out.println(type);
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
