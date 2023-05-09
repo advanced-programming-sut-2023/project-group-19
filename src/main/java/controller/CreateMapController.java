@@ -54,7 +54,7 @@ public class CreateMapController {
             Map.getGroundType()[x - 1][y - 1].add(GroundType.DEFAULT);
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
             Map.notBuildable[x - 1][y - 1]  = true ;
-            if(!type.equals("Plain") && !type.equals("smallPond")) Map.notPassable[x - 1][y - 1] = true ;
+            if(!type.equals("Plain") && !type.equals("shallowWater")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
         Map.getGroundType()[x - 1][y - 1].clear();
@@ -151,14 +151,15 @@ public class CreateMapController {
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
-        if(!Map.getGroundType()[x][y].get(0).equals(GroundType.DEFAULT)) return "";
+        if(!Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.DEFAULT)) return "";
         
         Empire empire = new Empire();
         Manage.allEmpires.add(empire);
         empire.setUser(User.loginUsers.get(indexOfUser));
         indexOfUser ++ ;
-        Building building = new Castle(empire);
-        Map.getBuildingMap()[x][y].add(building);
+        Castle castle = new Castle(empire);
+        castle.castle();
+        Map.getBuildingMap()[x - 1][y - 1].add(castle);
         numberOfEmpiers ++ ;
 //        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;
 

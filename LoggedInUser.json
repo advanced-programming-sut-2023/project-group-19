@@ -1,1 +1,11 @@
-null
+{
+  "username": "armin",
+  "password": "3baa0214fce4436e0cbd1e2c73e0b3869d52180689ac689d8598d14d012a2107",
+  "nickname": "jeneral",
+  "email": "ma@s.x",
+  "recoveryQuestion": "mamad",
+  "slogan": "empty",
+  "recoveryQuestionNumber": 3,
+  "highScore": 0,
+  "rank": 0
+}

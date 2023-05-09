@@ -36,8 +36,6 @@ public class Main {
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
 
-        LoginMenu.run(new Scanner(System.in));
-
 
 //        Empire empire = new Empire();
 //        Manage.setCurrentEmpire(empire);
