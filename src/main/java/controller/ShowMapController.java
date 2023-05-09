@@ -26,6 +26,9 @@ public class ShowMapController {
             = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND
             = "\u001B[47m";
+
+    public static final String ANSI_PERFEFT_BLUE_BACKGROUND
+            = 	"\u001B[44m";
     static int size = 200;
     static int x;
     static int y;
@@ -76,7 +79,7 @@ public class ShowMapController {
                          if (row == x - 1 && k - 1 == y - 1) {
                             type = "&";
                         }
-                        else if (!(Map.getBuildingMap()[row][k - 1]).isEmpty()) {
+                        if (!(Map.getBuildingMap()[row][k - 1]).isEmpty()) {
 
                             type = "B";
                         } else if (!(Map.getTroopMap()[row][k - 1]).isEmpty()) type = "S";
@@ -95,10 +98,12 @@ public class ShowMapController {
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = "T";
                             else if (obstacle instanceof WaterSources) {
-                                type = " ";
-                                type = ANSI_BLUE_BACKGROUND + type + ANSI_RESET;
-                            }else type = " ";
-                        } else type = " ";
+                                type = "W";
+                                type = ANSI_PERFEFT_BLUE_BACKGROUND + type + ANSI_RESET;
+                            }else type = "O";
+                        } else {
+                            if(type.equals("")) type = " ";
+                        }
                         if (!Map.getGroundType()[row][k - 1].isEmpty()) {
                             if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.GROUND_WITH_STONE))
                                 type = ANSI_BLACK_BACKGROUND + type + ANSI_RESET;
