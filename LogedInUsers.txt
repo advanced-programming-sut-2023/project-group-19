@@ -1,4 +1,4 @@
-****** Loged in Users ******
+****** Logged in Users ******
 username : user1
 password : aaAA@@11
 ****************************
