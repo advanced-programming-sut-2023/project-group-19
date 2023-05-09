@@ -15,9 +15,6 @@ public class Army extends Human {
 
     public boolean isIntFight = false;
 
-    public boolean isIntFight() {
-        return isIntFight;
-    }
 
     public boolean hasMovedForDeffensiveState = false;
 
@@ -33,6 +30,17 @@ public class Army extends Human {
 
     private Empire empire;
     private Army enemy;
+
+    public boolean isIntFight() {
+        return isIntFight;
+    }
+
+    public void setIntFight(boolean intFight) {
+        isIntFight = intFight;
+    }
+
+
+
 
     public Army getEnemy() {
         return enemy;

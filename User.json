@@ -1,23 +1,12 @@
 [
   {
-    "username": "d",
-    "password": "a",
-    "nickname": "d",
-    "email": "a",
-    "recoveryQuestion": "s",
-    "slogan": "a",
-    "recoveryQuestionNumber": 4,
-    "highScore": 0,
-    "rank": 0
-  },
-  {
-    "username": "d",
-    "password": "a",
-    "nickname": "d",
-    "email": "a",
-    "recoveryQuestion": "s",
-    "slogan": "a",
-    "recoveryQuestionNumber": 4,
+    "username": "armin",
+    "password": "ba8978890ac7195394d8f8ddd4c84fe5ee8b63a63ab2fc4d5fb89104295e8725",
+    "nickname": "jeneral",
+    "email": "arminmn074@gmail.com",
+    "recoveryQuestion": "mina",
+    "slogan": "I march to death...Though I wish it was my own...",
+    "recoveryQuestionNumber": 3,
     "highScore": 0,
     "rank": 0
   }

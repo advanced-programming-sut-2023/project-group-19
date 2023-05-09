@@ -43,7 +43,7 @@ public enum GameMenuCommands {
     FILL_DITCH("fill ditch .+"),
     MOVE_BY_SIEGE_TOWER("siegeTower .+"),
     LOGOUT("Logout"),
-    ;
+    SHOW_MAP("show\\s+map");
     private Pattern name;
     public Pattern getName() {
         return name;
