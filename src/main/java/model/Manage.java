@@ -32,7 +32,7 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Inn");
         namesOfAllPossibleBuildings.add("KillingPit");
         namesOfAllPossibleBuildings.add("Market");
-        namesOfAllPossibleBuildings.add("PitchDitch");
+        namesOfAllPossibleBuildings.add("PitchRig");
         namesOfAllPossibleBuildings.add("Mercenary");
         namesOfAllPossibleBuildings.add("EngineerGuild");
         namesOfAllPossibleBuildings.add("TunnelerGuild");
@@ -58,6 +58,8 @@ public class Manage {
         namesOfAllPossibleBuildings.add("Blacksmith");
         namesOfAllPossibleBuildings.add("Fletcher");
         namesOfAllPossibleBuildings.add("PoleTurner");
+        namesOfAllPossibleBuildings.add("Garden");
+        namesOfAllPossibleBuildings.add("TortureChamber");
     }
 
     private static Empire currentEmpire;

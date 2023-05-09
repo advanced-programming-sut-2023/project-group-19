@@ -42,9 +42,14 @@ public class Main {
         Manage.setCurrentEmpire(empire);
         Map.CreateMap(200);
         empire.setUser(newUser);
-        empire.setWorkerCount(5);
-        empire.setWoodCount(20);
-        empire.setStoneCount(30);
+        empire.setEngineerCount(60000000);
+        empire.setWorkerCount(500000);
+        empire.setWoodCount(20000000);
+        empire.setStoneCount(300000);
+        empire.setGoldCount(1000000);
+        empire.setWoodCount(1000000);
+        empire.setOilAmount(1000000);
+        empire.setIronCount(10000000);
         BuildingMenu buildingMenu = new BuildingMenu();
         buildingMenu.run(scanner);
 //        Industry woodCutter = new Industry(empire);

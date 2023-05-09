@@ -12,8 +12,8 @@ public class Empire {
     private User user;
     public int castleXCoordinate;
     public int castleYCCoordinate;
-    public static ArrayList<Integer> pourOilCoordinate;
-    public static ArrayList<Integer> cagedWarDogsCoordinate;
+    public static ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
+    public static ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
 
 
     public User getUser() {
@@ -990,7 +990,7 @@ public class Empire {
         productionBuildingCount.put("appleFarm", 0);
         productionBuildingCount.put("oatFarm", 0);
         productionBuildingCount.put("huntingPost", 0);
-        productionBuildingCount.put("beerFactory", 0);
+        productionBuildingCount.put("inn", 0);
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);
