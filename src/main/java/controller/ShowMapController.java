@@ -118,7 +118,7 @@ public class ShowMapController {
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.DASH))
                                 type = ANSI_YELLOW_BACKGROUND + type + ANSI_RESET;
                             else if (Map.getGroundType()[row][k - 1].get(0).equals(GroundType.STONE))
-                                type = ANSI_RED_BACKGROUND + type + ANSI_RESET;
+                                type = ANSI_WHITE_BACKGROUND + type + ANSI_RESET;
                         }
                         square.append(type);
                     }

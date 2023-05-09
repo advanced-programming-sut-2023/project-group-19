@@ -41,6 +41,7 @@ public class CreateMapController {
         Map.CreateMap(size);
         return "Map is builded successfully!";
     }
+    //TODO : PLAIN in repeted into two difference classes!
     public static String settextureOneByOne(int x,int y,String type){
         if (!mapIsBuilded) return "At first.You must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
@@ -81,11 +82,11 @@ public class CreateMapController {
     }
     public static String clear(int x , int y){
         if (!mapIsBuilded) return "You first must build a map!";
-        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
+        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
         Map.getTroopMap()[x - 1][y - 1].clear();
         Map.getBuildingMap()[x - 1][y - 1].clear();
         Map.getGroundType()[x - 1][y - 1].clear();
-        Map.getGroundType()[x - 1][y - 1].clear();
+        Map.getObstacleMap()[x - 1][y - 1].clear();
         Map.notPassable[x - 1][y - 1] = false ;
         Map.notBuildable[x - 1][y - 1] = false ;
         return "Clear successfully";
