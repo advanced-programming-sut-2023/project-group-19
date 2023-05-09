@@ -194,32 +194,4 @@ public class ShowMapController {
         return "Grounf type is :" + groundType + "\n" + "obstacle name is: " + obstacleName + "\n" + "army is: " + army + " \n" + "building: " + buildingName ;
 
     }
-
-
-
 }
-
-//    Building building;
-//        String buildingName = "empty";
-//        Army army;
-//        String armyName = "empty";
-//        String grounfType = "empty";
-//        int numOfArmy = 0;
-//        if (!Map.getBuildingMap()[x][y].isEmpty()) {
-//            building = Map.getBuildingMap()[x][y].get(0);
-//            buildingName = String.valueOf(building.getName());
-//        }
-//        if (!Map.getTroopMap()[x][y].isEmpty()) {
-//            army = Map.getTroopMap()[x][y].get(0);
-//            armyName = String.valueOf(army.getNames());
-//            numOfArmy = Map.getTroopMap()[x][y].size();
-//        }
-//        if (!Map.getGroundType()[x][y].isEmpty()) {
-//            grounfType = Map.getGroundType()[x][y].get(0).getGroundType();
-//        }
-//        return "Building: " + buildingName + "\n" +
-//                "army: " + armyName + " --> " + numOfArmy + "\n" +
-//                "ground type: " + grounfType;
-//
-//
-//    }
