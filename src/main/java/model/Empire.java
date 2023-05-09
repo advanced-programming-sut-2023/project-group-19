@@ -20,8 +20,8 @@ public class Empire {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User newUser) {
+        user = newUser;
     }
 
     private int foodCapacity = 50;
@@ -101,7 +101,6 @@ public class Empire {
         this.foodCapacity = foodCapacity;
     }
 
-    private String name;
     private int population;
 
 
@@ -157,11 +156,11 @@ public class Empire {
     }
 
     public String getName() {
-        return name;
+        return user.getNickname();
     }
 
     public void setName(String name) {
-        this.name = name;
+        user.setNickname(name);
     }
 
     public int getPopulation() {

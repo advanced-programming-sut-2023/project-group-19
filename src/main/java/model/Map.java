@@ -66,6 +66,7 @@ public class Map {
                 groundType[i][j].add(GroundType.DEFAULT);
             }
         }
+        Map.mapSize = size;
         notPassable = new boolean[size][size];
         notBuildable = new boolean[size][size];
         wallPassable = new boolean[size][size];

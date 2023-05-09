@@ -1137,16 +1137,16 @@ public class BuildingController {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         String type = typeGroup.group("type");
-        System.out.println(type);
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                     if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
-                        if (HasBuildingInThisPlace(x, y)) {
+                        if (!HasBuildingInThisPlace(x, y)) {
                             return callBuildingFunction(x, y, type, scanner);
-                        } else return BuildingMessages.INVALID_BUILDING_NAME;
+                        } else return BuildingMessages.FILLED_CELL;
                     }
                 }
+                return BuildingMessages.INVALID_BUILDING_NAME;
             } else
                 return BuildingMessages.FILLED_CELL;
         }
