@@ -25,11 +25,14 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Empire empire = new Empire();
-        Manage.setCurrentEmpire(empire);
+        Empire empire1 = new Empire();
         empire.setName("arian");
+        empire1.setName("doreece");
+        Manage.setCurrentEmpire(empire1);
         Map.CreateMap(200);
         Map.mapSize = 200;
         Manage.getAllEmpires().add(empire);
+        Manage.getAllEmpires().add(empire1);
 
 //          Scanner scanner = new Scanner(System.in);
 //        Empire empire = new Empire();
@@ -63,6 +66,9 @@ public class Main {
 
         Shop shop = new Shop(empire);
         shop.shop();
+        shop.setOwner(empire);
+        empire.setAppleCount(6);
+        empire.setCheeseCount(3);
         Map.getBuildingMap()[1][5].add(shop);
         GameMenu gameMenu = new GameMenu();
         gameMenu.run(scanner);

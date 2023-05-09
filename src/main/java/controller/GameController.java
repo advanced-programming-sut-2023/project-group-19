@@ -670,13 +670,11 @@ public class GameController {
         int x= Integer.parseInt(x1.group("x"));
         int y = Integer.parseInt(y1.group("y"));
         if (validCoordinates(x,y)){
-            if (Map.getBuildingMap()[x][y].get(0) instanceof Shop
-                && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())){
+            if (Map.getBuildingMap()[x][y].get(0) instanceof Shop){
                 return true;
             }
 
         }
-        System.out.println(x +" "+y);
         return false;
     }
     public void cagedWarDogsAttack() {

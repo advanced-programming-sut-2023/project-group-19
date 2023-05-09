@@ -1,20 +1,16 @@
 package controller;
 
 import model.*;
-import model.Building.Building;
-import model.Building.Shop;
 import view.Commands.ShopMenuCommands;
 import view.Messages.ShopMenuMessages;
 import view.ShopMenu;
 
-import javax.swing.*;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ShopController {
-    public static String currentMenu;
-
+    public static Empire ownerOfShop = ShopMenu.currentShop.getOwner();
     public void showPriceList() {
         int number = 1;
         System.out.println("Attention:");
@@ -25,12 +21,12 @@ public class ShopController {
             for (Map.Entry<String, Integer> goodsForSelling : ShopMenu.currentShop.getListOfGoodsSellPrice().entrySet()) {
                 String nameOfGoodsForSelling = goodsForSelling.getKey();
                 if (nameOfGoodsForBuying.equals(nameOfGoodsForSelling)) {
-                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying);
+                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying , ownerOfShop);
                     System.out.print(number + ". ");
                     System.out.println("Name: " + nameOfGoodsForBuying);
-                    System.out.println("\s\s\sBuying Price: " + goodsForBuying.getValue());
-                    System.out.println("\s\s\sSell Price: " + goodsForSelling.getValue());
-                    System.out.println("\s\s\sResource count: " + resourceCount);
+                    System.out.println("\tBuying Price: " + goodsForBuying.getValue());
+                    System.out.println("\tSell Price: " + goodsForSelling.getValue());
+                    System.out.println("\tResource count: " + resourceCount);
                     number++;
                     break;
                 }
@@ -38,24 +34,21 @@ public class ShopController {
         }
     }
 
-    //TODO : Item amount would be a scale
     public ShopMenuMessages buyItem(Matcher itemName, Matcher itemAmount, Scanner scanner) {
         String nameOfGood = itemName.group("itemName");
         Map.Entry<String, Integer> chosenGood = findGoodToBuy(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (amount <= ShopMenu.currentShop.getCapacity() && amount % 5 == 0) {
-                if (checkStorageOfUser(nameOfGood, amount)) {
+            if (checkTheCapacity(amount,chosenGood.getKey(),ownerOfShop)) {
+                if (checkTheCapacity(amount, chosenGood.getKey(), Manage.getCurrentEmpire())) {
                     validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
                     String answer = scanner.nextLine();
                     if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
                         Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
-                        ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() + chosenGood.getValue());
-                        setResourceCount(nameOfGood, amount, "Buy");
+                        ownerOfShop.setGoldCount(ownerOfShop.getGoldCount() + chosenGood.getValue());
+                        setNumberOfGoods(Manage.getCurrentEmpire(),ownerOfShop,amount,chosenGood.getKey());
                         return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
-                    } else if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_CANCELLED) != null) {
-                        return ShopMenuMessages.OPERATION_CANCELLED;
-                    } else return ShopMenuMessages.INVALID_ANSWER;
+                    } else return ShopMenuMessages.OPERATION_CANCELLED;
                 } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_EMPIRE;
             } else return ShopMenuMessages.INVALID_AMOUNT_TO_BUY;
         }
@@ -67,101 +60,20 @@ public class ShopController {
         Map.Entry<String, Integer> chosenGood = findGoodToSell(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (amount <= getResourceCount(nameOfGood).getValue()) {
-                if (checkStorageOfShop(nameOfGood, amount)) {
+            if (checkTheCapacity(amount,chosenGood.getKey(),Manage.getCurrentEmpire())) {
+                if (checkTheCapacity(amount, chosenGood.getKey() ,ownerOfShop)) {
                     validationFormForSelling(nameOfGood, chosenGood.getValue(), amount);
                     String answer = scanner.nextLine();
                     if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
                         Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() + chosenGood.getValue());
                         ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() - chosenGood.getValue());
-                        setResourceCount(nameOfGood, amount, "Sell");
+                        setNumberOfGoods(ownerOfShop,Manage.getCurrentEmpire(),amount,chosenGood.getKey());
                         return ShopMenuMessages.SELLING_OPERATION_SUCCEEDED;
-                    } else if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_CANCELLED) != null) {
-                        return ShopMenuMessages.OPERATION_CANCELLED;
-                    } else return ShopMenuMessages.INVALID_ANSWER;
+                    } else return ShopMenuMessages.OPERATION_CANCELLED;
                 } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_SHOP;
             } else return ShopMenuMessages.NOT_ENOUGH_AMOUNT_TO_SELL;
         }
         return ShopMenuMessages.INVALID_NAME_OF_ITEM;
-    }
-
-    public Map.Entry<String, Integer> getResourceCount(String resource) {
-        for (Map.Entry<String, Integer> food : Manage.getCurrentEmpire().getAllFood().entrySet()) {
-            if (food.getKey().equals(resource)) {
-                return food;
-            }
-        }
-        for (Map.Entry<String, Integer> weaponTool : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()) {
-            if (weaponTool.getKey().equals(resource)) {
-                return weaponTool;
-            }
-        }
-        for (Map.Entry<String, Integer> store : Manage.getCurrentEmpire().getStores().entrySet()) {
-            if (store.getKey().equals(resource)) {
-                return store;
-            }
-        }
-        for (Map.Entry<String, Integer> europeTroop : Manage.getCurrentEmpire().getEuropeTroopCount().entrySet()) {
-            if (europeTroop.getKey().equals(resource)) {
-                return europeTroop;
-            }
-        }
-        for (Map.Entry<String, Integer> arabTroop : Manage.getCurrentEmpire().getArabTroopCount().entrySet()) {
-            if (arabTroop.getKey().equals(resource)) {
-                return arabTroop;
-            }
-        }
-        for (Map.Entry<String, Integer> engineerGuild : Manage.getCurrentEmpire().getEngineerGuildTroopCount().entrySet()) {
-            if (engineerGuild.getKey().equals(resource)) {
-                return engineerGuild;
-            }
-        }
-        for (Map.Entry<String, Integer> siegeTentTroop : Manage.getCurrentEmpire().getSiegeTentTroopsCount().entrySet()) {
-            if (siegeTentTroop.getKey().equals(resource)) {
-                return siegeTentTroop;
-            }
-        }
-        return null;
-    }
-
-    public void setResourceCount(String resource, int count, String typeOfAction) {
-        Empire empire = Manage.getCurrentEmpire();
-        if (typeOfAction.equals("Sell")) count = -1 * count;
-        for (Map.Entry<String, Integer> food : empire.getAllFood().entrySet()) {
-            if (food.getKey().equals(resource)) {
-                empire.getAllFood().replace(resource, food.getValue() + count);
-            }
-        }
-        for (Map.Entry<String, Integer> weaponTool : empire.getAllWeaponTools().entrySet()) {
-            if (weaponTool.getKey().equals(resource)) {
-                empire.getAllWeaponTools().replace(resource, weaponTool.getValue() + count);
-            }
-        }
-        for (Map.Entry<String, Integer> store : empire.getStores().entrySet()) {
-            if (store.getKey().equals(resource)) {
-                empire.getStores().replace(resource, store.getValue() + count);
-            }
-        }
-        for (Map.Entry<String, Integer> europeTroop : empire.getEuropeTroopCount().entrySet()) {
-            if (europeTroop.getKey().equals(resource)) {
-                empire.getEuropeTroopCount().replace(resource, europeTroop.getValue() + count);
-            }
-        }
-        for (Map.Entry<String, Integer> arabTroop : empire.getArabTroopCount().entrySet()) {
-            if (arabTroop.getKey().equals(resource)) {
-                empire.getArabTroopCount().replace(resource, arabTroop.getValue() + count);
-            }
-        }
-        for (Map.Entry<String, Integer> engineerGuild : empire.getEngineerGuildTroopCount().entrySet()) {
-            if (engineerGuild.getKey().equals(resource)) {
-                empire.getEngineerGuildTroopCount().replace(resource, engineerGuild.getValue() + count);
-            }
-        }
-        for (Map.Entry<String, Integer> siegeTentTroop : empire.getSiegeTentTroopsCount().entrySet()) {
-            if (siegeTentTroop.getKey().equals(resource)) {
-                empire.getSiegeTentTroopsCount().replace(resource, siegeTentTroop.getValue() + count);
-            }
-        }
     }
 
     public Map.Entry<String, Integer> findGoodToBuy(String enteredName) {
@@ -181,69 +93,116 @@ public class ShopController {
         }
         return null;
     }
-
-    public boolean checkStorageOfUser(String resourceName, int amount) {
-        return getResourceCount(resourceName).getValue() + amount <= Manage.getCurrentEmpire().getResourcesCapacity();
-    }
-
     public void validationFormForBuying(String goodName, int price, int amount) {
-        System.out.println("Dear customer from " + Manage.getCurrentEmpire() + " Empire\n" +
-                "You've asked for product : " + goodName + " in " + amount + " quantity , with price : " + price + "\n" +
+        System.out.println("Dear customer from " + Manage.getCurrentEmpire().getName() + " Empire\n" +
+                "You've asked for product : " + goodName + " in " + amount*5 + " quantity , with price : " + price + "\n" +
                 "We need your approval before preparing your order.If you're certain about your order,please enter yes.\n" +
                 "Otherwise,you're order will be cancelled.");
     }
 
     public void validationFormForSelling(String goodName, int price, int amount) {
-        System.out.println("Dear seller from " + Manage.getCurrentEmpire() + " Empire\n" +
+        System.out.println("Dear seller from " + Manage.getCurrentEmpire().getName() + " Empire\n" +
                 "You've wanted to sell product : " + goodName + " in " + amount + " quantity , with price : " + price + "\n" +
                 "We need your approval before buying your product.If you're certain about your offer,please enter yes.\n" +
                 "Otherwise,the deal will be cancelled.");
     }
 
-    public boolean checkStorageOfShop(String resourceName, int amount) {
-        return findGoodToBuy(resourceName).getValue() + amount <= Manage.getCurrentEmpire().getResourcesCapacity();
+    public int getNumberOfGoods(String goodName , Empire empire) {
+        return switch (goodName) {
+            case "meat" -> empire.getMeatCount();
+            case "hops" -> empire.getOatCount();
+            case "barrel" -> 0;
+            case "ironArmor" -> 0;
+            case "leatherArmor", "sword" -> empire.getSwordCount();
+            case "ironAxe" -> 0;
+            case "crossbow" -> 0;
+            case "mace" -> empire.getMaceCount();
+            case "bow" -> empire.getBowCount();
+            case "dart" -> 0;
+            case "oil" -> empire.getOilAmount();
+            case "iron" -> empire.getIronCount();
+            case "stone" -> empire.getStoneCount();
+            case "wood" -> empire.getWoodCount();
+            case "flour" -> empire.getFlour();
+            case "wheat" -> empire.getWheatCount();
+            case "bead" -> 0;
+            case "apple" -> empire.getAppleCount();
+            case "cheese" -> empire.getCheeseCount();
+            default -> 0;
+        };
     }
-    public int getNumberOfGoods(String goodName) {
-        switch (goodName){
-            case "meat":
-                return model.Manage.getCurrentEmpire().getMeatCount();
-            case "hops":
-                return Manage.getCurrentEmpire().getOatCount();
-            case "barrel":
-            case "ironArmor":
-                return 0;
-            case "leatherArmor":
-            case "sword":
-                return Manage.getCurrentEmpire().getSwordCount();
-            case "ironAxe":
-                return 0;
-            case "crossbow":
-                return 0;
-            case "mace":
-                return Manage.getCurrentEmpire().getMaceCount();
-            case "bow":
-                return Manage.getCurrentEmpire().getBowCount();
-            case "dart":
-                return 0;
-            case "oil":
-                return Manage.getCurrentEmpire().getOilAmount();
-            case "iron":
-               return Manage.getCurrentEmpire().getIronCount();
-            case "stone":
-                return Manage.getCurrentEmpire().getStoneCount();
-            case "wood":
-                return Manage.getCurrentEmpire().getWoodCount();
-            case "flour":
-                return Manage.getCurrentEmpire().getFlour();
-            case "wheat":
-                return Manage.getCurrentEmpire().getWheatCount();
-            case "bead":
-                return 0;
-            case "apple":
-                return Manage.getCurrentEmpire().getAppleCount();
-            case "cheese":
-                return Manage.getCurrentEmpire().getCheeseCount();
+    public void setNumberOfGoods(Empire customer , Empire seller , int count , String goodName){
+        switch (goodName) {
+            case "meat" -> {
+                customer.setMeatCount(customer.getMeatCount() + count);
+                seller.setMeatCount(customer.getMeatCount() - count);
+            }
+            case "hops" -> {
+                customer.setOatCount(customer.getOatCount() + count);
+                seller.setOatCount(customer.getOatCount() - count);
+            }
+            case "barrel", "ironArmor", "leatherArmor", "sword" -> {
+                customer.setSwordCount(customer.getSwordCount() + count);
+                seller.setSwordCount(customer.getSwordCount() - count);
+            }
+            case "ironAxe", "crossbow", "mace" -> {
+                customer.setMaceCount(customer.getMaceCount() + count);
+                seller.setMaceCount(customer.getMaceCount() - count);
+            }
+            case "bow" -> {
+                customer.setBowCount(customer.getBowCount() + count);
+                seller.setBowCount(customer.getBowCount() - count);
+            }
+            case "dart", "oil" -> {
+                customer.setOilAmount(customer.getOilAmount() + count);
+                seller.setOilAmount(customer.getOilAmount() - count);
+            }
+            case "iron" -> {
+                customer.setIronCount(customer.getIronCount() + count);
+                seller.setIronCount(customer.getIronCount() - count);
+            }
+            case "stone" -> {
+                customer.setStoneCount(customer.getStoneCount() + count);
+                seller.setStoneCount(customer.getStoneCount() - count);
+            }
+            case "wood" -> {
+                customer.setWoodCount(customer.getWoodCount() + count);
+                seller.setWoodCount(customer.getWoodCount() - count);
+            }
+            case "flour" -> {
+                customer.setFlour(customer.getFlour() + count);
+                seller.setFlour(customer.getFlour() - count);
+            }
+            case "wheat" -> {
+                customer.setWheatCount(customer.getWheatCount() + count);
+                seller.setWheatCount(customer.getWheatCount() - count);
+            }
+            case "bead", "apple" -> {
+                customer.setAppleCount(customer.getAppleCount() + count);
+                seller.setAppleCount(customer.getAppleCount() - count);
+            }
+            case "cheese" -> {
+                customer.setCheeseCount(customer.getCheeseCount() + count);
+                seller.setCheeseCount(customer.getCheeseCount() - count);
+            }
         }
-        return 0;
+    }
+    public boolean checkTheCapacity(int count , String goodName , Empire empire){
+        return switch (goodName) {
+            case "meat" -> count + empire.getMeatCount() <= empire.getFoodCapacity();
+            case "hops" -> count + empire.getOatCount() <= empire.getFoodCapacity();
+            case "barrel", "ironArmor", "leatherArmor", "sword" -> count + empire.getSwordCount() <= empire.getResourcesCapacity() ;
+            case "ironAxe", "crossbow", "mace" -> count + empire.getMaceCount() <= empire.getResourcesCapacity();
+            case "bow" -> count + empire.getBowCount()<= empire.getResourcesCapacity();
+            case "dart", "oil" -> count + empire.getOilAmount() <= empire.getFoodCapacity();
+            case "iron" -> count + empire.getIronCount() <= empire.getResourcesCapacity();
+            case "stone" -> count + empire.getStoneCount() <=  empire.getResourcesCapacity();
+            case "wood" -> count +  empire.getWoodCount() <= empire.getResourcesCapacity();
+            case "flour" -> count + empire.getFlour() <= empire.getFoodCapacity();
+            case "wheat" -> count + empire.getWheatCount() <= empire.getFoodCapacity() ;
+            case "bead", "apple" -> count + empire.getAppleCount() <= empire.getFoodCapacity();
+            case "cheese" -> count + empire.getCheeseCount() <= empire.getFoodCapacity();
+            default -> false;
+        };
     }
 }

@@ -35,7 +35,6 @@ public class Empire {
     private int priestCount;
     private int troopCount;
     private int workerCount;
-
     public ArrayList<Army> empireArmy = new ArrayList<>();
 
     public int getPriestCount() {
@@ -892,8 +891,17 @@ public class Empire {
     public int getAppleCount(){
         return allFood.get("apple");
     }
+    public void setAppleCount(int appleCount){
+        allFood.replace("apple",appleCount);
+    }
     public int getCheeseCount(){
         return allFood.get("cheese");
+    }
+    public void setCheeseCount(int cheeseCount){
+        allFood.replace("cheese",cheeseCount);
+    }
+    public void setMeatCount(int meatCount){
+        allFood.replace("meat",meatCount);
     }
     public HashMap<String, Integer> getAllWeaponTools() {
         return allWeaponTools;
