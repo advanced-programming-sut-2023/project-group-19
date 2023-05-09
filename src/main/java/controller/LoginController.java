@@ -96,42 +96,24 @@ public class LoginController {
     }
 
     public static String generateRandomPassword() {
-        // create a string of all characters
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String number = "1234567890";
         String lowercase = alphabet.toLowerCase();
-
-        // create random string builder
         StringBuilder sb = new StringBuilder();
-
-        // create an object of Random class
         Random random = new Random();
-
-        // specify length of random string
         int length = 3;
-
         for (int i = 0; i < length; i++) {
-
-            // generate random index number
             int index = random.nextInt(alphabet.length());
-
-            // get character specified by index
-            // from the string
             char randomChar = alphabet.charAt(index);
-
-            // append the character to string builder
             sb.append(randomChar);
             randomChar = lowercase.charAt(index);
             sb.append(randomChar);
             index = random.nextInt(10);
             randomChar = number.charAt(index);
             sb.append(randomChar);
-
         }
         sb.append("#");
-
         return sb.toString();
-
     }
 
     public static String getRandomSlogan() {
@@ -142,36 +124,22 @@ public class LoginController {
     }
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
-        // Static getInstance method is called with hashing SHA
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-        // digest() method called
-        // to calculate message digest of an input
-        // and return array of byte
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
     public static String toHexString(byte[] hash) {
-        // Convert byte array into signum representation
         BigInteger number = new BigInteger(1, hash);
-
-        // Convert message digest into hex value
         StringBuilder hexString = new StringBuilder(number.toString(16));
-
-        // Pad with leading zeros
         while (hexString.length() < 64) {
             hexString.insert(0, '0');
         }
-
         return hexString.toString();
     }
-
-    // Driver code
     public static String getHashCode(String text) {
         try {
             return toHexString(getSHA(text));
         }
-        // For specifying wrong message digest algorithms
         catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }

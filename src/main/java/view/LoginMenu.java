@@ -19,7 +19,6 @@ public class LoginMenu {
         isLoggedUser(scanner);
         System.out.println("Welcome to Login menu!");
         String command;
-        Matcher matcher;
         while (true) {
             command = scanner.nextLine();
             if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FOR_REGISTER)) != null) {
@@ -31,15 +30,6 @@ public class LoginMenu {
             } else System.out.println("Invalid command!");
         }
     }
-//    static {
-//        try {
-//            User user1 = new User("ali" , "123" , "mamad" , "String email", "String recoveryQuestion", "String slogan", 2);
-//            System.out.println("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        System.out.println(Manage.allUsers.size() + "jfjf");
-//    }
 
     public static void isLoggedUser(Scanner scanner) throws InterruptedException, IOException {
         JsonController.readDataFile("LoggedInUser.json");
@@ -52,7 +42,6 @@ public class LoginMenu {
         }
     }
 
-    //user create -u armin -p mamad mamad -email hhh -n kazem -s dd
     private static int numberToWait = 1;
 
     private static void ForgotPasswordCheck(String command, Scanner scanner) throws IOException {
@@ -93,13 +82,9 @@ public class LoginMenu {
                     return;
                 case SUCCESS:
                     System.out.println("Password changing is done!");
-                    return;
             }
-
-
         } else {
             System.out.println("This is not correct.Try again!");
-            return;
         }
 
 
@@ -117,11 +102,7 @@ public class LoginMenu {
             System.out.println("invalid command");
             return;
         }
-
-        System.out.println(password);
         RegisterMessages message = LoginController.loginUser(username, password);
-        System.out.println(username + " \n" + password);
-        System.out.println(message);
         switch (message) {
             case NOT_EXIST_USERNAME:
                 System.out.println("Username does not exist!");
@@ -142,7 +123,6 @@ public class LoginMenu {
                 numberToWait = 1;
                 System.out.println("Login successfully!");
                 MainMenu.run(scanner);
-                return;
         }
     }
 
@@ -186,12 +166,7 @@ public class LoginMenu {
 
     private static void sendInformationsOfRegisterUser(String username, String password, String confirmPassword,
                                                        String email, String nickname, String slogan, Scanner scanner) throws IOException {
-        System.out.println(username + " " + password + " " + confirmPassword + " " + email + " " + nickname + " " + slogan);
-//        System.out.println(password);
-//        System.out.println(confirmPassword);
-//        System.out.println(email);
         RegisterMessages message = LoginController.checkErrorForRegister(username, password, confirmPassword, email, nickname, slogan);
-//        System.out.println(message);
         switch (message) {
             case USERNAME_REPETED:
                 username = LoginController.makeUserNameForUser(username);
@@ -259,9 +234,7 @@ public class LoginMenu {
                     return;
                 } else {
                     LoginController.register(username, password, nickname, email, list[1], slogan, list[0]);
-//                    User user = new User(username,password,nickname,email,list[1],slogan,Integer.parseInt(list[0]));
                 }
-//                System.out.println(Manage.allUsers.size());
                 System.out.println("register successfully");
         }
 
@@ -299,13 +272,10 @@ public class LoginMenu {
             list[1] = ask;
             return list;
         }
-//        System.out.println(number + "\n" + ask + "\n" + askConfirm);
         return null;
 
     }
 }
-//TODO : fix all commands regex
-//TODO : fix all users arrayList
 
 
 

@@ -10,6 +10,7 @@ import model.Map;
 import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -564,13 +565,16 @@ public class GameController {
         }
         return false;
     }
-    public GameMenuMessages stopPatrols() {
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (army.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
-                army.setArmyForm(Names.STANDING_AMRY.getName());
+    public GameMenuMessages stopPatrols(int x , int y) {
+        if (validCoordinates(x,y)) {
+            for (Army army : Manage.getCurrentEmpire().empireArmy) {
+                if (army.getArmyForm().equals(Names.PATROL_UNIT.getName()) &&
+                        army.getCurrentX() == x && army.getCurrentY() == y) {
+                    army.setArmyForm(Names.STANDING_AMRY.getName());
+                }
             }
-        }
-        return GameMenuMessages.SUCCESS;
+            return GameMenuMessages.SUCCESS;
+        }return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
 
     public GameMenuMessages PitchDitchHauntsEnemy(Matcher x1, Matcher y1) {
@@ -612,51 +616,67 @@ public class GameController {
         int y0fPossibleEnemy;
         int xOfPossibleEnemy;
         int killCount = Manage.getCurrentEmpire().getEngineerCount();
-        for (int j = 0; j < Empire.pourOilCoordinate.size(); j++) {
-            int x = Empire.pourOilCoordinate.get(j) / Map.mapSize;
-            int y = Empire.pourOilCoordinate.get(j) % Map.mapSize;
-            if (direction.equals(Names.NORTH.getName())) {
-                for (int i = -1; i <= 1; i++) {
-                    y0fPossibleEnemy = y + i;
-                    if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
-                        if (killCount != 0) {
-                            killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
+        if (checkDirection(direction)) {
+            for (int j = 0; j < Empire.pourOilCoordinate.size(); j++) {
+                int x = Empire.pourOilCoordinate.get(j) / Map.mapSize;
+                int y = Empire.pourOilCoordinate.get(j) % Map.mapSize;
+                if (direction.equals(Names.NORTH.getName())) {
+                    for (int i = -1; i <= 1; i++) {
+                        y0fPossibleEnemy = y + i;
+                        if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
+                            if (killCount != 0) {
+                                killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
+                            }
                         }
                     }
-                }
-            } else if (direction.equals(Names.SOUTH.getName())) {
-                for (int i = -1; i <= 1; i++) {
-                    y0fPossibleEnemy = y + i;
-                    if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
-                        if (killCount != 0) {
-                            killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
+                } else if (direction.equals(Names.SOUTH.getName())) {
+                    for (int i = -1; i <= 1; i++) {
+                        y0fPossibleEnemy = y + i;
+                        if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
+                            if (killCount != 0) {
+                                killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
+                            }
                         }
                     }
-                }
-            } else if (direction.equals(Names.WEST.getName())) {
-                for (int i = -1; i <= 1; i++) {
-                    xOfPossibleEnemy = x + i;
-                    if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
-                        if (killCount != 0) {
-                            killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
+                } else if (direction.equals(Names.WEST.getName())) {
+                    for (int i = -1; i <= 1; i++) {
+                        xOfPossibleEnemy = x + i;
+                        if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
+                            if (killCount != 0) {
+                                killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
+                            }
                         }
                     }
-                }
 
-            } else if (direction.equals(Names.EAST.getName())) {
-                for (int i = -1; i <= 1; i++) {
-                    xOfPossibleEnemy = x + i;
-                    if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
-                        if (killCount != 0) {
-                            killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
+                } else if (direction.equals(Names.EAST.getName())) {
+                    for (int i = -1; i <= 1; i++) {
+                        xOfPossibleEnemy = x + i;
+                        if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
+                            if (killCount != 0) {
+                                killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
+                            }
                         }
                     }
                 }
             }
-        }
-        return GameMenuMessages.SUCCESS;
+            return GameMenuMessages.SUCCESS;
+        }return GameMenuMessages.INVALID_DIRECTION;
     }
+    public boolean checkDirection(String direction){
+        return direction.equals(Names.NORTH.getName()) || direction.equals(Names.SOUTH.getName())
+                || direction.equals(Names.WEST.getName()) || direction.equals(Names.EAST.getName());
+    }
+    public boolean findShop(Matcher x1 , Matcher y1){
+        int x= Integer.parseInt(x1.group("x"));
+        int y = Integer.parseInt(y1.group("y"));
+        if (validCoordinates(x,y)){
+            if (Map.getBuildingMap()[x][y].get(0) instanceof Shop){
+                return true;
+            }
 
+        }
+        return false;
+    }
     public void cagedWarDogsAttack() {
         for (int j = 0; j < Empire.cagedWarDogsCoordinate.size(); j++) {
             int x = Empire.cagedWarDogsCoordinate.get(j) / mapSize;

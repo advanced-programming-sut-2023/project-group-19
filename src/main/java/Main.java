@@ -8,6 +8,7 @@ import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.BuildingMenu;
 import view.Commands.BuildingCommands;
 import view.EmpireMenu;
 import view.GameMenu;
@@ -24,8 +25,10 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-
-
+//        String command = "drop building -x  1 -y 2";
+//        System.out.println(BuildingCommands.getMatcher(command, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING));
+        Scanner scanner = new Scanner(System.in);
+        LoginMenu.run(scanner);
 //        Scanner scanner = new Scanner(System.in);
 //        EmpireMenu empireMenu = new EmpireMenu();
 //        Empire empire = new Empire();
