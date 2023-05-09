@@ -158,9 +158,9 @@ public class ShowMapController {
 
     public static String showDetail(int x, int y) {
         if(!CreateMapController.mapIsBuilded)  return "first build a map!";
-        String groundType = Map.getGroundType()[x][y].get(0).getGroundType();
+        String groundType = Map.getGroundType()[x - 1][y - 1].get(0).getGroundType();
         if(groundType.equals(GroundType.DEFAULT.getGroundType())){
-            if(Map.getObstacleMap()[x - 1][y - 1].get(0) instanceof WaterSources){
+            if(!Map.getObstacleMap()[x - 1][y - 1].isEmpty()  && Map.getObstacleMap()[x - 1][y - 1].get(0) instanceof WaterSources){
                 WaterSources waterSources = (WaterSources) Map.getObstacleMap()[x - 1][y - 1].get(0);
                 groundType = waterSources.getName().getObstacleName();
             }

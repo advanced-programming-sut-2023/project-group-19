@@ -50,7 +50,8 @@ public class CreateMapController {
         if(groundType == null){
             WaterSources waterSources = WaterSources.getWaterSourcesByName(type);
             if(waterSources == null) return "Choose type correctly";
-//            Map.getGroundType()[x - 1][y - 1].clear();
+            Map.getGroundType()[x - 1][y - 1].clear();
+            Map.getGroundType()[x - 1][y - 1].add(GroundType.DEFAULT);
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
             Map.notBuildable[x - 1][y - 1]  = true ;
             if(!type.equals("Plain") && !type.equals("smallPond")) Map.notPassable[x - 1][y - 1] = true ;
@@ -86,6 +87,7 @@ public class CreateMapController {
         Map.getTroopMap()[x - 1][y - 1].clear();
         Map.getBuildingMap()[x - 1][y - 1].clear();
         Map.getGroundType()[x - 1][y - 1].clear();
+        Map.getGroundType()[x -1][y - 1].add(GroundType.DEFAULT);
         Map.getObstacleMap()[x - 1][y - 1].clear();
         Map.notPassable[x - 1][y - 1] = false ;
         Map.notBuildable[x - 1][y - 1] = false ;
@@ -98,6 +100,8 @@ public class CreateMapController {
         if(Map.notBuildable[x - 1][y - 1]) return "Is occupied";
         Stone stone = new Stone();
         stone.stone(type);
+        Map.getGroundType()[x - 1][y - 1].clear();
+        Map.getGroundType()[x - 1][y - 1].add(GroundType.DEFAULT);
         Map.obstacleMap[x - 1][y - 1].add(stone);
         Map.notPassable[x - 1][y - 1] = true ;
         Map.notBuildable[x - 1][y - 1] = true ;
@@ -113,7 +117,6 @@ public class CreateMapController {
         }
         if(Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.IRON) &&
                 Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE_ROCK) &&
-                Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE) &&
                 Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE)
         ) return "not good type of ground!";
         Tree tree = new Tree();;
