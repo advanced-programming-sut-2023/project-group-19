@@ -140,11 +140,11 @@ public class CreateMapController {
     public static int indexOfUser = 0 ;
     
     public static String locateCatle(int x , int y) {
+        if (!mapIsBuilded) return "You first must build a map!";
         int numberOfUsers = User.loginUsers.size();
         if(CreateMapController.numberOfEmpiers == numberOfUsers){
             return "you must have more user to continue!" ;
         }
-        if (!mapIsBuilded) return "You first must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
         for(int i = 1 ; i <= x ; i ++){
             for(int j = 1 ; j <= y ; j ++){
@@ -159,6 +159,7 @@ public class CreateMapController {
         indexOfUser ++ ;
         Castle castle = new Castle(empire);
         castle.castle();
+        //TODO : talk with fucking arian
         Map.getBuildingMap()[x - 1][y - 1].add(castle);
         numberOfEmpiers ++ ;
 //        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;

@@ -37,6 +37,7 @@ public class LoginMenu {
         if (user != null) {
             User orgUser = User.getUserByName(user.getUsername());
             User.setCurrentUser(orgUser);
+            User.loginUsers.add(orgUser);
             System.out.println("Login successfully");
             MainMenu.run(scanner);
         }
