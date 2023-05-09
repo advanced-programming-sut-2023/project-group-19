@@ -314,7 +314,7 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Barrack":
+            case "Barracks":
                 PrepareLaboursAndFighters barracks = new PrepareLaboursAndFighters(currentEmpire);
                 barracks.barracks();
                 if (correctGroundType(x, y, barracks)) {
@@ -1137,6 +1137,7 @@ public class BuildingController {
         int x = Integer.parseInt(xGroup.group("x"));
         int y = Integer.parseInt(yGroup.group("y"));
         String type = typeGroup.group("type");
+        System.out.println(type);
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {

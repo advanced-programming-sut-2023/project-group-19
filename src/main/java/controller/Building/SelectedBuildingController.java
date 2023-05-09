@@ -15,10 +15,6 @@ import java.util.regex.Matcher;
 public class SelectedBuildingController {
     public static Empire empire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
-
-    //TODO : add the tunneler troop to one of the buildings
-    //TODO : all the troops made in here . their functions is not called in the functions soo after fixing the troops class it must be added
-    //TODO REMOVE THE ARAB ARMY AND EUROPE ARMY
     public SelectedBuildingMessages gatehouse(Matcher matcherTaxRate) {
         int taxRate = Integer.parseInt(matcherTaxRate.group("taxRate"));
         if (taxRate > 7 | taxRate < -3) {

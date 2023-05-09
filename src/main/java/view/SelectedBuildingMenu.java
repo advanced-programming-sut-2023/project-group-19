@@ -20,6 +20,7 @@ public class SelectedBuildingMenu {
     String input;
 
     public void run(Scanner scanner) {
+        System.out.println("Welcome to SelectedBuildingMenu!");
         SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
         SelectedBuildingController.selectedBuilding = selectedBuilding;
         String buildingName = selectedBuilding.getNameEnum().getName();
