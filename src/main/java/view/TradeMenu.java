@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import model.Manage;
 import view.Commands.TradeMenuCommands;
 import view.Messages.TradeMenuMessages;
 
@@ -22,17 +23,11 @@ public class TradeMenu {
         System.out.println("Welcome to TradeMenu!");
         TradeController tradeController = new TradeController();
         tradeController.showAllEmpires();
+        tradeController.notification();
         while (true) {
             command = scanner.nextLine();
-            if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.TRADE) != null) {
-                resourceType = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_TYPE_CHECK);
-                resourceAmount = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_AMOUNT_CHECK);
-                price = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_PRICE_CHECK);
-                message = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_MESSAGE_CHECK);
-                commandValidation = checkTradeCommandFormat(resourceType, resourceAmount, price, message);
-                if (commandValidation.getMessages().equals(TradeMenuMessages.SUCCESS.getMessages())) {
-                    tradeController.sendRequest(resourceType, resourceAmount, price, message);
-                } else System.out.println(commandValidation.getMessages());
+            if ((id = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SELECT_EMPIRE)) != null) {
+                System.out.println(tradeController.setSelectedEmpire(id).getMessages());
             } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.SHOW_TRADE_LIST) != null) {
                 tradeController.showTradeList();
             } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.TRADE_ACCEPTED) != null) {
@@ -40,12 +35,27 @@ public class TradeMenu {
                 message = TradeMenuCommands.getMatcher(command, TradeMenuCommands.TRADE_ACCEPTED_MESSAGE_CHECK);
                 commandValidation = checkTradeAcceptanceFormat(id, message);
                 if (commandValidation.getMessages().equals(TradeMenuMessages.VALID_COMMAND.getMessages())) {
-                    tradeController.tradeAcceptance(id, message);
+                    System.out.println(tradeController.tradeAcceptance(id, message));
                 } else System.out.println(commandValidation.getMessages());
             } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.SHOW_TRADE_HISTORY) != null) {
                 tradeController.showTradeHistory();
+            } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.TRADE) != null) {
+                resourceType = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_TYPE_CHECK);
+                resourceAmount = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_AMOUNT_CHECK);
+                price = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_PRICE_CHECK);
+                message = TradeMenuCommands.getMatcher(command, TradeMenuCommands.SEND_REQUEST_RESOURCE_MESSAGE_CHECK);
+                commandValidation = checkTradeCommandFormat(resourceType, resourceAmount, price, message);
+                if (commandValidation.getMessages().equals(TradeMenuMessages.VALID_COMMAND.getMessages())) {
+                    System.out.println(tradeController.sendRequest(resourceType, resourceAmount, price, message).getMessages());
+                } else System.out.println(commandValidation.getMessages());
             } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.LOGOUT) != null) {
                 break;
+            } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.NEXT) != null) {
+                if (Manage.getCurrentEmpire().getName().equals("doreece")) {
+                    Manage.setCurrentEmpire(Manage.getEmpireByNickname("arian"));
+                }else {
+                    Manage.setCurrentEmpire(Manage.getEmpireByNickname("doreece"));
+                }
             } else System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
         }
     }
