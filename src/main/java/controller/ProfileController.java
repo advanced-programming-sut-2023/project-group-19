@@ -41,8 +41,15 @@ public class ProfileController {
         Collections.sort(User.users);
         return ProfileMenuMessage.SUCCESS;
     }
+    private static String changeTextIwithoutCot(String text){
+        if (text.charAt(0) == '\"' && text.charAt(text.length() - 1) == '\"') {
+            text = text.replaceAll("\"", "");
+        }
+        return text ;
+    }
 
     public static ProfileMenuMessage changeNickname(String nickname) throws IOException {
+        nickname = changeTextIwithoutCot(nickname);
         User user = User.getCurrentUser();
         user.setNickname(nickname);
         JsonController.writeIntoFile(User.users, "User.json");
@@ -53,6 +60,8 @@ public class ProfileController {
     // !user.getPassword().equals(getHashCode(password))
 
     public static ProfileMenuMessage changingPasswordErrorHandelling(String oldPassword, String newPassword) {
+        oldPassword = changeTextIwithoutCot(oldPassword);
+        newPassword = changeTextIwithoutCot(newPassword);
         User user = User.getCurrentUser();
         System.out.println("|" + oldPassword + "|");
         System.out.println(user.getPassword());
@@ -67,6 +76,7 @@ public class ProfileController {
     }
 
     public static ProfileMenuMessage changeSlogan(String slogan) throws IOException {
+        slogan = changeTextIwithoutCot(slogan);
         User user = User.getCurrentUser();
         user.setSlogan(slogan);
         JsonController.writeIntoFile(User.users, "User.json");
@@ -75,6 +85,7 @@ public class ProfileController {
     }
 
     public static ProfileMenuMessage changePassword(String newPassword) throws IOException {
+        newPassword = changeTextIwithoutCot(newPassword);
         User user = User.getCurrentUser();
         user.setPassword(getHashCode(newPassword));
         JsonController.writeIntoFile(User.users, "User.json");

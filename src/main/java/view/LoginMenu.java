@@ -99,7 +99,7 @@ public class LoginMenu {
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN_GET_PASSWORD);
         if (matcher != null) password = matcher.group("password");
         if (username == null || password == null) {
-            System.out.println("invalid command");
+            System.out.println("Fill correctly!");
             return;
         }
         RegisterMessages message = LoginController.loginUser(username, password);
@@ -186,14 +186,14 @@ public class LoginMenu {
                 break;
             case GET_RANDOM_PASSWORD:
                 password = LoginController.generateRandomPassword();
-                System.out.println("Your random password is " + password + ".Please type it");
+                System.out.println("Your random password is: " + password + ".Please type it");
                 String ans = scanner.nextLine();
                 while (true) {
                     if (ans.equals(password)) {
                         sendInformationsOfRegisterUser(username, password, password, email, nickname, slogan, scanner);
                         break;
                     }
-                    System.out.println("Try again!");
+                    System.out.println("Type it again!");
                     ans = scanner.nextLine();
                 }
                 return;

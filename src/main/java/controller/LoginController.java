@@ -24,6 +24,7 @@ public class LoginController {
         if (slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null)) {
             return RegisterMessages.EMPTY_FIELD;
         }
+        slogan = changeTextIwithoutCot(slogan);
         if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED;
         if (!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if (slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
@@ -68,8 +69,9 @@ public class LoginController {
         password = changeTextIwithoutCot(password);
         answeroFSecQuestion = changeTextIwithoutCot(answeroFSecQuestion);
         slogan = changeTextIwithoutCot(slogan);
+        nickname = changeTextIwithoutCot(nickname);
         String newPassword = getHashCode(password);
-        User user = new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
+        new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
     }
 
     public static RegisterMessages checkSecurityAsks(int number, String answer, String confirmAnswer) {
