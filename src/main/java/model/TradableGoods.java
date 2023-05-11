@@ -10,8 +10,6 @@ public enum TradableGoods {
     BOW("bow"),
     SWORD("sword"),
     MACE("mace"),
-    SPEAR("spear"),
-    PEAK("peak"),
     HORSE("horse"),
     WOOD("wood"),
     IRON("iron"),

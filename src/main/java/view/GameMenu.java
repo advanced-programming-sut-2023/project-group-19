@@ -2,15 +2,16 @@ package view;
 
 import controller.GameController;
 import controller.NextTurnController;
+import controller.ShowMapController;
 import model.Building.Shop;
 import model.Empire;
 import model.Manage;
 import model.Map;
-import model.User;
 import view.Commands.GameMenuCommands;
+import view.Commands.MainMenuCommands;
 import view.Messages.GameMenuMessages;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -18,7 +19,7 @@ public class GameMenu {
     public static Empire currentEmpire;
     public static GameController gameController = new GameController();
 
-    public void run(Scanner scanner) {
+    public void run(Scanner scanner) throws IOException, InterruptedException {
         Matcher x1;
         Matcher y1;
         Matcher x2;
@@ -38,6 +39,8 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(gameController.selectUnit(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
+            } else if(GameMenuCommands.getMatcher(command,GameMenuCommands.SHOW_MAP) != null){
+                showMap(command,scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
@@ -224,5 +227,25 @@ public class GameMenu {
             return GameMenuMessages.VALID_COMMAND;
         }
         return GameMenuMessages.EMPTY_COORDINATE_FIELD;
+    }
+
+
+    public static void showMap(String command, Scanner scanner) throws IOException, InterruptedException {
+        Matcher matcher;
+        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
+        if (matcher == null) {
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+
+        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
+        if (matcher == null) {
+            System.out.println("fill elements of map correctly!");
+            return ;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        System.out.println(ShowMapController.showMap(x, y, false));
+        ShowMapIntoGameMenu.run(scanner);
     }
 }

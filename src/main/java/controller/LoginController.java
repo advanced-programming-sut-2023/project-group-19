@@ -58,11 +58,10 @@ public class LoginController {
             , String slogan, String numberOfSecQuesion) throws IOException {
         String newPassword = getHashCode(password);
         User user = new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
-//        user.addUserToAllUsersArrayList(user);
     }
 
     public static RegisterMessages checkSecurityAsks(int number, String answer, String confirmAnswer) {
-        if (answer == null || confirmAnswer == null || number < 0 || number > 3)
+        if (answer == null || confirmAnswer == null || number < 1 || number > 3)
             return RegisterMessages.TRY_ANOTHER_SEC_ASK;
         if (answer.equals(confirmAnswer)) return RegisterMessages.IS_OK_ASKS;
         else return RegisterMessages.TRY_ANOTHER_SEC_ASK;
@@ -83,6 +82,7 @@ public class LoginController {
     public static RegisterMessages loginUser(String username, String password) {
         User user;
         if ((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME;
+//        System.out.println(user.getPassword());
         if (!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         User.setCurrentUser(user);
         User.loginUsers.add(user);
@@ -119,7 +119,7 @@ public class LoginController {
     public static String getRandomSlogan() {
         int size = User.getRandomSlogans().size();
         Random random = new Random();
-        int index = random.nextInt(size - 1);
+        int index = random.nextInt(size);
         return (User.getRandomSlogans().get(index));
     }
 

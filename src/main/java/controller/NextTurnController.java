@@ -6,6 +6,8 @@ import model.Manage;
 import model.Map;
 import model.User;
 import view.GameMenu;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -13,7 +15,7 @@ public class NextTurnController {
     public static Empire currentEmpire;
     public static int index = 0;
 
-    public void game(Scanner scanner) {
+    public void game(Scanner scanner) throws IOException, InterruptedException {
         while (true) {
             if (Manage.allEmpires.size() != 1) {
                 GameController gameController = new GameController();

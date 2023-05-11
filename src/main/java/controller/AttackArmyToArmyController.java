@@ -5,12 +5,9 @@ package controller;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
-import model.Human.Troop.Soldiers;
 
-import java.lang.reflect.Array;
-import java.security.KeyStore;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import model.*;
 import model.Building.*;
@@ -29,8 +26,6 @@ public class AttackArmyToArmyController {
         killUnit();
     }
 
-    //TODO : jolgeh
-    //TODO : sleep in login and register
     private static void killUnit() {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
@@ -45,8 +40,7 @@ public class AttackArmyToArmyController {
     }
 
     private static boolean isArcher(Army army) {
-        if (army instanceof ArchersAndThrowers) return true;
-        else return false;
+        return army instanceof ArchersAndThrowers;
     }
 
     private static void findEnemyToFight(Army army) {
@@ -76,7 +70,7 @@ public class AttackArmyToArmyController {
         determineRange(army);
         int x = army.xCoordinate;
         int y = army.yCoordinate;
-        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+        int x1, x2, y1, y2;
         for (int i = 1; i <= archerRange; i++) {
             x1 = x - i;
             x2 = x + i;
@@ -102,7 +96,7 @@ public class AttackArmyToArmyController {
     }
 
     private static void findBuildingToBeAttacked(Army army) {
-        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+        int x1, x2, y1, y2;
         x1 = army.getCurrentX() - 1;
         x2 = army.getCurrentX() + 1;
         y1 = army.getCurrentY() - 1;
@@ -179,7 +173,7 @@ public class AttackArmyToArmyController {
         int range = army.getAttackRange();
         int x = army.xCoordinate;
         int y = army.yCoordinate;
-        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+        int x1, x2, y1, y2;
         for (int i = 1; i <= range; i++) {
             x1 = x - i;
             x2 = x + i;
@@ -207,7 +201,7 @@ public class AttackArmyToArmyController {
                 }
             }
         }
-        int left = 0, right = 0, up = 0, down = 0;
+        int left, right, up, down;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (Map.getBuildingMap()[i][j].isEmpty()) continue;

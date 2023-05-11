@@ -1,8 +1,6 @@
 package model.Human.Troop;
 
-import model.Building.BuildingConstantFunctions;
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 import java.util.HashMap;
@@ -115,7 +113,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
-        restOfMoves = 7;
         attackRange = 3;
         attackPower = 200;
         defencePower = 50;
@@ -130,7 +127,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 3;
-        restOfMoves = 3;
         attackRange = 4;
         attackPower = 200;
         defencePower = 50;
@@ -145,7 +141,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
-        restOfMoves = 7;
         attackRange = 8;
         attackPower = 600;
         defencePower = 150;
@@ -160,7 +155,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 7;
-        restOfMoves = 7;
         attackRange = 2;
         attackPower = 300;
         defencePower = 50;
@@ -175,7 +169,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
-        restOfMoves = 9;
         attackRange = 5;
         attackPower = 1000;
         defencePower = 350;
@@ -190,7 +183,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         xCoordinate = x;
         yCoordinate = y;
         speed = 9;
-        restOfMoves = 9;
         attackRange = 4;
         attackPower = 800;
         defencePower = 150;
@@ -203,13 +195,13 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         names = Names.CATAPULT;
         xCoordinate = x;
         yCoordinate = y;
-        createBuildingCost(0, 0, 150, 0, 0);
-        createBuildingWorkersNeeded(2, 0);
         attackRange = 2;
         attackPower = 600;
         defencePower = 150;
         speed = 3;
         restOfMoves = 3;
+        createBuildingCost(0, 0, 150, 0, 0);
+        createBuildingWorkersNeeded(2, 0);
     }
 
     public void trebuchet(int x, int y) {
@@ -218,13 +210,13 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         names = Names.TREBUCHET;
         xCoordinate = x;
         yCoordinate = y;
-        createBuildingCost(0, 0, 150, 0, 0);
-        createBuildingWorkersNeeded(3, 0);
         attackRange = 2;
         attackPower = 600;
         defencePower = 150;
         speed = 3;
         restOfMoves = 3;
+        createBuildingCost(0, 0, 150, 0, 0);
+        createBuildingWorkersNeeded(3, 0);
     }
 
     public void siegeTower(int x, int y) {
@@ -233,24 +225,25 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         names = Names.SIEGE_TOWER;
         xCoordinate = x;
         yCoordinate = y;
-        createBuildingCost(0, 0, 150, 0, 0);
         attackRange = 2;
         attackPower = 0;
         defencePower = 200;
         speed = 3;
         restOfMoves = 3;
+        createBuildingCost(0, 0, 150, 0, 0);
+        createBuildingWorkersNeeded(4, 0);
     }
 
     public void fireBallista(int x, int y) {
         names = Names.FIRE_BALLISTA;
         xCoordinate = x;
         yCoordinate = y;
-        createBuildingCost(0, 0, 150, 0, 0);
         attackRange = 2;
         attackPower = 800;
         defencePower = 150;
         speed = 3;
         restOfMoves = 3;
+        createBuildingCost(0, 0, 150, 0, 0);
     }
 
     public void batteringRam(int x, int y) {

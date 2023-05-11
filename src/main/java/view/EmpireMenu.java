@@ -3,7 +3,6 @@ package view;
 import controller.EmpireController;
 import model.Manage;
 import view.Commands.EmpireCommands;
-import view.Messages.EmpireMessages;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

@@ -3,7 +3,6 @@ package model.Human.Troop;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
-import model.Human.Names;
 
 import java.util.List;
 
@@ -15,11 +14,8 @@ public class Army extends Human {
 
     public boolean isIntFight = false;
 
-    public boolean isIntFight() {
-        return isIntFight;
-    }
 
-    public boolean hasMovedForDeffensiveState = false;
+    public boolean hasMovedForDefensiveState = false;
 
     private ArchersAndThrowers archerAttacker = null;
 
@@ -33,6 +29,17 @@ public class Army extends Human {
 
     private Empire empire;
     private Army enemy;
+
+    public boolean isIntFight() {
+        return isIntFight;
+    }
+
+    public void setIntFight(boolean intFight) {
+        isIntFight = intFight;
+    }
+
+
+
 
     public Army getEnemy() {
         return enemy;

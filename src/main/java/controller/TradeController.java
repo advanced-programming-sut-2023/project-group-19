@@ -2,19 +2,14 @@ package controller;
 
 import model.*;
 
-import java.util.Map;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 
-import view.Commands.TradeMenuCommands;
 import view.Messages.TradeMenuMessages;
 import model.TradableGoods;
 
 public class TradeController {
-    public int indexOfRequest;
-    public int indexOfDonation;
-    public static Empire selectedEmpire = null;
+    public static Empire selectedEmpire;
+    public static Empire currentEmpire = Manage.getCurrentEmpire();
 
     public void showAllEmpires() {
         int number = 1;
@@ -25,48 +20,58 @@ public class TradeController {
         }
     }
 
-    public void showRequests() {
-        int number = 1;
-        System.out.println("Request List :");
-        for (String request : Manage.getCurrentEmpire().getRequest()) {
-            System.out.println(number + ". " + request);
-            number++;
-        }
-    }
-
-    public TradeMenuMessages sendRequest(Matcher resourceType, Matcher resourceAmount, Matcher price, Matcher message) {
-        String typeOfResource = resourceType.group("resourceType");
-        int amountOfResource = Integer.parseInt(resourceAmount.group("resourceAmount"));
-        int cost = Integer.parseInt(price.group("resourcePrice"));
-        String messageAttachedToRequest = message.group("resourceMessage");
+    public TradeMenuMessages sendRequest(Matcher resourceType, Matcher resourceAmount, Matcher cost, Matcher message) {
+        int amount = Integer.parseInt(resourceAmount.group("resourceAmount"));
+        int price = Integer.parseInt(cost.group("resourcePrice"));
+        String goodType = resourceType.group("resourceType");
+        String messageOfRequest = message.group("resourceMessage");
         if (selectedEmpire != null) {
-            if (typeOfResources(typeOfResource) != null) {
-                if (amountOfResource > 0) {
-                    if (cost >= 0) {
-                        if (messageAttachedToRequest != null) {
-                            String request = "Sender: " + Manage.getCurrentEmpire() + "\n" +
-                                    "Requested resource: " + typeOfResource + "\n" +
-                                    "Amount of resource: " + amountOfResource + "\n" +
-                                    "Attached Message: " + messageAttachedToRequest + "\n" +
-                                    "Status: ";
-                            if (cost == 0) selectedEmpire.getDonation().add(request);
-                            else selectedEmpire.getRequest().add(request);
-                            System.out.println("Your request is sent to " + selectedEmpire + " court!");
-                            selectedEmpire = null;
-                        } else return TradeMenuMessages.EMPTY_MESSAGE_PART;
-                    } else return TradeMenuMessages.INVALID_PRICE;
-                } else return TradeMenuMessages.INVALID_AMOUNT;
+            if (typeOfResources(goodType)) {
+                if (enoughMoneyToBuy(currentEmpire, price)) {
+                    if (amount > 0 && checkTheCapacity(amount, goodType, currentEmpire) ) {
+                        String id = idProvider(currentEmpire, currentEmpire.getAllRequests().size() + 1);
+                        Request request = new Request(messageOfRequest, price, amount, goodType, id, currentEmpire, selectedEmpire);
+                        request.setStatus("Not accepted yet!");
+                        currentEmpire.getAllRequests().add(request);
+                        selectedEmpire.getAllDonations().add(request);
+                        return TradeMenuMessages.REQUEST_SENT_SUCCESSFULLY;
+                    } else return TradeMenuMessages.INVALID_AMOUNT;
+                } else return TradeMenuMessages.INVALID_PRICE;
             } else return TradeMenuMessages.INVALID_RESOURCE_TYPE;
         }
         return TradeMenuMessages.NO_EMPIRE_HAS_BEEN_CHOSEN;
     }
 
-    public void setSelectedEmpire(int number) {
+    public String idProvider(Empire empire, int number) {
+        return empire.getName().concat(String.valueOf(number));
+    }
+
+    public TradeMenuMessages setSelectedEmpire(Matcher empireName) {
+        String name = empireName.group("name");
         for (int i = 0; i < Manage.getAllEmpires().size(); i++) {
-            if (i == number - 1) {
+            if (Manage.getAllEmpires().get(i).getName().equals(name)) {
                 selectedEmpire = Manage.getAllEmpires().get(i);
-                break;
+                return TradeMenuMessages.EMPIRE_CHOSEN_SUCCESSFULLY;
             }
+        }
+        return TradeMenuMessages.INVALID_EMPIRE;
+    }
+
+    public void showDonations() {
+        int number = 1;
+        System.out.println("Donation List :");
+        for (Request donation : currentEmpire.getAllDonations()) {
+            System.out.println("\t" + number + ".Empire: " + donation.getSender().getName()+ " id: " + donation.getId() + " status :"+donation.getStatus());
+            number++;
+        }
+    }
+
+    public void showRequests() {
+        int number = 1;
+        System.out.println("Request List :");
+        for (Request request : currentEmpire.getAllRequests()) {
+            System.out.println("\t" + number + ".Empire: " + request.getSender().getName() + " id: " + request.getId() + " status :"+request.getStatus());
+            number++;
         }
     }
 
@@ -75,186 +80,335 @@ public class TradeController {
         showDonations();
     }
 
-    public void showDonations() {
-        int number = 1;
-        System.out.println("Donation List :");
-        for (String donation : Manage.getCurrentEmpire().getDonation()) {
-            System.out.println(number + ". " + donation + " id:");
-            number++;
+    public TradeMenuMessages tradeAcceptance(Matcher idOfRequest, Matcher messageOfRequest) {
+        Request request;
+        String id = idOfRequest.group("id");
+        String message = messageOfRequest.group("tradeMessage");
+        if ((request = findDonation(id, currentEmpire)) != null) {
+            String goodName = request.getGoodName();
+            int amount = request.getAmount();
+            int price = request.getPrice();
+            Empire empire = request.getSender();
+            if (Manage.getEmpireByNickname(empire.getName()) != null) {
+                if (getNumberOfGoods(goodName, currentEmpire) >= amount) {
+                    Request request1 = findRequest(id, empire);
+                    request1.setFromSellerMessage(message);
+                    request.setFromSellerMessage(message);
+                    empire.setGoldCount(empire.getGoldCount() - price);
+                    request1.setAcceptance(true);
+                    request.setAcceptance(true);
+                    currentEmpire.setGoldCount(currentEmpire.getGoldCount() + price);
+                    setNumberOfGoods(empire, currentEmpire, amount, goodName);
+                    request.setStatus("Accepted!");
+                    request1.setStatus("Accepted!");
+                    return TradeMenuMessages.SUCCESS;
+                } else return TradeMenuMessages.NOT_ENOUGH_RESOURCES;
+            }else return TradeMenuMessages.INVALID_EMPIRE;
         }
+        return TradeMenuMessages.NO_DONATION;
     }
 
-    public TradeMenuMessages tradeAcceptance(Matcher id, Matcher message) {
-        Matcher matcher;
-        String request;
-        String donation;
-        String idOfEmpire = id.group("id");
-        String messageFromEmpire = message.group("tradeMessage");
-        Empire empire = Manage.getEmpireByNickname(idOfEmpire);
-        if (empire != null) {
-            if (messageFromEmpire != null) {
-                if ((request = findRequest(idOfEmpire, messageFromEmpire, empire)) != null) {
-                    matcher = TradeMenuCommands.getMatcher(request, TradeMenuCommands.RESOURCE_AMOUNT_OF_REQUEST);
-                    int amount = Integer.parseInt(matcher.group("amount"));
-                    matcher = TradeMenuCommands.getMatcher(request, TradeMenuCommands.RESOURCE_TYPE);
-                    String requestResource = matcher.group("type");
-                    if (getResourceCount(requestResource) != -1) {
-                        if (empire.getResourcesCount() + amount <= empire.getResourcesCapacity()) {
-                            setResourceCount(requestResource, amount, idOfEmpire);
-                            setResourceCount(requestResource, amount, Manage.getCurrentEmpire().getName());
-                            request = request.concat("Accepted");
-                            return TradeMenuMessages.SUCCESS;
-                        }
-                    }
-                } else if ((donation = findDonation(idOfEmpire, messageFromEmpire, empire)) != null) {
-                    matcher = TradeMenuCommands.getMatcher(donation, TradeMenuCommands.RESOURCE_AMOUNT_OF_REQUEST);
-                    int amount = Integer.parseInt(matcher.group("amount"));
-                    matcher = TradeMenuCommands.getMatcher(donation, TradeMenuCommands.RESOURCE_TYPE);
-                    String requestResource = matcher.group("type");
-                    if (getResourceCount(requestResource) != -1 && getResourceCount(requestResource) >= amount) {
-                        if (empire.getResourcesCount() + amount <= empire.getResourcesCapacity()) {
-                            setResourceCount(requestResource, amount, idOfEmpire);
-                            setResourceCount(requestResource, amount, Manage.getCurrentEmpire().getName());
-                            return TradeMenuMessages.SUCCESS;
-                        } else return TradeMenuMessages.NOT_ENOUGH_SPACE;
-                    } else return TradeMenuMessages.NOT_ENOUGH_RESOURCES;
-                } else return TradeMenuMessages.NO_REQUEST_OR_DONATION;
-            } else return TradeMenuMessages.EMPTY_MESSAGE_PART;
-        } else return TradeMenuMessages.INVALID_EMPIRE;
-        return null;
-    }
-
-    public String typeOfResources(String typeOfResource) {
+    public boolean typeOfResources(String typeOfResource) {
         for (TradableGoods tradableGoods : TradableGoods.values()) {
             if (tradableGoods.getGoodName().equals(typeOfResource)) {
-                return tradableGoods.getGoodName();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Request findRequest(String id, Empire empire) {
+        for (Request request : empire.getAllRequests()) {
+            if (request.getId().equals(id)) {
+                return request;
             }
         }
         return null;
     }
 
-    public String findRequest(String id, String message, Empire empire) {
-        Matcher matcher;
-        Matcher matcherForMessage;
-        for (int i = 0; i < empire.getRequest().size(); i++) {
-            matcher = TradeMenuCommands.getMatcher(empire.getRequest().get(i), TradeMenuCommands.SENDER_OF_REQUEST);
-            matcherForMessage = TradeMenuCommands.getMatcher(empire.getDonation().get(i), TradeMenuCommands.MESSAGE_OF_REQUEST_OR_DONATION);
-            if (matcher != null && matcher.group("sender").equals(id)
-                    && matcherForMessage != null && matcherForMessage.group("message").equals(message)) {
-                return empire.getRequest().get(i);
+    public Request findDonation(String id, Empire empire) {
+        for (Request request : empire.getAllDonations()) {
+            if (request.getId().equals(id)) {
+                return request;
             }
         }
         return null;
     }
 
-    public String findDonation(String id, String message, Empire empire) {
-        Matcher matcherForId;
-        Matcher matcherForMessage;
-        for (int i = 0; i < empire.getDonation().size(); i++) {
-            matcherForId = TradeMenuCommands.getMatcher(empire.getDonation().get(i), TradeMenuCommands.SENDER_OF_REQUEST);
-            matcherForMessage = TradeMenuCommands.getMatcher(empire.getDonation().get(i), TradeMenuCommands.MESSAGE_OF_REQUEST_OR_DONATION);
-            if (matcherForId != null && matcherForId.group("sender").equals(id)
-                    && matcherForMessage != null && matcherForMessage.group("message").equals(message)) {
-                return empire.getDonation().get(i);
-            }
-        }
-        return null;
+    public boolean checkTheCapacity(int count, String requestedGood, Empire empire) {
+        System.out.println(empire.calculateTotalFightStuffCount());
+        return switch (requestedGood) {
+            case "meat", "apple", "cheese" -> count + empire.calculateTotalFoodCount() <= empire.getFoodCapacity();
+            case "hops", "flour", "wheat", "stone", "wood", "oil", "iron", "beer" ->
+                    count + empire.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
+            case "ironArmor", "leatherArmor", "mace", "bow", "sword", "horse", "archer", "spearMan", "maceMan", "crossbowMan", "pikeMan", "swordMan", "blackMonk",
+                    "knight", "arabianBow", "slave", "slinger", "assassin", "horseArcher", "arabianSwordMan", "fireThrower", "engineer", "ladderMan"
+                    , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" ->
+                    count + empire.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
+
+            default -> false;
+
+        };
     }
 
-    public int getResourceCount(String resource) {
-        for (Map.Entry<String, Integer> food : Manage.getCurrentEmpire().getAllFood().entrySet()) {
-            if (food.getKey().equals(resource)) {
-                return food.getValue();
-            }
-        }
-        for (Map.Entry<String, Integer> weaponTool : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()) {
-            if (weaponTool.getKey().equals(resource)) {
-                return weaponTool.getValue();
-            }
-        }
-        for (Map.Entry<String, Integer> store : Manage.getCurrentEmpire().getStores().entrySet()) {
-            if (store.getKey().equals(resource)) {
-                return store.getValue();
-            }
-        }
-        for (Map.Entry<String, Integer> europeTroop : Manage.getCurrentEmpire().getEuropeTroopCount().entrySet()) {
-            if (europeTroop.getKey().equals(resource)) {
-                return europeTroop.getValue();
-            }
-        }
-        for (Map.Entry<String, Integer> arabTroop : Manage.getCurrentEmpire().getArabTroopCount().entrySet()) {
-            if (arabTroop.getKey().equals(resource)) {
-                return arabTroop.getValue();
-            }
-        }
-        for (Map.Entry<String, Integer> engineerGuild : Manage.getCurrentEmpire().getEngineerGuildTroopCount().entrySet()) {
-            if (engineerGuild.getKey().equals(resource)) {
-                return engineerGuild.getValue();
-            }
-        }
-        for (Map.Entry<String, Integer> siegeTentTroop : Manage.getCurrentEmpire().getSiegeTentTroopsCount().entrySet()) {
-            if (siegeTentTroop.getKey().equals(resource)) {
-                return siegeTentTroop.getValue();
-            }
-        }
-        return -1;
+    public int getNumberOfGoods(String goodName, Empire empire) {
+        return switch (goodName) {
+            case "meat" -> empire.getMeatCount();
+            case "hops" -> empire.getOatCount();
+            case "ironArmor" -> empire.getMetalArmour();
+            case "leatherArmor" -> empire.getLeatherArmour();
+            case "sword" -> empire.getSwordCount();
+            case "mace" -> empire.getMaceCount();
+            case "bow" -> empire.getBowCount();
+            case "oil" -> empire.getOilAmount();
+            case "iron" -> empire.getIronCount();
+            case "stone" -> empire.getStoneCount();
+            case "wood" -> empire.getWoodCount();
+            case "flour" -> empire.getFlour();
+            case "wheat" -> empire.getWheatCount();
+            case "apple" -> empire.getAppleCount();
+            case "cheese" -> empire.getCheeseCount();
+            case "beer" -> empire.getBeerCount();
+            case "horse" -> empire.getHorseCount();
+            case "archer" -> empire.getEuropeArcherCount();
+            case "spearMan" -> empire.getSpearManCount();
+            case "maceMan" -> empire.getMaceManCount();
+            case "crossbowMan" -> empire.getCrossbowManCount();
+            case "pikeMan" -> empire.getPikeManCount();
+            case "swordMan" -> empire.getSwordManCount();
+            case "blackMonk" -> empire.getBlackMonkCount();
+            case "knight" -> empire.getKnightCount();
+            case "arabianBow" -> empire.getArabianBowCount();
+            case "slave" -> empire.getSlaveCount();
+            case "slinger" -> empire.getSlingerCount();
+            case "assassin" -> empire.getAssassinCount();
+            case "horseArcher" -> empire.getHorseArcherCount();
+            case "arabianSwordMan" -> empire.getArabianSwordManCount();
+            case "fireThrower" -> empire.getFireThrowerCount();
+            case "engineer" -> empire.getEngineerCount();
+            case "ladderMan" -> empire.getLadderManCount();
+            case "tunneler" -> empire.getTunnelerCount();
+            case "catapult" -> empire.getCatapultCount();
+            case "trebuchet" -> empire.getTrebuchetCount();
+            case "siegeTower" -> empire.getSiegeTowerCount();
+            case "fireBallista" -> empire.getFireBalistaCount();
+            case "batteringRam" -> empire.getBatteringRamCount();
+            case "portableShield" -> empire.getPortableShieldCount();
+            default -> 0;
+        };
     }
 
-    public void setResourceCount(String resource, int count, String empireName) {
-        Empire empire = Manage.getEmpireByNickname(empireName);
-        if (empireName.equals(Manage.getCurrentEmpire().getName())) count = -1 * count;
-        for (Map.Entry<String, Integer> food : empire.getAllFood().entrySet()) {
-            if (food.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getAllFood().replace(resource, food.getValue() + count);
+    public void setNumberOfGoods(Empire customer, Empire seller, int count, String goodName) {
+        switch (goodName) {
+            case "meat" -> {
+                customer.setMeatCount(customer.getMeatCount() + count);
+                seller.setMeatCount(seller.getMeatCount() - count);
             }
-        }
-        for (Map.Entry<String, Integer> weaponTool : empire.getAllWeaponTools().entrySet()) {
-            if (weaponTool.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getAllWeaponTools().replace(resource, weaponTool.getValue() + count);
+            case "hops" -> {
+                customer.setOatCount(customer.getOatCount() + count);
+                seller.setOatCount(seller.getOatCount() - count);
             }
-        }
-        for (Map.Entry<String, Integer> store : empire.getStores().entrySet()) {
-            if (store.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getStores().replace(resource, store.getValue() + count);
+            case "ironArmour" -> {
+                customer.setMetalArmour(customer.getMetalArmour() + count);
+                seller.setMetalArmour(seller.getMetalArmour() - count);
             }
-        }
-        for (Map.Entry<String, Integer> europeTroop : empire.getEuropeTroopCount().entrySet()) {
-            if (europeTroop.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getEuropeTroopCount().replace(resource, europeTroop.getValue() + count);
+            case "leatherArmour" -> {
+                customer.setLeatherArmour(customer.getLeatherArmour() + count);
+                seller.setLeatherArmour(seller.getLeatherArmour() - count);
             }
-        }
-        for (Map.Entry<String, Integer> arabTroop : empire.getArabTroopCount().entrySet()) {
-            if (arabTroop.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getArabTroopCount().replace(resource, arabTroop.getValue() + count);
+            case "sword" -> {
+                customer.setSwordCount(customer.getSwordCount() + count);
+                seller.setSwordCount(seller.getSwordCount() - count);
             }
-        }
-        for (Map.Entry<String, Integer> engineerGuild : empire.getEngineerGuildTroopCount().entrySet()) {
-            if (engineerGuild.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getEngineerGuildTroopCount().replace(resource, engineerGuild.getValue() + count);
+            case "bow" -> {
+                customer.setBowCount(customer.getBowCount() + count);
+                seller.setBowCount(seller.getBowCount() - count);
             }
-        }
-        for (Map.Entry<String, Integer> siegeTentTroop : empire.getSiegeTentTroopsCount().entrySet()) {
-            if (siegeTentTroop.getKey().equals(resource)) {
-                Manage.getCurrentEmpire().getSiegeTentTroopsCount().replace(resource, siegeTentTroop.getValue() + count);
+            case "mace" -> {
+                customer.setMaceCount(customer.getMaceCount() + count);
+                seller.setMaceCount(seller.getMaceCount() - count);
+            }
+            case "oil" -> {
+                customer.setOilAmount(customer.getOilAmount() + count);
+                seller.setOilAmount(seller.getOilAmount() - count);
+            }
+            case "iron" -> {
+                customer.setIronCount(customer.getIronCount() + count);
+                seller.setIronCount(seller.getIronCount() - count);
+            }
+            case "stone" -> {
+                customer.setStoneCount(customer.getStoneCount() + count);
+                seller.setStoneCount(seller.getStoneCount() - count);
+            }
+            case "wood" -> {
+                customer.setWoodCount(customer.getWoodCount() + count);
+                seller.setWoodCount(seller.getWoodCount() - count);
+            }
+            case "flour" -> {
+                customer.setFlour(customer.getFlour() + count);
+                seller.setFlour(seller.getFlour() - count);
+            }
+            case "wheat" -> {
+                customer.setWheatCount(customer.getWheatCount() + count);
+                seller.setWheatCount(seller.getWheatCount() - count);
+            }
+            case "apple" -> {
+                customer.setAppleCount(customer.getAppleCount() + count);
+                seller.setAppleCount(seller.getAppleCount() - count);
+            }
+            case "cheese" -> {
+                customer.setCheeseCount(customer.getCheeseCount() + count);
+                seller.setCheeseCount(seller.getCheeseCount() - count);
+            }
+            case "beer" -> {
+                customer.setBeerCount(customer.getBeerCount()+count);
+                seller.setBeerCount(seller.getBeerCount() - count);
+            }
+            case "horse" -> {
+                customer.setHorseCount(customer.getHorseCount() + count);
+                seller.setHorseCount(seller.getHorseCount() - count);
+            }
+            case "archer" -> {
+                customer.setEuropeArcherCount(customer.getEuropeArcherCount() + count);
+                seller.setEuropeArcherCount(seller.getEuropeArcherCount() - count);
+            }
+            case "spearMan" -> {
+                customer.setSpearManCount(customer.getSpearManCount() + count);
+                seller.setSpearManCount(seller.getSpearManCount() - count);
+            }
+            case "maceMan" -> {
+                customer.setMaceManCount(customer.getMaceManCount() + count);
+                seller.setMaceManCount(seller.getMaceManCount() - count);
+            }
+            case "crossbowMan" -> {
+                customer.setCrossbowManCount(customer.getCrossbowManCount() + count);
+                seller.setCrossbowManCount(seller.getCrossbowManCount() - count);
+            }
+            case "pikeMan" -> {
+                customer.setPikeManCount(customer.getPikeManCount() + count);
+                seller.setPikeManCount(seller.getPikeManCount() - count);
+            }
+            case "swordMan" -> {
+                customer.setSwordManCount(customer.getSwordManCount() + count);
+                seller.setSwordManCount(seller.getSwordManCount() - count);
+            }
+            case "blackMonk" -> {
+                customer.setBlackMonkCount(customer.getBlackMonkCount() + count);
+                seller.setBlackMonkCount(seller.getBlackMonkCount() -count);
+            }
+            case "knight" -> {
+                customer.setKnightCount(customer.getKnightCount() + count);
+                seller.setKnightCount(seller.getKnightCount() - count);
+            }
+            case "arabianBow" -> {
+                customer.setArabianBowCount(customer.getArabianBowCount() + count);
+                seller.setArabianBowCount(seller.getArabianBowCount() -count);
+            }
+            case "slave" -> {
+                customer.setSlaveCount(customer.getSlaveCount() + count);
+                seller.setSlaveCount(seller.getSlaveCount() - count);
+            }
+            case "slinger" -> {
+                customer.setSlingerCount(customer.getSlingerCount() + count);
+                seller.setSlingerCount(seller.getSlingerCount() - count);
+            }
+            case "assassin" -> {
+                customer.setAssassinCount(customer.getAssassinCount() + count);
+                seller.setAssassinCount(seller.getAssassinCount() - count);
+            }
+            case "horseArcher" -> {
+                customer.setHorseArcherCount(customer.getHorseArcherCount() + count);
+                seller.setHorseArcherCount(seller.getHorseArcherCount() - count);
+            }
+            case "arabianSwordMan" -> {
+                customer.setArabianSwordManCount(customer.getArabianSwordManCount() + count);
+                seller.setArabianSwordManCount(seller.getArabianSwordManCount() -count);
+            }
+            case "fireThrower" -> {
+                customer.setFireThrowerCount(customer.getFireThrowerCount() + count);
+                seller.setFireThrowerCount(seller.getFireThrowerCount() -count);
+            }
+            case "engineer" -> {
+                customer.setEngineerCount(customer.getEngineerCount() + count);
+                seller.setEngineerCount(seller.getEngineerCount() - count);
+            }
+            case "ladderMan" -> {
+                customer.setLadderManCount(customer.getLadderManCount() + count);
+                seller.setLadderManCount(seller.getLadderManCount() - count);
+            }
+            case "tunneler" -> {
+                customer.setTunnelerCount(customer.getTunnelerCount() + count);
+                seller.setTunnelerCount(seller.getTunnelerCount() - count);
+            }
+            case "catapult" -> {
+                customer.setCatapultCount(customer.getCatapultCount() + count);
+                seller.setCatapultCount(seller.getCatapultCount() -count);
+            }
+            case "trebuchet" -> {
+                customer.setTrebuchetCount(customer.getTrebuchetCount() + count);
+                seller.setTrebuchetCount(seller.getTrebuchetCount() - count);
+            }
+            case "siegeTower" -> {
+                customer.setSiegeTowerCount(customer.getSiegeTowerCount() +count);
+                seller.setSiegeTowerCount(seller.getSiegeTowerCount() -count);
+            }
+            case "fireBallista" -> {
+                customer.setFireBalistaCount(customer.getFireBalistaCount() + count);
+                seller.setFireBalistaCount(seller.getFireBalistaCount() - count);
+            }
+            case "batteringRam" -> {
+                customer.setBatteringRamCount(customer.getBatteringRamCount() + count);
+                seller.setBatteringRamCount(seller.getBatteringRamCount() - count);
+            }
+            case "portableShield" -> {
+                customer.setPortableShieldCount(customer.getPortableShieldCount() + count);
+                seller.setPortableShieldCount(seller.getPortableShieldCount() - count);
             }
         }
     }
 
     public void showTradeHistory() {
+        int number = 1 ;
+        System.out.println("List of Accepted Requests:");
+        for (Request request : currentEmpire.getAllRequests()){
+            if (request.isAcceptance()){
+                System.out.println("\t"+number+". Sender: "+request.getSender());
+                System.out.println("\tGood : "+request.getGoodName());
+                System.out.println("\tAmount: "+request.getAmount());
+                System.out.println("\tPrice: "+request.getPrice());
+                System.out.println("\tCustomer Message : "+request.getMessage());
+                System.out.println("\tSeller Message : "+request.getFromSellerMessage());
+                number++;
+            }
+        }
+        System.out.println("List of Accepted Donations:");
+        for (Request request : currentEmpire.getAllDonations()){
+            if (request.isAcceptance()){
+                System.out.println("\t"+number+". Sender: "+request.getSender().getName());
+                System.out.println("\t\s\s\sGood : "+request.getGoodName());
+                System.out.println("\t\s\s\sAmount: "+request.getAmount());
+                System.out.println("\t\s\s\sPrice: "+request.getPrice());
+                System.out.println("\t\s\s\sCustomer Message : "+request.getMessage());
+                System.out.println("\t\s\s\sSeller Message : "+request.getFromSellerMessage());
+                number++;
+            }
+        }
+    }
+    public void notification(){
         System.out.println("Notifications : ");
-        System.out.println("List Of New Donations : ");
-        for (int i = 0; i < Manage.getCurrentEmpire().getDonation().size(); i++) {
-            if (i >= indexOfDonation) {
-                System.out.println(Manage.getCurrentEmpire().getDonation().get(i));
-            }
-        }
-        indexOfDonation = Manage.getCurrentEmpire().getDonation().size();
         System.out.println("List Of New Requests : ");
-        for (int j = 0; j < Manage.getCurrentEmpire().getRequest().size(); j++) {
-            if (j >= indexOfRequest) {
-                System.out.println(Manage.getCurrentEmpire().getRequest().get(j));
-            }
+        for (int j = currentEmpire.getNotificationOfRequest(); j < currentEmpire.getAllRequests().size(); j++) {
+            System.out.println(currentEmpire.getAllRequests().get(j));
         }
-        indexOfRequest = Manage.getCurrentEmpire().getRequest().size();
+        System.out.println("List Of New Donations : ");
+        for (int i = currentEmpire.getNotificationOfDonation(); i < currentEmpire.getAllDonations().size(); i++) {
+            System.out.println(currentEmpire.getAllDonations().get(i));
+        }
+        currentEmpire.setNotificationOfDonation(currentEmpire.getAllDonations().size());
+        currentEmpire.setNotificationOfRequest(currentEmpire.getAllRequests().size());
+    }
+
+    public boolean enoughMoneyToBuy(Empire empire, int price) {
+        return empire.getGoldCount() >= price && price > 0;
     }
 }

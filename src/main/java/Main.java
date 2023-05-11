@@ -1,18 +1,11 @@
-import controller.EmpireController;
 import controller.JsonController;
 import controller.PathFindingController;
-import model.*;
 import model.Building.*;
-import model.Human.Troop.ArchersAndThrowers;
-import model.Human.Troop.Army;
-import view.BuildingMenu;
-import view.Commands.BuildingCommands;
-import view.EmpireMenu;
+import model.Empire;
+import model.Manage;
+import model.Map;
 import view.GameMenu;
 import view.LoginMenu;
-
-import javax.sound.sampled.Line;
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
