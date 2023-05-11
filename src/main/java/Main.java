@@ -44,6 +44,15 @@ public class Main {
         empire.setGoldCount(1000000);
         empire.setOilAmount(1000000);
         empire.setIronCount(10000000);
+        empire.setSwordCount(1000000);
+        empire.setSpearCount(100000000);
+        empire.setHorseCount(10000000);
+        empire.setLeatherArmourCount(1000000000);
+        empire.setMetalArmourCount(100000000);
+        empire.setMaceCount(100000000);
+        empire.setBowCount(1000000000);
+        empire.setPeakCount(100000000);
+        empire.setPeasantCount(100000000);
         BuildingMenu buildingMenu = new BuildingMenu();
         buildingMenu.run(scanner);
 //        Industry woodCutter = new Industry(empire);

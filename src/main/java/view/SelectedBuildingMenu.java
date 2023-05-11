@@ -27,6 +27,7 @@ public class SelectedBuildingMenu {
         while (true) {
             input = scanner.nextLine();
             if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_CREATE_UNIT) != null) {
+                System.out.println(buildingName);
                 if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.SELECTED_BUILDING_CREATE_UNIT_BUILDINGS_NAME) != null) {
                     Matcher matcherType = SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_FIND_CREATE_UNIT_TYPE);
                     Matcher matcherCount = SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_FIND_COUNT);

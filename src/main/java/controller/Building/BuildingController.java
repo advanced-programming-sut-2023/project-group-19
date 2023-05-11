@@ -4,7 +4,6 @@ import model.Building.*;
 import model.Empire;
 import model.Manage;
 import model.Map;
-import view.BuildingMenu;
 import view.Messages.BuildingMessages;
 import view.SelectedBuildingMenu;
 
@@ -31,13 +30,6 @@ public class BuildingController {
 
     public boolean correctGroundType(int x, int y, Building newBuilding) {
         return Map.getGroundType()[x][y].get(0).getGroundType().equals(newBuilding.getRequiredGroundType());
-    }
-
-    public Building findSelectedBuilding(int x, int y) {
-        if (Map.buildingMap[x][y].size() != 0) return Map.buildingMap[x][y].get(0);
-        else {
-            return null;
-        }
     }
 
     public boolean empireHasEnoughResourcesToBuildTheBuilding(Building building, Empire empire) {

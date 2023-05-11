@@ -14,9 +14,7 @@ command : drawBridge up/down
 command : createunit -t [type] -c [count]
 
 ********************************************************
-4 - select shop
-command : *** pass to the shop menu ***
-********************************************************
 4 - Exit from this menu
 command : exit
+
 ********************************************************

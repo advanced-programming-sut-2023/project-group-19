@@ -26,7 +26,7 @@ public enum Names {
     TUNNEL("Tunnel"),
     WEAPON("Weapon"),
     WORKSHOP("Workshop"),
-    BARRACK("Barrack"),
+    BARRACK("Barracks"),
     TROOP("Troop"),
     PEASANT("Peasant"),
     ENGINEER_GUILD("Engineer Guild"),
