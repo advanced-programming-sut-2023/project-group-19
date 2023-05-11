@@ -28,7 +28,7 @@ public class EmpireMenu {
             } else if (EmpireCommands.getMatcher(command, EmpireCommands.SET_FOOD_RATE_NUMBER) != null) {
                 EmpireController.findFoodDiversity();
             } else if (EmpireCommands.getMatcher(command, EmpireCommands.SHOW_FOOD_RATE) != null) {
-                System.out.println("Your food rate is :" + Manage.getCurrentEmpire().getFearRateNumber());
+                System.out.println("Your food rate is :" + Manage.getCurrentEmpire().getFoodRateNumber());
             } else if ((matcher = EmpireCommands.getMatcher(command, EmpireCommands.SET_TAX_RATE_NUMBER)) != null) {
                 int taxRate = Integer.parseInt(matcher.group("rateNumber"));
                 Manage.getCurrentEmpire().setTaxRateNumber(taxRate);
