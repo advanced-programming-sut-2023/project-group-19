@@ -6,7 +6,7 @@ public enum GameMenuMessages {
     NO_UNIT_SELECTED("You haven't selected a unit yet!"),
     LOCATION_CONTAINS_BUILDING("The chosen coordinate contains a building"),
     LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES("The chosen coordinate contains water sources or high towers which can't be moved to them at once!!"),
-    EMPTY_COORDINATE_FIELD("Some of your coordinate fields are empty!"),
+    EMPTY_COORDINATE_FIELD("Some of your coordinate fields are empty or invalid!"),
     EMPTY_DIRECTION_FIELD("The direction field is empty in your entry!"),
     EMPTY_EQUIPMENT_FIELD("The equipment field is empty in your entry!"),
     UNABLE_TO_MOVE_TREBUCHET("You can't move a trebuchet!"),

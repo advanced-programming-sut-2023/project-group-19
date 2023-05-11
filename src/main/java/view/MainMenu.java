@@ -16,6 +16,7 @@ public class MainMenu {
     public static void run(Scanner scanner) throws InterruptedException, IOException {
         System.out.println("Welcome to Main menu!");
         String command;
+        Matcher matcher;
         while (true) {
             command = scanner.nextLine();
             if ((matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.ENTER_PROFILE_MENU)) != null) {

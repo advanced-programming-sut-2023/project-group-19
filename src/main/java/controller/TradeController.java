@@ -136,7 +136,6 @@ public class TradeController {
     }
 
     public boolean checkTheCapacity(int count, String requestedGood, Empire empire) {
-        System.out.println(empire.calculateTotalFightStuffCount());
         return switch (requestedGood) {
             case "meat", "apple", "cheese" -> count + empire.calculateTotalFoodCount() <= empire.getFoodCapacity();
             case "hops", "flour", "wheat", "stone", "wood", "oil", "iron", "beer" ->
@@ -145,7 +144,6 @@ public class TradeController {
                     "knight", "arabianBow", "slave", "slinger", "assassin", "horseArcher", "arabianSwordMan", "fireThrower", "engineer", "ladderMan"
                     , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" ->
                     count + empire.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
-
             default -> false;
 
         };
@@ -261,7 +259,7 @@ public class TradeController {
                 seller.setCheeseCount(seller.getCheeseCount() - count);
             }
             case "beer" -> {
-                customer.setBeerCount(customer.getBeerCount()+count);
+                customer.setBeerCount(customer.getBeerCount() + count);
                 seller.setBeerCount(seller.getBeerCount() - count);
             }
             case "horse" -> {

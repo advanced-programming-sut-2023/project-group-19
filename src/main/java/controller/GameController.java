@@ -137,6 +137,9 @@ public class GameController {
                 if (checkGroundTypeForUnits(x, y)) {
                     if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
                         addUnitsToMap(x, y, countOfUnits, typeOfUnit);
+                        for (Army army : Map.getTroopMap()[x][y]){
+                            System.out.println("Army : "+army+" owner: "+army.getOwner().getName());
+                        }
                         return GameMenuMessages.SUCCESS;
                     } else return GameMenuMessages.IMPROPER_UNIT;
                 } else return GameMenuMessages.IMPROPER_LOCATION;
@@ -152,9 +155,8 @@ public class GameController {
                 numerator++;
             }
         }
-        return numerator == count;
+        return count <= numerator;
     }
-
     private static void addUnitsToMap(int x, int y, int count, String typeOfUnit) {
         for (int i = 0; i < count; i++) {
             switch (typeOfUnit) {
@@ -295,18 +297,21 @@ public class GameController {
     }
 
     private static boolean checkGroundTypeForUnits(int x, int y) {
-        return !Map.getGroundType()[x][y].get(0).getGroundType().equals(GroundType.STONE.getGroundType())
-                && !Map.getGroundType()[x][y].get(0).getGroundType().equals(ObstacleName.BIG_POND.getObstacleName())
-                && !Map.getGroundType()[x][y].get(0).getGroundType().equals(ObstacleName.SMALL_POND.getObstacleName())
-                && !Map.getGroundType()[x][y].get(0).getGroundType().equals(ObstacleName.RIVER.getObstacleName())
-                && !Map.getGroundType()[x][y].get(0).getGroundType().equals(ObstacleName.SEA.getObstacleName());
+        return !Map.notPassable[x][y];
     }
 
     private static boolean checkTypeOfUnitWithLocation(int x, int y, String type) {
-        return ((Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL) && type.equals(Names.TUNNELER.getName()))
-                || ((!Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL) && !type.equals(Names.TUNNELER.getName())
-                && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH) && !type.equals(Names.SPEAR_MEN.getName())))
-                || (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH) && !type.equals(Names.SPEAR_MEN.getName())));
+        if (Map.getBuildingMap()[x][y].size() !=0){
+            if ((!Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL.getName()) && !type.equals(Names.TUNNELER.getName())
+                    && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH.getName()) && !type.equals(Names.SPEAR_MEN.getName()))){
+                return true;
+            } else if (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL.getName()) && type.equals(Names.TUNNELER.getName())
+                        || Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH.getName()) && !type.equals(Names.SPEAR_MEN.getName())) {
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 
     private static void findEnemyInRange(Army army, String State) {
