@@ -11,27 +11,6 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         super(government);
     }
 
-    private Names names;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
-
-    public int xCoordinate;
-
-    public int yCoordinate;
-    public int restOfMoves;
-    public Names typeOfArmy;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
-    public List<Integer> myPath;
-    public boolean fight;
 
     public Names getNames() {
         return names;
@@ -111,7 +90,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     }
 
     public void Swordsmen(int x, int y) {
-        hp = 650;
+        this.hp = 650;
         maxHp = 650;
         typeOfArmy = Names.STANDING_AMRY;
         names = Names.SWORDSMEN;
@@ -229,5 +208,10 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public int getHp() {
+        return hp;
     }
 }

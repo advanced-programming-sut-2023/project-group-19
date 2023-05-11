@@ -18,7 +18,7 @@ public class Army extends Human {
 
     public boolean hasMovedForDeffensiveState = false;
 
-    private ArchersAndThrowers archerAttacker = null;
+    protected ArchersAndThrowers archerAttacker = null;
 
     public ArchersAndThrowers getArcherAttacker() {
         return archerAttacker;
@@ -28,8 +28,8 @@ public class Army extends Human {
         this.archerAttacker = archerAttacker;
     }
 
-    private Empire empire;
-    private Army enemy;
+    protected Empire empire;
+    protected Army enemy;
 
     public boolean isIntFight() {
         return isIntFight;
@@ -58,19 +58,19 @@ public class Army extends Human {
         this.empire = empire;
     }
 
-    private Names names;
+    protected Names names;
 
     public Names getNames() {
         return names;
     }
 
-    private String armyForm;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
+    protected String armyForm;
+    protected int hp;
+    protected int maxHp;
+    protected int speed;
+    protected int defencePower;
+    protected int attackPower;
+    protected int attackRange;
     public int startXCoordinate;
     public int startYCoordinate;
     public int xCoordinate;
@@ -81,7 +81,12 @@ public class Army extends Human {
     public int finalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
-    private int pastXcordinate = 500;
+    protected int pastXcordinate;
+
+
+
+    public Names typeOfArmy;
+
 
     public int getPastXcordinate() {
         return pastXcordinate;
@@ -99,7 +104,7 @@ public class Army extends Human {
         this.pastYcordinate = pastYcordinate;
     }
 
-    private int pastYcordinate = 500;
+    protected int pastYcordinate;
 
     @Override
     public int getHp() {

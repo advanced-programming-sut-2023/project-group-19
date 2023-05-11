@@ -16,7 +16,7 @@ import model.*;
 import model.Building.*;
 
 public class AttackArmyToArmyController {
-    public static double fearTroopImpact = Manage.getCurrentEmpire().getFearTroopImpact();
+//    public static double fearTroopImpact = Manage.getCurrentEmpire().getFearTroopImpact();
     private static int mapSize = CreateMapController.getSizeOfMap();
 
     public static void battleWithEnemy() {
@@ -29,13 +29,18 @@ public class AttackArmyToArmyController {
         killUnit();
     }
     private static void killUnit() {
-        for (Empire empire : Manage.getAllEmpires()) {
-            for (Army army : empire.empireArmy) {
+        for (int i = 0 ; i < Manage.allEmpires.size() ; i ++) {
+            Empire empire = Manage.allEmpires.get(i);
+            int size = empire.empireArmy.size();
+            for (int j = 0 ; j < size ; j ++) {
+                Army army = empire.empireArmy.get(j);
                 if (army.getHp() <= 0) {
                     int x = army.xCoordinate;
                     int y = army.yCoordinate;
                     Map.getTroopMap()[x][y].remove(army);
                     empire.empireArmy.remove(army);
+                    j -- ;
+                    size -- ;
                 }
             }
         }
