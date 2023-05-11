@@ -10,7 +10,6 @@ import model.Map;
 import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -78,7 +77,7 @@ public class GameController {
             }
             String unitMoved = moveUnit(x, y).getMessages();
             //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
-            return GameMenuMessages.ATTACK_ORDER_HANDELED;
+            return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
@@ -353,14 +352,14 @@ public class GameController {
                 if (i == x && j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (army.getPastXcordinate() == army.getCurrentX() && army.getPastYcordinate() == army.getCurrentY()) {
-                        army.hasMovedForDeffensiveState = false;
+                        army.hasMovedForDefensiveState = false;
                     }
                     if (!army.getEmpire().equals(enemy.getEmpire())) {
-                        if (!army.hasMovedForDeffensiveState) {
+                        if (!army.hasMovedForDefensiveState) {
                             army.setPastXcordinate(x);
                             army.setPastYcordinate(y);
                             gameController.moveUnit(i, j);
-                            army.hasMovedForDeffensiveState = true;
+                            army.hasMovedForDefensiveState = true;
                             return true;
                         }
                         if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {

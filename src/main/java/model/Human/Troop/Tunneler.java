@@ -1,7 +1,6 @@
 package model.Human.Troop;
 
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 import java.util.List;

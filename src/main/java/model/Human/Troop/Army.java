@@ -3,7 +3,6 @@ package model.Human.Troop;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
-import model.Human.Names;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Army extends Human {
     public boolean isIntFight = false;
 
 
-    public boolean hasMovedForDeffensiveState = false;
+    public boolean hasMovedForDefensiveState = false;
 
     private ArchersAndThrowers archerAttacker = null;
 

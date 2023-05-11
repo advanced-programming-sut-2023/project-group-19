@@ -13,8 +13,7 @@ public enum TradeMenuCommands {
     TRADE_ACCEPTED("trade accept .+"),
     TRADE_ACCEPTED_ID_CHECK(".*-i (?<id>\\S+).*"),
     TRADE_ACCEPTED_MESSAGE_CHECK(".*-m (?<tradeMessage>[^-i]+) .*"),
-    LOGOUT("Logout"),
-    NEXT("Next");
+    LOGOUT("Logout"),;
 
     private Pattern name;
     public Pattern getName() {

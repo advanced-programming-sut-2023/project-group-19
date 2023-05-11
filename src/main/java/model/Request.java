@@ -6,7 +6,6 @@ public class Request {
     int price;
     int amount;
     String goodName;
-
     String id;
     Empire sender;
     Empire receiver;
@@ -45,10 +44,6 @@ public class Request {
 
     public Empire getSender() {
         return sender;
-    }
-
-    public Empire getReceiver() {
-        return receiver;
     }
 
     public String getStatus() {

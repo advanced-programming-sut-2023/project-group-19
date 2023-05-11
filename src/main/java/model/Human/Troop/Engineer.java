@@ -1,12 +1,10 @@
 package model.Human.Troop;
 
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 import java.util.List;
 
-import java.util.List;
 
 public class Engineer extends Army implements HumanConstantFunctions {
     public Engineer(Empire government) {
@@ -77,10 +75,6 @@ public class Engineer extends Army implements HumanConstantFunctions {
 
     public void setBowlFullOfOil(boolean bowlFullOfOil) {
         isBowlFullOfOil = bowlFullOfOil;
-    }
-
-    public Names getTypeOfArmy() {
-        return typeOfArmy;
     }
 
     public Names getNames() {
