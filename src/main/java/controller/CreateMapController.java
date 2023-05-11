@@ -54,14 +54,15 @@ public class CreateMapController {
             Map.getGroundType()[x - 1][y - 1].add(GroundType.DEFAULT);
             Map.getObstacleMap()[x - 1][y - 1].add(waterSources);
             Map.notBuildable[x - 1][y - 1]  = true ;
-            if(!type.equals("Plain") && !type.equals("shallowWater")) Map.notPassable[x - 1][y - 1] = true ;
+            if(!type.equals("shallowWater")) Map.notPassable[x - 1][y - 1] = true ;
             return "Change is done successfully!";
         }
         Map.getGroundType()[x - 1][y - 1].clear();
-        if(groundType.equals(GroundType.STONE)){
+        if(groundType.equals(GroundType.STONE_ROCK)){
             Map.notPassable[x - 1][y - 1] = true ;
             Map.notBuildable[x - 1][y - 1] = true ;
         }
+
         Map.getGroundType()[x - 1][y - 1].add(groundType);
         return "Change is done successfully!";
     }
@@ -77,6 +78,10 @@ public class CreateMapController {
                 if(Map.notBuildable[i - 1][j - 1]) return "x:  " + i + " and y: " + j + " is Is occupied";
                 Map.getGroundType()[i - 1][j - 1].clear();
                 Map.getGroundType()[i - 1][j - 1].add(groundType);
+                if(groundType.equals(GroundType.STONE_ROCK)){
+                    Map.notPassable[i - 1][j - 1] = true ;
+                    Map.notBuildable[i - 1][j - 1] = true ;
+                }
             }
         }
         return "Change is done successfully!";

@@ -49,8 +49,8 @@ public class NextTurnController {
         currentEmpire.independentProductionBuilding();
         EmpireController.functionBuildings();
         EmpireController.givingPeopleFood(currentEmpire);
-        resetTroopsMovesLeft();
         gameController.setEnemyToTarget();
+        resetTroopsMovesLeft();
     }
 
     public void setGameController(GameController gameController) {

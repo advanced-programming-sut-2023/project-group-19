@@ -40,9 +40,7 @@ public class WaterSources extends Obstacle {
             waterSources.petrol();
         } else if (name.equals("shallowWater")) {
             waterSources.shallowWater();
-        } else if (name.equals("plain")) {
-            waterSources.plain();
-        } else if (name.equals("sea")) {
+        }else if (name.equals("sea")) {
             waterSources.sea();
         } else if (name.equals("river")) {
             waterSources.river();

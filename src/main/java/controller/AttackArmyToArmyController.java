@@ -29,8 +29,8 @@ public class AttackArmyToArmyController {
         killUnit();
     }
 
-    //TODO : jolgeh
-    //TODO : sleep in login and register
+//    TODO : jolgeh
+//    TODO : sleep in login and register
     private static void killUnit() {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
