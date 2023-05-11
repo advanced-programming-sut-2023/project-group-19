@@ -13,27 +13,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         super(government);
     }
 
-    private Names names;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
-    public int xCoordinate;
-    public int yCoordinate;
-    public int restOfMoves;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
-    public int height;
-    public List<Integer> myPath;
     public Names shieldDirection;
-    public Names typeOfArmy;
-    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;

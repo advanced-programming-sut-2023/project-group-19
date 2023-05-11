@@ -30,10 +30,9 @@ public class Main {
         Empire pig = new Empire();
         Manage.allEmpires.add(pig);
         Soldiers swordman = new Soldiers(pig);
-        swordman.Swordsmen(3,3);
+        swordman.Knight(3,3);
         pig.empireArmy.add(swordman);
         Map.getTroopMap()[3][3].add(swordman);
-
 
         Empire RichardTheLionHeart = new Empire();
         Manage.allEmpires.add(RichardTheLionHeart);
@@ -42,12 +41,19 @@ public class Main {
         yy.Swordsmen(3,3);
         Map.getTroopMap()[3][3].add(yy);
         RichardTheLionHeart.empireArmy.add(yy);
+
+        ArchersAndThrowers archer = new ArchersAndThrowers(RichardTheLionHeart);
+        archer.HorseArchers(3,2);
+        Map.getTroopMap()[3][2].add(archer);
+        RichardTheLionHeart.empireArmy.add(archer);
+
         AttackArmyToArmyController.battleWithEnemy();
 
-//        Map.getTroopMap()[3][3].clear();
         System.out.println(ShowMapController.showMap(4,5,false));
         System.out.println(yy.getHp());
         System.out.println(swordman.getHp());
+
+//        System.out.println(archer.getAttackPower());
 
     }
 }

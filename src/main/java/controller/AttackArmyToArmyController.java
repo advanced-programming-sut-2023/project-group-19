@@ -67,6 +67,7 @@ public class AttackArmyToArmyController {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
                 if (!isArcher(army)) continue;
+                System.out.println("it is archer");
                 findEnemyInRange(army);
             }
         }
@@ -79,7 +80,7 @@ public class AttackArmyToArmyController {
         int x = army.xCoordinate;
         int y = army.yCoordinate;
         int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-        for (int i = 1; i <= archerRange; i++) {
+        for (int i = 1; i <= archerRange ; i++) {
             x1 = x - i;
             x2 = x + i;
             y1 = y - i;
@@ -127,15 +128,17 @@ public class AttackArmyToArmyController {
     private static void determineRange(Army army) {
         int height;
         ArrayList<Building> buildings = Map.getBuildingMap()[army.xCoordinate][army.yCoordinate];
-        if (buildings.isEmpty()) height = 0;
+        if (buildings.isEmpty()) height = 0 ;
         else height = buildings.get(0).getHeight();
         archerRange = army.getAttackRange() + height;
     }
 
     private static boolean applyDamageWithArcher(int x, int y, int x1, int x2, int y1, int y2, Army army) {
+        System.out.println("into attack");
         for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
-                if (i == x || j == y) continue;
+            for (int j = y1 ; j <= y2; j++) {
+//                System.out.println("i is: " + i + " and j is: " + j);
+                if (i == x && j == y) continue;
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
@@ -150,7 +153,7 @@ public class AttackArmyToArmyController {
     private static boolean applyDamageWithBuildingByArcher(int x, int y, int x1, int x2, int y1, int y2, Army army){
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                if (i == x || j == y) continue;
+                if (i == x && j == y) continue;
                 if (!Map.getBuildingMap()[i][j].isEmpty()){
                     if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0){
                         Map.getBuildingMap()[i][j].remove(0);
