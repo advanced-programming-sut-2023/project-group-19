@@ -1089,52 +1089,76 @@ public class GameController {
         switch (troopName) {
             case "archer":
                 empire.setEuropeArcherCount(empire.getEuropeArcherCount() - 1);
+                break;
             case "spearMan":
                 empire.setSpearManCount(empire.getSpearManCount() - 1);
+                break;
             case "maceMan":
                 empire.setMaceManCount(empire.getMaceManCount() - 1);
+                break;
             case "crossbowMan":
                 empire.setCrossbowManCount(empire.getCrossbowManCount() - 1);
+                break;
             case "pikeMan":
                 empire.setPikeManCount(empire.getPikeManCount() - 1);
+                break;
             case "swordMan":
                 empire.setSwordManCount(empire.getSwordManCount() - 1);
+                break;
             case "knight":
                 empire.setKnightCount(empire.getKnightCount() - 1);
+                break;
             case "blackMonk":
                 empire.setBlackMonkCount(empire.getBlackMonkCount() - 1);
+                break;
             case "catapult":
                 empire.setCatapultCount(empire.getCatapultCount() - 1);
+                break;
             case "trebuchet":
                 empire.setTrebuchetCount(empire.getTrebuchetCount() - 1);
+                break;
             case "siegeTower":
                 empire.setSiegeTowerCount(empire.getSiegeTowerCount() - 1);
+                break;
             case "fireBalista":
                 empire.setFireBalistaCount(empire.getFireBalistaCount() - 1);
+                break;
             case "batteringRam":
                 empire.setBatteringRamCount(empire.getBatteringRamCount() - 1);
+                break;
             case "portableShield":
                 empire.setPortableShieldCount(empire.getPortableShieldCount() - 1);
+                break;
             case "arabianBow":
                 empire.setArabianBowCount(empire.getArabianBowCount() - 1);
+                break;
             case "slave":
                 empire.setSlaveCount(empire.getSlaveCount() - 1);
+                break;
             case "slinger":
                 empire.setSlingerCount(empire.getSlingerCount() - 1);
+                break;
             case "assassin":
                 empire.setAssassinCount(empire.getAssassinCount() - 1);
+                break;
             case "horseArcher":
                 empire.setHorseArcherCount(empire.getHorseArcherCount() - 1);
+                break;
             case "arabianSwordMan":
                 empire.setArabianSwordManCount(empire.getArabianSwordManCount() - 1);
+                break;
             case "fireThrower":
                 empire.setFireThrowerCount(empire.getFireThrowerCount() - 1);
+                break;
             case "engineer":
                 empire.setEngineerCount(empire.getEngineerCount() - 1);
+                break;
             case "ladderMan":
                 empire.setLadderManCount(empire.getLadderManCount() - 1);
+                break;
             case "tunneler":
                 empire.setTunnelerCount(empire.getTunnelerCount() - 1);
+                break;
         }
     }
 

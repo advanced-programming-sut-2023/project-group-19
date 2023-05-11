@@ -39,14 +39,13 @@ public class SelectedBuildingMenu {
                     if (matcherType != null && matcherCount != null) {
                         if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_ALL_TROOPS_NAME) == null) {
                             System.out.println(SelectedBuildingMessages.INVALID_TROOP_NAME.getName());
-                            return;
                         } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_BARRACKS_TROOP_NAME_CHECK) != null && buildingName.equals("Barracks")) {
                             System.out.println(selectedBuildingController.Barracks(matcherType, matcherCount).getName());
                         } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_MERCENARY_TROOP_NAME_CHECK) != null && buildingName.equals("Mercenary")) {
                             System.out.println(selectedBuildingController.mercenary(matcherType, matcherCount).getName());
                         } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK) != null && buildingName.equals("SiegeTent")) {
                             System.out.println(selectedBuildingController.siegeTent(matcherType, matcherCount).getName());
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK) != null && (buildingName.equals("SmallChurch") | buildingName.equals("big church"))) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK) != null && (buildingName.equals("SmallChurch") | buildingName.equals("bigChurch"))) {
                             System.out.println(selectedBuildingController.church(matcherCount).getName());
                         } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_ENGINEER_GUILD_TROOP_NAME_CHECK) != null && buildingName.equals("EngineerGuild")) {
                             System.out.println(selectedBuildingController.engineerGuild(matcherType, matcherCount).getName());

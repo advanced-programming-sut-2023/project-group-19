@@ -29,7 +29,6 @@ public class BuildingMenu {
                 Matcher matcherY = BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_Y);
                 Matcher matcherType = BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_DROP_BUILDING_TYPE);
                 System.out.println(buildingController.dropBuilding(matcherX, matcherY, matcherType, scanner).getMessages());
-
             } else if (BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_SELECT_BUILDING) != null) {
                 Matcher matcherX = BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_X);
                 Matcher matcherY = BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_Y);

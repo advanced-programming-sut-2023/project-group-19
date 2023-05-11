@@ -340,11 +340,11 @@ public class SelectedBuildingController {
                     return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("engineer"), troopName, count));
                 }
             case "ladderMan":
-                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("adderMan"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("adderMan"), troopName, count);
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("ladderMan"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("ladderMan"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("adderMan"), troopName, count));
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("ladderMan"), troopName, count));
                 }
             case "tunneler":
                 if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("tunneler"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
