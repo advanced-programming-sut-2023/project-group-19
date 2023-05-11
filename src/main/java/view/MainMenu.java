@@ -18,7 +18,7 @@ public class MainMenu {
         String command;
         while (true) {
             command = scanner.nextLine();
-            if ((matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.ENTER_PROFILE_MENU)) != null) {
+            if (MainMenuCommands.getMatcher(command, MainMenuCommands.ENTER_PROFILE_MENU) != null) {
                 System.out.println("entered profile menu successfully");
                 ProfileMenu.run(scanner);
             } else if (MainMenuCommands.getMatcher(command, MainMenuCommands.LOGOUT) != null) {
@@ -26,24 +26,22 @@ public class MainMenu {
                 JsonController.emptyFile();
                 System.out.println("logged out");
                 return;
-            } else if(command.matches("\\s*enter\\s+map\\s+menu\\s*")){
+            } else if (command.matches("\\s*enter\\s+map\\s+menu\\s*")) {
                 System.out.println("Entered map menu successfully!");
                 CreateMapMenu.run(scanner);
-            }
-            else if(command.matches("\\s*enter\\s+game\\s+menu")){
+            } else if (command.matches("\\s*enter\\s+game\\s+menu")) {
                 System.out.println("Entered game menu successfully!");
                 enterGameMenu(scanner);
-            }
-            else System.out.println("Invalid command!");
+            } else System.out.println("Invalid command!");
         }
     }
 
     private static void enterGameMenu(Scanner scanner) throws IOException, InterruptedException {
-        if(CreateMapController.numberOfEmpiers >= 2){
+        if (CreateMapController.numberOfEmpiers >= 2) {
             NextTurnController nextTurnController = new NextTurnController();
             nextTurnController.game(scanner);
             CreateMapController.recovery();
-        }else {
+        } else {
             System.out.println("more castle must be build!");
         }
     }

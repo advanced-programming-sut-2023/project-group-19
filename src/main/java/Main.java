@@ -4,6 +4,8 @@ import model.Building.*;
 import model.Empire;
 import model.Manage;
 import model.Map;
+import model.User;
+import view.BuildingMenu;
 import view.GameMenu;
 import view.LoginMenu;
 import java.io.IOException;
@@ -40,7 +42,6 @@ public class Main {
         empire.setWoodCount(20000000);
         empire.setStoneCount(300000);
         empire.setGoldCount(1000000);
-        empire.setWoodCount(1000000);
         empire.setOilAmount(1000000);
         empire.setIronCount(10000000);
         BuildingMenu buildingMenu = new BuildingMenu();

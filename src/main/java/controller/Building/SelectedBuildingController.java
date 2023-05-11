@@ -52,7 +52,6 @@ public class SelectedBuildingController {
         empire.setGoldCount(empire.getGoldCount() - troopPrice * troopCount);
         empire.setPeasantCount(empire.getPeasantCount() - troopCount);
         empire.setTroopCount(empire.getTroopCount() + troopCount);
-        empire.setTroopCount(empire.getTroopCount() + troopCount);
         empire.setLeatherArmourCount(empire.getLeatherArmourCount() - allWeaponTools.get("leatherArmour") * troopCount);
         empire.setMetalArmourCount(empire.getMetalArmourCount() - allWeaponTools.get("metalArmour") * troopCount);
         empire.setBowCount(empire.getBowCount() - allWeaponTools.get("bow") * troopCount);
