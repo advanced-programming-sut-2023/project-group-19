@@ -103,9 +103,9 @@ public class SelectedBuildingController {
     }
 
     public SelectedBuildingMessages Barracks(Matcher matcherTroopName, Matcher matcherCount) {
-        String troopName = matcherTroopName.group("troopName");
+        String troopName = matcherTroopName.group("type");
         int count = Integer.parseInt(matcherCount.group("count"));
-        HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
+        HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>();
 
         {
             listOfTroopsBuyPrice.put("archer", 8);
@@ -322,7 +322,7 @@ public class SelectedBuildingController {
     }
 
     public SelectedBuildingMessages engineerGuild(Matcher matcherTroopName, Matcher matcherCount) {
-        String troopName = matcherTroopName.group("troopName");
+        String troopName = matcherTroopName.group("type");
         int count = Integer.parseInt(matcherCount.group("count"));
         HashMap<String, Integer> engineerGuildTroopPrice = new HashMap<>();
 
@@ -333,25 +333,25 @@ public class SelectedBuildingController {
         }
         switch (troopName) {
             case "engineer":
-                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count);
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("engineer"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("engineer"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("arabianBow"), troopName, count));
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("engineer"), troopName, count));
                 }
             case "ladderMan":
-                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count);
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("adderMan"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("adderMan"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slave"), troopName, count));
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("adderMan"), troopName, count));
                 }
             case "tunneler":
-                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
-                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count);
+                if (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("tunneler"), troopName, count).equals(SelectedBuildingMessages.ENOUGH_RESOURCES)) {
+                    buyFromEngineerGuild(empire, engineerGuildTroopPrice.get("tunneler"), troopName, count);
                     return SelectedBuildingMessages.PURCHASE_SUCCESS;
                 } else {
-                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("slinger"), troopName, count));
+                    return (enoughResourcesToBuyFromEngineerGuild(empire, engineerGuildTroopPrice.get("tunneler"), troopName, count));
                 }
             default:
                 return null;
@@ -389,7 +389,7 @@ public class SelectedBuildingController {
     }
 
     public SelectedBuildingMessages siegeTent(Matcher matcherTroopName, Matcher matcherCount) {
-        String siegeName = matcherTroopName.group("troopName");
+        String siegeName = matcherTroopName.group("type");
         int count = Integer.parseInt(matcherCount.group("count"));
 
         HashMap<String, Integer> siegeTentTroopsPrice = new HashMap<>();

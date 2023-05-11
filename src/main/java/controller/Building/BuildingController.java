@@ -87,6 +87,26 @@ public class BuildingController {
         String direction;
         Names directionOfGate;
         switch (type) {
+            case "Shop":
+                Shop shop = new Shop(currentEmpire);
+                shop.shop();
+                if (correctGroundType(x, y, shop)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(shop, currentEmpire)) {
+                        if (empireHasEnoughWorkersToBuildTheBuilding(shop, currentEmpire)) {
+                            buildingCheckout(shop, currentEmpire);
+                            Map.AddToBuildingMap(x, y, shop);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                        }
+                    } else {
+                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                    }
+                } else {
+                    return BuildingMessages.IMPROPER_GROUND_TYPE;
+                }
             case "Castle":
                 Castle castle = new Castle(currentEmpire);
                 castle.castle();
