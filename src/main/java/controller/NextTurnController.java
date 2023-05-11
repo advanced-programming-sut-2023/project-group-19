@@ -1,7 +1,6 @@
 package controller;
 
 import model.Building.Building;
-import model.Building.Castle;
 import model.Empire;
 import model.Manage;
 import model.Map;
@@ -47,9 +46,10 @@ public class NextTurnController {
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
         EmpireController.functionBuildings();
+        EmpireController.findFoodDiversity();
         EmpireController.givingPeopleFood(currentEmpire);
-        resetTroopsMovesLeft();
         gameController.setEnemyToTarget();
+        resetTroopsMovesLeft();
     }
 
     public void setGameController(GameController gameController) {
