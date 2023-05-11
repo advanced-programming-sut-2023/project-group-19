@@ -135,18 +135,17 @@ public class GameController {
         if (validCoordinates(x, y)) {
             if (checkGroundTypeForUnits(x, y)) {
                 if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
-                    addUnitsToMap(x, y, countOfUnits, typeOfUnit);
-                    for (Army army : Map.getTroopMap()[x][y]) {
-                        System.out.println("Army : " + army + " Type: " + army.getNames().getName());
+                    if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)){
+                        return GameMenuMessages.SUCCESS;
                     }
-                    return GameMenuMessages.SUCCESS;
+                    else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
                 } else return GameMenuMessages.IMPROPER_UNIT;
             } else return GameMenuMessages.IMPROPER_LOCATION;
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
 
-    private static void addUnitsToMap(int x, int y, int count, String typeOfUnit) {
+    private static boolean addUnitsToMap(int x, int y, int count, String typeOfUnit) {
         switch (typeOfUnit) {
             case "Archer":
                 if (Manage.getCurrentEmpire().getEuropeArcherCount() >= count) {
@@ -157,8 +156,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(archer);
                     }
                     Manage.getCurrentEmpire().setEuropeArcherCount(Manage.getCurrentEmpire().getEuropeArcherCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Crossbowmen":
                 if (Manage.getCurrentEmpire().getCrossbowManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -168,8 +167,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(crossBowMan);
                     }
                     Manage.getCurrentEmpire().setCrossbowManCount(Manage.getCurrentEmpire().getCrossbowManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "ArcherBow":
                 if (Manage.getCurrentEmpire().getArabianBowCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -179,8 +178,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(archerBow);
                     }
                     Manage.getCurrentEmpire().setArabianBowCount(Manage.getCurrentEmpire().getArabianBowCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Slingers":
                 if (Manage.getCurrentEmpire().getSlingerCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -190,8 +189,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(slingers);
                     }
                     Manage.getCurrentEmpire().setSlingerCount(Manage.getCurrentEmpire().getSlingerCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "HorseArchers":
                 if (Manage.getCurrentEmpire().getHorseArcherCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -201,8 +200,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(horseArcher);
                     }
                     Manage.getCurrentEmpire().setHorseArcherCount(Manage.getCurrentEmpire().getHorseArcherCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "FireThrowers":
                 if (Manage.getCurrentEmpire().getFireThrowerCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -212,8 +211,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(fireThrower);
                     }
                     Manage.getCurrentEmpire().setFireThrowerCount(Manage.getCurrentEmpire().getFireThrowerCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "SpearMen":
                 if (Manage.getCurrentEmpire().getSpearManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -223,8 +222,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(spearMen);
                     }
                     Manage.getCurrentEmpire().setSpearManCount(Manage.getCurrentEmpire().getSpearManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "MaceMen":
                 if (Manage.getCurrentEmpire().getMaceManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -234,8 +233,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(maceMen);
                     }
                     Manage.getCurrentEmpire().setMaceManCount(Manage.getCurrentEmpire().getMaceManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "LadderMen":
                 if (Manage.getCurrentEmpire().getLadderManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -245,8 +244,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(ladderMen);
                     }
                     Manage.getCurrentEmpire().setLadderManCount(Manage.getCurrentEmpire().getLadderManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Assassins":
                 if (Manage.getCurrentEmpire().getAssassinCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -256,8 +255,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(assassin);
                     }
                     Manage.getCurrentEmpire().setAssassinCount(Manage.getCurrentEmpire().getAssassinCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Engineer":
                 if (Manage.getCurrentEmpire().getEngineerCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -267,8 +266,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(engineer);
                     }
                     Manage.getCurrentEmpire().setEngineerCount(Manage.getCurrentEmpire().getEngineerCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "BlackMonk":
                 if (Manage.getCurrentEmpire().getBlackMonkCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -278,8 +277,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(blackMonk);
                     }
                     Manage.getCurrentEmpire().setBlackMonkCount(Manage.getCurrentEmpire().getBlackMonkCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Knight":
                 if (Manage.getCurrentEmpire().getKnightCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -289,8 +288,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(knight);
                     }
                     Manage.getCurrentEmpire().setKnightCount(Manage.getCurrentEmpire().getKnightCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Swordsmen":
                 if (Manage.getCurrentEmpire().getSwordManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -300,8 +299,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(swordMen);
                     }
                     Manage.getCurrentEmpire().setSwordManCount(Manage.getCurrentEmpire().getSwordManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "PikeMen":
                 if (Manage.getCurrentEmpire().getPikeManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -311,8 +310,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(pikeMen);
                     }
                     Manage.getCurrentEmpire().setPikeManCount(Manage.getCurrentEmpire().getPikeManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Slaves":
                 if (Manage.getCurrentEmpire().getSlaveCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -322,8 +321,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(slave);
                     }
                     Manage.getCurrentEmpire().setSlaveCount(Manage.getCurrentEmpire().getSlaveCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "ArabianSwordsmen":
                 if (Manage.getCurrentEmpire().getArabianSwordManCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -333,8 +332,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(arabSwordMen);
                     }
                     Manage.getCurrentEmpire().setArabianSwordManCount(Manage.getCurrentEmpire().getArabianSwordManCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Tunneler":
                 if (Manage.getCurrentEmpire().getTunnelerCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -344,8 +343,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(tunneler);
                     }
                     Manage.getCurrentEmpire().setTunnelerCount(Manage.getCurrentEmpire().getTunnelerCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Catapult":
                 if (Manage.getCurrentEmpire().getCatapultCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -355,8 +354,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(catapult);
                     }
                     Manage.getCurrentEmpire().setCatapultCount(Manage.getCurrentEmpire().getCatapultCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "Trebuchet":
                 if (Manage.getCurrentEmpire().getTrebuchetCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -366,8 +365,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(trebuchet);
                     }
                     Manage.getCurrentEmpire().setTrebuchetCount(Manage.getCurrentEmpire().getTrebuchetCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "SiegeTower":
                 if (Manage.getCurrentEmpire().getSiegeTowerCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -377,8 +376,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(siegeTower);
                     }
                     Manage.getCurrentEmpire().setSiegeTowerCount(Manage.getCurrentEmpire().getSiegeTowerCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "FireBallista":
                 if (Manage.getCurrentEmpire().getFireBalistaCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -388,8 +387,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(fireBallista);
                     }
                     Manage.getCurrentEmpire().setFireBalistaCount(Manage.getCurrentEmpire().getFireBalistaCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "BatteringRam":
                 if (Manage.getCurrentEmpire().getBatteringRamCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -399,8 +398,8 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(batteringRam);
                     }
                     Manage.getCurrentEmpire().setBatteringRamCount(Manage.getCurrentEmpire().getBatteringRamCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
             case "PortableShield":
                 if (Manage.getCurrentEmpire().getPortableShieldCount() >= count) {
                     for (int i = 0; i < count; i++) {
@@ -410,10 +409,10 @@ public class GameController {
                         Map.getTroopMap()[x][y].add(0, portableShield);
                     }
                     Manage.getCurrentEmpire().setPortableShieldCount(Manage.getCurrentEmpire().getPortableShieldCount() - count);
-                } else System.out.println(GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY.getMessages());
-                break;
+                    return true;
+                } else return false;
         }
-
+        return false;
     }
 
     public GameMenuMessages buildEquipment(Matcher name) {
