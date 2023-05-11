@@ -1,5 +1,6 @@
 import controller.EmpireController;
 import controller.JsonController;
+import controller.LoginController;
 import controller.PathFindingController;
 import model.Building.*;
 import model.Empire;

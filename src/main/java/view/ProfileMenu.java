@@ -14,6 +14,7 @@ public class ProfileMenu {
         String command;
         Matcher matcher;
         while (true) {
+            // ASss8**
             command = scanner.nextLine();
             if ((matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_USERNAME_CHANGE)) != null) {
                 changingUsername(matcher.group("username").replaceAll("\"", ""));
@@ -31,7 +32,7 @@ public class ProfileMenu {
                 System.out.println(ProfileController.showRank());
             } else if (command.matches("\\s*profile\\s+display\\s+slogan\\s*")) {
                 System.out.println(ProfileController.showSlogan());
-            } else if (command.matches("profile display")) {
+            } else if (command.matches("\\s*profile\\s+display\\s*")) {
                 System.out.println(ProfileController.showDisplay());
             } else if (command.matches("\\s*profile\\s+remove\\s+slogan")) {
                 System.out.println(ProfileController.removeSlogan());
@@ -39,7 +40,6 @@ public class ProfileMenu {
                 System.out.println("exit");
                 return;
             }
-            //TODO : exit has bug
             else {
                 System.out.println("invalid command!");
             }
@@ -73,11 +73,13 @@ public class ProfileMenu {
         ProfileMenuMessage message = ProfileController.changeUsername(username);
         switch (message) {
             case INVALID_FORM_USERNAME:
-                System.out.println("invalid form of username");
+                System.out.println("Invalid form of username");
                 return;
             case SUCCESS:
-                System.out.println("username changed successfully");
+                System.out.println("Username changed successfully");
                 return;
+            case REPETED:
+                System.out.println("This new username is repeted!");
         }
     }
 
@@ -91,13 +93,23 @@ public class ProfileMenu {
         String oldPassword;
         String newPassword;
         matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_GET_OLD_PASSWORD);
-        if (matcher != null) oldPassword = matcher.group("old");
+        if (matcher != null) {
+            oldPassword = matcher.group("old");
+            if (oldPassword.charAt(0) == '\"' && oldPassword.charAt(oldPassword.length() - 1) == '\"') {
+                oldPassword = oldPassword.replaceAll("\"", "");
+            }
+        }
         else {
             System.out.println("Please do this correctly");
             return;
         }
         matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_GET_NEW_PASSWORD);
-        if (matcher != null) newPassword = matcher.group("new");
+        if (matcher != null) {
+            newPassword = matcher.group("new");
+            if (newPassword.charAt(0) == '\"' && newPassword.charAt(newPassword.length() - 1) == '\"') {
+                newPassword = newPassword.replaceAll("\"", "");
+            }
+        }
         else {
             System.out.println("Please do this correctly");
             return;

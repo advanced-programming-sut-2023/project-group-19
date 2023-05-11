@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 
 public class ProfileController {
     //    JsonController.writeIntoFile(user,"LoggedInUser.json");
@@ -31,11 +32,13 @@ public class ProfileController {
     }
 
     public static ProfileMenuMessage changeUsername(String username) throws IOException {
+        if(User.getUserByName(username) != null) return ProfileMenuMessage.REPETED;
         User user = User.getCurrentUser();
         if (!username.matches(".*[A-Za-z0-9_].*")) return ProfileMenuMessage.INVALID_FORM_USERNAME;
         user.setUsername(username);
         JsonController.writeIntoFile(User.users, "User.json");
         changeFiedsOfCurrentUser(user);
+        Collections.sort(User.users);
         return ProfileMenuMessage.SUCCESS;
     }
 
@@ -46,9 +49,14 @@ public class ProfileController {
         changeFiedsOfCurrentUser(user);
         return ProfileMenuMessage.SUCCESS;
     }
+    // -o ASss8+====~`" -n sdxw
+    // !user.getPassword().equals(getHashCode(password))
 
     public static ProfileMenuMessage changingPasswordErrorHandelling(String oldPassword, String newPassword) {
         User user = User.getCurrentUser();
+        System.out.println("|" + oldPassword + "|");
+        System.out.println(user.getPassword());
+        System.out.println(getHashCode(oldPassword));
         if (!user.getPassword().equals(getHashCode(oldPassword))) return ProfileMenuMessage.INCORRECT_PASSWORD;
         if (oldPassword.equals(newPassword)) return ProfileMenuMessage.SIMILAR_PASSWORD;
         if (!newPassword.matches(".*[a-z].*")) return ProfileMenuMessage.WEAK_PASSWORD_FOR_LOWERCASE;
@@ -75,6 +83,8 @@ public class ProfileController {
     }
 
     public static ProfileMenuMessage changeEmail(String email) throws IOException {
+        String newEmail = email.toLowerCase();
+        if(User.getUserByEmail(newEmail) != null) return ProfileMenuMessage.REPETED ;
         if (!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]*\\.+[A-Za-z0-9\\.]*"))
             return ProfileMenuMessage.INVALID_FORM_EMAIL;
         User user = User.getCurrentUser();
@@ -115,7 +125,6 @@ public class ProfileController {
         else slogan = user.getSlogan();
         String text;
         text = "username: " + user.getUsername() + "\n" +
-                "password: " + user.getPassword() + "\n" +
                 "nickname: " + user.getNickname() + "\n" +
                 "email: " + user.getEmail() + "\n" +
                 "slogan: " + slogan + "\n" +

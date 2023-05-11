@@ -41,7 +41,6 @@ public class CreateMapController {
         Map.CreateMap(size);
         return "Map is builded successfully!";
     }
-    //TODO : PLAIN in repeted into two difference classes!
     public static String settextureOneByOne(int x,int y,String type){
         if (!mapIsBuilded) return "At first.You must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
@@ -150,7 +149,7 @@ public class CreateMapController {
         if(CreateMapController.numberOfEmpiers == numberOfUsers){
             return "you must have more user to continue!" ;
         }
-        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
+        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
         for(int i = 1 ; i <= x ; i ++){
             for(int j = 1 ; j <= y ; j ++){
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
@@ -164,7 +163,6 @@ public class CreateMapController {
         indexOfUser ++ ;
         Castle castle = new Castle(empire);
         castle.castle();
-        //TODO : talk with fucking arian
         Map.getBuildingMap()[x - 1][y - 1].add(castle);
         numberOfEmpiers ++ ;
 //        if(numberOfEmpiers == 2) mapIsReadyForGame = true ;
