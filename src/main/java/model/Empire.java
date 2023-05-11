@@ -36,7 +36,25 @@ public class Empire {
     private int priestCount;
     private int troopCount;
     private int workerCount;
+    private int notificationOfRequest;
+    private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
+
+    public int getNotificationOfRequest() {
+        return notificationOfRequest;
+    }
+
+    public void setNotificationOfRequest(int notificationOfRequest) {
+        this.notificationOfRequest = notificationOfRequest;
+    }
+
+    public int getNotificationOfDonation() {
+        return notificationOfDonation;
+    }
+
+    public void setNotificationOfDonation(int notificationOfDonation) {
+        this.notificationOfDonation = notificationOfDonation;
+    }
 
     public int getPriestCount() {
         return priestCount;
