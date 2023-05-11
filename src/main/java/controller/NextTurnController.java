@@ -6,7 +6,6 @@ import model.Manage;
 import model.Map;
 import model.User;
 import view.GameMenu;
-
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -86,6 +85,5 @@ public class NextTurnController {
             }
         }
     }
-
 
 }
