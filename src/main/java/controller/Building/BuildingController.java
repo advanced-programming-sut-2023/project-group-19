@@ -792,28 +792,27 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-                // TODO  : decide about pitch ditch
-//            case "PitchDitch":
-//                PitchDitch pitchDitch = new PitchDitch(currentEmpire);
-//                pitchDitch.pitchDitch();
-//                if (correctGroundType(x, y, pitchDitch)) {
-//                    if (empireHasEnoughResourcesToBuildTheBuilding(pitchDitch, currentEmpire)) {
-//                        if (empireHasEnoughWorkersToBuildTheBuilding(pitchDitch, currentEmpire)) {
-//                            buildingCheckout(pitchDitch, currentEmpire);
-//                            Map.AddToBuildingMap(x, y, pitchDitch);
-//                            Map.notBuildable[x][y] = true;
-//                            Map.notPassable[x][y] = true;
-//                            Map.wallPassable[x][y] = true;
-//                            return BuildingMessages.SUCCESS;
-//                        } else {
-//                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
-//                        }
-//                    } else {
-//                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-//                    }
-//                } else {
-//                    return BuildingMessages.IMPROPER_GROUND_TYPE;
-//                }
+            case "PitchDitch":
+                PitchDitch pitchDitch = new PitchDitch(currentEmpire);
+                pitchDitch.pitchDitch();
+                if (correctGroundType(x, y, pitchDitch)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(pitchDitch, currentEmpire)) {
+                        if (empireHasEnoughWorkersToBuildTheBuilding(pitchDitch, currentEmpire)) {
+                            buildingCheckout(pitchDitch, currentEmpire);
+                            Map.AddToBuildingMap(x, y, pitchDitch);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            Map.wallPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                        }
+                    } else {
+                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                    }
+                } else {
+                    return BuildingMessages.IMPROPER_GROUND_TYPE;
+                }
             case "CagedWarDogs":
                 CagedWarDogs cagedWarDogs = new CagedWarDogs(currentEmpire);
                 cagedWarDogs.cagedWarDogs();
@@ -1011,29 +1010,28 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-                // TODO : check the beerFactory it might not be needed
-//            case "BearFactory":
-//                Goods bearFactory = new Goods(currentEmpire);
-//                bearFactory.bearFactory();
-//                if (correctGroundType(x, y, bearFactory)) {
-//                    if (empireHasEnoughResourcesToBuildTheBuilding(bearFactory, currentEmpire)) {
-//                        if (empireHasEnoughWorkersToBuildTheBuilding(bearFactory, currentEmpire)) {
-//                            buildingCheckout(bearFactory, currentEmpire);
-//                            Map.AddToBuildingMap(x, y, bearFactory);
-//                            currentEmpire.setBeerFactoryCount(currentEmpire.getBeerFactoryCount() + 1);
-//                            Map.notBuildable[x][y] = true;
-//                            Map.notPassable[x][y] = true;
-//                            Map.wallPassable[x][y] = true;
-//                            return BuildingMessages.SUCCESS;
-//                        } else {
-//                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
-//                        }
-//                    } else {
-//                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
-//                    }
-//                } else {
-//                    return BuildingMessages.IMPROPER_GROUND_TYPE;
-//                }
+            case "BearFactory":
+                Goods bearFactory = new Goods(currentEmpire);
+                bearFactory.bearFactory();
+                if (correctGroundType(x, y, bearFactory)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(bearFactory, currentEmpire)) {
+                        if (empireHasEnoughWorkersToBuildTheBuilding(bearFactory, currentEmpire)) {
+                            buildingCheckout(bearFactory, currentEmpire);
+                            Map.AddToBuildingMap(x, y, bearFactory);
+                            currentEmpire.setBeerFactoryCount(currentEmpire.getBeerFactoryCount() + 1);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            Map.wallPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                        }
+                    } else {
+                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                    }
+                } else {
+                    return BuildingMessages.IMPROPER_GROUND_TYPE;
+                }
             case "Garden":
                 FearControl garden = new FearControl(currentEmpire);
                 garden.garden();
