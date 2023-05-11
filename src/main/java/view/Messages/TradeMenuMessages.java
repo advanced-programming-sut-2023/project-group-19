@@ -6,7 +6,6 @@ public enum TradeMenuMessages {
     RESOURCE_AMOUNT_EMPTY_FIELD_IN_ENTRY("The resource amount field in your entry is empty!"),
     RESOURCE_TYPE_EMPTY_FIELD_IN_ENTRY("The resource type field in your entry is empty!"),
     ID_EMPTY_FIELD_IN_ENTRY("The id field in your entry is empty!"),
-    EMPTY_MESSAGE_PART("The Message part is empty!"),
     INVALID_AMOUNT("""
             Invalid amount!
             Possible reasons:
@@ -19,7 +18,6 @@ public enum TradeMenuMessages {
             2.Your treasury doesn't have that much gold"""),
     INVALID_RESOURCE_TYPE("The given type of resource is invalid!"),
     NO_EMPIRE_HAS_BEEN_CHOSEN("You have not chosen any empire yet!"),
-    NO_REQUEST("There's no request with given information!"),
     NO_DONATION("There's no donation with given information!"),
     NOT_ENOUGH_RESOURCES("The empire doesn't have enough resource to be shared or traded!"),
     INVALID_EMPIRE("There's no empire with the given name in the game!"),
