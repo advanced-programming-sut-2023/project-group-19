@@ -28,7 +28,8 @@ public class SelectedBuildingController {
         if (GameController.enemyInRange(((DrawBridge) selectedBuilding).getX(), ((DrawBridge) selectedBuilding).getY())) {
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
-            Map.notPassable[x][y] = false;
+            ((DrawBridge) selectedBuilding).setBridgeOpen(false);
+            Map.notPassable[x][y] = true;
             return SelectedBuildingMessages.ENEMY_IN_RANGE;
         } else if (bridgeCondition.equals("down")) {
             if (((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_OPEN;

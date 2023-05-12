@@ -97,6 +97,7 @@ public class BuildingController {
                             Map.AddToBuildingMap(x, y, shop);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
+                            Map.wallPassable[x][y] = true;
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
@@ -190,6 +191,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(drawBridge, currentEmpire)) {
                             buildingCheckout(drawBridge, currentEmpire);
                             Map.AddToBuildingMap(x, y, drawBridge);
+                            Empire.DrawBride.add(x * size + y);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;

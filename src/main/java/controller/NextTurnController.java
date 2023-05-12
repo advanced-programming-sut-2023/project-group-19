@@ -59,6 +59,7 @@ public class NextTurnController {
     }
 
     public void callEndingTurnFunctions(GameController gameController) {
+        gameController.DrawBridge();
         gameController.cagedWarDogsAttack();
         gameController.setStateArmy();
         AttackArmyToArmyController.setFightMode(gameController);

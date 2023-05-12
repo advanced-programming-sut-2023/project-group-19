@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public enum SelectedBuildingCommands {
     SELECTED_BUILDING_TAX_RATE("^taxrate (?<taxRate>\\d+)$"),
-    SELECTED_BUILDING_DRAW_BRIDGE("^drawBridge (?<bridgeCondition>(up|down))$"),
+    SELECTED_BUILDING_DRAW_BRIDGE("^DrawBridge (?<bridgeCondition>(up|down))$"),
     SELECTED_BUILDING_BARRACKS_TROOP_NAME_CHECK("archer|spearMan|maceMan|crossbowMan|pikeMan|swordMan|knight"),
     SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK("catapult|trebuchet|siegeTower|fireBallista|batteringRam|portableShield"),
     SELECTED_BUILDING_MERCENARY_TROOP_NAME_CHECK("arabianBow|slave|slinger|assassin|horseArcher|arabianSwordMan|fireThrower"),
@@ -23,7 +23,6 @@ public enum SelectedBuildingCommands {
             "Armoury|Barracks|Mercenary|EngineerGuild|KillingPit|OilSmelter|" +
             "PitchDitch|CagedWarDogs|SiegeTent|Stable|"),
     SELECTED_BUILDING_COMMANDS_FIND_COUNT(".*-c\\s+(?<count>\\d+)\\s*");
-
 
 
     private Pattern name;

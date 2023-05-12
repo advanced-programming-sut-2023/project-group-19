@@ -84,7 +84,6 @@ public class SelectedBuildingMenu {
             }
             else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
                 if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
-                    System.out.println(selectedBuilding.getHp());
                     if (GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
                         System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                     } else {

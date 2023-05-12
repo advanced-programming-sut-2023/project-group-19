@@ -678,10 +678,7 @@ public class GameController {
         int x = Integer.parseInt(x1.group("x"));
         int y = Integer.parseInt(y1.group("y"));
         if (validCoordinates(x, y)) {
-            if (Map.getBuildingMap()[x][y].get(0) instanceof Shop) {
-                return true;
-            }
-
+            return Map.getBuildingMap()[x][y].get(0) instanceof Shop;
         }
         return false;
     }
@@ -710,6 +707,16 @@ public class GameController {
                         }
                     }
                 }
+            }
+        }
+    }
+    public void DrawBridge(){
+        for(int i = 0 ; i < Empire.DrawBride.size() ; i++){
+            int x = Empire.DrawBride.get(i)/mapSize;
+            int y = Empire.DrawBride.get(i)%mapSize;
+            if(GameController.enemyInRange(x , y)){
+                DrawBridge drawBridge = (DrawBridge)Map.getBuildingMap()[x][y].get(0);
+                drawBridge.bridgeOpen = false;
             }
         }
     }
@@ -1164,7 +1171,7 @@ public class GameController {
 
     public static boolean enemyInRange(int x, int y) {
         int floorOfX, floorOfY, ceilOfX, ceilOfY;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             floorOfX = x - i;
             floorOfY = y - i;
             ceilOfX = x + i;
