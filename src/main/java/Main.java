@@ -6,7 +6,6 @@ import model.Building.*;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Human.Troop.Climbers;
-import model.Human.Troop.Tunneler;
 import model.Obstacle.Obstacle;
 import model.Obstacle.ObstacleName;
 import model.Obstacle.WaterSources;
@@ -56,10 +55,10 @@ public class Main {
 
 
         ArchersAndThrowers archers1 = new ArchersAndThrowers(Ali);
-        archers1.archer(0,0);
+        archers1.archer(2,0);
         System.out.println("Army : "+archers1+" owner: "+archers1.getOwner().getName());
         ArchersAndThrowers archers2 = new ArchersAndThrowers(Ali);
-        archers2.archer(0,0);
+        archers2.archer(2,0);
         System.out.println("Army : "+archers2+" owner: "+archers2.getOwner().getName());
         ArchersAndThrowers archers3 = new ArchersAndThrowers(Ali);
         archers3.archer(0,0);
@@ -68,40 +67,17 @@ public class Main {
         archers4.archer(2,3);
         System.out.println("Army : "+archers4+" owner: "+archers4.getOwner().getName());
         ArchersAndThrowers archers5 = new ArchersAndThrowers(Ali);
-        archers5.trebuchet(2,3);
+        archers5.siegeTower(2,3);
 
 
 
 
-        Map.getTroopMap()[2][0].add(archers1);
-        Map.getTroopMap()[2][0].add(archers2);
-        Map.getTroopMap()[3][1].add(archers3);
-        Map.getTroopMap()[3][1].add(archers4);
-        Map.getTroopMap()[3][1].add(archers5);
+        Map.getTroopMap()[2][3].add(archers5);
 
-
-        Ali.empireArmy.add(archers1);
-        Ali.empireArmy.add(archers2);
-        Ali.empireArmy.add(archers3);
-        Ali.empireArmy.add(archers4);
         Ali.empireArmy.add(archers5);
-        Map.notPassable[2][3] = false;
-
-        StoneGateWay stoneGateWay = new StoneGateWay(Dorsa);
-        stoneGateWay.smallGateWay(Names.NS);
-        stoneGateWay.setGateOpen(false);
-        Map.getBuildingMap()[3][1].add(0,stoneGateWay);
-        Wall wall = new Wall(Dorsa);
+        Wall wall = new Wall (Dorsa);
         wall.bigWall();
-        Wall wall1 = new Wall(Dorsa);
-        wall1.bigWall();
-        Map.getBuildingMap()[3][0].add(0,wall1);
-        Map.getBuildingMap()[3][2].add(0,wall);
-        Tower tower = new Tower(Dorsa);
-        tower.lookoutTower();
-        Map.getBuildingMap()[3][5].add(0,tower);
-        Tunneler tunneler = new Tunneler(Ali);
-        tunneler.Tunneler(2,3);
+        Map.getBuildingMap()[3][4].add(wall);
         GameMenu gameMenu = new GameMenu();
         gameMenu.run(scanner);
 
