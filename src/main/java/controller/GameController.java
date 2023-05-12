@@ -766,54 +766,63 @@ public class GameController {
         int y0fPossibleEnemy;
         int xOfPossibleEnemy;
         int killCount = Manage.getCurrentEmpire().getEngineerCount();
-        if (checkDirection(direction)) {
-            for (int j = 0; j < Manage.getCurrentEmpire().pourOilCoordinate.size(); j++) {
-                int x = Manage.getCurrentEmpire().pourOilCoordinate.get(j) / Map.mapSize;
-                int y = Manage.getCurrentEmpire().pourOilCoordinate.get(j) % Map.mapSize;
-                if (direction.equals(Names.NORTH.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        y0fPossibleEnemy = y + i;
-                        if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
+        if (containsEngineer()) {
+            if (checkDirection(direction)) {
+                for (int j = 0; j < Manage.getCurrentEmpire().pourOilCoordinate.size(); j++) {
+                    int x = Manage.getCurrentEmpire().pourOilCoordinate.get(j) / Map.mapSize;
+                    int y = Manage.getCurrentEmpire().pourOilCoordinate.get(j) % Map.mapSize;
+                    if (direction.equals(Names.NORTH.getName())) {
+                        for (int i = -1; i <= 1; i++) {
+                            y0fPossibleEnemy = y + i;
+                            if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
+                                if (killCount != 0) {
+                                    killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
+                                }
                             }
                         }
-                    }
-                } else if (direction.equals(Names.SOUTH.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        y0fPossibleEnemy = y + i;
-                        if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
+                    } else if (direction.equals(Names.SOUTH.getName())) {
+                        for (int i = -1; i <= 1; i++) {
+                            y0fPossibleEnemy = y + i;
+                            if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
+                                if (killCount != 0) {
+                                    killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
+                                }
                             }
                         }
-                    }
-                } else if (direction.equals(Names.WEST.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        xOfPossibleEnemy = x + i;
-                        if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
+                    } else if (direction.equals(Names.WEST.getName())) {
+                        for (int i = -1; i <= 1; i++) {
+                            xOfPossibleEnemy = x + i;
+                            if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
+                                if (killCount != 0) {
+                                    killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
+                                }
                             }
                         }
-                    }
 
-                } else if (direction.equals(Names.EAST.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        xOfPossibleEnemy = x + i;
-                        if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
+                    } else if (direction.equals(Names.EAST.getName())) {
+                        for (int i = -1; i <= 1; i++) {
+                            xOfPossibleEnemy = x + i;
+                            if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
+                                if (killCount != 0) {
+                                    killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
+                                }
                             }
                         }
                     }
                 }
+                return GameMenuMessages.SUCCESS;
             }
-            return GameMenuMessages.SUCCESS;
-        }
-        return GameMenuMessages.INVALID_DIRECTION;
+            else return GameMenuMessages.INVALID_DIRECTION;
+        }return GameMenuMessages.IMPROPER_UNIT;
     }
-
+    public boolean containsEngineer(){
+        for (Army  army : selectedUnit){
+            if (army.getNames().getName().equals(Names.ENGINEER.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean checkDirection(String direction) {
         return direction.equals(Names.NORTH.getName()) || direction.equals(Names.SOUTH.getName())
                 || direction.equals(Names.WEST.getName()) || direction.equals(Names.EAST.getName());
@@ -824,7 +833,6 @@ public class GameController {
         int y = Integer.parseInt(y1.group("y"));
         if (validCoordinates(x, y)) {
             return Map.getBuildingMap()[x][y].get(0) instanceof Shop;
-
         }
         return false;
     }
@@ -832,7 +840,7 @@ public class GameController {
     public void cagedWarDogsAttack() {
         for (int j = 0; j < Manage.getCurrentEmpire().cagedWarDogsCoordinate.size(); j++) {
             int x = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
-            int y = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
+            int y = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) % mapSize;
             int floorOfX, floorOfY, ceilOfX, ceilOfY;
             for (int i = 0; i < 3; i++) {
                 floorOfX = x - i;
@@ -841,8 +849,8 @@ public class GameController {
                 ceilOfY = y + i;
                 if (floorOfX < 0) floorOfX = 0;
                 if (floorOfY < 0) floorOfY = 0;
-                if (ceilOfX > mapSize) ceilOfX = mapSize - 1;
-                if (ceilOfY > mapSize) ceilOfY = mapSize - 1;
+                if (ceilOfX >= mapSize) ceilOfX = mapSize - 1;
+                if (ceilOfY >= mapSize) ceilOfY = mapSize - 1;
                 for (int m = floorOfX; m <= ceilOfX; m++) {
                     for (int n = floorOfY; n <= ceilOfY; n++) {
                         if (!Map.getTroopMap()[m][n].isEmpty()) {
@@ -858,9 +866,9 @@ public class GameController {
     }
 
     public void DrawBridge() {
-        for (int i = 0; i < Manage.getCurrentEmpire().DrawBride.size(); i++) {
-            int x = Manage.getCurrentEmpire().DrawBride.get(i) / mapSize;
-            int y = Manage.getCurrentEmpire().DrawBride.get(i) % mapSize;
+        for (int i = 0; i < Manage.getCurrentEmpire().DrawBridge.size(); i++) {
+            int x = Manage.getCurrentEmpire().DrawBridge.get(i) / mapSize;
+            int y = Manage.getCurrentEmpire().DrawBridge.get(i) % mapSize;
             if (GameController.enemyInRange(x, y)) {
                 DrawBridge drawBridge = (DrawBridge) Map.getBuildingMap()[x][y].get(0);
                 drawBridge.bridgeOpen = false;
