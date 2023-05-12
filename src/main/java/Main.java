@@ -29,31 +29,45 @@ public class Main {
         CreateMapController.CreateMap(200);
         Empire pig = new Empire();
         Manage.allEmpires.add(pig);
-        Soldiers swordman = new Soldiers(pig);
-        swordman.Knight(3,3);
-        pig.empireArmy.add(swordman);
-        Map.getTroopMap()[3][3].add(swordman);
-
         Empire RichardTheLionHeart = new Empire();
         Manage.allEmpires.add(RichardTheLionHeart);
 
-        Soldiers yy = new Soldiers(RichardTheLionHeart);
-        yy.Swordsmen(3,3);
-        Map.getTroopMap()[3][3].add(yy);
-        RichardTheLionHeart.empireArmy.add(yy);
+        Soldiers attacker = new Soldiers(RichardTheLionHeart);
+        attacker.Swordsmen(4,4);
+        Map.getTroopMap()[4][4].add(attacker);
+        attacker.setArmyForm("DEFENSIVE");
+        GameController gameController2 = new GameController();
+        GameController.gameController = gameController2 ;
+        RichardTheLionHeart.empireArmy.add(attacker);
+        Manage.setCurrentEmpire(RichardTheLionHeart);
 
-        ArchersAndThrowers archer = new ArchersAndThrowers(RichardTheLionHeart);
-        archer.HorseArchers(3,2);
-        Map.getTroopMap()[3][2].add(archer);
-        RichardTheLionHeart.empireArmy.add(archer);
+
+        Soldiers fighter = new Soldiers(pig);
+        fighter.Swordsmen(3,3);
+        Map.getTroopMap()[3][3].add(fighter);
+        pig.empireArmy.add(fighter);
+
+        gameController2.setStateArmy();
+
+
+//3 4
 
         AttackArmyToArmyController.battleWithEnemy();
 
         System.out.println(ShowMapController.showMap(4,5,false));
-        System.out.println(yy.getHp());
-        System.out.println(swordman.getHp());
+
+
 
 //        System.out.println(archer.getAttackPower());
 
     }
+//            ArchersAndThrowers archer = new ArchersAndThrowers(RichardTheLionHeart);
+//        archer.HorseArchers(3,2);
+//        Map.getTroopMap()[3][2].add(archer);
+//        RichardTheLionHeart.empireArmy.add(archer);
+
+//            Soldiers yy = new Soldiers(RichardTheLionHeart);
+//            yy.Swordsmen(3,3);
+//            Map.getTroopMap()[3][3].add(yy);
+//            RichardTheLionHeart.empireArmy.add(yy);
 }

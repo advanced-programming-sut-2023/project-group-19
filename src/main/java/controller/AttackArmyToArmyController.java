@@ -142,6 +142,8 @@ public class AttackArmyToArmyController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
+                    System.out.println(enemy.hp());
+                    System.out.println(army.getAttackPower());
                     enemy.setHp(newHitPoint);
                     enemy.setArcherAttacker((ArchersAndThrowers) army);
                     return true;
