@@ -41,7 +41,7 @@ public class CreateMapController {
         return "Map is builded successfully!";
     }
     public static String settextureOneByOne(int x,int y,String type){
-        if (!mapIsBuilded) return "At first.You must build a map!";
+        if (!mapIsBuilt) return "At first.You must build a map!";
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "Yure location is out of bounds";
         if(Map.notBuildable[x][y]) return "Is occupied";
         GroundType groundType = GroundType.getEnumGroundType(type);
@@ -64,7 +64,7 @@ public class CreateMapController {
         return "Change is done successfully!";
     }
     public static String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type){
-        if (!mapIsBuilded) return "You first must build a map!";
+        if (!mapIsBuilt) return "You first must build a map!";
         if(x1 >= x2 || y1 >= y2) return "Please make sure that x and y are correctly assigned!";
         if(x1 < 0 || x2 >= sizeOfMap || y1 < 0 || y2 >= sizeOfMap) return "Yure location is out of bounds";
         GroundType groundType = GroundType.getEnumGroundType(type);
@@ -84,7 +84,7 @@ public class CreateMapController {
     }
 
     public static String clear(int x, int y) {
-        if (!mapIsBuilded) return "You first must build a map!";
+        if (!mapIsBuilt) return "You first must build a map!";
         if (x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "Yure location is out of bounds";
         Map.getTroopMap()[x][y].clear();
         Map.getBuildingMap()[x][y].clear();
@@ -99,7 +99,7 @@ public class CreateMapController {
     public static String dropRock(int x, int y, String type) {
         if (!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s"))
             return "Choose direction correctly!";
-        if (!mapIsBuilded) return "You first must build a map!";
+        if (!mapIsBuilt) return "You first must build a map!";
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "Yure location is out of bounds";
         if(Map.notBuildable[x][y]) return "Is occupied";
         Stone stone = new Stone();
@@ -112,7 +112,7 @@ public class CreateMapController {
         return "Successfully";
     }
     public static String dropTree(int x , int y , String type){
-        if (!mapIsBuilded) return "You first must build a map!";
+        if (!mapIsBuilt) return "You first must build a map!";
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "yure location is out of bounds";
 
         if(Map.notBuildable[x][y]) return "Is occupied";
@@ -144,7 +144,7 @@ public class CreateMapController {
     }
     public static int indexOfUser = 0 ;
     public static String locateCatle(int x , int y) {
-        if (!mapIsBuilded) return "You first must build a map!";
+        if (!mapIsBuilt) return "You first must build a map!";
         int numberOfUsers = User.loginUsers.size();
         if (CreateMapController.numberOfEmpires == numberOfUsers) {
             return "you must have more user to continue!";
@@ -160,7 +160,7 @@ public class CreateMapController {
         Castle castle = new Castle(empire);
         castle.castle();
         Map.getBuildingMap()[x][y].add(castle);
-        numberOfEmpiers ++ ;
+        numberOfEmpires ++ ;
 
         return "Successfully done!";
     }
