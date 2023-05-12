@@ -15,6 +15,7 @@ public class Empire {
     public int castleYCCoordinate;
     public static ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
     public static ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
+    public static ArrayList<Integer> DrawBride = new ArrayList<>();
 
 
     public User getUser() {
@@ -901,11 +902,11 @@ public class Empire {
     }
 
     public int getFireBalistaCount() {
-        return siegeTentTroopsCount.get("fireBalista");
+        return siegeTentTroopsCount.get("fireBallista");
     }
 
     public void setFireBalistaCount(int fireBalistaCount) {
-        siegeTentTroopsCount.replace("fireBalista", fireBalistaCount);
+        siegeTentTroopsCount.replace("fireBallista", fireBalistaCount);
     }
 
     public int getBatteringRamCount() {

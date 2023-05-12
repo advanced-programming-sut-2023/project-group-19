@@ -38,7 +38,6 @@ public class Map {
 
     public static void CreateMap(int size) {
         Map.mapSize = size ;
-        System.out.println(mapSize);
         buildingMap = new ArrayList[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

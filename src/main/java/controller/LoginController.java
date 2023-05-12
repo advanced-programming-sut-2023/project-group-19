@@ -136,11 +136,11 @@ public class LoginController {
         }
         return hexString.toString();
     }
+
     public static String getHashCode(String text) {
         try {
             return toHexString(getSHA(text));
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
         return null;

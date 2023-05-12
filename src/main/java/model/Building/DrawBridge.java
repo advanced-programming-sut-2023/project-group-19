@@ -12,7 +12,7 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private Boolean bridgeState;//default : not passable
+    private Boolean bridgeState;
 
     public Names getNames() {
         return this.name;
@@ -59,14 +59,6 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public Boolean getBridgeState() {
-        return bridgeState;
-    }
-
-    public void setBridgeState(Boolean bridgeState) {
-        this.bridgeState = bridgeState;
     }
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {

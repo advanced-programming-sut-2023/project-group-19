@@ -28,7 +28,7 @@ public class TradeController {
         if (selectedEmpire != null) {
             if (typeOfResources(goodType)) {
                 if (enoughMoneyToBuy(currentEmpire, price)) {
-                    if (amount > 0 && checkTheCapacity(amount, goodType, currentEmpire) ) {
+                    if (amount > 0 && checkTheCapacity(amount, goodType, currentEmpire)) {
                         String id = idProvider(currentEmpire, currentEmpire.getAllRequests().size() + 1);
                         Request request = new Request(messageOfRequest, price, amount, goodType, id, currentEmpire, selectedEmpire);
                         request.setStatus("Not accepted yet!");
@@ -61,7 +61,7 @@ public class TradeController {
         int number = 1;
         System.out.println("Donation List :");
         for (Request donation : currentEmpire.getAllDonations()) {
-            System.out.println("\t" + number + ".Empire: " + donation.getSender().getName()+ " id: " + donation.getId() + " status :"+donation.getStatus());
+            System.out.println("\t" + number + ".Empire: " + donation.getSender().getName() + " id: " + donation.getId() + " status :" + donation.getStatus());
             number++;
         }
     }
@@ -70,7 +70,7 @@ public class TradeController {
         int number = 1;
         System.out.println("Request List :");
         for (Request request : currentEmpire.getAllRequests()) {
-            System.out.println("\t" + number + ".Empire: " + request.getSender().getName() + " id: " + request.getId() + " status :"+request.getStatus());
+            System.out.println("\t" + number + ".Empire: " + request.getSender().getName() + " id: " + request.getId() + " status :" + request.getStatus());
             number++;
         }
     }
@@ -103,7 +103,7 @@ public class TradeController {
                     request1.setStatus("Accepted!");
                     return TradeMenuMessages.SUCCESS;
                 } else return TradeMenuMessages.NOT_ENOUGH_RESOURCES;
-            }else return TradeMenuMessages.INVALID_EMPIRE;
+            } else return TradeMenuMessages.INVALID_EMPIRE;
         }
         return TradeMenuMessages.NO_DONATION;
     }
@@ -292,7 +292,7 @@ public class TradeController {
             }
             case "blackMonk" -> {
                 customer.setBlackMonkCount(customer.getBlackMonkCount() + count);
-                seller.setBlackMonkCount(seller.getBlackMonkCount() -count);
+                seller.setBlackMonkCount(seller.getBlackMonkCount() - count);
             }
             case "knight" -> {
                 customer.setKnightCount(customer.getKnightCount() + count);
@@ -300,7 +300,7 @@ public class TradeController {
             }
             case "arabianBow" -> {
                 customer.setArabianBowCount(customer.getArabianBowCount() + count);
-                seller.setArabianBowCount(seller.getArabianBowCount() -count);
+                seller.setArabianBowCount(seller.getArabianBowCount() - count);
             }
             case "slave" -> {
                 customer.setSlaveCount(customer.getSlaveCount() + count);
@@ -320,11 +320,11 @@ public class TradeController {
             }
             case "arabianSwordMan" -> {
                 customer.setArabianSwordManCount(customer.getArabianSwordManCount() + count);
-                seller.setArabianSwordManCount(seller.getArabianSwordManCount() -count);
+                seller.setArabianSwordManCount(seller.getArabianSwordManCount() - count);
             }
             case "fireThrower" -> {
                 customer.setFireThrowerCount(customer.getFireThrowerCount() + count);
-                seller.setFireThrowerCount(seller.getFireThrowerCount() -count);
+                seller.setFireThrowerCount(seller.getFireThrowerCount() - count);
             }
             case "engineer" -> {
                 customer.setEngineerCount(customer.getEngineerCount() + count);
@@ -340,15 +340,15 @@ public class TradeController {
             }
             case "catapult" -> {
                 customer.setCatapultCount(customer.getCatapultCount() + count);
-                seller.setCatapultCount(seller.getCatapultCount() -count);
+                seller.setCatapultCount(seller.getCatapultCount() - count);
             }
             case "trebuchet" -> {
                 customer.setTrebuchetCount(customer.getTrebuchetCount() + count);
                 seller.setTrebuchetCount(seller.getTrebuchetCount() - count);
             }
             case "siegeTower" -> {
-                customer.setSiegeTowerCount(customer.getSiegeTowerCount() +count);
-                seller.setSiegeTowerCount(seller.getSiegeTowerCount() -count);
+                customer.setSiegeTowerCount(customer.getSiegeTowerCount() + count);
+                seller.setSiegeTowerCount(seller.getSiegeTowerCount() - count);
             }
             case "fireBallista" -> {
                 customer.setFireBalistaCount(customer.getFireBalistaCount() + count);
@@ -366,33 +366,34 @@ public class TradeController {
     }
 
     public void showTradeHistory() {
-        int number = 1 ;
+        int number = 1;
         System.out.println("List of Accepted Requests:");
-        for (Request request : currentEmpire.getAllRequests()){
-            if (request.isAcceptance()){
-                System.out.println("\t"+number+". Sender: "+request.getSender());
-                System.out.println("\tGood : "+request.getGoodName());
-                System.out.println("\tAmount: "+request.getAmount());
-                System.out.println("\tPrice: "+request.getPrice());
-                System.out.println("\tCustomer Message : "+request.getMessage());
-                System.out.println("\tSeller Message : "+request.getFromSellerMessage());
+        for (Request request : currentEmpire.getAllRequests()) {
+            if (request.isAcceptance()) {
+                System.out.println("\t" + number + ". Sender: " + request.getSender());
+                System.out.println("\tGood : " + request.getGoodName());
+                System.out.println("\tAmount: " + request.getAmount());
+                System.out.println("\tPrice: " + request.getPrice());
+                System.out.println("\tCustomer Message : " + request.getMessage());
+                System.out.println("\tSeller Message : " + request.getFromSellerMessage());
                 number++;
             }
         }
         System.out.println("List of Accepted Donations:");
-        for (Request request : currentEmpire.getAllDonations()){
-            if (request.isAcceptance()){
-                System.out.println("\t"+number+". Sender: "+request.getSender().getName());
-                System.out.println("\t\s\s\sGood : "+request.getGoodName());
-                System.out.println("\t\s\s\sAmount: "+request.getAmount());
-                System.out.println("\t\s\s\sPrice: "+request.getPrice());
-                System.out.println("\t\s\s\sCustomer Message : "+request.getMessage());
-                System.out.println("\t\s\s\sSeller Message : "+request.getFromSellerMessage());
+        for (Request request : currentEmpire.getAllDonations()) {
+            if (request.isAcceptance()) {
+                System.out.println("\t" + number + ". Sender: " + request.getSender().getName());
+                System.out.println("\t\s\s\sGood : " + request.getGoodName());
+                System.out.println("\t\s\s\sAmount: " + request.getAmount());
+                System.out.println("\t\s\s\sPrice: " + request.getPrice());
+                System.out.println("\t\s\s\sCustomer Message : " + request.getMessage());
+                System.out.println("\t\s\s\sSeller Message : " + request.getFromSellerMessage());
                 number++;
             }
         }
     }
-    public void notification(){
+
+    public void notification() {
         System.out.println("Notifications : ");
         System.out.println("List Of New Requests : ");
         for (int j = currentEmpire.getNotificationOfRequest(); j < currentEmpire.getAllRequests().size(); j++) {
