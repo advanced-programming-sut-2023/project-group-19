@@ -1,6 +1,8 @@
 package view.Commands;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public enum TradeMenuCommands {
     TRADE("trade .+"),
     SELECT_EMPIRE("select -e (?<name>.+)"),
@@ -13,9 +15,11 @@ public enum TradeMenuCommands {
     TRADE_ACCEPTED("trade accept .+"),
     TRADE_ACCEPTED_ID_CHECK(".*-i (?<id>\\S+).*"),
     TRADE_ACCEPTED_MESSAGE_CHECK(".*-m (?<tradeMessage>[^-i]+) .*"),
-    LOGOUT("Logout"),;
+    LOGOUT("Logout"),
+    ;
 
     private Pattern name;
+
     public Pattern getName() {
         return name;
     }
@@ -27,6 +31,7 @@ public enum TradeMenuCommands {
     TradeMenuCommands(String name) {
         this.name = Pattern.compile(name);
     }
+
     public static Matcher getMatcher(String input, TradeMenuCommands command) {
         Matcher matcher = command.name.matcher(input);
         return matcher.matches() ? matcher : null;

@@ -2,17 +2,17 @@ package view;
 
 import controller.JsonController;
 import model.*;
-//import controller.Controller;
 import controller.LoginController;
 import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu {
+    private static int numberToWait = 1;
+
     public static void run(Scanner scanner) throws InterruptedException, IOException {
         JsonController.readDataFile("User.json");
         JsonController.saveAllUsersFileData();
@@ -43,7 +43,6 @@ public class LoginMenu {
         }
     }
 
-    private static int numberToWait = 1;
 
     private static void ForgotPasswordCheck(String command, Scanner scanner) throws IOException {
         String username;
@@ -72,7 +71,7 @@ public class LoginMenu {
                 case WEAK_PASSWORD_FOR_LOWERCASE:
                     System.out.println("You should use lowercase characters");
                     return;
-                case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
+                case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
                     System.out.println("You should use chars except alphabetical!");
                     return;
                 case WEAK_PASSWORD_FOR_UPPERCASE:
@@ -160,20 +159,19 @@ public class LoginMenu {
             else slogan = null;
         } else slogan = matcher.group("slogan");
 
-        sendInformationsOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
+        sendInformationOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
     }
-    //ASss8+====~`"
 
-    private static void sendInformationsOfRegisterUser(String username, String password, String confirmPassword,
-                                                       String email, String nickname, String slogan, Scanner scanner) throws IOException {
+    private static void sendInformationOfRegisterUser(String username, String password, String confirmPassword,
+                                                      String email, String nickname, String slogan, Scanner scanner) throws IOException {
         RegisterMessages message = LoginController.checkErrorForRegister(username, password, confirmPassword, email, nickname, slogan);
         switch (message) {
-            case USERNAME_REPETED:
+            case USERNAME_REPEATED:
                 username = LoginController.makeUserNameForUser(username);
                 System.out.println("Your name is repeated but the name " + username + " exists now. Would you like to use it? Type yes if you want!");
                 String answer = scanner.nextLine();
                 if (answer.equals("yes") || answer.equals("Yes"))
-                    sendInformationsOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
+                    sendInformationOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
                 else {
                     System.out.println("Try again");
                     return;
@@ -182,7 +180,7 @@ public class LoginMenu {
             case GET_RANDOM_SLOGANS:
                 slogan = LoginController.getRandomSlogan();
                 System.out.println("Your slogan is \"" + slogan + "\"");
-                sendInformationsOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
+                sendInformationOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
                 break;
             case GET_RANDOM_PASSWORD:
                 password = LoginController.generateRandomPassword();
@@ -190,7 +188,7 @@ public class LoginMenu {
                 String ans = scanner.nextLine();
                 while (true) {
                     if (ans.equals(password)) {
-                        sendInformationsOfRegisterUser(username, password, password, email, nickname, slogan, scanner);
+                        sendInformationOfRegisterUser(username, password, password, email, nickname, slogan, scanner);
                         break;
                     }
                     System.out.println("Type it again!");
@@ -200,7 +198,7 @@ public class LoginMenu {
             case INCORRECT_FORM_OF_USERNAME:
                 System.out.println("Your format of username is invalid!");
                 return;
-            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL:
+            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
                 System.out.println("You should use chars except alphabetical!");
                 return;
             case WEAK_PASSWORD_FOR_LENGTH:
@@ -221,7 +219,7 @@ public class LoginMenu {
             case INVALID_FORM_EMAIL:
                 System.out.println("Invalid form of email!");
                 return;
-            case REPETED_EMAIL:
+            case REPEATED_EMAIL:
                 System.out.println("Your email is repeated!");
                 return;
             case EMPTY_FIELD:
@@ -251,14 +249,12 @@ public class LoginMenu {
 
     private static String[] getMatcherForRegister(String command) {
         int number = 0;
-
         String ask = null;
         String askConfirm = null;
         Matcher matcher;
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_NUMBER);
         if (matcher != null)
             number = Integer.parseInt(matcher.group("number"));
-
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_ASK);
         if (matcher != null)
             ask = matcher.group("ask");

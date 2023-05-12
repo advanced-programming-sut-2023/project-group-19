@@ -12,14 +12,16 @@ public enum ProfileMenuCommands {
 
     PROFILE_EMAIL_CHANGE("profile\\s+change\\s+(--email|-e)\\s+(?<email>(?=\")\"[^\"]+\"|\\S+)"),
     PROFILE_SLOGAN_CHANGE("profile\\s+change\\s+slogan\\s+-s\\s+(?<slogan>(?=\")\"[^\"]+\"|\\S+)");
-    String regex ;
-    ProfileMenuCommands(String regex){
-        this.regex = regex ;
+    String regex;
+
+    ProfileMenuCommands(String regex) {
+        this.regex = regex;
     }
-    public static Matcher getMatcher(String command , ProfileMenuCommands mainRegex){
+
+    public static Matcher getMatcher(String command, ProfileMenuCommands mainRegex) {
         Matcher matcher = Pattern.compile(mainRegex.regex).matcher(command);
-        if(matcher.find()) return matcher ;
-        return null ;
+        if (matcher.find()) return matcher;
+        return null;
     }
 
 }

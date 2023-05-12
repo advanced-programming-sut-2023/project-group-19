@@ -23,8 +23,6 @@ public enum SelectedBuildingCommands {
             "Armoury|Barracks|Mercenary|EngineerGuild|KillingPit|OilSmelter|" +
             "PitchDitch|CagedWarDogs|SiegeTent|Stable"),
     SELECTED_BUILDING_COMMANDS_FIND_COUNT(".*-c\\s+(?<count>\\d+)\\s*");
-
-
     private Pattern name;
 
     public Pattern getName() {

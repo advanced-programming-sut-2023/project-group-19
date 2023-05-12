@@ -80,7 +80,7 @@ class LoginControllerTest {
         message = LoginController.checkErrorForRegister
                 ("dsfcjd","GGHGf76gf","df",
                         "sedcsdc","sdfcd","rvefdv");
-        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL);
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL);
 
         message = LoginController.checkErrorForRegister
                 ("dsfcjd","G6*f","df",
@@ -141,13 +141,13 @@ class LoginControllerTest {
                 ("a","dsfc","ass",
                         "sedcsdc","sdfcd","dsds");
 
-        Assertions.assertEquals(message,RegisterMessages.USERNAME_REPETED);
+        Assertions.assertEquals(message,RegisterMessages.USERNAME_REPEATED);
 
         message = LoginController.checkErrorForRegister
                 ("ajjk","G6*ffff","G6*ffff",
                         "sEdc@s.dc","sdfcd","dsds");
 
-        Assertions.assertEquals(message,RegisterMessages.REPETED_EMAIL);
+        Assertions.assertEquals(message,RegisterMessages.REPEATED_EMAIL);
     }
 
     @Test
@@ -204,7 +204,7 @@ class LoginControllerTest {
         Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NUMBER);
 
         message = LoginController.changePassword(user,"G6f");
-        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL);
+        Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL);
 
         message = LoginController.changePassword(user,"G6*");
         Assertions.assertEquals(message,RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE);

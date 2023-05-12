@@ -25,7 +25,7 @@ public class LoginController {
             return RegisterMessages.EMPTY_FIELD;
         }
         slogan = changeTextIwithoutCot(slogan);
-        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED;
+        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPEATED;
         if (!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if (slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
         if (password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD;
@@ -35,11 +35,11 @@ public class LoginController {
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if (!password.matches(".*[\\W\\_].*"))
-            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
+            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL;
         if (password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
         if (!password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         String changedEmail = email.toLowerCase();
-        if (User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPETED_EMAIL;
+        if (User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPEATED_EMAIL;
         if (!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]+\\.+[A-Za-z0-9\\.]+"))
             return RegisterMessages.INVALID_FORM_EMAIL;
         return RegisterMessages.SUCCESS;
@@ -49,7 +49,7 @@ public class LoginController {
         password = changeTextIwithoutCot(password);
         if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!password.matches(".*[\\W\\_].*"))
-            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
+            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL;
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if (password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;

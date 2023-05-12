@@ -9,13 +9,15 @@ public enum MainMenuCommands {
     SHOW_MAP("show\\s+map"),
     SHOW_MAP_X("-x\\s+(?<x>\\d+)"),
     SHOW_MAP_Y("-y\\s+(?<y>\\d+)");
-    String regex ;
-    MainMenuCommands(String regex){
+    String regex;
+
+    MainMenuCommands(String regex) {
         this.regex = regex;
     }
-    public static Matcher getMatcher(String command , MainMenuCommands mainRegex){
+
+    public static Matcher getMatcher(String command, MainMenuCommands mainRegex) {
         Matcher matcher = Pattern.compile(mainRegex.regex).matcher(command);
-        if(matcher.find()) return matcher ;
-        return null ;
+        if (matcher.find()) return matcher;
+        return null;
     }
 }

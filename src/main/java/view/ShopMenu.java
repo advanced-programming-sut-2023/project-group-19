@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 public class ShopMenu {
     public static Shop currentShop;
 
-    public void run(Scanner scanner  , Shop shop) {
+    public void run(Scanner scanner, Shop shop) {
         String command;
         Matcher itemName;
         Matcher itemAmount;

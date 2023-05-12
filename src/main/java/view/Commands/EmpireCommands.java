@@ -14,12 +14,14 @@ public enum EmpireCommands {
     SET_FEAR_RATE("\s*fear rate -r (?<rateNumber>\\d+)\s*"),
     LOGOUT("\s*Logout\s*");
     String regex;
-    EmpireCommands(String regex){
-        this.regex = regex ;
+
+    EmpireCommands(String regex) {
+        this.regex = regex;
     }
-    public static Matcher getMatcher(String command , EmpireCommands mainRegex){
+
+    public static Matcher getMatcher(String command, EmpireCommands mainRegex) {
         Matcher matcher = Pattern.compile(mainRegex.regex).matcher(command);
-        if(matcher.find()) return matcher ;
-        return null ;
+        if (matcher.find()) return matcher;
+        return null;
     }
 }

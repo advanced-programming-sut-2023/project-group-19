@@ -1,7 +1,5 @@
 package view.Commands;
 
-import model.Building.Shop;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +14,7 @@ public enum ShopMenuCommands {
 
     LOGOUT("\\s*Logout\\s*");
     private Pattern name;
+
     public Pattern getName() {
         return name;
     }
@@ -27,6 +26,7 @@ public enum ShopMenuCommands {
     ShopMenuCommands(String name) {
         this.name = Pattern.compile(name);
     }
+
     public static Matcher getMatcher(String input, ShopMenuCommands command) {
         Matcher matcher = command.name.matcher(input);
         return matcher.matches() ? matcher : null;

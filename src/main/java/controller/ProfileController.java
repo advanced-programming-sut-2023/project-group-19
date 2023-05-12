@@ -32,7 +32,7 @@ public class ProfileController {
     }
 
     public static ProfileMenuMessage changeUsername(String username) throws IOException {
-        if(User.getUserByName(username) != null) return ProfileMenuMessage.REPETED;
+        if(User.getUserByName(username) != null) return ProfileMenuMessage.REPEATED;
         User user = User.getCurrentUser();
         if (!username.matches(".*[A-Za-z0-9_].*")) return ProfileMenuMessage.INVALID_FORM_USERNAME;
         user.setUsername(username);
@@ -95,7 +95,7 @@ public class ProfileController {
 
     public static ProfileMenuMessage changeEmail(String email) throws IOException {
         String newEmail = email.toLowerCase();
-        if(User.getUserByEmail(newEmail) != null) return ProfileMenuMessage.REPETED ;
+        if(User.getUserByEmail(newEmail) != null) return ProfileMenuMessage.REPEATED ;
         if (!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]*\\.+[A-Za-z0-9\\.]*"))
             return ProfileMenuMessage.INVALID_FORM_EMAIL;
         User user = User.getCurrentUser();

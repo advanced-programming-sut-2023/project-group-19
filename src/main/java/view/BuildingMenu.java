@@ -3,6 +3,7 @@ package view;
 import controller.Building.BuildingController;
 import view.Commands.BuildingCommands;
 import view.Messages.BuildingMessages;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -15,7 +16,7 @@ public class BuildingMenu {
         while (true) {
             input = scanner.nextLine();
             if (BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_DROP_BUILDING) != null) {
-                if(BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_X) == null ||
+                if (BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_X) == null ||
                         BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_Y) == null ||
                         BuildingCommands.getMatcher(input, BuildingCommands.BUILDING_COMMANDS_FIND_DROP_BUILDING_TYPE) == null) {
                     System.out.println(BuildingCommands.INVALID_COMMAND.getName());

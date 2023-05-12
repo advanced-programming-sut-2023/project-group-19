@@ -25,7 +25,6 @@ public enum GameMenuCommands {
     BUILD_EQUIPMENT("build .+"),
     EQUIPMENT(".*-q (?<equipmentName>\\S+).*"),
     DISBAND_UNIT("disband unit"),
-    ENTER_MAP_MENU("Enter MapMenu"),
     TYPE(".*-t (?<type>\\S+).*"),
     DROP_UNIT("dropunit .+"),
     COUNT(".*-c (?<count>\\d+).*"),
@@ -44,6 +43,7 @@ public enum GameMenuCommands {
     LOGOUT("Logout"),
     SHOW_MAP("show\\s+map");
     private Pattern name;
+
     public Pattern getName() {
         return name;
     }
@@ -55,6 +55,7 @@ public enum GameMenuCommands {
     GameMenuCommands(String name) {
         this.name = Pattern.compile(name);
     }
+
     public static Matcher getMatcher(String input, GameMenuCommands command) {
         Matcher matcher = command.name.matcher(input);
         return matcher.matches() ? matcher : null;

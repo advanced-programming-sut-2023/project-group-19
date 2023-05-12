@@ -608,7 +608,7 @@ public class GameController {
                         } else return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
                     } else return GameMenuMessages.UNABLE_TO_MOVE_TREBUCHET;
                 }
-                return GameMenuMessages.LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES;
+                return GameMenuMessages.LOCATION_CONTAINS_WATER_RESOURCES_OR_HIGH_PLACES;
             }
             return GameMenuMessages.NO_UNIT_SELECTED;
         }

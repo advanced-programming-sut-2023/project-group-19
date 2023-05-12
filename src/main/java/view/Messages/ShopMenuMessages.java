@@ -29,6 +29,6 @@ public enum ShopMenuMessages {
     }
 
     ShopMenuMessages(String messages) {
-        this.messages=messages;
+        this.messages = messages;
     }
 }

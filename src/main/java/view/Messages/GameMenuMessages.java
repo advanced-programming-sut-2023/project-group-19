@@ -5,7 +5,7 @@ public enum GameMenuMessages {
     NO_UNIT_IN_CELL("The chosen cell doesn't contain any unit that belongs to your empire!"),
     NO_UNIT_SELECTED("You haven't selected a unit yet!"),
     LOCATION_CONTAINS_BUILDING("The chosen coordinate contains a building"),
-    LOCATION_CONTAINS_WATERSOURCES_OR_HIGH_PLACES("The chosen coordinate contains water sources or high towers which can't be moved to them at once!!"),
+    LOCATION_CONTAINS_WATER_RESOURCES_OR_HIGH_PLACES("The chosen coordinate contains water sources or high towers which can't be moved to them at once!!"),
     EMPTY_COORDINATE_FIELD("Some of your coordinate fields are empty or invalid!"),
     EMPTY_DIRECTION_FIELD("The direction field is empty in your entry!"),
     EMPTY_EQUIPMENT_FIELD("The equipment field is empty in your entry!"),
@@ -30,7 +30,8 @@ public enum GameMenuMessages {
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),
     SUCCESS("The order is successfully done!"),
-    LOGOUT("Logout"),;
+    LOGOUT("Logout"),
+    ;
     private String messages;
 
     public String getMessages() {
@@ -42,6 +43,6 @@ public enum GameMenuMessages {
     }
 
     GameMenuMessages(String messages) {
-        this.messages=messages;
+        this.messages = messages;
     }
 }
