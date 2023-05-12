@@ -6,12 +6,12 @@ import model.Obstacle.Obstacle;
 import model.Obstacle.Stone;
 import model.Obstacle.Tree;
 import model.Obstacle.WaterSources;
-import model.* ;
+import model.*;
 import model.Building.*;
 
 public class CreateMapController {
-    public static boolean mapIsReadyForGame = false ;
-    public static int numberOfEmpiers ;
+    public static boolean mapIsReadyForGame = false;
+    public static int numberOfEmpiers;
 
     public static boolean mapIsBuilded = false;
     private static int sizeOfMap;
@@ -61,7 +61,6 @@ public class CreateMapController {
             Map.notPassable[x - 1][y - 1] = true ;
             Map.notBuildable[x - 1][y - 1] = true ;
         }
-
         Map.getGroundType()[x - 1][y - 1].add(groundType);
         return "Change is done successfully!";
     }
@@ -85,20 +84,23 @@ public class CreateMapController {
         }
         return "Change is done successfully!";
     }
-    public static String clear(int x , int y){
+
+    public static String clear(int x, int y) {
         if (!mapIsBuilded) return "You first must build a map!";
-        if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
+        if (x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "Yure location is out of bounds";
         Map.getTroopMap()[x - 1][y - 1].clear();
         Map.getBuildingMap()[x - 1][y - 1].clear();
         Map.getGroundType()[x - 1][y - 1].clear();
-        Map.getGroundType()[x -1][y - 1].add(GroundType.DEFAULT);
+        Map.getGroundType()[x - 1][y - 1].add(GroundType.DEFAULT);
         Map.getObstacleMap()[x - 1][y - 1].clear();
-        Map.notPassable[x - 1][y - 1] = false ;
-        Map.notBuildable[x - 1][y - 1] = false ;
+        Map.notPassable[x - 1][y - 1] = false;
+        Map.notBuildable[x - 1][y - 1] = false;
         return "Clear successfully";
     }
-    public static String dropRock(int x , int y , String type){
-        if(!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s")) return "Choose direction correctly!";
+
+    public static String dropRock(int x, int y, String type) {
+        if (!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s"))
+            return "Choose direction correctly!";
         if (!mapIsBuilded) return "You first must build a map!";
         if(x < 1 || x > sizeOfMap || y < 1 || y > sizeOfMap) return "yure location is out of bounds";
         if(Map.notBuildable[x - 1][y - 1]) return "Is occupied";
@@ -119,7 +121,7 @@ public class CreateMapController {
                 if(Map.notBuildable[i - 1][j - 1]) return "Is occupied";
             }
         }
-        if(Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.IRON) &&
+        if (Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.IRON) &&
                 Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE_ROCK) &&
                 Map.getGroundType()[x - 1][y - 1].get(0).equals(GroundType.STONE)
         ) return "not good type of ground!";

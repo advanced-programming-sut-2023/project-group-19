@@ -1,7 +1,6 @@
 package model.Human.Troop;
 
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 import java.util.List;
@@ -156,5 +155,10 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return super.typeOfArmy();
     }
 }

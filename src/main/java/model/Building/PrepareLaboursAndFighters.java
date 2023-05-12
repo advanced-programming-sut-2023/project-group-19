@@ -34,7 +34,10 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
     }
 
     public void barracks() {
+        this.hp = 400;
+        this.maxHp = 400;
         this.name = Names.BARRACK;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(0, 15, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }

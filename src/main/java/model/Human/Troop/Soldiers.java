@@ -10,7 +10,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public Soldiers(Empire government) {
         super(government);
     }
-
+    public boolean fight;
 
     public Names getNames() {
         return names;
@@ -62,87 +62,87 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     }
 
     public void BlackMonk(int x, int y) {
-        hp = 300;
-        maxHp = 300;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.BLACK_MONK;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 3;
-        speed = 3;
-        restOfMoves = 3;
-        attackPower = 500;
-        defencePower = 150;
+        this.hp = 300;
+        this.maxHp = 300;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.BLACK_MONK;
+        this.xCoordinate = x;
+        this. yCoordinate = y;
+        this. attackRange = 3;
+        this.speed = 3;
+        this.restOfMoves = 3;
+        this. attackPower = 500;
+        this. defencePower = 150;
     }
 
     public void Knight(int x, int y) {
-        hp = 900;
-        maxHp = 900;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.KNIGHT;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 5;
-        speed = 9;
-        attackPower = 1000;
-        defencePower = 450;
-        restOfMoves = 9;
+        this.hp = 900;
+        this.maxHp = 900;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.KNIGHT;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 5;
+        this.speed = 9;
+        this.attackPower = 1000;
+        this.defencePower = 450;
+        this.restOfMoves = 9;
     }
 
     public void Swordsmen(int x, int y) {
         this.hp = 650;
-        maxHp = 650;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.SWORDSMEN;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 3;
-        speed = 1;
-        attackPower = 800;
-        defencePower = 100;
-        restOfMoves = 1;
+        this.maxHp = 650;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.SWORDSMEN;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 3;
+        this.speed = 1;
+        this.attackPower = 800;
+        this.defencePower = 100;
+        this.restOfMoves = 1;
     }
 
     public void PikeMen(int x, int y) {
-        hp = 500;
-        maxHp = 500;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.PIKE_MEN;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 3;
-        speed = 3;
-        restOfMoves = 3;
-        attackPower = 600;
-        defencePower = 350;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.PIKE_MEN;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 3;
+        this.speed = 3;
+        this.restOfMoves = 3;
+        this.attackPower = 600;
+        this.defencePower = 350;
     }
 
     public void Slaves(int x, int y) {
-        hp = 400;
-        maxHp = 400;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.SLAVES;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 2;
-        speed = 7;
-        restOfMoves = 7;
-        attackPower = 200;
-        defencePower = 20;
+        this.hp = 400;
+        this.maxHp = 400;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.SLAVES;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 2;
+        this.speed = 7;
+        this.restOfMoves = 7;
+        this.attackPower = 200;
+        this.defencePower = 20;
     }
 
     public void ArabianSwordsmen(int x, int y) {
-        hp = 700;
-        maxHp = 700;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.ARABIAN_SWORDSMEN;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 4;
-        speed = 9;
-        restOfMoves = 9;
-        attackPower = 800;
-        defencePower = 450;
+        this.hp = 700;
+        this.maxHp = 700;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.ARABIAN_SWORDSMEN;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 4;
+        this.speed = 9;
+        this.restOfMoves = 9;
+        this.attackPower = 800;
+        this.defencePower = 450;
     }
 
     @Override
@@ -211,7 +211,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     }
 
     @Override
-    public int getHp() {
-        return hp;
+    public Names typeOfArmy() {
+        return super.typeOfArmy();
     }
 }

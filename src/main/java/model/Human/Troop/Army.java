@@ -3,8 +3,8 @@ package model.Human.Troop;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
-import model.Human.Names;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Army extends Human {
@@ -14,12 +14,11 @@ public class Army extends Human {
     }
 
     public boolean isIntFight = false;
+    public boolean hasMovedForDefensiveState = false;
 
-
-    public boolean hasMovedForDeffensiveState = false;
-
-    protected ArchersAndThrowers archerAttacker = null;
-
+    private ArchersAndThrowers archerAttacker = null;
+    protected int pastXcordinate;
+    protected int pastYcordinate;
     public ArchersAndThrowers getArcherAttacker() {
         return archerAttacker;
     }
@@ -38,9 +37,6 @@ public class Army extends Human {
     public void setIntFight(boolean intFight) {
         isIntFight = intFight;
     }
-
-
-
 
     public Army getEnemy() {
         return enemy;
@@ -149,7 +145,7 @@ public class Army extends Human {
     }
 
     public String getArmyForm() {
-        return armyForm;
+        return this.armyForm;
     }
 
     public void setArmyForm(String armyForm) {
@@ -219,5 +215,10 @@ public class Army extends Human {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return typeOfArmy;
     }
 }

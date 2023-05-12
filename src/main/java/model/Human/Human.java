@@ -3,22 +3,33 @@ package model.Human;
 import model.Empire;
 import model.Human.Troop.HumanConstantFunctions;
 
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Human implements HumanConstantFunctions {
     private Empire owner;
-    private int hp;
+    public Names typeOfArmy;
+    public Names names;
+    public String armyForm;
+    public boolean fight;
+    public int hp;
     public int maxHp;
-    public int xCoordinate;
-    public int yCoordinate;
-    public int restOfMoves;
+    public int speed;
+    public int defencePower;
+    public int attackPower;
+    public int attackRange;
     public int startXCoordinate;
     public int startYCoordinate;
+    public int xCoordinate;
+    public int yCoordinate;
     public int goalXCoordinate;
     public int goalYCoordinate;
     public int finalXCoordinate;
     public int finalYCoordinate;
     public List<Integer> myPath;
+    public int restOfMoves;
+    public HashMap<String, Integer> cost = new HashMap<>();
+    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public int getHp() {
         return hp;
@@ -103,5 +114,10 @@ public abstract class Human implements HumanConstantFunctions {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return typeOfArmy;
     }
 }

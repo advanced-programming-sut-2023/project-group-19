@@ -30,8 +30,7 @@ public class MainMenu {
             } else if(command.matches("\\s*enter\\s+map\\s+menu\\s*")){
                 System.out.println("Entered map menu successfully!");
                 CreateMapMenu.run(scanner);
-            }
-            else if(command.matches("\\s*enter\\s+game\\s+menu")){
+            } else if (command.matches("\\s*enter\\s+game\\s+menu")) {
                 System.out.println("Entered game menu successfully!");
                 enterGameMenu(scanner);
             }
@@ -40,11 +39,11 @@ public class MainMenu {
     }
 
     private static void enterGameMenu(Scanner scanner) throws IOException, InterruptedException {
-        if(CreateMapController.numberOfEmpiers >= 2){
+        if (CreateMapController.numberOfEmpiers >= 2) {
             NextTurnController nextTurnController = new NextTurnController();
             nextTurnController.game(scanner);
             CreateMapController.recovery();
-        }else {
+        } else {
             System.out.println("more castle must be build!");
         }
     }

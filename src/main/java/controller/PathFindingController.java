@@ -10,11 +10,9 @@ import java.util.Queue;
 public class PathFindingController {
 
     private static boolean isNotVisited(int x, List<Integer> path) {
-        int size = path.size();
         for (Integer integer : path)
             if (integer == x)
                 return false;
-
         return true;
     }
 

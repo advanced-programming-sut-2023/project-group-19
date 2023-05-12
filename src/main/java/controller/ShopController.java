@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 
 public class ShopController {
     public static Empire ownerOfShop = ShopMenu.currentShop.getOwner();
+
     public void showPriceList() {
         int number = 1;
         System.out.println("Attention:");
@@ -21,7 +22,7 @@ public class ShopController {
             for (Map.Entry<String, Integer> goodsForSelling : ShopMenu.currentShop.getListOfGoodsSellPrice().entrySet()) {
                 String nameOfGoodsForSelling = goodsForSelling.getKey();
                 if (nameOfGoodsForBuying.equals(nameOfGoodsForSelling)) {
-                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying , ownerOfShop);
+                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying, ownerOfShop);
                     System.out.print(number + ". ");
                     System.out.println("Name: " + nameOfGoodsForBuying);
                     System.out.println("\tBuying Price: " + goodsForBuying.getValue());
@@ -39,15 +40,15 @@ public class ShopController {
         Map.Entry<String, Integer> chosenGood = findGoodToBuy(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (getNumberOfGoods(chosenGood.getKey() , ownerOfShop) >= amount) {
+            if (getNumberOfGoods(chosenGood.getKey(), ownerOfShop) >= amount) {
                 if (checkTheCapacity(amount, chosenGood.getKey(), Manage.getCurrentEmpire())) {
-                    if (enoughMoneyToBuy(Manage.getCurrentEmpire() , chosenGood.getValue())) {
+                    if (enoughMoneyToBuy(Manage.getCurrentEmpire(), chosenGood.getValue())) {
                         validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
                         String answer = scanner.nextLine();
                         if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
                             Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
                             ownerOfShop.setGoldCount(ownerOfShop.getGoldCount() + chosenGood.getValue());
-                            setNumberOfGoods(Manage.getCurrentEmpire(), ownerOfShop, amount*5, chosenGood.getKey());
+                            setNumberOfGoods(Manage.getCurrentEmpire(), ownerOfShop, amount * 5, chosenGood.getKey());
                             return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
                         } else return ShopMenuMessages.OPERATION_CANCELLED;
                     } else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
@@ -62,18 +63,18 @@ public class ShopController {
         Map.Entry<String, Integer> chosenGood = findGoodToSell(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (getNumberOfGoods(chosenGood.getKey() , Manage.getCurrentEmpire()) >= amount) {
-                if (checkTheCapacity(amount, chosenGood.getKey() ,ownerOfShop)) {
-                    if (enoughMoneyToBuy(ownerOfShop , chosenGood.getValue())) {
+            if (getNumberOfGoods(chosenGood.getKey(), Manage.getCurrentEmpire()) >= amount) {
+                if (checkTheCapacity(amount, chosenGood.getKey(), ownerOfShop)) {
+                    if (enoughMoneyToBuy(ownerOfShop, chosenGood.getValue())) {
                         validationFormForSelling(nameOfGood, chosenGood.getValue(), amount);
                         String answer = scanner.nextLine();
                         if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
-                            Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() + chosenGood.getValue()*amount);
-                            ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() - chosenGood.getValue()*amount);
+                            Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() + chosenGood.getValue() * amount);
+                            ShopMenu.currentShop.setGoldCount(ShopMenu.currentShop.getGoldCount() - chosenGood.getValue() * amount);
                             setNumberOfGoods(ownerOfShop, Manage.getCurrentEmpire(), amount, chosenGood.getKey());
                             return ShopMenuMessages.SELLING_OPERATION_SUCCEEDED;
                         } else return ShopMenuMessages.OPERATION_CANCELLED;
-                    }else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
+                    } else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
                 } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_SHOP;
             } else return ShopMenuMessages.NOT_ENOUGH_AMOUNT_TO_SELL;
         }
@@ -97,46 +98,43 @@ public class ShopController {
         }
         return null;
     }
+
     public void validationFormForBuying(String goodName, int price, int amount) {
         System.out.println("Dear customer from " + Manage.getCurrentEmpire().getName() + " Empire\n" +
-                "You've asked for product : " + goodName + " in " + amount*5 + " quantity , with price : " + price + "\n" +
+                "You've asked for product : " + goodName + " in " + amount * 5 + " quantity , with price : " + price + "\n" +
                 "We need your approval before preparing your order.If you're certain about your order,please enter yes.\n" +
                 "Otherwise,you're order will be cancelled.");
     }
 
     public void validationFormForSelling(String goodName, int price, int amount) {
         System.out.println("Dear seller from " + Manage.getCurrentEmpire().getName() + " Empire\n" +
-                "You've wanted to sell product : " + goodName + " in " + amount + " quantity , with price : " + price*amount + "\n" +
+                "You've wanted to sell product : " + goodName + " in " + amount + " quantity , with price : " + price * amount + "\n" +
                 "We need your approval before buying your product.If you're certain about your offer,please enter yes.\n" +
                 "Otherwise,the deal will be cancelled.");
     }
 
-    public int getNumberOfGoods(String goodName , Empire empire) {
+    public int getNumberOfGoods(String goodName, Empire empire) {
         return switch (goodName) {
             case "meat" -> empire.getMeatCount();
             case "hops" -> empire.getOatCount();
-            case "barrel" -> empire.getBeerCount();
             case "ironArmor" -> empire.getMetalArmour();
             case "leatherArmor" -> empire.getLeatherArmour();
             case "sword" -> empire.getSwordCount();
-            //case "ironAxe" -> 0;
-            //case "crossbow" -> 0;
             case "mace" -> empire.getMaceCount();
             case "bow" -> empire.getBowCount();
-            //case "dart" -> 0;
             case "oil" -> empire.getOilAmount();
             case "iron" -> empire.getIronCount();
             case "stone" -> empire.getStoneCount();
             case "wood" -> empire.getWoodCount();
             case "flour" -> empire.getFlour();
             case "wheat" -> empire.getWheatCount();
-            //case "bead" -> 0;
             case "apple" -> empire.getAppleCount();
             case "cheese" -> empire.getCheeseCount();
             default -> 0;
         };
     }
-    public void setNumberOfGoods(Empire customer , Empire seller , int count , String goodName){
+
+    public void setNumberOfGoods(Empire customer, Empire seller, int count, String goodName) {
         switch (goodName) {
             case "meat" -> {
                 customer.setMeatCount(customer.getMeatCount() + count);
@@ -145,10 +143,6 @@ public class ShopController {
             case "hops" -> {
                 customer.setOatCount(customer.getOatCount() + count);
                 seller.setOatCount(seller.getOatCount() - count);
-            }
-            case "barrel" -> {
-                customer.setBeerCount(customer.getBeerCount() + count);
-                seller.setBeerCount(seller.getBeerCount() - count);
             }
             case "ironArmour" -> {
                 customer.setMetalArmour(customer.getMetalArmour() + count);
@@ -162,8 +156,6 @@ public class ShopController {
                 customer.setSwordCount(customer.getSwordCount() + count);
                 seller.setSwordCount(seller.getSwordCount() - count);
             }
-            //case "ironAxe";
-            //case "crossbow";
             case "bow" -> {
                 customer.setBowCount(customer.getBowCount() + count);
                 seller.setBowCount(seller.getBowCount() - count);
@@ -172,9 +164,7 @@ public class ShopController {
                 customer.setMaceCount(customer.getMaceCount() + count);
                 seller.setMaceCount(seller.getMaceCount() - count);
             }
-
-            //case "dart";
-            case  "oil" -> {
+            case "oil" -> {
                 customer.setOilAmount(customer.getOilAmount() + count);
                 seller.setOilAmount(seller.getOilAmount() - count);
             }
@@ -198,7 +188,6 @@ public class ShopController {
                 customer.setWheatCount(customer.getWheatCount() + count);
                 seller.setWheatCount(seller.getWheatCount() - count);
             }
-            //case "bead";
             case "apple" -> {
                 customer.setAppleCount(customer.getAppleCount() + count);
                 seller.setAppleCount(seller.getAppleCount() - count);
@@ -209,32 +198,29 @@ public class ShopController {
             }
         }
     }
-    public boolean checkTheCapacity(int count , String goodName , Empire empire){
+
+    public boolean checkTheCapacity(int count, String goodName, Empire empire) {
         return switch (goodName) {
             case "meat" -> count + empire.getMeatCount() <= empire.getFoodCapacity();
             case "hops" -> count + empire.getOatCount() <= empire.getFoodCapacity();
-            case "barrel" -> count + empire.getBeerCount() <= empire.getFoodCapacity();
-            case"ironArmor" -> count + empire.getMetalArmour() <= empire.getWeaponsCapacity();
+            case "ironArmor" -> count + empire.getMetalArmour() <= empire.getWeaponsCapacity();
             case "leatherArmor" -> count + empire.getLeatherArmour() <= empire.getWeaponsCapacity();
-            case "sword" -> count + empire.getSwordCount()<= empire.getWeaponsCapacity();
-            //case "ironAxe";
-            //case "crossbow";
-            case  "mace" -> count + empire.getMaceCount() <= empire.getWeaponsCapacity();
-            case "bow" -> count + empire.getBowCount()<= empire.getWeaponsCapacity();
-            //case "dart";
+            case "sword" -> count + empire.getSwordCount() <= empire.getWeaponsCapacity();
+            case "mace" -> count + empire.getMaceCount() <= empire.getWeaponsCapacity();
+            case "bow" -> count + empire.getBowCount() <= empire.getWeaponsCapacity();
             case "oil" -> count + empire.getOilAmount() <= empire.getFoodCapacity();
             case "iron" -> count + empire.getIronCount() <= empire.getResourcesCapacity();
-            case "stone" -> count + empire.getStoneCount() <=  empire.getResourcesCapacity();
-            case "wood" -> count +  empire.getWoodCount() <= empire.getResourcesCapacity();
+            case "stone" -> count + empire.getStoneCount() <= empire.getResourcesCapacity();
+            case "wood" -> count + empire.getWoodCount() <= empire.getResourcesCapacity();
             case "flour" -> count + empire.getFlour() <= empire.getFoodCapacity();
-            case "wheat" -> count + empire.getWheatCount() <= empire.getFoodCapacity() ;
-            //case "bead";
+            case "wheat" -> count + empire.getWheatCount() <= empire.getFoodCapacity();
             case "apple" -> count + empire.getAppleCount() <= empire.getFoodCapacity();
             case "cheese" -> count + empire.getCheeseCount() <= empire.getFoodCapacity();
             default -> false;
         };
     }
-    public boolean enoughMoneyToBuy(Empire empire , int price){
+
+    public boolean enoughMoneyToBuy(Empire empire, int price) {
         return empire.getGoldCount() >= price;
     }
 }

@@ -31,6 +31,7 @@ public class FearControl extends Building implements BuildingConstantFunctions {
         this.maxHp = 500;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
 
     public void tortureChamber() {
@@ -39,6 +40,7 @@ public class FearControl extends Building implements BuildingConstantFunctions {
         this.maxHp = 500;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         createBuildingCost(20, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
     }
     @Override
     public int maxHp() {
