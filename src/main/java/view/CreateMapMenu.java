@@ -249,7 +249,7 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showMap(x, y, false));
+        System.out.println(ShowMapController.showMap(x , y, false));
 
     }
 
