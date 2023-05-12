@@ -159,18 +159,6 @@ public class EmpireController {
         for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()){
             total += weapon.getValue();
         }
-        for (Map.Entry<String , Integer> europe : Manage.getCurrentEmpire().europeTroopCount.entrySet()){
-            total += europe.getValue();
-        }
-        for (Map.Entry<String , Integer> arab : Manage.getCurrentEmpire().arabTroopCount.entrySet()){
-            total += arab.getValue();
-        }
-        for (Map.Entry<String , Integer> siege : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()){
-            total += siege.getValue();
-        }
-        for (Map.Entry<String , Integer> engineerGuild : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()){
-            total += engineerGuild.getValue();
-        }
         return total;
     }
     public static int calculateTotalResourcesCount(){

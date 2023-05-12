@@ -7,7 +7,6 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
-import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
 import java.util.ArrayList;
@@ -665,13 +664,6 @@ public class GameController {
 
     }
 
-    public boolean validFinalLocation(int x, int y) {
-        return Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.BIG_POND
-                && Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.SMALL_POND
-                && Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.RIVER
-                && Map.getObstacleMap()[x][y].get(0).getName() != ObstacleName.SEA;
-    }
-
     public boolean validSquareBySquareCell(Army myUnit) {
         if (!Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].isEmpty()) {
             return (Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof KillingPit ||
@@ -694,7 +686,7 @@ public class GameController {
         int xTwo = Integer.parseInt(x2.group("x"));
         int yOne = Integer.parseInt(y1.group("y"));
         int yTwo = Integer.parseInt(y2.group("y"));
-        if (validFinalLocation(xOne, yOne) && validFinalLocation(xTwo, yTwo)) {
+        if (validCoordinates(xOne, yOne) && !Map.notPassable[xOne][yOne] && validCoordinates(xTwo, yTwo) && !Map.notPassable[xTwo][yTwo]) {
             setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo);
             String unitMoved = moveUnit(xTwo, yTwo).getMessages();
         } else System.out.println(GameMenuMessages.COORDINATES_OUT_OF_BOUNDS.getMessages());
