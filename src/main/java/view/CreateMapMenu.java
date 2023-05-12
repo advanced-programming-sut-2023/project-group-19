@@ -207,7 +207,6 @@ public class CreateMapMenu {
             return;
         }
         type = matcher.group("type");
-        System.out.println("x 1 is :" + x1 + "x2 is : " + x2 + "y1 : " + y1 + "y2 : " + y2 + "type : " + type);
         System.out.println(CreateMapController.settextureGroup(x1, x2, y1, y2, type));
     }
 
@@ -226,8 +225,6 @@ public class CreateMapMenu {
         while (matcher.find()) {
             String type = matcher.group("type");
             String number = matcher.group("number");
-            System.out.println(type + "%%%" + number);
-            //show map -x 200 -y 200
             switch (type) {
                 case "left":
                     if (number != null) left = -1 * Integer.parseInt(number);
@@ -267,7 +264,7 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showMap(x, y, false));
+        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
 
     }
 
@@ -286,7 +283,7 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        String result = ShowMapController.showDetail(x, y);
+        String result = ShowMapController.showDetail(x + 1, y + 1);
         System.out.println(result);
     }
 

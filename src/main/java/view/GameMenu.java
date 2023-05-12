@@ -244,7 +244,7 @@ public class GameMenu {
             return ;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showMap(x, y, false));
+        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
         ShowMapInGameMenu.run(scanner);
     }
 }
