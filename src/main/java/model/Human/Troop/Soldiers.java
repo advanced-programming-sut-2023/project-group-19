@@ -10,7 +10,6 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public Soldiers(Empire government) {
         super(government);
     }
-    public boolean fight;
 
     public Names getNames() {
         return names;
@@ -29,36 +28,12 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.maxHp = maxHp;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDefencePower() {
-        return defencePower;
-    }
-
-    public void setDefencePower(int defencePower) {
-        this.defencePower = defencePower;
-    }
-
     public int getAttackPower() {
         return attackPower;
     }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
     public int getAttackRange() {
         return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
-
-    public Names getTypeOfArmy() {
-        return typeOfArmy;
     }
 
     public void BlackMonk(int x, int y) {
@@ -67,12 +42,12 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.typeOfArmy = Names.STANDING_AMRY;
         this.names = Names.BLACK_MONK;
         this.xCoordinate = x;
-        this. yCoordinate = y;
-        this. attackRange = 3;
+        this.yCoordinate = y;
+        this.attackRange = 3;
         this.speed = 3;
         this.restOfMoves = 3;
-        this. attackPower = 500;
-        this. defencePower = 150;
+        this.attackPower = 500;
+        this.defencePower = 150;
     }
 
     public void Knight(int x, int y) {

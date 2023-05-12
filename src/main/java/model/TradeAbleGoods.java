@@ -1,6 +1,6 @@
 package model;
 
-public enum TradableGoods {
+public enum TradeAbleGoods {
     APPLE("apple"),
     BREAD("bread"),
     CHEESE("cheese"),
@@ -44,10 +44,9 @@ public enum TradableGoods {
     BATTERING_RAM("batteringRam"),
     PORTABLE_SHIELD("portableShield");
 
-
     private String goodName;
 
-    TradableGoods(String goodName) {
+    TradeAbleGoods(String goodName) {
         this.goodName = goodName;
     }
 

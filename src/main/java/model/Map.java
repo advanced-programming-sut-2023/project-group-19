@@ -5,20 +5,18 @@ import model.Human.Troop.Army;
 import model.Obstacle.Obstacle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Map {
     public static int mapSize;
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
-
     public static ArrayList<Obstacle>[][] obstacleMap;
 
     public static ArrayList<GroundType>[][] groundType;
-    public static boolean[][] notBuildable; // for building
-    public static boolean[][] notPassable; // for troop
-    public static boolean[][] wallPassable; // for special soldiers
-    public static boolean[][] wall; // for wall
+    public static boolean[][] notBuildable;
+    public static boolean[][] notPassable;
+    public static boolean[][] wallPassable;
+    public static boolean[][] wall;
 
     public static ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
@@ -37,7 +35,7 @@ public class Map {
     }
 
     public static void CreateMap(int size) {
-        Map.mapSize = size ;
+        Map.mapSize = size;
         buildingMap = new ArrayList[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -72,7 +70,6 @@ public class Map {
         notBuildable = new boolean[size][size];
         wallPassable = new boolean[size][size];
         wall = new boolean[size][size];
-
     }
 
     public static ArrayList<GroundType>[][] getGroundType() {

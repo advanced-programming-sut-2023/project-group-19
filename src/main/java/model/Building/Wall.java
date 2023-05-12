@@ -10,8 +10,6 @@ public class Wall extends Building {
     public Wall(Empire government) {
         super(government);
     }
-
-    //TODO call createBuildingCost before usage
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         this.cost.put("wood", wood);
         this.cost.put("stone", stone);

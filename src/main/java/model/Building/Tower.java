@@ -15,6 +15,19 @@ public class Tower extends Building {
     private int defendRange;
     private boolean isBig = false;
     private final int maxCapacity = 20;
+    private int currentCapacity;
+
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public void setCurrentCapacity(int currentCapacity) {
+        this.currentCapacity = currentCapacity;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
 
     public Names getNames() {
         return this.name;

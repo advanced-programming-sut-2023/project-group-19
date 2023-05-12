@@ -12,9 +12,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public int height;
-    public Names shieldDirection;
     public Names typeOfArmy;
-    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;
@@ -33,44 +31,13 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.maxHp = maxHp;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDefencePower() {
-        return defencePower;
-    }
-
-    public void setDefencePower(int defencePower) {
-        this.defencePower = defencePower;
-    }
-
     public int getAttackPower() {
         return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
     }
 
     public int getAttackRange() {
         return attackRange;
     }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
-
-
-    public Names getShieldDirection() {
-        return shieldDirection;
-    }
-
-    public Names getTypeOfArmy() {
-        return typeOfArmy;
-    }
-
-
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         cost.put("wood", wood);
@@ -148,7 +115,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.typeOfArmy = Names.STANDING_AMRY;
         this.names = Names.HORSE_ARCHERS;
         this.xCoordinate = x;
-        this. yCoordinate = y;
+        this.yCoordinate = y;
         this.speed = 9;
         this.attackRange = 8;
         this.attackPower = 1000;
@@ -250,13 +217,14 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 475;
         this.maxHp = 475;
         this.names = Names.PORTABLE_SHIELD;
-        this. typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_AMRY;
         this.xCoordinate = x;
         this.yCoordinate = y;
-        this. defencePower = 400;
+        this.defencePower = 400;
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
     }
+
     @Override
     public int maxHp() {
         return maxHp;

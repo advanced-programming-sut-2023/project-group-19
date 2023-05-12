@@ -12,7 +12,7 @@ public class Request {
     String status;
     boolean acceptance;
 
-    public Request(String message, int price, int amount, String goodName , String id ,Empire sender , Empire receiver ) {
+    public Request(String message, int price, int amount, String goodName, String id, Empire sender, Empire receiver) {
         this.message = message;
         this.price = price;
         this.amount = amount;

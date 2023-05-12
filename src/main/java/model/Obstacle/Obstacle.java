@@ -6,5 +6,4 @@ public abstract class Obstacle {
     public ObstacleName getName() {
         return name;
     }
-
 }
