@@ -901,11 +901,11 @@ public class Empire {
     }
 
     public int getFireBalistaCount() {
-        return siegeTentTroopsCount.get("fireBalista");
+        return siegeTentTroopsCount.get("fireBallista");
     }
 
     public void setFireBalistaCount(int fireBalistaCount) {
-        siegeTentTroopsCount.replace("fireBalista", fireBalistaCount);
+        siegeTentTroopsCount.replace("fireBallista", fireBalistaCount);
     }
 
     public int getBatteringRamCount() {

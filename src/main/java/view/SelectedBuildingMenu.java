@@ -45,7 +45,7 @@ public class SelectedBuildingMenu {
                             System.out.println(selectedBuildingController.mercenary(matcherType, matcherCount).getName());
                         } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK) != null && buildingName.equals("SiegeTent")) {
                             System.out.println(selectedBuildingController.siegeTent(matcherType, matcherCount).getName());
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK) != null && (buildingName.equals("SmallChurch") | buildingName.equals("bigChurch"))) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK) != null && (buildingName.equals("SmallChurch") | buildingName.equals("BigChurch"))) {
                             System.out.println(selectedBuildingController.church(matcherCount).getName());
                         } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_ENGINEER_GUILD_TROOP_NAME_CHECK) != null && buildingName.equals("EngineerGuild")) {
                             System.out.println(selectedBuildingController.engineerGuild(matcherType, matcherCount).getName());
