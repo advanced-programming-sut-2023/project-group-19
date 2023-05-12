@@ -39,9 +39,7 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(gameController.selectUnit(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.SHOW_MAP) != null) {
-                showMap(command, scanner);
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
+            }  else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
@@ -175,7 +173,11 @@ public class GameMenu {
                     ShopMenu shopMenu = new ShopMenu();
                     shopMenu.run(scanner, shop);
                 } else System.out.println(GameMenuMessages.IMPROPER_LOCATION.getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
+            } else if(GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TO_MAP) != null){
+                System.out.println("Welcome to map menu");
+                ShowMapInGameMenu.run(scanner);
+            }
+            else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
                 tradeMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_BUILDING_MENU) != null) {
@@ -224,22 +226,5 @@ public class GameMenu {
     }
 
 
-    public static void showMap(String command, Scanner scanner) {
-        Matcher matcher;
-        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
-        if (matcher == null) {
-            System.out.println("fill elements of map correctly!");
-            return;
-        }
-        int x = Integer.parseInt(matcher.group("x"));
 
-        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
-        if (matcher == null) {
-            System.out.println("fill elements of map correctly!");
-            return;
-        }
-        int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showMap(x, y, false));
-        ShowMapInGameMenu.run(scanner);
-    }
 }
