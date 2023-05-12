@@ -13,6 +13,8 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
 
     public int height;
     public Names shieldDirection;
+    public Names typeOfArmy;
+    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;
@@ -148,7 +150,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.xCoordinate = x;
         this. yCoordinate = y;
         this.speed = 9;
-        this.attackRange = 5;
+        this.attackRange = 8;
         this.attackPower = 1000;
         this.defencePower = 350;
         this.restOfMoves = 9;

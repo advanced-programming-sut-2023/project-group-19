@@ -86,7 +86,7 @@ public class SelectedBuildingMenu {
                         System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                     }
                 } else {
-                    System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE);
+                    System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE.getName());
                 }
             } else if (input.equals("Logout")) {
                 System.out.println("logged out from the selectedBuilding menu");

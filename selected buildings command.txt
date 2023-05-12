@@ -7,7 +7,7 @@ command : taxrate (int taxrate)
 
 ********************************************************
 2 - drawbridge
-command : drawBridge up/down 
+command : DrawBridge up/down 
 
 ********************************************************
 3 - select barracks / mercenary / engineerGuild / big church / small church / siege tent

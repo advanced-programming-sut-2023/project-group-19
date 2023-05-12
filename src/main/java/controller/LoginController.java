@@ -24,10 +24,13 @@ public class LoginController {
         if (slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null)) {
             return RegisterMessages.EMPTY_FIELD;
         }
+        slogan = changeTextIwithoutCot(slogan);
         if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED;
         if (!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if (slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
         if (password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD;
+        password = changeTextIwithoutCot(password);
+        confirmPassword = changeTextIwithoutCot(confirmPassword);
         if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
@@ -43,6 +46,7 @@ public class LoginController {
     }
 
     public static RegisterMessages changePassword(User user, String password) throws IOException {
+        password = changeTextIwithoutCot(password);
         if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!password.matches(".*[\\W\\_].*"))
             return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
@@ -53,16 +57,28 @@ public class LoginController {
         JsonController.writeIntoFile(Manage.allUsers, "User.json");
         return RegisterMessages.SUCCESS;
     }
+    private static String changeTextIwithoutCot(String text){
+        if (text.charAt(0) == '\"' && text.charAt(text.length() - 1) == '\"') {
+            text = text.replaceAll("\"", "");
+        }
+        return text ;
+    }
 
     public static void register(String username, String password, String nickname, String email, String answeroFSecQuestion
             , String slogan, String numberOfSecQuesion) throws IOException {
+        password = changeTextIwithoutCot(password);
+        answeroFSecQuestion = changeTextIwithoutCot(answeroFSecQuestion);
+        slogan = changeTextIwithoutCot(slogan);
+        nickname = changeTextIwithoutCot(nickname);
         String newPassword = getHashCode(password);
-        User user = new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
+        new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
     }
 
     public static RegisterMessages checkSecurityAsks(int number, String answer, String confirmAnswer) {
         if (answer == null || confirmAnswer == null || number < 1 || number > 3)
             return RegisterMessages.TRY_ANOTHER_SEC_ASK;
+        answer = checkIfRepetedUserName(answer);
+        confirmAnswer = checkIfRepetedUserName(confirmAnswer);
         if (answer.equals(confirmAnswer)) return RegisterMessages.IS_OK_ASKS;
         else return RegisterMessages.TRY_ANOTHER_SEC_ASK;
     }
@@ -80,6 +96,7 @@ public class LoginController {
     }
 
     public static RegisterMessages loginUser(String username, String password) {
+        password = changeTextIwithoutCot(password);
         User user;
         if ((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME;
 //        System.out.println(user.getPassword());

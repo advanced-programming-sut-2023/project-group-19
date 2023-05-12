@@ -141,7 +141,6 @@ public class Empire {
     private double fearWorkerImpact = 1;
     private double fearTroopImpact = 1;
 
-
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
     }

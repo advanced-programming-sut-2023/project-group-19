@@ -7,6 +7,7 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
+import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
 import java.util.ArrayList;
@@ -118,9 +119,11 @@ public class GameController {
     public void setStateArmy() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName()) || army.isIntFight || army.myPath != null)
+            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName())
+                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState ))
                 continue;
             selectedUnit.add(army);
+            System.out.println("in set state army");
             findEnemyInRange(army, army.getArmyForm());
             selectedUnit.clear();
         }
@@ -457,9 +460,8 @@ public class GameController {
             if (y2 >= mapSize) y2 = mapSize - 1;
             if (State.equals(Names.OFFENSIVE.getName())) {
                 if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army, i)) return;
-                else {
-                    if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
-                }
+            }else {
+                if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
             }
         }
     }
@@ -504,7 +506,9 @@ public class GameController {
             }
         }
         if (range == army.getAttackRange()) {
-            gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
+//            System.out.println("x is: " + army.getPastXcordinate() + "  y is: " + army.getPastXcordinate());
+            System.out.println("return to first place");
+            gameController.moveUnit(army.getPastXcordinate() + 1, army.getPastYcordinate() + 1);
             return true;
         } else {
             return false;
@@ -542,7 +546,7 @@ public class GameController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                    gameController.moveUnit(army.getEnemy().xCoordinate + 1, army.getEnemy().yCoordinate + 1);
                     return true;
                 }
             }
@@ -551,7 +555,7 @@ public class GameController {
             Army enemy;
             if ((enemy = army.getArcherAttacker()) != null) {
                 army.setEnemy(enemy);
-                gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                gameController.moveUnit(army.getEnemy().xCoordinate + 1, army.getEnemy().yCoordinate + 1);
             }
         }
         return false;

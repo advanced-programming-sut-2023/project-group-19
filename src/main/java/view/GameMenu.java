@@ -12,6 +12,7 @@ import view.Commands.MainMenuCommands;
 import view.Messages.GameMenuMessages;
 
 import java.io.IOException;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -244,6 +245,6 @@ public class GameMenu {
         }
         int y = Integer.parseInt(matcher.group("y"));
         System.out.println(ShowMapController.showMap(x, y, false));
-        ShowMapIntoGameMenu.run(scanner);
+        ShowMapInGameMenu.run(scanner);
     }
 }
