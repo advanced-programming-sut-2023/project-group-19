@@ -513,8 +513,6 @@ public class GameController {
             return false;
         }
     }
-
-    //TODO : After every next turn please call it!
     public void setEnemyToTarget() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
@@ -559,8 +557,6 @@ public class GameController {
         }
         return false;
     }
-
-    //TODO : Special condition which we call setStateArmy first
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
         if (validCoordinates(xCoordinate, yCoordinate)) {
             if (selectedUnit.size() != 0) {
@@ -640,8 +636,6 @@ public class GameController {
         }
         return false;
     }
-
-    //TODO : Cancel selected unit where is necessary
     public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
         PathFindingController.notPassable = Map.notPassable;
         PathFindingController.wall = Map.wall;
