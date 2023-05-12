@@ -1,3 +1,4 @@
+import controller.GameController;
 import controller.JsonController;
 import controller.PathFindingController;
 import model.*;
@@ -33,10 +34,12 @@ public class Main {
 //        Manage.setCurrentEmpire(empire);
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
-
+        User newUser2 = new User("user5", "aa", "reza", "a", "1", "1", 1);
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         Empire empire = new Empire();
         Manage.setCurrentEmpire(empire);
+        Empire newEmpire = new Empire();
+        newEmpire.setUser(newUser2);
         Map.CreateMap(200);
         empire.setUser(newUser);
         empire.setEngineerCount(60000000);
@@ -58,11 +61,12 @@ public class Main {
         Wall wall = new Wall(empire);
         wall.smallWall();
         wall.setHp(200);
-        ArchersAndThrowers archer = new ArchersAndThrowers(empire);
+        ArchersAndThrowers archer = new ArchersAndThrowers(newEmpire);
         archer.archer(3 , 5);
         Map.troopMap[3][5].add(archer);
         Map.buildingMap[5][5].add(wall);
         empire.setPeasantCount(100000000);
+        System.out.println(GameController.enemyInRange(5 , 5));
         BuildingMenu buildingMenu = new BuildingMenu();
         buildingMenu.run(scanner);
 //        Industry woodCutter = new Industry(empire);
