@@ -32,7 +32,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
     public void engineer(int x, int y) {
         this.hp = 1000;
         this.maxHp = 1000;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.ENGINEER;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -105,5 +105,10 @@ public class Engineer extends Army implements HumanConstantFunctions {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return typeOfArmy;
     }
 }

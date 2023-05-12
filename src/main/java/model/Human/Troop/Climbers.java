@@ -42,7 +42,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.hp = 500;
         this.maxHp = 500;
         this.names = Names.SPEAR_MEN;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 5;
         this.attackPower = 500;
         this.defencePower = 200;
@@ -55,7 +55,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.hp = 675;
         this.maxHp = 675;
         this.names = Names.MACE_MEN;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 5;
         this.attackPower = 700;
         this.defencePower = 250;
@@ -67,8 +67,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.yCoordinate = y;
         this.hp = 500;
         this.maxHp = 500;
-        this.names = Names.LADDER_MEN;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this. names = Names.LADDER_MEN;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 7;
         this.attackPower = 0;
         this.defencePower = 20;
@@ -80,8 +80,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.yCoordinate = y;
         this.hp = 800;
         this.maxHp = 800;
-        this.names = Names.ASSASSINS;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this. names = Names.ASSASSINS;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 5;
         this.attackPower = 600;
         this.defencePower = 150;
@@ -155,7 +155,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
 
     @Override
     public Names typeOfArmy() {
-        return super.typeOfArmy();
+        return typeOfArmy;
     }
 }
 
