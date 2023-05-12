@@ -61,6 +61,7 @@ public class Main {
         Wall wall = new Wall(empire);
         wall.smallWall();
         wall.setHp(200);
+
         ArchersAndThrowers archer = new ArchersAndThrowers(newEmpire);
         archer.archer(3 , 5);
         Map.troopMap[3][5].add(archer);
