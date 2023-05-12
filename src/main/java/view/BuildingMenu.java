@@ -38,7 +38,7 @@ public class BuildingMenu {
                         System.out.println(buildingController.selectBuilding(matcherX, matcherY).getMessages());
                     }
                 }
-            } else if (input.equals("exit")) {
+            } else if (input.equals("Logout")) {
                 return;
             } else {
                 System.out.println(BuildingCommands.INVALID_COMMAND.getName());

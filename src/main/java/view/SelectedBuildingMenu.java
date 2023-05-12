@@ -24,7 +24,7 @@ public class SelectedBuildingMenu {
         String buildingName = selectedBuilding.getNameEnum().getName();
         if (buildingName.equals("shop")) {
             ShopMenu shopMenu = new ShopMenu();
-            shopMenu.run(scanner , (Shop) selectedBuilding);
+            shopMenu.run(scanner, (Shop) selectedBuilding);
             return;
         }
         System.out.println("Welcome to SelectedBuildingMenu!");
@@ -55,8 +55,7 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(SelectedBuildingMessages.BUILDING_CANT_CREATE_UNIT.getName());
                 }
-            }
-            else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_TAX_RATE) != null) {
+            } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_TAX_RATE) != null) {
                 if (buildingName.equals("SmallStoneGatehouse") | buildingName.equals("BigStoneGatehouse")) {
                     Matcher matcherTaxRate = SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_TAX_RATE);
                     if (matcherTaxRate != null) {
@@ -67,8 +66,7 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
-            }
-            else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_DRAW_BRIDGE) != null) {
+            } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_DRAW_BRIDGE) != null) {
                 if (buildingName.equals("DrawBridge")) {
                     Matcher matcherBridgeCondition = SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_DRAW_BRIDGE);
                     if (matcherBridgeCondition != null) {
@@ -79,8 +77,7 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
-            }
-            else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
+            } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
                 if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
                     if (GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
                         System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
@@ -90,13 +87,11 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                 }
-            }
-            else if (input.equals("exit")) {
+            } else if (input.equals("Logout")) {
                 System.out.println("logged out from the selectedBuilding menu");
                 System.out.println("Welcome to BuildingMenu!");
                 return;
-            }
-            else {
+            } else {
                 System.out.println(SelectedBuildingMessages.INVALID_COMMAND.getName());
             }
         }
