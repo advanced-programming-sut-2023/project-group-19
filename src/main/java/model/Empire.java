@@ -13,11 +13,9 @@ public class Empire {
     private User user;
     public int castleXCoordinate;
     public int castleYCCoordinate;
-    public static ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
-    public static ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
-    public static ArrayList<Integer> DrawBride = new ArrayList<>();
-
-
+    public ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
+    public ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
+    public ArrayList<Integer> DrawBridge = new ArrayList<>();
     public User getUser() {
         return user;
     }
@@ -1157,38 +1155,5 @@ public class Empire {
         if (weaponsCount + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
             allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact));
         }
-    }
-    public int calculateTotalFoodCount(){
-        int total = 0;
-        for (Map.Entry<String, Integer> food : Manage.getCurrentEmpire().getAllFood().entrySet()){
-            total += food.getValue();
-        }
-        return total;
-    }
-    public int calculateTotalFightStuffCount(){
-        int total = 0;
-        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()){
-            total += weapon.getValue();
-        }
-        for (Map.Entry<String , Integer> europe : Manage.getCurrentEmpire().europeTroopCount.entrySet()){
-            total += europe.getValue();
-        }
-        for (Map.Entry<String , Integer> arab : Manage.getCurrentEmpire().arabTroopCount.entrySet()){
-            total += arab.getValue();
-        }
-        for (Map.Entry<String , Integer> siege : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()){
-            total += siege.getValue();
-        }
-        for (Map.Entry<String , Integer> engineerGuild : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()){
-            total += engineerGuild.getValue();
-        }
-        return total;
-    }
-    public int calculateTotalResourcesCount(){
-        int total = 0;
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().stores.entrySet()){
-            total += resource.getValue();
-        }
-        return total;
     }
 }

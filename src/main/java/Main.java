@@ -39,6 +39,14 @@ public class Main {
         empire.setEuropeArcherCount(4);
         ArchersAndThrowers archerEnemy = new ArchersAndThrowers(empire1);
         archerEnemy.archer(2,3);
+        ArchersAndThrowers archerEnemy2 = new ArchersAndThrowers(empire1);
+        archerEnemy2.archer(2,4);
+        ArchersAndThrowers archerEnemy3 = new ArchersAndThrowers(empire1);
+        archerEnemy3.archer(2,3);
+        ArchersAndThrowers archerEnemy4 = new ArchersAndThrowers(empire1);
+        archerEnemy4.archer(2,4);
+        CagedWarDogs cagedWarDogs =  new CagedWarDogs(empire);
+        cagedWarDogs.cagedWarDogs();
         ArchersAndThrowers archers1 = new ArchersAndThrowers(empire);
         archers1.archer(0,0);
         System.out.println("Army : "+archers1+" owner: "+archers1.getOwner().getName());

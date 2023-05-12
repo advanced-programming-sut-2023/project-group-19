@@ -4,6 +4,8 @@ import controller.Building.FunctionBuildingController;
 import model.Empire;
 import model.Manage;
 
+import java.util.Map;
+
 import static java.lang.Math.floor;
 
 public class EmpireController {
@@ -144,5 +146,38 @@ public class EmpireController {
         } else {
             empire.setFoodRateNumber(-2);
         }
+    }
+    public static int calculateTotalFoodCount(){
+        int total = 0;
+        for (Map.Entry<String, Integer> food : Manage.getCurrentEmpire().getAllFood().entrySet()){
+            total += food.getValue();
+        }
+        return total;
+    }
+    public static int calculateTotalFightStuffCount(){
+        int total = 0;
+        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()){
+            total += weapon.getValue();
+        }
+        for (Map.Entry<String , Integer> europe : Manage.getCurrentEmpire().europeTroopCount.entrySet()){
+            total += europe.getValue();
+        }
+        for (Map.Entry<String , Integer> arab : Manage.getCurrentEmpire().arabTroopCount.entrySet()){
+            total += arab.getValue();
+        }
+        for (Map.Entry<String , Integer> siege : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()){
+            total += siege.getValue();
+        }
+        for (Map.Entry<String , Integer> engineerGuild : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()){
+            total += engineerGuild.getValue();
+        }
+        return total;
+    }
+    public static int calculateTotalResourcesCount(){
+        int total = 0;
+        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().stores.entrySet()){
+            total += resource.getValue();
+        }
+        return total;
     }
 }

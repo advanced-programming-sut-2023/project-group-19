@@ -191,7 +191,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(drawBridge, currentEmpire)) {
                             buildingCheckout(drawBridge, currentEmpire);
                             Map.AddToBuildingMap(x, y, drawBridge);
-                            Empire.DrawBride.add(x * size + y);
+                            Manage.getCurrentEmpire().DrawBridge.add(x * size + y);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
@@ -795,7 +795,7 @@ public class BuildingController {
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
-                            Empire.pourOilCoordinate.add(x * size + y);
+                            Manage.getCurrentEmpire().pourOilCoordinate.add(x * size + y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
@@ -838,7 +838,7 @@ public class BuildingController {
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
-                            Empire.cagedWarDogsCoordinate.add(x * size + y);
+                            Manage.getCurrentEmpire().cagedWarDogsCoordinate.add(x * size + y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
