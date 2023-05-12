@@ -604,7 +604,7 @@ public class GameController {
                                             }
                                         }
                                         if (size <= myUnit.speed()) {
-                                            if (myUnit.typeOfArmy().getName().equals(Names.PATROL_UNIT.getName())) {
+                                            if (myUnit.typeOfArmy.equals(Names.PATROL_UNIT)) {
                                                 setPathForPatrols(myUnit.getStartX(), myUnit.getStartY(), myUnit);
                                             } else {
                                                 myUnit.myPath = null;
@@ -737,19 +737,25 @@ public class GameController {
         int yOne = Integer.parseInt(y1.group("y"));
         int yTwo = Integer.parseInt(y2.group("y"));
         if (validCoordinates(xOne, yOne) && !Map.notPassable[xOne][yOne] && validCoordinates(xTwo, yTwo) && !Map.notPassable[xTwo][yTwo]) {
-            setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo);
-            String unitMoved = moveUnit(xTwo, yTwo).getMessages();
+            if (setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo)) {
+                String unitMoved = moveUnit(xTwo, yTwo).getMessages();
+            }else System.out.println(GameMenuMessages.NO_UNIT_IN_CELL.getMessages());
         } else System.out.println(GameMenuMessages.COORDINATES_OUT_OF_BOUNDS.getMessages());
     }
 
-    public void setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
-        for (Army army : selectedUnit) {
-            army.setArmyForm(Names.PATROL_UNIT.getName());
-            army.startXCoordinate = x1;
-            army.startYCoordinate = y1;
-            army.finalXCoordinate = x2;
-            army.finalYCoordinate = y2;
+    public boolean setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
+        if (!Map.getTroopMap()[x1][y1].isEmpty()) {
+            for (Army army : Map.getTroopMap()[x1][y1]) {
+                army.typeOfArmy = Names.PATROL_UNIT;
+                army.startXCoordinate = x1;
+                army.startYCoordinate = y1;
+                army.finalXCoordinate = x2;
+                army.finalYCoordinate = y2;
+                selectedUnit.add(army);
+            }
+            return true;
         }
+        return false;
     }
 
     public GameMenuMessages stopPatrols(int x, int y) {
