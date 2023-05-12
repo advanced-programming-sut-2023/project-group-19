@@ -255,13 +255,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
     }
-
-    public static boolean isSeigeTroop(Army army) {
-        return army.getNames().equals(Names.CATAPULT) || army.getNames().equals(Names.TREBUCHET)
-                || army.getNames().equals(Names.PORTABLE_SHIELD) || army.getNames().equals(Names.BATTERING_RAM)
-                || army.getNames().equals(Names.FIRE_BALLISTA) || army.getNames().equals(Names.SIEGE_TOWER);
-    }
-
     @Override
     public int maxHp() {
         return maxHp;

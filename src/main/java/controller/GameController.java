@@ -568,8 +568,8 @@ public class GameController {
                             for (int k = 0; k < Manage.getCurrentEmpire().empireArmy.size(); k++) {
                                 Army myUnit = Manage.getCurrentEmpire().empireArmy.get(k);
                                 List<Integer> pathList = myUnit.myPath;
-                                int size = pathList.size();
                                 if (pathList != null && pathList.size() != 0) {
+                                    int size = pathList.size();
                                     for (int i = 0; i < pathList.size(); i++) {
                                         if (myUnit.restOfMoves != 0) {
                                             // goal in here means next
@@ -991,10 +991,11 @@ public class GameController {
 
     private static void killUnit() {
         for (Empire empire : Manage.getAllEmpires()) {
-            for (Army army : empire.empireArmy) {
+            for (int i = 0 ; i < empire.empireArmy.size() ; i++) {
+                Army army = empire.empireArmy.get(i);
                 if (army.getHp() <= 0) {
-                    int x = army.xCoordinate - 1;
-                    int y = army.yCoordinate - 1;
+                    int x = army.xCoordinate;
+                    int y = army.yCoordinate;
                     removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
                     Map.getTroopMap()[x][y].remove(army);
                     empire.empireArmy.remove(army);
@@ -1007,9 +1008,10 @@ public class GameController {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
                 if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
-                        || army.getNames().equals(Names.FireThrowers)) {
+                        || army.getNames().equals(Names.FIRE_BALLISTA)) {
                     throwers.add((ArchersAndThrowers) army);
                 }
+                System.out.println("hi" + empire.getName() +" "+ throwers.size());
             }
             makeSiegesWorkAutomatically();
         }
@@ -1034,8 +1036,8 @@ public class GameController {
             ceilOfY = siege.getCurrentY() + i;
             if (floorOfX < 0) floorOfX = 0;
             if (floorOfY < 0) floorOfY = 0;
-            if (ceilOfX > mapSize) ceilOfX = mapSize - 1;
-            if (ceilOfY > mapSize) ceilOfY = mapSize - 1;
+            if (ceilOfX >= Map.mapSize) ceilOfX = Map.mapSize - 1;
+            if (ceilOfY >= Map.mapSize) ceilOfY = Map.mapSize - 1;
             if (LookForEnemyInRangeForBuilding(floorOfX, floorOfY, ceilOfX, ceilOfY, siege)) return;
         }
         for (int i = 1; i <= siege.getAttackRange(); i++) {
@@ -1045,8 +1047,8 @@ public class GameController {
             ceilOfY = siege.getCurrentY() + i;
             if (floorOfX < 0) floorOfX = 0;
             if (floorOfY < 0) floorOfY = 0;
-            if (ceilOfX > mapSize) ceilOfX = mapSize - 1;
-            if (ceilOfY > mapSize) ceilOfY = mapSize - 1;
+            if (ceilOfX >= mapSize) ceilOfX = Map.mapSize - 1;
+            if (ceilOfY >= mapSize) ceilOfY = Map.mapSize - 1;
             if (LookForEnemyInRangeForTroops(floorOfX, floorOfY, ceilOfX, ceilOfY, siege)) return;
         }
 
@@ -1056,8 +1058,11 @@ public class GameController {
         for (int i = floorX; i <= ceilX; i++) {
             for (int j = floorY; j <= ceilY; j++) {
                 if (i == siege.getCurrentX() && j == siege.getCurrentY()) continue;
+                System.out.println(i+" "+j);
                 if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
-                    Map.getBuildingMap()[i][j].remove(0);
+                    Map.getBuildingMap()[i][j].clear();
+                    Map.notPassable[i][j] = false;
+                    Map.notBuildable[i][j] = false;
                     return true;
                 }
             }

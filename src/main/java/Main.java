@@ -31,58 +31,31 @@ public class Main {
         Manage.setCurrentEmpire(Ali);
         Map.CreateMap(200);
         Map.mapSize = 200;
-
+        Manage.getAllEmpires().add(Dorsa);
+        Manage.getAllEmpires().add(Ali);
         ArchersAndThrowers archerEnemy = new ArchersAndThrowers(Dorsa);
-        archerEnemy.archer(3,1);
-        Map.getTroopMap()[3][1].add(archerEnemy);
+        archerEnemy.archer(5,2);
+        Map.getTroopMap()[5][2].add(archerEnemy);
         Dorsa.empireArmy.add(archerEnemy);
         System.out.println("Army :"+ archerEnemy+ " owner: "+archerEnemy.getOwner().getName());
-        ArchersAndThrowers archerEnemy2 = new ArchersAndThrowers(Dorsa);
-        archerEnemy2.archer(2,4);
-        Dorsa.empireArmy.add(archerEnemy2);
-        Map.getTroopMap()[2][4].add(archerEnemy2);
-        System.out.println("Army :"+ archerEnemy2+ " owner: "+archerEnemy2.getOwner().getName());
-        ArchersAndThrowers archerEnemy3 = new ArchersAndThrowers(Dorsa);
-        archerEnemy3.archer(2,3);
-        Map.getTroopMap()[2][3].add(archerEnemy3);
-        Dorsa.empireArmy.add(archerEnemy3);
-        System.out.println("Army :"+ archerEnemy3+ " owner: "+archerEnemy3.getOwner().getName());
-        ArchersAndThrowers archerEnemy4 = new ArchersAndThrowers(Dorsa);
-        archerEnemy4.archer(2,4);
-        Map.getTroopMap()[2][4].add(archerEnemy4);
-        Dorsa.empireArmy.add(archerEnemy4);
-        System.out.println("Army :"+ archerEnemy4+ " owner: "+archerEnemy4.getOwner().getName());
-
 
         ArchersAndThrowers archers1 = new ArchersAndThrowers(Ali);
-        archers1.archer(2,0);
+        archers1.fireBallista(2,0);
         System.out.println("Army : "+archers1+" owner: "+archers1.getOwner().getName());
         ArchersAndThrowers archers2 = new ArchersAndThrowers(Ali);
-        archers2.archer(2,0);
-        System.out.println("Army : "+archers2+" owner: "+archers2.getOwner().getName());
-        ArchersAndThrowers archers3 = new ArchersAndThrowers(Ali);
-        archers3.archer(0,0);
-        System.out.println("Army : "+archers3+" owner: "+archers3.getOwner().getName());
-        ArchersAndThrowers archers4 = new ArchersAndThrowers(Ali);
-        archers4.archer(2,3);
-        System.out.println("Army : "+archers4+" owner: "+archers4.getOwner().getName());
-        ArchersAndThrowers archers5 = new ArchersAndThrowers(Ali);
-        archers5.siegeTower(2,3);
+        archers2.catapult(2,0);
 
-
-
-
-        Map.getTroopMap()[2][3].add(archers5);
-
-        Ali.empireArmy.add(archers5);
-        Wall wall = new Wall (Dorsa);
+        Map.getTroopMap()[2][0].add(archers1);
+        Ali.empireArmy.add(archers1);
+        Wall wall = new Wall(Dorsa);
         wall.bigWall();
-        Map.getBuildingMap()[3][4].add(wall);
-        GameMenu gameMenu = new GameMenu();
-        gameMenu.run(scanner);
-
-//        GameController gameController = new GameController();
-//        gameController.cagedWarDogsAttack();
-
+        Map.getBuildingMap()[5][1].add(wall);
+        GameController gameController = new GameController();
+        gameController.setSieges();
+        for (Army army : Dorsa.empireArmy){
+            System.out.println(army);
+        }
+        System.out.println(Dorsa.empireArmy.size());
+        System.out.println("building : "+Map.getBuildingMap()[5][1].size());
     }
 }
