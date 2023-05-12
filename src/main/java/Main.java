@@ -11,7 +11,6 @@ import model.User;
 import view.BuildingMenu;
 import view.GameMenu;
 import view.LoginMenu;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
