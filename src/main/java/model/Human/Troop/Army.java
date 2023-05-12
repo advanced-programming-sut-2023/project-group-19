@@ -4,6 +4,7 @@ import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Army extends Human {
@@ -13,12 +14,11 @@ public class Army extends Human {
     }
 
     public boolean isIntFight = false;
-
-
     public boolean hasMovedForDefensiveState = false;
 
     private ArchersAndThrowers archerAttacker = null;
-
+    protected int pastXcordinate;
+    protected int pastYcordinate;
     public ArchersAndThrowers getArcherAttacker() {
         return archerAttacker;
     }
@@ -38,9 +38,6 @@ public class Army extends Human {
         isIntFight = intFight;
     }
 
-
-
-
     public Army getEnemy() {
         return enemy;
     }
@@ -57,31 +54,10 @@ public class Army extends Human {
         this.empire = empire;
     }
 
-    private Names names;
 
     public Names getNames() {
         return names;
     }
-
-    private String armyForm;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int xCoordinate;
-    public int yCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
-    public List<Integer> myPath;
-    public int restOfMoves;
-    private int pastXcordinate = 500;
-
     public int getPastXcordinate() {
         return pastXcordinate;
     }
@@ -97,8 +73,6 @@ public class Army extends Human {
     public void setPastYcordinate(int pastYcordinate) {
         this.pastYcordinate = pastYcordinate;
     }
-
-    private int pastYcordinate = 500;
 
     @Override
     public int getHp() {
@@ -143,7 +117,7 @@ public class Army extends Human {
     }
 
     public String getArmyForm() {
-        return armyForm;
+        return this.armyForm;
     }
 
     public void setArmyForm(String armyForm) {
@@ -213,5 +187,10 @@ public class Army extends Human {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return typeOfArmy;
     }
 }

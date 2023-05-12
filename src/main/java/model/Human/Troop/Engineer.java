@@ -10,12 +10,6 @@ public class Engineer extends Army implements HumanConstantFunctions {
     public Engineer(Empire government) {
         super(government);
     }
-
-    private int hp;
-    private int maxHp;
-    public int restOfMoves;
-    private Names names;
-
     @Override
     public int getHp() {
         return hp;
@@ -26,24 +20,9 @@ public class Engineer extends Army implements HumanConstantFunctions {
         this.hp = hp;
     }
 
-    private int defencePower;
-
-    private int attackPower;
-    private int speed;
-
-    public int xCoordinate;
-
-    public int yCoordinate;
     public boolean isBowlFullOfOil;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
-    public List<Integer> myPath;
     public boolean fight;
-    public Names typeOfArmy;
+
 
     public int getDefencePower() {
         return defencePower;
@@ -82,16 +61,16 @@ public class Engineer extends Army implements HumanConstantFunctions {
     }
 
     public void engineer(int x, int y) {
-        hp = 1000;
-        maxHp = 1000;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.ENGINEER;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 5;
-        attackPower = 0;
-        defencePower = 30;
-        restOfMoves = 5;
+        this.hp = 1000;
+        this.maxHp = 1000;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.ENGINEER;
+        this.xCoordinate = x;
+        this. yCoordinate = y;
+        this.speed = 5;
+        this.attackPower = 0;
+        this.defencePower = 30;
+        this. restOfMoves = 5;
     }
 
     @Override

@@ -156,4 +156,9 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     public int getFinalY() {
         return finalYCoordinate;
     }
+
+    @Override
+    public Names typeOfArmy() {
+        return super.typeOfArmy();
+    }
 }

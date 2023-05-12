@@ -11,27 +11,8 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         super(government);
     }
 
-    private Names names;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
-    public int xCoordinate;
-    public int yCoordinate;
-    public int restOfMoves;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
     public int height;
-    public List<Integer> myPath;
     public Names shieldDirection;
-    public Names typeOfArmy;
-    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;
@@ -87,7 +68,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         return typeOfArmy;
     }
 
-    public HashMap<String, Integer> cost = new HashMap<>();
+
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         cost.put("wood", wood);
@@ -96,8 +77,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         cost.put("iron", iron);
         cost.put("oil", oil);
     }
-
-    public HashMap<String, Integer> workersNeeded = new HashMap<>();
 
     public void createBuildingWorkersNeeded(int engineer, int worker) {
         workersNeeded.put("engineer", engineer);
@@ -120,153 +99,159 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public void Crossbowmen(int x, int y) {
-        hp = 700;
-        maxHp = 700;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.CROSSBOWMEN;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 3;
-        attackRange = 4;
-        attackPower = 200;
-        defencePower = 50;
-        restOfMoves = 3;
+        this.hp = 700;
+        this.maxHp = 700;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.CROSSBOWMEN;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 3;
+        this.attackRange = 4;
+        this.attackPower = 200;
+        this.defencePower = 50;
+        this.restOfMoves = 3;
     }
 
     public void ArcherBow(int x, int y) {
-        hp = 475;
-        maxHp = 475;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.ARCHER_BOW;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 7;
-        attackRange = 8;
-        attackPower = 600;
-        defencePower = 150;
-        restOfMoves = 7;
+        this.hp = 475;
+        this.maxHp = 475;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.ARCHER_BOW;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 7;
+        this.attackRange = 8;
+        this.attackPower = 600;
+        this.defencePower = 150;
+        this.restOfMoves = 7;
     }
 
     public void Slingers(int x, int y) {
-        hp = 700;
-        maxHp = 700;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.SLINGERS;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 7;
-        attackRange = 2;
-        attackPower = 300;
-        defencePower = 50;
-        restOfMoves = 7;
+        this.hp = 700;
+        this.maxHp = 700;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.SLINGERS;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 7;
+        this.attackRange = 2;
+        this.attackPower = 300;
+        this.defencePower = 50;
+        this.restOfMoves = 7;
     }
 
     public void HorseArchers(int x, int y) {
-        hp = 850;
-        maxHp = 850;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.HORSE_ARCHERS;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 9;
-        attackRange = 5;
-        attackPower = 1000;
-        defencePower = 350;
-        restOfMoves = 9;
+        this.hp = 850;
+        this.maxHp = 850;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.HORSE_ARCHERS;
+        this.xCoordinate = x;
+        this. yCoordinate = y;
+        this.speed = 9;
+        this.attackRange = 5;
+        this.attackPower = 1000;
+        this.defencePower = 350;
+        this.restOfMoves = 9;
     }
 
     public void FireThrowers(int x, int y) {
-        hp = 850;
-        maxHp = 850;
-        typeOfArmy = Names.STANDING_AMRY;
-        names = Names.FireThrowers;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 9;
-        attackRange = 4;
-        attackPower = 800;
-        defencePower = 150;
-        restOfMoves = 9;
+        this.hp = 850;
+        this.maxHp = 850;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.names = Names.FireThrowers;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 9;
+        this.attackRange = 4;
+        this.attackPower = 800;
+        this.defencePower = 150;
+        this.restOfMoves = 9;
     }
 
     public void catapult(int x, int y) {
-        hp = 850;
-        maxHp = 850;
-        names = Names.CATAPULT;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 2;
-        attackPower = 600;
-        defencePower = 150;
-        speed = 3;
-        restOfMoves = 3;
+        this.hp = 850;
+        this.maxHp = 850;
+        this.names = Names.CATAPULT;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 2;
+        this.attackPower = 600;
+        this.defencePower = 150;
+        this.speed = 3;
+        this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(2, 0);
     }
 
     public void trebuchet(int x, int y) {
-        hp = 900;
-        maxHp = 900;
-        names = Names.TREBUCHET;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 2;
-        attackPower = 600;
-        defencePower = 150;
-        speed = 3;
-        restOfMoves = 3;
+        this.hp = 900;
+        this.maxHp = 900;
+        this.names = Names.TREBUCHET;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 2;
+        this.attackPower = 600;
+        this.defencePower = 150;
+        this.speed = 3;
+        this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(3, 0);
     }
 
     public void siegeTower(int x, int y) {
-        hp = 1000;
-        maxHp = 1000;
-        names = Names.SIEGE_TOWER;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 2;
-        attackPower = 0;
-        defencePower = 200;
-        speed = 3;
-        restOfMoves = 3;
+        this.hp = 1000;
+        this.maxHp = 1000;
+        this.names = Names.SIEGE_TOWER;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 2;
+        this.attackPower = 0;
+        this.defencePower = 200;
+        this.speed = 3;
+        this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
     }
 
     public void fireBallista(int x, int y) {
-        names = Names.FIRE_BALLISTA;
-        xCoordinate = x;
-        yCoordinate = y;
-        attackRange = 2;
-        attackPower = 800;
-        defencePower = 150;
-        speed = 3;
-        restOfMoves = 3;
+        this.names = Names.FIRE_BALLISTA;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.attackRange = 2;
+        this.attackPower = 800;
+        this.defencePower = 150;
+        this.speed = 3;
+        this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
     }
 
     public void batteringRam(int x, int y) {
-        hp = 1200;
-        maxHp = 1200;
-        names = Names.BATTERING_RAM;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 7;
-        attackPower = 700;
-        defencePower = 100;
-        restOfMoves = 7;
+        this.hp = 1200;
+        this.maxHp = 1200;
+        this.names = Names.BATTERING_RAM;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 7;
+        this.attackPower = 700;
+        this.defencePower = 100;
+        this.restOfMoves = 7;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
     }
 
     public void portableShield(int x, int y) {
-        hp = 475;
-        maxHp = 475;
-        names = Names.PORTABLE_SHIELD;
-        xCoordinate = x;
-        yCoordinate = y;
-        defencePower = 400;
+        this.hp = 475;
+        this.maxHp = 475;
+        this.names = Names.PORTABLE_SHIELD;
+        this. typeOfArmy = Names.STANDING_AMRY;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this. defencePower = 400;
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
     }
@@ -340,5 +325,10 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return typeOfArmy;
     }
 }

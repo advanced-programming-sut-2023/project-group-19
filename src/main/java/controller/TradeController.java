@@ -144,7 +144,6 @@ public class TradeController {
                     "knight", "arabianBow", "slave", "slinger", "assassin", "horseArcher", "arabianSwordMan", "fireThrower", "engineer", "ladderMan"
                     , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" ->
                     count + empire.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
-
             default -> false;
 
         };

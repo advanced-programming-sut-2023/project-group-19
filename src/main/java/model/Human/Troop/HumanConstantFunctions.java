@@ -1,5 +1,7 @@
 package model.Human.Troop;
 
+import model.Human.Names;
+
 import java.util.List;
 
 public interface HumanConstantFunctions {
@@ -28,5 +30,5 @@ public interface HumanConstantFunctions {
     public int getFinalX();
 
     public int getFinalY();
-
+    public Names typeOfArmy();
 }

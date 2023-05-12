@@ -1,5 +1,6 @@
 import controller.JsonController;
 import controller.PathFindingController;
+import model.*;
 import model.Building.*;
 import model.Empire;
 import model.Manage;
@@ -42,6 +43,7 @@ public class Main {
         empire.setWoodCount(20000000);
         empire.setStoneCount(300000);
         empire.setGoldCount(1000000);
+        empire.setWoodCount(1000000);
         empire.setOilAmount(1000000);
         empire.setIronCount(10000000);
         empire.setSwordCount(1000000);
