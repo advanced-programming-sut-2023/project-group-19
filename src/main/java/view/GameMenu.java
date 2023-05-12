@@ -40,8 +40,9 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(gameController.selectUnit(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
-            } else if(GameMenuCommands.getMatcher(command,GameMenuCommands.SHOW_MAP) != null){
-                showMap(command,scanner);
+            } else if(GameMenuCommands.getMatcher(command,GameMenuCommands.ENTER_TO_MAP_MENU) != null){
+                ShowMapInGameMenu.run(scanner);
+//                System.out.println("Welcome to game menu!");
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
@@ -229,22 +230,5 @@ public class GameMenu {
     }
 
 
-    public static void showMap(String command, Scanner scanner) throws IOException, InterruptedException {
-        Matcher matcher;
-        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
-        if (matcher == null) {
-            System.out.println("fill elements of map correctly!");
-            return;
-        }
-        int x = Integer.parseInt(matcher.group("x"));
 
-        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
-        if (matcher == null) {
-            System.out.println("fill elements of map correctly!");
-            return ;
-        }
-        int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
-        ShowMapInGameMenu.run(scanner);
-    }
 }
