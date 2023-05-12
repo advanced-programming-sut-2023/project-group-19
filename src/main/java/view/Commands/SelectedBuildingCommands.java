@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum SelectedBuildingCommands {
-    SELECTED_BUILDING_TAX_RATE("^taxrate (?<taxRate>\\d+)$"),
+    SELECTED_BUILDING_TAX_RATE("^taxrate (?<taxRate>-?\\d+)$"),
     SELECTED_BUILDING_DRAW_BRIDGE("^DrawBridge (?<bridgeCondition>(up|down))$"),
     SELECTED_BUILDING_BARRACKS_TROOP_NAME_CHECK("archer|spearMan|maceMan|crossbowMan|pikeMan|swordMan|knight"),
     SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK("catapult|trebuchet|siegeTower|fireBallista|batteringRam|portableShield"),

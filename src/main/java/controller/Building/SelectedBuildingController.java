@@ -16,7 +16,7 @@ public class SelectedBuildingController {
     public static Building selectedBuilding;
     public SelectedBuildingMessages gatehouse(Matcher matcherTaxRate) {
         int taxRate = Integer.parseInt(matcherTaxRate.group("taxRate"));
-        if (taxRate > 7 | taxRate < -3) {
+        if (!(taxRate > 7 | taxRate < -3)) {
             empire.setTaxRateNumber(taxRate);
             return SelectedBuildingMessages.TAX_RATE_CHANGE_SUCCESSFUL;
         }

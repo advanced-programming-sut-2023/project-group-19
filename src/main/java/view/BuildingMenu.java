@@ -1,12 +1,8 @@
 package view;
 
 import controller.Building.BuildingController;
-import model.Empire;
-import model.Manage;
-import model.Map;
 import view.Commands.BuildingCommands;
 import view.Messages.BuildingMessages;
-
 import java.util.Scanner;
 import java.util.regex.Matcher;
 

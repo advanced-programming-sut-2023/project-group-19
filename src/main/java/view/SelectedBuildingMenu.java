@@ -5,8 +5,6 @@ import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import model.Building.Building;
 import model.Building.Shop;
-import model.Empire;
-import model.Manage;
 import view.Commands.SelectedBuildingCommands;
 import view.Messages.SelectedBuildingMessages;
 
