@@ -115,6 +115,8 @@ public class AttackArmyToArmyController {
                 Map.getBuildingMap()[i][j].get(0).setHp(newHp);
                 if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0) {
                     Map.getBuildingMap()[i][j].remove(0);
+                    Map.notPassable[i][j] = false ;
+                    Map.notBuildable[i][j] = false ;
                 }
                 return;
             }
@@ -161,6 +163,8 @@ public class AttackArmyToArmyController {
 
                     if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0) {
                         Map.getBuildingMap()[i][j].remove(0);
+                        Map.notPassable[i][j] = false ;
+                        Map.notBuildable[i][j] = false ;
                     }
                     return true;
                 }
@@ -206,7 +210,7 @@ public class AttackArmyToArmyController {
             for (int j = y1; j <= y2; j++) {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    gameController.moveUnit(enemy.xCoordinate + 1, enemy.yCoordinate + 1);
+                    gameController.moveUnit(enemy.xCoordinate , enemy.yCoordinate );
                     return true;
                 }
             }
@@ -228,7 +232,7 @@ public class AttackArmyToArmyController {
                 for (int len = up; len <= down; len++) {
                     for (int h = left; h <= right; h++) {
                         if (!Map.notPassable[len][h]) {
-                            gameController.moveUnit(len + 1, h + 1);
+                            gameController.moveUnit(len, h);
                             return true;
                         }
                     }

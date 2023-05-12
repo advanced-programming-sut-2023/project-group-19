@@ -43,8 +43,10 @@ public class CreateMapMenu {
                 showMap(command);
             } else if (command.matches("\\s*exit\\s*")) {
                 System.out.println("Exit");
-                return;
-            } else System.out.println("invalid command");
+                System.out.println("Welcome to main menu!");
+                return ;
+            }
+            else System.out.println("Invalid command");
         }
     }
 
