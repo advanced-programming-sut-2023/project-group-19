@@ -49,7 +49,7 @@ public class NextTurnController {
         EmpireController.functionBuildings();
         EmpireController.findFoodDiversity();
         EmpireController.givingPeopleFood(currentEmpire);
-        gameController.setEnemyToTarget();
+        gameController.setEnemyToTarget(); //TODO
         resetTroopsMovesLeft();
     }
 

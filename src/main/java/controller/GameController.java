@@ -505,9 +505,7 @@ public class GameController {
             }
         }
         if (range == army.getAttackRange()) {
-//            System.out.println("x is: " + army.getPastXcordinate() + "  y is: " + army.getPastXcordinate());
-            System.out.println("return to first place");
-            gameController.moveUnit(army.getPastXcordinate() + 1, army.getPastYcordinate() + 1);
+            gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
             return true;
         } else {
             return false;
@@ -546,7 +544,7 @@ public class GameController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate + 1, army.getEnemy().yCoordinate + 1);
+                    gameController.moveUnit(army.getEnemy().xCoordinate , army.getEnemy().yCoordinate);
                     return true;
                 }
             }
@@ -555,7 +553,7 @@ public class GameController {
             Army enemy;
             if ((enemy = army.getArcherAttacker()) != null) {
                 army.setEnemy(enemy);
-                gameController.moveUnit(army.getEnemy().xCoordinate + 1, army.getEnemy().yCoordinate + 1);
+                gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             }
         }
         return false;
