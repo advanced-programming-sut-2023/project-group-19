@@ -1,8 +1,8 @@
 [
   {
-    "username": "user5",
+    "username": "user6",
     "password": "aa",
-    "nickname": "reza",
+    "nickname": "ali",
     "email": "a",
     "recoveryQuestion": "1",
     "slogan": "1",
@@ -13,7 +13,7 @@
   {
     "username": "user6",
     "password": "aa",
-    "nickname": "ali",
+    "nickname": "dorsa",
     "email": "a",
     "recoveryQuestion": "1",
     "slogan": "1",

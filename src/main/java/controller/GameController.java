@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.JsonIOException;
 import model.Building.*;
 import model.Empire;
 import model.GroundType;
@@ -20,7 +21,7 @@ public class GameController {
     //TODO : SAVE PAST COORDINATE OF ALL ARMIES
     //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
-    private static final int mapSize = CreateMapController.getSizeOfMap();
+    private static final int mapSize = Map.mapSize;
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
     public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
@@ -598,6 +599,9 @@ public class GameController {
                                     }
                                 }
                             }
+                            /*for (Army army : selectedUnit){
+                                System.out.println(army.getCurrentX()+" "+army.getCurrentY());
+                            }*/
                             if (isMyArmyDeployed()) return GameMenuMessages.ARMY_DEPLOYED;
                             else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
                         } else return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
@@ -620,10 +624,10 @@ public class GameController {
                     PathFindingController.notPassable = Map.notPassable;
                 }
                 PathFindingController.wall = Map.wall;
-                PathFindingController.startX = army.getCurrentX() - 1;
-                PathFindingController.startY = army.getCurrentY() - 1;
-                PathFindingController.goalX = xCoordinate - 1;
-                PathFindingController.goalY = yCoordinate - 1;
+                PathFindingController.startX = army.getCurrentX() ;
+                PathFindingController.startY = army.getCurrentY() ;
+                PathFindingController.goalX = xCoordinate ;
+                PathFindingController.goalY = yCoordinate ;
                 army.myPath = PathFindingController.pathFinding();
             }
             return true;
@@ -635,10 +639,10 @@ public class GameController {
     public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
         PathFindingController.notPassable = Map.notPassable;
         PathFindingController.wall = Map.wall;
-        PathFindingController.startX = patrol.getCurrentX() - 1;
-        PathFindingController.startY = patrol.getCurrentY() - 1;
-        PathFindingController.goalX = xCoordinate - 1;
-        PathFindingController.goalY = yCoordinate - 1;
+        PathFindingController.startX = patrol.getCurrentX();
+        PathFindingController.startY = patrol.getCurrentY();
+        PathFindingController.goalX = xCoordinate;
+        PathFindingController.goalY = yCoordinate;
         patrol.myPath = PathFindingController.pathFinding();
     }
 
@@ -810,18 +814,20 @@ public class GameController {
                     }
                 }
                 return GameMenuMessages.SUCCESS;
-            }
-            else return GameMenuMessages.INVALID_DIRECTION;
-        }return GameMenuMessages.IMPROPER_UNIT;
+            } else return GameMenuMessages.INVALID_DIRECTION;
+        }
+        return GameMenuMessages.IMPROPER_UNIT;
     }
-    public boolean containsEngineer(){
-        for (Army  army : selectedUnit){
-            if (army.getNames().getName().equals(Names.ENGINEER.getName())){
+
+    public boolean containsEngineer() {
+        for (Army army : selectedUnit) {
+            if (army.getNames().getName().equals(Names.ENGINEER.getName())) {
                 return true;
             }
         }
         return false;
     }
+
     public boolean checkDirection(String direction) {
         return direction.equals(Names.NORTH.getName()) || direction.equals(Names.SOUTH.getName())
                 || direction.equals(Names.WEST.getName()) || direction.equals(Names.EAST.getName());
@@ -841,7 +847,7 @@ public class GameController {
             int x = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
             int y = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) % mapSize;
             int floorOfX, floorOfY, ceilOfX, ceilOfY;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 1; i <= 3; i++) {
                 floorOfX = x - i;
                 floorOfY = y - i;
                 ceilOfX = x + i;
@@ -855,6 +861,14 @@ public class GameController {
                         if (!Map.getTroopMap()[m][n].isEmpty()) {
                             if (killedByDogs(m, n)) {
                                 Map.getBuildingMap()[x][y].clear();
+                                System.out.println("Armies:");
+                                for (Army army : Map.getTroopMap()[m][n]){
+                                    System.out.println(army.getNames());
+                                }
+                                System.out.println("Buildings:");
+                                for (Building building : Map.getBuildingMap()[m][n]){
+                                    System.out.println(building.getName());
+                                }
                                 return;
                             }
                         }
@@ -1324,16 +1338,24 @@ public class GameController {
     }
 
     public static boolean enemyInRange(int x, int y) {
-        int floorOfX, floorOfY, ceilOfX, ceilOfY;
-        for (int i = 0; i < 5; i++) {
+        int floorOfX , floorOfY , ceilOfX , ceilOfY ;
+        for (int i = 1; i <= 5; i++) {
             floorOfX = x - i;
             floorOfY = y - i;
             ceilOfX = x + i;
             ceilOfY = y + i;
-            if (floorOfX < 0) floorOfX = 0;
-            if (floorOfY < 0) floorOfY = 0;
-            if (ceilOfX > mapSize) ceilOfX = mapSize - 1;
-            if (ceilOfY > mapSize) ceilOfY = mapSize - 1;
+            if (floorOfX < 0) {
+                floorOfX = 0;
+            }
+            if (floorOfY < 0) {
+                floorOfY = 0;
+            }
+            if (ceilOfX >= Map.mapSize) {
+                ceilOfX = Map.mapSize - 1;
+            }
+            if (ceilOfY >= Map.mapSize) {
+                ceilOfY = Map.mapSize - 1;
+            }
             for (int j = floorOfX; j <= ceilOfX; j++) {
                 for (int k = floorOfY; k <= ceilOfY; k++) {
                     if (j == x && k == y) continue;
@@ -1342,6 +1364,7 @@ public class GameController {
                     }
                 }
             }
+
         }
         return false;
     }
@@ -1352,7 +1375,7 @@ public class GameController {
 
     private static boolean isEnemyUnit(int j, int k) {
         for (Army army : Map.getTroopMap()[j][k]) {
-            if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
+            if (!army.getEmpire().getName().equals(Manage.getCurrentEmpire().getName())) {
                 return true;
             }
         }

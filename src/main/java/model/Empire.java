@@ -15,7 +15,7 @@ public class Empire {
     public int castleYCCoordinate;
     public ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
     public ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
-    public ArrayList<Integer> DrawBride = new ArrayList<>();
+    public ArrayList<Integer> DrawBridge = new ArrayList<>();
 
     public User getUser() {
         return user;

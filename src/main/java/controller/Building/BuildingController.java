@@ -204,7 +204,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(drawBridge, currentEmpire)) {
                             buildingCheckout(drawBridge, currentEmpire);
                             Map.AddToBuildingMap(x, y, drawBridge);
-                            Manage.getCurrentEmpire().DrawBride.add(x * size + y);
+                            Manage.getCurrentEmpire().DrawBridge.add(x * size + y);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;

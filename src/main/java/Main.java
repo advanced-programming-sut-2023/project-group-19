@@ -1,3 +1,4 @@
+import controller.GameController;
 import controller.JsonController;
 import controller.PathFindingController;
 import model.*;
@@ -37,8 +38,12 @@ public class Main {
         empire.setOilAmount(1000000);
         empire.setIronCount(10000000);
         empire.setEuropeArcherCount(4);
+
+
+
         ArchersAndThrowers archerEnemy = new ArchersAndThrowers(empire1);
-        archerEnemy.archer(2,3);
+        archerEnemy.archer(3,1);
+        System.out.println("Army :"+ archerEnemy+ " owner: "+archerEnemy.getOwner().getName());
         ArchersAndThrowers archerEnemy2 = new ArchersAndThrowers(empire1);
         archerEnemy2.archer(2,4);
         ArchersAndThrowers archerEnemy3 = new ArchersAndThrowers(empire1);
@@ -47,6 +52,7 @@ public class Main {
         archerEnemy4.archer(2,4);
         CagedWarDogs cagedWarDogs =  new CagedWarDogs(empire);
         cagedWarDogs.cagedWarDogs();
+        empire.cagedWarDogsCoordinate.add(0,2*Map.mapSize+5);
         ArchersAndThrowers archers1 = new ArchersAndThrowers(empire);
         archers1.archer(0,0);
         System.out.println("Army : "+archers1+" owner: "+archers1.getOwner().getName());
@@ -61,11 +67,15 @@ public class Main {
         System.out.println("Army : "+archers4+" owner: "+archers4.getOwner().getName());
         ArchersAndThrowers archers5 = new ArchersAndThrowers(empire);
         archers5.trebuchet(2,3);
-        Map.getTroopMap()[0][0].add(archers1);
-        Map.getTroopMap()[0][0].add(archers2);
-        Map.getTroopMap()[0][0].add(archers3);
-        Map.getTroopMap()[2][3].add(archers4);
-        Map.getTroopMap()[2][3].add(archers5);
+
+
+
+
+        Map.getTroopMap()[2][0].add(archers1);
+        Map.getTroopMap()[2][0].add(archers2);
+        Map.getTroopMap()[3][1].add(archers3);
+        Map.getTroopMap()[3][1].add(archers4);
+        Map.getTroopMap()[3][1].add(archers5);
         empire.empireArmy.add(archers1);
         empire.empireArmy.add(archers2);
         empire.empireArmy.add(archers3);
