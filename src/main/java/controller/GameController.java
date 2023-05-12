@@ -119,7 +119,7 @@ public class GameController {
     public void setStateArmy() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName())
+            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
                     || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState ))
                 continue;
             selectedUnit.add(army);
@@ -711,7 +711,7 @@ public class GameController {
             for (Army army : Manage.getCurrentEmpire().empireArmy) {
                 if (army.getArmyForm().equals(Names.PATROL_UNIT.getName()) &&
                         army.getCurrentX() == x && army.getCurrentY() == y) {
-                    army.setArmyForm(Names.STANDING_AMRY.getName());
+                    army.setArmyForm(Names.STANDING_ARMY.getName());
                 }
             }
             return GameMenuMessages.SUCCESS;

@@ -5,7 +5,7 @@ import model.*;
 import java.util.regex.Matcher;
 
 import view.Messages.TradeMenuMessages;
-import model.TradableGoods;
+import model.TradeableGoods;
 
 public class TradeController {
     public static Empire selectedEmpire;
@@ -109,7 +109,7 @@ public class TradeController {
     }
 
     public boolean typeOfResources(String typeOfResource) {
-        for (TradableGoods tradableGoods : TradableGoods.values()) {
+        for (TradeableGoods tradableGoods : TradeableGoods.values()) {
             if (tradableGoods.getGoodName().equals(typeOfResource)) {
                 return true;
             }

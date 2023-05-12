@@ -78,7 +78,7 @@ public abstract class Human implements HumanConstantFunctions {
 
     @Override
     public int restOfMoves() {
-        return 0;
+        return restOfMoves;
     }
 
     @Override

@@ -64,7 +64,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void BlackMonk(int x, int y) {
         this.hp = 300;
         this.maxHp = 300;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.BLACK_MONK;
         this.xCoordinate = x;
         this. yCoordinate = y;
@@ -78,7 +78,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void Knight(int x, int y) {
         this.hp = 900;
         this.maxHp = 900;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.KNIGHT;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -92,7 +92,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void Swordsmen(int x, int y) {
         this.hp = 650;
         this.maxHp = 650;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.SWORDSMEN;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -106,7 +106,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void PikeMen(int x, int y) {
         this.hp = 500;
         this.maxHp = 500;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.PIKE_MEN;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -120,7 +120,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void Slaves(int x, int y) {
         this.hp = 400;
         this.maxHp = 400;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.SLAVES;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -134,7 +134,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void ArabianSwordsmen(int x, int y) {
         this.hp = 700;
         this.maxHp = 700;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.ARABIAN_SWORDSMEN;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -212,6 +212,6 @@ public class Soldiers extends Army implements HumanConstantFunctions {
 
     @Override
     public Names typeOfArmy() {
-        return super.typeOfArmy();
+        return typeOfArmy;
     }
 }

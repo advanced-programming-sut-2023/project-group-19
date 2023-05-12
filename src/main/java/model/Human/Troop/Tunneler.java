@@ -82,7 +82,7 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     public void Tunneler(int x, int y) {
         hp = 100;
         maxHp = 100;
-        typeOfArmy = Names.STANDING_AMRY;
+        typeOfArmy = Names.STANDING_ARMY;
         names = Names.TUNNELER;
         xCoordinate = x;
         yCoordinate = y;

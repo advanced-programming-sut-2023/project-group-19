@@ -1,6 +1,6 @@
 package model;
 
-public enum TradableGoods {
+public enum TradeableGoods {
     APPLE("apple"),
     BREAD("bread"),
     CHEESE("cheese"),
@@ -47,7 +47,7 @@ public enum TradableGoods {
 
     private String goodName;
 
-    TradableGoods(String goodName) {
+    TradeableGoods(String goodName) {
         this.goodName = goodName;
     }
 

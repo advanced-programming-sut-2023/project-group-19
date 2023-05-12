@@ -12,7 +12,6 @@ import view.Commands.MainMenuCommands;
 import view.Messages.GameMenuMessages;
 
 import java.io.IOException;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -108,10 +107,7 @@ public class GameMenu {
                 } else System.out.println(GameMenuMessages.EMPTY_EQUIPMENT_FIELD.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DISBAND_UNIT) != null) {
                 System.out.println(gameController.disbandUnit().getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_MAP_MENU) != null) {
-                CreateMapMenu createMapMenu = new CreateMapMenu();
-                createMapMenu.run(scanner);
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DROP_UNIT) != null) {
+            }else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DROP_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
                 type = GameMenuCommands.getMatcher(command, GameMenuCommands.TYPE);

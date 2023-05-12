@@ -33,6 +33,7 @@ public enum Names {
     VERTICAL("Vertical"),
     HORIZONTAL("Horizontal"),
     STANDING_AMRY("standing"),
+    STANDING_ARMY("standing"),
     DEFENSIVE_ARMY("defensive"),
     OFFENSIVE("offensive"),
     PATROL_UNIT("patrol unit"),
