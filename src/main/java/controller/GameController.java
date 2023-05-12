@@ -138,9 +138,14 @@ public class GameController {
         if (validCoordinates(x, y)) {
             if (checkGroundTypeForUnits(x, y)) {
                 if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
-                    if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
-                        return GameMenuMessages.SUCCESS;
-                    } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
+                    if (Map.notPassable[x][y]){
+                        if (isTower(x,y)){
+                            Map.notPassable[x][y] = false;
+                            if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
+                                return GameMenuMessages.SUCCESS;
+                            } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
+                        }else return GameMenuMessages.IMPROPER_LOCATION;
+                    }
                 } else return GameMenuMessages.IMPROPER_UNIT;
             } else return GameMenuMessages.IMPROPER_LOCATION;
         }
@@ -582,6 +587,10 @@ public class GameController {
                                                 myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                                 Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
                                                 if (validSquareBySquareCell(myUnit) || isPlain(myUnit)) {
+                                                    if (Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0)
+                                                            instanceof KillingPit){
+                                                        Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].clear();
+                                                    }
                                                     removeKilledUnitFromEmpireHashmap(myUnit.getNames().getName(), myUnit.getEmpire());
                                                     Manage.getCurrentEmpire().empireArmy.remove(myUnit);
                                                     break;
@@ -714,7 +723,6 @@ public class GameController {
         }
         return false;
     }
-
     public boolean isPlain(Army myUnit) {
         if (!Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].isEmpty()) {
             return Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0).getName()
