@@ -1155,7 +1155,7 @@ public class BuildingController {
                                 Map.AddToBuildingMap(x, y, stairs);
                                 Map.notBuildable[x][y] = true;
                                 Map.wall[x][y] = true;
-                            } else return BuildingMessages.INPROPER_COORDINATE;
+                            } else return BuildingMessages.IMPROPER_COORDINATE;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                         }
