@@ -21,7 +21,7 @@ public enum SelectedBuildingCommands {
     REPAIR_SHOW_NAME("SmallStoneGatehouse|BigStoneGatehouse|DrawBridge|" +
             "LookoutTower|PerimeterTower|DefendTower|SquareTower|RoundTower|" +
             "Armoury|Barracks|Mercenary|EngineerGuild|KillingPit|OilSmelter|" +
-            "PitchDitch|CagedWarDogs|SiegeTent|Stable|"),
+            "PitchDitch|CagedWarDogs|SiegeTent|Stable"),
     SELECTED_BUILDING_COMMANDS_FIND_COUNT(".*-c\\s+(?<count>\\d+)\\s*");
 
 

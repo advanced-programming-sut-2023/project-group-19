@@ -3,7 +3,6 @@ package model.Building;
 import model.Empire;
 import model.GroundType;
 
-import java.util.HashMap;
 
 public class Industry extends Building implements BuildingConstantFunctions {
 

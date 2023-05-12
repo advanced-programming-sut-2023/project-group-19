@@ -767,9 +767,9 @@ public class GameController {
         int xOfPossibleEnemy;
         int killCount = Manage.getCurrentEmpire().getEngineerCount();
         if (checkDirection(direction)) {
-            for (int j = 0; j < Empire.pourOilCoordinate.size(); j++) {
-                int x = Empire.pourOilCoordinate.get(j) / Map.mapSize;
-                int y = Empire.pourOilCoordinate.get(j) % Map.mapSize;
+            for (int j = 0; j < Manage.getCurrentEmpire().pourOilCoordinate.size(); j++) {
+                int x = Manage.getCurrentEmpire().pourOilCoordinate.get(j) / Map.mapSize;
+                int y = Manage.getCurrentEmpire().pourOilCoordinate.get(j) % Map.mapSize;
                 if (direction.equals(Names.NORTH.getName())) {
                     for (int i = -1; i <= 1; i++) {
                         y0fPossibleEnemy = y + i;
@@ -830,9 +830,9 @@ public class GameController {
     }
 
     public void cagedWarDogsAttack() {
-        for (int j = 0; j < Empire.cagedWarDogsCoordinate.size(); j++) {
-            int x = Empire.cagedWarDogsCoordinate.get(j) / mapSize;
-            int y = Empire.cagedWarDogsCoordinate.get(j) / mapSize;
+        for (int j = 0; j < Manage.getCurrentEmpire().cagedWarDogsCoordinate.size(); j++) {
+            int x = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
+            int y = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
             int floorOfX, floorOfY, ceilOfX, ceilOfY;
             for (int i = 0; i < 3; i++) {
                 floorOfX = x - i;
@@ -858,9 +858,9 @@ public class GameController {
     }
 
     public void DrawBridge() {
-        for (int i = 0; i < Empire.DrawBride.size(); i++) {
-            int x = Empire.DrawBride.get(i) / mapSize;
-            int y = Empire.DrawBride.get(i) % mapSize;
+        for (int i = 0; i < Manage.getCurrentEmpire().DrawBride.size(); i++) {
+            int x = Manage.getCurrentEmpire().DrawBride.get(i) / mapSize;
+            int y = Manage.getCurrentEmpire().DrawBride.get(i) % mapSize;
             if (GameController.enemyInRange(x, y)) {
                 DrawBridge drawBridge = (DrawBridge) Map.getBuildingMap()[x][y].get(0);
                 drawBridge.bridgeOpen = false;

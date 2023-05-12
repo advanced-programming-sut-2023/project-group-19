@@ -78,14 +78,15 @@ public class SelectedBuildingMenu {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
             } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
-                if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
-                    if (GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
+                if (!GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
+                    if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
+                        System.out.println(buildingName);
                         System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                     } else {
-                        System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE.getName());
+                        System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                     }
                 } else {
-                    System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
+                    System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE);
                 }
             } else if (input.equals("Logout")) {
                 System.out.println("logged out from the selectedBuilding menu");

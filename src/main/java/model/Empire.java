@@ -13,9 +13,9 @@ public class Empire {
     private User user;
     public int castleXCoordinate;
     public int castleYCCoordinate;
-    public static ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
-    public static ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
-    public static ArrayList<Integer> DrawBride = new ArrayList<>();
+    public ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
+    public ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
+    public ArrayList<Integer> DrawBride = new ArrayList<>();
 
     public User getUser() {
         return user;
