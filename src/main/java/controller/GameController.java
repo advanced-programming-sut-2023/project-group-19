@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 public class GameController {
+    //TODO : Minus 1 xCoordinates and yCoordinates
     //TODO : SAVE PAST COORDINATE OF ALL ARMIES
     //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
@@ -135,10 +136,9 @@ public class GameController {
         if (validCoordinates(x, y)) {
             if (checkGroundTypeForUnits(x, y)) {
                 if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
-                    if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)){
+                    if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
                         return GameMenuMessages.SUCCESS;
-                    }
-                    else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
+                    } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
                 } else return GameMenuMessages.IMPROPER_UNIT;
             } else return GameMenuMessages.IMPROPER_LOCATION;
         }
@@ -436,8 +436,9 @@ public class GameController {
             if ((!Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL.getName()) && !type.equals(Names.TUNNELER.getName())
                     && !Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH.getName()) && !type.equals(Names.SPEAR_MEN.getName()))) {
                 return true;
-            } else return Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL.getName()) && type.equals(Names.TUNNELER.getName())
-                    || Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH.getName()) && !type.equals(Names.SPEAR_MEN.getName());
+            } else
+                return Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.TUNNEL.getName()) && type.equals(Names.TUNNELER.getName())
+                        || Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH.getName()) && !type.equals(Names.SPEAR_MEN.getName());
         }
         return true;
     }
@@ -561,8 +562,9 @@ public class GameController {
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
         if (validCoordinates(xCoordinate, yCoordinate)) {
             if (selectedUnit.size() != 0) {
-                if (validFinalLocation(xCoordinate, yCoordinate)) {
-                    if (!isTrebuchet()) {
+                if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
+                    isTrebuchet();
+                    if (selectedUnit.size() != 0) {
                         setPathForUnits(xCoordinate, yCoordinate);
                         for (Army myUnit : Manage.getCurrentEmpire().empireArmy) {
                             List<Integer> pathList = myUnit.myPath;
@@ -586,14 +588,19 @@ public class GameController {
                                         i--;
                                     }
                                 }
+                                //################ bugs #################
                                 if (pathList.size() <= myUnit.speed()) {
-                                    if (myUnit.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
+                                    System.out.println(myUnit.getArmyForm());
+                                    if (myUnit.typeOfArmy().getName().equals(Names.PATROL_UNIT.getName())) {
                                         setPathForPatrols(myUnit.getStartX(), myUnit.getStartY(), myUnit);
                                     } else {
                                         myUnit.myPath = null;
                                     }
                                 }
                             }
+                        }
+                        for (Army army : selectedUnit){
+                            System.out.println("Army : "+army + " x: "+army.getCurrentX()+" y: "+army.getCurrentY());
                         }
                         if (isMyArmyDeployed()) return GameMenuMessages.ARMY_DEPLOYED;
                         else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
@@ -643,15 +650,16 @@ public class GameController {
         return true;
     }
 
-    public boolean isTrebuchet() {
-        for (Army army : selectedUnit) {
-            if (army instanceof ArchersAndThrowers) {
-                if (army.getNames().getName().equals(Names.TREBUCHET.getName())) {
-                    return true;
+    public void isTrebuchet() {
+        for (int i = 0 ; i < selectedUnit.size() ; i++) {
+            if (selectedUnit.get(i) instanceof ArchersAndThrowers) {
+                if (selectedUnit.get(i).getNames().getName().equals(Names.TREBUCHET.getName())) {
+                    selectedUnit.remove(selectedUnit.get(i));
+                    i--;
                 }
             }
         }
-        return false;
+
     }
 
     public boolean validFinalLocation(int x, int y) {
@@ -662,14 +670,26 @@ public class GameController {
     }
 
     public boolean validSquareBySquareCell(Army myUnit) {
-        return ((Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof KillingPit ||
-                Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof PitchDitch) &&
-                !(myUnit.getNames().getName().equals(Names.SPEAR_MEN.getName())));
+        if (!Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].isEmpty()){
+            if ((Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof KillingPit ||
+                    Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0) instanceof PitchDitch) &&
+            !(myUnit.getNames().getName().equals(Names.SPEAR_MEN.getName()))){
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public boolean isPlain(Army myUnit) {
-        return Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0).getName()
-                .getObstacleName().equals(GroundType.PLAIN.getGroundType());
+        if (!Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].isEmpty()){
+            if (Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0).getName()
+                    .getObstacleName().equals(GroundType.PLAIN.getGroundType())){
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public void patrolUnit(Matcher x1, Matcher y1, Matcher x2, Matcher y2) {
@@ -692,16 +712,6 @@ public class GameController {
             army.finalYCoordinate = y2;
         }
     }
-
-    public boolean isPatrol() {
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (army.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public GameMenuMessages stopPatrols(int x, int y) {
         if (validCoordinates(x, y)) {
             for (Army army : Manage.getCurrentEmpire().empireArmy) {
@@ -716,20 +726,26 @@ public class GameController {
     }
 
     public GameMenuMessages PitchDitchHauntsEnemy(Matcher x1, Matcher y1) {
-        int xOfPitch = Integer.parseInt(x1.group("x"));
-        int yOfPitch = Integer.parseInt(y1.group("y"));
-        if (validFinalLocation(xOfPitch, yOfPitch)) {
+        int xOfPitch = Integer.parseInt(x1.group("x")) ;
+        int yOfPitch = Integer.parseInt(y1.group("y")) ;
+        ArchersAndThrowers archer;
+        if (validCoordinates(xOfPitch, yOfPitch)) {
             if (!Map.getBuildingMap()[xOfPitch][yOfPitch].isEmpty() &&
                     Map.getBuildingMap()[xOfPitch][yOfPitch].get(0) instanceof PitchDitch) {
-                if (checkIfAllAreArchers()) {
-                    ((PitchDitch) Map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
-                    Map.getBuildingMap()[xOfPitch][yOfPitch].clear();
-                    Map.getObstacleMap()[xOfPitch][yOfPitch].clear();
-                    for (Army army : Map.getTroopMap()[xOfPitch][yOfPitch]) {
-                        removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+                if ((archer = checkIfSomeAreArchers()) != null) {
+                    setPathForUnits(xOfPitch,yOfPitch);
+                    if (archer.myPath.size() <= archer.getAttackRange()) {
+                        ((PitchDitch) Map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
+                        Map.getBuildingMap()[xOfPitch][yOfPitch].clear();
+                        Map.getObstacleMap()[xOfPitch][yOfPitch].clear();
+                        for (Army army : Map.getTroopMap()[xOfPitch][yOfPitch]) {
+                            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+                        }
+                        Map.getTroopMap()[xOfPitch][yOfPitch].clear();
+                        archer.myPath.clear();
+                        return GameMenuMessages.SUCCESS;
                     }
-                    Map.getTroopMap()[xOfPitch][yOfPitch].clear();
-                    return GameMenuMessages.SUCCESS;
+                    return GameMenuMessages.OUT_OF_ARCHER_RANGE;
                 }
                 return GameMenuMessages.IMPROPER_UNIT;
             }
@@ -737,17 +753,16 @@ public class GameController {
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
-
-    public boolean checkIfAllAreArchers() {
+    public ArchersAndThrowers checkIfSomeAreArchers() {
         int number = 0;
         for (Army army : selectedUnit) {
             if (army.getNames().getName().equals(Names.ARCHER.getName()) || army.getNames().getName().equals(Names.ARCHER_BOW.getName())
                     || army.getNames().getName().equals(Names.CROSSBOWMEN.getName()) || army.getNames().getName().equals(Names.HORSE_ARCHERS.getName())
                     || army.getNames().getName().equals(Names.FireThrowers.getName())) {
-                number++;
+                return (ArchersAndThrowers) army;
             }
         }
-        return number == selectedUnit.size();
+        return null;
     }
 
     public GameMenuMessages pourOil(String direction) {
