@@ -29,10 +29,10 @@ public class Empire {
     private int resourcesCapacity = 150;
     private int resourcesCount;
     private int maxPossiblePopulation;
-    private int PeasantCount;
+    private int PeasantCount = 20;
     private int priestCount;
     private int troopCount;
-    private int workerCount;
+    private int workerCount = 20;
     private int notificationOfRequest;
     private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
@@ -102,10 +102,8 @@ public class Empire {
     }
 
     private int population;
-
-
     public int popularity;
-    private int goldCount;
+    private int goldCount = 100000000;
     private int foodRateNumber = -2;
     private int totalFoodCount;
     private int foodDiversity;
@@ -827,14 +825,14 @@ public class Empire {
     public HashMap<String, Integer> stores = new HashMap<>();
 
     {
-        stores.put("wood", 0);
-        stores.put("iron", 0);
-        stores.put("stone", 0);
-        stores.put("oat", 0);
-        stores.put("wheat", 0);
-        stores.put("beer", 0);
-        stores.put("flour", 0);
-        stores.put("oil", 0);
+        stores.put("wood", 50);
+        stores.put("iron", 50);
+        stores.put("stone", 50);
+        stores.put("oat", 50);
+        stores.put("wheat", 50);
+        stores.put("beer", 50);
+        stores.put("flour", 50);
+        stores.put("oil", 50);
     }
 
     public HashMap<String, Integer> productionBuildingCount = new HashMap<>();

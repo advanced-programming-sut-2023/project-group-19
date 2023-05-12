@@ -94,7 +94,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
         this.maxHp = 600;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         this.name = Names.SHOP;
-        createBuildingCost(5, 0, 0, 0, 2);
+        createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
