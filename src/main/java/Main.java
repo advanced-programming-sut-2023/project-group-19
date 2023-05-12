@@ -24,29 +24,29 @@ import static java.lang.Math.floor;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
-//        Scanner scanner = new Scanner(System.in);
-//        LoginMenu.run(scanner);
-        CreateMapController.CreateMap(200);
-        Empire pig = new Empire();
-        Manage.allEmpires.add(pig);
-        Empire RichardTheLionHeart = new Empire();
-        Manage.allEmpires.add(RichardTheLionHeart);
-        Manage.setCurrentEmpire(RichardTheLionHeart);
-
-        GameController gameController2 = new GameController();
-        GameController.gameController = gameController2 ;
-
-        Soldiers attacker = new Soldiers(RichardTheLionHeart);
-        attacker.Knight(50,20);
-        RichardTheLionHeart.empireArmy.add(attacker);
-        attacker.isIntFight = true ;
-        Map.getTroopMap()[50][20].add(attacker);
-
-        Armoury armoury = new Armoury(pig);
-        armoury.armoury();
-        Map.getBuildingMap()[51][23].add(armoury);
-
-        AttackArmyToArmyController.setFightMode(gameController2);
+        Scanner scanner = new Scanner(System.in);
+        LoginMenu.run(scanner);
+//        CreateMapController.CreateMap(200);
+//        Empire pig = new Empire();
+//        Manage.allEmpires.add(pig);
+//        Empire RichardTheLionHeart = new Empire();
+//        Manage.allEmpires.add(RichardTheLionHeart);
+//        Manage.setCurrentEmpire(RichardTheLionHeart);
+//
+//        GameController gameController2 = new GameController();
+//        GameController.gameController = gameController2 ;
+//
+//        Soldiers attacker = new Soldiers(RichardTheLionHeart);
+//        attacker.Knight(50,20);
+//        RichardTheLionHeart.empireArmy.add(attacker);
+//        attacker.isIntFight = true ;
+//        Map.getTroopMap()[50][20].add(attacker);
+//
+//        Armoury armoury = new Armoury(pig);
+//        armoury.armoury();
+//        Map.getBuildingMap()[51][23].add(armoury);
+//
+//        AttackArmyToArmyController.setFightMode(gameController2);
 
 
 
@@ -55,11 +55,11 @@ public class Main {
 //        Map.getTroopMap()[53][23].add(fighter2);
 //        pig.empireArmy.add(fighter2);
 
-        AttackArmyToArmyController.battleWithEnemy();
-        System.out.println(ShowMapController.showMap(52,20,false));
-        System.out.println(armoury.getHp());
-        System.out.println(attacker.xCoordinate);
-        System.out.println(attacker.yCoordinate);
+//        AttackArmyToArmyController.battleWithEnemy();
+//        System.out.println(ShowMapController.showMap(52,20,false));
+//        System.out.println(armoury.getHp());
+//        System.out.println(attacker.xCoordinate);
+//        System.out.println(attacker.yCoordinate);
 
 //        attacker.setArmyForm("offensive");
 //        GameController gameController2 = new GameController();
