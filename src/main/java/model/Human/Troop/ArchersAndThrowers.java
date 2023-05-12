@@ -99,17 +99,17 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public void Crossbowmen(int x, int y) {
-        this.hp = 700;
-        this.maxHp = 700;
-        this.typeOfArmy = Names.STANDING_AMRY;
-        this.names = Names.CROSSBOWMEN;
-        this.xCoordinate = x;
-        this.yCoordinate = y;
-        this.speed = 3;
-        this.attackRange = 4;
-        this.attackPower = 200;
-        this.defencePower = 50;
-        this.restOfMoves = 3;
+        hp = 700;
+        maxHp = 700;
+        typeOfArmy = Names.STANDING_AMRY;
+        names = Names.CROSSBOWMEN;
+        xCoordinate = x;
+        yCoordinate = y;
+        speed = 3;
+        attackRange = 4;
+        attackPower = 200;
+        defencePower = 50;
+        restOfMoves = 3;
     }
 
     public void ArcherBow(int x, int y) {
