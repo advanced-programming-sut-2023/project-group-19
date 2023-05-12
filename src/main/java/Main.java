@@ -34,6 +34,7 @@ public class Main {
 //        Manage.setCurrentEmpire(empire);
 //        Map.CreateMap(200);
 //        empireMenu.run(scanner);
+
         User newUser2 = new User("user5", "aa", "reza", "a", "1", "1", 1);
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         Empire empire = new Empire();
