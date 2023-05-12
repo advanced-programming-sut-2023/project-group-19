@@ -7,7 +7,7 @@ public enum LoginAndRegisterCommands {
 
     FOR_REGISTER("\\s*user\\s+create"),
     REGISTER_USERNAME_CHECK("-u\\s+(?<username>(?=\")\"[^\"-]+\"|[^- ]+)"),
-    REGISTER_PASSWORD_CHECK("-p\\s+(?<password>(?=\")\"[^\"-]+\"|[^- ]+)\\s(?<confirmPassword>(?=\")\"[^\"-]+\"|[^- ]+)?"),
+    REGISTER_PASSWORD_CHECK("-p\\s+(?<password>(?=\")\"[^\"-]+\"|[^- ]+)\\s*(?<confirmPassword>(?=\")\"[^\"-]+\"|[^- ]+)?"),
     REGISTER_EMAIL_CHECK("(--email|-e)\\s+(?<email>(?=\")\"[^\"-]+\"|[^- ]+)"),
     REGISTER_NICKNAME_CHECK("-n\\s+(?<nickname>(?=\")\"[^\"-]+\"|[^- ]+)"),
     REGISTER_SLOGAN_CHECK("-s\\s+(?<slogan>(?=\")\"[^\"-]+\"|[^- ]+)"),

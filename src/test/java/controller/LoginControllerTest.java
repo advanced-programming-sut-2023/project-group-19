@@ -17,6 +17,25 @@ import view.Messages.*;
 
 class LoginControllerTest {
     @Test
+    public void checkMakeUsername(){
+        String text = LoginController.makeUserNameForUser("ali");
+        Assertions.assertNotNull(text);
+
+        text = LoginController.makeUserNameForUser("ali");
+        Assertions.assertNotEquals(text,"ali");
+    }
+    @Test
+    public void checkCreateRandomPassword(){
+        String text = LoginController.generateRandomPassword();
+        Assertions.assertNotNull(text);
+    }
+    @Test
+    public void getRandomSloganCheck(){
+        String text = LoginController.getRandomSlogan();
+        Assertions.assertNotNull(text);
+    }
+    @Test
+
     public void checkRegisterErrorPassword(){
         RegisterMessages message = LoginController.checkErrorForRegister
                 ("ds f cj *","dsfc","ass",
