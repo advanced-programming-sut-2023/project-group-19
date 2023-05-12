@@ -83,10 +83,6 @@ public class LoginMenuTest {
         checkSlogan = LoginAndRegisterCommands.getMatcher(command,LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
         Assertions.assertNull(checkSlogan);
     }
-    @Test
-    public void CheckTestCase(){
-
-    }
 
 }
 
