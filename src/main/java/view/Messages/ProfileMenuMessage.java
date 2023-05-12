@@ -11,4 +11,5 @@ public enum ProfileMenuMessage {
     WEAK_PASSWORD_FOR_LENGTH,
     SIMILAR_PASSWORD ,
     INVALID_FORM_EMAIL,
+    REPETED ,
 }

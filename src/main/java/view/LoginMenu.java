@@ -37,6 +37,7 @@ public class LoginMenu {
         if (user != null) {
             User orgUser = User.getUserByName(user.getUsername());
             User.setCurrentUser(orgUser);
+            User.loginUsers.add(orgUser);
             System.out.println("Login successfully");
             MainMenu.run(scanner);
         }
@@ -96,10 +97,9 @@ public class LoginMenu {
         Matcher matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN_GET_USERNAME);
         if (matcher != null) username = matcher.group("username").replaceAll("\"", "");
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN_GET_PASSWORD);
-        if (matcher != null) password = matcher.group("password").replaceAll("\"", "");
-        ;
+        if (matcher != null) password = matcher.group("password");
         if (username == null || password == null) {
-            System.out.println("invalid command");
+            System.out.println("Fill correctly!");
             return;
         }
         RegisterMessages message = LoginController.loginUser(username, password);
@@ -140,9 +140,8 @@ public class LoginMenu {
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_PASSWORD_CHECK);
         if (matcher == null) password = null;
         else {
-            password = matcher.group("password").replaceAll("\"", "");
+            password = matcher.group("password");
             confirmPassword = matcher.group("confirmPassword");
-            if (confirmPassword != null) confirmPassword = confirmPassword.replaceAll("\"", "");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
         if (matcher == null) email = null;
@@ -152,17 +151,18 @@ public class LoginMenu {
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_NICKNAME_CHECK);
         if (matcher == null) nickname = null;
         else {
-            nickname = matcher.group("nickname").replaceAll("\"", "");
+            nickname = matcher.group("nickname");
         }
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
         if (matcher == null) {
             matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK_FOR_EMPTY);
             if (matcher == null) slogan = "empty";
             else slogan = null;
-        } else slogan = matcher.group("slogan").replaceAll("\"", "");
+        } else slogan = matcher.group("slogan");
 
         sendInformationsOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
     }
+    //ASss8+====~`"
 
     private static void sendInformationsOfRegisterUser(String username, String password, String confirmPassword,
                                                        String email, String nickname, String slogan, Scanner scanner) throws IOException {
@@ -186,14 +186,14 @@ public class LoginMenu {
                 break;
             case GET_RANDOM_PASSWORD:
                 password = LoginController.generateRandomPassword();
-                System.out.println("Your random password is " + password + ".Please type it");
+                System.out.println("Your random password is: " + password + ".Please type it");
                 String ans = scanner.nextLine();
                 while (true) {
                     if (ans.equals(password)) {
                         sendInformationsOfRegisterUser(username, password, password, email, nickname, slogan, scanner);
                         break;
                     }
-                    System.out.println("Try again!");
+                    System.out.println("Type it again!");
                     ans = scanner.nextLine();
                 }
                 return;
@@ -257,14 +257,14 @@ public class LoginMenu {
         Matcher matcher;
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_NUMBER);
         if (matcher != null)
-            number = Integer.parseInt(matcher.group("number").replaceAll("\"", ""));
+            number = Integer.parseInt(matcher.group("number"));
 
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_ASK);
         if (matcher != null)
-            ask = matcher.group("ask").replaceAll("\"", "");
+            ask = matcher.group("ask");
         matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_ASK_CONFIRM);
         if (matcher != null)
-            askConfirm = matcher.group("askConfirm").replaceAll("\"", "");
+            askConfirm = matcher.group("askConfirm");
         RegisterMessages message = LoginController.checkSecurityAsks(number, ask, askConfirm);
         if (message.equals(RegisterMessages.IS_OK_ASKS)) {
             String[] list = new String[2];

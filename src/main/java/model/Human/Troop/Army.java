@@ -27,8 +27,8 @@ public class Army extends Human {
         this.archerAttacker = archerAttacker;
     }
 
-    private Empire empire;
-    private Army enemy;
+    protected Empire empire;
+    protected Army enemy;
 
     public boolean isIntFight() {
         return isIntFight;
@@ -54,10 +54,35 @@ public class Army extends Human {
         this.empire = empire;
     }
 
+    protected Names names;
 
     public Names getNames() {
         return names;
     }
+
+    protected String armyForm;
+    protected int hp;
+    protected int maxHp;
+    protected int speed;
+    protected int defencePower;
+    protected int attackPower;
+    protected int attackRange;
+    public int startXCoordinate;
+    public int startYCoordinate;
+    public int xCoordinate;
+    public int yCoordinate;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
+    public List<Integer> myPath;
+    public int restOfMoves;
+
+
+
+    public Names typeOfArmy;
+
+
     public int getPastXcordinate() {
         return pastXcordinate;
     }
@@ -73,6 +98,7 @@ public class Army extends Human {
     public void setPastYcordinate(int pastYcordinate) {
         this.pastYcordinate = pastYcordinate;
     }
+
 
     @Override
     public int getHp() {
