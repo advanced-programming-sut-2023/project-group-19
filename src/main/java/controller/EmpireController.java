@@ -157,16 +157,16 @@ public class EmpireController {
 
     public static int calculateTotalFightStuffCount() {
         int total = 0;
-        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()) {
+        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()){
             total += weapon.getValue();
         }
-        for (Map.Entry<String, Integer> europe : Manage.getCurrentEmpire().europeTroopCount.entrySet()) {
+        for (Map.Entry<String , Integer> europe : Manage.getCurrentEmpire().europeTroopCount.entrySet()){
             total += europe.getValue();
         }
-        for (Map.Entry<String, Integer> arab : Manage.getCurrentEmpire().arabTroopCount.entrySet()) {
+        for (Map.Entry<String , Integer> arab : Manage.getCurrentEmpire().arabTroopCount.entrySet()){
             total += arab.getValue();
         }
-        for (Map.Entry<String, Integer> siege : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()) {
+        for (Map.Entry<String , Integer> siege : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()){
             total += siege.getValue();
         }
         for (Map.Entry<String, Integer> engineerGuild : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()) {
