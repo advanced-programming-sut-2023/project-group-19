@@ -16,7 +16,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class GameMenu {
-    public static Empire currentEmpire;
+
+    public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static GameController gameController = new GameController();
 
     public void run(Scanner scanner) throws IOException, InterruptedException {

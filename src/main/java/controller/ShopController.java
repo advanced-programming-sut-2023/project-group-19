@@ -40,20 +40,18 @@ public class ShopController {
         Map.Entry<String, Integer> chosenGood = findGoodToBuy(nameOfGood);
         int amount = Integer.parseInt(itemAmount.group("itemAmount"));
         if (chosenGood != null) {
-            if (getNumberOfGoods(chosenGood.getKey(), ownerOfShop) >= amount) {
-                if (checkTheCapacity(amount, chosenGood.getKey(), Manage.getCurrentEmpire())) {
-                    if (enoughMoneyToBuy(Manage.getCurrentEmpire(), chosenGood.getValue())) {
-                        validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
-                        String answer = scanner.nextLine();
-                        if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
-                            Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
-                            ownerOfShop.setGoldCount(ownerOfShop.getGoldCount() + chosenGood.getValue());
-                            setNumberOfGoods(Manage.getCurrentEmpire(), ownerOfShop, amount * 5, chosenGood.getKey());
-                            return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
-                        } else return ShopMenuMessages.OPERATION_CANCELLED;
-                    } else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
-                } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_EMPIRE;
-            } else return ShopMenuMessages.INVALID_AMOUNT_TO_BUY;
+            if (checkTheCapacity(amount, chosenGood.getKey(), Manage.getCurrentEmpire())) {
+                if (enoughMoneyToBuy(Manage.getCurrentEmpire(), chosenGood.getValue())) {
+                    validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
+                    String answer = scanner.nextLine();
+                    if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
+                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
+                        ownerOfShop.setGoldCount(ownerOfShop.getGoldCount() + chosenGood.getValue());
+                        setNumberOfGoods(Manage.getCurrentEmpire(), ownerOfShop, amount * 5, chosenGood.getKey());
+                        return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
+                    } else return ShopMenuMessages.OPERATION_CANCELLED;
+                } else return ShopMenuMessages.NOT_ENOUGH_MONEY_TO_BUY;
+            } else return ShopMenuMessages.NOT_ENOUGH_CAPACITY_FOR_EMPIRE;
         }
         return ShopMenuMessages.INVALID_NAME_OF_ITEM;
     }
@@ -138,63 +136,48 @@ public class ShopController {
         switch (goodName) {
             case "meat" -> {
                 customer.setMeatCount(customer.getMeatCount() + count);
-                seller.setMeatCount(seller.getMeatCount() - count);
             }
             case "hops" -> {
                 customer.setOatCount(customer.getOatCount() + count);
-                seller.setOatCount(seller.getOatCount() - count);
             }
             case "ironArmour" -> {
                 customer.setMetalArmour(customer.getMetalArmour() + count);
-                seller.setMetalArmour(seller.getMetalArmour() - count);
             }
             case "leatherArmour" -> {
                 customer.setLeatherArmour(customer.getLeatherArmour() + count);
-                seller.setLeatherArmour(seller.getLeatherArmour() - count);
             }
             case "sword" -> {
                 customer.setSwordCount(customer.getSwordCount() + count);
-                seller.setSwordCount(seller.getSwordCount() - count);
             }
             case "bow" -> {
                 customer.setBowCount(customer.getBowCount() + count);
-                seller.setBowCount(seller.getBowCount() - count);
             }
             case "mace" -> {
                 customer.setMaceCount(customer.getMaceCount() + count);
-                seller.setMaceCount(seller.getMaceCount() - count);
             }
             case "oil" -> {
                 customer.setOilAmount(customer.getOilAmount() + count);
-                seller.setOilAmount(seller.getOilAmount() - count);
             }
             case "iron" -> {
                 customer.setIronCount(customer.getIronCount() + count);
-                seller.setIronCount(seller.getIronCount() - count);
             }
             case "stone" -> {
                 customer.setStoneCount(customer.getStoneCount() + count);
-                seller.setStoneCount(seller.getStoneCount() - count);
             }
             case "wood" -> {
                 customer.setWoodCount(customer.getWoodCount() + count);
-                seller.setWoodCount(seller.getWoodCount() - count);
             }
             case "flour" -> {
                 customer.setFlour(customer.getFlour() + count);
-                seller.setFlour(seller.getFlour() - count);
             }
             case "wheat" -> {
                 customer.setWheatCount(customer.getWheatCount() + count);
-                seller.setWheatCount(seller.getWheatCount() - count);
             }
             case "apple" -> {
                 customer.setAppleCount(customer.getAppleCount() + count);
-                seller.setAppleCount(seller.getAppleCount() - count);
             }
             case "cheese" -> {
                 customer.setCheeseCount(customer.getCheeseCount() + count);
-                seller.setCheeseCount(seller.getCheeseCount() - count);
             }
         }
     }

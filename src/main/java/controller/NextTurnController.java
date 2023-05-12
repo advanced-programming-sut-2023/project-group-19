@@ -1,5 +1,8 @@
 package controller;
 
+import controller.Building.BuildingController;
+import controller.Building.FunctionBuildingController;
+import controller.Building.SelectedBuildingController;
 import model.Building.Building;
 import model.Empire;
 import model.Manage;
@@ -40,16 +43,21 @@ public class NextTurnController {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
         currentEmpire = Manage.allEmpires.get(index);
         index = index++ % Manage.allEmpires.size();
+        BuildingController.currentEmpire = currentEmpire;
+        FunctionBuildingController.empire = currentEmpire;
+        SelectedBuildingController.empire = currentEmpire;
+        TradeController.currentEmpire = currentEmpire;
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
+        EmpireController.showEmpireStatus();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
         EmpireController.functionBuildings();
         EmpireController.findFoodDiversity();
         EmpireController.givingPeopleFood(currentEmpire);
-        gameController.setEnemyToTarget(); //TODO
+        gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
     }
 

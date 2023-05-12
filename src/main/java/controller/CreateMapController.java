@@ -1,5 +1,6 @@
 package controller;
 
+import controller.Building.BuildingController;
 import model.GroundType;
 import model.Map;
 import model.Obstacle.Stone;
@@ -65,7 +66,7 @@ public class CreateMapController {
     }
     public static String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type){
         if (!mapIsBuilt) return "You first must build a map!";
-        if(x1 >= x2 || y1 >= y2) return "Please make sure that x and y are correctly assigned!";
+        if(x1 > x2 || y1 > y2) return "Please make sure that x and y are correctly assigned!";
         if(x1 < 0 || x2 >= sizeOfMap || y1 < 0 || y2 >= sizeOfMap) return "Yure location is out of bounds";
         GroundType groundType = GroundType.getEnumGroundType(type);
         if(groundType == null) return "Choose type correctly";
@@ -97,6 +98,7 @@ public class CreateMapController {
     }
 
     public static String dropRock(int x, int y, String type) {
+        if(type.equals("r")) type = "w";
         if (!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s"))
             return "Choose direction correctly!";
         if (!mapIsBuilt) return "You first must build a map!";
@@ -159,9 +161,14 @@ public class CreateMapController {
         indexOfUser++;
         Castle castle = new Castle(empire);
         castle.castle();
-        Map.getBuildingMap()[x][y].add(castle);
+        Map.AddToBuildingMap(x, y, castle);
+        empire.castleXCoordinate = x;
+        empire.castleYCCoordinate = y;
+        Map.notBuildable[x][y] = true;
+        Map.notPassable[x][y] = true;
+        Map.wallPassable[x][y] = true;
+        BuildingController.dropFirstStockpile(x, y);
         numberOfEmpires ++ ;
-
         return "Successfully done!";
     }
 }

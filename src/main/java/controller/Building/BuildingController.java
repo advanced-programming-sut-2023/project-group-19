@@ -12,9 +12,9 @@ import java.util.regex.Matcher;
 
 
 public class BuildingController {
-    public static int size = Map.mapSize;
 
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
+    public static int size = Map.mapSize;
+    public static Empire currentEmpire ;
     public static Building selectedBuilding;
 
     public BuildingMessages checkCoordinate(int x, int y) {
@@ -44,7 +44,7 @@ public class BuildingController {
     }
 
     // ground type / obstacle remove
-    public void dropFirstStockpile(int x, int y) {
+    public static void dropFirstStockpile(int x, int y) {
         Stockpile foodStockpile = new Stockpile(currentEmpire);
         foodStockpile.foodStockpile();
         Stockpile resourcesStockpile = new Stockpile(currentEmpire);
@@ -73,8 +73,6 @@ public class BuildingController {
         }
         return false;
     }
-
-    //TODO : check the oil in the game
     public void buildingCheckout(Building building, Empire empire) {
         empire.setWoodCount(empire.getWoodCount() - building.cost.get("wood"));
         empire.setStoneCount(empire.getStoneCount() - building.cost.get("stone"));
@@ -103,7 +101,7 @@ public class BuildingController {
                 Shop shop = new Shop(currentEmpire);
                 shop.shop();
                 if (correctGroundType(x, y, shop)) {
-                    if (empireHasEnoughResourcesToBuildTheBuilding(shop, currentEmpire)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(shop, Manage.getCurrentEmpire())) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(shop, currentEmpire)) {
                             buildingCheckout(shop, currentEmpire);
                             Map.AddToBuildingMap(x, y, shop);

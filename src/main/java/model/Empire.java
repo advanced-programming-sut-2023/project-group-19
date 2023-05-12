@@ -847,6 +847,7 @@ public class Empire {
         productionBuildingCount.put("oatFarm", 0);
         productionBuildingCount.put("huntingPost", 0);
         productionBuildingCount.put("inn", 0);
+        productionBuildingCount.put("beerFactory", 0);
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);

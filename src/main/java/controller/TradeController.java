@@ -9,7 +9,7 @@ import model.TradeAbleGoods;
 
 public class TradeController {
     public static Empire selectedEmpire;
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
+    public static Empire currentEmpire ;
 
     public void showAllEmpires() {
         int number = 1;
