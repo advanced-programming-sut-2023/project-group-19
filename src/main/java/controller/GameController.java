@@ -728,6 +728,8 @@ public class GameController {
                         ((PitchDitch) Map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
                         Map.getBuildingMap()[xOfPitch][yOfPitch].clear();
                         Map.getObstacleMap()[xOfPitch][yOfPitch].clear();
+                        Map.notPassable[xOfPitch][yOfPitch] = false;
+                        Map.notBuildable[xOfPitch][yOfPitch] = false;
                         for (Army army : Map.getTroopMap()[xOfPitch][yOfPitch]) {
                             removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
                         }
@@ -854,6 +856,8 @@ public class GameController {
                             }
                             if (!Map.getBuildingMap()[m][n].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
                                 Map.getBuildingMap()[m][n].clear();
+                                Map.notBuildable[m][n] = false;
+                                Map.notPassable [m][n] = false;
                                 return;
                             }
                         }
@@ -1011,7 +1015,6 @@ public class GameController {
                         || army.getNames().equals(Names.FIRE_BALLISTA)) {
                     throwers.add((ArchersAndThrowers) army);
                 }
-                System.out.println("hi" + empire.getName() +" "+ throwers.size());
             }
             makeSiegesWorkAutomatically();
         }
@@ -1058,7 +1061,6 @@ public class GameController {
         for (int i = floorX; i <= ceilX; i++) {
             for (int j = floorY; j <= ceilY; j++) {
                 if (i == siege.getCurrentX() && j == siege.getCurrentY()) continue;
-                System.out.println(i+" "+j);
                 if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
                     Map.getBuildingMap()[i][j].clear();
                     Map.notPassable[i][j] = false;
@@ -1162,6 +1164,7 @@ public class GameController {
                                     Map.getTroopMap()[army.getCurrentX()][army.getCurrentY()].remove(army);
                                     Map.getBuildingMap()[nextX][nextY].clear();
                                     Map.notPassable[nextX][nextY] = false;
+                                    Map.notBuildable[nextX][nextY] = false;
                                     Map.wall[nextX][nextY] = false;
                                 }
                             }
