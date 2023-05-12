@@ -4,9 +4,7 @@ import model.Human.Troop.Army;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
@@ -104,6 +102,8 @@ public class Empire {
     }
 
     private int population;
+
+
     public int popularity;
     private int goldCount;
     private int foodRateNumber = -2;
@@ -719,6 +719,7 @@ public class Empire {
     public int getPopularityFactorFear() {
         return popularityFactors.get("fear");
     }
+
 
     public int getMeatCount() {
         return allFood.get("meat");
