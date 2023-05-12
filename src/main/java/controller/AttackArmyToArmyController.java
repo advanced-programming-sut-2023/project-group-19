@@ -176,11 +176,14 @@ public class AttackArmyToArmyController {
     //TODO : ask dorsaa to true the fight mode!
 
     public static void setFightMode(GameController gameController) {
+        gameController.selectedUnit.clear();
         Empire empire = Manage.getCurrentEmpire();
         for (Army army : empire.empireArmy) {
             if (!army.isIntFight() || isArcher(army) || army.myPath != null) continue;
             System.out.println("isss");
+            gameController.selectedUnit.add(army);
             findEnemyForFightMode(army, gameController);
+            gameController.selectedUnit.clear();
         }
     }
 
@@ -220,6 +223,8 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (Map.getBuildingMap()[i][j].isEmpty()) continue;
+                System.out.println("attack to buuldsuxdx");
+                System.out.println("i is: " + i + " j is: " + j);
 //                Building building = Map.getBuildingMap()[i][j].get(0);
 
 
@@ -237,6 +242,7 @@ public class AttackArmyToArmyController {
                 for (int len = up; len <= down; len++) {
                     for (int h = left; h <= right; h++) {
                         if (!Map.notPassable[len][h]) {
+                            System.out.println("i am here");
                             gameController.moveUnit(len + 1, h + 1);
                             return true;
                         }

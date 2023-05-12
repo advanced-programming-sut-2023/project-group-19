@@ -37,10 +37,10 @@ public class Main {
         GameController.gameController = gameController2 ;
 
         Soldiers attacker = new Soldiers(RichardTheLionHeart);
-        attacker.Knight(47,20);
+        attacker.Knight(50,20);
         RichardTheLionHeart.empireArmy.add(attacker);
         attacker.isIntFight = true ;
-        Map.getTroopMap()[47][20].add(attacker);
+        Map.getTroopMap()[50][20].add(attacker);
 
         Armoury armoury = new Armoury(pig);
         armoury.armoury();
