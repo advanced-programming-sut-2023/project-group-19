@@ -15,7 +15,8 @@ public class Empire {
     public int castleYCCoordinate;
     public ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
     public ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
-    public ArrayList<Integer> DrawBridge = new ArrayList<>();
+    public ArrayList<Integer> DrawBride = new ArrayList<>();
+
     public User getUser() {
         return user;
     }
@@ -644,24 +645,31 @@ public class Empire {
     public void setSwordCount(int swordCount) {
         allWeaponTools.replace("sword", swordCount);
     }
-    public void setBeerCount(int beerCount){
-        stores.replace("beer",beerCount);
+
+    public void setBeerCount(int beerCount) {
+        stores.replace("beer", beerCount);
     }
-    public int getBeerCount(){
+
+    public int getBeerCount() {
         return stores.get("beer");
     }
-    public int getMetalArmour(){
+
+    public int getMetalArmour() {
         return allWeaponTools.get("metalArmour");
     }
-    public void setMetalArmour(int metalArmour){
-        allWeaponTools.replace("metalArmour",metalArmour);
+
+    public void setMetalArmour(int metalArmour) {
+        allWeaponTools.replace("metalArmour", metalArmour);
     }
-    public int getLeatherArmour(){
+
+    public int getLeatherArmour() {
         return allWeaponTools.get("leatherArmour");
     }
-    public void setLeatherArmour(int leatherArmour){
-        allWeaponTools.replace("leatherArmour",leatherArmour);
+
+    public void setLeatherArmour(int leatherArmour) {
+        allWeaponTools.replace("leatherArmour", leatherArmour);
     }
+
     public int getMaceCount() {
         return allWeaponTools.get("mace");
     }
@@ -871,7 +879,8 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
-    public int getMeatCount(){
+
+    public int getMeatCount() {
         return allFood.get("meat");
     }
 
@@ -922,21 +931,27 @@ public class Empire {
     public void setPortableShieldCount(int portableShieldCount) {
         siegeTentTroopsCount.replace("portableShield", portableShieldCount);
     }
-    public int getAppleCount(){
+
+    public int getAppleCount() {
         return allFood.get("apple");
     }
-    public void setAppleCount(int appleCount){
-        allFood.replace("apple",appleCount);
+
+    public void setAppleCount(int appleCount) {
+        allFood.replace("apple", appleCount);
     }
-    public int getCheeseCount(){
+
+    public int getCheeseCount() {
         return allFood.get("cheese");
     }
-    public void setCheeseCount(int cheeseCount){
-        allFood.replace("cheese",cheeseCount);
+
+    public void setCheeseCount(int cheeseCount) {
+        allFood.replace("cheese", cheeseCount);
     }
-    public void setMeatCount(int meatCount){
-        allFood.replace("meat",meatCount);
+
+    public void setMeatCount(int meatCount) {
+        allFood.replace("meat", meatCount);
     }
+
     public HashMap<String, Integer> getAllWeaponTools() {
         return allWeaponTools;
     }
@@ -1115,6 +1130,7 @@ public class Empire {
     public ArrayList<Request> getAllRequests() {
         return allRequests;
     }
+
     public ArrayList<Request> allDonations = new ArrayList<>();
 
     public ArrayList<Request> getAllDonations() {
