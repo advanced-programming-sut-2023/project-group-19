@@ -76,7 +76,7 @@ public class NextTurnController {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
                 NextTurnController.index--;
-                i--;
+                i --;
                 size -- ;
             }
         }
