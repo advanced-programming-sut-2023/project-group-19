@@ -147,6 +147,7 @@ public class EmpireController {
             empire.setFoodRateNumber(-2);
         }
     }
+
     public static int calculateTotalFoodCount() {
         int total = 0;
         for (Map.Entry<String, Integer> food : Manage.getCurrentEmpire().getAllFood().entrySet()) {
@@ -157,7 +158,7 @@ public class EmpireController {
 
     public static int calculateTotalFightStuffCount() {
         int total = 0;
-        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()){
+        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()) {
             total += weapon.getValue();
         }
         return total;

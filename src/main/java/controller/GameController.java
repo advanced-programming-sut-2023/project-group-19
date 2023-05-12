@@ -7,7 +7,6 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
-import model.Obstacle.ObstacleName;
 import view.Messages.GameMenuMessages;
 
 import java.util.ArrayList;
@@ -15,11 +14,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 public class GameController {
-    //TODO : DropUnit minus the count
-    //TODO : Minus 1 xCoordinates and yCoordinates
-    //TODO : SAVE PAST COORDINATE OF ALL ARMIES
-    //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
-    //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
     private static final int mapSize = Map.mapSize;
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
@@ -120,7 +114,7 @@ public class GameController {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName())
-                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState ))
+                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
                 continue;
             selectedUnit.add(army);
             System.out.println("in set state army");
@@ -460,7 +454,7 @@ public class GameController {
             if (y2 >= mapSize) y2 = mapSize - 1;
             if (State.equals(Names.OFFENSIVE.getName())) {
                 if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army, i)) return;
-            }else {
+            } else {
                 if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
             }
         }
@@ -861,7 +855,7 @@ public class GameController {
                             if (!Map.getBuildingMap()[m][n].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
                                 Map.getBuildingMap()[m][n].clear();
                                 Map.notBuildable[m][n] = false;
-                                Map.notPassable [m][n] = false;
+                                Map.notPassable[m][n] = false;
                                 return;
                             }
                         }
@@ -999,7 +993,7 @@ public class GameController {
 
     private static void killUnit() {
         for (Empire empire : Manage.getAllEmpires()) {
-            for (int i = 0 ; i < empire.empireArmy.size() ; i++) {
+            for (int i = 0; i < empire.empireArmy.size(); i++) {
                 Army army = empire.empireArmy.get(i);
                 if (army.getHp() <= 0) {
                     int x = army.xCoordinate;
@@ -1211,7 +1205,7 @@ public class GameController {
         GameMenuMessages gameMenuMessages;
         int x = Integer.parseInt(x1.group("x"));
         int y = Integer.parseInt(y1.group("y"));
-        if (validCoordinates(x,y)  && isWall(x, y)){
+        if (validCoordinates(x, y) && isWall(x, y)) {
             if (validationOfArmiesType(Names.SIEGE_TOWER.getName())) {
                 setPathForUnits(x, y);
                 int index = selectedUnit.get(0).myPath().size() - 1;

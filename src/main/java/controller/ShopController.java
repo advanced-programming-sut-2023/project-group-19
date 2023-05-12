@@ -201,9 +201,12 @@ public class ShopController {
 
     public boolean checkTheCapacity(int count, String goodName, Empire empire) {
         return switch (goodName) {
-            case "meat", "apple", "cheese" -> count + EmpireController.calculateTotalFoodCount() <= empire.getFoodCapacity();
-            case "hops", "oil", "flour", "wheat", "iron", "wood", "stone" -> count + EmpireController.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
-            case "ironArmor", "bow", "sword", "mace", "leatherArmor" -> count + EmpireController.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
+            case "meat", "apple", "cheese" ->
+                    count + EmpireController.calculateTotalFoodCount() <= empire.getFoodCapacity();
+            case "hops", "oil", "flour", "wheat", "iron", "wood", "stone" ->
+                    count + EmpireController.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
+            case "ironArmor", "bow", "sword", "mace", "leatherArmor" ->
+                    count + EmpireController.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
             default -> false;
         };
     }

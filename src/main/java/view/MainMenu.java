@@ -34,7 +34,7 @@ public class MainMenu {
     }
 
     private static void enterGameMenu(Scanner scanner) throws IOException, InterruptedException {
-        if (CreateMapController.numberOfEmpiers >= 2) {
+        if (CreateMapController.numberOfEmpires >= 2) {
             NextTurnController nextTurnController = new NextTurnController();
             nextTurnController.game(scanner);
             CreateMapController.recovery();

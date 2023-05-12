@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import model.User;
-import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
 import java.io.IOException;
@@ -13,12 +12,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-import static controller.JsonController.saveAllUsersFileData;
-
 public class LoginController {
-    //    static {
-//        saveAllUsersFileData();
-//    }
+
     public static RegisterMessages checkErrorForRegister(String username, String password, String confirmPassword,
                                                          String email, String nickname, String slogan) {
         if (slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null)) {
@@ -57,11 +52,12 @@ public class LoginController {
         JsonController.writeIntoFile(Manage.allUsers, "User.json");
         return RegisterMessages.SUCCESS;
     }
-    private static String changeTextIwithoutCot(String text){
+
+    private static String changeTextIwithoutCot(String text) {
         if (text.charAt(0) == '\"' && text.charAt(text.length() - 1) == '\"') {
             text = text.replaceAll("\"", "");
         }
-        return text ;
+        return text;
     }
 
     public static void register(String username, String password, String nickname, String email, String answeroFSecQuestion
@@ -99,7 +95,6 @@ public class LoginController {
         password = changeTextIwithoutCot(password);
         User user;
         if ((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME;
-//        System.out.println(user.getPassword());
         if (!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         User.setCurrentUser(user);
         User.loginUsers.add(user);

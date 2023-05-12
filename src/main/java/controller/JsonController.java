@@ -9,13 +9,12 @@ import model.User;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class JsonController {
     static String content;
 
-    public static void writeIntoFile(Object object, String fileName) throws IOException {
+    public static void writeIntoFile(Object object, String fileName) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
@@ -25,10 +24,9 @@ public class JsonController {
         } catch (IOException ignored) {
             System.out.println("couldn't save into file");
         }
-
     }
 
-    public static void emptyFile() throws IOException {
+    public static void emptyFile() {
         String fileName = "LoggedInUser.json";
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -39,7 +37,6 @@ public class JsonController {
         } catch (IOException ignored) {
             System.out.println("couldn't save into file");
         }
-
     }
 
     public static void readDataFile(String fileName) throws IOException {
@@ -51,21 +48,18 @@ public class JsonController {
         StringBuilder stringBuilder = new StringBuilder();
         File file = new File(fileName);
         Scanner sc = new Scanner(file);
-
         while (sc.hasNextLine())
             stringBuilder.append(sc.nextLine()).append('\n');
         content = stringBuilder.toString();
-
     }
 
-    public static void saveAllUsersFileData() throws FileNotFoundException {
+    public static void saveAllUsersFileData() {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         Type allUsersType = new TypeToken<ArrayList<User>>() {
         }.getType();
         if (content == null) return;
-//        Manage.allUsers = gson.fromJson(content , allUsersType);
         User.users = gson.fromJson(content, allUsersType);
         Manage.allUsers = User.users;
     }
