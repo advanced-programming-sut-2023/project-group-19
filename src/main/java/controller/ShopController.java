@@ -201,21 +201,9 @@ public class ShopController {
 
     public boolean checkTheCapacity(int count, String goodName, Empire empire) {
         return switch (goodName) {
-            case "meat" -> count + empire.getMeatCount() <= empire.getFoodCapacity();
-            case "hops" -> count + empire.getOatCount() <= empire.getFoodCapacity();
-            case "ironArmor" -> count + empire.getMetalArmour() <= empire.getWeaponsCapacity();
-            case "leatherArmor" -> count + empire.getLeatherArmour() <= empire.getWeaponsCapacity();
-            case "sword" -> count + empire.getSwordCount() <= empire.getWeaponsCapacity();
-            case "mace" -> count + empire.getMaceCount() <= empire.getWeaponsCapacity();
-            case "bow" -> count + empire.getBowCount() <= empire.getWeaponsCapacity();
-            case "oil" -> count + empire.getOilAmount() <= empire.getFoodCapacity();
-            case "iron" -> count + empire.getIronCount() <= empire.getResourcesCapacity();
-            case "stone" -> count + empire.getStoneCount() <= empire.getResourcesCapacity();
-            case "wood" -> count + empire.getWoodCount() <= empire.getResourcesCapacity();
-            case "flour" -> count + empire.getFlour() <= empire.getFoodCapacity();
-            case "wheat" -> count + empire.getWheatCount() <= empire.getFoodCapacity();
-            case "apple" -> count + empire.getAppleCount() <= empire.getFoodCapacity();
-            case "cheese" -> count + empire.getCheeseCount() <= empire.getFoodCapacity();
+            case "meat", "apple", "cheese" -> count + EmpireController.calculateTotalFoodCount() <= empire.getFoodCapacity();
+            case "hops", "oil", "flour", "wheat", "iron", "wood", "stone" -> count + EmpireController.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
+            case "ironArmor", "bow", "sword", "mace", "leatherArmor" -> count + EmpireController.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
             default -> false;
         };
     }

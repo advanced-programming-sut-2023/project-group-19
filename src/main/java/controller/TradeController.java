@@ -137,13 +137,14 @@ public class TradeController {
 
     public boolean checkTheCapacity(int count, String requestedGood, Empire empire) {
         return switch (requestedGood) {
-            case "meat", "apple", "cheese" -> count + empire.calculateTotalFoodCount() <= empire.getFoodCapacity();
+            case "meat", "apple", "cheese" -> count + EmpireController.calculateTotalFoodCount() <= empire.getFoodCapacity();
             case "hops", "flour", "wheat", "stone", "wood", "oil", "iron", "beer" ->
-                    count + empire.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
-            case "ironArmor", "leatherArmor", "mace", "bow", "sword", "horse", "archer", "spearMan", "maceMan", "crossbowMan", "pikeMan", "swordMan", "blackMonk",
+                    count + EmpireController.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
+            case "ironArmor", "leatherArmor", "mace", "bow", "sword", "horse" ->
+                    count + EmpireController.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
+            case "archer", "spearMan", "maceMan", "crossbowMan", "pikeMan", "swordMan", "blackMonk",
                     "knight", "arabianBow", "slave", "slinger", "assassin", "horseArcher", "arabianSwordMan", "fireThrower", "engineer", "ladderMan"
-                    , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" ->
-                    count + empire.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
+                    , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" -> count <= empire.getPeasantCount();
             default -> false;
 
         };

@@ -13,10 +13,9 @@ public class Empire {
     private User user;
     public int castleXCoordinate;
     public int castleYCCoordinate;
-    public static ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
-    public static ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
-    public static ArrayList<Integer> DrawBride = new ArrayList<>();
-
+    public ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
+    public ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
+    public ArrayList<Integer> DrawBridge = new ArrayList<>();
 
     public User getUser() {
         return user;
@@ -141,7 +140,6 @@ public class Empire {
     private int fearRateNumber = 1;
     private double fearWorkerImpact = 1;
     private double fearTroopImpact = 1;
-
 
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
@@ -646,24 +644,31 @@ public class Empire {
     public void setSwordCount(int swordCount) {
         allWeaponTools.replace("sword", swordCount);
     }
-    public void setBeerCount(int beerCount){
-        stores.replace("beer",beerCount);
+
+    public void setBeerCount(int beerCount) {
+        stores.replace("beer", beerCount);
     }
-    public int getBeerCount(){
+
+    public int getBeerCount() {
         return stores.get("beer");
     }
-    public int getMetalArmour(){
+
+    public int getMetalArmour() {
         return allWeaponTools.get("metalArmour");
     }
-    public void setMetalArmour(int metalArmour){
-        allWeaponTools.replace("metalArmour",metalArmour);
+
+    public void setMetalArmour(int metalArmour) {
+        allWeaponTools.replace("metalArmour", metalArmour);
     }
-    public int getLeatherArmour(){
+
+    public int getLeatherArmour() {
         return allWeaponTools.get("leatherArmour");
     }
-    public void setLeatherArmour(int leatherArmour){
-        allWeaponTools.replace("leatherArmour",leatherArmour);
+
+    public void setLeatherArmour(int leatherArmour) {
+        allWeaponTools.replace("leatherArmour", leatherArmour);
     }
+
     public int getMaceCount() {
         return allWeaponTools.get("mace");
     }
@@ -873,7 +878,8 @@ public class Empire {
     public void setDonation(ArrayList<String> donation) {
         this.donation = donation;
     }
-    public int getMeatCount(){
+
+    public int getMeatCount() {
         return allFood.get("meat");
     }
 
@@ -924,21 +930,27 @@ public class Empire {
     public void setPortableShieldCount(int portableShieldCount) {
         siegeTentTroopsCount.replace("portableShield", portableShieldCount);
     }
-    public int getAppleCount(){
+
+    public int getAppleCount() {
         return allFood.get("apple");
     }
-    public void setAppleCount(int appleCount){
-        allFood.replace("apple",appleCount);
+
+    public void setAppleCount(int appleCount) {
+        allFood.replace("apple", appleCount);
     }
-    public int getCheeseCount(){
+
+    public int getCheeseCount() {
         return allFood.get("cheese");
     }
-    public void setCheeseCount(int cheeseCount){
-        allFood.replace("cheese",cheeseCount);
+
+    public void setCheeseCount(int cheeseCount) {
+        allFood.replace("cheese", cheeseCount);
     }
-    public void setMeatCount(int meatCount){
-        allFood.replace("meat",meatCount);
+
+    public void setMeatCount(int meatCount) {
+        allFood.replace("meat", meatCount);
     }
+
     public HashMap<String, Integer> getAllWeaponTools() {
         return allWeaponTools;
     }
@@ -1117,6 +1129,7 @@ public class Empire {
     public ArrayList<Request> getAllRequests() {
         return allRequests;
     }
+
     public ArrayList<Request> allDonations = new ArrayList<>();
 
     public ArrayList<Request> getAllDonations() {
@@ -1157,38 +1170,5 @@ public class Empire {
         if (weaponsCount + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
             allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact));
         }
-    }
-    public int calculateTotalFoodCount(){
-        int total = 0;
-        for (Map.Entry<String, Integer> food : Manage.getCurrentEmpire().getAllFood().entrySet()){
-            total += food.getValue();
-        }
-        return total;
-    }
-    public int calculateTotalFightStuffCount(){
-        int total = 0;
-        for (Map.Entry<String, Integer> weapon : Manage.getCurrentEmpire().getAllWeaponTools().entrySet()){
-            total += weapon.getValue();
-        }
-        for (Map.Entry<String , Integer> europe : Manage.getCurrentEmpire().europeTroopCount.entrySet()){
-            total += europe.getValue();
-        }
-        for (Map.Entry<String , Integer> arab : Manage.getCurrentEmpire().arabTroopCount.entrySet()){
-            total += arab.getValue();
-        }
-        for (Map.Entry<String , Integer> siege : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()){
-            total += siege.getValue();
-        }
-        for (Map.Entry<String , Integer> engineerGuild : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()){
-            total += engineerGuild.getValue();
-        }
-        return total;
-    }
-    public int calculateTotalResourcesCount(){
-        int total = 0;
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().stores.entrySet()){
-            total += resource.getValue();
-        }
-        return total;
     }
 }

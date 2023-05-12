@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ShowMapIntoGameMenu {
+public class ShowMapInGameMenu {
     public static void run(Scanner scanner) {
         String command;
         Matcher matcher;

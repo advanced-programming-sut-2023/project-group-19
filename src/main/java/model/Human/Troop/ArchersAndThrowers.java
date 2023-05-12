@@ -101,17 +101,17 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public void Crossbowmen(int x, int y) {
-        this.hp = 700;
-        this.maxHp = 700;
-        this.typeOfArmy = Names.STANDING_AMRY;
-        this.names = Names.CROSSBOWMEN;
-        this.xCoordinate = x;
-        this.yCoordinate = y;
-        this.speed = 3;
-        this.attackRange = 4;
-        this.attackPower = 200;
-        this.defencePower = 50;
-        this.restOfMoves = 3;
+        hp = 700;
+        maxHp = 700;
+        typeOfArmy = Names.STANDING_AMRY;
+        names = Names.CROSSBOWMEN;
+        xCoordinate = x;
+        yCoordinate = y;
+        speed = 3;
+        attackRange = 4;
+        attackPower = 200;
+        defencePower = 50;
+        restOfMoves = 3;
     }
 
     public void ArcherBow(int x, int y) {
@@ -257,13 +257,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
     }
-
-    public static boolean isSeigeTroop(Army army) {
-        return army.getNames().equals(Names.CATAPULT) || army.getNames().equals(Names.TREBUCHET)
-                || army.getNames().equals(Names.PORTABLE_SHIELD) || army.getNames().equals(Names.BATTERING_RAM)
-                || army.getNames().equals(Names.FIRE_BALLISTA) || army.getNames().equals(Names.SIEGE_TOWER);
-    }
-
     @Override
     public int maxHp() {
         return maxHp;

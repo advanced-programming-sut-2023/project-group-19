@@ -245,6 +245,6 @@ public class GameMenu {
         }
         int y = Integer.parseInt(matcher.group("y"));
         System.out.println(ShowMapController.showMap(x, y, false));
-        ShowMapIntoGameMenu.run(scanner);
+        ShowMapInGameMenu.run(scanner);
     }
 }
