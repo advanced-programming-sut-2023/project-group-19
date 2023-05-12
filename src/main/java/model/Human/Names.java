@@ -39,7 +39,8 @@ public enum Names {
     NORTH("north"),
     SOUTH("south"),
     WEST("west"),
-    EAST("east"),;
+    EAST("east"),
+    ;
 
     private String name;
 

@@ -25,6 +25,7 @@ public class Worker extends Human implements HumanConstantFunctions {
     public int finalYCoordinate;
     public int restOfMoves;
     public List<Integer> myPath;
+
     @Override
     public int getHp() {
         return hp;
@@ -55,6 +56,7 @@ public class Worker extends Human implements HumanConstantFunctions {
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -70,6 +72,7 @@ public class Worker extends Human implements HumanConstantFunctions {
     public void setyCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
+
     public void worker(int x, int y) {
         hp = 50;
         maxHp = 50;
@@ -114,6 +117,7 @@ public class Worker extends Human implements HumanConstantFunctions {
     public int getGoalX() {
         return goalXCoordinate;
     }
+
     @Override
     public int getGoalY() {
         return goalYCoordinate;

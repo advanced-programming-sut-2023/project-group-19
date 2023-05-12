@@ -5,6 +5,7 @@ import model.Human.Troop.Army;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.Math.floor;
 
@@ -12,16 +13,16 @@ public class Empire {
     private User user;
     public int castleXCoordinate;
     public int castleYCCoordinate;
-    public static ArrayList<Integer> pourOilCoordinate;
-    public static ArrayList<Integer> cagedWarDogsCoordinate;
-
+    public ArrayList<Integer> pourOilCoordinate = new ArrayList<>();
+    public ArrayList<Integer> cagedWarDogsCoordinate = new ArrayList<>();
+    public ArrayList<Integer> DrawBridge = new ArrayList<>();
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User newUser) {
+        user = newUser;
     }
 
     private int foodCapacity = 50;
@@ -35,8 +36,25 @@ public class Empire {
     private int priestCount;
     private int troopCount;
     private int workerCount;
-
+    private int notificationOfRequest;
+    private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
+
+    public int getNotificationOfRequest() {
+        return notificationOfRequest;
+    }
+
+    public void setNotificationOfRequest(int notificationOfRequest) {
+        this.notificationOfRequest = notificationOfRequest;
+    }
+
+    public int getNotificationOfDonation() {
+        return notificationOfDonation;
+    }
+
+    public void setNotificationOfDonation(int notificationOfDonation) {
+        this.notificationOfDonation = notificationOfDonation;
+    }
 
     public int getPriestCount() {
         return priestCount;
@@ -102,7 +120,6 @@ public class Empire {
         this.foodCapacity = foodCapacity;
     }
 
-    private String name;
     private int population;
 
 
@@ -120,10 +137,9 @@ public class Empire {
     private int totalFoodCount;
     private int foodDiversity;
     private int taxRateNumber;
-    private int fearRateNumber;
-    private double fearWorkerImpact = 0;
-    private double fearTroopImpact = 0;
-
+    private int fearRateNumber = 1;
+    private double fearWorkerImpact = 1;
+    private double fearTroopImpact = 1;
 
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
@@ -158,11 +174,11 @@ public class Empire {
     }
 
     public String getName() {
-        return name;
+        return user.getNickname();
     }
 
     public void setName(String name) {
-        this.name = name;
+        user.setNickname(name);
     }
 
     public int getPopulation() {
@@ -383,6 +399,7 @@ public class Empire {
     public void setDairyFactoryRate(int dairyFactoryRate) {
         productionBuildingRate.replace("dairyFactory", dairyFactoryRate);
     }
+
     public int getIronMineCount() {
         return productionBuildingCount.get("ironMine");
     }
@@ -628,6 +645,30 @@ public class Empire {
         allWeaponTools.replace("sword", swordCount);
     }
 
+    public void setBeerCount(int beerCount) {
+        stores.replace("beer", beerCount);
+    }
+
+    public int getBeerCount() {
+        return stores.get("beer");
+    }
+
+    public int getMetalArmour() {
+        return allWeaponTools.get("metalArmour");
+    }
+
+    public void setMetalArmour(int metalArmour) {
+        allWeaponTools.replace("metalArmour", metalArmour);
+    }
+
+    public int getLeatherArmour() {
+        return allWeaponTools.get("leatherArmour");
+    }
+
+    public void setLeatherArmour(int leatherArmour) {
+        allWeaponTools.replace("leatherArmour", leatherArmour);
+    }
+
     public int getMaceCount() {
         return allWeaponTools.get("mace");
     }
@@ -838,6 +879,10 @@ public class Empire {
         this.donation = donation;
     }
 
+    public int getMeatCount() {
+        return allFood.get("meat");
+    }
+
     public int getCatapultCount() {
         return siegeTentTroopsCount.get("catapult");
     }
@@ -863,11 +908,11 @@ public class Empire {
     }
 
     public int getFireBalistaCount() {
-        return siegeTentTroopsCount.get("fireBalista");
+        return siegeTentTroopsCount.get("fireBallista");
     }
 
     public void setFireBalistaCount(int fireBalistaCount) {
-        siegeTentTroopsCount.replace("fireBalista", fireBalistaCount);
+        siegeTentTroopsCount.replace("fireBallista", fireBalistaCount);
     }
 
     public int getBatteringRamCount() {
@@ -884,6 +929,26 @@ public class Empire {
 
     public void setPortableShieldCount(int portableShieldCount) {
         siegeTentTroopsCount.replace("portableShield", portableShieldCount);
+    }
+
+    public int getAppleCount() {
+        return allFood.get("apple");
+    }
+
+    public void setAppleCount(int appleCount) {
+        allFood.replace("apple", appleCount);
+    }
+
+    public int getCheeseCount() {
+        return allFood.get("cheese");
+    }
+
+    public void setCheeseCount(int cheeseCount) {
+        allFood.replace("cheese", cheeseCount);
+    }
+
+    public void setMeatCount(int meatCount) {
+        allFood.replace("meat", meatCount);
     }
 
     public HashMap<String, Integer> getAllWeaponTools() {
@@ -909,6 +974,7 @@ public class Empire {
     public HashMap<String, Integer> getSiegeTentTroopsCount() {
         return siegeTentTroopsCount;
     }
+
     public HashMap<String, Integer> allFood = new HashMap<>();
 
     {
@@ -956,7 +1022,7 @@ public class Empire {
         productionBuildingCount.put("appleFarm", 0);
         productionBuildingCount.put("oatFarm", 0);
         productionBuildingCount.put("huntingPost", 0);
-        productionBuildingCount.put("beerFactory", 0);
+        productionBuildingCount.put("inn", 0);
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);
@@ -1058,131 +1124,16 @@ public class Empire {
 
     public ArrayList<String> request = new ArrayList<>();
     public ArrayList<String> donation = new ArrayList<>();
+    public ArrayList<Request> allRequests = new ArrayList<>();
 
-    public void setFearFactor() {
-        fearWorkerImpact = 1 - fearRateNumber * 0.1;
-        fearTroopImpact = 1 + fearRateNumber * 0.1;
+    public ArrayList<Request> getAllRequests() {
+        return allRequests;
     }
 
-    public void findFoodDiversity() {
-        int foodDiversity = 0;
-        if (allFood.get("apple") > 0) foodDiversity++;
-        if (allFood.get("bread") > 0) foodDiversity++;
-        if (allFood.get("cheese") > 0) foodDiversity++;
-        if (allFood.get("meat") > 0) foodDiversity++;
-        setFoodDiversity(foodDiversity);
-        switch (foodDiversity) {
-            case 2:
-                setPopularity(getPopularity() + 1);
-            case 3:
-                setPopularity(getPopularity() + 2);
-            case 4:
-                setPopularity(getPopularity() + 3);
-        }
-    }
+    public ArrayList<Request> allDonations = new ArrayList<>();
 
-    public void givingPeopleFood(Empire empire) {
-        double foodPerPearson = 0;
-        int foodRate = empire.getFoodRateNumber();
-        switch (foodRate) {
-            case -2:
-                empire.setPopularity(empire.getPopularity() - 8);
-                foodPerPearson = 0;
-            case -1:
-                empire.setPopularity(empire.getPopularity() - 4);
-                foodPerPearson = 0.5;
-            case 0:
-                foodPerPearson = 1;
-            case 1:
-                empire.setPopularity(empire.getPopularity() + 4);
-                foodPerPearson = 1.5;
-            case 2:
-                empire.setPopularity(empire.getPopularity() + 8);
-                foodPerPearson = 2;
-        }
-        int totalFoodThatBeGivenToPeople = (int) foodPerPearson * population;
-        if (foodPerPearson * population >= empire.getTotalFoodCount()) {
-            while (totalFoodThatBeGivenToPeople != 0) {
-                if (allFood.get("apple") != 0) {
-                    allFood.replace("apple", allFood.get("apple") - 1);
-                    totalFoodThatBeGivenToPeople--;
-                }
-                if (allFood.get("cheese") != 0) {
-                    allFood.replace("cheese", allFood.get("cheese") - 1);
-                    totalFoodThatBeGivenToPeople--;
-                }
-                if (allFood.get("bread") != 0) {
-                    allFood.replace("bread", allFood.get("bread") - 1);
-                    totalFoodThatBeGivenToPeople--;
-                }
-                if (allFood.get("meat") != 0) {
-                    allFood.replace("meat", allFood.get("meat") - 1);
-                    totalFoodThatBeGivenToPeople--;
-                }
-            }
-
-        } else {
-            empire.setFoodRateNumber(-2);
-        }
-    }
-
-    public String showFoodList() {
-        return "apple :" + allFood.get("apple") + '\n' +
-                "bread :" + allFood.get("bread") + '\n' +
-                "cheese :" + allFood.get("cheese") + '\n' +
-                "meat :" + allFood.get("meat") + '\n';
-    }
-
-    public void taxImpactOnEmpire(Empire empire, int taxRate) {
-        switch (taxRate) {
-            case -3:
-                empire.setGoldCount(empire.getGoldCount() - empire.getPopulation());
-                empire.setPopularity(empire.getPopularity() + 7);
-                setPopularityFactorTax(getPopularityFactorFood() + 7);
-            case -2:
-                empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.8));
-                empire.setPopularity(empire.getPopularity() + 5);
-                setPopularityFactorTax(getPopularityFactorFood() + 5);
-            case -1:
-                empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.6));
-                empire.setPopularity(empire.getPopularity() + 3);
-                setPopularityFactorTax(getPopularityFactorFood() + 3);
-            case 0:
-                empire.setPopularity(empire.getPopularity() + 1);
-                setPopularityFactorTax(getPopularityFactorFood() + 1);
-            case 1:
-                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.6));
-                empire.setPopularity(empire.getPopularity() - 2);
-                setPopularityFactorTax(getPopularityFactorFood() - 2);
-            case 2:
-                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.8));
-                empire.setPopularity(empire.getPopularity() - 4);
-                setPopularityFactorTax(getPopularityFactorFood() - 4);
-            case 3:
-                empire.setGoldCount(empire.getGoldCount() + empire.getPopulation());
-                empire.setPopularity(empire.getPopularity() - 6);
-                setPopularityFactorTax(getPopularityFactorFood() - 6);
-            case 4:
-                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.2));
-                empire.setPopularity(empire.getPopularity() - 8);
-                setPopularityFactorTax(getPopularityFactorFood() - 8);
-            case 5:
-                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.4));
-                empire.setPopularity(empire.getPopularity() - 12);
-                setPopularityFactorTax(getPopularityFactorFood() - 12);
-            case 6:
-                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.6));
-                empire.setPopularity(empire.getPopularity() - 16);
-                setPopularityFactorTax(getPopularityFactorFood() - 16);
-            case 7:
-                empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.8));
-                empire.setPopularity(empire.getPopularity() - 20);
-                setPopularityFactorTax(getPopularityFactorFood() - 20);
-            case 8:
-                empire.setGoldCount(empire.getGoldCount() + empire.getPopulation() * 2);
-                empire.setPopularity(empire.getPopularity() - 24);
-                setPopularityFactorTax(getPopularityFactorFood() - 24);
-        }
+    public ArrayList<Request> getAllDonations() {
+        return allDonations;
     }
 
     public void independentProductionBuilding() {
@@ -1216,19 +1167,8 @@ public class Empire {
         if (weaponsCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact <= weaponsCapacity) {
             allWeaponTools.replace("leatherArmour", (int) (allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact));
         }
-        if (weaponsCount + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
-            allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + productionBuildingRate.get("stable") * productionBuildingCount.get("stable") * fearWorkerImpact));
+        if (weaponsCount + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
+            allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact));
         }
-    }
-
-    public void functionBuildings() {
-        FunctionBuildingController.transformWheatToFlour();
-        FunctionBuildingController.transformFlourToBread();
-        FunctionBuildingController.transformOatToBeer();
-        FunctionBuildingController.increasePopularityWithBeer();
-        FunctionBuildingController.transformIronToMetalArmour();
-        FunctionBuildingController.transformIronToSwordOrMace();
-        FunctionBuildingController.transformWoodToBow();
-        FunctionBuildingController.transformWoodToSpearOrPeak();
     }
 }

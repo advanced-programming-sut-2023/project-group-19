@@ -6,33 +6,14 @@ import model.Human.Names;
 
 import java.util.List;
 
-public class Climbers extends Army implements HumanConstantFunctions{
+public class Climbers extends Army implements HumanConstantFunctions {
     public Climbers(Empire government) {
         super(government);
     }
 
-    private Names names;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int defencePower;
-    private int attackPower;
-    private int attackRange;
-
-    public int xCoordinate;
-
-    public int yCoordinate;
-    public Names typeOfArmy;
-    public int restOfMoves;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
     public boolean fight;
     public boolean ladderIsOn;
-    public List<Integer> myPath;
+
     public void setNames(Names names) {
         this.names = names;
     }
@@ -90,52 +71,56 @@ public class Climbers extends Army implements HumanConstantFunctions{
         return ladderIsOn;
     }
 
-    public void SpearMen(int x , int y) {
-        xCoordinate = x;
-        yCoordinate = y;
-        hp = 500;
-        maxHp = 500;
-        names = Names.SPEAR_MEN;
-        speed = 5;
-        attackPower = 500;
-        defencePower = 200;
-        restOfMoves = 5;
+    public void SpearMen(int x, int y) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.hp = 500;
+        this.maxHp = 500;
+        this.names = Names.SPEAR_MEN;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.speed = 5;
+        this.attackPower = 500;
+        this.defencePower = 200;
+        this.restOfMoves = 5;
     }
 
-    public void MaceMen(int x , int y) {
-        xCoordinate = x;
-        yCoordinate = y;
-        hp = 675;
-        maxHp = 675;
-        names = Names.MACE_MEN;
-        speed = 5;
-        attackPower = 700;
-        defencePower = 250;
-        restOfMoves = 5;
+    public void MaceMen(int x, int y) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.hp = 675;
+        this.maxHp = 675;
+        this.names = Names.MACE_MEN;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.speed = 5;
+        this.attackPower = 700;
+        this.defencePower = 250;
+        this.restOfMoves = 5;
     }
 
-    public void LadderMen(int x , int y) {
-        xCoordinate = x;
-        yCoordinate = y;
-        hp = 500;
-        maxHp = 500;
-        names = Names.LADDER_MEN;
-        speed = 7;
-        attackPower = 0;
-        defencePower = 20;
-        restOfMoves = 7;
+    public void LadderMen(int x, int y) {
+        this.xCoordinate = x;
+        this. yCoordinate = y;
+        this.hp = 500;
+        this.maxHp = 500;
+        this. names = Names.LADDER_MEN;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.speed = 7;
+        this.attackPower = 0;
+        this.defencePower = 20;
+        this.restOfMoves = 7;
     }
 
-    public void Assassins(int x , int y) {
-        xCoordinate = x;
-        yCoordinate = y;
-        hp = 800;
-        maxHp = 800;
-        names = Names.ASSASSINS;
-        speed = 5;
-        attackPower = 600;
-        defencePower = 150;
-        restOfMoves = 5;
+    public void Assassins(int x, int y) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.hp = 800;
+        this.maxHp = 800;
+        this. names = Names.ASSASSINS;
+        this.typeOfArmy = Names.STANDING_AMRY;
+        this.speed = 5;
+        this.attackPower = 600;
+        this.defencePower = 150;
+        this.restOfMoves = 5;
     }
 
     @Override
@@ -201,6 +186,11 @@ public class Climbers extends Army implements HumanConstantFunctions{
     @Override
     public int getFinalY() {
         return finalYCoordinate;
+    }
+
+    @Override
+    public Names typeOfArmy() {
+        return super.typeOfArmy();
     }
 }
 

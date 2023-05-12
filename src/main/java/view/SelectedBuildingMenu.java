@@ -5,8 +5,6 @@ import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import model.Building.Building;
 import model.Building.Shop;
-import model.Empire;
-import model.Manage;
 import view.Commands.SelectedBuildingCommands;
 import view.Messages.SelectedBuildingMessages;
 
@@ -20,9 +18,16 @@ public class SelectedBuildingMenu {
     String input;
 
     public void run(Scanner scanner) {
+
         SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
         SelectedBuildingController.selectedBuilding = selectedBuilding;
         String buildingName = selectedBuilding.getNameEnum().getName();
+        if (buildingName.equals("shop")) {
+            ShopMenu shopMenu = new ShopMenu();
+            shopMenu.run(scanner, (Shop) selectedBuilding);
+            return;
+        }
+        System.out.println("Welcome to SelectedBuildingMenu!");
         while (true) {
             input = scanner.nextLine();
             if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_CREATE_UNIT) != null) {
@@ -32,19 +37,18 @@ public class SelectedBuildingMenu {
                     if (matcherType != null && matcherCount != null) {
                         if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_ALL_TROOPS_NAME) == null) {
                             System.out.println(SelectedBuildingMessages.INVALID_TROOP_NAME.getName());
-                            return;
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_BARRACKS_TROOP_NAME_CHECK) != null && buildingName.equals("barracks")) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_BARRACKS_TROOP_NAME_CHECK) != null && buildingName.equals("Barracks")) {
                             System.out.println(selectedBuildingController.Barracks(matcherType, matcherCount).getName());
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_MERCENARY_TROOP_NAME_CHECK) != null && buildingName.equals("mercenary")) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_MERCENARY_TROOP_NAME_CHECK) != null && buildingName.equals("Mercenary")) {
                             System.out.println(selectedBuildingController.mercenary(matcherType, matcherCount).getName());
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK) != null && buildingName.equals("siege tent")) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_SIEGE_TENT_TROOP_NAME_CHECK) != null && buildingName.equals("SiegeTent")) {
                             System.out.println(selectedBuildingController.siegeTent(matcherType, matcherCount).getName());
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK) != null && (buildingName.equals("small church") | buildingName.equals("big church"))) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_CHURCH_TROOP_NAME_CHECK) != null && (buildingName.equals("SmallChurch") | buildingName.equals("BigChurch"))) {
                             System.out.println(selectedBuildingController.church(matcherCount).getName());
-                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_ENGINEER_GUILD_TROOP_NAME_CHECK) != null && buildingName.equals("engineerGuild")) {
+                        } else if (SelectedBuildingCommands.getMatcher(matcherType.group("type"), SelectedBuildingCommands.SELECTED_BUILDING_ENGINEER_GUILD_TROOP_NAME_CHECK) != null && buildingName.equals("EngineerGuild")) {
                             System.out.println(selectedBuildingController.engineerGuild(matcherType, matcherCount).getName());
                         } else
-                            System.out.println(SelectedBuildingMessages.WRONG_BUILDING_TO_CREATE_TROOP);
+                            System.out.println(SelectedBuildingMessages.WRONG_BUILDING_TO_CREATE_TROOP.getName());
                     } else {
                         System.out.println(SelectedBuildingMessages.INVALID_COMMAND.getName());
                     }
@@ -52,7 +56,7 @@ public class SelectedBuildingMenu {
                     System.out.println(SelectedBuildingMessages.BUILDING_CANT_CREATE_UNIT.getName());
                 }
             } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_TAX_RATE) != null) {
-                if (buildingName.equals("small stone gatehouse") | buildingName.equals("big stone gatehouse")) {
+                if (buildingName.equals("SmallStoneGatehouse") | buildingName.equals("BigStoneGatehouse")) {
                     Matcher matcherTaxRate = SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_TAX_RATE);
                     if (matcherTaxRate != null) {
                         System.out.println(selectedBuildingController.gatehouse(matcherTaxRate).getName());
@@ -63,7 +67,7 @@ public class SelectedBuildingMenu {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
             } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_DRAW_BRIDGE) != null) {
-                if (buildingName.equals("drawbridge")) {
+                if (buildingName.equals("DrawBridge")) {
                     Matcher matcherBridgeCondition = SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_DRAW_BRIDGE);
                     if (matcherBridgeCondition != null) {
                         System.out.println(selectedBuildingController.drawBridge(matcherBridgeCondition).getName());
@@ -73,24 +77,20 @@ public class SelectedBuildingMenu {
                 } else {
                     System.out.println(SelectedBuildingMessages.WRONG_BUILDING_CHOSEN.getName());
                 }
-            }
-            else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
-                if(SelectedBuildingCommands.getMatcher(buildingName , SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
-                    System.out.println(selectedBuilding.getHp());
-                    if(GameController.enemyInRange(buildingXCoordinate , buildingYCoordinate)) {
+            } else if (SelectedBuildingCommands.getMatcher(input, SelectedBuildingCommands.SELECTED_BUILDING_COMMANDS_REPAIR) != null) {
+                if (!GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
+                    if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
+                        System.out.println(buildingName);
+                        System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
+                    } else {
                         System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
                     }
-                    else {
-                        System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE.getName());
-                    }
+                } else {
+                    System.out.println(SelectedBuildingMessages.ENEMY_IN_RANGE.getName());
                 }
-                else{
-                    System.out.println(BuildingController.repairBuilding(selectedBuilding).getMessages());
-                }
-            } else if (buildingName.equals("shop")) {
-                ShopMenu shopMenu = new ShopMenu();
-                shopMenu.run(scanner , (Shop) selectedBuilding);
-            } else if (input.equals("exit")) {
+            } else if (input.equals("Logout")) {
+                System.out.println("logged out from the selectedBuilding menu");
+                System.out.println("Welcome to BuildingMenu!");
                 return;
             } else {
                 System.out.println(SelectedBuildingMessages.INVALID_COMMAND.getName());

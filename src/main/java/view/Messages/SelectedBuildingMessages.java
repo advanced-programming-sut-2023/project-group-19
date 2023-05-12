@@ -18,12 +18,13 @@ public enum SelectedBuildingMessages {
     ENOUGH_RESOURCES("enough resources"),
     NOT_ENOUGH_ENGINEERS("not enough engineers"),
     INVALID_COMMAND("invalid command"),
+    BRIDGE_CLOSE_ENEMY_NEAR("bridge is closed because the enemy is getting close"),
     INVALID_TROOP_NAME("invalid troop name"),
     BUILDING_CANT_CREATE_UNIT("this building cant create troops"),
     WRONG_BUILDING_TO_CREATE_TROOP("this building can't create this troop"),
     WRONG_BUILDING_CHOSEN("cant do this action in this building"),
     ENEMY_IN_RANGE("enemy in range"),
-    PURCHASE_SUCCESS("purchase successful");
+    PURCHASE_SUCCESS("troop created successfully");
     private Pattern name;
 
     public Pattern getName() {

@@ -1,13 +1,16 @@
 package model;
+
 import controller.JsonController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+
 import model.Manage;
 
-public class User {
-    private static HashMap<Integer,String> securityQuestions = new HashMap<>();
+public class User implements Comparable<User> {
+    private static HashMap<Integer, String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
@@ -17,15 +20,17 @@ public class User {
     public static ArrayList<String> getRandomSlogans() {
         return randomSlogans;
     }
+
     public static ArrayList<User> loginUsers = new ArrayList<>();
+
     public static ArrayList<User> getUsers() {
         return users;
     }
 
     static {
-        securityQuestions.put(1,"What is my father\'s name?");
-        securityQuestions.put(2,"What was my first pet\'s name?");
-        securityQuestions.put(3,"What is my mother\'s last name?");
+        securityQuestions.put(1, "What is my father\'s name?");
+        securityQuestions.put(2, "What was my first pet\'s name?");
+        securityQuestions.put(3, "What is my mother\'s last name?");
         //
         randomSlogans.add("I march to death...Though I wish it was my own...");
         randomSlogans.add("They think I\'m monster...and I prove them right");
@@ -41,7 +46,7 @@ public class User {
         User.currentUser = currentUser;
     }
 
-    private static User currentUser ;
+    private static User currentUser;
     private String username;
     private String password;
     private String nickname;
@@ -53,6 +58,10 @@ public class User {
     public static ArrayList<User> users = new ArrayList<>();
     private int rank;
 
+    public static ArrayList<User> getColone() {
+        return new ArrayList<>(users);
+    }
+
     public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) throws IOException {
         this.username = username;
         this.password = password;
@@ -62,11 +71,13 @@ public class User {
         this.slogan = slogan;
         this.recoveryQuestionNumber = recoveryQuestionNumber;
         users.add(this);
+        Collections.sort(users);
         //
         Manage.allUsers.add(this);
-        JsonController.writeIntoFile(Manage.allUsers , "User.json");
+        JsonController.writeIntoFile(Manage.allUsers, "User.json");
     }
-    public void addUserToAllUsersArrayList(User user){
+
+    public void addUserToAllUsersArrayList(User user) {
         Manage.allUsers.add(user);
     }
 
@@ -138,21 +149,29 @@ public class User {
         return rank;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setRank() {
+        this.rank = users.indexOf(this) + 1;
     }
-    public static User getUserByName(String username){
-        for(User user : users){
-            if(user.getUsername().equals(username)) return user ;
+
+    public static User getUserByName(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) return user;
         }
-        return null ;
+        return null;
     }
-    public static User getUserByEmail(String email){
-        String changedEmail ;
-        for(User user : users){
-            changedEmail = user.getEmail().toLowerCase( );
-            if(changedEmail.equals(email)) return user ;
+
+    public int compareTo(User o) {
+        if (highScore != o.getHighScore()) return o.highScore - highScore;
+        if (!username.equals(o.username)) return (username.compareTo(o.username));
+        return 0;
+    }
+
+    public static User getUserByEmail(String email) {
+        String changedEmail;
+        for (User user : users) {
+            changedEmail = user.getEmail().toLowerCase();
+            if (changedEmail.equals(email)) return user;
         }
-        return null ;
+        return null;
     }
 }

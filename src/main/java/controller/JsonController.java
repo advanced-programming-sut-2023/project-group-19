@@ -14,37 +14,38 @@ import java.util.Scanner;
 
 public class JsonController {
     static String content;
-    public static void writeIntoFile(Object object , String fileName) throws IOException {
+
+    public static void writeIntoFile(Object object, String fileName) throws IOException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        try(FileWriter file = new FileWriter(fileName)){
+        try (FileWriter file = new FileWriter(fileName)) {
             file.write(gson.toJson(object));
             file.flush();
-        }
-        catch (IOException ignored){
+        } catch (IOException ignored) {
             System.out.println("couldn't save into file");
         }
 
     }
+
     public static void emptyFile() throws IOException {
         String fileName = "LoggedInUser.json";
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        try(FileWriter file = new FileWriter(fileName)){
+        try (FileWriter file = new FileWriter(fileName)) {
             file.write(gson.toJson(null));
             file.flush();
-        }
-        catch (IOException ignored){
+        } catch (IOException ignored) {
             System.out.println("couldn't save into file");
         }
 
     }
+
     public static void readDataFile(String fileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         if (br.readLine() == null) {
-            content = null ;
+            content = null;
             return;
         }
         StringBuilder stringBuilder = new StringBuilder();
@@ -56,21 +57,24 @@ public class JsonController {
         content = stringBuilder.toString();
 
     }
+
     public static void saveAllUsersFileData() throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        Type allUsersType = new TypeToken<ArrayList<User>>(){}.getType();
-        if(content == null) return;
+        Type allUsersType = new TypeToken<ArrayList<User>>() {
+        }.getType();
+        if (content == null) return;
 //        Manage.allUsers = gson.fromJson(content , allUsersType);
-        User.users = gson.fromJson(content , allUsersType);
+        User.users = gson.fromJson(content, allUsersType);
         Manage.allUsers = User.users;
     }
-    public static User saveLoggedInUserFileData(){
+
+    public static User saveLoggedInUserFileData() {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        if(content == null) return null;
-        return gson.fromJson(content , User.class);
+        if (content == null) return null;
+        return gson.fromJson(content, User.class);
     }
 }

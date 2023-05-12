@@ -37,6 +37,7 @@ public class Map {
     }
 
     public static void CreateMap(int size) {
+        Map.mapSize = size ;
         buildingMap = new ArrayList[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -66,6 +67,7 @@ public class Map {
                 groundType[i][j].add(GroundType.DEFAULT);
             }
         }
+        Map.mapSize = size;
         notPassable = new boolean[size][size];
         notBuildable = new boolean[size][size];
         wallPassable = new boolean[size][size];

@@ -10,8 +10,6 @@ public enum TradableGoods {
     BOW("bow"),
     SWORD("sword"),
     MACE("mace"),
-    SPEAR("spear"),
-    PEAK("peak"),
     HORSE("horse"),
     WOOD("wood"),
     IRON("iron"),
@@ -47,9 +45,9 @@ public enum TradableGoods {
     PORTABLE_SHIELD("portableShield");
 
 
-    private  String goodName;
+    private String goodName;
 
-    TradableGoods (String goodName) {
+    TradableGoods(String goodName) {
         this.goodName = goodName;
     }
 
