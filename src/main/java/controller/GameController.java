@@ -20,7 +20,7 @@ public class GameController {
     //TODO : SAVE PAST COORDINATE OF ALL ARMIES
     //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
-    private static final int mapSize = CreateMapController.getSizeOfMap();
+    private static final int mapSize = Map.mapSize;
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
     public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
@@ -1326,15 +1326,15 @@ public class GameController {
 
     public static boolean enemyInRange(int x, int y) {
         int floorOfX, floorOfY, ceilOfX, ceilOfY;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             floorOfX = x - i;
             floorOfY = y - i;
             ceilOfX = x + i;
             ceilOfY = y + i;
             if (floorOfX < 0) floorOfX = 0;
             if (floorOfY < 0) floorOfY = 0;
-            if (ceilOfX > mapSize) ceilOfX = mapSize - 1;
-            if (ceilOfY > mapSize) ceilOfY = mapSize - 1;
+            if (ceilOfX >= mapSize) ceilOfX = mapSize - 1;
+            if (ceilOfY >= mapSize) ceilOfY = mapSize - 1;
             for (int j = floorOfX; j <= ceilOfX; j++) {
                 for (int k = floorOfY; k <= ceilOfY; k++) {
                     if (j == x && k == y) continue;
@@ -1353,7 +1353,7 @@ public class GameController {
 
     private static boolean isEnemyUnit(int j, int k) {
         for (Army army : Map.getTroopMap()[j][k]) {
-            if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
+            if (!army.getEmpire().getName().equals(Manage.getCurrentEmpire().getName())) {
                 return true;
             }
         }
