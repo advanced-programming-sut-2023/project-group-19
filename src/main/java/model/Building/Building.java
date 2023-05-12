@@ -72,8 +72,5 @@ public abstract class Building implements BuildingConstantFunctions {
         return owner;
     }
 
-    public void setOwner(Empire owner) {
-        this.owner = owner;
-    }
 
 }

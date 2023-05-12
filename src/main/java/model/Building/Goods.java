@@ -26,7 +26,7 @@ public class Goods extends Building implements BuildingConstantFunctions {
         this.workersNeeded.put("engineer", engineer);
         this.workersNeeded.put("worker", worker);
     }
-    //TODO : decide the required ground type to build the farms
+
     public void appleFarm() {
         this.name = Names.APPLE_FARM;
         this.hp = 500;

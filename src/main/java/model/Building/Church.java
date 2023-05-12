@@ -18,11 +18,6 @@ public class Church extends Building implements BuildingConstantFunctions {
         return popularityIncreaseRate;
     }
 
-    public void setPopularityIncreaseRate(int popularityIncreaseRate) {
-        this.popularityIncreaseRate = popularityIncreaseRate;
-    }
-
-
     public Names getNames() {
         return this.name;
     }

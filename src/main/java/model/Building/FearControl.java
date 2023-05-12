@@ -42,6 +42,7 @@ public class FearControl extends Building implements BuildingConstantFunctions {
         createBuildingCost(20, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
+
     @Override
     public int maxHp() {
         return this.maxHp;
