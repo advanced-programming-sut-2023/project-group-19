@@ -123,7 +123,6 @@ public class GameController {
                     || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState ))
                 continue;
             selectedUnit.add(army);
-            System.out.println("in set state army");
             findEnemyInRange(army, army.getArmyForm());
             selectedUnit.clear();
         }
@@ -528,6 +527,7 @@ public class GameController {
     }
 
     private static void checkIfTargetIsAlive(Army army) {
+        if(army.getEnemy() == null ) return;
         Empire empire = army.getEnemy().getOwner();
         for (Army army1 : empire.empireArmy) {
             if (army1.equals(army.getEnemy())) {
