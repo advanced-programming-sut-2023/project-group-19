@@ -43,6 +43,18 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
+    // ground type / obstacle remove
+    public void dropFirstStockpile(int x, int y) {
+        Stockpile foodStockpile = new Stockpile(currentEmpire);
+        foodStockpile.foodStockpile();
+        Stockpile resourcesStockpile = new Stockpile(currentEmpire);
+        resourcesStockpile.resourcesStockpile();
+        Map.buildingMap[x + 1][y].clear();
+        Map.buildingMap[x - 1][y].clear();
+        Map.buildingMap[x + 1][y].add(foodStockpile);
+        Map.buildingMap[x - 1][y].add(resourcesStockpile);
+    }
+
     public boolean canBuildStockpile(int x, int y, String BuildingName) {
         if (Map.buildingMap[x + 1][y].size() != 0) {
             if (Map.buildingMap[x + 1][y].get(0).getName().equals(BuildingName))
@@ -61,7 +73,7 @@ public class BuildingController {
         }
         return false;
     }
-    //TODO : add a basic stockpile in the start of the game soo we can build other stockpiles next to it
+
     //TODO : check the oil in the game
     public void buildingCheckout(Building building, Empire empire) {
         empire.setWoodCount(empire.getWoodCount() - building.cost.get("wood"));
@@ -121,6 +133,7 @@ public class BuildingController {
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
+                            dropFirstStockpile(x, y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
