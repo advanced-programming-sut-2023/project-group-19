@@ -77,7 +77,6 @@ public class Army extends Human {
     public int finalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
-    protected int pastXcordinate;
 
 
 
@@ -100,7 +99,6 @@ public class Army extends Human {
         this.pastYcordinate = pastYcordinate;
     }
 
-    protected int pastYcordinate;
 
     @Override
     public int getHp() {

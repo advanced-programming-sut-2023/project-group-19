@@ -20,7 +20,7 @@ public class GameController {
     //TODO : SAVE PAST COORDINATE OF ALL ARMIES
     //TODO : WHAT HAPPENS IF THE ENEMY DIES WHEN WE HAVE AN OFFENSIVE
     //TODO : WE SHOULD SET THE FORM OF ARMY WHEN THE PATH.LIST IS NULL
-    private static final int mapSize = CreateMapController.getSizeOfMap();
+    private static final int mapSize = Map.mapSize;
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
     public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
@@ -121,7 +121,7 @@ public class GameController {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_AMRY.getName())
-                    || army.isIntFight || army.myPath != null)
+                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState ))
                 continue;
             selectedUnit.add(army);
             System.out.println("in set state army");
@@ -480,7 +480,7 @@ public class GameController {
     }
 
     private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        System.out.println("into defensive");
+//        System.out.println("into defensive");
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
@@ -498,12 +498,14 @@ public class GameController {
                             army.setPastXcordinate(x);
                             army.setPastYcordinate(y);
                             System.out.println("x ia: " + i + " y is: " + j);
-                            gameController.moveUnit(i, j);
+                            gameController.moveUnit(i + 1, j + 1);
+                            System.out.println("move from first location");
                             army.hasMovedForDefensiveState = true;
                             return true;
                         }
                         if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
-                            gameController.moveUnit(i, j);
+                            System.out.println("moing in middele of way");
+                            gameController.moveUnit(i + 1, j + 1);
                             return true;
                         }
                     }
@@ -512,7 +514,8 @@ public class GameController {
         }
         if (range == army.getAttackRange()) {
 //            System.out.println("x is: " + army.getPastXcordinate() + "  y is: " + army.getPastXcordinate());
-            gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
+            System.out.println("return to first place");
+            gameController.moveUnit(army.getPastXcordinate() + 1, army.getPastYcordinate() + 1);
             return true;
         } else {
             return false;
@@ -550,7 +553,7 @@ public class GameController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                    gameController.moveUnit(army.getEnemy().xCoordinate + 1, army.getEnemy().yCoordinate + 1);
                     return true;
                 }
             }
@@ -559,7 +562,7 @@ public class GameController {
             Army enemy;
             if ((enemy = army.getArcherAttacker()) != null) {
                 army.setEnemy(enemy);
-                gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                gameController.moveUnit(army.getEnemy().xCoordinate + 1, army.getEnemy().yCoordinate + 1);
             }
         }
         return false;
