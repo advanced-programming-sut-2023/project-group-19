@@ -105,12 +105,20 @@ public class Empire {
     public int popularity;
     private int goldCount = 100000000;
     private int foodRateNumber = -2;
-    private int totalFoodCount;
+    private int foodPopularityRate;
     private int foodDiversity;
     private int taxRateNumber;
     private int fearRateNumber;
     private double fearWorkerImpact;
     private double fearTroopImpact;
+
+    public int getFoodPopularityRate() {
+        return foodPopularityRate;
+    }
+
+    public void setFoodPopularityRate(int foodPopularityRate) {
+        popularityFactors.replace("food" , foodPopularityRate );
+    }
 
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
@@ -157,7 +165,8 @@ public class Empire {
     }
 
     public int getPopularity() {
-        return popularity;
+        return popularityFactors.get("food")+popularityFactors.get("fear")
+                +popularityFactors.get("tax")+popularityFactors.get("religious");
     }
 
     public void setPopularity(int popularity) {
@@ -229,7 +238,8 @@ public class Empire {
     }
 
     public int getTotalFoodCount() {
-        return totalFoodCount;
+        return allFood.get("apple") + allFood.get("bread")
+         + allFood.get("meat") + allFood.get("cheese");
     }
 
     public void setFoodDiversity(int foodDiversity) {
@@ -245,11 +255,12 @@ public class Empire {
     }
 
     public int getFearRateNumber() {
-        return fearRateNumber;
+        return popularityFactors.get("fear");
     }
 
     public void setFearRateNumber(int fearRateNumber) {
         this.fearRateNumber = fearRateNumber;
+        popularityFactors.replace("fear" , fearRateNumber );
     }
 
     public HashMap<String, Integer> getAllFood() {
@@ -713,6 +724,9 @@ public class Empire {
     public int getPopularityFactorReligious() {
         return popularityFactors.get("religious");
     }
+    public void setPopularityFactorReligious(int popularityFactor) {
+        popularityFactors.replace("religious" , popularityFactor);
+    }
 
     public int getPopularityFactorFear() {
         return popularityFactors.get("fear");
@@ -802,7 +816,7 @@ public class Empire {
     public HashMap<String, Integer> allFood = new HashMap<>();
 
     {
-        allFood.put("apple", 0);
+        allFood.put("apple", 100000000);
         allFood.put("bread", 0);
         allFood.put("cheese", 0);
         allFood.put("meat", 0);
@@ -930,8 +944,8 @@ public class Empire {
     public HashMap<String, Integer> popularityFactors = new HashMap<>();
 
     {
-        popularityFactors.put("food", 0);
-        popularityFactors.put("tax", 0);
+        popularityFactors.put("food", -2);
+        popularityFactors.put("tax", 1);
         popularityFactors.put("religious", 0);
         popularityFactors.put("fear", 0);
     }

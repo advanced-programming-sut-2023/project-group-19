@@ -27,61 +27,49 @@ public class EmpireController {
         switch (taxRate) {
             case -3:
                 empire.setGoldCount(empire.getGoldCount() - empire.getPopulation());
-                empire.setPopularity(empire.getPopularity() + 7);
                 empire.setPopularityFactorTax(7);
                 break;
             case -2:
                 empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.8));
-                empire.setPopularity(empire.getPopularity() + 5);
                 empire.setPopularityFactorTax(5);
                 break;
             case -1:
                 empire.setGoldCount(empire.getGoldCount() - (int) floor(empire.getPopulation() * 0.6));
-                empire.setPopularity(empire.getPopularity() + 3);
                 empire.setPopularityFactorTax(3);
                 break;
             case 0:
-                empire.setPopularity(empire.getPopularity() + 1);
                 empire.setPopularityFactorTax(1);
                 break;
             case 1:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.6));
-                empire.setPopularity(empire.getPopularity() - 2);
                 empire.setPopularityFactorTax(-2);
                 break;
             case 2:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 0.8));
-                empire.setPopularity(empire.getPopularity() - 4);
                 empire.setPopularityFactorTax(-4);
                 break;
             case 3:
                 empire.setGoldCount(empire.getGoldCount() + empire.getPopulation());
-                empire.setPopularity(empire.getPopularity() - 6);
                 empire.setPopularityFactorTax(-6);
                 break;
             case 4:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.2));
-                empire.setPopularity(empire.getPopularity() - 8);
                 empire.setPopularityFactorTax(-8);
                 break;
             case 5:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.4));
-                empire.setPopularity(empire.getPopularity() - 12);
                 empire.setPopularityFactorTax(-12);
                 break;
             case 6:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.6));
-                empire.setPopularity(empire.getPopularity() - 16);
                 empire.setPopularityFactorTax(-16);
                 break;
             case 7:
                 empire.setGoldCount(empire.getGoldCount() + (int) floor(empire.getPopulation() * 1.8));
-                empire.setPopularity(empire.getPopularity() - 20);
                 empire.setPopularityFactorTax(-20);
                 break;
             case 8:
                 empire.setGoldCount(empire.getGoldCount() + empire.getPopulation() * 2);
-                empire.setPopularity(empire.getPopularity() - 24);
                 empire.setPopularityFactorTax(-24);
                 break;
         }
@@ -108,11 +96,11 @@ public class EmpireController {
         empire.setFoodDiversity(foodDiversity);
         switch (foodDiversity) {
             case 2:
-                empire.setPopularity(empire.getPopularity() + 1);
+                empire.setFoodPopularityRate(1);
             case 3:
-                empire.setPopularity(empire.getPopularity() + 2);
+                empire.setFoodPopularityRate(2);
             case 4:
-                empire.setPopularity(empire.getPopularity() + 3);
+                empire.setFoodPopularityRate(3);
         }
     }
 
@@ -121,27 +109,28 @@ public class EmpireController {
         int foodRate = empire.getFoodRateNumber();
         switch (foodRate) {
             case -2:
-                empire.setPopularity(empire.getPopularity() - 8);
+                empire.setFoodPopularityRate(-8);
                 foodPerPearson = 0;
                 break;
             case -1:
-                empire.setPopularity(empire.getPopularity() - 4);
+                empire.setFoodPopularityRate(-4);
                 foodPerPearson = 0.5;
                 break;
             case 0:
                 foodPerPearson = 1;
                 break;
             case 1:
-                empire.setPopularity(empire.getPopularity() + 4);
+                empire.setFoodPopularityRate(4);
                 foodPerPearson = 1.5;
                 break;
             case 2:
-                empire.setPopularity(empire.getPopularity() + 8);
+                empire.setFoodPopularityRate(8);
                 foodPerPearson = 2;
                 break;
         }
+        System.out.println(foodPerPearson);
         int totalFoodThatBeGivenToPeople = (int) foodPerPearson * empire.getPopulation();
-        if (foodPerPearson * empire.getPopulation() >= empire.getTotalFoodCount()) {
+        if ((int)(foodPerPearson * empire.getPopulation()) <= empire.getTotalFoodCount()) {
             while (totalFoodThatBeGivenToPeople != 0) {
                 if (empire.allFood.get("apple") != 0) {
                     empire.allFood.replace("apple", empire.allFood.get("apple") - 1);
@@ -190,36 +179,4 @@ public class EmpireController {
         return total;
     }
 
-    public static void showEmpireStatus() {
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().stores.entrySet()) {
-            System.out.println("stores : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().allFood.entrySet()) {
-            System.out.println("allFood : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().allWeaponTools.entrySet()) {
-            System.out.println("allWeaponTools : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().productionBuildingCount.entrySet()) {
-            System.out.println("productionBuildingCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().createWeaponBuildingCount.entrySet()) {
-            System.out.println("createWeaponBuildingCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().europeTroopCount.entrySet()) {
-            System.out.println("europeTroopCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().arabTroopCount.entrySet()) {
-            System.out.println("arabTroopCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()) {
-            System.out.println("engineerGuildTroopCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()) {
-            System.out.println("siegeTentTroopsCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().popularityFactors.entrySet()) {
-            System.out.println("popularityFactors : " + resource.getKey() + "number : " + resource.getValue());
-        }
-    }
 }
