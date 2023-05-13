@@ -20,7 +20,7 @@ public enum GameMenuMessages {
     TUNNEL_DUG("The tunnel dug successfully!"),
     ARMY_DEPLOYED("Your army deployed completely!"),
     ARMY_IN_PROCESS_OF_DEPLOYING("Your army will be deployed in forward turns!"),
-    WRONG_SIEGE_NAME("The name of siege you've entered is invalid!"),
+    SIEGE_TENT("Siege tent method is handled in SelectedBuildingMenu!"),
     ATTACK_ORDER_HANDLED("Your attack order is given to soldiers!"),
     COORDINATES_OUT_OF_BOUNDS("The given coordinate is out of bound!"),
     INVALID_NUMBER_OF_UNITS_TO_DROP("The number you entered is invalid!"),

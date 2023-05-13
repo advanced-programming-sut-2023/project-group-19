@@ -90,7 +90,7 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.POUR_OIL) != null) {
                 direction = GameMenuCommands.getMatcher(command, GameMenuCommands.DIRECTION);
                 if (direction != null) {
-                    System.out.println(gameController.pourOil(direction.group("direction")));
+                    System.out.println(gameController.pourOil(direction.group("direction")).getMessages());
                 } else System.out.println(GameMenuMessages.EMPTY_DIRECTION_FIELD.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DIG_TUNNEL) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
@@ -120,7 +120,7 @@ public class GameMenu {
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-                    System.out.println(gameController.PitchDitchHauntsEnemy(x1, y1).getMessages());
+                    System.out.println(gameController.pitchDitchHauntsEnemy(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.CONQUER_GATES) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);

@@ -5,6 +5,7 @@ import controller.Building.FunctionBuildingController;
 import controller.Building.SelectedBuildingController;
 import model.Building.Building;
 import model.Empire;
+import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
@@ -12,6 +13,7 @@ import view.GameMenu;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Formattable;
 import java.util.Scanner;
 
 public class NextTurnController {
@@ -24,6 +26,7 @@ public class NextTurnController {
                 GameController gameController = new GameController();
                 setGameController(gameController);
                 findCurrentEmpire();
+                System.out.println(Manage.getCurrentEmpire().getName());
                 callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
@@ -54,7 +57,6 @@ public class NextTurnController {
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
-//        EmpireController.showEmpireStatus();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
