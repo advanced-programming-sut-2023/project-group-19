@@ -901,36 +901,36 @@ public class Empire {
     public HashMap<String, Integer> createWeaponBuildingRate = new HashMap<>();
 
     {
-        createWeaponBuildingRate.put("armourer", 10);
-        createWeaponBuildingRate.put("blacksmith", 10);
-        createWeaponBuildingRate.put("fletcher", 10);
-        createWeaponBuildingRate.put("poleTurner", 10);
-        createWeaponBuildingRate.put("stable", 10);
+        createWeaponBuildingRate.put("armourer", 0);
+        createWeaponBuildingRate.put("blacksmith", 0);
+        createWeaponBuildingRate.put("fletcher", 0);
+        createWeaponBuildingRate.put("poleTurner", 0);
+        createWeaponBuildingRate.put("stable", 0);
     }
 
     public HashMap<String, Integer> europeTroopCount = new HashMap<>();
 
     {
-        europeTroopCount.put("archer", 10);
-        europeTroopCount.put("spearMan", 10);
-        europeTroopCount.put("maceMan", 10);
-        europeTroopCount.put("crossbowMan", 10);
-        europeTroopCount.put("pikeMan", 10);
-        europeTroopCount.put("swordMan", 10);
-        europeTroopCount.put("knight", 10);
-        europeTroopCount.put("blackMonk", 10);
+        europeTroopCount.put("archer", 0);
+        europeTroopCount.put("spearMan", 0);
+        europeTroopCount.put("maceMan", 0);
+        europeTroopCount.put("crossbowMan", 0);
+        europeTroopCount.put("pikeMan", 0);
+        europeTroopCount.put("swordMan", 0);
+        europeTroopCount.put("knight", 0);
+        europeTroopCount.put("blackMonk", 0);
     }
 
     public HashMap<String, Integer> arabTroopCount = new HashMap<>();
 
     {
-        arabTroopCount.put("arabianBow", 10);
-        arabTroopCount.put("slave", 10);
-        arabTroopCount.put("slinger", 10);
-        arabTroopCount.put("assassin", 10);
+        arabTroopCount.put("arabianBow",0);
+        arabTroopCount.put("slave", 0);
+        arabTroopCount.put("slinger", 0);
+        arabTroopCount.put("assassin", 0);
         arabTroopCount.put("horseArcher", 10);
-        arabTroopCount.put("arabianSwordMan", 10);
-        arabTroopCount.put("fireThrower", 10);
+        arabTroopCount.put("arabianSwordMan", 0);
+        arabTroopCount.put("fireThrower", 0);
     }
 
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();

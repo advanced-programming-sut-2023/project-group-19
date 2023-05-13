@@ -35,6 +35,7 @@ public class NextTurnController {
                 System.out.println( "after next turn" + Manage.getCurrentEmpire().empireArmy.size());
 
             } else {
+                System.out.println("Winner is: " + Manage.allEmpires.get(0).getName());
                 User user = Manage.getAllEmpires().get(0).getUser();
                 int oldScore = user.getHighScore();
                 int newScore = oldScore + 100;
