@@ -22,17 +22,17 @@ public class Empire {
         user = newUser;
     }
 
-    private int foodCapacity = 50;
+    private int foodCapacity = 10000;
     private int foodCount;
-    private int weaponsCapacity = 50;
+    private int weaponsCapacity = 10000;
     private int weaponsCount;
-    private int resourcesCapacity = 150;
+    private int resourcesCapacity = 10000;
     private int resourcesCount;
     private int maxPossiblePopulation;
     private int PeasantCount = 20;
     private int priestCount;
     private int troopCount;
-    private int workerCount = 20;
+    private int workerCount = 40;
     private int notificationOfRequest;
     private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
@@ -922,7 +922,7 @@ public class Empire {
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();
 
     {
-        engineerGuildTroopCount.put("engineer", 0);
+        engineerGuildTroopCount.put("engineer", 50);
         engineerGuildTroopCount.put("ladderMan", 0);
         engineerGuildTroopCount.put("tunneler", 0);
     }

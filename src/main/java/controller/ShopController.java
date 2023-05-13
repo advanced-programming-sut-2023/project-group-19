@@ -13,6 +13,7 @@ public class ShopController {
     public static Empire ownerOfShop = ShopMenu.currentShop.getOwner();
 
     public void showPriceList() {
+        System.out.println(ownerOfShop.getGoldCount());
         int number = 1;
         System.out.println("Attention:");
         System.out.println("Buying prices are settled for 5 numbers of every good.");
@@ -45,7 +46,7 @@ public class ShopController {
                     validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
                     String answer = scanner.nextLine();
                     if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
-                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
+                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue() * amount);
                         setNumberOfGoods(Manage.getCurrentEmpire(), 1, amount * 5, chosenGood.getKey());
                         return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
                     } else return ShopMenuMessages.OPERATION_CANCELLED;

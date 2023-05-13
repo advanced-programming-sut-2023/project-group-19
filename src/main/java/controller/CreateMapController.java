@@ -168,6 +168,7 @@ public class CreateMapController {
         Map.notPassable[x][y] = true;
         Map.wallPassable[x][y] = true;
         BuildingController.dropFirstStockpile(x, y);
+
         numberOfEmpires ++ ;
         return "Successfully done!";
     }
