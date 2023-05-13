@@ -33,6 +33,7 @@ public class Manage {
         namesOfAllPossibleBuildings.add("KillingPit");
         namesOfAllPossibleBuildings.add("Market");
         namesOfAllPossibleBuildings.add("PitchRig");
+        namesOfAllPossibleBuildings.add("PitchDitch");
         namesOfAllPossibleBuildings.add("Mercenary");
         namesOfAllPossibleBuildings.add("EngineerGuild");
         namesOfAllPossibleBuildings.add("TunnelerGuild");

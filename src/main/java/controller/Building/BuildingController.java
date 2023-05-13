@@ -42,7 +42,6 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
-    // ground type / obstacle remove
     public static void dropFirstStockpile(int x, int y) {
         Stockpile foodStockpile = new Stockpile(currentEmpire);
         foodStockpile.foodStockpile();
