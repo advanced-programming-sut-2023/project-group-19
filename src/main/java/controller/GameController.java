@@ -72,7 +72,8 @@ public class GameController {
                 army.isIntFight = true;
             }
             String unitMoved = moveUnit(x, y).getMessages();
-            System.out.println("moving to enemy");
+            System.out.println( "x is: " +  selectedUnit.get(0).getCurrentX() + " y is: " + selectedUnit.get(0).getCurrentY());
+
             //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
