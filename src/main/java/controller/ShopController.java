@@ -45,7 +45,7 @@ public class ShopController {
                     validationFormForBuying(nameOfGood, chosenGood.getValue(), amount);
                     String answer = scanner.nextLine();
                     if (ShopMenuCommands.getMatcher(answer, ShopMenuCommands.OPERATION_ACCEPTED) != null) {
-                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue());
+                        Manage.getCurrentEmpire().setGoldCount(Manage.getCurrentEmpire().getGoldCount() - chosenGood.getValue() * amount);
                         setNumberOfGoods(Manage.getCurrentEmpire(), 1, amount * 5, chosenGood.getKey());
                         return ShopMenuMessages.BUYING_OPERATION_SUCCEEDED;
                     } else return ShopMenuMessages.OPERATION_CANCELLED;
