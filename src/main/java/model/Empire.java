@@ -841,7 +841,7 @@ public class Empire {
     {
         stores.put("wood", 10);
         stores.put("iron", 0);
-        stores.put("stone", 0);
+        stores.put("stone", 15);
         stores.put("oat", 0);
         stores.put("wheat", 0);
         stores.put("beer", 0);

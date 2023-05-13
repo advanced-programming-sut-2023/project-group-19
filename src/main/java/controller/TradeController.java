@@ -61,7 +61,8 @@ public class TradeController {
         int number = 1;
         System.out.println("Donation List :");
         for (Request donation : currentEmpire.getAllDonations()) {
-            System.out.println("\t" + number + ".Empire: " + donation.getSender().getName() + " id: " + donation.getId() + " status :" + donation.getStatus());
+            System.out.println("\t" + number + ".Sender: " + donation.getSender().getName() + "\n\t\s\s\sId: " + donation.getId() + "\n\t\s\s\sStatus :" + donation.getStatus()
+                    +"\n\t\s\s\sReceiver: "+donation.getReceiver().getName()+"\n\t\s\s\sMessage: "+donation.getMessage());
             number++;
         }
     }
@@ -70,7 +71,8 @@ public class TradeController {
         int number = 1;
         System.out.println("Request List :");
         for (Request request : currentEmpire.getAllRequests()) {
-            System.out.println("\t" + number + ".Empire: " + request.getSender().getName() + " id: " + request.getId() + " status :" + request.getStatus());
+            System.out.println("\t" + number + ".Sender: " + request.getSender().getName() + "\n\t\s\s\sId: " + request.getId() + "\n\t\s\s\sStatus :" + request.getStatus()
+                    +"\n\t\s\s\sReceiver: "+request.getReceiver().getName()+"\n\t\s\s\sMessage: "+request.getMessage());
             number++;
         }
     }
@@ -374,11 +376,11 @@ public class TradeController {
         for (Request request : currentEmpire.getAllRequests()) {
             if (request.isAcceptance()) {
                 System.out.println("\t" + number + ". Sender: " + request.getSender());
-                System.out.println("\tGood : " + request.getGoodName());
-                System.out.println("\tAmount: " + request.getAmount());
-                System.out.println("\tPrice: " + request.getPrice());
-                System.out.println("\tCustomer Message : " + request.getMessage());
-                System.out.println("\tSeller Message : " + request.getFromSellerMessage());
+                System.out.println("\t\s\sGood : " + request.getGoodName());
+                System.out.println("\t\s\sAmount: " + request.getAmount());
+                System.out.println("\t\s\sPrice: " + request.getPrice());
+                System.out.println("\t\s\sCustomer Message : " + request.getMessage());
+                System.out.println("\t\s\sSeller Message : " + request.getFromSellerMessage());
                 number++;
             }
         }
@@ -386,25 +388,30 @@ public class TradeController {
         for (Request request : currentEmpire.getAllDonations()) {
             if (request.isAcceptance()) {
                 System.out.println("\t" + number + ". Sender: " + request.getSender().getName());
-                System.out.println("\t\s\s\sGood : " + request.getGoodName());
-                System.out.println("\t\s\s\sAmount: " + request.getAmount());
-                System.out.println("\t\s\s\sPrice: " + request.getPrice());
-                System.out.println("\t\s\s\sCustomer Message : " + request.getMessage());
-                System.out.println("\t\s\s\sSeller Message : " + request.getFromSellerMessage());
+                System.out.println("\t\s\sGood : " + request.getGoodName());
+                System.out.println("\t\s\sAmount: " + request.getAmount());
+                System.out.println("\t\s\sPrice: " + request.getPrice());
+                System.out.println("\t\s\sCustomer Message : " + request.getMessage());
+                System.out.println("\t\s\sSeller Message : " + request.getFromSellerMessage());
                 number++;
             }
         }
     }
 
     public void notification() {
+        int number = 1;
         System.out.println("Notifications : ");
         System.out.println("List Of New Requests : ");
         for (int j = currentEmpire.getNotificationOfRequest(); j < currentEmpire.getAllRequests().size(); j++) {
-            System.out.println(currentEmpire.getAllRequests().get(j).getId());
+            System.out.println(number+".Id: "+currentEmpire.getAllRequests().get(j).getId());
+            System.out.println("Message: "+currentEmpire.getAllRequests().get(j).getMessage());
+            number++;
         }
+        number = 1;
         System.out.println("List Of New Donations : ");
         for (int i = currentEmpire.getNotificationOfDonation(); i < currentEmpire.getAllDonations().size(); i++) {
-            System.out.println(currentEmpire.getAllDonations().get(i).getId());
+            System.out.println(number+".Id: "+currentEmpire.getAllDonations().get(i).getId());
+            System.out.println("Message: "+currentEmpire.getAllDonations().get(i).getMessage());
         }
         currentEmpire.setNotificationOfDonation(currentEmpire.getAllDonations().size());
         currentEmpire.setNotificationOfRequest(currentEmpire.getAllRequests().size());

@@ -45,8 +45,7 @@ public class TradeMenu {
                 commandValidation = checkTradeCommandFormat(resourceType, resourceAmount, price, message);
                 if (commandValidation.getMessages().equals(TradeMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(tradeController.sendRequest(resourceType, resourceAmount, price, message).getMessages());
-                }
-                System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
+                }else System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
             } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.LOGOUT) != null) {
                 break;
             } else System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
