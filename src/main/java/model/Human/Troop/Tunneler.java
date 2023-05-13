@@ -9,24 +9,6 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     public Tunneler(Empire government) {
         super(government);
     }
-
-    private Names names;
-    private int hp;
-    private int maxHp;
-    private int speed;
-    private int attackPower;
-    public int xCoordinate;
-    public int yCoordinate;
-    public int restOfMoves;
-    public Names typeOfArmy;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
-    public List<Integer> myPath;
-
     public Names getNames() {
         return names;
     }
@@ -53,16 +35,16 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     }
 
     public void Tunneler(int x, int y) {
-        hp = 100;
-        maxHp = 100;
-        typeOfArmy = Names.STANDING_ARMY;
-        names = Names.TUNNELER;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 7;
-        attackPower = 300;
-        defencePower = 50;
-        restOfMoves = 7;
+        this.hp = 100;
+        this.maxHp = 100;
+        this.typeOfArmy = Names.STANDING_ARMY;
+        this.names = Names.TUNNELER;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 7;
+        this.attackPower = 300;
+        this.defencePower = 50;
+        this.restOfMoves = 7;
     }
 
     @Override

@@ -120,6 +120,142 @@ public class Army extends Human {
         this.armyForm = armyForm;
     }
 
+    public void setMyPath(List<Integer> myPath) {
+        this.myPath = myPath;
+    }
+
+    public void setIntFight(boolean intFight) {
+        isIntFight = intFight;
+    }
+
+    public boolean isHasMovedForDefensiveState() {
+        return hasMovedForDefensiveState;
+    }
+
+    public void setHasMovedForDefensiveState(boolean hasMovedForDefensiveState) {
+        this.hasMovedForDefensiveState = hasMovedForDefensiveState;
+    }
+
+    public void setNames(Names names) {
+        this.names = names;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getDefencePower() {
+        return defencePower;
+    }
+
+    public void setDefencePower(int defencePower) {
+        this.defencePower = defencePower;
+    }
+
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    public int getStartXCoordinate() {
+        return startXCoordinate;
+    }
+
+    public void setStartXCoordinate(int startXCoordinate) {
+        this.startXCoordinate = startXCoordinate;
+    }
+
+    public int getStartYCoordinate() {
+        return startYCoordinate;
+    }
+
+    public void setStartYCoordinate(int startYCoordinate) {
+        this.startYCoordinate = startYCoordinate;
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    public int getGoalXCoordinate() {
+        return goalXCoordinate;
+    }
+
+    public void setGoalXCoordinate(int goalXCoordinate) {
+        this.goalXCoordinate = goalXCoordinate;
+    }
+
+    public int getGoalYCoordinate() {
+        return goalYCoordinate;
+    }
+
+    public void setGoalYCoordinate(int goalYCoordinate) {
+        this.goalYCoordinate = goalYCoordinate;
+    }
+
+    public int getFinalXCoordinate() {
+        return finalXCoordinate;
+    }
+
+    public void setFinalXCoordinate(int finalXCoordinate) {
+        this.finalXCoordinate = finalXCoordinate;
+    }
+
+    public int getFinalYCoordinate() {
+        return finalYCoordinate;
+    }
+
+    public void setFinalYCoordinate(int finalYCoordinate) {
+        this.finalYCoordinate = finalYCoordinate;
+    }
+
+    public List<Integer> getMyPath() {
+        return myPath;
+    }
+
+    public int getRestOfMoves() {
+        return restOfMoves;
+    }
+
+    public void setRestOfMoves(int restOfMoves) {
+        this.restOfMoves = restOfMoves;
+    }
+
+    public Names getTypeOfArmy() {
+        return typeOfArmy;
+    }
+
+    public void setTypeOfArmy(Names typeOfArmy) {
+        this.typeOfArmy = typeOfArmy;
+    }
+
     @Override
     public int maxHp() {
         return maxHp;

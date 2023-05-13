@@ -12,7 +12,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public int height;
-    public Names typeOfArmy;
 
     public void setNames(Names names) {
         this.names = names;
@@ -54,31 +53,31 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public void archer(int x, int y) {
-        hp = 475;
-        maxHp = 475;
-        typeOfArmy = Names.STANDING_ARMY;
-        names = Names.ARCHER;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 7;
-        attackRange = 3;
-        attackPower = 200;
-        defencePower = 50;
-        restOfMoves = 7;
+        this.hp = 475;
+        this.maxHp = 475;
+        this.typeOfArmy = Names.STANDING_ARMY;
+        this.names = Names.ARCHER;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 7;
+        this.attackRange = 3;
+        this.attackPower = 200;
+        this.defencePower = 50;
+        this.restOfMoves = 7;
     }
 
     public void Crossbowmen(int x, int y) {
-        hp = 700;
-        maxHp = 700;
-        typeOfArmy = Names.STANDING_ARMY;
-        names = Names.CROSSBOWMEN;
-        xCoordinate = x;
-        yCoordinate = y;
-        speed = 3;
-        attackRange = 4;
-        attackPower = 200;
-        defencePower = 50;
-        restOfMoves = 3;
+        this.hp = 700;
+        this.maxHp = 700;
+        this.typeOfArmy = Names.STANDING_ARMY;
+        this.names = Names.CROSSBOWMEN;
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+        this.speed = 3;
+        this.attackRange = 4;
+        this.attackPower = 200;
+        this.defencePower = 50;
+        this.restOfMoves = 3;
     }
 
     public void ArcherBow(int x, int y) {
@@ -217,7 +216,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 475;
         this.maxHp = 475;
         this.names = Names.PORTABLE_SHIELD;
-        this. typeOfArmy = Names.STANDING_ARMY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.defencePower = 400;
