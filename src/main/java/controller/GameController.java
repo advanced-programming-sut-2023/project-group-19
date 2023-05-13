@@ -114,11 +114,11 @@ public class GameController {
     public void setStateArmy() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.typeOfArmy().getName().equals(Names.STANDING_ARMY.getName())
+            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
                     || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
                 continue;
             selectedUnit.add(army);
-            findEnemyInRange(army, army.typeOfArmy().getName());
+            findEnemyInRange(army, army.getArmyForm());
             selectedUnit.clear();
         }
     }
@@ -560,7 +560,7 @@ public class GameController {
                                             }
                                         }
                                         if (size <= myUnit.speed()) {
-                                            if (myUnit.typeOfArmy().equals(Names.PATROL_UNIT)) {
+                                            if (myUnit.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
                                                 setPathForPatrols(myUnit.getStartX(), myUnit.getStartY(), myUnit);
                                             } else {
                                                 myUnit.myPath = null;
@@ -701,7 +701,7 @@ public class GameController {
     public boolean setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
         if (!Map.getTroopMap()[x1][y1].isEmpty()) {
             for (Army army : Map.getTroopMap()[x1][y1]) {
-                army.typeOfArmy = Names.PATROL_UNIT;
+                army.setArmyForm(Names.PATROL_UNIT.getName());
                 army.startXCoordinate = x1;
                 army.startYCoordinate = y1;
                 army.finalXCoordinate = x2;
@@ -716,9 +716,9 @@ public class GameController {
     public GameMenuMessages stopPatrols(int x, int y) {
         if (validCoordinates(x, y)) {
             for (Army army : Manage.getCurrentEmpire().empireArmy) {
-                if (army.typeOfArmy().getName().equals(Names.PATROL_UNIT.getName()) &&
+                if (army.getOwner().equals(Names.PATROL_UNIT.getName()) &&
                         army.getCurrentX() == x && army.getCurrentY() == y) {
-                    army.typeOfArmy = Names.STANDING_ARMY;
+                    army.setArmyForm(Names.STANDING_ARMY.getName());
                 }
             }
             return GameMenuMessages.SUCCESS;
