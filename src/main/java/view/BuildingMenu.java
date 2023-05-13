@@ -40,6 +40,7 @@ public class BuildingMenu {
                     }
                 }
             } else if (input.equals("Logout")) {
+                System.out.println("welcome to game menu");
                 return;
             } else {
                 System.out.println(BuildingCommands.INVALID_COMMAND.getName());

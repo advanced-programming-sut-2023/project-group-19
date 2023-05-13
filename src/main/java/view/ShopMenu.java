@@ -38,6 +38,7 @@ public class ShopMenu {
                     System.out.println(shopController.sellItem(itemName, itemAmount, scanner).getMessages());
                 } else System.out.println(commandValidation.getMessages());
             } else if (ShopMenuCommands.getMatcher(command, ShopMenuCommands.LOGOUT) != null) {
+                System.out.println("welcome to Building menu");
                 break;
             } else System.out.println(ShopMenuMessages.INVALID_COMMAND.getMessages());
         }

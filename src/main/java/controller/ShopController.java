@@ -13,6 +13,7 @@ public class ShopController {
     public static Empire ownerOfShop = ShopMenu.currentShop.getOwner();
 
     public void showPriceList() {
+        System.out.println(ownerOfShop.getGoldCount());
         int number = 1;
         System.out.println("Attention:");
         System.out.println("Buying prices are settled for 5 numbers of every good.");
