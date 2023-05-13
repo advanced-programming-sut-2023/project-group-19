@@ -670,7 +670,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(smallChurch, currentEmpire)) {
                             buildingCheckout(smallChurch, currentEmpire);
                             Map.AddToBuildingMap(x, y, smallChurch);
-                            currentEmpire.setPopularity(currentEmpire.popularity + smallChurch.getPopularityIncreaseRate());
+                            currentEmpire.setPopularityFactorReligious( currentEmpire.getPopularityFactorReligious() + smallChurch.getPopularityIncreaseRate());
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
@@ -692,7 +692,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(bigChurch, currentEmpire)) {
                             buildingCheckout(bigChurch, currentEmpire);
                             Map.AddToBuildingMap(x, y, bigChurch);
-                            currentEmpire.setPopularity(currentEmpire.getPopularity() + bigChurch.getPopularityIncreaseRate());
+                            currentEmpire.setPopularityFactorReligious( currentEmpire.getPopularityFactorReligious() + bigChurch.getPopularityIncreaseRate());
                             currentEmpire.setPriestCount(currentEmpire.getPriestCount() + 1);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
