@@ -130,19 +130,22 @@ public class GameController {
         if (countOfUnits <= 0) return GameMenuMessages.INVALID_NUMBER_OF_UNITS_TO_DROP;
         if (validCoordinates(x, y)) {
             if (checkGroundTypeForUnits(x, y)) {
+                System.out.println("hi");
                 if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
                     if (Map.notPassable[x][y]){
                         if (isTower(x,y)){
                             Map.notPassable[x][y] = false;
                             if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
+                                for (Army army : Map.getTroopMap()[x][y]){
+                                    System.out.println(army.getOwner());
+                                }
                                 return GameMenuMessages.SUCCESS;
                             } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
                         }else return GameMenuMessages.IMPROPER_LOCATION;
                     }
                 } else return GameMenuMessages.IMPROPER_UNIT;
             } else return GameMenuMessages.IMPROPER_LOCATION;
-        }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+        }return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
 
     private static boolean addUnitsToMap(int x, int y, int count, String typeOfUnit) {
