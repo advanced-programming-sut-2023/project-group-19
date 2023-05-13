@@ -750,7 +750,6 @@ public class GameController {
                         }
                         Map.getTroopMap()[xOfPitch][yOfPitch].clear();
                         archer.myPath.clear();
-                        archer.myPath.clear();
                         return GameMenuMessages.SUCCESS;
                     }
                     return GameMenuMessages.OUT_OF_UNIT_RANGE;
@@ -936,7 +935,6 @@ public class GameController {
                                         Map.getTroopMap()[xOfLadderMan][yOfLadderMan].add(ladderMan);
                                         ((StoneGateWay) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).flagOfEnemy = true;
                                         Map.notPassable[xOfGate][yOfGate] = false;
-                                        System.out.println(ladderMan.getCurrentX() + " " + ladderMan.getCurrentY());
                                         return GameMenuMessages.SUCCESS;
                                     } else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
                                 }
@@ -1084,7 +1082,6 @@ public class GameController {
                     for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
                         Army army = Map.getTroopMap()[i][j].get(k);
                         if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
-                            System.out.println("Got it: i:"+i+" "+j);
                             army.setHp(0);
                             removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
                         }

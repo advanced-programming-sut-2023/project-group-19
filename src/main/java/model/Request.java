@@ -69,4 +69,8 @@ public class Request {
     public void setFromSellerMessage(String fromSellerMessage) {
         this.fromSellerMessage = fromSellerMessage;
     }
+
+    public Empire getReceiver() {
+        return receiver;
+    }
 }

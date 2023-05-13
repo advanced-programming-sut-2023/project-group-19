@@ -912,11 +912,11 @@ public class Empire {
 
     {
         europeTroopCount.put("archer", 4);
-        europeTroopCount.put("spearMan", 0);
+        europeTroopCount.put("spearMan", 4);
         europeTroopCount.put("maceMan", 0);
         europeTroopCount.put("crossbowMan", 0);
         europeTroopCount.put("pikeMan", 0);
-        europeTroopCount.put("swordMan", 0);
+        europeTroopCount.put("swordMan", 10);
         europeTroopCount.put("knight", 5);
         europeTroopCount.put("blackMonk", 0);
     }
@@ -937,7 +937,7 @@ public class Empire {
 
     {
         engineerGuildTroopCount.put("engineer", 50);
-        engineerGuildTroopCount.put("ladderMan", 0);
+        engineerGuildTroopCount.put("ladderMan", 50);
         engineerGuildTroopCount.put("tunneler", 10);
     }
 
@@ -955,7 +955,7 @@ public class Empire {
     {
         siegeTentTroopsCount.put("catapult", 0);
         siegeTentTroopsCount.put("trebuchet", 2);
-        siegeTentTroopsCount.put("siegeTower", 0);
+        siegeTentTroopsCount.put("siegeTower", 2);
         siegeTentTroopsCount.put("fireBallista", 0);
         siegeTentTroopsCount.put("batteringRam", 2);
         siegeTentTroopsCount.put("portableShield", 0);
