@@ -10,7 +10,6 @@ import view.SelectedBuildingMenu;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-
 public class BuildingController {
 
     public static int size = Map.mapSize;
