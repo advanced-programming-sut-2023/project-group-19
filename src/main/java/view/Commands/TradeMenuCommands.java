@@ -14,7 +14,7 @@ public enum TradeMenuCommands {
     SHOW_TRADE_HISTORY("trade history"),
     TRADE_ACCEPTED("trade accept .+"),
     TRADE_ACCEPTED_ID_CHECK(".*-i (?<id>\\S+).*"),
-    TRADE_ACCEPTED_MESSAGE_CHECK(".*-m (?<tradeMessage>[^-i]+) .*"),
+    TRADE_ACCEPTED_MESSAGE_CHECK(".*-m (?<tradeMessage>[^-i]+).*"),
     LOGOUT("Logout"),
     ;
 

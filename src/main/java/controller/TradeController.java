@@ -400,11 +400,11 @@ public class TradeController {
         System.out.println("Notifications : ");
         System.out.println("List Of New Requests : ");
         for (int j = currentEmpire.getNotificationOfRequest(); j < currentEmpire.getAllRequests().size(); j++) {
-            System.out.println(currentEmpire.getAllRequests().get(j));
+            System.out.println(currentEmpire.getAllRequests().get(j).getId());
         }
         System.out.println("List Of New Donations : ");
         for (int i = currentEmpire.getNotificationOfDonation(); i < currentEmpire.getAllDonations().size(); i++) {
-            System.out.println(currentEmpire.getAllDonations().get(i));
+            System.out.println(currentEmpire.getAllDonations().get(i).getId());
         }
         currentEmpire.setNotificationOfDonation(currentEmpire.getAllDonations().size());
         currentEmpire.setNotificationOfRequest(currentEmpire.getAllRequests().size());

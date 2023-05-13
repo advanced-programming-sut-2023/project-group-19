@@ -914,7 +914,7 @@ public class GameController {
         int yOfGate = Integer.parseInt(y1.group("y"));
         int index;
         if (validCoordinates(xOfGate, yOfGate)) {
-            if (isBridge(xOfGate, yOfGate)) {
+            if (isGate(xOfGate, yOfGate)) {
                 for (int i = 0; i < Map.wall.length; i++) {
                     for (int j = 0; j < Map.wall[i].length; j++) {
                         if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())
@@ -933,7 +933,6 @@ public class GameController {
                                         Map.getTroopMap()[xOfLadderMan][yOfLadderMan].add(ladderMan);
                                         ((StoneGateWay) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).flagOfEnemy = true;
                                         Map.notPassable[xOfGate][yOfGate] = false;
-                                        ((DrawBridge) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).bridgeOpen = true;
                                         System.out.println(ladderMan.getCurrentX() + " " + ladderMan.getCurrentY());
                                         return GameMenuMessages.SUCCESS;
                                     } else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
@@ -948,14 +947,12 @@ public class GameController {
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
-
     private static boolean checkIfWallIsBesideGate(int x, int y, int xOfGate, int yOfGate) {
-        return ((validCoordinates(xOfGate, yOfGate - 1) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate - 1].get(0)))
-                || (validCoordinates(xOfGate, yOfGate + 1) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate + 1].get(0)))
-                || (validCoordinates(xOfGate + 1, yOfGate) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate + 1][yOfGate].get(0)))
-                || (validCoordinates(xOfGate, yOfGate - 1) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate - 1][yOfGate].get(0))));
+        return ((validCoordinates(xOfGate, yOfGate - 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate - 1].get(0)))
+                || (validCoordinates(xOfGate, yOfGate + 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate + 1].get(0)))
+                || (validCoordinates(xOfGate + 1, yOfGate) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate + 1][yOfGate].get(0)))
+                || (validCoordinates(xOfGate, yOfGate - 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate - 1][yOfGate].get(0))));
     }
-
     private static Army ifLadderManIsAvailable() {
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (army.getNames().getName().equals(Names.LADDER_MEN.getName())) {
@@ -1084,6 +1081,7 @@ public class GameController {
                     for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
                         Army army = Map.getTroopMap()[i][j].get(k);
                         if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
+                            System.out.println("Got it: i:"+i+" "+j);
                             army.setHp(0);
                             removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
                         }

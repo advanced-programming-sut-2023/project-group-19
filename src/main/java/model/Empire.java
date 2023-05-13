@@ -839,14 +839,14 @@ public class Empire {
     public HashMap<String, Integer> stores = new HashMap<>();
 
     {
-        stores.put("wood", 50);
-        stores.put("iron", 50);
-        stores.put("stone", 500);
-        stores.put("oat", 50);
-        stores.put("wheat", 50);
-        stores.put("beer", 50);
-        stores.put("flour", 50);
-        stores.put("oil", 50);
+        stores.put("wood", 10);
+        stores.put("iron", 0);
+        stores.put("stone", 0);
+        stores.put("oat", 0);
+        stores.put("wheat", 0);
+        stores.put("beer", 0);
+        stores.put("flour", 0);
+        stores.put("oil", 0);
     }
 
     public HashMap<String, Integer> productionBuildingCount = new HashMap<>();
@@ -955,7 +955,7 @@ public class Empire {
     {
         siegeTentTroopsCount.put("catapult", 0);
         siegeTentTroopsCount.put("trebuchet", 2);
-        siegeTentTroopsCount.put("siegeTower", 0);
+        siegeTentTroopsCount.put("siegeTower", 2);
         siegeTentTroopsCount.put("fireBallista", 0);
         siegeTentTroopsCount.put("batteringRam", 2);
         siegeTentTroopsCount.put("portableShield", 0);
