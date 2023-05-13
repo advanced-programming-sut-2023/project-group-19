@@ -29,7 +29,7 @@ public class ShowMapController {
 
     public static final String ANSI_PERFEFT_BLUE_BACKGROUND
             = "\u001B[44m";
-    static int size = 200;
+    static int size ;
     static int x;
     static int y;
     static int leftLimit;
