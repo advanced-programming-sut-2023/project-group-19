@@ -554,7 +554,6 @@ public class GameController {
                                                 myUnit.xCoordinate = myUnit.goalXCoordinate;
                                                 myUnit.yCoordinate = myUnit.goalYCoordinate;
                                                 myUnit.restOfMoves--;
-                                                System.out.println(myUnit.xCoordinate + " " + myUnit.yCoordinate + " " + myUnit.speed() + " " + myUnit.restOfMoves);
                                                 Map.getTroopMap()[myUnit.xCoordinate][myUnit.yCoordinate].add(myUnit);
                                                 pathList.remove(i);
                                                 i--;
@@ -568,9 +567,6 @@ public class GameController {
                                             }
                                         }
                                     }
-                                }
-                                for (Army army : selectedUnit) {
-                                    System.out.println(army.getCurrentX() + " " + army.getCurrentY());
                                 }
                                 if (isMyArmyDeployed()) {
                                     return GameMenuMessages.ARMY_DEPLOYED;
