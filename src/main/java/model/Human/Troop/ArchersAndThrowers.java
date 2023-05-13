@@ -55,7 +55,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void archer(int x, int y) {
         this.hp = 475;
         this.maxHp = 475;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.ARCHER;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -69,7 +69,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void Crossbowmen(int x, int y) {
         this.hp = 700;
         this.maxHp = 700;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.CROSSBOWMEN;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -83,7 +83,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void ArcherBow(int x, int y) {
         this.hp = 475;
         this.maxHp = 475;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.ARCHER_BOW;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -97,7 +97,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void Slingers(int x, int y) {
         this.hp = 700;
         this.maxHp = 700;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.SLINGERS;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -111,7 +111,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void HorseArchers(int x, int y) {
         this.hp = 850;
         this.maxHp = 850;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.HORSE_ARCHERS;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -125,7 +125,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void FireThrowers(int x, int y) {
         this.hp = 850;
         this.maxHp = 850;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.FireThrowers;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -140,7 +140,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 850;
         this.maxHp = 850;
         this.names = Names.CATAPULT;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -156,7 +156,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 900;
         this.maxHp = 900;
         this.names = Names.TREBUCHET;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -172,7 +172,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 1000;
         this.maxHp = 1000;
         this.names = Names.SIEGE_TOWER;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -186,7 +186,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
 
     public void fireBallista(int x, int y) {
         this.names = Names.FIRE_BALLISTA;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -201,7 +201,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 1200;
         this.maxHp = 1200;
         this.names = Names.BATTERING_RAM;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.speed = 7;
@@ -216,7 +216,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 475;
         this.maxHp = 475;
         this.names = Names.PORTABLE_SHIELD;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.defencePower = 400;

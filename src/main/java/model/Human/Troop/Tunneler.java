@@ -37,7 +37,7 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     public void Tunneler(int x, int y) {
         this.hp = 100;
         this.maxHp = 100;
-        this.typeOfArmy = Names.STANDING_ARMY;
+        this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.TUNNELER;
         this.xCoordinate = x;
         this.yCoordinate = y;

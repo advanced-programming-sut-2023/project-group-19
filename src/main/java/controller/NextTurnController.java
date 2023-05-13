@@ -26,11 +26,12 @@ public class NextTurnController {
                 GameController gameController = new GameController();
                 setGameController(gameController);
                 findCurrentEmpire();
+                System.out.println(Manage.getCurrentEmpire().getName());
                 callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
                 callEndingTurnFunctions(gameController);
-                System.out.println(Manage.getCurrentEmpire().getName());
+
                 /*for (Empire empire : Manage.getAllEmpires()){
                     System.out.println(empire.getName());
                     for (Army army : empire.empireArmy){
@@ -51,7 +52,7 @@ public class NextTurnController {
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
         currentEmpire = Manage.allEmpires.get(index);
-//        index = ++index % Manage.allEmpires.size();
+        index = ++index % Manage.allEmpires.size();
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;
