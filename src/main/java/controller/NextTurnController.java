@@ -30,12 +30,13 @@ public class NextTurnController {
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
                 callEndingTurnFunctions(gameController);
-                for (Empire empire : Manage.getAllEmpires()){
+                System.out.println(Manage.getCurrentEmpire().getName());
+                /*for (Empire empire : Manage.getAllEmpires()){
                     System.out.println(empire.getName());
                     for (Army army : empire.empireArmy){
                         System.out.println(army+ " "+army.xCoordinate+" "+army.yCoordinate);
                     }
-                }
+                }*/
             } else {
                 User user = Manage.getAllEmpires().get(0).getUser();
                 int oldScore = user.getHighScore();

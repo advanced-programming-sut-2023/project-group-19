@@ -9,6 +9,7 @@ import model.Manage;
 import model.Map;
 import view.Messages.GameMenuMessages;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -538,7 +539,6 @@ public class GameController {
                                         int size = pathList.size();
                                         for (int i = 0; i < pathList.size(); i++) {
                                             if (myUnit.restOfMoves != 0) {
-                                                // goal in here means next
                                                 myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
                                                 myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                                 Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
@@ -718,7 +718,7 @@ public class GameController {
             for (Army army : Manage.getCurrentEmpire().empireArmy) {
                 if (army.typeOfArmy().getName().equals(Names.PATROL_UNIT.getName()) &&
                         army.getCurrentX() == x && army.getCurrentY() == y) {
-                    army.typeOfArmy =Names.STANDING_ARMY;
+                    army.typeOfArmy = Names.STANDING_ARMY;
                 }
             }
             return GameMenuMessages.SUCCESS;
@@ -735,6 +735,7 @@ public class GameController {
                     Map.getBuildingMap()[xOfPitch][yOfPitch].get(0) instanceof PitchDitch) {
                 if ((archer = checkIfSomeAreArchers()) != null) {
                     setPathForUnits(xOfPitch, yOfPitch);
+                    System.out.println(archer.myPath.size());
                     if (archer.myPath.size() <= archer.getAttackRange()) {
                         ((PitchDitch) Map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
                         Map.getBuildingMap()[xOfPitch][yOfPitch].clear();
@@ -979,13 +980,20 @@ public class GameController {
         if (validCoordinates(x, y)) {
             if (isGate(x, y) || isWall(x, y) || isTower(x, y)) {
                 if (isSomeUnitsAreBatteringRam()) {
+                    setPathForUnits(x,y);
                     String unitMoved = moveUnit(x, y).getMessages();
                     if (unitMoved.equals(GameMenuMessages.ARMY_DEPLOYED.getMessages())) {
                         int damage = Map.getBuildingMap()[x][y].get(0).getHp() - (selectedUnit.get(0)).getAttackPower() * selectedUnit.size();
                         Map.getBuildingMap()[x][y].get(0).setHp(damage);
+                        System.out.println(Map.getBuildingMap()[x][y].get(0).getHp() + " " +
+                                Map.getBuildingMap()[x][y].get(0).getName());
                         if (checkIfRemoveBuildingPossible(damage)) Map.getBuildingMap()[x][y].remove(0);
+                        System.out.println(Map.getBuildingMap()[x][y].size());
                         return GameMenuMessages.SUCCESS;
-                    } else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
+                    } else {
+                        System.out.println(selectedUnit.get(0).getCurrentX() + " "+selectedUnit.get(0).getCurrentY() + selectedUnit.get(0).speed());
+                        return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
+                    }
                 } else return GameMenuMessages.IMPROPER_UNIT;
             } else return GameMenuMessages.IMPROPER_LOCATION;
         }
@@ -1166,7 +1174,7 @@ public class GameController {
                 setPathForUnits(x, y);
                 for (Army army : selectedUnit) {
                     List<Integer> pathList = army.myPath;
-                    for (int i = 0 ; i < pathList.size() ; i++) {
+                    for (int i = 0; i < pathList.size(); i++) {
                         if (army.restOfMoves() != 0) {
                             int nextX = pathList.get(i) / PathFindingController.size;
                             int nextY = pathList.get(i) % PathFindingController.size;
@@ -1179,7 +1187,7 @@ public class GameController {
                                     Map.notBuildable[nextX][nextY] = false;
                                     Map.wall[nextX][nextY] = false;
                                 }
-                            }else {
+                            } else {
                                 return GameMenuMessages.UNABLE_TO_DIG_UNDER_TOWERS;
                             }
                             army.restOfMoves--;
@@ -1241,9 +1249,10 @@ public class GameController {
     }
 
     public boolean isGate(int x, int y) {
-        if (!Map.getBuildingMap()[x][y].isEmpty()) {
-            if (!Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
-                return Map.getBuildingMap()[x][y].get(0) instanceof StoneGateWay;
+        if (!Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
+            if (Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.BIG_STONE_GATE_HOUSE.getName())
+                    || Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.SMALL_STONE_GATE_HOUSE.getName())) {
+                return true;
             }
         }
         return false;

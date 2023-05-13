@@ -943,7 +943,7 @@ public class Empire {
         siegeTentTroopsCount.put("trebuchet", 2);
         siegeTentTroopsCount.put("siegeTower", 0);
         siegeTentTroopsCount.put("fireBallista", 0);
-        siegeTentTroopsCount.put("batteringRam", 0);
+        siegeTentTroopsCount.put("batteringRam", 2);
         siegeTentTroopsCount.put("portableShield", 0);
     }
 
