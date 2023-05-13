@@ -64,6 +64,7 @@ public class GameController {
     }
 
     public GameMenuMessages readyToAttack(Matcher enemy) {
+        //TODO : first check selected unit not empty
         int x = Integer.parseInt(enemy.group("x"));
         int y = Integer.parseInt(enemy.group("y"));
         if (validCoordinates(x, y)) {
@@ -71,6 +72,7 @@ public class GameController {
                 army.isIntFight = true;
             }
             String unitMoved = moveUnit(x, y).getMessages();
+            System.out.println("moving to enemy");
             //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
