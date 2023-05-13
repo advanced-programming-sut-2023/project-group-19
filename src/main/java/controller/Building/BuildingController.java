@@ -10,7 +10,6 @@ import view.SelectedBuildingMenu;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-
 public class BuildingController {
 
     public static int size = Map.mapSize;
@@ -43,7 +42,6 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
-    // ground type / obstacle remove
     public static void dropFirstStockpile(int x, int y) {
         Stockpile foodStockpile = new Stockpile(currentEmpire);
         foodStockpile.foodStockpile();

@@ -72,7 +72,6 @@ public class GameController {
                 army.isIntFight = true;
             }
             String unitMoved = moveUnit(x, y).getMessages();
-
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
