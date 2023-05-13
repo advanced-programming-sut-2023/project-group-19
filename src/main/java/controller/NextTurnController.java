@@ -86,11 +86,11 @@ public class NextTurnController {
         int size = Manage.allEmpires.size();
         for (int i = 0; i < size; i++) {
             Empire empire = Manage.allEmpires.get(i);
-            Building castle = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].get(0);
-            if (castle.getHp() <= 0) {
+            boolean isDestroyed = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
+            if (isDestroyed) {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
-                NextTurnController.index--;
+                if(index != 0) NextTurnController.index--;
                 i--;
                 size--;
             }
