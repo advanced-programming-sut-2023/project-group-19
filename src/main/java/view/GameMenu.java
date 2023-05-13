@@ -193,6 +193,7 @@ public class GameMenu {
                 NextTurnController.index--;
                 return;
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.NEXT_TURN) != null) {
+
                 return;
             } else System.out.println(GameMenuMessages.INVALID_COMMAND.getMessages());
         }

@@ -22,8 +22,7 @@ public class EmpireMenu {
             } else if (EmpireCommands.getMatcher(command, EmpireCommands.SHOW_POPULARITY) != null) {
                 System.out.println("Your Popularity is :" + Manage.getCurrentEmpire().getPopularity());
             } else if (EmpireCommands.getMatcher(command, EmpireCommands.SHOW_FOOD_LIST) != null) {
-                String foodList = EmpireController.showFoodList();
-                System.out.print(foodList);
+                System.out.print(EmpireController.showFoodList());
             } else if ((matcher = EmpireCommands.getMatcher(command, EmpireCommands.SET_FOOD_RATE_NUMBER)) != null) {
                 int foodRateNumber = Integer.parseInt(matcher.group("rateNumber"));
                 Manage.getCurrentEmpire().setFoodRateNumber(foodRateNumber);

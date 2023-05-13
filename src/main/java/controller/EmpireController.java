@@ -23,7 +23,6 @@ public class EmpireController {
     }
 
     public static void taxImpactOnEmpire(Empire empire, int taxRate) {
-        System.out.println(empire.getGoldCount());
         switch (taxRate) {
             case -3:
                 empire.setGoldCount(empire.getGoldCount() - empire.getPopulation());
@@ -128,7 +127,6 @@ public class EmpireController {
                 foodPerPearson = 2;
                 break;
         }
-        System.out.println(foodPerPearson);
         int totalFoodThatBeGivenToPeople = (int) foodPerPearson * empire.getPopulation();
         if ((int)(foodPerPearson * empire.getPopulation()) <= empire.getTotalFoodCount()) {
             while (totalFoodThatBeGivenToPeople != 0) {
