@@ -155,7 +155,6 @@ public class AttackArmyToArmyController {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
                 if (!Map.getBuildingMap()[i][j].isEmpty()) {
-
                     if (Map.getBuildingMap()[i][j].get(0).getOwner().equals(army.getEmpire()) ||
                             Map.getBuildingMap()[i][j].get(0).getHp() <= 0) continue;
                     int newHitPoint = Map.getBuildingMap()[i][j].get(0).hp() - army.getAttackPower();

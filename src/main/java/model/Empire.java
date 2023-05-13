@@ -911,13 +911,13 @@ public class Empire {
     public HashMap<String, Integer> europeTroopCount = new HashMap<>();
 
     {
-        europeTroopCount.put("archer", 0);
+        europeTroopCount.put("archer", 4);
         europeTroopCount.put("spearMan", 0);
         europeTroopCount.put("maceMan", 0);
         europeTroopCount.put("crossbowMan", 0);
         europeTroopCount.put("pikeMan", 0);
         europeTroopCount.put("swordMan", 0);
-        europeTroopCount.put("knight", 0);
+        europeTroopCount.put("knight", 5);
         europeTroopCount.put("blackMonk", 0);
     }
 
@@ -929,7 +929,7 @@ public class Empire {
         arabTroopCount.put("slinger", 0);
         arabTroopCount.put("assassin", 0);
         arabTroopCount.put("horseArcher", 0);
-        arabTroopCount.put("arabianSwordMan", 0);
+        arabTroopCount.put("arabianSwordMan", 5);
         arabTroopCount.put("fireThrower", 0);
     }
 
@@ -938,7 +938,7 @@ public class Empire {
     {
         engineerGuildTroopCount.put("engineer", 50);
         engineerGuildTroopCount.put("ladderMan", 0);
-        engineerGuildTroopCount.put("tunneler", 0);
+        engineerGuildTroopCount.put("tunneler", 10);
     }
 
     public HashMap<String, Integer> popularityFactors = new HashMap<>();
@@ -954,10 +954,10 @@ public class Empire {
 
     {
         siegeTentTroopsCount.put("catapult", 0);
-        siegeTentTroopsCount.put("trebuchet", 0);
+        siegeTentTroopsCount.put("trebuchet", 2);
         siegeTentTroopsCount.put("siegeTower", 0);
         siegeTentTroopsCount.put("fireBallista", 0);
-        siegeTentTroopsCount.put("batteringRam", 0);
+        siegeTentTroopsCount.put("batteringRam", 2);
         siegeTentTroopsCount.put("portableShield", 0);
     }
 
