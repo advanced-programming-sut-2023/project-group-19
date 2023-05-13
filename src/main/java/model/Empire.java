@@ -924,13 +924,13 @@ public class Empire {
     public HashMap<String, Integer> arabTroopCount = new HashMap<>();
 
     {
-        arabTroopCount.put("arabianBow", 0);
-        arabTroopCount.put("slave", 0);
-        arabTroopCount.put("slinger", 0);
-        arabTroopCount.put("assassin", 0);
-        arabTroopCount.put("horseArcher", 0);
-        arabTroopCount.put("arabianSwordMan", 5);
-        arabTroopCount.put("fireThrower", 0);
+        arabTroopCount.put("arabianBow", 10);
+        arabTroopCount.put("slave", 10);
+        arabTroopCount.put("slinger", 10);
+        arabTroopCount.put("assassin", 10);
+        arabTroopCount.put("horseArcher", 10);
+        arabTroopCount.put("arabianSwordMan", 10);
+        arabTroopCount.put("fireThrower", 10);
     }
 
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();

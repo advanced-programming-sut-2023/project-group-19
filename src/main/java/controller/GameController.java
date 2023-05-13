@@ -84,8 +84,6 @@ public class GameController {
     public GameMenuMessages attackAllSelectedArchers(Matcher xCoordinate, Matcher yCoordinate) {
         int x = Integer.parseInt(xCoordinate.group("x"));
         int y = Integer.parseInt(yCoordinate.group("y"));
-        x--;
-        y--;
         if (validCoordinates(x, y)) {
             for (Army army : selectedUnit) {
                 if (!isArcher(army)) continue;
