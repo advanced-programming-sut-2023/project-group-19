@@ -101,7 +101,7 @@ public class Empire {
         this.foodCapacity = foodCapacity;
     }
 
-    private int population;
+    private int population = 10;
     public int popularity;
     private int goldCount = 100000000;
     private int foodRateNumber = -2;
