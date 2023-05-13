@@ -50,7 +50,6 @@ public class NextTurnController {
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
-        EmpireController.showEmpireStatus();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();

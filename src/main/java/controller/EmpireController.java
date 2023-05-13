@@ -179,36 +179,4 @@ public class EmpireController {
         return total;
     }
 
-    public static void showEmpireStatus() {
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().stores.entrySet()) {
-            System.out.println("stores : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().allFood.entrySet()) {
-            System.out.println("allFood : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().allWeaponTools.entrySet()) {
-            System.out.println("allWeaponTools : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().productionBuildingCount.entrySet()) {
-            System.out.println("productionBuildingCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().createWeaponBuildingCount.entrySet()) {
-            System.out.println("createWeaponBuildingCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().europeTroopCount.entrySet()) {
-            System.out.println("europeTroopCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().arabTroopCount.entrySet()) {
-            System.out.println("arabTroopCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().engineerGuildTroopCount.entrySet()) {
-            System.out.println("engineerGuildTroopCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().siegeTentTroopsCount.entrySet()) {
-            System.out.println("siegeTentTroopsCount : " + resource.getKey() + "number : " + resource.getValue());
-        }
-        for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().popularityFactors.entrySet()) {
-            System.out.println("popularityFactors : " + resource.getKey() + "number : " + resource.getValue());
-        }
-    }
 }
