@@ -109,7 +109,6 @@ public class LoginMenu {
             case NOT_SIMILAR_PASSWORD:
                 System.out.println("Wrong password!");
                 Thread.sleep(5000L * numberToWait);
-                //TODO : has problem
                 numberToWait++;
                 return;
             case SUCCESS:

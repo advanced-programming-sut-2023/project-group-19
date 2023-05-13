@@ -15,8 +15,6 @@ public class AttackArmyToArmyController {
     public static void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
             for (Army army : empire.empireArmy) {
-                System.out.println("empire is: " + empire + " army is: " + army.getNames() +
-                        " x is: " + army.xCoordinate + " y is: " + army.yCoordinate);
                 findEnemyToFight(army);
             }
         }
@@ -141,8 +139,6 @@ public class AttackArmyToArmyController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
-                    System.out.println(enemy.hp());
-                    System.out.println(army.getAttackPower());
                     enemy.setHp(newHitPoint);
                     enemy.setArcherAttacker((ArchersAndThrowers) army);
                     return true;
@@ -178,11 +174,7 @@ public class AttackArmyToArmyController {
         gameController.selectedUnit.clear();
         Empire empire = Manage.getCurrentEmpire();
         for (Army army : empire.empireArmy) {
-            System.out.println("check 1");
-            System.out.println(army.myPath);
-            System.out.println(army.isIntFight);
             if (!army.isIntFight() || isArcher(army)) continue;
-            System.out.println("check 2");
             gameController.selectedUnit.add(army);
             findEnemyForFightMode(army, gameController);
             gameController.selectedUnit.clear();

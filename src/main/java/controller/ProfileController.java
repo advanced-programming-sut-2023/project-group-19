@@ -24,7 +24,6 @@ public class ProfileController {
     public static void changeFiedsOfCurrentUser(User user) throws IOException {
         JsonController.readDataFile("LoggedInUser.json");
         if (JsonController.saveLoggedInUserFileData() == null) return;
-        System.out.println("is equal");
         JsonController.writeIntoFile(user, "LoggedInUser.json");
     }
 
@@ -59,9 +58,6 @@ public class ProfileController {
         oldPassword = changeTextIwithoutCot(oldPassword);
         newPassword = changeTextIwithoutCot(newPassword);
         User user = User.getCurrentUser();
-        System.out.println("|" + oldPassword + "|");
-        System.out.println(user.getPassword());
-        System.out.println(getHashCode(oldPassword));
         if (!user.getPassword().equals(getHashCode(oldPassword))) return ProfileMenuMessage.INCORRECT_PASSWORD;
         if (oldPassword.equals(newPassword)) return ProfileMenuMessage.SIMILAR_PASSWORD;
         if (!newPassword.matches(".*[a-z].*")) return ProfileMenuMessage.WEAK_PASSWORD_FOR_LOWERCASE;
@@ -156,7 +152,7 @@ public class ProfileController {
         try {
             return toHexString(getSHA(text));
         } catch (NoSuchAlgorithmException e) {
-            System.out.println("Exception thrown for incorrect algorithm: " + e);
+//            System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
         return null;
     }
