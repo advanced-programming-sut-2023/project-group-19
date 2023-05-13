@@ -32,12 +32,14 @@ public class EmpireMenu {
             } else if ((matcher = EmpireCommands.getMatcher(command, EmpireCommands.SET_TAX_RATE_NUMBER)) != null) {
                 int taxRate = Integer.parseInt(matcher.group("rateNumber"));
                 Manage.getCurrentEmpire().setTaxRateNumber(taxRate);
+                System.out.println("tax rate changed successfully");
             } else if (EmpireCommands.getMatcher(command, EmpireCommands.SHOW_TAX_RATE) != null) {
                 System.out.println("Your tax rate is :" + Manage.getCurrentEmpire().getTaxRateNumber());
             } else if ((matcher = EmpireCommands.getMatcher(command, EmpireCommands.SET_FEAR_RATE)) != null) {
                 int fearRate = Integer.parseInt(matcher.group("rateNumber"));
                 Manage.getCurrentEmpire().setFearRateNumber(fearRate);
             } else if (EmpireCommands.getMatcher(command, EmpireCommands.LOGOUT) != null) {
+                System.out.println("welcome to the game menu");
                 break;
             } else System.out.println("Invalid Command!");
         }

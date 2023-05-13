@@ -50,7 +50,7 @@ public class NextTurnController {
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
         currentEmpire = Manage.allEmpires.get(index);
-        index = ++index % Manage.allEmpires.size();
+//        index = ++index % Manage.allEmpires.size();
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;
