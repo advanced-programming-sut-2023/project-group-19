@@ -110,7 +110,7 @@ public class Empire {
     private int taxRateNumber;
     private int fearRateNumber ;
     private double fearWorkerImpact;
-    private double fearTroopImpact = 1;
+    private double fearTroopImpact;
 
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
