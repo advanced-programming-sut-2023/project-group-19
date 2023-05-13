@@ -153,7 +153,7 @@ public class LoginController {
         try {
             return toHexString(getSHA(text));
         } catch (NoSuchAlgorithmException e) {
-            System.out.println("Exception thrown for incorrect algorithm: " + e);
+//            System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
         return null;
     }
