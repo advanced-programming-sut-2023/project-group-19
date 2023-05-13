@@ -71,6 +71,10 @@ public class GameController {
                 army.isIntFight = true;
             }
             String unitMoved = moveUnit(x, y).getMessages();
+            System.out.println( "x is: " +  selectedUnit.get(0).getCurrentX() + " y is: " + selectedUnit.get(0).getCurrentY()
+            + selectedUnit.get(0).myPath);
+
+            //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
@@ -79,8 +83,6 @@ public class GameController {
     public GameMenuMessages attackAllSelectedArchers(Matcher xCoordinate, Matcher yCoordinate) {
         int x = Integer.parseInt(xCoordinate.group("x"));
         int y = Integer.parseInt(yCoordinate.group("y"));
-        x--;
-        y--;
         if (validCoordinates(x, y)) {
             for (Army army : selectedUnit) {
                 if (!isArcher(army)) continue;
@@ -442,6 +444,7 @@ public class GameController {
     }
 
     private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
+        System.out.println("into defensive state");
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
@@ -468,7 +471,7 @@ public class GameController {
                 }
             }
         }
-        if (range == army.getAttackRange()) {
+        if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
             gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
             return true;
         } else {

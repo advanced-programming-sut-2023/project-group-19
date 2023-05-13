@@ -56,7 +56,7 @@ public class CreateMapController {
             Map.getGroundType()[x][y].add(GroundType.DEFAULT);
             Map.getObstacleMap()[x][y].add(waterSources);
             Map.notBuildable[x][y]  = true ;
-            if(!type.equals("shallowWater")) Map.notPassable[x - 1][y - 1] = true ;
+            if(!type.equals("shallowWater")) Map.notPassable[x][y] = true ;
             return "Change is done successfully!";
         }
         Map.getGroundType()[x][y].clear();

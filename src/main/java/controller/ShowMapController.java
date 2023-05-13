@@ -161,7 +161,7 @@ public class ShowMapController {
                 number++;
                 soilders.put(army.getNames(), number);
             } else {
-                soilders.put(army.getNames(), 0);
+                soilders.put(army.getNames(), 1);
             }
         }
         for (Names key : soilders.keySet()) {

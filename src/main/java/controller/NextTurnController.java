@@ -30,15 +30,12 @@ public class NextTurnController {
                 callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
+                System.out.println( "past next turn" + Manage.getCurrentEmpire().empireArmy.size());
                 callEndingTurnFunctions(gameController);
+                System.out.println( "after next turn" + Manage.getCurrentEmpire().empireArmy.size());
 
-                /*for (Empire empire : Manage.getAllEmpires()){
-                    System.out.println(empire.getName());
-                    for (Army army : empire.empireArmy){
-                        System.out.println(army+ " "+army.xCoordinate+" "+army.yCoordinate);
-                    }
-                }*/
             } else {
+                System.out.println("Winner is: " + Manage.allEmpires.get(0).getName());
                 User user = Manage.getAllEmpires().get(0).getUser();
                 int oldScore = user.getHighScore();
                 int newScore = oldScore + 100;
@@ -51,6 +48,7 @@ public class NextTurnController {
 
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
+        System.out.println(Manage.getCurrentEmpire().getName());
         currentEmpire = Manage.allEmpires.get(index);
         index = ++index % Manage.allEmpires.size();
         BuildingController.currentEmpire = currentEmpire;

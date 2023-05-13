@@ -42,7 +42,7 @@ public enum GameMenuCommands {
     MOVE_BY_SIEGE_TOWER("siegeTower .+"),
     LOGOUT("Logout"),
     ENTER_TO_MAP("enter\\s+map\\s+menu"),
-    SHOW_MAP("show\\s+map");
+    ;
     private Pattern name;
 
     public Pattern getName() {
