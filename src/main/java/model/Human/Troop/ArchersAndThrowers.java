@@ -12,9 +12,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     public int height;
-    public Names shieldDirection;
     public Names typeOfArmy;
-    public boolean fight;
 
     public void setNames(Names names) {
         this.names = names;
@@ -33,44 +31,13 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.maxHp = maxHp;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDefencePower() {
-        return defencePower;
-    }
-
-    public void setDefencePower(int defencePower) {
-        this.defencePower = defencePower;
-    }
-
     public int getAttackPower() {
         return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
     }
 
     public int getAttackRange() {
         return attackRange;
     }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
-
-
-    public Names getShieldDirection() {
-        return shieldDirection;
-    }
-
-    public Names getTypeOfArmy() {
-        return typeOfArmy;
-    }
-
-
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         cost.put("wood", wood);
@@ -89,7 +56,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void archer(int x, int y) {
         hp = 475;
         maxHp = 475;
-        typeOfArmy = Names.STANDING_AMRY;
+        typeOfArmy = Names.STANDING_ARMY;
         names = Names.ARCHER;
         xCoordinate = x;
         yCoordinate = y;
@@ -103,7 +70,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void Crossbowmen(int x, int y) {
         hp = 700;
         maxHp = 700;
-        typeOfArmy = Names.STANDING_AMRY;
+        typeOfArmy = Names.STANDING_ARMY;
         names = Names.CROSSBOWMEN;
         xCoordinate = x;
         yCoordinate = y;
@@ -117,7 +84,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void ArcherBow(int x, int y) {
         this.hp = 475;
         this.maxHp = 475;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.ARCHER_BOW;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -131,7 +98,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void Slingers(int x, int y) {
         this.hp = 700;
         this.maxHp = 700;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.SLINGERS;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -145,10 +112,10 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void HorseArchers(int x, int y) {
         this.hp = 850;
         this.maxHp = 850;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.HORSE_ARCHERS;
         this.xCoordinate = x;
-        this. yCoordinate = y;
+        this.yCoordinate = y;
         this.speed = 9;
         this.attackRange = 8;
         this.attackPower = 1000;
@@ -159,7 +126,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public void FireThrowers(int x, int y) {
         this.hp = 850;
         this.maxHp = 850;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.names = Names.FireThrowers;
         this.xCoordinate = x;
         this.yCoordinate = y;
@@ -174,7 +141,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 850;
         this.maxHp = 850;
         this.names = Names.CATAPULT;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -190,7 +157,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 900;
         this.maxHp = 900;
         this.names = Names.TREBUCHET;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -206,7 +173,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 1000;
         this.maxHp = 1000;
         this.names = Names.SIEGE_TOWER;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -220,7 +187,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
 
     public void fireBallista(int x, int y) {
         this.names = Names.FIRE_BALLISTA;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 2;
@@ -235,7 +202,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 1200;
         this.maxHp = 1200;
         this.names = Names.BATTERING_RAM;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.speed = 7;
@@ -250,13 +217,14 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.hp = 475;
         this.maxHp = 475;
         this.names = Names.PORTABLE_SHIELD;
-        this. typeOfArmy = Names.STANDING_AMRY;
+        this. typeOfArmy = Names.STANDING_ARMY;
         this.xCoordinate = x;
         this.yCoordinate = y;
-        this. defencePower = 400;
+        this.defencePower = 400;
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
     }
+
     @Override
     public int maxHp() {
         return maxHp;

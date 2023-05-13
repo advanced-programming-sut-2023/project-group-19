@@ -5,11 +5,11 @@ import model.*;
 import java.util.regex.Matcher;
 
 import view.Messages.TradeMenuMessages;
-import model.TradableGoods;
+import model.TradeAbleGoods;
 
 public class TradeController {
     public static Empire selectedEmpire;
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
+    public static Empire currentEmpire ;
 
     public void showAllEmpires() {
         int number = 1;
@@ -109,8 +109,8 @@ public class TradeController {
     }
 
     public boolean typeOfResources(String typeOfResource) {
-        for (TradableGoods tradableGoods : TradableGoods.values()) {
-            if (tradableGoods.getGoodName().equals(typeOfResource)) {
+        for (TradeAbleGoods tradeAbleGoods : TradeAbleGoods.values()) {
+            if (tradeAbleGoods.getGoodName().equals(typeOfResource)) {
                 return true;
             }
         }
@@ -137,14 +137,16 @@ public class TradeController {
 
     public boolean checkTheCapacity(int count, String requestedGood, Empire empire) {
         return switch (requestedGood) {
-            case "meat", "apple", "cheese" -> count + EmpireController.calculateTotalFoodCount() <= empire.getFoodCapacity();
+            case "meat", "apple", "cheese" ->
+                    count + EmpireController.calculateTotalFoodCount() <= empire.getFoodCapacity();
             case "hops", "flour", "wheat", "stone", "wood", "oil", "iron", "beer" ->
                     count + EmpireController.calculateTotalResourcesCount() <= empire.getResourcesCapacity();
             case "ironArmor", "leatherArmor", "mace", "bow", "sword", "horse" ->
                     count + EmpireController.calculateTotalFightStuffCount() <= empire.getWeaponsCapacity();
             case "archer", "spearMan", "maceMan", "crossbowMan", "pikeMan", "swordMan", "blackMonk",
                     "knight", "arabianBow", "slave", "slinger", "assassin", "horseArcher", "arabianSwordMan", "fireThrower", "engineer", "ladderMan"
-                    , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" -> count <= empire.getPeasantCount();
+                    , "tunneler", "catapult", "trebuchet", "siegeTower", "fireBallista", "batteringRam", "portableShield" ->
+                    count <= empire.getPeasantCount();
             default -> false;
 
         };

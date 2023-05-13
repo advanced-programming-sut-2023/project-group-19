@@ -11,9 +11,6 @@ public class Climbers extends Army implements HumanConstantFunctions {
         super(government);
     }
 
-    public boolean fight;
-    public boolean ladderIsOn;
-
     public void setNames(Names names) {
         this.names = names;
     }
@@ -31,44 +28,12 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.maxHp = maxHp;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDefencePower() {
-        return defencePower;
-    }
-
-    public void setDefencePower(int defencePower) {
-        this.defencePower = defencePower;
-    }
-
     public int getAttackPower() {
         return attackPower;
     }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
     public int getAttackRange() {
         return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
-
-    public Names getTypeOfArmy() {
-        return typeOfArmy;
-    }
-
-    public boolean isLadderIsOn() {
-        return ladderIsOn;
     }
 
     public void SpearMen(int x, int y) {
@@ -77,7 +42,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.hp = 500;
         this.maxHp = 500;
         this.names = Names.SPEAR_MEN;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 5;
         this.attackPower = 500;
         this.defencePower = 200;
@@ -90,7 +55,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.hp = 675;
         this.maxHp = 675;
         this.names = Names.MACE_MEN;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 5;
         this.attackPower = 700;
         this.defencePower = 250;
@@ -99,11 +64,11 @@ public class Climbers extends Army implements HumanConstantFunctions {
 
     public void LadderMen(int x, int y) {
         this.xCoordinate = x;
-        this. yCoordinate = y;
+        this.yCoordinate = y;
         this.hp = 500;
         this.maxHp = 500;
         this. names = Names.LADDER_MEN;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 7;
         this.attackPower = 0;
         this.defencePower = 20;
@@ -116,7 +81,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.hp = 800;
         this.maxHp = 800;
         this. names = Names.ASSASSINS;
-        this.typeOfArmy = Names.STANDING_AMRY;
+        this.typeOfArmy = Names.STANDING_ARMY;
         this.speed = 5;
         this.attackPower = 600;
         this.defencePower = 150;
@@ -190,7 +155,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
 
     @Override
     public Names typeOfArmy() {
-        return super.typeOfArmy();
+        return typeOfArmy;
     }
 }
 

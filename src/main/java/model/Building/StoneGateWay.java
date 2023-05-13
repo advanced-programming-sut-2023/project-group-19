@@ -12,55 +12,6 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
     }
 
     public boolean flagOfEnemy;
-    private int capacity;
-    private Names direction;
-    private boolean isGateOpen;
-    private boolean isGateConquered;
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public Names getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Names direction) {
-        this.direction = direction;
-    }
-
-    public void setGateOpen(boolean gateOpen) {
-        isGateOpen = gateOpen;
-    }
-
-    public void setGateConquered(boolean gateConquered) {
-        isGateConquered = gateConquered;
-    }
-
-    private int maxCapacity;
-
-    private int currentCapacity;
-
-    public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public void setMaxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
-    public int getCurrentCapacity() {
-        return currentCapacity;
-    }
-
-    public void setCurrentCapacity(int currentCapacity) {
-        this.currentCapacity = currentCapacity;
-    }
-
 
     public int getHp() {
         return this.hp;
@@ -70,13 +21,6 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.hp = hp;
     }
 
-    public boolean isGateOpen() {
-        return isGateOpen;
-    }
-
-    public boolean isGateConquered() {
-        return isGateConquered;
-    }
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         this.cost.put("wood", wood);
         this.cost.put("stone", stone);
@@ -99,8 +43,6 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.name = Names.SMALL_STONE_GATE_HOUSE;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         this.height = 2;
-        direction = directionOfGate;
-        capacity = 8;
         createBuildingCost(0, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
@@ -111,8 +53,6 @@ public class StoneGateWay extends Building implements BuildingConstantFunctions 
         this.name = Names.BIG_STONE_GATE_HOUSE;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         this.height = 2;
-        direction = directionOfGate;
-        capacity = 10;
         createBuildingWorkersNeeded(0, 0);
         createBuildingCost(0, 20, 0, 0, 0);
     }

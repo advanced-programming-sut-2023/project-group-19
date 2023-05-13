@@ -38,6 +38,6 @@ public enum TradeMenuMessages {
     }
 
     TradeMenuMessages(String messages) {
-        this.messages=messages;
+        this.messages = messages;
     }
 }

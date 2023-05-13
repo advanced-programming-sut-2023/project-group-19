@@ -2,6 +2,7 @@ package model.Building;
 
 import model.Empire;
 import model.GroundType;
+import model.Manage;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,7 +15,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     public LinkedHashMap<String, Integer> listOfGoodsBuyPrice = new LinkedHashMap<>(); // good name and its buy price
 
-    {//price for 5
+    {
         listOfGoodsBuyPrice.put("meat", 40);
         listOfGoodsBuyPrice.put("hops", 75);
         listOfGoodsBuyPrice.put("ironArmor", 290);
@@ -34,7 +35,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     public LinkedHashMap<String, Integer> listOfGoodsSellPrice = new LinkedHashMap<>(); // good name and its sell price
 
-    {//price for 1
+    {
         listOfGoodsSellPrice.put("meat", 5);
         listOfGoodsSellPrice.put("hops", 10);
         listOfGoodsSellPrice.put("ironArmor", 40);
@@ -53,13 +54,11 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     }
 
-    private int goldCount = this.getOwner().getGoldCount();
-    private int capacity = 200;
+    private int goldCount = Manage.getCurrentEmpire().getGoldCount();
 
     public Names getNames() {
         return this.name;
     }
-
 
     public int getGoldCount() {
         return goldCount;
@@ -67,14 +66,6 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     public void setGoldCount(int goldCount) {
         this.goldCount = goldCount;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
@@ -104,7 +95,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
         this.maxHp = 600;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         this.name = Names.SHOP;
-        createBuildingCost(5, 0, 0, 0, 2);
+        createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 

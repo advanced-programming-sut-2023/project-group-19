@@ -17,10 +17,6 @@ public class House extends Building implements BuildingConstantFunctions {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
     public Names getNames() {
         return this.name;
     }

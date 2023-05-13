@@ -15,10 +15,10 @@ public class Army extends Human {
 
     public boolean isIntFight = false;
     public boolean hasMovedForDefensiveState = false;
-
     private ArchersAndThrowers archerAttacker = null;
     protected int pastXcordinate;
     protected int pastYcordinate;
+
     public ArchersAndThrowers getArcherAttacker() {
         return archerAttacker;
     }
@@ -32,10 +32,6 @@ public class Army extends Human {
 
     public boolean isIntFight() {
         return isIntFight;
-    }
-
-    public void setIntFight(boolean intFight) {
-        isIntFight = intFight;
     }
 
     public Army getEnemy() {
@@ -78,8 +74,6 @@ public class Army extends Human {
     public List<Integer> myPath;
     public int restOfMoves;
 
-
-
     public Names typeOfArmy;
 
 
@@ -110,36 +104,12 @@ public class Army extends Human {
         this.hp = hp;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getDefencePower() {
-        return defencePower;
-    }
-
-    public void setDefencePower(int defencePower) {
-        this.defencePower = defencePower;
-    }
-
     public int getAttackPower() {
         return attackPower;
     }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
     public int getAttackRange() {
         return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
     }
 
     public String getArmyForm() {

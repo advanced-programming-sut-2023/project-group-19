@@ -11,16 +11,6 @@ public class OilSmelter extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private int rate;
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
     public Names getNames() {
         return this.name;
     }
@@ -38,9 +28,8 @@ public class OilSmelter extends Building implements BuildingConstantFunctions {
         this.workersNeeded.put("worker", worker);
 
     }
-    //TODO : check if the rate is use full or not
+
     public void oilSmelter() {
-//        rate = 0;
         this.name = Names.OIL_SMELTER;
         this.hp = 400;
         this.maxHp = 400;

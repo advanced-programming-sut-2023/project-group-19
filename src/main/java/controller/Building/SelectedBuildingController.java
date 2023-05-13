@@ -12,8 +12,9 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class SelectedBuildingController {
-    public static Empire empire = Manage.getCurrentEmpire();
+    public static Empire empire;
     public static Building selectedBuilding;
+
     public SelectedBuildingMessages gatehouse(Matcher matcherTaxRate) {
         int taxRate = Integer.parseInt(matcherTaxRate.group("taxRate"));
         if (!(taxRate > 7 | taxRate < -3)) {

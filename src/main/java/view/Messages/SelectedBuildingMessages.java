@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public enum SelectedBuildingMessages {
     TAX_RATE_OUT_OF_BONDS("tax rate is out of bounds"),
-    TAX_RATE_CHANGE_SUCCESSFUL("tax rate changed successfuly"),
+    TAX_RATE_CHANGE_SUCCESSFUL("tax rate changed successfully"),
     BRIDGE_OPENED("bridge opened"),
     BRIDGE_CLOSED("bridge closed"),
     BRIDGE_ALREADY_OPEN("bridge is already open"),
@@ -17,8 +17,8 @@ public enum SelectedBuildingMessages {
     NOT_ENOUGH_RESOURCES("not enough resources"),
     ENOUGH_RESOURCES("enough resources"),
     NOT_ENOUGH_ENGINEERS("not enough engineers"),
+
     INVALID_COMMAND("invalid command"),
-    BRIDGE_CLOSE_ENEMY_NEAR("bridge is closed because the enemy is getting close"),
     INVALID_TROOP_NAME("invalid troop name"),
     BUILDING_CANT_CREATE_UNIT("this building cant create troops"),
     WRONG_BUILDING_TO_CREATE_TROOP("this building can't create this troop"),

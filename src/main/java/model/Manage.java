@@ -49,7 +49,6 @@ public class Manage {
         namesOfAllPossibleBuildings.add("SquareTower");
         namesOfAllPossibleBuildings.add("RoundTower");
         namesOfAllPossibleBuildings.add("Tunnel");
-        namesOfAllPossibleBuildings.add("Well");
         namesOfAllPossibleBuildings.add("BigWall");
         namesOfAllPossibleBuildings.add("SmallWall");
         namesOfAllPossibleBuildings.add("Stair");

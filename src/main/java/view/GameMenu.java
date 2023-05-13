@@ -12,12 +12,12 @@ import view.Commands.MainMenuCommands;
 import view.Messages.GameMenuMessages;
 
 import java.io.IOException;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class GameMenu {
-    public static Empire currentEmpire;
+
+    public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static GameController gameController = new GameController();
 
     public void run(Scanner scanner) throws IOException, InterruptedException {
@@ -40,10 +40,7 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(gameController.selectUnit(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
-            } else if(GameMenuCommands.getMatcher(command,GameMenuCommands.ENTER_TO_MAP_MENU) != null){
-                ShowMapInGameMenu.run(scanner);
-//                System.out.println("Welcome to game menu!");
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
+            }  else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
                 gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
@@ -68,7 +65,7 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     int xCoordinate = Integer.parseInt(x1.group("x"));
                     int yCoordinate = Integer.parseInt(y1.group("y"));
-                    System.out.println(gameController.stopPatrols(xCoordinate , yCoordinate).getMessages());
+                    System.out.println(gameController.stopPatrols(xCoordinate, yCoordinate).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.SET_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
@@ -109,9 +106,6 @@ public class GameMenu {
                 } else System.out.println(GameMenuMessages.EMPTY_EQUIPMENT_FIELD.getMessages());
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DISBAND_UNIT) != null) {
                 System.out.println(gameController.disbandUnit().getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_MAP_MENU) != null) {
-                CreateMapMenu createMapMenu = new CreateMapMenu();
-                createMapMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.DROP_UNIT) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
@@ -163,7 +157,6 @@ public class GameMenu {
                 if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
                     System.out.println(gameController.fillDitch(x1, y1).getMessages());
                 } else System.out.println(gameMenuMessages.getMessages());
-
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_BY_SIEGE_TOWER) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
@@ -174,14 +167,18 @@ public class GameMenu {
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
                 x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
                 y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
-                if (gameController.findShop(x1 , y1)) {
-                    int x= Integer.parseInt(x1.group("x"));
+                if (gameController.findShop(x1, y1)) {
+                    int x = Integer.parseInt(x1.group("x"));
                     int y = Integer.parseInt(y1.group("y"));
-                    Shop shop  = (Shop) Map.getBuildingMap()[x][y].get(0);
+                    Shop shop = (Shop) Map.getBuildingMap()[x][y].get(0);
                     ShopMenu shopMenu = new ShopMenu();
-                    shopMenu.run(scanner , shop);
-                }else System.out.println(GameMenuMessages.IMPROPER_LOCATION.getMessages());
-            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
+                    shopMenu.run(scanner, shop);
+                } else System.out.println(GameMenuMessages.IMPROPER_LOCATION.getMessages());
+            } else if(GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TO_MAP) != null){
+                System.out.println("Welcome to map menu");
+                ShowMapInGameMenu.run(scanner);
+            }
+            else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TRADE_MENU) != null) {
                 TradeMenu tradeMenu = new TradeMenu();
                 tradeMenu.run(scanner);
             } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_BUILDING_MENU) != null) {
@@ -201,7 +198,7 @@ public class GameMenu {
         }
     }
 
-    public GameMenuMessages checkFormatOfSingleCoordinateCommands(Matcher x1, Matcher y1 ) {
+    public GameMenuMessages checkFormatOfSingleCoordinateCommands(Matcher x1, Matcher y1) {
         if (x1 != null && y1 != null) {
             return GameMenuMessages.VALID_COMMAND;
         }

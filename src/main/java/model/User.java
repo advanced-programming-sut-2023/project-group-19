@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import model.Manage;
 
 public class User implements Comparable<User> {
     private static HashMap<Integer, String> securityQuestions = new HashMap<>();
@@ -23,18 +22,12 @@ public class User implements Comparable<User> {
 
     public static ArrayList<User> loginUsers = new ArrayList<>();
 
-    public static ArrayList<User> getUsers() {
-        return users;
-    }
-
     static {
         securityQuestions.put(1, "What is my father\'s name?");
         securityQuestions.put(2, "What was my first pet\'s name?");
         securityQuestions.put(3, "What is my mother\'s last name?");
-        //
         randomSlogans.add("I march to death...Though I wish it was my own...");
         randomSlogans.add("They think I\'m monster...and I prove them right");
-        //TODO
     }
 
 
@@ -58,10 +51,6 @@ public class User implements Comparable<User> {
     public static ArrayList<User> users = new ArrayList<>();
     private int rank;
 
-    public static ArrayList<User> getColone() {
-        return new ArrayList<>(users);
-    }
-
     public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) throws IOException {
         this.username = username;
         this.password = password;
@@ -75,10 +64,6 @@ public class User implements Comparable<User> {
         //
         Manage.allUsers.add(this);
         JsonController.writeIntoFile(Manage.allUsers, "User.json");
-    }
-
-    public void addUserToAllUsersArrayList(User user) {
-        Manage.allUsers.add(user);
     }
 
     public String getUsername() {
@@ -117,9 +102,6 @@ public class User implements Comparable<User> {
         return recoveryQuestion;
     }
 
-    public void setRecoveryQuestion(String recoveryQuestion) {
-        this.recoveryQuestion = recoveryQuestion;
-    }
 
     public String getSlogan() {
         return slogan;
@@ -131,10 +113,6 @@ public class User implements Comparable<User> {
 
     public int getRecoveryQuestionNumber() {
         return recoveryQuestionNumber;
-    }
-
-    public void setRecoveryQuestionNumber(int recoveryQuestionNumber) {
-        this.recoveryQuestionNumber = recoveryQuestionNumber;
     }
 
     public int getHighScore() {

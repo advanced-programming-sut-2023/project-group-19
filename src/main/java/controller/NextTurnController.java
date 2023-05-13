@@ -1,5 +1,8 @@
 package controller;
 
+import controller.Building.BuildingController;
+import controller.Building.FunctionBuildingController;
+import controller.Building.SelectedBuildingController;
 import model.Building.Building;
 import model.Empire;
 import model.Manage;
@@ -13,7 +16,7 @@ import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
-    public static int index = 0;
+    public static int index;
 
     public void game(Scanner scanner) throws IOException, InterruptedException {
         while (true) {
@@ -24,7 +27,10 @@ public class NextTurnController {
                 callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
+                System.out.println( "past next turn" + Manage.getCurrentEmpire().empireArmy.size());
                 callEndingTurnFunctions(gameController);
+                System.out.println( "after next turn" + Manage.getCurrentEmpire().empireArmy.size());
+
             } else {
                 User user = Manage.getAllEmpires().get(0).getUser();
                 int oldScore = user.getHighScore();
@@ -38,18 +44,24 @@ public class NextTurnController {
 
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
+        System.out.println(Manage.getCurrentEmpire().getName());
         currentEmpire = Manage.allEmpires.get(index);
-        index = index++ % Manage.allEmpires.size();
+        index = ++index % Manage.allEmpires.size();
+        BuildingController.currentEmpire = currentEmpire;
+        FunctionBuildingController.empire = currentEmpire;
+        SelectedBuildingController.empire = currentEmpire;
+        TradeController.currentEmpire = currentEmpire;
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
+//        EmpireController.showEmpireStatus();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
         EmpireController.functionBuildings();
         EmpireController.findFoodDiversity();
         EmpireController.givingPeopleFood(currentEmpire);
-        gameController.setEnemyToTarget(); //TODO
+        gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
     }
 
@@ -68,16 +80,16 @@ public class NextTurnController {
     }
 
     public void playerHasLost() {
-        int size = Manage.allEmpires.size() ;
-        for (int i = 0; i < size ; i++) {
+        int size = Manage.allEmpires.size();
+        for (int i = 0; i < size; i++) {
             Empire empire = Manage.allEmpires.get(i);
-            Building castle = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleXCoordinate].get(0);
+            Building castle = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].get(0);
             if (castle.getHp() <= 0) {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
                 NextTurnController.index--;
-                i --;
-                size -- ;
+                i--;
+                size--;
             }
         }
     }

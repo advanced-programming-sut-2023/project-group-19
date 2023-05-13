@@ -5,33 +5,32 @@ import view.Commands.CreateMapCommands;
 import view.Commands.GameMenuCommands;
 import view.Commands.MainMenuCommands;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShowMapInGameMenu {
-    public static void run(Scanner scanner) throws IOException, InterruptedException {
-        System.out.println("Welcome to map menu!");
+    public static void run(Scanner scanner) {
         String command;
-        Matcher matcher;
         while (true) {
             command = scanner.nextLine();
-            if ((matcher = CreateMapCommands.getMatcher(command, CreateMapCommands.MOVING_MAP)) != null) {
+            if (CreateMapCommands.getMatcher(command, CreateMapCommands.MOVING_MAP) != null) {
                 movingMap(command);
-            } else if ((matcher = CreateMapCommands.getMatcher(command, CreateMapCommands.SHOW_DETAIL)) != null) {
-                showDetail(command);
-            } else if ((matcher = GameMenuCommands.getMatcher(command, GameMenuCommands.SHOW_MAP)) != null) {
+            }else if (MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP) != null) {
                 showMap(command);
             }
-            else if((CreateMapCommands.getMatcher(command,CreateMapCommands.EXIT)) != null){
+            else if (CreateMapCommands.getMatcher(command, CreateMapCommands.SHOW_DETAIL) != null) {
+                showDetail(command);
+            } else if ((CreateMapCommands.getMatcher(command, CreateMapCommands.EXIT)) != null) {
                 System.out.println("Exit from map menu is successfully done!");
                 return;
+            }else{
+                System.out.println("Invalid command");
             }
         }
     }
 
-    public static void showMap(String command) throws IOException, InterruptedException {
+    public static void showMap(String command) {
         Matcher matcher;
         matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
         if (matcher == null) {
@@ -43,12 +42,11 @@ public class ShowMapInGameMenu {
         matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
         if (matcher == null) {
             System.out.println("fill elements of map correctly!");
-            return ;
+            return;
         }
         int y = Integer.parseInt(matcher.group("y"));
         System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
     }
-
 
 
     public static void movingMap(String command) {
@@ -61,11 +59,9 @@ public class ShowMapInGameMenu {
         System.out.println(command);
         String regex = "(?<type>\\S+)\\s*(?<number>\\d+)?";
         matcher = Pattern.compile(regex).matcher(command);
-//        matcher = CreateMapCommands.getMatcher(command,CreateMapCommands.MOVING_MAP_INTO_DIRECTION);
         while (matcher.find()) {
             String type = matcher.group("type");
             String number = matcher.group("number");
-            //show map -x 200 -y 200
             switch (type) {
                 case "left":
                     if (number != null) left = -1 * Integer.parseInt(number);
@@ -88,7 +84,6 @@ public class ShowMapInGameMenu {
         int deltaX = up + down;
         int deltaY = right + left;
         System.out.println(ShowMapController.moveMap(deltaX, deltaY));
-
     }
 
     public static void showDetail(String command) {

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Queue;
 
 public class PathFindingController {
-
     private static boolean isNotVisited(int x, List<Integer> path) {
         for (Integer integer : path)
             if (integer == x)
@@ -123,7 +122,6 @@ public class PathFindingController {
         }
     }
 
-    //TODO : take care that when you want to pass the x and y make sure to -1 them
     public static int size = Map.mapSize;
     public static int goalX;
     public static int goalY;

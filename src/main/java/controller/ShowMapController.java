@@ -38,7 +38,7 @@ public class ShowMapController {
     static int downLimit;
 
     public static String showMap(int xInput, int yInput, boolean isMove) {
-        if (!CreateMapController.mapIsBuilded) return "first build a map!";
+        if (!CreateMapController.mapIsBuilt) return "first build a map!";
         if ((xInput <= 0 || xInput > size) || (yInput <= 0 || yInput > size)) return "fill correctly;" +
                 "your numbers out of bounds";
         x = xInput;
@@ -47,7 +47,6 @@ public class ShowMapController {
         uplimit = x - 2;
         rightLimit = y + 9;
         leftLimit = y - 9;
-
         if (uplimit <= 0) uplimit = 1;
         if (downLimit >= size) downLimit = size;
         if (leftLimit <= 0) leftLimit = 1;
@@ -56,8 +55,6 @@ public class ShowMapController {
     }
 
     static String makeSquare(int row) {
-        Building building;
-        Army army;
         Obstacle obstacle;
         int yVar = leftLimit;
         int height = 4;
@@ -65,13 +62,9 @@ public class ShowMapController {
         int i, j;
         StringBuilder square = new StringBuilder();
         for (i = 1; i <= height; i++) {
-
             for (int k = yVar; k <= rightLimit; k++) {
-                boolean isThingThere = true;
                 for (j = 1; j <= length; j++) {
-
                     if (i == 1 || i == height || j == 1 || j == length) {
-
                         square.append("*");
                         if (length == j) square.append("  ");
                     } else {
@@ -80,20 +73,11 @@ public class ShowMapController {
                             type = "&";
                         }
                         if (!(Map.getBuildingMap()[row][k - 1]).isEmpty()) {
-
                             type = "B";
                         } else if (!(Map.getTroopMap()[row][k - 1]).isEmpty()) type = "S";
-//                        else if(Manage.getCurrentEmpire() != null &&
-//                                !(Map.getTroopMap()[row][k - 1]).isEmpty()){
-//                            for(Army army : Map.getTroopMap()[row][k - 1]){
-//
-//                            }
-//                        }
                         else if (!(Map.getObstacleMap()[row][k - 1]).isEmpty()) {
                             obstacle = Map.getObstacleMap()[row][k - 1].get(0);
-                            System.out.println(obstacle);
                             ObstacleName name = obstacle.getName();
-                            System.out.println(name);
                             if (name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = "T";
@@ -140,11 +124,10 @@ public class ShowMapController {
             sb.append(makeSquare(i - 1));
         }
         return sb.toString();
-
     }
 
     public static String moveMap(int deltaX, int deltaY) {
-        if (!CreateMapController.mapIsBuilded) return "first build a map!";
+        if (!CreateMapController.mapIsBuilt) return "first build a map!";
         if (leftLimit + deltaY <= 0 || rightLimit + deltaY > size ||
                 uplimit + deltaX <= 0 || downLimit + deltaX > size) return "fill correctly;" +
                 "your location out of bounds";
@@ -157,7 +140,7 @@ public class ShowMapController {
     }
 
     public static String showDetail(int x, int y) {
-        if (!CreateMapController.mapIsBuilded) return "first build a map!";
+        if (!CreateMapController.mapIsBuilt) return "first build a map!";
         String obstacleName = "empty";
         String groundType = Map.getGroundType()[x - 1][y - 1].get(0).getGroundType();
         if (groundType.equals(GroundType.DEFAULT.getGroundType())) {
@@ -194,32 +177,5 @@ public class ShowMapController {
         return "Grounf type is :" + groundType + "\n" + "obstacle name is: " + obstacleName + "\n" + "army is: " + army + " \n" + "building: " + buildingName;
 
     }
-
-
-
 }
 
-//    Building building;
-//        String buildingName = "empty";
-//        Army army;
-//        String armyName = "empty";
-//        String grounfType = "empty";
-//        int numOfArmy = 0;
-//        if (!Map.getBuildingMap()[x][y].isEmpty()) {
-//            building = Map.getBuildingMap()[x][y].get(0);
-//            buildingName = String.valueOf(building.getName());
-//        }
-//        if (!Map.getTroopMap()[x][y].isEmpty()) {
-//            army = Map.getTroopMap()[x][y].get(0);
-//            armyName = String.valueOf(army.getNames());
-//            numOfArmy = Map.getTroopMap()[x][y].size();
-//        }
-//        if (!Map.getGroundType()[x][y].isEmpty()) {
-//            grounfType = Map.getGroundType()[x][y].get(0).getGroundType();
-//        }
-//        return "Building: " + buildingName + "\n" +
-//                "army: " + armyName + " --> " + numOfArmy + "\n" +
-//                "ground type: " + grounfType;
-//
-//
-//    }

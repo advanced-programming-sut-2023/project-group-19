@@ -20,11 +20,6 @@ public class Armoury extends Building implements BuildingConstantFunctions {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         this.cost.put("wood", wood);
         this.cost.put("stone", stone);

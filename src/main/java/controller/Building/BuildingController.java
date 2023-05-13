@@ -12,9 +12,9 @@ import java.util.regex.Matcher;
 
 
 public class BuildingController {
-    public static int size = Map.mapSize;
 
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
+    public static int size = Map.mapSize;
+    public static Empire currentEmpire ;
     public static Building selectedBuilding;
 
     public BuildingMessages checkCoordinate(int x, int y) {
@@ -44,7 +44,7 @@ public class BuildingController {
     }
 
     // ground type / obstacle remove
-    public void dropFirstStockpile(int x, int y) {
+    public static void dropFirstStockpile(int x, int y) {
         Stockpile foodStockpile = new Stockpile(currentEmpire);
         foodStockpile.foodStockpile();
         Stockpile resourcesStockpile = new Stockpile(currentEmpire);
@@ -73,16 +73,14 @@ public class BuildingController {
         }
         return false;
     }
-
-    //TODO : check the oil in the game
     public void buildingCheckout(Building building, Empire empire) {
         empire.setWoodCount(empire.getWoodCount() - building.cost.get("wood"));
         empire.setStoneCount(empire.getStoneCount() - building.cost.get("stone"));
         empire.setGoldCount(empire.getGoldCount() - building.cost.get("gold"));
         empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil") / 5);
-        empire.setWorkerCount(empire.getWorkerCount() - building.workersNeeded.get("engineer"));
-        empire.setEngineerCount(empire.getEngineerCount() - building.workersNeeded.get("worker"));
+        empire.setWorkerCount(empire.getWorkerCount() - building.workersNeeded.get("worker"));
+        empire.setEngineerCount(empire.getEngineerCount() - building.workersNeeded.get("engineer"));
     }
 
     public boolean validationOfStairsLocation(int x, int y) {
@@ -103,7 +101,7 @@ public class BuildingController {
                 Shop shop = new Shop(currentEmpire);
                 shop.shop();
                 if (correctGroundType(x, y, shop)) {
-                    if (empireHasEnoughResourcesToBuildTheBuilding(shop, currentEmpire)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(shop, Manage.getCurrentEmpire())) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(shop, currentEmpire)) {
                             buildingCheckout(shop, currentEmpire);
                             Map.AddToBuildingMap(x, y, shop);
@@ -1155,7 +1153,7 @@ public class BuildingController {
                                 Map.AddToBuildingMap(x, y, stairs);
                                 Map.notBuildable[x][y] = true;
                                 Map.wall[x][y] = true;
-                            } else return BuildingMessages.INPROPER_COORDINATE;
+                            } else return BuildingMessages.IMPROPER_COORDINATE;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                         }

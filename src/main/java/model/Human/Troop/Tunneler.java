@@ -14,9 +14,7 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     private int hp;
     private int maxHp;
     private int speed;
-    private int defencePower;
     private int attackPower;
-    private int attackRange;
     public int xCoordinate;
     public int yCoordinate;
     public int restOfMoves;
@@ -28,7 +26,6 @@ public class Tunneler extends Army implements HumanConstantFunctions {
     public int finalXCoordinate;
     public int finalYCoordinate;
     public List<Integer> myPath;
-    public boolean fight;
 
     public Names getNames() {
         return names;
@@ -47,42 +44,18 @@ public class Tunneler extends Army implements HumanConstantFunctions {
         this.maxHp = maxHp;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public int getDefencePower() {
-        return defencePower;
-    }
-
-    public void setDefencePower(int defencePower) {
-        this.defencePower = defencePower;
-    }
-
     public int getAttackPower() {
         return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
     }
 
     public int getAttackRange() {
         return attackRange;
     }
 
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
-
-    public Names getTypeOfArmy() {
-        return typeOfArmy;
-    }
-
     public void Tunneler(int x, int y) {
         hp = 100;
         maxHp = 100;
-        typeOfArmy = Names.STANDING_AMRY;
+        typeOfArmy = Names.STANDING_ARMY;
         names = Names.TUNNELER;
         xCoordinate = x;
         yCoordinate = y;
@@ -159,6 +132,6 @@ public class Tunneler extends Army implements HumanConstantFunctions {
 
     @Override
     public Names typeOfArmy() {
-        return super.typeOfArmy();
+        return typeOfArmy;
     }
 }

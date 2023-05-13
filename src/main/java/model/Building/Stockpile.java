@@ -12,36 +12,11 @@ public class Stockpile extends Building implements BuildingConstantFunctions {
 
     public final int maxFoodCapacity = 100;
     public final int maxResourcesCapacity = 100;
-    private int currentFoodCapacity;
-    private int currentResourcesCapacity;
-
-    public int getMaxFoodCapacity() {
-        return maxFoodCapacity;
-    }
-
-    public int getMaxResourcesCapacity() {
-        return maxResourcesCapacity;
-    }
-
-    public int getCurrentFoodCapacity() {
-        return currentFoodCapacity;
-    }
-
-    public void setCurrentFoodCapacity(int currentFoodCapacity) {
-        this.currentFoodCapacity = currentFoodCapacity;
-    }
-
-    public int getCurrentResourcesCapacity() {
-        return currentResourcesCapacity;
-    }
-
-    public void setCurrentResourcesCapacity(int currentResourcesCapacity) {
-        this.currentResourcesCapacity = currentResourcesCapacity;
-    }
 
     public Names getNames() {
         return this.name;
     }
+
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         this.cost.put("wood", wood);
         this.cost.put("stone", stone);

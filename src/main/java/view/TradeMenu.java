@@ -49,7 +49,7 @@ public class TradeMenu {
                 System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
             } else if (TradeMenuCommands.getMatcher(command, TradeMenuCommands.LOGOUT) != null) {
                 break;
-            }else System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
+            } else System.out.println(TradeMenuMessages.INVALID_COMMAND.getMessages());
         }
     }
 

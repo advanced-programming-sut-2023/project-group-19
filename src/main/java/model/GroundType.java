@@ -17,8 +17,6 @@ public enum GroundType {
         this.groundType = groundType;
     }
 
-    public GroundType getEnumGroundType;
-
     public static GroundType getEnumGroundType(String name) {
         if (name.equals("plain")) return PLAIN;
         else if (name.equals("fillfulDash")) return FILLFUL_DASH;

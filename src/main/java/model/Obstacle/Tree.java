@@ -1,7 +1,5 @@
 package model.Obstacle;
 
-import model.Building.Names;
-
 public class Tree extends Obstacle {
 
     public void desertTree() {

@@ -7,7 +7,6 @@ public enum ObstacleName {
     CoconutTree("Coconut Tree"),
     DateTree("Date Tree"),
     PETROL("Petrol"),
-    PLAIN("Plain"),
     BIG_POND("Big Pond"),
     SMALL_POND("Small Pond"),
     BEACH("Beach"),

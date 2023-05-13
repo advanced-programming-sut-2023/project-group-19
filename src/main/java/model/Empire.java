@@ -1,13 +1,10 @@
 package model;
 
-import controller.Building.FunctionBuildingController;
 import model.Human.Troop.Army;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import static java.lang.Math.floor;
 
 public class Empire {
     private User user;
@@ -25,17 +22,17 @@ public class Empire {
         user = newUser;
     }
 
-    private int foodCapacity = 50;
+    private int foodCapacity = 10000;
     private int foodCount;
-    private int weaponsCapacity = 50;
+    private int weaponsCapacity = 10000;
     private int weaponsCount;
-    private int resourcesCapacity = 150;
+    private int resourcesCapacity = 10000;
     private int resourcesCount;
     private int maxPossiblePopulation;
-    private int PeasantCount;
+    private int PeasantCount = 20;
     private int priestCount;
     private int troopCount;
-    private int workerCount;
+    private int workerCount = 40;
     private int notificationOfRequest;
     private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
@@ -92,24 +89,8 @@ public class Empire {
         return foodCount;
     }
 
-    public void setFoodCount(int foodCount) {
-        this.foodCount = foodCount;
-    }
-
     public int getWeaponsCount() {
         return weaponsCount;
-    }
-
-    public void setWeaponsCount(int weaponsCount) {
-        this.weaponsCount = weaponsCount;
-    }
-
-    public int getResourcesCount() {
-        return resourcesCount;
-    }
-
-    public void setResourcesCount(int resourcesCount) {
-        this.resourcesCount = resourcesCount;
     }
 
     public int getFoodCapacity() {
@@ -121,25 +102,15 @@ public class Empire {
     }
 
     private int population;
-
-
-    public int getMaxPossiblePopulation() {
-        return maxPossiblePopulation;
-    }
-
-    public void setMaxPossiblePopulation(int maxPossiblePopulation) {
-        this.maxPossiblePopulation = maxPossiblePopulation;
-    }
-
     public int popularity;
-    private int goldCount;
+    private int goldCount = 100000000;
     private int foodRateNumber = -2;
     private int totalFoodCount;
     private int foodDiversity;
     private int taxRateNumber;
-    private int fearRateNumber = 1;
-    private double fearWorkerImpact = 1;
-    private double fearTroopImpact = 1;
+    private int fearRateNumber ;
+    private double fearWorkerImpact;
+    private double fearTroopImpact;
 
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
@@ -147,10 +118,6 @@ public class Empire {
 
     public void setFearWorkerImpact(double fearWorkerImpact) {
         this.fearWorkerImpact = fearWorkerImpact;
-    }
-
-    public double getFearTroopImpact() {
-        return fearTroopImpact;
     }
 
     public void setFearTroopImpact(double fearTroopImpact) {
@@ -265,14 +232,6 @@ public class Empire {
         return totalFoodCount;
     }
 
-    public void setTotalFoodCount(int totalFoodCount) {
-        this.totalFoodCount = totalFoodCount;
-    }
-
-    public int getFoodDiversity() {
-        return foodDiversity;
-    }
-
     public void setFoodDiversity(int foodDiversity) {
         this.foodDiversity = foodDiversity;
     }
@@ -297,99 +256,16 @@ public class Empire {
         return allFood;
     }
 
-    public void setAllFood(HashMap<String, Integer> allFood) {
-        this.allFood = allFood;
-    }
-
-    public ArrayList<String> getRequest() {
-        return request;
-    }
-
-    public void setRequest(ArrayList<String> request) {
-        this.request = request;
-    }
-
-    //TODO : when you create a quarry make sure you set the ox tether count to 1
-
-
-    public int getIronMineRate() {
-        return productionBuildingRate.get("ironMine");
-    }
-
-    public void setIronMineRate(int ironMineRate) {
-        productionBuildingRate.replace("ironMine", ironMineRate);
-    }
-
-    public int getPitchRigRate() {
-        return productionBuildingRate.get("pitchRig");
-    }
-
-    public void setPitchRigRate(int pitchRigRate) {
-        productionBuildingRate.replace("pitchRig", pitchRigRate);
-    }
-
-    public int getQuarryRate() {
-        return productionBuildingRate.get("quarry");
-    }
-
-    public void setQuarryRate(int quarryRate) {
-        productionBuildingRate.replace("quarry", quarryRate);
-    }
-
-    public int getWoodCutterRate() {
-        return productionBuildingRate.get("woodCutter");
-    }
-
-    public void setWoodCutterRate(int woodCutterRate) {
-        productionBuildingRate.replace("woodCutter", woodCutterRate);
-    }
-
-    public int getAppleFarmRate() {
-        return productionBuildingRate.get("appleFarm");
-    }
-
-    public void setAppleFarmRate(int appleFarmRate) {
-        productionBuildingRate.replace("appleFarm", appleFarmRate);
-    }
-
-    public int getOatFarmRate() {
-        return productionBuildingRate.get("oatFarm");
-    }
-
-    public void setOatFarmRate(int oatFarmRate) {
-        productionBuildingRate.replace("oatFarm", oatFarmRate);
-    }
-
-    public int getHuntingPostRate() {
-        return productionBuildingRate.get("huntingPost");
-    }
-
-    public void setHuntingPostRate(int huntingPostRate) {
-        productionBuildingRate.replace("huntingPost", huntingPostRate);
-    }
-
     public int getBeerFactoryRate() {
         return productionBuildingRate.get("beerFactory");
-    }
-
-    public void setBeerFactoryRate(int beerFactoryRate) {
-        productionBuildingRate.replace("beerFactory", beerFactoryRate);
     }
 
     public int getBakeryRate() {
         return productionBuildingRate.get("bakery");
     }
 
-    public void setBakeryRate(int bakeryRate) {
-        productionBuildingRate.replace("bakery", bakeryRate);
-    }
-
     public int getMillRate() {
         return productionBuildingRate.get("mill");
-    }
-
-    public void setMillRate(int millRate) {
-        productionBuildingRate.replace("mill", millRate);
     }
 
     public int getDairyFactoryRate() {
@@ -536,34 +412,18 @@ public class Empire {
         return createWeaponBuildingRate.get("armourer");
     }
 
-    public void setArmourerBuildingRate(int armourerBuildingRate) {
-        createWeaponBuildingRate.replace("armourer", armourerBuildingRate);
-    }
-
     public int getBlacksmithBuildingRate() {
         return createWeaponBuildingRate.get("blacksmith");
-    }
-
-    public void setBlacksmithBuildingRate(int blacksmithBuildingRate) {
-        createWeaponBuildingRate.replace("blacksmith", blacksmithBuildingRate);
     }
 
     public int getFletcherBuildingRate() {
         return createWeaponBuildingRate.get("fletcher");
     }
 
-    public void setFletcherBuildingRate(int fletcherBuildingRate) {
-        createWeaponBuildingRate.replace("fletcher", fletcherBuildingRate);
-    }
 
     public int getPoleTurnerBuildingRate() {
         return createWeaponBuildingRate.get("poleTurner");
     }
-
-    public void setPoleTurnerBuildingRate(int poleTurnerBuildingRate) {
-        createWeaponBuildingRate.replace("poleTurner", poleTurnerBuildingRate);
-    }
-
 
     public int getArmourerBuildingCount() {
         return createWeaponBuildingCount.get("armourer");
@@ -842,10 +702,6 @@ public class Empire {
         return popularityFactors.get("food");
     }
 
-    public void setPopularityFactorFood(int popularityFactorFood) {
-        popularityFactors.replace("food", popularityFactorFood);
-    }
-
     public int getPopularityFactorTax() {
         return popularityFactors.get("tax");
     }
@@ -858,26 +714,10 @@ public class Empire {
         return popularityFactors.get("religious");
     }
 
-    public void setPopularityFactorReligious(int popularityFactorReligious) {
-        popularityFactors.replace("religious", popularityFactorReligious);
-    }
-
     public int getPopularityFactorFear() {
         return popularityFactors.get("fear");
     }
 
-    public void setPopularityFactorFear(int popularityFactorFear) {
-        popularityFactors.replace("fear", popularityFactorFear);
-    }
-
-
-    public ArrayList<String> getDonation() {
-        return donation;
-    }
-
-    public void setDonation(ArrayList<String> donation) {
-        this.donation = donation;
-    }
 
     public int getMeatCount() {
         return allFood.get("meat");
@@ -955,22 +795,6 @@ public class Empire {
         return allWeaponTools;
     }
 
-    public HashMap<String, Integer> getStores() {
-        return stores;
-    }
-
-    public HashMap<String, Integer> getEuropeTroopCount() {
-        return europeTroopCount;
-    }
-
-    public HashMap<String, Integer> getArabTroopCount() {
-        return arabTroopCount;
-    }
-
-    public HashMap<String, Integer> getEngineerGuildTroopCount() {
-        return engineerGuildTroopCount;
-    }
-
     public HashMap<String, Integer> getSiegeTentTroopsCount() {
         return siegeTentTroopsCount;
     }
@@ -1001,14 +825,14 @@ public class Empire {
     public HashMap<String, Integer> stores = new HashMap<>();
 
     {
-        stores.put("wood", 0);
-        stores.put("iron", 0);
-        stores.put("stone", 0);
-        stores.put("oat", 0);
-        stores.put("wheat", 0);
-        stores.put("beer", 0);
-        stores.put("flour", 0);
-        stores.put("oil", 0);
+        stores.put("wood", 50);
+        stores.put("iron", 50);
+        stores.put("stone", 50);
+        stores.put("oat", 50);
+        stores.put("wheat", 50);
+        stores.put("beer", 50);
+        stores.put("flour", 50);
+        stores.put("oil", 50);
     }
 
     public HashMap<String, Integer> productionBuildingCount = new HashMap<>();
@@ -1023,6 +847,7 @@ public class Empire {
         productionBuildingCount.put("oatFarm", 0);
         productionBuildingCount.put("huntingPost", 0);
         productionBuildingCount.put("inn", 0);
+        productionBuildingCount.put("beerFactory", 0);
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);
@@ -1072,34 +897,34 @@ public class Empire {
     public HashMap<String, Integer> europeTroopCount = new HashMap<>();
 
     {
-        europeTroopCount.put("archer", 0);
-        europeTroopCount.put("spearMan", 0);
-        europeTroopCount.put("maceMan", 0);
-        europeTroopCount.put("crossbowMan", 0);
-        europeTroopCount.put("pikeMan", 0);
-        europeTroopCount.put("swordMan", 0);
-        europeTroopCount.put("knight", 0);
-        europeTroopCount.put("blackMonk", 0);
+        europeTroopCount.put("archer", 10);
+        europeTroopCount.put("spearMan", 10);
+        europeTroopCount.put("maceMan", 10);
+        europeTroopCount.put("crossbowMan", 10);
+        europeTroopCount.put("pikeMan", 10);
+        europeTroopCount.put("swordMan", 10);
+        europeTroopCount.put("knight", 10);
+        europeTroopCount.put("blackMonk", 10);
     }
 
     public HashMap<String, Integer> arabTroopCount = new HashMap<>();
 
     {
-        arabTroopCount.put("arabianBow", 0);
-        arabTroopCount.put("slave", 0);
-        arabTroopCount.put("slinger", 0);
-        arabTroopCount.put("assassin", 0);
-        arabTroopCount.put("horseArcher", 0);
-        arabTroopCount.put("arabianSwordMan", 0);
-        arabTroopCount.put("fireThrower", 0);
+        arabTroopCount.put("arabianBow", 10);
+        arabTroopCount.put("slave", 10);
+        arabTroopCount.put("slinger", 10);
+        arabTroopCount.put("assassin", 10);
+        arabTroopCount.put("horseArcher", 10);
+        arabTroopCount.put("arabianSwordMan", 10);
+        arabTroopCount.put("fireThrower", 10);
     }
 
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();
 
     {
-        engineerGuildTroopCount.put("engineer", 0);
+        engineerGuildTroopCount.put("engineer", 50);
         engineerGuildTroopCount.put("ladderMan", 0);
-        engineerGuildTroopCount.put("tunneler", 0);
+        engineerGuildTroopCount.put("tunneler", 10);
     }
 
     public HashMap<String, Integer> popularityFactors = new HashMap<>();
@@ -1115,15 +940,13 @@ public class Empire {
 
     {
         siegeTentTroopsCount.put("catapult", 0);
-        siegeTentTroopsCount.put("trebuchet", 0);
+        siegeTentTroopsCount.put("trebuchet", 2);
         siegeTentTroopsCount.put("siegeTower", 0);
         siegeTentTroopsCount.put("fireBallista", 0);
         siegeTentTroopsCount.put("batteringRam", 0);
         siegeTentTroopsCount.put("portableShield", 0);
     }
 
-    public ArrayList<String> request = new ArrayList<>();
-    public ArrayList<String> donation = new ArrayList<>();
     public ArrayList<Request> allRequests = new ArrayList<>();
 
     public ArrayList<Request> getAllRequests() {

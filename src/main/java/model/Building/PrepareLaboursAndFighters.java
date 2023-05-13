@@ -10,7 +10,6 @@ public class PrepareLaboursAndFighters extends Building implements BuildingConst
         super(government);
     }
 
-
     public String getName() {
         return this.name.getName();
     }

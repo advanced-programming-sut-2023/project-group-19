@@ -12,9 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 
 public class ProfileController {
-    //    JsonController.writeIntoFile(user,"LoggedInUser.json");
-//    JsonController.readDataFile("LoggedInUser.json");
-//    User user = JsonController.saveLoggedInUserFileData();
+
     public static String removeSlogan() throws IOException {
         User user = User.getCurrentUser();
         user.setSlogan("empty");
@@ -28,11 +26,10 @@ public class ProfileController {
         if (JsonController.saveLoggedInUserFileData() == null) return;
         System.out.println("is equal");
         JsonController.writeIntoFile(user, "LoggedInUser.json");
-
     }
 
     public static ProfileMenuMessage changeUsername(String username) throws IOException {
-        if(User.getUserByName(username) != null) return ProfileMenuMessage.REPETED;
+        if (User.getUserByName(username) != null) return ProfileMenuMessage.REPEATED;
         User user = User.getCurrentUser();
         if (!username.matches(".*[A-Za-z0-9_].*")) return ProfileMenuMessage.INVALID_FORM_USERNAME;
         user.setUsername(username);
@@ -41,11 +38,12 @@ public class ProfileController {
         Collections.sort(User.users);
         return ProfileMenuMessage.SUCCESS;
     }
-    private static String changeTextIwithoutCot(String text){
+
+    private static String changeTextIwithoutCot(String text) {
         if (text.charAt(0) == '\"' && text.charAt(text.length() - 1) == '\"') {
             text = text.replaceAll("\"", "");
         }
-        return text ;
+        return text;
     }
 
     public static ProfileMenuMessage changeNickname(String nickname) throws IOException {
@@ -56,8 +54,6 @@ public class ProfileController {
         changeFiedsOfCurrentUser(user);
         return ProfileMenuMessage.SUCCESS;
     }
-    // -o ASss8+====~`" -n sdxw
-    // !user.getPassword().equals(getHashCode(password))
 
     public static ProfileMenuMessage changingPasswordErrorHandelling(String oldPassword, String newPassword) {
         oldPassword = changeTextIwithoutCot(oldPassword);
@@ -95,7 +91,7 @@ public class ProfileController {
 
     public static ProfileMenuMessage changeEmail(String email) throws IOException {
         String newEmail = email.toLowerCase();
-        if(User.getUserByEmail(newEmail) != null) return ProfileMenuMessage.REPETED ;
+        if (User.getUserByEmail(newEmail) != null) return ProfileMenuMessage.REPEATED;
         if (!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]*\\.+[A-Za-z0-9\\.]*"))
             return ProfileMenuMessage.INVALID_FORM_EMAIL;
         User user = User.getCurrentUser();
@@ -130,8 +126,6 @@ public class ProfileController {
         User.getCurrentUser().setRank();
         JsonController.writeIntoFile(User.users, "User.json");
         changeFiedsOfCurrentUser(user);
-
-
         if (user.getSlogan() == null) slogan = "empty";
         else slogan = user.getSlogan();
         String text;
@@ -145,37 +139,23 @@ public class ProfileController {
     }
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
-        // Static getInstance method is called with hashing SHA
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-        // digest() method called
-        // to calculate message digest of an input
-        // and return array of byte
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
     public static String toHexString(byte[] hash) {
-        // Convert byte array into signum representation
         BigInteger number = new BigInteger(1, hash);
-
-        // Convert message digest into hex value
         StringBuilder hexString = new StringBuilder(number.toString(16));
-
-        // Pad with leading zeros
         while (hexString.length() < 64) {
             hexString.insert(0, '0');
         }
-
         return hexString.toString();
     }
 
-    // Driver code
     public static String getHashCode(String text) {
         try {
             return toHexString(getSHA(text));
-        }
-        // For specifying wrong message digest algorithms
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
         return null;

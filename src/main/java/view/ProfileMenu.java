@@ -1,7 +1,6 @@
 package view;
 
 import controller.ProfileController;
-import model.User;
 import view.Commands.*;
 import view.Messages.ProfileMenuMessage;
 
@@ -14,17 +13,16 @@ public class ProfileMenu {
         String command;
         Matcher matcher;
         while (true) {
-            // ASss8**
             command = scanner.nextLine();
             if ((matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_USERNAME_CHANGE)) != null) {
                 changingUsername(matcher.group("username").replaceAll("\"", ""));
             } else if ((matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_NICKNAME_CHANGE)) != null) {
                 changingNickname(matcher.group("nickname").replaceAll("\"", ""));
-            } else if ((matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_PASSWORD_CHANGE)) != null) {
+            } else if (ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_PASSWORD_CHANGE) != null) {
                 changingPassword(command, scanner);
             } else if ((matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_EMAIL_CHANGE)) != null) {
                 changingEmail(matcher.group("email").replaceAll("\"", ""));
-            } else if ((matcher = ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_SLOGAN_CHANGE)) != null) {
+            } else if (ProfileMenuCommands.getMatcher(command, ProfileMenuCommands.PROFILE_SLOGAN_CHANGE) != null) {
                 changeSlogan(command);
             } else if (command.matches("\\s*profile\\s+display\\s+highscore\\s*")) {
                 System.out.println(ProfileController.showHighScore());
@@ -36,11 +34,10 @@ public class ProfileMenu {
                 System.out.println(ProfileController.showDisplay());
             } else if (command.matches("\\s*profile\\s+remove\\s+slogan")) {
                 System.out.println(ProfileController.removeSlogan());
-            }else if(command.matches("\\s*exit\\s*")){
+            } else if (command.matches("\\s*exit\\s*")) {
                 System.out.println("exit");
                 return;
-            }
-            else {
+            } else {
                 System.out.println("invalid command!");
             }
         }
@@ -65,7 +62,6 @@ public class ProfileMenu {
                 return;
             case INVALID_FORM_EMAIL:
                 System.out.println("your form of email is invalid!");
-                return;
         }
     }
 
@@ -78,13 +74,13 @@ public class ProfileMenu {
             case SUCCESS:
                 System.out.println("Username changed successfully");
                 return;
-            case REPETED:
+            case REPEATED:
                 System.out.println("This new username is repeted!");
         }
     }
 
     private static void changingNickname(String nickname) throws IOException {
-        ProfileMenuMessage message = ProfileController.changeNickname(nickname);
+        ProfileController.changeNickname(nickname);
         System.out.println("nickname changed successfully");
     }
 
@@ -98,8 +94,7 @@ public class ProfileMenu {
             if (oldPassword.charAt(0) == '\"' && oldPassword.charAt(oldPassword.length() - 1) == '\"') {
                 oldPassword = oldPassword.replaceAll("\"", "");
             }
-        }
-        else {
+        } else {
             System.out.println("Please do this correctly");
             return;
         }
@@ -109,19 +104,17 @@ public class ProfileMenu {
             if (newPassword.charAt(0) == '\"' && newPassword.charAt(newPassword.length() - 1) == '\"') {
                 newPassword = newPassword.replaceAll("\"", "");
             }
-        }
-        else {
+        } else {
             System.out.println("Please do this correctly");
             return;
         }
-        System.out.println(newPassword + "    " + oldPassword);
         ProfileMenuMessage message = ProfileController.changingPasswordErrorHandelling(oldPassword, newPassword);
         switch (message) {
             case INCORRECT_PASSWORD:
                 System.out.println("Current password is incorrect!");
                 return;
             case WEAK_PASSWORD_FOR_LOWERCASE:
-                System.out.println("your new password must have lovercase chars");
+                System.out.println("your new password must have lowercase chars");
                 return;
             case WEAK_PASSWORD_FOR_UPPERCASE:
                 System.out.println("your new password must have uppercase chars");
@@ -138,7 +131,6 @@ public class ProfileMenu {
                 }
                 ProfileController.changePassword(answer);
                 System.out.println("Password changed successfully");
-                return;
 
         }
 

@@ -12,28 +12,11 @@ public class PitchDitch extends Building implements BuildingConstantFunctions {
 
     public boolean fireState;
     public boolean digState;
-    private boolean pitchDitchIsOn = true;
-    public boolean digCompleted;
-
-    public boolean isPitchDitchIsOn() {
-        return pitchDitchIsOn;
-    }
-
-    public void setPitchDitchIsOn(boolean pitchDitchIsOn) {
-        this.pitchDitchIsOn = pitchDitchIsOn;
-    }
 
     public Names getNames() {
         return this.name;
     }
 
-    public boolean isFireState() {
-        return fireState;
-    }
-
-    public boolean isDigState() {
-        return digState;
-    }
 
     public void createBuildingCost(int wood, int stone, int gold, int iron, int oil) {
         this.cost.put("wood", wood);

@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import model.User;
-import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
 import java.io.IOException;
@@ -13,19 +12,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-import static controller.JsonController.saveAllUsersFileData;
-
 public class LoginController {
-    //    static {
-//        saveAllUsersFileData();
-//    }
+
     public static RegisterMessages checkErrorForRegister(String username, String password, String confirmPassword,
                                                          String email, String nickname, String slogan) {
         if (slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null)) {
             return RegisterMessages.EMPTY_FIELD;
         }
         slogan = changeTextIwithoutCot(slogan);
-        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPETED;
+        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPEATED;
         if (!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         if (slogan.equals("random")) return RegisterMessages.GET_RANDOM_SLOGANS;
         if (password.equals("random")) return RegisterMessages.GET_RANDOM_PASSWORD;
@@ -35,11 +30,11 @@ public class LoginController {
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if (!password.matches(".*[\\W\\_].*"))
-            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
+            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL;
         if (password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
         if (!password.equals(confirmPassword)) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         String changedEmail = email.toLowerCase();
-        if (User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPETED_EMAIL;
+        if (User.getUserByEmail(changedEmail) != null) return RegisterMessages.REPEATED_EMAIL;
         if (!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]+\\.+[A-Za-z0-9\\.]+"))
             return RegisterMessages.INVALID_FORM_EMAIL;
         return RegisterMessages.SUCCESS;
@@ -49,7 +44,7 @@ public class LoginController {
         password = changeTextIwithoutCot(password);
         if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!password.matches(".*[\\W\\_].*"))
-            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXEPT_ALPHABETICAL;
+            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL;
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
         if (password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
@@ -57,11 +52,12 @@ public class LoginController {
         JsonController.writeIntoFile(Manage.allUsers, "User.json");
         return RegisterMessages.SUCCESS;
     }
-    private static String changeTextIwithoutCot(String text){
+
+    private static String changeTextIwithoutCot(String text) {
         if (text.charAt(0) == '\"' && text.charAt(text.length() - 1) == '\"') {
             text = text.replaceAll("\"", "");
         }
-        return text ;
+        return text;
     }
 
     public static void register(String username, String password, String nickname, String email, String answeroFSecQuestion
@@ -99,7 +95,6 @@ public class LoginController {
         password = changeTextIwithoutCot(password);
         User user;
         if ((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USERNAME;
-//        System.out.println(user.getPassword());
         if (!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         User.setCurrentUser(user);
         User.loginUsers.add(user);

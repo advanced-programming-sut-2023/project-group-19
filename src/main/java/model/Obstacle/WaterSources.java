@@ -1,14 +1,8 @@
 package model.Obstacle;
 
 public class WaterSources extends Obstacle {
-
-    //TODO army can not pass these obstacles : river , bigPond , smallPond , sea
     public void petrol() {
         name = ObstacleName.PETROL;
-    }
-
-    public void plain() {
-        name = ObstacleName.PLAIN;
     }
 
     public void shallowWater() {
@@ -41,7 +35,7 @@ public class WaterSources extends Obstacle {
             waterSources.petrol();
         } else if (name.equals("shallowWater")) {
             waterSources.shallowWater();
-        }else if (name.equals("sea")) {
+        } else if (name.equals("sea")) {
             waterSources.sea();
         } else if (name.equals("river")) {
             waterSources.river();
@@ -54,6 +48,4 @@ public class WaterSources extends Obstacle {
         } else return null;
         return waterSources;
     }
-
-
 }

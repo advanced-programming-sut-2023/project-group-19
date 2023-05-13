@@ -12,17 +12,12 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private Boolean bridgeState;
-
     public Names getNames() {
         return this.name;
     }
 
     public boolean bridgeOpen = false;
 
-    public boolean isBridgeOpen() {
-        return bridgeOpen;
-    }
 
     public void setBridgeOpen(boolean bridgeOpen) {
         this.bridgeOpen = bridgeOpen;
@@ -81,7 +76,6 @@ public class DrawBridge extends Building implements BuildingConstantFunctions {
         this.hp = 500;
         this.maxHp = 500;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
-        bridgeState = true;//passable
         createBuildingCost(10, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }

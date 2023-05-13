@@ -19,15 +19,16 @@ public enum LoginAndRegisterCommands {
     IS_LOGGED_USER("--stay-logged-in"),
     LOGIN_GET_USERNAME("-u\\s+(?<username>(?=\")\"[^\"-]+\"|[^- ]+)"),
     LOGIN_GET_PASSWORD("-p\\s+(?<password>(?=\")\"[^\"-]+\"|[^- ]+)"),
-    FORGOT_MY_PASSWORD("forgot my password -u\\s+(?<username>(?=\")\"[^\"-]+\"|[^- ]+)"),
-    ASK_SEQURITY_QUESTION("question pick");
-    String regex ;
-    LoginAndRegisterCommands(String regex){
+    FORGOT_MY_PASSWORD("forgot my password -u\\s+(?<username>(?=\")\"[^\"-]+\"|[^- ]+)");
+    String regex;
+
+    LoginAndRegisterCommands(String regex) {
         this.regex = regex;
     }
-    public static Matcher getMatcher(String command , LoginAndRegisterCommands mainRegex){
+
+    public static Matcher getMatcher(String command, LoginAndRegisterCommands mainRegex) {
         Matcher matcher = Pattern.compile(mainRegex.regex).matcher(command);
-        if(matcher.find()) return matcher ;
-        return null ;
+        if (matcher.find()) return matcher;
+        return null;
     }
 }

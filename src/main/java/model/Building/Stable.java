@@ -10,16 +10,6 @@ public class Stable extends Building implements BuildingConstantFunctions {
         super(government);
     }
 
-    private int rate;
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
     public Names getNames() {
         return this.name;
     }
