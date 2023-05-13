@@ -24,15 +24,15 @@ public class Empire {
 
     private int foodCapacity = 50;
     private int foodCount;
-    private int weaponsCapacity = 50;
+    private int weaponsCapacity = 100;
     private int weaponsCount;
     private int resourcesCapacity = 150;
     private int resourcesCount;
     private int maxPossiblePopulation;
-    private int PeasantCount;
+    private int PeasantCount = 20;
     private int priestCount;
     private int troopCount;
-    private int workerCount;
+    private int workerCount = 40;
     private int notificationOfRequest;
     private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
@@ -101,18 +101,24 @@ public class Empire {
         this.foodCapacity = foodCapacity;
     }
 
-    private int population;
-
-
+    private int population = 10;
     public int popularity;
-    private int goldCount;
+    private int goldCount = 100000000;
     private int foodRateNumber = -2;
-    private int totalFoodCount;
+    private int foodPopularityRate;
     private int foodDiversity;
     private int taxRateNumber;
-    private int fearRateNumber = 1;
-    private double fearWorkerImpact = 1;
-    private double fearTroopImpact = 1;
+    private int fearRateNumber;
+    private double fearWorkerImpact;
+    private double fearTroopImpact;
+
+    public int getFoodPopularityRate() {
+        return foodPopularityRate;
+    }
+
+    public void setFoodPopularityRate(int foodPopularityRate) {
+        popularityFactors.replace("food" , foodPopularityRate );
+    }
 
     public double getFearWorkerImpact() {
         return fearWorkerImpact;
@@ -159,7 +165,8 @@ public class Empire {
     }
 
     public int getPopularity() {
-        return popularity;
+        return popularityFactors.get("food")+popularityFactors.get("fear")
+                +popularityFactors.get("tax")+popularityFactors.get("religious");
     }
 
     public void setPopularity(int popularity) {
@@ -231,7 +238,8 @@ public class Empire {
     }
 
     public int getTotalFoodCount() {
-        return totalFoodCount;
+        return allFood.get("apple") + allFood.get("bread")
+         + allFood.get("meat") + allFood.get("cheese");
     }
 
     public void setFoodDiversity(int foodDiversity) {
@@ -247,11 +255,12 @@ public class Empire {
     }
 
     public int getFearRateNumber() {
-        return fearRateNumber;
+        return popularityFactors.get("fear");
     }
 
     public void setFearRateNumber(int fearRateNumber) {
         this.fearRateNumber = fearRateNumber;
+        popularityFactors.replace("fear" , fearRateNumber );
     }
 
     public HashMap<String, Integer> getAllFood() {
@@ -715,6 +724,9 @@ public class Empire {
     public int getPopularityFactorReligious() {
         return popularityFactors.get("religious");
     }
+    public void setPopularityFactorReligious(int popularityFactor) {
+        popularityFactors.replace("religious" , popularityFactor);
+    }
 
     public int getPopularityFactorFear() {
         return popularityFactors.get("fear");
@@ -804,7 +816,7 @@ public class Empire {
     public HashMap<String, Integer> allFood = new HashMap<>();
 
     {
-        allFood.put("apple", 0);
+        allFood.put("apple", 100000000);
         allFood.put("bread", 0);
         allFood.put("cheese", 0);
         allFood.put("meat", 0);
@@ -827,14 +839,14 @@ public class Empire {
     public HashMap<String, Integer> stores = new HashMap<>();
 
     {
-        stores.put("wood", 0);
-        stores.put("iron", 0);
-        stores.put("stone", 0);
-        stores.put("oat", 0);
-        stores.put("wheat", 0);
-        stores.put("beer", 0);
-        stores.put("flour", 0);
-        stores.put("oil", 0);
+        stores.put("wood", 50);
+        stores.put("iron", 50);
+        stores.put("stone", 50);
+        stores.put("oat", 50);
+        stores.put("wheat", 50);
+        stores.put("beer", 50);
+        stores.put("flour", 50);
+        stores.put("oil", 50);
     }
 
     public HashMap<String, Integer> productionBuildingCount = new HashMap<>();
@@ -849,6 +861,7 @@ public class Empire {
         productionBuildingCount.put("oatFarm", 0);
         productionBuildingCount.put("huntingPost", 0);
         productionBuildingCount.put("inn", 0);
+        productionBuildingCount.put("beerFactory", 0);
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);
@@ -898,13 +911,13 @@ public class Empire {
     public HashMap<String, Integer> europeTroopCount = new HashMap<>();
 
     {
-        europeTroopCount.put("archer", 0);
+        europeTroopCount.put("archer", 4);
         europeTroopCount.put("spearMan", 0);
         europeTroopCount.put("maceMan", 0);
         europeTroopCount.put("crossbowMan", 0);
         europeTroopCount.put("pikeMan", 0);
         europeTroopCount.put("swordMan", 0);
-        europeTroopCount.put("knight", 0);
+        europeTroopCount.put("knight", 5);
         europeTroopCount.put("blackMonk", 0);
     }
 
@@ -916,23 +929,23 @@ public class Empire {
         arabTroopCount.put("slinger", 0);
         arabTroopCount.put("assassin", 0);
         arabTroopCount.put("horseArcher", 0);
-        arabTroopCount.put("arabianSwordMan", 0);
+        arabTroopCount.put("arabianSwordMan", 5);
         arabTroopCount.put("fireThrower", 0);
     }
 
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();
 
     {
-        engineerGuildTroopCount.put("engineer", 0);
+        engineerGuildTroopCount.put("engineer", 50);
         engineerGuildTroopCount.put("ladderMan", 0);
-        engineerGuildTroopCount.put("tunneler", 0);
+        engineerGuildTroopCount.put("tunneler", 10);
     }
 
     public HashMap<String, Integer> popularityFactors = new HashMap<>();
 
     {
-        popularityFactors.put("food", 0);
-        popularityFactors.put("tax", 0);
+        popularityFactors.put("food", -2);
+        popularityFactors.put("tax", 1);
         popularityFactors.put("religious", 0);
         popularityFactors.put("fear", 0);
     }
@@ -941,10 +954,10 @@ public class Empire {
 
     {
         siegeTentTroopsCount.put("catapult", 0);
-        siegeTentTroopsCount.put("trebuchet", 0);
+        siegeTentTroopsCount.put("trebuchet", 2);
         siegeTentTroopsCount.put("siegeTower", 0);
         siegeTentTroopsCount.put("fireBallista", 0);
-        siegeTentTroopsCount.put("batteringRam", 0);
+        siegeTentTroopsCount.put("batteringRam", 2);
         siegeTentTroopsCount.put("portableShield", 0);
     }
 
@@ -963,36 +976,47 @@ public class Empire {
     public void independentProductionBuilding() {
         if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("iron", (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact));
+            resourcesCount += (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact);
         }
         if (resourcesCount + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("oil", (int) (stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") * fearWorkerImpact));
+            resourcesCount += (int) (stores.get("oil") + productionBuildingRate.get("pitchRig") * productionBuildingCount.get("pitchRig") * fearWorkerImpact);
         }
         if (resourcesCount + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("stone", (int) (stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") * fearWorkerImpact));
+            resourcesCount += (int) (stores.get("stone") + productionBuildingRate.get("quarry") * productionBuildingCount.get("quarry") * fearWorkerImpact);
         }
         if (resourcesCount + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("wood", (int) (stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") * fearWorkerImpact));
+            resourcesCount += (int) (stores.get("wood") + productionBuildingRate.get("woodCutter") * productionBuildingCount.get("woodCutter") * fearWorkerImpact);
         }
         if (foodCount + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") * fearWorkerImpact <= foodCapacity) {
             allFood.replace("apple", (int) (allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") * fearWorkerImpact));
+            foodCount += (int) (allFood.get("apple") + productionBuildingRate.get("appleFarm") * productionBuildingCount.get("appleFarm") * fearWorkerImpact);
         }
         if (resourcesCount + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("oat", (int) (stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") * fearWorkerImpact));
+            resourcesCount += (int) (stores.get("oat") + productionBuildingRate.get("oatFarm") * productionBuildingCount.get("oatFarm") * fearWorkerImpact);
         }
         if (foodCount + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") * fearWorkerImpact <= foodCapacity) {
             allFood.replace("meat", (int) (allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") * fearWorkerImpact));
+            foodCount += (int) (allFood.get("meat") + productionBuildingRate.get("huntingPost") * productionBuildingCount.get("huntingPost") * fearWorkerImpact);
         }
         if (resourcesCount + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("wheat", (int) (stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") * fearWorkerImpact));
+            resourcesCount += (int) (stores.get("wheat") + productionBuildingRate.get("wheatFactory") * productionBuildingCount.get("wheatFactory") * fearWorkerImpact);
         }
         if (foodCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact <= foodCapacity) {
             allFood.replace("cheese", (int) (allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact));
+            foodCount += (int) (allFood.get("cheese") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact);
         }
         if (weaponsCount + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact <= weaponsCapacity) {
             allWeaponTools.replace("leatherArmour", (int) (allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact));
+            weaponsCount += (int) (allWeaponTools.get("leatherArmour") + productionBuildingRate.get("dairyFactory") * productionBuildingCount.get("dairyFactory") * fearWorkerImpact);
         }
         if (weaponsCount + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact <= weaponsCapacity) {
             allWeaponTools.replace("horse", (int) (allWeaponTools.get("horse") + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact));
+            weaponsCapacity += (int) (allWeaponTools.get("horse") + createWeaponBuildingRate.get("stable") * createWeaponBuildingCount.get("stable") * fearWorkerImpact);
         }
     }
 }

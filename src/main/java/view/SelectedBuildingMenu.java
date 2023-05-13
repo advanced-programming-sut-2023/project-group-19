@@ -22,7 +22,7 @@ public class SelectedBuildingMenu {
         SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
         SelectedBuildingController.selectedBuilding = selectedBuilding;
         String buildingName = selectedBuilding.getNameEnum().getName();
-        if (buildingName.equals("shop")) {
+        if (buildingName.equals("Shop")) {
             ShopMenu shopMenu = new ShopMenu();
             shopMenu.run(scanner, (Shop) selectedBuilding);
             return;

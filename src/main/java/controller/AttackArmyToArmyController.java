@@ -15,6 +15,8 @@ public class AttackArmyToArmyController {
     public static void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
             for (Army army : empire.empireArmy) {
+                System.out.println("empire is: " + empire + " army is: " + army.getNames() +
+                        " x is: " + army.xCoordinate + " y is: " + army.yCoordinate);
                 findEnemyToFight(army);
             }
         }
@@ -115,6 +117,8 @@ public class AttackArmyToArmyController {
                 Map.getBuildingMap()[i][j].get(0).setHp(newHp);
                 if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0) {
                     Map.getBuildingMap()[i][j].remove(0);
+                    Map.notPassable[i][j] = false ;
+                    Map.notBuildable[i][j] = false ;
                 }
                 return;
             }
@@ -153,7 +157,6 @@ public class AttackArmyToArmyController {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
                 if (!Map.getBuildingMap()[i][j].isEmpty()) {
-
                     if (Map.getBuildingMap()[i][j].get(0).getOwner().equals(army.getEmpire()) ||
                             Map.getBuildingMap()[i][j].get(0).getHp() <= 0) continue;
                     int newHitPoint = Map.getBuildingMap()[i][j].get(0).hp() - army.getAttackPower();
@@ -161,6 +164,8 @@ public class AttackArmyToArmyController {
 
                     if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0) {
                         Map.getBuildingMap()[i][j].remove(0);
+                        Map.notPassable[i][j] = false ;
+                        Map.notBuildable[i][j] = false ;
                     }
                     return true;
                 }
@@ -173,7 +178,11 @@ public class AttackArmyToArmyController {
         gameController.selectedUnit.clear();
         Empire empire = Manage.getCurrentEmpire();
         for (Army army : empire.empireArmy) {
-            if (!army.isIntFight() || isArcher(army) || army.myPath != null) continue;
+            System.out.println("check 1");
+            System.out.println(army.myPath);
+            System.out.println(army.isIntFight);
+            if (!army.isIntFight() || isArcher(army)) continue;
+            System.out.println("check 2");
             gameController.selectedUnit.add(army);
             findEnemyForFightMode(army, gameController);
             gameController.selectedUnit.clear();
@@ -206,7 +215,7 @@ public class AttackArmyToArmyController {
             for (int j = y1; j <= y2; j++) {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    gameController.moveUnit(enemy.xCoordinate + 1, enemy.yCoordinate + 1);
+                    gameController.moveUnit(enemy.xCoordinate , enemy.yCoordinate );
                     return true;
                 }
             }
@@ -228,7 +237,7 @@ public class AttackArmyToArmyController {
                 for (int len = up; len <= down; len++) {
                     for (int h = left; h <= right; h++) {
                         if (!Map.notPassable[len][h]) {
-                            gameController.moveUnit(len + 1, h + 1);
+                            gameController.moveUnit(len, h);
                             return true;
                         }
                     }

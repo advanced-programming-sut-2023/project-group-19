@@ -2,6 +2,8 @@ package view;
 
 import controller.ShowMapController;
 import view.Commands.CreateMapCommands;
+import view.Commands.GameMenuCommands;
+import view.Commands.MainMenuCommands;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -14,13 +16,36 @@ public class ShowMapInGameMenu {
             command = scanner.nextLine();
             if (CreateMapCommands.getMatcher(command, CreateMapCommands.MOVING_MAP) != null) {
                 movingMap(command);
-            } else if (CreateMapCommands.getMatcher(command, CreateMapCommands.SHOW_DETAIL) != null) {
+            }else if (MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP) != null) {
+                showMap(command);
+            }
+            else if (CreateMapCommands.getMatcher(command, CreateMapCommands.SHOW_DETAIL) != null) {
                 showDetail(command);
             } else if ((CreateMapCommands.getMatcher(command, CreateMapCommands.EXIT)) != null) {
                 System.out.println("Exit from map menu is successfully done!");
                 return;
+            }else{
+                System.out.println("Invalid command");
             }
         }
+    }
+
+    public static void showMap(String command) {
+        Matcher matcher;
+        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_X);
+        if (matcher == null) {
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int x = Integer.parseInt(matcher.group("x"));
+
+        matcher = MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP_Y);
+        if (matcher == null) {
+            System.out.println("fill elements of map correctly!");
+            return;
+        }
+        int y = Integer.parseInt(matcher.group("y"));
+        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
     }
 
 
@@ -76,7 +101,7 @@ public class ShowMapInGameMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        String result = ShowMapController.showDetail(x, y);
+        String result = ShowMapController.showDetail(x + 1, y + 1);
         System.out.println(result);
     }
 }

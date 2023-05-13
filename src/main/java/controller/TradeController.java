@@ -9,7 +9,7 @@ import model.TradeAbleGoods;
 
 public class TradeController {
     public static Empire selectedEmpire;
-    public static Empire currentEmpire = Manage.getCurrentEmpire();
+    public static Empire currentEmpire ;
 
     public void showAllEmpires() {
         int number = 1;
@@ -400,11 +400,11 @@ public class TradeController {
         System.out.println("Notifications : ");
         System.out.println("List Of New Requests : ");
         for (int j = currentEmpire.getNotificationOfRequest(); j < currentEmpire.getAllRequests().size(); j++) {
-            System.out.println(currentEmpire.getAllRequests().get(j));
+            System.out.println(currentEmpire.getAllRequests().get(j).getId());
         }
         System.out.println("List Of New Donations : ");
         for (int i = currentEmpire.getNotificationOfDonation(); i < currentEmpire.getAllDonations().size(); i++) {
-            System.out.println(currentEmpire.getAllDonations().get(i));
+            System.out.println(currentEmpire.getAllDonations().get(i).getId());
         }
         currentEmpire.setNotificationOfDonation(currentEmpire.getAllDonations().size());
         currentEmpire.setNotificationOfRequest(currentEmpire.getAllRequests().size());

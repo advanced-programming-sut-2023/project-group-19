@@ -65,7 +65,7 @@ public abstract class Building implements BuildingConstantFunctions {
     }
 
     Building(Empire government) {
-        this.owner = government;
+        owner = government;
     }
 
     public Empire getOwner() {

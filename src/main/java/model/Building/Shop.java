@@ -2,6 +2,7 @@ package model.Building;
 
 import model.Empire;
 import model.GroundType;
+import model.Manage;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -53,7 +54,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
 
     }
 
-    private int goldCount = this.getOwner().getGoldCount();
+    private int goldCount = Manage.getCurrentEmpire().getGoldCount();
 
     public Names getNames() {
         return this.name;
@@ -94,7 +95,7 @@ public class Shop extends Building implements BuildingConstantFunctions {
         this.maxHp = 600;
         this.requiredGroundType = GroundType.DEFAULT.getGroundType();
         this.name = Names.SHOP;
-        createBuildingCost(5, 0, 0, 0, 2);
+        createBuildingCost(5, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 1);
     }
 
