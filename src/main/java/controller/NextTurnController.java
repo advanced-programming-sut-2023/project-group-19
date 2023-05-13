@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
-    public static int index = 0;
+    public static int index;
 
     public void game(Scanner scanner) throws IOException, InterruptedException {
         while (true) {
@@ -42,7 +42,7 @@ public class NextTurnController {
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
         currentEmpire = Manage.allEmpires.get(index);
-        index = index++ % Manage.allEmpires.size();
+//        index = ++index % Manage.allEmpires.size();
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;

@@ -21,6 +21,8 @@ public class CreateMapController {
     public static void recovery() {
         for (int i = 0; i < sizeOfMap; i++) {
             for (int j = 0; j < sizeOfMap; j++) {
+                numberOfEmpires = 0 ;
+                indexOfUser = 0 ;
                 Map.getBuildingMap()[i][j].clear();
                 Map.getTroopMap()[i][j].clear();
                 Map.getObstacleMap()[i][j].clear();
@@ -38,6 +40,7 @@ public class CreateMapController {
         mapIsBuilt = true;
         if (size != 200 && size != 400) return "You must choose size 200 or 400";
         sizeOfMap = size;
+        ShowMapController.size = size ;
         Map.CreateMap(size);
         return "Map is builded successfully!";
     }

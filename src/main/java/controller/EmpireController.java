@@ -173,6 +173,7 @@ public class EmpireController {
     }
 
     public static void showEmpireStatus() {
+        System.out.println(empire.getFearWorkerImpact());
         for (Map.Entry<String, Integer> resource : Manage.getCurrentEmpire().stores.entrySet()) {
             System.out.println("stores : " + resource.getKey() + "number : " + resource.getValue());
         }

@@ -108,8 +108,8 @@ public class Empire {
     private int totalFoodCount;
     private int foodDiversity;
     private int taxRateNumber;
-    private int fearRateNumber = 1;
-    private double fearWorkerImpact = 1;
+    private int fearRateNumber ;
+    private double fearWorkerImpact;
     private double fearTroopImpact = 1;
 
     public double getFearWorkerImpact() {

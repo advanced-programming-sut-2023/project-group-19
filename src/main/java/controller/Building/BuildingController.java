@@ -79,8 +79,8 @@ public class BuildingController {
         empire.setGoldCount(empire.getGoldCount() - building.cost.get("gold"));
         empire.setIronCount(empire.getIronCount() - building.cost.get("iron"));
         empire.setOilAmount(empire.getOilAmount() - building.cost.get("oil") / 5);
-        empire.setWorkerCount(empire.getWorkerCount() - building.workersNeeded.get("engineer"));
-        empire.setEngineerCount(empire.getEngineerCount() - building.workersNeeded.get("worker"));
+        empire.setWorkerCount(empire.getWorkerCount() - building.workersNeeded.get("worker"));
+        empire.setEngineerCount(empire.getEngineerCount() - building.workersNeeded.get("engineer"));
     }
 
     public boolean validationOfStairsLocation(int x, int y) {
