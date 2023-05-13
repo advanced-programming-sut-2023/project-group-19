@@ -132,6 +132,6 @@ public class Tunneler extends Army implements HumanConstantFunctions {
 
     @Override
     public Names typeOfArmy() {
-        return super.typeOfArmy();
+        return typeOfArmy;
     }
 }

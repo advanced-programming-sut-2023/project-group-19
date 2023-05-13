@@ -924,7 +924,7 @@ public class Empire {
     {
         engineerGuildTroopCount.put("engineer", 50);
         engineerGuildTroopCount.put("ladderMan", 0);
-        engineerGuildTroopCount.put("tunneler", 0);
+        engineerGuildTroopCount.put("tunneler", 10);
     }
 
     public HashMap<String, Integer> popularityFactors = new HashMap<>();

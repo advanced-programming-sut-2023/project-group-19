@@ -130,22 +130,17 @@ public class GameController {
         if (countOfUnits <= 0) return GameMenuMessages.INVALID_NUMBER_OF_UNITS_TO_DROP;
         if (validCoordinates(x, y)) {
             if (checkGroundTypeForUnits(x, y)) {
-                System.out.println("hi");
                 if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
-                    if (Map.notPassable[x][y]){
-                        if (isTower(x,y)){
-                            Map.notPassable[x][y] = false;
-                            if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
-                                for (Army army : Map.getTroopMap()[x][y]){
-                                    System.out.println(army.getOwner());
-                                }
-                                return GameMenuMessages.SUCCESS;
-                            } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
-                        }else return GameMenuMessages.IMPROPER_LOCATION;
+                    if (Map.notPassable[x][y] && isTower(x, y)) {
+                        Map.notPassable[x][y] = false;
                     }
+                    if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
+                        return GameMenuMessages.SUCCESS;
+                    } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
                 } else return GameMenuMessages.IMPROPER_UNIT;
             } else return GameMenuMessages.IMPROPER_LOCATION;
-        }return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+        }
+        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
 
     private static boolean addUnitsToMap(int x, int y, int count, String typeOfUnit) {
@@ -158,7 +153,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(archer);
                         Map.getTroopMap()[x][y].add(archer);
                     }
-                    Manage.getCurrentEmpire().setEuropeArcherCount(Manage.getCurrentEmpire().getEuropeArcherCount() - count);
                     return true;
                 } else return false;
             case "Crossbowmen":
@@ -169,7 +163,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
                         Map.getTroopMap()[x][y].add(crossBowMan);
                     }
-                    Manage.getCurrentEmpire().setCrossbowManCount(Manage.getCurrentEmpire().getCrossbowManCount() - count);
                     return true;
                 } else return false;
             case "ArcherBow":
@@ -180,7 +173,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(archerBow);
                         Map.getTroopMap()[x][y].add(archerBow);
                     }
-                    Manage.getCurrentEmpire().setArabianBowCount(Manage.getCurrentEmpire().getArabianBowCount() - count);
                     return true;
                 } else return false;
             case "Slingers":
@@ -191,7 +183,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(slingers);
                         Map.getTroopMap()[x][y].add(slingers);
                     }
-                    Manage.getCurrentEmpire().setSlingerCount(Manage.getCurrentEmpire().getSlingerCount() - count);
                     return true;
                 } else return false;
             case "HorseArchers":
@@ -202,7 +193,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(horseArcher);
                         Map.getTroopMap()[x][y].add(horseArcher);
                     }
-                    Manage.getCurrentEmpire().setHorseArcherCount(Manage.getCurrentEmpire().getHorseArcherCount() - count);
                     return true;
                 } else return false;
             case "FireThrowers":
@@ -213,7 +203,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(fireThrower);
                         Map.getTroopMap()[x][y].add(fireThrower);
                     }
-                    Manage.getCurrentEmpire().setFireThrowerCount(Manage.getCurrentEmpire().getFireThrowerCount() - count);
                     return true;
                 } else return false;
             case "SpearMen":
@@ -224,7 +213,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(spearMen);
                         Map.getTroopMap()[x][y].add(spearMen);
                     }
-                    Manage.getCurrentEmpire().setSpearManCount(Manage.getCurrentEmpire().getSpearManCount() - count);
                     return true;
                 } else return false;
             case "MaceMen":
@@ -235,7 +223,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(maceMen);
                         Map.getTroopMap()[x][y].add(maceMen);
                     }
-                    Manage.getCurrentEmpire().setMaceManCount(Manage.getCurrentEmpire().getMaceManCount() - count);
                     return true;
                 } else return false;
             case "LadderMen":
@@ -246,7 +233,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(ladderMen);
                         Map.getTroopMap()[x][y].add(ladderMen);
                     }
-                    Manage.getCurrentEmpire().setLadderManCount(Manage.getCurrentEmpire().getLadderManCount() - count);
                     return true;
                 } else return false;
             case "Assassins":
@@ -257,7 +243,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(assassin);
                         Map.getTroopMap()[x][y].add(assassin);
                     }
-                    Manage.getCurrentEmpire().setAssassinCount(Manage.getCurrentEmpire().getAssassinCount() - count);
                     return true;
                 } else return false;
             case "Engineer":
@@ -268,7 +253,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(engineer);
                         Map.getTroopMap()[x][y].add(engineer);
                     }
-                    Manage.getCurrentEmpire().setEngineerCount(Manage.getCurrentEmpire().getEngineerCount() - count);
                     return true;
                 } else return false;
             case "BlackMonk":
@@ -279,7 +263,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(blackMonk);
                         Map.getTroopMap()[x][y].add(blackMonk);
                     }
-                    Manage.getCurrentEmpire().setBlackMonkCount(Manage.getCurrentEmpire().getBlackMonkCount() - count);
                     return true;
                 } else return false;
             case "Knight":
@@ -290,7 +273,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(knight);
                         Map.getTroopMap()[x][y].add(knight);
                     }
-                    Manage.getCurrentEmpire().setKnightCount(Manage.getCurrentEmpire().getKnightCount() - count);
                     return true;
                 } else return false;
             case "Swordsmen":
@@ -301,7 +283,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(swordMen);
                         Map.getTroopMap()[x][y].add(swordMen);
                     }
-                    Manage.getCurrentEmpire().setSwordManCount(Manage.getCurrentEmpire().getSwordManCount() - count);
                     return true;
                 } else return false;
             case "PikeMen":
@@ -312,7 +293,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(pikeMen);
                         Map.getTroopMap()[x][y].add(pikeMen);
                     }
-                    Manage.getCurrentEmpire().setPikeManCount(Manage.getCurrentEmpire().getPikeManCount() - count);
                     return true;
                 } else return false;
             case "Slaves":
@@ -323,7 +303,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(slave);
                         Map.getTroopMap()[x][y].add(slave);
                     }
-                    Manage.getCurrentEmpire().setSlaveCount(Manage.getCurrentEmpire().getSlaveCount() - count);
                     return true;
                 } else return false;
             case "ArabianSwordsmen":
@@ -334,7 +313,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
                         Map.getTroopMap()[x][y].add(arabSwordMen);
                     }
-                    Manage.getCurrentEmpire().setArabianSwordManCount(Manage.getCurrentEmpire().getArabianSwordManCount() - count);
                     return true;
                 } else return false;
             case "Tunneler":
@@ -345,7 +323,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(tunneler);
                         Map.getTroopMap()[x][y].add(tunneler);
                     }
-                    Manage.getCurrentEmpire().setTunnelerCount(Manage.getCurrentEmpire().getTunnelerCount() - count);
                     return true;
                 } else return false;
             case "Catapult":
@@ -356,7 +333,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(catapult);
                         Map.getTroopMap()[x][y].add(catapult);
                     }
-                    Manage.getCurrentEmpire().setCatapultCount(Manage.getCurrentEmpire().getCatapultCount() - count);
                     return true;
                 } else return false;
             case "Trebuchet":
@@ -367,7 +343,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(trebuchet);
                         Map.getTroopMap()[x][y].add(trebuchet);
                     }
-                    Manage.getCurrentEmpire().setTrebuchetCount(Manage.getCurrentEmpire().getTrebuchetCount() - count);
                     return true;
                 } else return false;
             case "SiegeTower":
@@ -378,7 +353,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(siegeTower);
                         Map.getTroopMap()[x][y].add(siegeTower);
                     }
-                    Manage.getCurrentEmpire().setSiegeTowerCount(Manage.getCurrentEmpire().getSiegeTowerCount() - count);
                     return true;
                 } else return false;
             case "FireBallista":
@@ -389,7 +363,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(fireBallista);
                         Map.getTroopMap()[x][y].add(fireBallista);
                     }
-                    Manage.getCurrentEmpire().setFireBalistaCount(Manage.getCurrentEmpire().getFireBalistaCount() - count);
                     return true;
                 } else return false;
             case "BatteringRam":
@@ -400,7 +373,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(batteringRam);
                         Map.getTroopMap()[x][y].add(batteringRam);
                     }
-                    Manage.getCurrentEmpire().setBatteringRamCount(Manage.getCurrentEmpire().getBatteringRamCount() - count);
                     return true;
                 } else return false;
             case "PortableShield":
@@ -411,7 +383,6 @@ public class GameController {
                         Manage.getCurrentEmpire().empireArmy.add(portableShield);
                         Map.getTroopMap()[x][y].add(0, portableShield);
                     }
-                    Manage.getCurrentEmpire().setPortableShieldCount(Manage.getCurrentEmpire().getPortableShieldCount() - count);
                     return true;
                 } else return false;
         }
@@ -513,6 +484,7 @@ public class GameController {
             return false;
         }
     }
+
     public void setEnemyToTarget() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
@@ -525,7 +497,7 @@ public class GameController {
     }
 
     private static void checkIfTargetIsAlive(Army army) {
-        if(army.getEnemy() == null ) return;
+        if (army.getEnemy() == null) return;
         Empire empire = army.getEnemy().getOwner();
         for (Army army1 : empire.empireArmy) {
             if (army1.equals(army.getEnemy())) {
@@ -544,7 +516,7 @@ public class GameController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate , army.getEnemy().yCoordinate);
+                    gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
                     return true;
                 }
             }
@@ -558,8 +530,9 @@ public class GameController {
         }
         return false;
     }
+
     public GameMenuMessages moveUnit(int xCoordinate, int yCoordinate) {
-        if (validCoordinates(xCoordinate, yCoordinate)) {
+        if (validCoordinates(xCoordinate, yCoordinate) && !Map.notPassable[xCoordinate][yCoordinate]) {
             if (selectedUnit.size() != 0) {
                 if (!moveUpToTheTower(xCoordinate, yCoordinate) && !comeDownFromTheTower(xCoordinate, yCoordinate)) {
                     if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
@@ -579,7 +552,7 @@ public class GameController {
                                                 Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
                                                 if (validSquareBySquareCell(myUnit) || isPlain(myUnit)) {
                                                     if (Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0)
-                                                            instanceof KillingPit){
+                                                            instanceof KillingPit) {
                                                         Map.getBuildingMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].clear();
                                                     }
                                                     removeKilledUnitFromEmpireHashmap(myUnit.getNames().getName(), myUnit.getEmpire());
@@ -610,11 +583,10 @@ public class GameController {
                         } else return GameMenuMessages.UNABLE_TO_MOVE_TREBUCHET;
                     }
                 } else return GameMenuMessages.ARMY_DEPLOYED;
-                return GameMenuMessages.LOCATION_CONTAINS_WATER_RESOURCES_OR_HIGH_PLACES;
             }
             return GameMenuMessages.NO_UNIT_SELECTED;
         }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+        return GameMenuMessages.IMPROPER_LOCATION;
     }
 
     public boolean setPathForUnits(int xCoordinate, int yCoordinate) {
@@ -637,6 +609,7 @@ public class GameController {
         }
         return false;
     }
+
     public void setPathForPatrols(int xCoordinate, int yCoordinate, Army patrol) {
         PathFindingController.notPassable = Map.notPassable;
         PathFindingController.wall = Map.wall;
@@ -712,6 +685,7 @@ public class GameController {
         }
         return false;
     }
+
     public boolean isPlain(Army myUnit) {
         if (!Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].isEmpty()) {
             return Map.getObstacleMap()[myUnit.goalXCoordinate][myUnit.goalYCoordinate].get(0).getName()
@@ -728,7 +702,7 @@ public class GameController {
         if (validCoordinates(xOne, yOne) && !Map.notPassable[xOne][yOne] && validCoordinates(xTwo, yTwo) && !Map.notPassable[xTwo][yTwo]) {
             if (setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo)) {
                 String unitMoved = moveUnit(xTwo, yTwo).getMessages();
-            }else System.out.println(GameMenuMessages.NO_UNIT_IN_CELL.getMessages());
+            } else System.out.println(GameMenuMessages.NO_UNIT_IN_CELL.getMessages());
         } else System.out.println(GameMenuMessages.COORDINATES_OUT_OF_BOUNDS.getMessages());
     }
 
@@ -750,9 +724,9 @@ public class GameController {
     public GameMenuMessages stopPatrols(int x, int y) {
         if (validCoordinates(x, y)) {
             for (Army army : Manage.getCurrentEmpire().empireArmy) {
-                if (army.getArmyForm().equals(Names.PATROL_UNIT.getName()) &&
+                if (army.typeOfArmy().getName().equals(Names.PATROL_UNIT.getName()) &&
                         army.getCurrentX() == x && army.getCurrentY() == y) {
-                    army.setArmyForm(Names.STANDING_ARMY.getName());
+                    army.typeOfArmy =Names.STANDING_ARMY;
                 }
             }
             return GameMenuMessages.SUCCESS;
@@ -1212,6 +1186,9 @@ public class GameController {
                                     Map.notBuildable[nextX][nextY] = false;
                                     Map.wall[nextX][nextY] = false;
                                 }
+                                System.out.println(nextX+" "+nextY);
+                            }else {
+                                return GameMenuMessages.UNABLE_TO_DIG_UNDER_TOWERS;
                             }
                             army.restOfMoves--;
                         }
