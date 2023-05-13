@@ -113,11 +113,11 @@ public class GameController {
     public void setStateArmy() {
         selectedUnit.clear();
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
+            if (isArcher(army) || army.typeOfArmy().getName().equals(Names.STANDING_ARMY.getName())
                     || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
                 continue;
             selectedUnit.add(army);
-            findEnemyInRange(army, army.getArmyForm());
+            findEnemyInRange(army, army.typeOfArmy().getName());
             selectedUnit.clear();
         }
     }
@@ -390,15 +390,7 @@ public class GameController {
     }
 
     public GameMenuMessages buildEquipment(Matcher name) {
-        String nameOfEquipment = name.group("equipmentName");
-        Empire empire = Manage.getCurrentEmpire();
-        for (java.util.Map.Entry<String, Integer> siegeTentTroop : empire.getSiegeTentTroopsCount().entrySet()) {
-            if (siegeTentTroop.getKey().equals(nameOfEquipment)) {
-                empire.getSiegeTentTroopsCount().replace(nameOfEquipment, siegeTentTroop.getValue() + 1);
-                return GameMenuMessages.SUCCESS;
-            }
-        }
-        return GameMenuMessages.WRONG_SIEGE_NAME;
+        return GameMenuMessages.SIEGE_TENT;
     }
 
     private static boolean checkGroundTypeForUnits(int x, int y) {
@@ -1149,12 +1141,13 @@ public class GameController {
 
     public boolean isPitchDitch(int x, int y) {
         if (!Map.getBuildingMap()[x][y].isEmpty()) {
-            return Map.getBuildingMap()[x][y].get(0) instanceof PitchDitch;
+            return Map.getBuildingMap()[x][y].get(0).getName().equals(model.Building.Names.PITCH_DITCH.getName());
         }
         return false;
     }
 
     public boolean validationOfArmiesType(String typeOfArmy) {
+        selectedUnit.clear();
         boolean flag = false;
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (army.getNames().getName().equals(typeOfArmy)) {
@@ -1173,10 +1166,10 @@ public class GameController {
                 setPathForUnits(x, y);
                 for (Army army : selectedUnit) {
                     List<Integer> pathList = army.myPath;
-                    for (Integer integer : pathList) {
-                        if (army.restOfMoves != 0) {
-                            int nextX = integer / PathFindingController.size;
-                            int nextY = integer % PathFindingController.size;
+                    for (int i = 0 ; i < pathList.size() ; i++) {
+                        if (army.restOfMoves() != 0) {
+                            int nextX = pathList.get(i) / PathFindingController.size;
+                            int nextY = pathList.get(i) % PathFindingController.size;
                             if (!isTower(nextX, nextY) && !isPitchDitch(nextX, nextY)) {
                                 if (isWall(nextX, nextY)) {
                                     army.getEmpire().empireArmy.remove(army);
@@ -1186,7 +1179,6 @@ public class GameController {
                                     Map.notBuildable[nextX][nextY] = false;
                                     Map.wall[nextX][nextY] = false;
                                 }
-                                System.out.println(nextX+" "+nextY);
                             }else {
                                 return GameMenuMessages.UNABLE_TO_DIG_UNDER_TOWERS;
                             }

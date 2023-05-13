@@ -5,6 +5,7 @@ import controller.Building.FunctionBuildingController;
 import controller.Building.SelectedBuildingController;
 import model.Building.Building;
 import model.Empire;
+import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
@@ -12,6 +13,7 @@ import view.GameMenu;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Formattable;
 import java.util.Scanner;
 
 public class NextTurnController {
@@ -28,6 +30,12 @@ public class NextTurnController {
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
                 callEndingTurnFunctions(gameController);
+                for (Empire empire : Manage.getAllEmpires()){
+                    System.out.println(empire.getName());
+                    for (Army army : empire.empireArmy){
+                        System.out.println(army+ " "+army.xCoordinate+" "+army.yCoordinate);
+                    }
+                }
             } else {
                 User user = Manage.getAllEmpires().get(0).getUser();
                 int oldScore = user.getHighScore();

@@ -903,7 +903,7 @@ public class Empire {
         europeTroopCount.put("crossbowMan", 0);
         europeTroopCount.put("pikeMan", 0);
         europeTroopCount.put("swordMan", 0);
-        europeTroopCount.put("knight", 0);
+        europeTroopCount.put("knight", 5);
         europeTroopCount.put("blackMonk", 0);
     }
 
