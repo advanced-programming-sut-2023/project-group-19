@@ -47,7 +47,7 @@ assignees: Arman17Babaei
   3. [x] تمام شده
   </div>
 </details>
-<details>
+  <details>
   <summary>Json</summary>
 
   <div dir="ltr" align='right'>
@@ -58,6 +58,7 @@ assignees: Arman17Babaei
 </details>
   <details>
   <summary>Empire</summary>
+    
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -66,6 +67,7 @@ assignees: Arman17Babaei
 </details>
   <details>
   <summary>Pathfinding Algorithm</summary>
+    
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -75,8 +77,9 @@ assignees: Arman17Babaei
   
 ## تسک‌های نفر دوم
 درسا شریفی قمبوانی
-<details>
+  <details>
   <summary>ShopMenu</summary>
+  
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -93,7 +96,7 @@ assignees: Arman17Babaei
   3. [x] تمام شده
   </div>
 </details>
-   <details>
+  <details>
   <summary>Human</summary>
 
   <div dir="ltr" align='right'>
@@ -103,7 +106,7 @@ assignees: Arman17Babaei
   3. [x] تمام شده
   </div>
 </details>
-   <details>
+  <details>
   <summary>TradeMenu</summary>
 
   <div dir="ltr" align='right'>
@@ -119,14 +122,16 @@ assignees: Arman17Babaei
   آرمین محمودی نژاد
 <details>
   <summary>LoginRegisterMenu</summary>
+  
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
   3. [x] تمام شده
   </div>
 </details>
-  <details>
-  <summary>Register</summary>
+ <details>
+ <summary>Register</summary>
+   
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -135,6 +140,7 @@ assignees: Arman17Babaei
 </details>
   <details>
   <summary>CreateMap</summary>
+    
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -143,6 +149,7 @@ assignees: Arman17Babaei
 </details>
   <details>
   <summary>GameMenu</summary>
+    
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -151,6 +158,7 @@ assignees: Arman17Babaei
 </details>
   <details>
   <summary>Main Menu</summary>
+    
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
@@ -159,14 +167,16 @@ assignees: Arman17Babaei
 </details>
   <details>
   <summary>Profile Menu</summary>
+    
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
   3. [x] تمام شده
   </div>
 </details>
-<details>
+  <details>
   <summary>UnitTest</summary>
+  
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
