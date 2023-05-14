@@ -22,6 +22,9 @@ public class NextTurnController {
 
     public String game(Scanner scanner) throws IOException, InterruptedException {
         while (true) {
+            if(Manage.allEmpires.size() == 0){
+                return ("game is balanced!");
+            }
             if (Manage.allEmpires.size() != 1) {
                 GameController gameController = new GameController();
                 setGameController(gameController);
@@ -81,13 +84,16 @@ public class NextTurnController {
 
     public void playerHasLost() {
         int size = Manage.allEmpires.size();
-        for (int i = 0; i < size; i++) {
+        for (int i = size - 1 ; i >= 0; i --) {
             Empire empire = Manage.allEmpires.get(i);
             boolean isDestroyed = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
             if (isDestroyed) {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
-                if(index != 0) NextTurnController.index--;
+                if(index > i) index -- ;
+                else if(i == index){
+                    if (index == size - 1) index = 0 ;
+                }
                 i--;
                 size--;
             }
