@@ -9,6 +9,7 @@ assignees: Arman17Babaei
 # فاز 1
 راهنما : مهیار افشین مهر
 ## کارهایی که باید در فاز 1 انجام دهید
+  
 <details>
   <summary>چک پوینت 1</summary>
 - کامل کردن منو ها (تمپلیت)
@@ -19,7 +20,7 @@ assignees: Arman17Babaei
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [ x] تمام شده
   </div>
 </details>
 <details>
@@ -30,7 +31,7 @@ assignees: Arman17Babaei
   
   1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
      </div>
 </details>
 ## تسک‌های نفر اول
@@ -42,43 +43,44 @@ assignees: Arman17Babaei
   <div dir="ltr" align='right'>
 
   1. [ ] شروع نشده
-  2. [] در حال انجام
-  3. [ x] تمام شده
+  2. [ ] در حال انجام
+  3. [x] تمام شده
   </div>
 </details>
 <details>
   <summary>Json</summary>
 
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>Empire</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>Pathfinding Algorithm</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
+  
 ## تسک‌های نفر دوم
 درسا شریفی قمبوانی
 <details>
   <summary>ShopMenu</summary>
   <div dir="ltr" align='right'>
   1. [ ] شروع نشده
-  2. [] در حال انجام
-  3. [x ] تمام شده
+  2. [ ] در حال انجام
+  3. [x] تمام شده
   </div>
 </details>
   <details>
@@ -86,9 +88,9 @@ assignees: Arman17Babaei
 
   <div dir="ltr" align='right'>
 
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [x ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
    <details>
@@ -96,9 +98,9 @@ assignees: Arman17Babaei
 
   <div dir="ltr" align='right'>
 
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [x ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
    <details>
@@ -106,9 +108,9 @@ assignees: Arman17Babaei
 
   <div dir="ltr" align='right'>
 
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
 
@@ -118,58 +120,57 @@ assignees: Arman17Babaei
 <details>
   <summary>LoginRegisterMenu</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>Register</summary>
   <div dir="ltr" align='right'>
-  1. [x] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>CreateMap</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [x ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>GameMenu</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>Main Menu</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [x ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
   <details>
   <summary>Profile Menu</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [x ] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
 <details>
   <summary>UnitTest</summary>
   <div dir="ltr" align='right'>
-  1. [] شروع نشده
+  1. [ ] شروع نشده
   2. [ ] در حال انجام
-  3. [ x] تمام شده
+  3. [x] تمام شده
   </div>
 </details>
-  
 </div>
