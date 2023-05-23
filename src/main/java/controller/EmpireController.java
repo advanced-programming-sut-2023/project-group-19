@@ -92,15 +92,16 @@ public class EmpireController {
         if (empire.allFood.get("bread") > 0) foodDiversity++;
         if (empire.allFood.get("cheese") > 0) foodDiversity++;
         if (empire.allFood.get("meat") > 0) foodDiversity++;
-        empire.setFoodDiversity(foodDiversity);
-        switch (foodDiversity) {
-            case 2:
-                empire.setFoodPopularityRate(1);
-            case 3:
-                empire.setFoodPopularityRate(2);
-            case 4:
-                empire.setFoodPopularityRate(3);
-        }
+        System.out.println("food diversity : " + foodDiversity);
+        empire.setFoodDiversity(foodDiversity--);
+//        switch (foodDiversity) {
+//            case 2:
+//                empire.setFoodDiversity(1);
+//            case 3:
+//                empire.setFoodDiversity(2);
+//            case 4:
+//                empire.setFoodDiversity(3);
+//        }
     }
 
     public static void givingPeopleFood(Empire empire) {
@@ -128,6 +129,8 @@ public class EmpireController {
                 break;
         }
         int totalFoodThatBeGivenToPeople = (int) foodPerPearson * empire.getPopulation();
+        System.out.println(empire.getTotalFoodCount());
+        System.out.println(totalFoodThatBeGivenToPeople);
         if ((int)(foodPerPearson * empire.getPopulation()) <= empire.getTotalFoodCount()) {
             while (totalFoodThatBeGivenToPeople != 0) {
                 if (empire.allFood.get("apple") != 0) {
