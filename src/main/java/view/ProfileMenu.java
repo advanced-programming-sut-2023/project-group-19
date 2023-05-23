@@ -110,6 +110,9 @@ public class ProfileMenu {
         }
         ProfileMenuMessage message = ProfileController.changingPasswordErrorHandelling(oldPassword, newPassword);
         switch (message) {
+            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
+                System.out.println("you have to user chars except alphabetical");
+                return;
             case INCORRECT_PASSWORD:
                 System.out.println("Current password is incorrect!");
                 return;

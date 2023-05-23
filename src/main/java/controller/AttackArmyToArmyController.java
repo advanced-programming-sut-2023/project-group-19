@@ -43,7 +43,6 @@ public class AttackArmyToArmyController {
     private static boolean isArcher(Army army) {
         return army instanceof ArchersAndThrowers;
     }
-
     private static void findEnemyToFight(Army army) {
         int x = army.xCoordinate;
         int y = army.yCoordinate;
@@ -55,11 +54,19 @@ public class AttackArmyToArmyController {
         }
         findBuildingToBeAttacked(army);
     }
+    private static boolean goAfterEnemy(Army army){
+        for(Army enemy : Map.getTroopMap()[army.xCoordinate][army.yCoordinate]){
+            if(!enemy.getEmpire().equals(army.getEmpire())) {
+                return true;
+            }
+        }
+        return false ;
+    }
 
     private static void findArcher() {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
-                if (!isArcher(army)) continue;
+                if(goAfterEnemy(army) || !isArcher(army)) continue;
                 findEnemyInRange(army);
             }
         }
@@ -97,6 +104,7 @@ public class AttackArmyToArmyController {
     }
 
     private static void findBuildingToBeAttacked(Army army) {
+        if(isArcher(army)) return;
         int x1, x2, y1, y2;
         x1 = army.getCurrentX() - 1;
         x2 = army.getCurrentX() + 1;

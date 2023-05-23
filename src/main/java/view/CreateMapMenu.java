@@ -209,7 +209,6 @@ public class CreateMapMenu {
         while (matcher.find()) {
             String type = matcher.group("type");
             String number = matcher.group("number");
-            System.out.println(type + "%%%" + number);
             switch (type) {
                 case "left":
                     if (number != null) left = -1 * Integer.parseInt(number);

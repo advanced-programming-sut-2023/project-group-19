@@ -141,6 +141,8 @@ public class ShowMapController {
 
     public static String showDetail(int x, int y) {
         if (!CreateMapController.mapIsBuilt) return "first build a map!";
+        if ((x <= 0 || x > size) || (y <= 0 || y > size)) return "fill correctly;" +
+                "your numbers out of bounds";
         String obstacleName = "empty";
         String groundType = Map.getGroundType()[x - 1][y - 1].get(0).getGroundType();
         if (groundType.equals(GroundType.DEFAULT.getGroundType())) {
