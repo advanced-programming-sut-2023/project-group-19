@@ -39,11 +39,11 @@ public class Climbers extends Army implements HumanConstantFunctions {
     public void SpearMen(int x, int y) {
         this.xCoordinate = x;
         this.yCoordinate = y;
-        this.hp = 500;
+        this.hp = 3500;
         this.maxHp = 500;
         this.names = Names.SPEAR_MEN;
         this.armyForm = Names.STANDING_ARMY.getName();
-        this.speed = 5;
+        this.speed = 1;
         this.attackPower = 500;
         this.defencePower = 200;
         this.restOfMoves = 5;

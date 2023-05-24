@@ -153,6 +153,7 @@ public class GameController {
                         archer.archer(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(archer);
                         Map.getTroopMap()[x][y].add(archer);
+                        System.out.println(archer+" "+archer.getEmpire());
                     }
                     return true;
                 } else return false;
@@ -273,6 +274,7 @@ public class GameController {
                         knight.Knight(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(knight);
                         Map.getTroopMap()[x][y].add(knight);
+                        System.out.println(knight.getNames()+" "+knight.getOwner());
                     }
                     return true;
                 } else return false;

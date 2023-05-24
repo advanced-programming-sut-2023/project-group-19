@@ -20,17 +20,18 @@ public class TradeController {
         }
     }
 
-    public TradeMenuMessages sendRequest(Matcher resourceType, Matcher resourceAmount, Matcher cost, Matcher message) {
+    public TradeMenuMessages sendRequest(Matcher resourceType, Matcher resourceAmount, Matcher cost, Matcher message,Matcher value) {
         int amount = Integer.parseInt(resourceAmount.group("resourceAmount"));
         int price = Integer.parseInt(cost.group("resourcePrice"));
         String goodType = resourceType.group("resourceType");
         String messageOfRequest = message.group("resourceMessage");
+        String valueOfRequest = value.group("resourceValue");
         if (selectedEmpire != null) {
             if (typeOfResources(goodType)) {
-                if (enoughMoneyToBuy(currentEmpire, price)) {
+                if (getNumberOfGoods(valueOfRequest,currentEmpire) >= price) {
                     if (amount > 0 && checkTheCapacity(amount, goodType, currentEmpire)) {
                         String id = idProvider(currentEmpire, currentEmpire.getAllRequests().size() + 1);
-                        Request request = new Request(messageOfRequest, price, amount, goodType, id, currentEmpire, selectedEmpire);
+                        Request request = new Request(messageOfRequest, price, amount, goodType, id, currentEmpire, selectedEmpire,valueOfRequest);
                         request.setStatus("Not accepted yet!");
                         currentEmpire.getAllRequests().add(request);
                         selectedEmpire.getAllDonations().add(request);
@@ -90,16 +91,16 @@ public class TradeController {
             String goodName = request.getGoodName();
             int amount = request.getAmount();
             int price = request.getPrice();
+            String tradableThing = request.tradableThing;
             Empire empire = request.getSender();
             if (Manage.getEmpireByNickname(empire.getName()) != null) {
                 if (getNumberOfGoods(goodName, currentEmpire) >= amount) {
                     Request request1 = findRequest(id, empire);
                     request1.setFromSellerMessage(message);
                     request.setFromSellerMessage(message);
-                    empire.setGoldCount(empire.getGoldCount() - price);
+                    setNumberOfGoods(currentEmpire,empire,price,tradableThing);
                     request1.setAcceptance(true);
                     request.setAcceptance(true);
-                    currentEmpire.setGoldCount(currentEmpire.getGoldCount() + price);
                     setNumberOfGoods(empire, currentEmpire, amount, goodName);
                     request.setStatus("Accepted!");
                     request1.setStatus("Accepted!");

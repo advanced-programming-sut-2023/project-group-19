@@ -980,6 +980,7 @@ public class Empire {
     }
 
     public void independentProductionBuilding() {
+        System.out.println(this.getWoodCount());
         if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("iron", (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact));
             resourcesCount += (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact);

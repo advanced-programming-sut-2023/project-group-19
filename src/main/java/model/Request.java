@@ -1,18 +1,18 @@
 package model;
 
 public class Request {
-    String message;
-    String fromSellerMessage;
-    int price;
-    int amount;
-    String goodName;
-    String id;
-    Empire sender;
-    Empire receiver;
-    String status;
-    boolean acceptance;
-
-    public Request(String message, int price, int amount, String goodName, String id, Empire sender, Empire receiver) {
+    public String message;
+    public String fromSellerMessage;
+    public int price;
+    public int amount;
+    public String goodName;
+    public String id;
+    public Empire sender;
+    public Empire receiver;
+    public String status;
+    public boolean acceptance;
+    public String tradableThing;
+    public Request(String message, int price, int amount, String goodName, String id, Empire sender, Empire receiver,String tradableThing) {
         this.message = message;
         this.price = price;
         this.amount = amount;
@@ -20,6 +20,7 @@ public class Request {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
+        this.tradableThing = tradableThing;
     }
 
     public String getMessage() {

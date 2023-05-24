@@ -28,6 +28,7 @@ public class AttackArmyToArmyController {
             int size = empire.empireArmy.size();
             for (int j = 0; j < size; j++) {
                 Army army = empire.empireArmy.get(j);
+                System.out.println(army.getNames()+" "+army.getHp());
                 if (army.getHp() <= 0) {
                     int x = army.xCoordinate;
                     int y = army.yCoordinate;
