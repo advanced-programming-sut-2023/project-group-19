@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 
 public class TileManager extends Application {
+    //TODO : Show Map ---> Armin's Method
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -37,10 +38,11 @@ public class TileManager extends Application {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if (mouseEvent.getEventType().getName().equals(MouseEvent.MOUSE_DRAGGED.getName())){
+                            System.out.println("drag");
+                            //Todo : Armin's function ---> move map
 //                            moveTheMap(view,list);
-                            System.out.println("Dragged");
-                        }else {
-                            System.out.println("Clicked");
+                        }else if (mouseEvent.getEventType().getName().equals(MouseEvent.MOUSE_ENTERED.getName())){
+                            //Todo : Method for showing the information of hovered tile
                         }
                     }
                 };
@@ -81,5 +83,6 @@ public class TileManager extends Application {
     }
 
     private static void moveTheMap(TilePane view ,ArrayList<Node> list ){
+
     }
 }

@@ -25,7 +25,7 @@ public class MainMenu {
                 return;
             } else if (command.matches("\\s*enter\\s+map\\s+menu\\s*")) {
                 System.out.println("Entered map menu successfully!");
-                CreateMapMenu.run(scanner);
+                //CreateMapMenu.run(scanner);
             } else if (command.matches("\\s*enter\\s+game\\s+menu")) {
                 System.out.println("Entered game menu successfully!");
                 enterGameMenu(scanner);
