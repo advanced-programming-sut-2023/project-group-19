@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class MainMenu {
     public static void run(Scanner scanner) throws InterruptedException, IOException {
-        System.out.println("Welcome to Main menu!");
+        System.out.println("Welcome to view.Main menu!");
         String command;
         while (true) {
             command = scanner.nextLine();
