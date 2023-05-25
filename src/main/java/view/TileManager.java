@@ -42,7 +42,10 @@ public class TileManager extends Application {
     public Text showCellData = new Text();
     public int avgDamage;
     public int avgSpeed;
+
     public TilePane view  = new TilePane();
+
+    public ArrayList<NewButton> [][] allButtons;
     public Pane pane = new Pane();
     public int avgHp;
 
@@ -52,6 +55,7 @@ public class TileManager extends Application {
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
 //        tilePane.setMaxWidth(10000);
+        createButtonsArraylist();
         ArrayList<Node> list = new ArrayList<>();
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
@@ -59,13 +63,6 @@ public class TileManager extends Application {
                 setEventHandler(newButton);
                 newButton.setPrefSize(51 , 54);
                 newButton.setFocusTraversable(false);
-                Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
-                soldiers.BlackMonk(5 , 16);
-                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                archersAndThrowers.archer(5 , 16);
-                newButton.getArmy().add(archersAndThrowers );
-                newButton.getArmy().add(soldiers );
-                newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
             }
         }
@@ -78,10 +75,11 @@ public class TileManager extends Application {
 //                ((Button)list.get((u + 3) * 100 + (g + 10))).setBackground(new Background(new BackgroundImage(
 //                        new Image("C:\\Users\\F1\\Desktop\\chert\\ProjectGroup19\\src\\main\\resources\\image\\cegla2.jpg") ,
 //                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-                Button button = (Button) list.get((u + 3) * 100 + (g + 10));
+                NewButton button = (NewButton) list.get((u + 3) * 100 + (g + 10));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
                 pane.getChildren().add(list.get((u + 3) * 100 + (g + 10)));
+                allButtons[u][g].add(button);
             }
         }
 
@@ -170,8 +168,18 @@ public class TileManager extends Application {
             hp += newButton.getArmy().get(i).getHp();
             speed += newButton.getArmy().get(i).getSpeed();
         }
-        avgHp = hp/i;
-        avgSpeed = speed/i;
-        avgDamage = damage/i;
+        if( i != 0) {
+            avgHp = hp / i;
+            avgSpeed = speed / i;
+            avgDamage = damage / i;
+        }
+    }
+    public void createButtonsArraylist(){
+        allButtons = new ArrayList[16][30];
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 30; j++) {
+                allButtons[i][j] = new ArrayList<>();
+            }
+        }
     }
 }
