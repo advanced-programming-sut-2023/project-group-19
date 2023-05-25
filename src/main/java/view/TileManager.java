@@ -53,8 +53,6 @@ public class TileManager extends Application {
 //        tilePane.setPrefColumns(100);
 //        tilePane.setMaxWidth(10000);
         ArrayList<Node> list = new ArrayList<>();
-        ArrayList<NewButton> selectedButtons = new ArrayList<>();
-        TilePane view = new TilePane();
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j , i);
