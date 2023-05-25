@@ -20,3 +20,11 @@ droptree -x 5 -y 5 -t desertTree
 droptree -x 10 -y 3 -t desertTree
 droptree -x 12 -y 8 -t desertTree
 locate castle -x 8 -y 9
+locate castle -x 5 -y 6
+exit
+enter game menu
+dropunit -x 49 -y 49 -t Knight -c 2
+Next Turn
+dropunit -x 40 -y 40 -t ArabianSwordsmen -c 1
+select unit -x 40 -y 40
+attack -e 49 49

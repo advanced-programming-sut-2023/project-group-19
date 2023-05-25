@@ -3,9 +3,7 @@ package controller;
 import controller.Building.BuildingController;
 import controller.Building.FunctionBuildingController;
 import controller.Building.SelectedBuildingController;
-import model.Building.Building;
 import model.Empire;
-import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
@@ -13,42 +11,38 @@ import view.GameMenu;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Formattable;
 import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
     public static int index;
 
-    public void game(Scanner scanner) throws IOException, InterruptedException {
+    public String game(Scanner scanner) throws IOException, InterruptedException {
         while (true) {
             if (Manage.allEmpires.size() != 1) {
                 GameController gameController = new GameController();
                 setGameController(gameController);
                 findCurrentEmpire();
-                System.out.println(Manage.getCurrentEmpire().getName());
+                System.out.println("Current Empire To Play : " + Manage.getCurrentEmpire().getName());
                 callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
-                System.out.println( "past next turn" + Manage.getCurrentEmpire().empireArmy.size());
                 callEndingTurnFunctions(gameController);
-                System.out.println( "after next turn" + Manage.getCurrentEmpire().empireArmy.size());
 
             } else {
-                System.out.println("Winner is: " + Manage.allEmpires.get(0).getName());
                 User user = Manage.getAllEmpires().get(0).getUser();
                 int oldScore = user.getHighScore();
                 int newScore = oldScore + 100;
                 user.setHighScore(newScore);
                 Collections.sort(User.users);
-                break;
+                index = 0;
+                return ("Winner is: " + Manage.allEmpires.get(0).getName());
             }
         }
     }
 
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
-        System.out.println(Manage.getCurrentEmpire().getName());
         currentEmpire = Manage.allEmpires.get(index);
         index = ++index % Manage.allEmpires.size();
         BuildingController.currentEmpire = currentEmpire;
@@ -86,11 +80,11 @@ public class NextTurnController {
         int size = Manage.allEmpires.size();
         for (int i = 0; i < size; i++) {
             Empire empire = Manage.allEmpires.get(i);
-            Building castle = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].get(0);
-            if (castle.getHp() <= 0) {
+            boolean isDestroyed = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
+            if (isDestroyed) {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
-                NextTurnController.index--;
+                if (index != 0) NextTurnController.index--;
                 i--;
                 size--;
             }
@@ -105,5 +99,4 @@ public class NextTurnController {
             }
         }
     }
-
 }

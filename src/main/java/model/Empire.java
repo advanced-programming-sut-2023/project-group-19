@@ -24,15 +24,16 @@ public class Empire {
 
     private int foodCapacity = 50;
     private int foodCount;
+    public int foodDiversity;
     private int weaponsCapacity = 100;
     private int weaponsCount;
-    private int resourcesCapacity = 150;
+    private int resourcesCapacity = 15000;
     private int resourcesCount;
     private int maxPossiblePopulation;
-    private int PeasantCount = 20;
+    private int PeasantCount = 50;
     private int priestCount;
     private int troopCount;
-    private int workerCount = 40;
+    private int workerCount = 50;
     private int notificationOfRequest;
     private int notificationOfDonation;
     public ArrayList<Army> empireArmy = new ArrayList<>();
@@ -106,8 +107,12 @@ public class Empire {
     private int goldCount = 100000000;
     private int foodRateNumber = -2;
     private int foodPopularityRate;
-    private int foodDiversity;
     private int taxRateNumber;
+
+    public int getFoodDiversity() {
+        return foodDiversity;
+    }
+
     private int fearRateNumber;
     private double fearWorkerImpact;
     private double fearTroopImpact;
@@ -117,7 +122,7 @@ public class Empire {
     }
 
     public void setFoodPopularityRate(int foodPopularityRate) {
-        popularityFactors.replace("food" , foodPopularityRate );
+        popularityFactors.replace("food", foodPopularityRate);
     }
 
     public double getFearWorkerImpact() {
@@ -165,8 +170,8 @@ public class Empire {
     }
 
     public int getPopularity() {
-        return popularityFactors.get("food")+popularityFactors.get("fear")
-                +popularityFactors.get("tax")+popularityFactors.get("religious");
+        return popularityFactors.get("food") + Manage.getCurrentEmpire().getFoodDiversity() + popularityFactors.get("fear")
+                + popularityFactors.get("tax") + popularityFactors.get("religious");
     }
 
     public void setPopularity(int popularity) {
@@ -239,7 +244,7 @@ public class Empire {
 
     public int getTotalFoodCount() {
         return allFood.get("apple") + allFood.get("bread")
-         + allFood.get("meat") + allFood.get("cheese");
+                + allFood.get("meat") + allFood.get("cheese");
     }
 
     public void setFoodDiversity(int foodDiversity) {
@@ -260,7 +265,7 @@ public class Empire {
 
     public void setFearRateNumber(int fearRateNumber) {
         this.fearRateNumber = fearRateNumber;
-        popularityFactors.replace("fear" , fearRateNumber );
+        popularityFactors.replace("fear", fearRateNumber);
     }
 
     public HashMap<String, Integer> getAllFood() {
@@ -724,8 +729,9 @@ public class Empire {
     public int getPopularityFactorReligious() {
         return popularityFactors.get("religious");
     }
+
     public void setPopularityFactorReligious(int popularityFactor) {
-        popularityFactors.replace("religious" , popularityFactor);
+        popularityFactors.replace("religious", popularityFactor);
     }
 
     public int getPopularityFactorFear() {
@@ -816,10 +822,10 @@ public class Empire {
     public HashMap<String, Integer> allFood = new HashMap<>();
 
     {
-        allFood.put("apple", 100000000);
-        allFood.put("bread", 0);
-        allFood.put("cheese", 0);
-        allFood.put("meat", 0);
+        allFood.put("apple", 100);
+        allFood.put("bread", 100);
+        allFood.put("cheese", 100);
+        allFood.put("meat", 100);
     }
 
     public HashMap<String, Integer> allWeaponTools = new HashMap<>();
@@ -901,43 +907,43 @@ public class Empire {
     public HashMap<String, Integer> createWeaponBuildingRate = new HashMap<>();
 
     {
-        createWeaponBuildingRate.put("armourer", 5);
-        createWeaponBuildingRate.put("blacksmith", 5);
-        createWeaponBuildingRate.put("fletcher", 5);
-        createWeaponBuildingRate.put("poleTurner", 5);
-        createWeaponBuildingRate.put("stable", 4);
+        createWeaponBuildingRate.put("armourer", 10);
+        createWeaponBuildingRate.put("blacksmith", 10);
+        createWeaponBuildingRate.put("fletcher", 10);
+        createWeaponBuildingRate.put("poleTurner", 10);
+        createWeaponBuildingRate.put("stable", 10);
     }
 
     public HashMap<String, Integer> europeTroopCount = new HashMap<>();
 
     {
-        europeTroopCount.put("archer", 4);
-        europeTroopCount.put("spearMan", 0);
-        europeTroopCount.put("maceMan", 0);
-        europeTroopCount.put("crossbowMan", 0);
-        europeTroopCount.put("pikeMan", 0);
-        europeTroopCount.put("swordMan", 0);
-        europeTroopCount.put("knight", 5);
-        europeTroopCount.put("blackMonk", 0);
+        europeTroopCount.put("archer", 10);
+        europeTroopCount.put("spearMan", 10);
+        europeTroopCount.put("maceMan", 10);
+        europeTroopCount.put("crossbowMan", 10);
+        europeTroopCount.put("pikeMan", 10);
+        europeTroopCount.put("swordMan", 10);
+        europeTroopCount.put("knight", 10);
+        europeTroopCount.put("blackMonk", 10);
     }
 
     public HashMap<String, Integer> arabTroopCount = new HashMap<>();
 
     {
-        arabTroopCount.put("arabianBow", 0);
-        arabTroopCount.put("slave", 0);
-        arabTroopCount.put("slinger", 0);
-        arabTroopCount.put("assassin", 0);
-        arabTroopCount.put("horseArcher", 0);
-        arabTroopCount.put("arabianSwordMan", 5);
-        arabTroopCount.put("fireThrower", 0);
+        arabTroopCount.put("arabianBow", 10);
+        arabTroopCount.put("slave", 10);
+        arabTroopCount.put("slinger", 10);
+        arabTroopCount.put("assassin", 10);
+        arabTroopCount.put("horseArcher", 10);
+        arabTroopCount.put("arabianSwordMan", 10);
+        arabTroopCount.put("fireThrower", 10);
     }
 
     public HashMap<String, Integer> engineerGuildTroopCount = new HashMap<>();
 
     {
-        engineerGuildTroopCount.put("engineer", 50);
-        engineerGuildTroopCount.put("ladderMan", 0);
+        engineerGuildTroopCount.put("engineer", 10);
+        engineerGuildTroopCount.put("ladderMan", 10);
         engineerGuildTroopCount.put("tunneler", 10);
     }
 
@@ -953,12 +959,12 @@ public class Empire {
     public HashMap<String, Integer> siegeTentTroopsCount = new HashMap<>();
 
     {
-        siegeTentTroopsCount.put("catapult", 0);
-        siegeTentTroopsCount.put("trebuchet", 2);
-        siegeTentTroopsCount.put("siegeTower", 0);
-        siegeTentTroopsCount.put("fireBallista", 0);
-        siegeTentTroopsCount.put("batteringRam", 2);
-        siegeTentTroopsCount.put("portableShield", 0);
+        siegeTentTroopsCount.put("catapult",10);
+        siegeTentTroopsCount.put("trebuchet", 10);
+        siegeTentTroopsCount.put("siegeTower", 10);
+        siegeTentTroopsCount.put("fireBallista", 10);
+        siegeTentTroopsCount.put("batteringRam", 10);
+        siegeTentTroopsCount.put("portableShield", 10);
     }
 
     public ArrayList<Request> allRequests = new ArrayList<>();
@@ -974,6 +980,7 @@ public class Empire {
     }
 
     public void independentProductionBuilding() {
+        System.out.println(this.getWoodCount());
         if (resourcesCount + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact <= resourcesCapacity) {
             stores.replace("iron", (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact));
             resourcesCount += (int) (stores.get("iron") + productionBuildingRate.get("ironMine") * productionBuildingCount.get("ironMine") * fearWorkerImpact);
