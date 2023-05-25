@@ -3,8 +3,6 @@ package model.Building;
 import model.Empire;
 import model.GroundType;
 
-import javax.print.attribute.standard.MediaSize;
-import java.util.HashMap;
 
 public class Wall extends Building {
     public Wall(Empire government) {
