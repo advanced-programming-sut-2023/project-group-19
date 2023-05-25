@@ -9,7 +9,7 @@ public enum TradeMenuCommands {
     SEND_REQUEST_RESOURCE_TYPE_CHECK(".*-t (?<resourceType>\\S+).*"),
     SEND_REQUEST_RESOURCE_AMOUNT_CHECK(".*-a (?<resourceAmount>-*\\d+).*"),
     SEND_REQUEST_RESOURCE_PRICE_CHECK(".*-p (?<resourcePrice>-*\\S+).*"),
-    SEND_REQUEST_RESOURCE_PRICE_CHECK_VALUE(".*-V (?<resourceValue>-*\\d+).*"),
+    SEND_REQUEST_RESOURCE_PRICE_CHECK_VALUE(".*-v (?<resourceValue>-*\\d+).*"),
     SEND_REQUEST_RESOURCE_MESSAGE_CHECK(".* -m (?<resourceMessage>[^-]+).*"),
     SHOW_TRADE_LIST("trade list"),
     SHOW_TRADE_HISTORY("trade history"),
