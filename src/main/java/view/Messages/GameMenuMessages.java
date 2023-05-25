@@ -26,7 +26,7 @@ public enum GameMenuMessages {
     INVALID_NUMBER_OF_UNITS_TO_DROP("The number you entered is invalid!"),
     NOT_ENOUGH_UNITS_TO_DEPLOY("You don't have enough units with given type to deploy or use!"),
     INVALID_DIRECTION("The given direction is invalid!"),
-    OUT_OF_ARCHER_RANGE("The chosen location is out of archer's range!"),
+    OUT_OF_UNIT_RANGE("The chosen location is out of unit's range!"),
     UNABLE_TO_DIG_UNDER_TOWERS("Tunnelers can't dig under towers or pitch ditch!"),
     VALID_COMMAND("Valid command!"),
     INVALID_COMMAND("Invalid command!"),

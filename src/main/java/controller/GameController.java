@@ -9,7 +9,6 @@ import model.Manage;
 import model.Map;
 import view.Messages.GameMenuMessages;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -154,6 +153,7 @@ public class GameController {
                         archer.archer(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(archer);
                         Map.getTroopMap()[x][y].add(archer);
+                        System.out.println(archer+" "+archer.getEmpire());
                     }
                     return true;
                 } else return false;
@@ -274,6 +274,7 @@ public class GameController {
                         knight.Knight(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(knight);
                         Map.getTroopMap()[x][y].add(knight);
+                        System.out.println(knight.getNames()+" "+knight.getOwner());
                     }
                     return true;
                 } else return false;
@@ -551,7 +552,8 @@ public class GameController {
                                                     }
                                                     removeKilledUnitFromEmpireHashmap(myUnit.getNames().getName(), myUnit.getEmpire());
                                                     Manage.getCurrentEmpire().empireArmy.remove(myUnit);
-                                                    break;
+                                                    k--;
+                                                    continue;
                                                 }
                                                 myUnit.xCoordinate = myUnit.goalXCoordinate;
                                                 myUnit.yCoordinate = myUnit.goalYCoordinate;
@@ -569,10 +571,6 @@ public class GameController {
                                             }
                                         }
                                     }
-                                }
-                                for (Army army : selectedUnit) {
-                                    System.out.println(army.getCurrentX() + " " + army.getCurrentY());
-
                                 }
                                 if (isMyArmyDeployed()) {
                                     return GameMenuMessages.ARMY_DEPLOYED;
@@ -752,13 +750,11 @@ public class GameController {
                         for (Army army : Map.getTroopMap()[xOfPitch][yOfPitch]) {
                             removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
                         }
-                        System.out.println(Map.getBuildingMap()[xOfPitch][yOfPitch].get(0));
                         Map.getTroopMap()[xOfPitch][yOfPitch].clear();
-                        System.out.println(Map.getBuildingMap()[xOfPitch][yOfPitch].size());
                         archer.myPath.clear();
                         return GameMenuMessages.SUCCESS;
                     }
-                    return GameMenuMessages.OUT_OF_ARCHER_RANGE;
+                    return GameMenuMessages.OUT_OF_UNIT_RANGE;
                 }
                 return GameMenuMessages.IMPROPER_UNIT;
             }
@@ -922,7 +918,7 @@ public class GameController {
         int yOfGate = Integer.parseInt(y1.group("y"));
         int index;
         if (validCoordinates(xOfGate, yOfGate)) {
-            if (isBridge(xOfGate, yOfGate)) {
+            if (isGate(xOfGate, yOfGate)) {
                 for (int i = 0; i < Map.wall.length; i++) {
                     for (int j = 0; j < Map.wall[i].length; j++) {
                         if (!Map.getBuildingMap()[i][j].isEmpty() && !Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire())
@@ -941,7 +937,6 @@ public class GameController {
                                         Map.getTroopMap()[xOfLadderMan][yOfLadderMan].add(ladderMan);
                                         ((StoneGateWay) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).flagOfEnemy = true;
                                         Map.notPassable[xOfGate][yOfGate] = false;
-                                        ((DrawBridge) Map.getBuildingMap()[xOfGate][yOfGate].get(0)).bridgeOpen = true;
                                         return GameMenuMessages.SUCCESS;
                                     } else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
                                 }
@@ -955,14 +950,12 @@ public class GameController {
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
-
     private static boolean checkIfWallIsBesideGate(int x, int y, int xOfGate, int yOfGate) {
-        return ((validCoordinates(xOfGate, yOfGate - 1) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate - 1].get(0)))
-                || (validCoordinates(xOfGate, yOfGate + 1) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate + 1].get(0)))
-                || (validCoordinates(xOfGate + 1, yOfGate) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate + 1][yOfGate].get(0)))
-                || (validCoordinates(xOfGate, yOfGate - 1) && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate - 1][yOfGate].get(0))));
+        return ((validCoordinates(xOfGate, yOfGate - 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate - 1].get(0)))
+                || (validCoordinates(xOfGate, yOfGate + 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate + 1].get(0)))
+                || (validCoordinates(xOfGate + 1, yOfGate) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate + 1][yOfGate].get(0)))
+                || (validCoordinates(xOfGate, yOfGate - 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate - 1][yOfGate].get(0))));
     }
-
     private static Army ifLadderManIsAvailable() {
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (army.getNames().getName().equals(Names.LADDER_MEN.getName())) {
@@ -1108,16 +1101,20 @@ public class GameController {
         if (validCoordinates(x, y) && !Map.notPassable[x][y]) {
             if (Map.getBuildingMap()[x][y].isEmpty()) {
                 if (validationOfArmiesType(Names.SPEAR_MEN.getName())) {
-                    String unitMoved = moveUnit(x, y).getMessages();
-                    if (unitMoved.equals(GameMenuMessages.ARMY_DEPLOYED.getMessages())) {
-                        PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
-                        Map.getBuildingMap()[x][y].add(0, pitchDitch);
-                        Map.notPassable[x][y] = false;
-                        Map.notBuildable[x][y] = true;
-                        pitchDitch.digState = true;
-                        selectedUnit.clear();
-                        return GameMenuMessages.SUCCESS;
-                    } else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
+                    int distance = Math.abs(selectedUnit.get(0).getCurrentX() - x) + Math.abs(selectedUnit.get(0).getCurrentY() - y);
+                    if (distance <= 5) {
+                        String unitMoved = moveUnit(x, y).getMessages();
+                        if (unitMoved.equals(GameMenuMessages.ARMY_DEPLOYED.getMessages())) {
+                            PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
+                            Map.getBuildingMap()[x][y].add(0, pitchDitch);
+                            Map.notPassable[x][y] = false;
+                            Map.notBuildable[x][y] = true;
+                            Map.wallPassable[x][y] = true;
+                            pitchDitch.digState = true;
+                            selectedUnit.clear();
+                            return GameMenuMessages.SUCCESS;
+                        } else return GameMenuMessages.ARMY_IN_PROCESS_OF_DEPLOYING;
+                    } else return GameMenuMessages.OUT_OF_UNIT_RANGE;
                 } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
             } else return GameMenuMessages.LOCATION_CONTAINS_BUILDING;
         }

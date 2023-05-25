@@ -61,7 +61,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.yCoordinate = y;
         this.speed = 7;
         this.attackRange = 4;
-        this.attackPower = 200;
+        this.attackPower = 100;
         this.defencePower = 50;
         this.restOfMoves = 7;
     }

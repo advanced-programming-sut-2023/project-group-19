@@ -3,9 +3,7 @@ package controller;
 import controller.Building.BuildingController;
 import controller.Building.FunctionBuildingController;
 import controller.Building.SelectedBuildingController;
-import model.Building.Building;
 import model.Empire;
-import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
@@ -13,7 +11,6 @@ import view.GameMenu;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Formattable;
 import java.util.Scanner;
 
 public class NextTurnController {
@@ -22,14 +19,11 @@ public class NextTurnController {
 
     public String game(Scanner scanner) throws IOException, InterruptedException {
         while (true) {
-            if(Manage.allEmpires.size() == 0){
-                return ("game is balanced!");
-            }
             if (Manage.allEmpires.size() != 1) {
                 GameController gameController = new GameController();
                 setGameController(gameController);
                 findCurrentEmpire();
-                System.out.println("Empire: " + Manage.getCurrentEmpire().getName());
+                System.out.println("Current Empire To Play : " + Manage.getCurrentEmpire().getName());
                 callStartingTurnFunctions(gameController);
                 GameMenu gameMenu = new GameMenu();
                 gameMenu.run(scanner);
@@ -41,7 +35,7 @@ public class NextTurnController {
                 int newScore = oldScore + 100;
                 user.setHighScore(newScore);
                 Collections.sort(User.users);
-                index = 0 ;
+                index = 0;
                 return ("Winner is: " + Manage.allEmpires.get(0).getName());
             }
         }
@@ -84,16 +78,13 @@ public class NextTurnController {
 
     public void playerHasLost() {
         int size = Manage.allEmpires.size();
-        for (int i = size - 1 ; i >= 0; i --) {
+        for (int i = 0; i < size; i++) {
             Empire empire = Manage.allEmpires.get(i);
             boolean isDestroyed = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
             if (isDestroyed) {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
-                if(index > i) index -- ;
-                else if(i == index){
-                    if (index == size - 1) index = 0 ;
-                }
+                if (index != 0) NextTurnController.index--;
                 i--;
                 size--;
             }
