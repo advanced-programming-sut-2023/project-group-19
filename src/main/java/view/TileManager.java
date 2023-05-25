@@ -1,17 +1,25 @@
 package view;
 
+import controller.ShowMapController;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import model.Map;
 import view.Model.NewButton;
+import view.Model.NewRectangle;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,59 +35,48 @@ public class TileManager extends Application {
         tilePane.setTileAlignment(Pos.CENTER);
         tilePane.setPrefColumns(100);
         tilePane.setMaxWidth(10000);
-        ArrayList<Node> list = new ArrayList<>();
+        ArrayList<Shape> list = new ArrayList<>();
         TilePane view  = new TilePane();
         for(int j = 0 ; j < 100 ; j++) {
             for (int i = 0; i < 100; i++) {
-
-                NewButton newButton = new NewButton(j , i);
-                EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if (mouseEvent.getEventType().getName().equals(MouseEvent.MOUSE_DRAGGED.getName())){
-//                            moveTheMap(view,list);
-                            System.out.println("Dragged");
-                        }else {
-                            System.out.println("Clicked");
-                        }
-                    }
-                };
-//                EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//                    @Override
-//                    public void handle(MouseEvent mouseEvent) {
-//                        System.out.println("x : " + newButton.getX() );
-//                        System.out.println("y : " + newButton.getY());
-////                        button.setStyle("-fx-background-color: red;" + "-fx-text-fill: white");
-//                    }
-//                };
-                newButton.setPrefSize(51 , 54);
-                newButton.setFocusTraversable(false);
-                newButton.setOnMouseDragged(event1);
-                newButton.setOnMouseClicked(event1);
+                NewRectangle newButton = new NewRectangle(j , i);
+                newButton.setWidth(100);
+                newButton.setHeight(100);
+//                newButton.setFill(Color.BLUE);
                 list.add(newButton);
             }
         }
 //         width  = 1530
 //         height = 800
-        for(int u = 0 ; u < 16 ; u++){
-            for(int g = 0 ;  g < 30 ; g++ ){
-                ((Button)list.get((u + 3) * 100 + (g + 10))).setBackground(new Background(new BackgroundImage(
-                        new Image(TileManager.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
-                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-                view.getChildren().add(list.get((u + 3) * 100 + (g + 10)));
-            }
-        }
+        Map.CreateMap(200);
+        ShowMapController.showMap(list,view);
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
         double width = resolution.getWidth();
         double height = resolution.getHeight();
         Scene scene = new Scene(view , width-50 , height-50);
-
         stage.setTitle("Tile Pane");
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
     }
-
-    private static void moveTheMap(TilePane view ,ArrayList<Node> list ){
+    private void applyingEventForButton(Button newButton){
+        newButton.setOnMouseClicked(event ->
+        {
+            if(event.getButton() == MouseButton.PRIMARY){
+                //TODO : DEPLOY
+            }
+            if(event.getButton() == MouseButton.SECONDARY){
+                //TODO : ...
+            }
+        });
+        newButton.setOnMouseDragged(event ->
+        {
+            if(event.getButton() == MouseButton.PRIMARY){
+                //TODO : select
+            }
+            if(event.getButton() == MouseButton.SECONDARY){
+                //TODO : move
+            }
+        });
     }
 }

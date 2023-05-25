@@ -230,7 +230,7 @@ public class CreateMapMenu {
         }
         int deltaX = up + down;
         int deltaY = right + left;
-        System.out.println(ShowMapController.moveMap(deltaX, deltaY));
+//        System.out.println(ShowMapController.moveMap(deltaX, deltaY));
 
     }
 
@@ -248,7 +248,7 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
+//        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
 
     }
 
@@ -266,7 +266,7 @@ public class CreateMapMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-        System.out.println(ShowMapController.showDetail(x + 1, y + 1));
+//        System.out.println(ShowMapController.showDetail(x + 1, y + 1));
     }
 
 }
