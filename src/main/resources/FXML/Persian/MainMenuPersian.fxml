@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.MainMenuController"
+            prefHeight="780.0" prefWidth="750.0">
+    <center>
+        <VBox alignment="CENTER" spacing="40" >
+            <Label text="منو اصلی" alignment="CENTER" />
+            <VBox alignment="CENTER" spacing="20">
+                <Button text="بازی جدید" onMouseClicked="#newGame" minWidth="30" maxWidth="200"/>
+                <Button text="ادامه" onMouseClicked="#continueGame" minWidth="30" maxWidth="200"/>
+                <Button text="جدول امتیازات" onMouseClicked="#scoreBoard" minWidth="30" maxWidth="200"/>
+                <Button text="منو پروفیل" onMouseClicked="#profileMenu" minWidth="30" maxWidth="200"/>
+                <Button text="تنظیمات" onMouseClicked="#settings" minWidth="30" maxWidth="200"/>
+                <Button text="خروج" onMouseClicked="#exit" minWidth="30" maxWidth="200"/>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>
