@@ -8,11 +8,17 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
@@ -25,12 +31,13 @@ import view.Model.NewButton;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.PrimitiveIterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class TileManager extends Application {
-
+    //TODO : Show Map ---> Armin's Method
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -46,7 +53,9 @@ public class TileManager extends Application {
 //        tilePane.setPrefColumns(100);
 //        tilePane.setMaxWidth(10000);
         ArrayList<Node> list = new ArrayList<>();
-        for(int j = 0 ; j < 100 ; j++) {
+        ArrayList<NewButton> selectedButtons = new ArrayList<>();
+        TilePane view = new TilePane();
+        for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j , i);
                 setEventHandler(newButton);
