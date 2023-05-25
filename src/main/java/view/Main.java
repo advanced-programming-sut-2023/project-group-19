@@ -7,9 +7,10 @@ import javafx.stage.Stage;
 import view.LoginMenu;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main extends Application {
-    public static void main(String[] args) throws IOException , InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         launch(args);
 //        LoginMenu.run(new Scanner(System.in));
     }
@@ -20,5 +21,6 @@ public class Main extends Application {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
+
     }
 }
