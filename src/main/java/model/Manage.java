@@ -1,7 +1,5 @@
 package model;
 
-import javax.print.attribute.standard.MediaSize;
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class Manage {
