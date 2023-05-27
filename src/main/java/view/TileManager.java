@@ -4,21 +4,30 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Human.Troop.Army;
+import model.Manage;
+import model.Map;
 import view.Model.NewButton;
+
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class TileManager extends Application {
     //TODO : Show Map ---> Armin's Method
+    //TODO : Remove the color of selected buttons in event 5
+    //TODO : Check that selected unit would be empty or not in GameController if it was full
+    // show an error that user should make a decision for them
+    //TODO : Make conditions for event Handlers
+    //TODO : Select Unit must change
+    //TODO : We need a button named : Select which should be on the gameMap to make the selection and deselection easier
+    //TODO : Method which calculates the Production things on a tile
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -31,10 +40,14 @@ public class TileManager extends Application {
     public Pane pane = new Pane();
     public int avgHp;
 
+    public int avgProduction;
+    public int leastProduction;
+    public int mostProduction;
+    public int numberOfMySoldiers;
+
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
-    Rectangle rectangle = null;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -139,35 +152,56 @@ public class TileManager extends Application {
             }
         };
 
-        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED){
+                if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) {
                     PointerInfo a = MouseInfo.getPointerInfo();
                     firstPoint = a.getLocation();
-                    firstPoint.setLocation(a.getLocation().getX(),a.getLocation().getY());
+                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawIsOn = true;
                 }
             }
         };
-        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED && drawIsOn){
+                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED && drawIsOn) {
                     PointerInfo a = MouseInfo.getPointerInfo();
-                    secondPoint.setLocation(a.getLocation().getX(),a.getLocation().getY());
+                    secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
+                    TextInputDialog textInputDialog = new TextInputDialog();
+                    textInputDialog.setHeaderText("Enter the name and number of required army :");
+                    textInputDialog.setContentText("Name of Army: \nNumber:");
+                    Optional<String> result = textInputDialog.showAndWait();
+
                 }
             }
         };
-
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                    selectedButtons.add(newButton);
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    Point b = a.getLocation();
+                    int x = (int) b.getX();
+                    int y = (int) b.getY() - 50;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    numberOfAllSoldiers();
+                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
+                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+                }
+            }
+        };
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
-//        newButton.setOnMouseExited(event2);
-//        newButton.setOnMouseMoved(event3);
+        newButton.setOnMouseExited(event2);
+        newButton.setOnMouseMoved(event3);
     }
 
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
+        selectedButtons.clear();
         int maxX, minX, maxY, minY;
         if (x2 - x1 >= 0) {
             maxX = (int) (x2 / 51.2);
@@ -186,7 +220,8 @@ public class TileManager extends Application {
         for (int j = minY; j <= maxY; j++) {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
-                newButton.setStyle("-fx-background-color: brown");
+                newButton.setStyle("-fx-background-color: #1316aa");
+                selectedButtons.add(newButton);
 
             }
         }
@@ -221,4 +256,31 @@ public class TileManager extends Application {
             }
         }
     }
+
+    public void numberOfAllSoldiers() {
+        for (NewButton selectedButton : selectedButtons) {
+            int x = selectedButton.getX();
+            int y = selectedButton.getY();
+            if (Map.getTroopMap()[x][y].size() != 0) {
+                for (Army army : Map.getTroopMap()[x][y]) {
+                    if (army.getOwner().equals(Manage.getCurrentEmpire())) {
+                        numberOfMySoldiers++;
+                    }
+                }
+            }
+        }
+    }
+
+    public void clearSelectedButtons() {
+        //TODO: if button is selected :
+        selectedButtons.clear();
+    }
+
+    public void removeColorOfSelectedButtons() {
+        for (NewButton selectedButton : selectedButtons) {
+            selectedButton.setStyle("");
+        }
+        drawIsOn = false;
+    }
+
 }
