@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -72,9 +73,7 @@ public class TileManager extends Application {
 
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
-//                ((Button)list.get((u + 3) * 100 + (g + 10))).setBackground(new Background(new BackgroundImage(
-//                        new Image("C:\\Users\\F1\\Desktop\\chert\\ProjectGroup19\\src\\main\\resources\\image\\cegla2.jpg") ,
-//                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
                 NewButton button = (NewButton) list.get((u + 3) * 100 + (g + 10));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
