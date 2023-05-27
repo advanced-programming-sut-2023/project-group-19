@@ -5,10 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Human.Troop.Army;
@@ -40,15 +41,14 @@ public class TileManager extends Application {
     public ArrayList<NewButton> selectedButtons;
     public Pane pane = new Pane();
     public int avgHp;
-
     public int avgProduction;
     public int leastProduction;
     public int mostProduction;
     public int numberOfMySoldiers;
-
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
+    public boolean mouseMoveCanClearHover = true;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -62,6 +62,7 @@ public class TileManager extends Application {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
                 setEventHandler(newButton);
+                applyingEventForButton(newButton);
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
                 list.add(newButton);
@@ -71,9 +72,12 @@ public class TileManager extends Application {
 //         width  = 1530
 //         height = 800
 
+        Background background = new Background(new BackgroundImage(new Image
+                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
-
+//                ((NewButton)list.get((u + 3) * 100 + (g + 10))).setBackground(background);
                 NewButton button = (NewButton) list.get((u + 3) * 100 + (g + 10));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
@@ -116,15 +120,15 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("x : " + newButton.getX());
-                System.out.println("y : " + newButton.getY());
                 newButton.setStyle("-fx-border-color: brown");
             }
         };
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                newButton.setStyle(null);
+                if(selectedButtons.size()<=1) {
+                    newButton.setStyle(null);
+                }
                 showCellData.setText("");
                 pane.getChildren().remove(showCellData);
             }
@@ -154,12 +158,15 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) {
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    firstPoint = a.getLocation();
-                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                    drawIsOn = true;
+                if(!drawIsOn){
+                    removeColorOfSelectedButtons();
                 }
+                PointerInfo a = MouseInfo.getPointerInfo();
+                firstPoint = a.getLocation();
+                firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                drawIsOn = true;
+
+
             }
         };
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
@@ -169,10 +176,11 @@ public class TileManager extends Application {
                     PointerInfo a = MouseInfo.getPointerInfo();
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
-                    TextInputDialog textInputDialog = new TextInputDialog();
-                    textInputDialog.setHeaderText("Enter the name and number of required army :");
-                    textInputDialog.setContentText("Name of Army: \nNumber:");
-                    Optional<String> result = textInputDialog.showAndWait();
+                    drawIsOn = false;
+//                    TextInputDialog textInputDialog = new TextInputDialog();
+//                    textInputDialog.setHeaderText("Enter the name and number of required army :");
+//                    textInputDialog.setContentText("Name of Army: \nNumber:");
+//                    Optional<String> result = textInputDialog.showAndWait();
 
                 }
             }
@@ -219,7 +227,8 @@ public class TileManager extends Application {
         for (int j = minY; j <= maxY; j++) {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
-                newButton.setStyle("-fx-background-color: #1316aa");
+//                newButton.setStyle("-fx-background-color: #1316aa");
+                newButton.setStyle("-fx-border-color: brown");
                 selectedButtons.add(newButton);
 
             }
@@ -281,5 +290,47 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
+    private void applyingEventForButton(NewButton newButton){
+        newButton.setOnMouseClicked(event ->
+        {
+            if(event.getButton() == MouseButton.PRIMARY){
+                //TODO : DEPLOY
+
+            }
+            if(event.getButton() == MouseButton.SECONDARY){
+                //TODO : ...
+
+            }
+        });
+        newButton.setOnMouseDragged(event ->
+        {
+            if(event.getButton() == MouseButton.PRIMARY){
+                //TODO : select
+
+            }
+            if(event.getButton() == MouseButton.SECONDARY){
+                //TODO : move
+
+            }
+        });
+    }
+
+//    public void mouseMovement(){
+//        int x, y;
+//
+//        gridpane.addEventHandler(MouseEvent.MOUSE_MOVED, e ->{
+//            if (e.getX() < x) {
+//                // left
+//            } else if (e.getX() > x) {
+//                // right
+//            } else if (e.getY() < y) {
+//                // up
+//            } else if (e.getY() > y) {
+//                // down
+//            }
+//            x = e.getX();
+//            y = e.getY();
+//        });
+//    }
 
 }
