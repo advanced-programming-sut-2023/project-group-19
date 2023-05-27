@@ -4,9 +4,13 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import view.Model.NewButton;
@@ -26,11 +30,11 @@ public class TileManager extends Application {
     public ArrayList<NewButton> selectedButtons;
     public Pane pane = new Pane();
     public int avgHp;
-    private int x1;
-    private int x2;
-    private int y1;
-    private int y2;
+
+    Point firstPoint = new Point();
+    Point secondPoint = new Point();
     private boolean drawIsOn;
+    Rectangle rectangle = null;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -139,20 +143,20 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED){
-                    x1 = (int) (newButton.getX() % 51.2);
-                    y1 = newButton.getY() % 54;
-                    System.out.println("x1= "+x1+" y1= "+y1);
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    firstPoint = a.getLocation();
+                    firstPoint.setLocation(a.getLocation().getX(),a.getLocation().getY());
+                    drawIsOn = true;
                 }
             }
         };
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED){
-                    x2 = (int) (newButton.getX() % 51.2);
-                    y2 = newButton.getY() % 54;
-                    System.out.println("x2= "+x2+" y2= "+y2);
-                    //drawRec(x1,y1,x2,y2,allButtons);
+                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED && drawIsOn){
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    secondPoint.setLocation(a.getLocation().getX(),a.getLocation().getY());
+                    drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                 }
             }
         };
@@ -164,21 +168,20 @@ public class TileManager extends Application {
     }
 
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
-        System.out.println(x1 + " " + y1 + " " + x2 + " " + y2);
         int maxX, minX, maxY, minY;
         if (x2 - x1 >= 0) {
-            maxX = x2;
-            minX = x1;
+            maxX = (int) (x2 / 51.2);
+            minX = (int) (x1 / 51.2);
         } else {
-            maxX = x1;
-            minX = x2;
+            maxX = (int) (x1 / 51.2);
+            minX = (int) (x2 / 51.2);
         }
         if (y2 - y1 >= 0) {
-            maxY = y2;
-            minY = y1;
+            maxY = y2 / 54;
+            minY = y1 / 54;
         } else {
-            maxY = y1;
-            minY = y2;
+            maxY = y1 / 54;
+            minY = y2 / 54;
         }
         for (int j = minY; j <= maxY; j++) {
             for (int i = minX; i <= maxX; i++) {
