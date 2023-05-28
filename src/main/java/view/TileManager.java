@@ -242,9 +242,6 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    if (newButton.isSelected() && selectedButtons.size() == 1){
-                        newButton.setStyle(null);
-                    }else {
                         if (!drawIsOn) {
                             removeColorOfSelectedButtons();
                         }
@@ -252,8 +249,6 @@ public class TileManager extends Application {
                         firstPoint = a.getLocation();
                         firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                         drawIsOn = true;
-                        newButton.setSelected(true);
-                    }
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                     System.out.println("Hi");
                 }
@@ -280,6 +275,7 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+//                    newButton.setSelected(true);
 //                        selectedButtons.add(newButton);
 //                        newButton.setSelected(true);
 //                        PointerInfo a = MouseInfo.getPointerInfo();
