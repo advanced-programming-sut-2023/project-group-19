@@ -67,13 +67,13 @@ public class TileManager extends Application {
                 list.add(newButton);
             }
         }
-
 //         width  = 1530
 //         height = 800
 
 //        Background background = new Background(new BackgroundImage(new Image
 //                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
 //                ((NewButton)list.get((u + 3) * 100 + (g + 10))).setBackground(background);
@@ -91,20 +91,24 @@ public class TileManager extends Application {
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
         double width = resolution.getWidth();
         double height = resolution.getHeight();
-        view.requestFocus();
-        view.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+        pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
-//                System.out.println(keyName);
+                System.out.println(keyName);
                 if (keyName.equals("Add")) {
 
                 } else if (keyName.equals("Subtract")) {
 
                 }
+                else if (keyName.equals("F1")){
+
+                }
             }
         });
-        pane.getChildren().add(view);
+        pane.requestFocus();
+//        pane.getChildren().add();
         Scene scene = new Scene(pane, width - 50, height - 50);
 
         stage.setTitle("Tile Pane");
@@ -209,9 +213,9 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
-                if(selectedButtons.size() == 1 ) {
-                    newButton.setStyle(null);
-                }
+//                if(selectedButtons.size() == 1 ) {
+//                    newButton.setStyle(null);
+//                }
                 showCellData.setText("");
                 pane.getChildren().remove(showCellData);
             }
@@ -250,7 +254,7 @@ public class TileManager extends Application {
                     firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawIsOn = true;
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                    System.out.println("Hi");
+
                 }
             }
         };
@@ -266,7 +270,8 @@ public class TileManager extends Application {
 //                    textInputDialog.setHeaderText("Enter the name and number of required army :");
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
 //                    Optional<String> result = textInputDialog.showAndWait();
-                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                }
+                else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                     
                 }
             }
