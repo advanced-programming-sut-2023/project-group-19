@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +18,7 @@ import view.Model.NewButton;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TileManager extends Application {
     //TODO : Show Map ---> Armin's Method
@@ -61,8 +60,8 @@ public class TileManager extends Application {
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
-                setEventHandler(newButton);
-                applyingEventForButton(newButton);
+                applyingMouseEventForButton(newButton);
+//                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
                 list.add(newButton);
@@ -114,98 +113,6 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
     }
 
-    public void setEventHandler(NewButton newButton) {
-        selectedButtons = new ArrayList<>();
-
-        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                newButton.setStyle("-fx-border-color: brown");
-            }
-        };
-        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(selectedButtons.size()<=1) {
-                    newButton.setStyle(null);
-                }
-                showCellData.setText("");
-                pane.getChildren().remove(showCellData);
-            }
-        };
-        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                getCellData(newButton);
-                PointerInfo a = MouseInfo.getPointerInfo();
-                Point b = a.getLocation();
-                int x = (int) b.getX();
-                int y = (int) b.getY() - 50;
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n');
-                for (int i = 0; i < cellArmyNameType.size(); i++) {
-                    stringBuilder.append(cellArmyNameType.get(i) + " ");
-                }
-                showCellData.setText(stringBuilder.toString());
-                showCellData.setX(x);
-                showCellData.setY(y);
-                if (showCellData != null && !pane.getChildren().contains(showCellData))
-                    pane.getChildren().add(showCellData);
-            }
-        };
-
-        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(!drawIsOn){
-                    removeColorOfSelectedButtons();
-                }
-                PointerInfo a = MouseInfo.getPointerInfo();
-                firstPoint = a.getLocation();
-                firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                drawIsOn = true;
-
-
-            }
-        };
-        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED && drawIsOn) {
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                    drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
-                    drawIsOn = false;
-//                    TextInputDialog textInputDialog = new TextInputDialog();
-//                    textInputDialog.setHeaderText("Enter the name and number of required army :");
-//                    textInputDialog.setContentText("Name of Army: \nNumber:");
-//                    Optional<String> result = textInputDialog.showAndWait();
-
-                }
-            }
-        };
-        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
-                    selectedButtons.add(newButton);
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    Point b = a.getLocation();
-                    int x = (int) b.getX();
-                    int y = (int) b.getY() - 50;
-                    StringBuilder stringBuilder = new StringBuilder();
-                    numberOfAllSoldiers();
-                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
-                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
-                }
-            }
-        };
-        newButton.setOnMousePressed(event4);
-        newButton.setOnMouseReleased(event5);
-        newButton.setOnMouseExited(event2);
-        newButton.setOnMouseMoved(event3);
-    }
 
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
         selectedButtons.clear();
@@ -290,47 +197,150 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-    private void applyingEventForButton(NewButton newButton){
-        newButton.setOnMouseClicked(event ->
+    private void applyingMouseEventForButton(NewButton newButton){
+        selectedButtons = new ArrayList<>();
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                newButton.setStyle("-fx-border-color: brown");
+            }
+        };
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(selectedButtons.size() == 1 ) {
+                    newButton.setStyle(null);
+                }
+                showCellData.setText("");
+                pane.getChildren().remove(showCellData);
+            }
+        };
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                getCellData(newButton);
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) b.getX();
+                int y = (int) b.getY() - 50;
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
+                        "AVG Speed : " + avgSpeed + '\n');
+                for (int i = 0; i < cellArmyNameType.size(); i++) {
+                    stringBuilder.append(cellArmyNameType.get(i) + " ");
+                }
+                showCellData.setText(stringBuilder.toString());
+                showCellData.setX(x);
+                showCellData.setY(y);
+                if (showCellData != null && !pane.getChildren().contains(showCellData))
+                    pane.getChildren().add(showCellData);
+            }
+        };
+
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!drawIsOn){
+                    removeColorOfSelectedButtons();
+                }
+                PointerInfo a = MouseInfo.getPointerInfo();
+                firstPoint = a.getLocation();
+                firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                drawIsOn = true;
+
+
+            }
+        };
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED && drawIsOn) {
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
+                    drawIsOn = false;
+//                    TextInputDialog textInputDialog = new TextInputDialog();
+//                    textInputDialog.setHeaderText("Enter the name and number of required army :");
+//                    textInputDialog.setContentText("Name of Army: \nNumber:");
+//                    Optional<String> result = textInputDialog.showAndWait();
+
+                }
+            }
+        };
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                    selectedButtons.add(newButton);
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    Point b = a.getLocation();
+                    int x = (int) b.getX();
+                    int y = (int) b.getY() - 50;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    numberOfAllSoldiers();
+                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
+                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+                }
+            }
+        };
+        newButton.setOnMousePressed(event4);
+        newButton.setOnMouseReleased(event5);
+        newButton.setOnMouseExited(event2);
+        newButton.setOnMouseMoved(event3);
+
+        newButton.setOnMouseClicked(newEvent ->
         {
-            if(event.getButton() == MouseButton.PRIMARY){
+            if(newEvent.getButton() == MouseButton.PRIMARY){
+
                 //TODO : DEPLOY
 
             }
-            if(event.getButton() == MouseButton.SECONDARY){
+            if(newEvent.getButton() == MouseButton.SECONDARY){
                 //TODO : ...
 
             }
         });
-        newButton.setOnMouseDragged(event ->
+        newButton.setOnMouseDragged(newEvent ->
         {
-            if(event.getButton() == MouseButton.PRIMARY){
+            if(newEvent.getButton() == MouseButton.PRIMARY){
                 //TODO : select
 
             }
-            if(event.getButton() == MouseButton.SECONDARY){
+            if(newEvent.getButton() == MouseButton.SECONDARY){
                 //TODO : move
 
             }
         });
     }
+    int x , y;
+    public void mouseMovement(){
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        x = (int) b.getX();
+        y = (int) b.getY();
+        pane.setOnMouseMoved((event) -> {
+            PointerInfo a2 = MouseInfo.getPointerInfo();
+            Point b2 = a2.getLocation();
+            int x2 = (int) b2.getX();
+            int y2 = (int) b2.getY();
+            double changeInX = x2 - x;
+            double changeInY = y2 - y;
+            if (changeInX > 0) {
+                System.out.println("moving right");
+            }
+            else if (changeInX < 0) {
+                System.out.println("moving left");
+            }
+            if (changeInY > 0) {
+                System.out.println("moving down");
+            }
+            else if (changeInY < 0) {
+                System.out.println("moving up");
+            }
+            x = x2;
+            y = y2;
+        });
 
-//    public void mouseMovement(){
-//        int x, y;
-//
-//        gridpane.addEventHandler(MouseEvent.MOUSE_MOVED, e ->{
-//            if (e.getX() < x) {
-//                // left
-//            } else if (e.getX() > x) {
-//                // right
-//            } else if (e.getY() < y) {
-//                // up
-//            } else if (e.getY() > y) {
-//                // down
-//            }
-//            x = e.getX();
-//            y = e.getY();
-//        });
-//    }
+    }
 
 }
