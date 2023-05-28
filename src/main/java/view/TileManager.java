@@ -71,9 +71,9 @@ public class TileManager extends Application {
 //         width  = 1530
 //         height = 800
 
-        Background background = new Background(new BackgroundImage(new Image
-                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+//        Background background = new Background(new BackgroundImage(new Image
+//                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
 //                ((NewButton)list.get((u + 3) * 100 + (g + 10))).setBackground(background);
@@ -208,6 +208,7 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
                 if(selectedButtons.size() == 1 ) {
                     newButton.setStyle(null);
                 }
@@ -240,21 +241,23 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(!drawIsOn){
-                    removeColorOfSelectedButtons();
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    if (!drawIsOn) {
+                        removeColorOfSelectedButtons();
+                    }
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    firstPoint = a.getLocation();
+                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    drawIsOn = true;
+                } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                    System.out.println("Hi");
                 }
-                PointerInfo a = MouseInfo.getPointerInfo();
-                firstPoint = a.getLocation();
-                firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                drawIsOn = true;
-
-
             }
         };
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED && drawIsOn) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
                     PointerInfo a = MouseInfo.getPointerInfo();
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
@@ -263,14 +266,15 @@ public class TileManager extends Application {
 //                    textInputDialog.setHeaderText("Enter the name and number of required army :");
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
 //                    Optional<String> result = textInputDialog.showAndWait();
-
+                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                    
                 }
             }
         };
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                     selectedButtons.add(newButton);
                     PointerInfo a = MouseInfo.getPointerInfo();
                     Point b = a.getLocation();
@@ -280,6 +284,8 @@ public class TileManager extends Application {
                     numberOfAllSoldiers();
                     stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
                             "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+                } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                    //Do sth else
                 }
             }
         };
