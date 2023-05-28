@@ -73,7 +73,7 @@ public class TileManager extends Application {
 //         height = 800
 
         background = new Background(new BackgroundImage(new Image
-                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
+                (TileManager.class.getResource("/image/cegla2.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
 
 
