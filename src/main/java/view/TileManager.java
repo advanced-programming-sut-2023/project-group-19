@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -52,7 +53,6 @@ public class TileManager extends Application {
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
-
     @Override
     public void start(Stage stage) throws Exception {
 //        tilePane.setLayoutX(-100);
@@ -64,7 +64,7 @@ public class TileManager extends Application {
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
-                applyingMouseEventForButton(newButton);
+                applyingMouseEventForButton(newButton,stage);
 //                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
@@ -89,7 +89,7 @@ public class TileManager extends Application {
         height = resolution.getHeight();
         pane.requestFocus();
 
-        createViewScene();
+        createViewScene(stage);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -111,7 +111,45 @@ public class TileManager extends Application {
         stage.show();
         stage.setFullScreen(true);
     }
-    public void mouseMovement(int x1, int y1, int x2, int y2) {
+
+    private void setButtonsOfMenus(Stage stage) {
+        javafx.scene.control.Button button = new javafx.scene.control.Button();
+        button.setText("BuildingMenu");
+        button.setLayoutX(0);
+        button.setLayoutY(800);
+        button.setPrefSize(70,70);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                BuildingMenu buildingMenu = new BuildingMenu();
+                try {
+                    buildingMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        javafx.scene.control.Button button1 = new Button();
+        button1.setText("ShopMenu");
+        button1.setLayoutX(70);
+        button1.setLayoutY(800);
+        button1.setPrefSize(70,70);
+        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ShopMenu shopMenu = new ShopMenu();
+                try {
+                    shopMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        pane.getChildren().addAll(button,button1);
+    }
+
+    public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
         int maxX = (int) (x2 / 51.2);
         int minX = (int) (x1 / 51.2);
         int maxY = y2 / 54;
@@ -134,7 +172,7 @@ public class TileManager extends Application {
             moveY = 0;
         }
         pane.getChildren().clear();
-        createViewScene();
+        createViewScene(stage);
         scene.setRoot(pane);
     }
 
@@ -166,7 +204,7 @@ public class TileManager extends Application {
             }
         }
     }
-    public void createViewScene(){
+    public void createViewScene(Stage stage){
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
@@ -178,6 +216,7 @@ public class TileManager extends Application {
                 allButtons[u][g].add(button);
             }
         }
+        setButtonsOfMenus(stage);
     }
 
     public void getCellData(NewButton newButton) {
@@ -235,7 +274,7 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-    private void applyingMouseEventForButton(NewButton newButton){
+    private void applyingMouseEventForButton(NewButton newButton,Stage stage){
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
@@ -311,7 +350,7 @@ public class TileManager extends Application {
                     if (moveIsOn) {
                         PointerInfo a = MouseInfo.getPointerInfo();
                         secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y);
+                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y,stage);
                     }
                 }
             }

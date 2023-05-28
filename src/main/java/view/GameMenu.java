@@ -242,40 +242,6 @@ public class GameMenu extends Application {
         Pane pane = new Pane();
         pane.setPrefSize(1530,800);
         Scene scene = new Scene(pane);
-        Button button = new Button();
-        button.setText("BuildingMenu");
-        button.setLayoutX(700);
-        button.setLayoutY(250);
-        button.setPrefSize(200,70);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                BuildingMenu buildingMenu = new BuildingMenu();
-                try {
-                    buildingMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-        Button button1 = new Button();
-        button1.setText("ShopMenu");
-        button1.setLayoutX(700);
-        button1.setLayoutY(350);
-        button1.setPrefSize(200,70);
-        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ShopMenu shopMenu = new ShopMenu();
-                try {
-                    shopMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        pane.getChildren().addAll(button,button1);
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
