@@ -42,9 +42,12 @@ public class TileManager extends Application {
     public int leastProduction;
     public int mostProduction;
     public int numberOfMySoldiers;
+    public double width;
+    public double height;
     public ArrayList<Node> list = new ArrayList<>();
 
     public Background background;
+    public Scene scene;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
@@ -82,30 +85,21 @@ public class TileManager extends Application {
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-        double width = resolution.getWidth();
-        double height = resolution.getHeight();
+        width = resolution.getWidth();
+        height = resolution.getHeight();
         pane.requestFocus();
 
         createViewScene();
 
-        Scene scene = new Scene(pane, width - 50, height - 50);
+        scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
-                    pane.getChildren().clear();
-                    System.out.println("checked");
-                    moveY++;
-                    createViewScene();
-                    Scene scene = new Scene(pane, width - 50, height - 50);
+
                 } else if (keyName.equals("Subtract")) {
-                    if(moveX + 16 < 100 && moveX >= 0 && moveY + 30 < 100 && moveY >= 0)
-                    pane.getChildren().clear();
-                    System.out.println("eeeeeee");
-                    moveY--;
-                    createViewScene();
-                    Scene scene = new Scene(pane, width - 50, height - 50);
+
                 }
                 else if (keyName.equals("F1")){
                     removeColorOfSelectedButtons();
@@ -116,6 +110,32 @@ public class TileManager extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
+    }
+    public void mouseMovement(int x1, int y1, int x2, int y2) {
+        int maxX = (int) (x2 / 51.2);
+        int minX = (int) (x1 / 51.2);
+        int maxY = y2 / 54;
+        int minY = y1 / 54;
+        moveX += minY - maxY ;
+        moveY += minX - maxX ;
+        System.out.println("test");
+        System.out.println(moveX);
+        System.out.println(moveY);
+        if (moveY + 30 > 100){
+            moveY = 70;
+        }
+        if (moveX + 16 > 100){
+            moveX = 84;
+        }
+        if (moveX < 0 ) {
+            moveX = 0;
+        }
+        if (moveY < 0) {
+            moveY = 0;
+        }
+        pane.getChildren().clear();
+        createViewScene();
+        scene.setRoot(pane);
     }
 
 
@@ -147,6 +167,7 @@ public class TileManager extends Application {
         }
     }
     public void createViewScene(){
+        createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
                 ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(background);
@@ -240,7 +261,7 @@ public class TileManager extends Application {
                 PointerInfo a = MouseInfo.getPointerInfo();
                 Point b = a.getLocation();
                 int x = (int) b.getX();
-                int y = (int) b.getY() - 50;
+                int y = (int) b.getY() - 100;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
                         "AVG Speed : " + avgSpeed + '\n');
@@ -321,26 +342,5 @@ public class TileManager extends Application {
         //newButton.setOnMouseClicked(event6);
     }
 
-    public void mouseMovement(int x1, int y1, int x2, int y2) {
-        int maxX = (int) (x2 / 51.2);
-        int minX = (int) (x1 / 51.2);
-        int maxY = y2 / 54;
-        int minY = y1 / 54;
-        int changeInY = maxX - minX;
-        int changeInX = maxY - minY;
-        System.out.println("change in y: " + changeInY);
-        System.out.println("change in x: " + changeInX);
-        if (changeInY > 0) {
-            System.out.println("moving right");
-        }
-        if (changeInY < 0) {
-            System.out.println("moving left");
-        }
-        if (changeInX > 0) {
-            System.out.println("moving down");
-        }
-        if (changeInX < 0) {
-            System.out.println("moving up");
-        }
-    }
+
 }
