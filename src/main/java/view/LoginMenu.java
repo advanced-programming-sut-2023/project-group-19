@@ -1,6 +1,13 @@
 package view;
 
 import controller.JsonController;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import model.*;
 import controller.LoginController;
 import view.Commands.LoginAndRegisterCommands;
@@ -10,26 +17,26 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class LoginMenu {
+public class LoginMenu extends Application {
     private static int numberToWait = 1;
 
-    public static void run(Scanner scanner) throws InterruptedException, IOException {
-        JsonController.readDataFile("User.json");
-        JsonController.saveAllUsersFileData();
-        isLoggedUser(scanner);
-        System.out.println("Welcome to Login menu!");
-        String command;
-        while (true) {
-            command = scanner.nextLine();
-            if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FOR_REGISTER)) != null) {
-                checkElementsToRegisterUser(command, scanner);
-            } else if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN)) != null) {
-                EnterToLogin(command, scanner);
-            } else if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FORGOT_MY_PASSWORD)) != null) {
-                ForgotPasswordCheck(command, scanner);
-            } else System.out.println("Invalid command!");
-        }
-    }
+//    public static void run(Scanner scanner) throws InterruptedException, IOException {
+//        JsonController.readDataFile("User.json");
+//        JsonController.saveAllUsersFileData();
+//        isLoggedUser(scanner);
+//        System.out.println("Welcome to Login menu!");
+//        String command;
+//        while (true) {
+//            command = scanner.nextLine();
+//            if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FOR_REGISTER)) != null) {
+//                checkElementsToRegisterUser(command, scanner);
+//            } else if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN)) != null) {
+//                EnterToLogin(command, scanner);
+//            } else if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FORGOT_MY_PASSWORD)) != null) {
+//                ForgotPasswordCheck(command, scanner);
+//            } else System.out.println("Invalid command!");
+//        }
+//    }
 
     public static void isLoggedUser(Scanner scanner) throws InterruptedException, IOException {
         JsonController.readDataFile("LoggedInUser.json");
@@ -39,7 +46,7 @@ public class LoginMenu {
             User.setCurrentUser(orgUser);
             User.loginUsers.add(orgUser);
             System.out.println("Login successfully");
-            MainMenu.run(scanner);
+            //MainMenu.run(scanner);
         }
     }
 
@@ -120,7 +127,7 @@ public class LoginMenu {
                 }
                 numberToWait = 1;
                 System.out.println("Login successfully!");
-                MainMenu.run(scanner);
+                //MainMenu.run(scanner);
         }
     }
 
@@ -269,6 +276,33 @@ public class LoginMenu {
         }
         return null;
 
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Main.stage = stage;
+        Pane pane = new Pane();
+        Scene scene = new Scene(pane);
+        Button button = new Button();
+        pane.setPrefSize(1530,800);
+        button.setLayoutX(700);
+        button.setLayoutY(250);
+        button.setPrefSize(200,70);
+        button.setText("Main Menu");
+        pane.getChildren().add(button);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                MainMenu mainMenu = new MainMenu();
+                try {
+                    mainMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        stage.setScene(scene);
+        stage.show();
     }
 }
 

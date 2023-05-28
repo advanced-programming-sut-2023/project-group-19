@@ -10,30 +10,27 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ShopController {
-    public static Empire ownerOfShop = ShopMenu.currentShop.getOwner();
+    public static Empire ownerOfShop = Manage.getCurrentEmpire();
 
-    public void showPriceList() {
+    public String showPriceList() {
+        String string = "";
         System.out.println(ownerOfShop.getGoldCount());
         int number = 1;
-        System.out.println("Attention:");
-        System.out.println("Buying prices are settled for 5 numbers of every good.");
-        System.out.println("Sell prices are settled for every single good.");
+        string = string.concat("Attention:\nBuying prices are settled for 5 numbers of every good.\nSell prices are settled for every single good.");
         for (Map.Entry<String, Integer> goodsForBuying : ShopMenu.currentShop.getListOfGoodsBuyPrice().entrySet()) {
             String nameOfGoodsForBuying = goodsForBuying.getKey();
             for (Map.Entry<String, Integer> goodsForSelling : ShopMenu.currentShop.getListOfGoodsSellPrice().entrySet()) {
                 String nameOfGoodsForSelling = goodsForSelling.getKey();
                 if (nameOfGoodsForBuying.equals(nameOfGoodsForSelling)) {
                     int resourceCount = getNumberOfGoods(nameOfGoodsForBuying, ownerOfShop);
-                    System.out.print(number + ". ");
-                    System.out.println("Name: " + nameOfGoodsForBuying);
-                    System.out.println("\tBuying Price: " + goodsForBuying.getValue());
-                    System.out.println("\tSell Price: " + goodsForSelling.getValue());
-                    System.out.println("\tResource count: " + resourceCount);
+                    string = string.concat(number + ". \n" + "Name: " + nameOfGoodsForBuying + "\n\tBuying Price:"
+                            + goodsForBuying.getValue() + "\n\tSell Price: " + goodsForSelling.getValue() + "\n\tResource count: Infinite");
                     number++;
                     break;
                 }
             }
         }
+        return string;
     }
 
     public ShopMenuMessages buyItem(Matcher itemName, Matcher itemAmount, Scanner scanner) {

@@ -17,29 +17,29 @@ public class NextTurnController {
     public static Empire currentEmpire;
     public static int index;
 
-    public String game(Scanner scanner) throws IOException, InterruptedException {
-        while (true) {
-            if (Manage.allEmpires.size() != 1) {
-                GameController gameController = new GameController();
-                setGameController(gameController);
-                findCurrentEmpire();
-                System.out.println("Current Empire To Play : " + Manage.getCurrentEmpire().getName());
-                callStartingTurnFunctions(gameController);
-                GameMenu gameMenu = new GameMenu();
-                gameMenu.run(scanner);
-                callEndingTurnFunctions(gameController);
-
-            } else {
-                User user = Manage.getAllEmpires().get(0).getUser();
-                int oldScore = user.getHighScore();
-                int newScore = oldScore + 100;
-                user.setHighScore(newScore);
-                Collections.sort(User.users);
-                index = 0;
-                return ("Winner is: " + Manage.allEmpires.get(0).getName());
-            }
-        }
-    }
+//    public String game(Scanner scanner) throws IOException, InterruptedException {
+//        while (true) {
+//            if (Manage.allEmpires.size() != 1) {
+//                GameController gameController = new GameController();
+//                setGameController(gameController);
+//                findCurrentEmpire();
+//                System.out.println("Current Empire To Play : " + Manage.getCurrentEmpire().getName());
+//                callStartingTurnFunctions(gameController);
+//                GameMenu gameMenu = new GameMenu();
+//                gameMenu.run(scanner);
+//                callEndingTurnFunctions(gameController);
+//
+//            } else {
+//                User user = Manage.getAllEmpires().get(0).getUser();
+//                int oldScore = user.getHighScore();
+//                int newScore = oldScore + 100;
+//                user.setHighScore(newScore);
+//                Collections.sort(User.users);
+//                index = 0;
+//                return ("Winner is: " + Manage.allEmpires.get(0).getName());
+//            }
+//        }
+//    }
 
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
