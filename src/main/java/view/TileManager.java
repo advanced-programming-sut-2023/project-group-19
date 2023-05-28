@@ -160,7 +160,7 @@ public class TileManager extends Application {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
 //                newButton.setStyle("-fx-background-color: #1316aa");
-                newButton.setStyle("-fx-border-color: brown");
+                newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
 
             }
