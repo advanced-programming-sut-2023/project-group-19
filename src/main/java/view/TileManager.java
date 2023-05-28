@@ -8,7 +8,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Human.Troop.Army;
@@ -18,23 +17,18 @@ import view.Model.NewButton;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class TileManager extends Application {
     //TODO : Show Map ---> Armin's Method
-    //TODO : Remove the color of selected buttons in event 5
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
-    //TODO : Make conditions for event Handlers
     //TODO : Select Unit must change
-    //TODO : We need a button named : Select which should be on the gameMap to make the selection and deselection easier
     //TODO : Method which calculates the Production things on a tile
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
     public int avgSpeed;
 
-    public TilePane view = new TilePane();
 
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
@@ -47,7 +41,7 @@ public class TileManager extends Application {
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
-    public boolean mouseMoveCanClearHover = true;
+    private boolean moveIsOn;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -55,6 +49,7 @@ public class TileManager extends Application {
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
 //        tilePane.setMaxWidth(10000);
+        TilePane view = new TilePane();
         createButtonsArraylist();
         ArrayList<Node> list = new ArrayList<>();
         for (int j = 0; j < 100; j++) {
@@ -96,11 +91,9 @@ public class TileManager extends Application {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
-//                System.out.println(keyName);
+                System.out.println(keyName);
                 if (keyName.equals("Add")) {
-
                 } else if (keyName.equals("Subtract")) {
-
                 }
             }
         });
@@ -242,15 +235,18 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                        if (!drawIsOn) {
-                            removeColorOfSelectedButtons();
-                        }
-                        PointerInfo a = MouseInfo.getPointerInfo();
-                        firstPoint = a.getLocation();
-                        firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                        drawIsOn = true;
+                    if (!drawIsOn) {
+                        removeColorOfSelectedButtons();
+                    }
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    firstPoint = a.getLocation();
+                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    drawIsOn = true;
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                    System.out.println("Hi");
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    firstPoint = a.getLocation();
+                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    moveIsOn = true;
                 }
             }
         };
@@ -267,7 +263,11 @@ public class TileManager extends Application {
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
 //                    Optional<String> result = textInputDialog.showAndWait();
                 } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-
+                    if (moveIsOn) {
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y);
+                    }
                 }
             }
         };
@@ -275,23 +275,20 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-//                    newButton.setSelected(true);
-//                        selectedButtons.add(newButton);
-//                        newButton.setSelected(true);
-//                        PointerInfo a = MouseInfo.getPointerInfo();
-//                        Point b = a.getLocation();
-//                        int x = (int) b.getX();
-//                        int y = (int) b.getY() - 50;
-//                        StringBuilder stringBuilder = new StringBuilder();
-//                        numberOfAllSoldiers();
-//                        stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
-//                                "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+                    selectedButtons.add(newButton);
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    Point b = a.getLocation();
+                    int x = (int) b.getX();
+                    int y = (int) b.getY() - 50;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    numberOfAllSoldiers();
+                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
+                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                     //Do sth else
                 }
             }
         };
-
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         //newButton.setOnMouseExited(event2);
@@ -299,33 +296,26 @@ public class TileManager extends Application {
         //newButton.setOnMouseClicked(event6);
     }
 
-    int x, y;
-
-    public void mouseMovement() {
-        PointerInfo a = MouseInfo.getPointerInfo();
-        Point b = a.getLocation();
-        x = (int) b.getX();
-        y = (int) b.getY();
-        pane.setOnMouseMoved((event) -> {
-            PointerInfo a2 = MouseInfo.getPointerInfo();
-            Point b2 = a2.getLocation();
-            int x2 = (int) b2.getX();
-            int y2 = (int) b2.getY();
-            double changeInX = x2 - x;
-            double changeInY = y2 - y;
-            if (changeInX > 0) {
-                System.out.println("moving right");
-            } else if (changeInX < 0) {
-                System.out.println("moving left");
-            }
-            if (changeInY > 0) {
-                System.out.println("moving down");
-            } else if (changeInY < 0) {
-                System.out.println("moving up");
-            }
-            x = x2;
-            y = y2;
-        });
+    public void mouseMovement(int x1, int y1, int x2, int y2) {
+        int maxX = (int) (x2 / 51.2);
+        int minX = (int) (x1 / 51.2);
+        int maxY = y2 / 54;
+        int minY = y1 / 54;
+        int changeInY = maxX - minX;
+        int changeInX = maxY - minY;
+        System.out.println("change in y: " + changeInY);
+        System.out.println("change in x: " + changeInX);
+        if (changeInY > 0) {
+            System.out.println("moving right");
+        }
+        if (changeInY < 0) {
+            System.out.println("moving left");
+        }
+        if (changeInX > 0) {
+            System.out.println("moving down");
+        }
+        if (changeInX < 0) {
+            System.out.println("moving up");
+        }
     }
-
 }
