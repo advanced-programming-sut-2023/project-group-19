@@ -41,9 +41,14 @@ public class TileManager extends Application {
     public Pane pane = new Pane();
     public int avgHp;
     public int avgProduction;
+    public int moveX;
+    public int moveY;
     public int leastProduction;
     public int mostProduction;
     public int numberOfMySoldiers;
+    public ArrayList<Node> list = new ArrayList<>();
+
+    public Background background;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
@@ -56,7 +61,7 @@ public class TileManager extends Application {
 //        tilePane.setPrefColumns(100);
 //        tilePane.setMaxWidth(10000);
         createButtonsArraylist();
-        ArrayList<Node> list = new ArrayList<>();
+
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
@@ -64,26 +69,18 @@ public class TileManager extends Application {
 //                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
+                newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
             }
         }
 //         width  = 1530
 //         height = 800
 
-//        Background background = new Background(new BackgroundImage(new Image
-//                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        background = new Background(new BackgroundImage(new Image
+                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
 
-        for (int u = 0; u < 16; u++) {
-            for (int g = 0; g < 30; g++) {
-//                ((NewButton)list.get((u + 3) * 100 + (g + 10))).setBackground(background);
-                NewButton button = (NewButton) list.get((u + 3) * 100 + (g + 10));
-                button.setLayoutX(g * 51.2);
-                button.setLayoutY(u * 54);
-                pane.getChildren().add(list.get((u + 3) * 100 + (g + 10)));
-                allButtons[u][g].add(button);
-            }
-        }
+
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -91,26 +88,34 @@ public class TileManager extends Application {
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
         double width = resolution.getWidth();
         double height = resolution.getHeight();
+        pane.requestFocus();
 
-        pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        createViewScene();
+
+        Scene scene = new Scene(pane, width - 50, height - 50);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
-                System.out.println(keyName);
                 if (keyName.equals("Add")) {
-
+                    pane.getChildren().clear();
+                    System.out.println("checked");
+                    moveY++;
+                    createViewScene();
+                    Scene scene = new Scene(pane, width - 50, height - 50);
                 } else if (keyName.equals("Subtract")) {
-
+                    if(moveX + 16 < 100 && moveX >= 0 && moveY + 30 < 100 && moveY >= 0)
+                    pane.getChildren().clear();
+                    System.out.println("eeeeeee");
+                    moveY--;
+                    createViewScene();
+                    Scene scene = new Scene(pane, width - 50, height - 50);
                 }
                 else if (keyName.equals("F1")){
-
+                    removeColorOfSelectedButtons();
                 }
             }
         });
-        pane.requestFocus();
-//        pane.getChildren().add();
-        Scene scene = new Scene(pane, width - 50, height - 50);
-
         stage.setTitle("Tile Pane");
         stage.setScene(scene);
         stage.show();
@@ -142,6 +147,18 @@ public class TileManager extends Application {
                 newButton.setStyle("-fx-border-color: brown");
                 selectedButtons.add(newButton);
 
+            }
+        }
+    }
+    public void createViewScene(){
+        for (int u = 0; u < 16; u++) {
+            for (int g = 0; g < 30; g++) {
+                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(background);
+                NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
+                button.setLayoutX(g * 51.2);
+                button.setLayoutY(u * 54);
+                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
+                allButtons[u][g].add(button);
             }
         }
     }
@@ -318,7 +335,7 @@ public class TileManager extends Application {
 
             }
             if(newEvent.getButton() == MouseButton.SECONDARY){
-                //TODO : move
+                mouseMovement();
 
             }
         });
@@ -329,7 +346,7 @@ public class TileManager extends Application {
         Point b = a.getLocation();
         x = (int) b.getX();
         y = (int) b.getY();
-        pane.setOnMouseMoved((event) -> {
+        pane.setOnMouseReleased((event) -> {
             PointerInfo a2 = MouseInfo.getPointerInfo();
             Point b2 = a2.getLocation();
             int x2 = (int) b2.getX();
@@ -339,13 +356,13 @@ public class TileManager extends Application {
             if (changeInX > 0) {
                 System.out.println("moving right");
             }
-            else if (changeInX < 0) {
+            if (changeInX < 0) {
                 System.out.println("moving left");
             }
             if (changeInY > 0) {
                 System.out.println("moving down");
             }
-            else if (changeInY < 0) {
+            if (changeInY < 0) {
                 System.out.println("moving up");
             }
             x = x2;
