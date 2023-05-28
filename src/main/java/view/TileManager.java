@@ -197,7 +197,8 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-    private void applyingMouseEventForButton(NewButton newButton){
+
+    private void applyingMouseEventForButton(NewButton newButton) {
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
@@ -208,8 +209,7 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-                if(selectedButtons.size() == 1 ) {
+                if (selectedButtons.size() == 1) {
                     newButton.setStyle(null);
                 }
                 showCellData.setText("");
@@ -242,13 +242,18 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    if (!drawIsOn) {
-                        removeColorOfSelectedButtons();
+                    if (newButton.isSelected() && selectedButtons.size() == 1){
+                        newButton.setStyle(null);
+                    }else {
+                        if (!drawIsOn) {
+                            removeColorOfSelectedButtons();
+                        }
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        firstPoint = a.getLocation();
+                        firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                        drawIsOn = true;
+                        newButton.setSelected(true);
                     }
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    firstPoint = a.getLocation();
-                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                    drawIsOn = true;
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                     System.out.println("Hi");
                 }
@@ -267,7 +272,7 @@ public class TileManager extends Application {
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
 //                    Optional<String> result = textInputDialog.showAndWait();
                 } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                    
+
                 }
             }
         };
@@ -275,51 +280,32 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    selectedButtons.add(newButton);
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    Point b = a.getLocation();
-                    int x = (int) b.getX();
-                    int y = (int) b.getY() - 50;
-                    StringBuilder stringBuilder = new StringBuilder();
-                    numberOfAllSoldiers();
-                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
-                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+//                        selectedButtons.add(newButton);
+//                        newButton.setSelected(true);
+//                        PointerInfo a = MouseInfo.getPointerInfo();
+//                        Point b = a.getLocation();
+//                        int x = (int) b.getX();
+//                        int y = (int) b.getY() - 50;
+//                        StringBuilder stringBuilder = new StringBuilder();
+//                        numberOfAllSoldiers();
+//                        stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
+//                                "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                     //Do sth else
                 }
             }
         };
+
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
-        newButton.setOnMouseExited(event2);
+        //newButton.setOnMouseExited(event2);
         newButton.setOnMouseMoved(event3);
-
-        newButton.setOnMouseClicked(newEvent ->
-        {
-            if(newEvent.getButton() == MouseButton.PRIMARY){
-
-                //TODO : DEPLOY
-
-            }
-            if(newEvent.getButton() == MouseButton.SECONDARY){
-                //TODO : ...
-
-            }
-        });
-        newButton.setOnMouseDragged(newEvent ->
-        {
-            if(newEvent.getButton() == MouseButton.PRIMARY){
-                //TODO : select
-
-            }
-            if(newEvent.getButton() == MouseButton.SECONDARY){
-                //TODO : move
-
-            }
-        });
+        //newButton.setOnMouseClicked(event6);
     }
-    int x , y;
-    public void mouseMovement(){
+
+    int x, y;
+
+    public void mouseMovement() {
         PointerInfo a = MouseInfo.getPointerInfo();
         Point b = a.getLocation();
         x = (int) b.getX();
@@ -333,20 +319,17 @@ public class TileManager extends Application {
             double changeInY = y2 - y;
             if (changeInX > 0) {
                 System.out.println("moving right");
-            }
-            else if (changeInX < 0) {
+            } else if (changeInX < 0) {
                 System.out.println("moving left");
             }
             if (changeInY > 0) {
                 System.out.println("moving down");
-            }
-            else if (changeInY < 0) {
+            } else if (changeInY < 0) {
                 System.out.println("moving up");
             }
             x = x2;
             y = y2;
         });
-
     }
 
 }

@@ -13,6 +13,7 @@ public class NewButton extends Button {
     private int y;
     private Building building;
     private ArrayList<Army> army = new ArrayList<>();
+    private boolean isSelected = false;
 
     public NewButton(int x, int y) {
         super();
@@ -50,5 +51,13 @@ public class NewButton extends Button {
 
     public void setArmy(ArrayList<Army> army) {
         this.army = army;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
