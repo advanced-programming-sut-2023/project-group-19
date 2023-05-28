@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Human.Troop.Army;
@@ -29,15 +30,21 @@ public class TileManager extends Application {
     public int avgDamage;
     public int avgSpeed;
 
+    public TilePane view = new TilePane();
 
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
     public Pane pane = new Pane();
     public int avgHp;
     public int avgProduction;
+    public int moveX;
+    public int moveY;
     public int leastProduction;
     public int mostProduction;
     public int numberOfMySoldiers;
+    public ArrayList<Node> list = new ArrayList<>();
+
+    public Background background;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
@@ -49,9 +56,8 @@ public class TileManager extends Application {
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
 //        tilePane.setMaxWidth(10000);
-        TilePane view = new TilePane();
         createButtonsArraylist();
-        ArrayList<Node> list = new ArrayList<>();
+
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
@@ -59,26 +65,18 @@ public class TileManager extends Application {
 //                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
+                newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
             }
         }
-
 //         width  = 1530
 //         height = 800
 
-//        Background background = new Background(new BackgroundImage(new Image
-//                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
-        for (int u = 0; u < 16; u++) {
-            for (int g = 0; g < 30; g++) {
-//                ((NewButton)list.get((u + 3) * 100 + (g + 10))).setBackground(background);
-                NewButton button = (NewButton) list.get((u + 3) * 100 + (g + 10));
-                button.setLayoutX(g * 51.2);
-                button.setLayoutY(u * 54);
-                pane.getChildren().add(list.get((u + 3) * 100 + (g + 10)));
-                allButtons[u][g].add(button);
-            }
-        }
+        background = new Background(new BackgroundImage(new Image
+                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -86,20 +84,34 @@ public class TileManager extends Application {
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
         double width = resolution.getWidth();
         double height = resolution.getHeight();
-        view.requestFocus();
-        view.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        pane.requestFocus();
+
+        createViewScene();
+
+        Scene scene = new Scene(pane, width - 50, height - 50);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
-                System.out.println(keyName);
                 if (keyName.equals("Add")) {
+                    pane.getChildren().clear();
+                    System.out.println("checked");
+                    moveY++;
+                    createViewScene();
+                    Scene scene = new Scene(pane, width - 50, height - 50);
                 } else if (keyName.equals("Subtract")) {
+                    if(moveX + 16 < 100 && moveX >= 0 && moveY + 30 < 100 && moveY >= 0)
+                    pane.getChildren().clear();
+                    System.out.println("eeeeeee");
+                    moveY--;
+                    createViewScene();
+                    Scene scene = new Scene(pane, width - 50, height - 50);
+                }
+                else if (keyName.equals("F1")){
+                    removeColorOfSelectedButtons();
                 }
             }
         });
-        pane.getChildren().add(view);
-        Scene scene = new Scene(pane, width - 50, height - 50);
-
         stage.setTitle("Tile Pane");
         stage.setScene(scene);
         stage.show();
@@ -131,6 +143,18 @@ public class TileManager extends Application {
                 newButton.setStyle("-fx-border-color: brown");
                 selectedButtons.add(newButton);
 
+            }
+        }
+    }
+    public void createViewScene(){
+        for (int u = 0; u < 16; u++) {
+            for (int g = 0; g < 30; g++) {
+                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(background);
+                NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
+                button.setLayoutX(g * 51.2);
+                button.setLayoutY(u * 54);
+                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
+                allButtons[u][g].add(button);
             }
         }
     }
@@ -190,8 +214,7 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-
-    private void applyingMouseEventForButton(NewButton newButton) {
+    private void applyingMouseEventForButton(NewButton newButton){
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
@@ -202,9 +225,10 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (selectedButtons.size() == 1) {
-                    newButton.setStyle(null);
-                }
+
+//                if(selectedButtons.size() == 1 ) {
+//                    newButton.setStyle(null);
+//                }
                 showCellData.setText("");
                 pane.getChildren().remove(showCellData);
             }
@@ -289,6 +313,7 @@ public class TileManager extends Application {
                 }
             }
         };
+
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         //newButton.setOnMouseExited(event2);
