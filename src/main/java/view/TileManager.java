@@ -49,6 +49,7 @@ public class TileManager extends Application {
     Point secondPoint = new Point();
     private boolean drawIsOn;
     public boolean mouseMoveCanClearHover = true;
+    boolean isSelected = false;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -73,7 +74,7 @@ public class TileManager extends Application {
 //         height = 800
 
         Background background = new Background(new BackgroundImage(new Image
-                ("C:\\Users\\F1\\Desktop\\AP\\PROJECT\\project-group-19\\src\\main\\resources\\image\\cegla2.jpg"),
+                (TileManager.class.getResource("/image/cegla2.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
@@ -126,11 +127,12 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(selectedButtons.size()<=1) {
+                //if (!checkIfMouseIsInsideButton(newButton,MouseInfo.getPointerInfo())) {
+                    System.out.println("It returned true");
                     newButton.setStyle(null);
-                }
-                showCellData.setText("");
-                pane.getChildren().remove(showCellData);
+                    showCellData.setText("");
+                    pane.getChildren().remove(showCellData);
+                //}
             }
         };
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
@@ -158,15 +160,13 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(!drawIsOn){
+                if (!drawIsOn) {
                     removeColorOfSelectedButtons();
                 }
                 PointerInfo a = MouseInfo.getPointerInfo();
                 firstPoint = a.getLocation();
                 firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                 drawIsOn = true;
-
-
             }
         };
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
@@ -177,6 +177,7 @@ public class TileManager extends Application {
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                     drawIsOn = false;
+                    isSelected = false;
 //                    TextInputDialog textInputDialog = new TextInputDialog();
 //                    textInputDialog.setHeaderText("Enter the name and number of required army :");
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
@@ -290,25 +291,26 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-    private void applyingEventForButton(NewButton newButton){
+
+    private void applyingEventForButton(NewButton newButton) {
         newButton.setOnMouseClicked(event ->
         {
-            if(event.getButton() == MouseButton.PRIMARY){
+            if (event.getButton() == MouseButton.PRIMARY) {
                 //TODO : DEPLOY
 
             }
-            if(event.getButton() == MouseButton.SECONDARY){
+            if (event.getButton() == MouseButton.SECONDARY) {
                 //TODO : ...
 
             }
         });
         newButton.setOnMouseDragged(event ->
         {
-            if(event.getButton() == MouseButton.PRIMARY){
+            if (event.getButton() == MouseButton.PRIMARY) {
                 //TODO : select
 
             }
-            if(event.getButton() == MouseButton.SECONDARY){
+            if (event.getButton() == MouseButton.SECONDARY) {
                 //TODO : move
 
             }
@@ -332,5 +334,25 @@ public class TileManager extends Application {
 //            y = e.getY();
 //        });
 //    }
+
+    public boolean checkIfMouseIsInsideButton(NewButton newButton, PointerInfo pointerInfo) {
+        double floorX, floorY, ceilX, ceilY;
+        floorX = newButton.getX() - (newButton.getWidth() / 2);
+        floorY = newButton.getY() - (newButton.getHeight() / 2);
+        ceilX = floorX + newButton.getWidth() + (newButton.getWidth() / 2);
+        ceilY = floorY + newButton.getHeight() + (newButton.getHeight() / 2);
+        if (floorX < 0) {
+            floorX = 0;
+        }
+        if (floorY < 0) {
+            floorY = 0;
+        }
+        pointerInfo = MouseInfo.getPointerInfo();
+        Point mouseInfo = pointerInfo.getLocation();
+        int x = (int) (mouseInfo.getX() / 51.2);
+        int y = (int) (mouseInfo.getY() / 54);
+        return (x >= floorX && x <= ceilX) &&
+                (y >= floorY && y <= ceilY);
+    }
 
 }
