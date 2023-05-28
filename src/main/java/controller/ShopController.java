@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ShopController {
-    public static Empire ownerOfShop = Manage.getCurrentEmpire();
+    public Empire ownerOfShop = ShopMenu.currentShop.getOwner();
 
     public String showPriceList() {
         String string = "";

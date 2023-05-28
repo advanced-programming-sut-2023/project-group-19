@@ -24,7 +24,7 @@ public class SelectedBuildingMenu {
         String buildingName = selectedBuilding.getNameEnum().getName();
 //        if (buildingName.equals("Shop")) {
 //            ShopMenu shopMenu = new ShopMenu();
-//            shopMenu.run(scanner, (Shop) selectedBuilding);
+//            shopMenu.start(scanner, (Shop) selectedBuilding);
 //            return;
 //        }
         System.out.println("Welcome to SelectedBuildingMenu!");
