@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Building.Shop;
+import model.Map;
 import view.Commands.ShopMenuCommands;
 import view.Controllers.ShopMenuController;
 import view.Messages.ShopMenuMessages;
@@ -67,6 +68,7 @@ public class ShopMenu extends Application {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
+        stage.setFullScreen(true);
     }
 
     public void designShopMenu(ShopController shopController , Pane pane){
