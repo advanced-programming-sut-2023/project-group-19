@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="view.LoginMenu"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox alignment="CENTER" spacing="20" translateX="700" translateY="240">
+        <Label text="Enter your username"/>
+        <TextField fx:id="username"  promptText="Username"/>
+    <HBox>
+        <TextField fx:id="passwordShow" visible="hide" promptText="Password"/>
+    </HBox>
+        <TextField fx:id="email"  promptText="Email"/>
+        <TextField fx:id="nickname" promptText="Nickname"/>
+        <TextField fx:id="slogan" visible="false" promptText="slogan"/>
+        <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>
+    </VBox>
+    <PasswordField fx:id="passwordHide" promptText="Password" translateX="700" translateY="322.8"/>
+    <CheckBox translateY="329" translateX="870" onMouseClicked="#showAndHidePassword"/>
+
+
+</Pane>
