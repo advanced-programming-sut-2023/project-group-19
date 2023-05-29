@@ -5,7 +5,7 @@ import model.Empire;
 import model.Manage;
 import model.Map;
 import view.Messages.BuildingMessages;
-import view.SelectedBuildingMenu;
+import view.OldView.SelectedBuildingMenu;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;

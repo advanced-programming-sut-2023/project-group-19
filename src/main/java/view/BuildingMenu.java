@@ -23,6 +23,7 @@ public class BuildingMenu extends Application {
         Main.stage = stage;
         Pane pane = new Pane();
         Scene scene = new Scene(pane);
+        pane.setPrefSize(1530,800);
         stage.setScene(scene);
         stage.show();
     }
