@@ -13,6 +13,10 @@ public class BottomBarImages {
     public Image food;
     public Image shield;
     public Image sickle;
+    public Image key;
+    public Image exclamation;
+    public Image close;
+    public Image undo;
     public Image bottomCoverImage;
     public Image bottomSideCoverImage;
     public void loadImages(){
@@ -28,6 +32,10 @@ public class BottomBarImages {
         home = new Image(TileManager.class.getResource("/image/BottomBar/home.png").toExternalForm());
         shield = new Image(TileManager.class.getResource("/image/BottomBar/shield.png").toExternalForm());
         sickle = new Image(TileManager.class.getResource("/image/BottomBar/sickle.png").toExternalForm());
+        key = new Image(TileManager.class.getResource("/image/BottomBar/key.png").toExternalForm());
+        exclamation = new Image(TileManager.class.getResource("/image/BottomBar/exclamation-mark.png").toExternalForm());
+        close = new Image(TileManager.class.getResource("/image/BottomBar/close.png").toExternalForm());
+        undo = new Image(TileManager.class.getResource("/image/BottomBar/undo.png").toExternalForm());
     }
 
     public Background getBackground() {
@@ -108,5 +116,37 @@ public class BottomBarImages {
 
     public void setBottomSideCoverImage(Image bottomSideCoverImage) {
         this.bottomSideCoverImage = bottomSideCoverImage;
+    }
+
+    public Image getKey() {
+        return key;
+    }
+
+    public void setKey(Image key) {
+        this.key = key;
+    }
+
+    public Image getExclamation() {
+        return exclamation;
+    }
+
+    public void setExclamation(Image exclamation) {
+        this.exclamation = exclamation;
+    }
+
+    public Image getClose() {
+        return close;
+    }
+
+    public void setClose(Image close) {
+        this.close = close;
+    }
+
+    public Image getUndo() {
+        return undo;
+    }
+
+    public void setUndo(Image undo) {
+        this.undo = undo;
     }
 }
