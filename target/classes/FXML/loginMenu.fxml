@@ -27,8 +27,8 @@
     <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword"/>
 
     <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling" visible="false">
-        <Label style="-fx-color-label-visible: red" fx:id="usernameError" text="random text 1"/>
-        <Label style="-fx-color-label-visible: red" fx:id="passwordError" text="random text 2"/>
+        <Label style="-fx-text-fill: red" fx:id="usernameError" text="random text 1"/>
+        <Label style="-fx-text-fill: red" fx:id="passwordError" text="random text 2"/>
         <Label style="-fx-text-fill: red" fx:id="emailError" text="random text 3"/>
         <Label style="-fx-text-fill: red" fx:id="nicknameError" text="random text 4"/>
         <Label style="-fx-text-fill: red" fx:id="sloganError" text="random text 5"/>
