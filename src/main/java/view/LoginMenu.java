@@ -288,12 +288,18 @@ public class LoginMenu extends Application {
             captchaBox.setVisible(true);
         }
     }
-
     public void anotherCaptcha(MouseEvent mouseEvent) {
         captchaNumber = LoginController.setImageCaptcha(captchaImage);
     }
 
     public void submitWholeRegister(MouseEvent mouseEvent) throws Exception {
         if(answerOfCaptcha.getText().equals(captchaNumber)) stepOneRegister(true);
+        else {
+            captchaNumber = LoginController.setImageCaptcha(captchaImage);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Your input is wrong");
+            alert.show();
+        }
     }
 }
