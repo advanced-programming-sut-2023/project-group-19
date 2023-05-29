@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Building.Shop;
+import model.Manage;
 import model.Map;
 import view.Commands.ShopMenuCommands;
 import view.Controllers.ShopMenuController;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ShopMenu extends Application {
-    public static Shop currentShop;
+    public static Shop currentShop ;
     @Override
     public void start(Stage stage) throws Exception {
         ShopController shopController = new ShopController();

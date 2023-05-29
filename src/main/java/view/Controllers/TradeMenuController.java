@@ -1,34 +1,68 @@
 package view.Controllers;
 
-import controller.TradeController;
-import javafx.application.Application;
-import javafx.scene.Scene;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import view.Main;
-import view.OldView.TradeMenu;
+import view.ImageAndBackground.TradeAndShopImages;
+import view.SendRequestMenu;
+import view.ShowTradesMenu;
 
 public class TradeMenuController {
 
+    public TradeAndShopImages tradeAndShopImages =  new TradeAndShopImages();
+
 
     public void designTradeMenu(TradeMenuController tradeController, Pane pane, Stage stage) {
+        tradeAndShopImages.loadImages();
+        ImageView background = new ImageView(tradeAndShopImages.getBackground());
         Button createRequest = new Button();
         Button viewPrevRequests = new Button();
-        createRequest.setPrefSize(200 , 30);
-        viewPrevRequests.setPrefSize(200,30);
+        createRequest.setPrefSize(400 , 300);
+        viewPrevRequests.setPrefSize(400,300);
         createRequest.setLayoutX(250);
-        createRequest.setLayoutY(450);
-        viewPrevRequests.setLayoutX(750);
-        viewPrevRequests.setLayoutY(450);
-        createRequest.setStyle("-fx-background-color: #cba883");
-        viewPrevRequests.setStyle("-fx-background-color: #cba883");
-        createRequest.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
-        viewPrevRequests.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
-        pane.getChildren().addAll(createRequest,viewPrevRequests);
+        createRequest.setLayoutY(250);
+        viewPrevRequests.setLayoutX(850);
+        viewPrevRequests.setLayoutY(250);
+        createRequest.setBackground(null);
+        viewPrevRequests.setBackground(null);
+        ImageView createRequestView = new ImageView(tradeAndShopImages.getSendRequest());
+        ImageView prevRequestView = new ImageView(tradeAndShopImages.getViewPreviousTrades());
+        createRequestView.setFitHeight(300);
+        createRequestView.setFitWidth(400);
+        prevRequestView.setFitHeight(300);
+        prevRequestView.setFitWidth(400);
+        createRequest.setGraphic(createRequestView);
+        viewPrevRequests.setGraphic(prevRequestView);
+        setActionOfButtons(createRequest,viewPrevRequests,stage);
+        pane.getChildren().addAll(background,createRequest,viewPrevRequests);
+    }
+
+    public void setActionOfButtons(Button createRequest , Button viewPrevRequest,Stage stage){
+        createRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                SendRequestMenu sendRequestMenu = new SendRequestMenu();
+                try {
+                    sendRequestMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+         viewPrevRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
+             @Override
+             public void handle(MouseEvent mouseEvent) {
+                 ShowTradesMenu showTradesMenu = new ShowTradesMenu();
+                 try {
+                     showTradesMenu.start(stage);
+                 } catch (Exception e) {
+                     throw new RuntimeException(e);
+                 }
+             }
+         });
 
     }
 }

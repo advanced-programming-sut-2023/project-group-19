@@ -20,12 +20,10 @@ public class TradeController {
         }
     }
 
-    public TradeMenuMessages sendRequest(Matcher resourceType, Matcher resourceAmount, Matcher cost, Matcher message,Matcher value) {
-        int amount = Integer.parseInt(resourceAmount.group("resourceAmount"));
-        int price = Integer.parseInt(cost.group("resourcePrice"));
-        String goodType = resourceType.group("resourceType");
-        String messageOfRequest = message.group("resourceMessage");
-        String valueOfRequest = value.group("resourceValue");
+    public TradeMenuMessages sendRequest(String goodType, int amount, String messageOfRequest) {
+        String[] values = messageOfRequest.split(" ");
+        String valueOfRequest = values[0];
+        int price = Integer.parseInt(values[1]);
         if (selectedEmpire != null) {
             if (typeOfResources(goodType)) {
                 if (getNumberOfGoods(valueOfRequest,currentEmpire) >= price) {
@@ -47,16 +45,6 @@ public class TradeController {
         return empire.getName().concat(String.valueOf(number));
     }
 
-    public TradeMenuMessages setSelectedEmpire(Matcher empireName) {
-        String name = empireName.group("name");
-        for (int i = 0; i < Manage.getAllEmpires().size(); i++) {
-            if (Manage.getAllEmpires().get(i).getName().equals(name)) {
-                selectedEmpire = Manage.getAllEmpires().get(i);
-                return TradeMenuMessages.EMPIRE_CHOSEN_SUCCESSFULLY;
-            }
-        }
-        return TradeMenuMessages.INVALID_EMPIRE;
-    }
 
     public void showDonations() {
         int number = 1;
