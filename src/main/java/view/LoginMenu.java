@@ -294,6 +294,6 @@ public class LoginMenu extends Application {
     }
 
     public void submitWholeRegister(MouseEvent mouseEvent) throws Exception {
-        stepOneRegister(true);
+        if(answerOfCaptcha.getText().equals(captchaNumber)) stepOneRegister(true);
     }
 }
