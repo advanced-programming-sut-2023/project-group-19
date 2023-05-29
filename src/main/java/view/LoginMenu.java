@@ -5,25 +5,31 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import model.*;
 import controller.LoginController;
 import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
+import java.awt.*;
+import java.awt.geom.QuadCurve2D;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu extends Application {
+    public Stage stage ;
     public TextField email;
     public TextField nickname;
     public TextField slogan;
@@ -39,6 +45,14 @@ public class LoginMenu extends Application {
     public Label nicknameError;
     public Label sloganError;
     public VBox vBoxErrorHandling;
+    public RadioButton Q1;
+    public RadioButton Q2;
+    public RadioButton Q3;
+    public TextField answer;
+    public VBox secQestionVbox;
+    public VBox captchaBox;
+    public ImageView captchaImage;
+    public TextField answerOfCaptcha;
     //    public CheckBox check;
     @FXML
     private TextField username;
@@ -46,21 +60,44 @@ public class LoginMenu extends Application {
 
     @FXML
     private Label label;
-
+    public ToggleGroup toggleGroup ;
     public static void main(String[] args) {
         launch();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        this.stage = stage  ;
         URL url = LoginMenu.class.getResource("/fxml/loginMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         this.pane = pane;
+        addPopup();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
+    }
+//    public VBox createVboxAnsStructure(Popup popup){
+//
+////        root.setBackground(new Color(red));
+//        return root ;
+//    }
+
+    public void addPopup(){
+        Popup popup = new Popup();
+        Button button = new Button();
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (!popup.isShowing())
+                    popup.show(stage);
+                else
+                    popup.hide();
+            }
+        });
+        pane.getChildren().add(button);
+//        popup.getContent().add(createVboxAnsStructure(popup));
+        popup.show(stage);
     }
 
     public void showAndHidePassword() {
@@ -84,7 +121,10 @@ public class LoginMenu extends Application {
         ListenerToPassword();
     }
 
-    private void checkPasswordError(Label label, String password) {
+    private void checkPasswordError(Label label,String textSucess) {
+        String password ;
+        if(passwordHide.isVisible()) password = passwordHide.getText();
+        else password = passwordShow.getText();
         RegisterMessages messages = LoginController.checkPassword(password);
         String text = null;
         switch (messages) {
@@ -107,7 +147,7 @@ public class LoginMenu extends Application {
                 text = "You should use characters except alphabetical!";
                 break;
             case SUCCESS:
-                text = "Fill register form";
+                text = textSucess;
                 break;
         }
         label.setText(text);
@@ -115,10 +155,10 @@ public class LoginMenu extends Application {
 
     private void ListenerToPassword() {
         passwordShow.textProperty().addListener((observable, oldText, newText) -> {
-            checkPasswordError(label, newText);
+            checkPasswordError(label,"Fill register form");
         });
         passwordHide.textProperty().addListener((observable, oldText, newText) -> {
-            checkPasswordError(label, newText);
+            checkPasswordError(label,"Fill register form");
         });
 
     }
@@ -152,15 +192,35 @@ public class LoginMenu extends Application {
         if (slogan.getText().equals("")) sloganError.setText("Empty field");
         else sloganError.setText("");
     }
-    public void submit(MouseEvent mouseEvent) {
+    public void submit(MouseEvent mouseEvent) throws Exception {
         usernameError(usernameError,"");
         checkPasswordError(passwordError,"");
         checkEmail();
         nicknameError();
         sloganCheck();
         vBoxErrorHandling.setVisible(true);
+        checkRegisterSucess();
 
     }
+
+    private void checkRegisterSucess() throws Exception {
+        if(usernameError.getText().equals("") &&
+            passwordError.getText().equals("") &&
+                emailError.getText().equals("") &&
+                sloganError.getText().equals("") ) {
+            askQuestionShow();
+        }
+
+    }
+
+    private void askQuestionShow() {
+        toggleGroup = new ToggleGroup();
+        Q1.setToggleGroup(toggleGroup);
+        Q2.setToggleGroup(toggleGroup);
+        Q3.setToggleGroup(toggleGroup);
+        secQestionVbox.setVisible(true);
+    }
+
     public void usernameError(Label label,String textSuccess){
         String newText =  username.getText();
         RegisterMessages messages = LoginController.checkUsername(newText);
@@ -203,4 +263,10 @@ public class LoginMenu extends Application {
                 break;
         }
     }
+    public void closePopup(MouseEvent mouseEvent) {
+        if(!answer.getText().equals("") && toggleGroup.getSelectedToggle() != null) {
+            secQestionVbox.setVisible(false);
+        }
+    }
+    
 }
