@@ -16,7 +16,7 @@
         <TextField fx:id="passwordShow" visible="false" promptText="Password"/>
         <TextField fx:id="email"  promptText="Email"/>
         <TextField fx:id="nickname" promptText="Nickname"/>
-        <TextField fx:id="slogan" text="empty" visible="true" promptText="slogan"/>
+        <TextField fx:id="slogan" text="empty" visible="false" promptText="slogan"/>
         <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan"/>
         <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>
         <Button onMouseClicked="#submit" text="submit"/>
@@ -27,11 +27,11 @@
     <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword"/>
 
     <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling" visible="false">
-        <Label fx:id="usernameError" text="random text 1"/>
-        <Label fx:id="passwordError" text="random text 2"/>
-        <Label fx:id="emailError" text="random text 3"/>
-        <Label fx:id="nicknameError" text="random text 4"/>
-        <Label fx:id="sloganError" text="random text 5"/>
+        <Label style="-fx-color-label-visible: red" fx:id="usernameError" text="random text 1"/>
+        <Label style="-fx-color-label-visible: red" fx:id="passwordError" text="random text 2"/>
+        <Label style="-fx-text-fill: red" fx:id="emailError" text="random text 3"/>
+        <Label style="-fx-text-fill: red" fx:id="nicknameError" text="random text 4"/>
+        <Label style="-fx-text-fill: red" fx:id="sloganError" text="random text 5"/>
     </VBox>
 
 
