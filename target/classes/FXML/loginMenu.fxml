@@ -34,12 +34,12 @@
         <TextField fx:id="answer" promptText="answer question" maxWidth="100"/>
         <Button text="submit" onMouseClicked="#closePopup"/>
     </VBox>
-    <VBox fx:id="captchaBox" spacing="20" alignment="CENTER" translateY="240" translateX="250">
+    <VBox visible="false" fx:id="captchaBox" spacing="20" alignment="CENTER" translateY="240" translateX="250">
+        <ImageView fx:id="captchaImage"/>
         <HBox spacing="20">
-            <ImageView fx:id="captchaImage"/>
-            <Button text="again"/>
+            <TextField fx:id="answerOfCaptcha" maxWidth="100"/>
+            <Button text="again" onMouseClicked="#anotherCaptcha"/>
         </HBox>
-        <TextField fx:id="answerOfCaptcha" maxWidth="100"/>
     </VBox>
 
     <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling" visible="false">

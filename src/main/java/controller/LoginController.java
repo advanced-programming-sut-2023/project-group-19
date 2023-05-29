@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.*;
 
 import model.User;
@@ -180,5 +182,14 @@ public class LoginController {
 //            System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
         return null;
+    }
+
+    public static String setImageCaptcha(ImageView captchaImage) {
+        Random random = new Random();
+        int index = random.nextInt(User.getCaptchas().size());
+        String number = User.getCaptchas().get(index);
+        Image image = new Image(LoginController.class.getResource("/captcha/" + number + ".png").toExternalForm());
+        captchaImage.setImage(image);
+        return number ;
     }
 }

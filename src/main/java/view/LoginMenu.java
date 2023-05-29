@@ -61,6 +61,7 @@ public class LoginMenu extends Application {
     @FXML
     private Label label;
     public ToggleGroup toggleGroup ;
+    public String captchaNumber ;
     public static void main(String[] args) {
         launch();
     }
@@ -193,24 +194,41 @@ public class LoginMenu extends Application {
         else sloganError.setText("");
     }
     public void submit(MouseEvent mouseEvent) throws Exception {
+        stepOneRegister(false);
+    }
+    public void stepOneRegister(boolean isEnd) throws Exception {
         usernameError(usernameError,"");
         checkPasswordError(passwordError,"");
         checkEmail();
         nicknameError();
         sloganCheck();
-        vBoxErrorHandling.setVisible(true);
-        checkRegisterSucess();
-
+        if(!isEnd) vBoxErrorHandling.setVisible(true);
+        checkRegisterSucess(isEnd);
     }
 
-    private void checkRegisterSucess() throws Exception {
+    private void checkRegisterSucess(boolean isEnd) throws Exception {
         if(usernameError.getText().equals("") &&
             passwordError.getText().equals("") &&
                 emailError.getText().equals("") &&
                 sloganError.getText().equals("") ) {
-            askQuestionShow();
+            if(!isEnd) askQuestionShow();
+            else{
+                submitUser();
+            }
         }
 
+    }
+
+    private void submitUser() throws IOException {
+        int number ;
+        if(toggleGroup.getSelectedToggle().equals(Q1)) number = 1 ;
+        else if(toggleGroup.getSelectedToggle().equals(Q2)) number = 2 ;
+        else number = 3 ;
+        String password ;
+        if(passwordHide.isVisible()) password = passwordHide.getText();
+        else password = passwordShow.getText();
+        LoginController.register(username.getText(),password,nickname.getText(),
+                email.getText(),answer.getText(),slogan.getText(),"" + number);
     }
 
     private void askQuestionShow() {
@@ -266,7 +284,16 @@ public class LoginMenu extends Application {
     public void closePopup(MouseEvent mouseEvent) {
         if(!answer.getText().equals("") && toggleGroup.getSelectedToggle() != null) {
             secQestionVbox.setVisible(false);
+            captchaNumber = LoginController.setImageCaptcha(captchaImage);
+            captchaBox.setVisible(true);
         }
     }
-    
+
+    public void anotherCaptcha(MouseEvent mouseEvent) {
+        captchaNumber = LoginController.setImageCaptcha(captchaImage);
+    }
+
+    public void submitWholeRegister(MouseEvent mouseEvent) throws Exception {
+        stepOneRegister(true);
+    }
 }
