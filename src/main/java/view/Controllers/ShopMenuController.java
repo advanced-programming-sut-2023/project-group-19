@@ -13,8 +13,8 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.GameMenu;
 import view.Messages.ShopMenuMessages;
+import view.OldView.TradeMenu;
 import view.TileManager;
-import view.TradeMenu;
 
 import java.util.ArrayList;
 

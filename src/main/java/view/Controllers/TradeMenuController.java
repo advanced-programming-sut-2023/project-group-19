@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import view.Main;
-import view.TradeMenu;
+import view.OldView.TradeMenu;
 
 public class TradeMenuController extends Application {
     @Override
@@ -23,6 +23,6 @@ public class TradeMenuController extends Application {
     }
 
     private void designTradeMenu(TradeController tradeController, Pane pane, Stage stage) {
-        
+
     }
 }
