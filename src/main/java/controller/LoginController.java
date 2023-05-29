@@ -15,11 +15,20 @@ import java.util.Random;
 public class LoginController {
 
     public static RegisterMessages checkUsername(String username){
+        if(username.equals("")) return RegisterMessages.EMPTY_FIELD;
         if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPEATED;
         if (!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
         return RegisterMessages.SUCCESS ;
     }
+    public static RegisterMessages checkEmail(String email){
+        if(email.equals("")) return RegisterMessages.EMPTY_FIELD;
+        if (User.getUserByEmail(email) != null) return RegisterMessages.REPEATED_EMAIL;
+        if (!email.matches("[A-Za-z0-9\\.]+@[A-Za-z0-9]+\\.+[A-Za-z0-9\\.]+"))
+            return RegisterMessages.INVALID_FORM_EMAIL;
+        return RegisterMessages.SUCCESS ;
+    }
     public static RegisterMessages  checkPassword(String password){
+        if(password.equals("")) return RegisterMessages.EMPTY_FIELD;
         if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
         if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;

@@ -10,19 +10,30 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="view.LoginMenu"
             prefHeight="400.0" prefWidth="600.0">
-    <Label text="Fill register form" fx:id="label" translateX="700" translateY="220"/>
-    <VBox alignment="CENTER" spacing="20" translateX="700" translateY="240">
+    <Label text="Fill register form" fx:id="label" translateX="700" translateY="200"/>
+    <VBox alignment="CENTER" spacing="30" translateX="700" translateY="240">
         <TextField fx:id="username"  promptText="Username"/>
         <TextField fx:id="passwordShow" visible="false" promptText="Password"/>
         <TextField fx:id="email"  promptText="Email"/>
         <TextField fx:id="nickname" promptText="Nickname"/>
-        <TextField fx:id="slogan" visible="false" promptText="slogan"/>
+        <TextField fx:id="slogan" text="empty" visible="true" promptText="slogan"/>
         <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan"/>
         <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>
+        <Button onMouseClicked="#submit" text="submit"/>
     </VBox>
-    <PasswordField fx:id="passwordHide" promptText="Password" translateX="700" translateY="285"/>
-    <CheckBox translateY="288" translateX="870" onMouseClicked="#showAndHidePassword"/>
-    <Button text="random" translateY="288" translateX="900" onMouseClicked="#randomPassword"/>
+    <PasswordField fx:id="passwordHide" promptText="Password" translateX="700" translateY="297"/>
+
+    <CheckBox translateY="300" translateX="870" onMouseClicked="#showAndHidePassword"/>
+    <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword"/>
+
+    <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling" visible="false">
+        <Label fx:id="usernameError" text="random text 1"/>
+        <Label fx:id="passwordError" text="random text 2"/>
+        <Label fx:id="emailError" text="random text 3"/>
+        <Label fx:id="nicknameError" text="random text 4"/>
+        <Label fx:id="sloganError" text="random text 5"/>
+    </VBox>
+
 
 
 </Pane>
