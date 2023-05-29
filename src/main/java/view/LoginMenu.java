@@ -30,11 +30,13 @@ public class LoginMenu extends Application {
     public CheckBox check;
     public TextField passwordShow;
     public PasswordField passwordHide;
+    public Button randomSloganButton;
     //    public CheckBox check;
     @FXML
     private TextField username;
     private Pane pane;
 
+    @FXML
     private Label label;
 
     public static void main(String[] args) {
@@ -57,14 +59,17 @@ public class LoginMenu extends Application {
 
     }
     public void showAndHidePassword(){
+        String text ;
         if(passwordHide.isVisible()){
             passwordShow.setVisible(true);
-            System.out.println("visible");
+            text = passwordHide.getText();
+            passwordShow.setText(text);
             passwordHide.setVisible(false);
         }else{
-            System.out.println("visible");
+            text = passwordShow.getText();
             passwordShow.setVisible(false);
             passwordHide.setVisible(true);
+            passwordHide.setText(text);
         }
     }
     public void callFunctions(){
@@ -72,15 +77,75 @@ public class LoginMenu extends Application {
 
     @FXML
     public void initialize() {
-        username.textProperty().addListener((observable, oldText, newText) -> {
-            System.out.println(newText);
+        ListenerToUsernameField();
+        ListenerToPassword();
+    }
+    private void checkPasswordError(String password){
+        RegisterMessages messages =  LoginController.checkPassword(password);
+        String text = null;
+        switch (messages){
+            case WEAK_PASSWORD_FOR_LOWERCASE :
+                text  =  "You should use lowercase characters in uor password!";
+                break;
+            case WEAK_PASSWORD_FOR_UPPERCASE  :
+                text  =  "You should use uppercase characters in uor password!";
+                break;
+            case WEAK_PASSWORD_FOR_LENGTH:
+                text = "Length of your password must be more than five!";
+                break;
+            case WEAK_PASSWORD_FOR_NUMBER:
+                text  =  "You should use number characters in uor password!";
+                break;
+            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
+                text = "You should use characters except alphabetical!";
+                break;
+            case SUCCESS:
+                text  = "Fill register form";
+                break;
+        }
+        label.setText(text);
+    }
+    private void ListenerToPassword(){
+        passwordShow.textProperty().addListener((observable, oldText, newText) -> {
+            checkPasswordError(newText);
         });
-//        password.textProperty().addListener((observable, oldText, newText) -> {
-//            System.out.println("password");
-//        });
+        passwordHide.textProperty().addListener((observable, oldText, newText) -> {
+            checkPasswordError(newText);
+        });
+        
+    }
+    private void ListenerToUsernameField(){
+        username.textProperty().addListener((observable, oldText, newText) -> {
+            RegisterMessages messages = LoginController.checkUsername(newText);
+            switch (messages){
+                case USERNAME_REPEATED :
+                    label.setText("Your username is repeated but username " +
+                            LoginController.makeUserNameForUser(newText) +
+                            " is exist now!");
+                    break;
+                case INCORRECT_FORM_OF_USERNAME:
+                    label.setText("Invalid form of username!");
+                    break;
+                case SUCCESS:
+                    label.setText("Fill register form");
+            }
+        });
     }
 
     public void checkingSlogan(MouseEvent mouseEvent) {
         slogan.setVisible(!slogan.isVisible());
+        randomSloganButton.setVisible(!randomSloganButton.isVisible());
+    }
+
+    public void randomPassword(MouseEvent mouseEvent) {
+        if(passwordHide.isVisible()){
+            passwordHide.setText(LoginController.generateRandomPassword());
+        }else{
+            passwordShow.setText(LoginController.generateRandomPassword());
+        }
+    }
+
+    public void randomSlogan(MouseEvent mouseEvent) {
+        slogan.setText(LoginController.getRandomSlogan());
     }
 }

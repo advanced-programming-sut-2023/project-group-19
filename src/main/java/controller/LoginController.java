@@ -14,6 +14,21 @@ import java.util.Random;
 
 public class LoginController {
 
+    public static RegisterMessages checkUsername(String username){
+        if (User.getUserByName(username) != null) return RegisterMessages.USERNAME_REPEATED;
+        if (!username.matches("[A-Za-z0-9_ ]+")) return RegisterMessages.INCORRECT_FORM_OF_USERNAME;
+        return RegisterMessages.SUCCESS ;
+    }
+    public static RegisterMessages  checkPassword(String password){
+        if (!password.matches(".*[a-z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_LOWERCASE;
+        if (!password.matches(".*[A-Z].*")) return RegisterMessages.WEAK_PASSWORD_FOR_UPPERCASE;
+        if (!password.matches(".*[0-9].*")) return RegisterMessages.WEAK_PASSWORD_FOR_NUMBER;
+        if (!password.matches(".*[\\W\\_].*"))
+            return RegisterMessages.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL;
+        if (password.length() < 6) return RegisterMessages.WEAK_PASSWORD_FOR_LENGTH;
+        return RegisterMessages.SUCCESS ;
+    }
+
     public static RegisterMessages checkErrorForRegister(String username, String password, String confirmPassword,
                                                          String email, String nickname, String slogan) {
         if (slogan == null || username == null || password == null || email == null || nickname == null || (!password.equals("random") && confirmPassword == null)) {
