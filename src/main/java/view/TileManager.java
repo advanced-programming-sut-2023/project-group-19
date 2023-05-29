@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -48,6 +49,15 @@ public class TileManager extends Application {
     public ArrayList<Node> list = new ArrayList<>();
 
     public Background background;
+    public Image bottomImage;
+    public Image castle;
+    public Image hammer;
+    public Image home;
+    public Image food;
+    public Image shield;
+    public Image sickle;
+    public Image bottomCoverImage;
+    public Image bottomSideCoverImage;
     public Scene scene;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
@@ -76,8 +86,17 @@ public class TileManager extends Application {
 //         height = 800
 
         background = new Background(new BackgroundImage(new Image
-                (TileManager.class.getResource("/image/cegla2.jpg").toExternalForm()),
+                (TileManager.class.getResource("/image/desert_tile.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        bottomImage = new Image(TileManager.class.getResource("/image/BottomBar/bottomPicture.png").toExternalForm());
+        bottomCoverImage = new Image(TileManager.class.getResource("/image/BottomBar/bottomCover.jpg").toExternalForm());
+        bottomSideCoverImage = new Image(TileManager.class.getResource("/image/BottomBar/sideCover.jpg").toExternalForm());
+        castle = new Image(TileManager.class.getResource("/image/BottomBar/castle.png").toExternalForm());
+        food = new Image(TileManager.class.getResource("/image/BottomBar/food.png").toExternalForm());
+        hammer = new Image(TileManager.class.getResource("/image/BottomBar/hammer.png").toExternalForm());
+        home = new Image(TileManager.class.getResource("/image/BottomBar/home.png").toExternalForm());
+        shield = new Image(TileManager.class.getResource("/image/BottomBar/shield.png").toExternalForm());
+        sickle = new Image(TileManager.class.getResource("/image/BottomBar/sickle.png").toExternalForm());
 
 
 
@@ -113,40 +132,252 @@ public class TileManager extends Application {
     }
 
     private void setButtonsOfMenus(Stage stage) {
-        javafx.scene.control.Button button = new javafx.scene.control.Button();
-        button.setText("BuildingMenu");
-        button.setLayoutX(0);
-        button.setLayoutY(800);
-        button.setPrefSize(70,70);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Pane pane1 = new Pane();
+        ImageView imageView = new ImageView(bottomImage);
+        imageView.setFitHeight(250);
+        imageView.setFitWidth(1200);
+        imageView.setX(-10);
+        imageView.setY(650);
+        pane.getChildren().add(imageView);
+        ImageView imageView2 = new ImageView(bottomCoverImage);
+        imageView2.setFitHeight(40);
+        imageView2.setFitWidth(925);
+        imageView2.setX(110);
+        imageView2.setY(835);
+        pane.getChildren().add(imageView2);
+        ImageView imageView3 = new ImageView(bottomSideCoverImage);
+        imageView3.setFitHeight(350);
+        imageView3.setFitWidth(50);
+        imageView3.setX(1030);
+        imageView3.setY(670);
+        pane.getChildren().add(imageView3);
+
+        Button castleButton = new Button();
+        ImageView castleImage = new ImageView(castle);
+        castleButton.setBackground(null);
+        castleImage.setFitHeight(35);
+        castleImage.setFitWidth(35);
+        castleButton.setGraphic(castleImage);
+        castleButton.setLayoutX(120);
+        castleButton.setLayoutY(825);
+        castleButton.setMinSize(50 , 50);
+        pane.getChildren().add(castleButton);
+
+        Button foodButton = new Button();
+        ImageView foodImage = new ImageView(food);
+        foodButton.setBackground(null);
+        foodImage.setFitHeight(30);
+        foodImage.setFitWidth(30);
+        foodButton.setGraphic(foodImage);
+        foodButton.setLayoutX(180);
+        foodButton.setLayoutY(825);
+        foodButton.setMinSize(50 , 50);
+        pane.getChildren().add(foodButton);
+
+        Button hammerButton = new Button();
+        ImageView hammerImage = new ImageView(hammer);
+        hammerButton.setBackground(null);
+        hammerImage.setFitHeight(30);
+        hammerImage.setFitWidth(30);
+        hammerButton.setGraphic(hammerImage);
+        hammerButton.setLayoutX(240);
+        hammerButton.setLayoutY(825);
+        hammerButton.setMinSize(50 , 50);
+        pane.getChildren().add(hammerButton);
+
+        Button homeButton = new Button();
+        ImageView homeImage = new ImageView(home);
+        homeButton.setBackground(null);
+        homeImage.setFitHeight(30);
+        homeImage.setFitWidth(30);
+        homeButton.setGraphic(homeImage);
+        homeButton.setLayoutX(300);
+        homeButton.setLayoutY(825);
+        homeButton.setMinSize(50 , 50);
+        pane.getChildren().add(homeButton);
+
+        Button shieldButton = new Button();
+        ImageView shieldImage = new ImageView(shield);
+        shieldButton.setBackground(null);
+        shieldImage.setFitHeight(30);
+        shieldImage.setFitWidth(30);
+        shieldButton.setGraphic(shieldImage);
+        shieldButton.setLayoutX(360);
+        shieldButton.setLayoutY(825);
+        shieldButton.setMinSize(50 , 50);
+        pane.getChildren().add(shieldButton);
+
+        Button sickleButton = new Button();
+        ImageView sickleImage = new ImageView(sickle);
+        sickleButton.setBackground(null);
+        sickleImage.setFitHeight(30);
+        sickleImage.setFitWidth(30);
+        sickleButton.setGraphic(sickleImage);
+        sickleButton.setLayoutX(410);
+        sickleButton.setLayoutY(825);
+        sickleButton.setMinSize(50 , 50);
+        pane.getChildren().add(sickleButton);
+
+
+        castleButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent mouseEvent) {
-                BuildingMenu buildingMenu = new BuildingMenu();
-                try {
-                    buildingMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-        javafx.scene.control.Button button1 = new Button();
-        button1.setText("ShopMenu");
-        button1.setLayoutX(70);
-        button1.setLayoutY(800);
-        button1.setPrefSize(70,70);
-        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ShopMenu shopMenu = new ShopMenu();
-                try {
-                    shopMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+
             }
         });
 
-        pane.getChildren().addAll(button,button1);
+        foodButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+
+        hammerButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+
+        homeButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+
+        shieldButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+
+        sickleButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+
+
+
+
+
+
+
+//        Button castle = new javafx.scene.control.Button();
+//        castle.setBackground(new Background( new BackgroundImage( image ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT )));
+//        castle.setLayoutX(0);
+//        castle.setLayoutY(650);
+//        castle.setPrefSize(100,100);
+//        castle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//
+//            }
+//        });
+//        pane.getChildren().add(castle);
+//        Button hammer = new javafx.scene.control.Button();
+//        button.setBackground(new Background( new BackgroundImage(bottomImage ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT )));
+//        button.setLayoutX(0);
+//        button.setLayoutY(650);
+//        button.setMinWidth(3300);
+//        button.setMinHeight(220);
+//        button.setPrefSize(1900,220);
+//        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                BuildingMenu buildingMenu = new BuildingMenu();
+//                try {
+//                    buildingMenu.start(stage);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//        Button home = new javafx.scene.control.Button();
+//        button.setBackground(new Background( new BackgroundImage(bottomImage ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT )));
+//        button.setLayoutX(0);
+//        button.setLayoutY(650);
+//        button.setMinWidth(3300);
+//        button.setMinHeight(220);
+//        button.setPrefSize(1900,220);
+//        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                BuildingMenu buildingMenu = new BuildingMenu();
+//                try {
+//                    buildingMenu.start(stage);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//        Button food = new javafx.scene.control.Button();
+//        button.setBackground(new Background( new BackgroundImage(bottomImage ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT )));
+//        button.setLayoutX(0);
+//        button.setLayoutY(650);
+//        button.setMinWidth(3300);
+//        button.setMinHeight(220);
+//        button.setPrefSize(1900,220);
+//        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                BuildingMenu buildingMenu = new BuildingMenu();
+//                try {
+//                    buildingMenu.start(stage);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//        Button shield = new javafx.scene.control.Button();
+//        button.setBackground(new Background( new BackgroundImage(bottomImage ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT )));
+//        button.setLayoutX(0);
+//        button.setLayoutY(650);
+//        button.setMinWidth(3300);
+//        button.setMinHeight(220);
+//        button.setPrefSize(1900,220);
+//        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                BuildingMenu buildingMenu = new BuildingMenu();
+//                try {
+//                    buildingMenu.start(stage);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//        Button sickle = new javafx.scene.control.Button();
+//        button.setBackground(new Background( new BackgroundImage(bottomImage ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT )));
+//        button.setLayoutX(0);
+//        button.setLayoutY(650);
+//        button.setMinWidth(3300);
+//        button.setMinHeight(220);
+//        button.setPrefSize(1900,220);
+//        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                BuildingMenu buildingMenu = new BuildingMenu();
+//                try {
+//                    buildingMenu.start(stage);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+
+
+//        pane.getChildren().addAll(castle);
     }
 
     public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
@@ -198,7 +429,7 @@ public class TileManager extends Application {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
 //                newButton.setStyle("-fx-background-color: #1316aa");
-                newButton.setStyle("-fx-border-color: brown");
+                newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
 
             }
