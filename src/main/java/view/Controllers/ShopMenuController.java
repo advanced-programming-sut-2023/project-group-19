@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import view.GameMenu;
 import view.Messages.ShopMenuMessages;
 import view.OldView.TradeMenu;
 import view.TileManager;
@@ -139,7 +138,11 @@ public class ShopMenuController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TradeMenu tradeMenu1 = new TradeMenu();
-                //tradeMenu1.show(stage);
+                try {
+                    tradeMenu1.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
