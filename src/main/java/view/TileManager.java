@@ -1,82 +1,384 @@
 package view;
 
-import controller.ShowMapController;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
+import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Human.Troop.Army;
+import model.Manage;
 import model.Map;
 import view.Model.NewButton;
-import view.Model.NewRectangle;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-
 public class TileManager extends Application {
+    //TODO : Check that selected unit would be empty or not in GameController if it was full
+    // show an error that user should make a decision for them
+    //TODO : Select Unit must change
+    //TODO : Method which calculates the Production things on a tile
+    public ArrayList<String> cellArmyNameType = new ArrayList<>();
+    public Text showCellData = new Text();
+    public int avgDamage;
+    public int avgSpeed;
 
+    public TilePane view = new TilePane();
+
+    public ArrayList<NewButton>[][] allButtons;
+    public ArrayList<NewButton> selectedButtons;
+    public Pane pane = new Pane();
+    public int avgHp;
+    public int avgProduction;
+    public int moveX;
+    public int moveY;
+    public int leastProduction;
+    public int mostProduction;
+    public int numberOfMySoldiers;
+    public double width;
+    public double height;
+    public ArrayList<Node> list = new ArrayList<>();
+
+    public Background background;
+    public Scene scene;
+    Point firstPoint = new Point();
+    Point secondPoint = new Point();
+    private boolean drawIsOn;
+    private boolean moveIsOn;
     @Override
     public void start(Stage stage) throws Exception {
-        TilePane tilePane = new TilePane();
 //        tilePane.setLayoutX(-100);
 //        tilePane.setLayoutY(-100);
-        tilePane.setTileAlignment(Pos.CENTER);
-        tilePane.setPrefColumns(100);
-        tilePane.setMaxWidth(10000);
-        ArrayList<Shape> list = new ArrayList<>();
-        TilePane view  = new TilePane();
-        for(int j = 0 ; j < 100 ; j++) {
+//        tilePane.setPrefColumns(100);
+//        tilePane.setMaxWidth(10000);
+        createButtonsArraylist();
+
+        for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
-                NewRectangle newButton = new NewRectangle(j , i);
-                newButton.setWidth(100);
-                newButton.setHeight(100);
-//                newButton.setFill(Color.BLUE);
+                NewButton newButton = new NewButton(j, i);
+                applyingMouseEventForButton(newButton,stage);
+//                mouseMovement();
+                newButton.setPrefSize(51, 54);
+                newButton.setFocusTraversable(false);
+                newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
             }
         }
 //         width  = 1530
 //         height = 800
-        Map.CreateMap(200);
-        ShowMapController.showMap(list,view);
+
+        background = new Background(new BackgroundImage(new Image
+                (TileManager.class.getResource("/image/cegla2.jpg").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+
+
+//        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
         Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-        double width = resolution.getWidth();
-        double height = resolution.getHeight();
-        Scene scene = new Scene(view , width-50 , height-50);
+        width = resolution.getWidth();
+        height = resolution.getHeight();
+        pane.requestFocus();
+
+        createViewScene(stage);
+
+        scene = new Scene(pane, width - 50, height - 50);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                String keyName = keyEvent.getCode().getName();
+                if (keyName.equals("Add")) {
+
+                } else if (keyName.equals("Subtract")) {
+
+                }
+                else if (keyName.equals("F1")){
+                    removeColorOfSelectedButtons();
+                }
+            }
+        });
         stage.setTitle("Tile Pane");
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
     }
-    private void applyingEventForButton(Button newButton){
-        newButton.setOnMouseClicked(event ->
-        {
-            if(event.getButton() == MouseButton.PRIMARY){
-                //TODO : DEPLOY
-            }
-            if(event.getButton() == MouseButton.SECONDARY){
-                //TODO : ...
+
+    private void setButtonsOfMenus(Stage stage) {
+        javafx.scene.control.Button button = new javafx.scene.control.Button();
+        button.setText("BuildingMenu");
+        button.setLayoutX(0);
+        button.setLayoutY(800);
+        button.setPrefSize(70,70);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                BuildingMenu buildingMenu = new BuildingMenu();
+                try {
+                    buildingMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
-        newButton.setOnMouseDragged(event ->
-        {
-            if(event.getButton() == MouseButton.PRIMARY){
-                //TODO : select
-            }
-            if(event.getButton() == MouseButton.SECONDARY){
-                //TODO : move
+        javafx.scene.control.Button button1 = new Button();
+        button1.setText("ShopMenu");
+        button1.setLayoutX(70);
+        button1.setLayoutY(800);
+        button1.setPrefSize(70,70);
+        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ShopMenu shopMenu = new ShopMenu();
+                try {
+                    shopMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
+
+        pane.getChildren().addAll(button,button1);
     }
+
+    public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
+        int maxX = (int) (x2 / 51.2);
+        int minX = (int) (x1 / 51.2);
+        int maxY = y2 / 54;
+        int minY = y1 / 54;
+        moveX += minY - maxY ;
+        moveY += minX - maxX ;
+        System.out.println("test");
+        System.out.println(moveX);
+        System.out.println(moveY);
+        if (moveY + 30 > 100){
+            moveY = 70;
+        }
+        if (moveX + 16 > 100){
+            moveX = 84;
+        }
+        if (moveX < 0 ) {
+            moveX = 0;
+        }
+        if (moveY < 0) {
+            moveY = 0;
+        }
+        pane.getChildren().clear();
+        createViewScene(stage);
+        scene.setRoot(pane);
+    }
+
+
+    private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
+        selectedButtons.clear();
+        int maxX, minX, maxY, minY;
+        if (x2 - x1 >= 0) {
+            maxX = (int) (x2 / 51.2);
+            minX = (int) (x1 / 51.2);
+        } else {
+            maxX = (int) (x1 / 51.2);
+            minX = (int) (x2 / 51.2);
+        }
+        if (y2 - y1 >= 0) {
+            maxY = y2 / 54;
+            minY = y1 / 54;
+        } else {
+            maxY = y1 / 54;
+            minY = y2 / 54;
+        }
+        for (int j = minY; j <= maxY; j++) {
+            for (int i = minX; i <= maxX; i++) {
+                NewButton newButton = allButtons[j][i].get(0);
+//                newButton.setStyle("-fx-background-color: #1316aa");
+                newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
+                selectedButtons.add(newButton);
+
+            }
+        }
+    }
+    public void createViewScene(Stage stage){
+        createButtonsArraylist();
+        for (int u = 0; u < 16; u++) {
+            for (int g = 0; g < 30; g++) {
+                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(background);
+                NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
+                button.setLayoutX(g * 51.2);
+                button.setLayoutY(u * 54);
+                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
+                allButtons[u][g].add(button);
+            }
+        }
+        setButtonsOfMenus(stage);
+    }
+
+    public void getCellData(NewButton newButton) {
+        cellArmyNameType.clear();
+        int damage = 0;
+        int hp = 0;
+        int speed = 0;
+        int i;
+        for (i = 0; i < newButton.getArmy().size(); i++) {
+            if (!cellArmyNameType.contains(newButton.getArmy().get(i).getNames().getName())) {
+                cellArmyNameType.add(newButton.getArmy().get(i).getNames().getName());
+            }
+            damage += newButton.getArmy().get(i).getAttackPower();
+            hp += newButton.getArmy().get(i).getHp();
+            speed += newButton.getArmy().get(i).getSpeed();
+        }
+        if (i != 0) {
+            avgHp = hp / i;
+            avgSpeed = speed / i;
+            avgDamage = damage / i;
+        }
+    }
+
+    public void createButtonsArraylist() {
+        allButtons = new ArrayList[16][30];
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 30; j++) {
+                allButtons[i][j] = new ArrayList<>();
+            }
+        }
+    }
+
+    public void numberOfAllSoldiers() {
+        for (NewButton selectedButton : selectedButtons) {
+            int x = selectedButton.getX();
+            int y = selectedButton.getY();
+            if (Map.getTroopMap()[x][y].size() != 0) {
+                for (Army army : Map.getTroopMap()[x][y]) {
+                    if (army.getOwner().equals(Manage.getCurrentEmpire())) {
+                        numberOfMySoldiers++;
+                    }
+                }
+            }
+        }
+    }
+
+    public void clearSelectedButtons() {
+        //TODO: if button is selected :
+        selectedButtons.clear();
+    }
+
+    public void removeColorOfSelectedButtons() {
+        for (NewButton selectedButton : selectedButtons) {
+            selectedButton.setStyle("");
+        }
+        drawIsOn = false;
+    }
+    private void applyingMouseEventForButton(NewButton newButton,Stage stage){
+        selectedButtons = new ArrayList<>();
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                newButton.setStyle("-fx-border-color: brown");
+            }
+        };
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+//                if(selectedButtons.size() == 1 ) {
+//                    newButton.setStyle(null);
+//                }
+                showCellData.setText("");
+                pane.getChildren().remove(showCellData);
+            }
+        };
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                getCellData(newButton);
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) b.getX();
+                int y = (int) b.getY() - 100;
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
+                        "AVG Speed : " + avgSpeed + '\n');
+                for (int i = 0; i < cellArmyNameType.size(); i++) {
+                    stringBuilder.append(cellArmyNameType.get(i) + " ");
+                }
+                showCellData.setText(stringBuilder.toString());
+                showCellData.setX(x);
+                showCellData.setY(y);
+                if (showCellData != null && !pane.getChildren().contains(showCellData))
+                    pane.getChildren().add(showCellData);
+            }
+        };
+
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    if (!drawIsOn) {
+                        removeColorOfSelectedButtons();
+                    }
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    firstPoint = a.getLocation();
+                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    drawIsOn = true;
+                } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    firstPoint = a.getLocation();
+                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    moveIsOn = true;
+                }
+            }
+        };
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                    drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
+                    drawIsOn = false;
+//                    TextInputDialog textInputDialog = new TextInputDialog();
+//                    textInputDialog.setHeaderText("Enter the name and number of required army :");
+//                    textInputDialog.setContentText("Name of Army: \nNumber:");
+//                    Optional<String> result = textInputDialog.showAndWait();
+                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                    if (moveIsOn) {
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y,stage);
+                    }
+                }
+            }
+        };
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    selectedButtons.add(newButton);
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    Point b = a.getLocation();
+                    int x = (int) b.getX();
+                    int y = (int) b.getY() - 50;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    numberOfAllSoldiers();
+                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
+                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+                } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                    //Do sth else
+                }
+            }
+        };
+
+        newButton.setOnMousePressed(event4);
+        newButton.setOnMouseReleased(event5);
+        //newButton.setOnMouseExited(event2);
+        newButton.setOnMouseMoved(event3);
+        //newButton.setOnMouseClicked(event6);
+    }
+
+
 }

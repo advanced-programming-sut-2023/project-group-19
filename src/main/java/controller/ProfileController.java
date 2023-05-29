@@ -3,7 +3,6 @@ package controller;
 import model.Manage;
 import model.User;
 import view.Messages.ProfileMenuMessage;
-import view.Messages.RegisterMessages;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -63,8 +62,6 @@ public class ProfileController {
         if (oldPassword.equals(newPassword)) return ProfileMenuMessage.SIMILAR_PASSWORD;
         if (!newPassword.matches(".*[a-z].*")) return ProfileMenuMessage.WEAK_PASSWORD_FOR_LOWERCASE;
         if (!newPassword.matches(".*[A-Z].*")) return ProfileMenuMessage.WEAK_PASSWORD_FOR_UPPERCASE;
-        if (!newPassword.matches(".*[\\W\\_].*"))
-            return ProfileMenuMessage.WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL;
         if (!newPassword.matches(".*[0-9].*")) return ProfileMenuMessage.WEAK_PASSWORD_FOR_NUMBER;
         if (newPassword.length() < 6) return ProfileMenuMessage.WEAK_PASSWORD_FOR_LENGTH;
         return ProfileMenuMessage.SUCCESS;

@@ -63,7 +63,7 @@ public class User implements Comparable<User> {
         Collections.sort(users);
         //
         Manage.allUsers.add(this);
-        JsonController.writeIntoFile(Manage.allUsers, "User.json");
+        //JsonController.writeIntoFile(Manage.allUsers, "User.json");
     }
 
     public String getUsername() {

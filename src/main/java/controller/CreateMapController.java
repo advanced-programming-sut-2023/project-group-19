@@ -40,7 +40,7 @@ public class CreateMapController {
         mapIsBuilt = true;
         if (size != 200 && size != 400) return "You must choose size 200 or 400";
         sizeOfMap = size;
-//        ShowMapController.size = size ;
+        ShowMapController.size = size ;
         Map.CreateMap(size);
         return "Map is builded successfully!";
     }

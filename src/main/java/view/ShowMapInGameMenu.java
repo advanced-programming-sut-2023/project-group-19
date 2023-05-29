@@ -45,7 +45,7 @@ public class ShowMapInGameMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-//        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
+        System.out.println(ShowMapController.showMap(x + 1, y + 1, false));
     }
 
 
@@ -83,7 +83,7 @@ public class ShowMapInGameMenu {
         }
         int deltaX = up + down;
         int deltaY = right + left;
-//        System.out.println(ShowMapController.moveMap(deltaX, deltaY));
+        System.out.println(ShowMapController.moveMap(deltaX, deltaY));
     }
 
     public static void showDetail(String command) {
@@ -101,7 +101,7 @@ public class ShowMapInGameMenu {
             return;
         }
         int y = Integer.parseInt(matcher.group("y"));
-//        String result = ShowMapController.showDetail(x + 1, y + 1);
-//        System.out.println(result);
+        String result = ShowMapController.showDetail(x + 1, y + 1);
+        System.out.println(result);
     }
 }
