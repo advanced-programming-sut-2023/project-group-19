@@ -201,7 +201,6 @@ public class TileManager extends Application {
         sickleButton.setMinSize(50 , 50);
         pane.getChildren().add(sickleButton);
 
-
         Button gameOptionButton = new Button();
         ImageView gameOptionImage = new ImageView(bottomBarImages.getKey());
         gameOptionButton.setBackground(null);
