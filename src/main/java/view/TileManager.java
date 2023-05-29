@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import view.ImageAndBackground.BottomBarImages;
 import view.Model.NewButton;
 
 import java.awt.*;
@@ -31,6 +32,7 @@ public class TileManager extends Application {
     public Text showCellData = new Text();
     public int avgDamage;
     public int avgSpeed;
+    public BottomBarImages bottomBarImages;
 
     public TilePane view = new TilePane();
 
@@ -48,16 +50,7 @@ public class TileManager extends Application {
     public double height;
     public ArrayList<Node> list = new ArrayList<>();
 
-    public Background background;
-    public Image bottomImage;
-    public Image castle;
-    public Image hammer;
-    public Image home;
-    public Image food;
-    public Image shield;
-    public Image sickle;
-    public Image bottomCoverImage;
-    public Image bottomSideCoverImage;
+
     public Scene scene;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
@@ -85,18 +78,8 @@ public class TileManager extends Application {
 //         width  = 1530
 //         height = 800
 
-        background = new Background(new BackgroundImage(new Image
-                (TileManager.class.getResource("/image/desert_tile.jpg").toExternalForm()),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
-        bottomImage = new Image(TileManager.class.getResource("/image/BottomBar/bottomPicture.png").toExternalForm());
-        bottomCoverImage = new Image(TileManager.class.getResource("/image/BottomBar/bottomCover.jpg").toExternalForm());
-        bottomSideCoverImage = new Image(TileManager.class.getResource("/image/BottomBar/sideCover.jpg").toExternalForm());
-        castle = new Image(TileManager.class.getResource("/image/BottomBar/castle.png").toExternalForm());
-        food = new Image(TileManager.class.getResource("/image/BottomBar/food.png").toExternalForm());
-        hammer = new Image(TileManager.class.getResource("/image/BottomBar/hammer.png").toExternalForm());
-        home = new Image(TileManager.class.getResource("/image/BottomBar/home.png").toExternalForm());
-        shield = new Image(TileManager.class.getResource("/image/BottomBar/shield.png").toExternalForm());
-        sickle = new Image(TileManager.class.getResource("/image/BottomBar/sickle.png").toExternalForm());
+        bottomBarImages = new BottomBarImages();
+        bottomBarImages.loadImages();
 
 
 
@@ -133,19 +116,19 @@ public class TileManager extends Application {
 
     private void setButtonsOfMenus(Stage stage) {
         Pane pane1 = new Pane();
-        ImageView imageView = new ImageView(bottomImage);
+        ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
         imageView.setFitHeight(250);
         imageView.setFitWidth(1200);
         imageView.setX(-10);
         imageView.setY(650);
         pane.getChildren().add(imageView);
-        ImageView imageView2 = new ImageView(bottomCoverImage);
+        ImageView imageView2 = new ImageView(bottomBarImages.getBottomCoverImage());
         imageView2.setFitHeight(40);
         imageView2.setFitWidth(925);
         imageView2.setX(110);
         imageView2.setY(835);
         pane.getChildren().add(imageView2);
-        ImageView imageView3 = new ImageView(bottomSideCoverImage);
+        ImageView imageView3 = new ImageView(bottomBarImages.getBottomSideCoverImage());
         imageView3.setFitHeight(350);
         imageView3.setFitWidth(50);
         imageView3.setX(1030);
@@ -153,7 +136,7 @@ public class TileManager extends Application {
         pane.getChildren().add(imageView3);
 
         Button castleButton = new Button();
-        ImageView castleImage = new ImageView(castle);
+        ImageView castleImage = new ImageView(bottomBarImages.getCastle());
         castleButton.setBackground(null);
         castleImage.setFitHeight(35);
         castleImage.setFitWidth(35);
@@ -164,7 +147,7 @@ public class TileManager extends Application {
         pane.getChildren().add(castleButton);
 
         Button foodButton = new Button();
-        ImageView foodImage = new ImageView(food);
+        ImageView foodImage = new ImageView(bottomBarImages.getFood());
         foodButton.setBackground(null);
         foodImage.setFitHeight(30);
         foodImage.setFitWidth(30);
@@ -175,7 +158,7 @@ public class TileManager extends Application {
         pane.getChildren().add(foodButton);
 
         Button hammerButton = new Button();
-        ImageView hammerImage = new ImageView(hammer);
+        ImageView hammerImage = new ImageView(bottomBarImages.getHammer());
         hammerButton.setBackground(null);
         hammerImage.setFitHeight(30);
         hammerImage.setFitWidth(30);
@@ -186,7 +169,7 @@ public class TileManager extends Application {
         pane.getChildren().add(hammerButton);
 
         Button homeButton = new Button();
-        ImageView homeImage = new ImageView(home);
+        ImageView homeImage = new ImageView(bottomBarImages.getHome());
         homeButton.setBackground(null);
         homeImage.setFitHeight(30);
         homeImage.setFitWidth(30);
@@ -197,7 +180,7 @@ public class TileManager extends Application {
         pane.getChildren().add(homeButton);
 
         Button shieldButton = new Button();
-        ImageView shieldImage = new ImageView(shield);
+        ImageView shieldImage = new ImageView(bottomBarImages.getShield());
         shieldButton.setBackground(null);
         shieldImage.setFitHeight(30);
         shieldImage.setFitWidth(30);
@@ -208,7 +191,7 @@ public class TileManager extends Application {
         pane.getChildren().add(shieldButton);
 
         Button sickleButton = new Button();
-        ImageView sickleImage = new ImageView(sickle);
+        ImageView sickleImage = new ImageView(bottomBarImages.getSickle());
         sickleButton.setBackground(null);
         sickleImage.setFitHeight(30);
         sickleImage.setFitWidth(30);
@@ -439,7 +422,7 @@ public class TileManager extends Application {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
-                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(background);
+                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
