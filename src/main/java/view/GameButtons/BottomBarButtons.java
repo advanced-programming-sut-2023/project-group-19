@@ -163,6 +163,17 @@ public class BottomBarButtons {
         dataButton.setMinSize(200, 200);
         pane.getChildren().add(dataButton);
 
+        Button testButton = new Button();
+        ImageView testImage = new ImageView(bottomBarImages.getTest());
+        testButton.setBackground(null);
+        testImage.setFitHeight(100);
+        testImage.setFitWidth(100);
+        testButton.setGraphic(testImage);
+        testButton.setLayoutX(600);
+        testButton.setLayoutY(400);
+        testButton.setMinSize(200, 200);
+        pane.getChildren().add(testButton);
+
         ImageView face = new ImageView(bottomBarImages.getFaceImage());
         face.setFitHeight(63);
         face.setFitWidth(70);

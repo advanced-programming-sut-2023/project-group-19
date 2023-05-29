@@ -22,6 +22,7 @@ public class BottomBarImages {
     public Image bottomCoverImage;
     public Image faceImage;
     public Image bottomSideCoverImage;
+    public Image test;
     public void loadImages(){
         background = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/desert_tile.jpg").toExternalForm()),
@@ -42,6 +43,15 @@ public class BottomBarImages {
         minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
         showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
         faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
+        test = new Image(TileManager.class.getResource("/image/BottomBarBuildingImages/wheatfarm.gif").toExternalForm());
+    }
+
+    public Image getTest() {
+        return test;
+    }
+
+    public void setTest(Image test) {
+        this.test = test;
     }
 
     public Image getFaceImage() {
