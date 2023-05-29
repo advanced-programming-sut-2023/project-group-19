@@ -17,7 +17,10 @@ public class BottomBarImages {
     public Image exclamation;
     public Image close;
     public Image undo;
+    public Image minimapFrame;
+    public Image showEmpireDetail;
     public Image bottomCoverImage;
+    public Image faceImage;
     public Image bottomSideCoverImage;
     public void loadImages(){
         background = new Background(new BackgroundImage(new Image
@@ -36,6 +39,33 @@ public class BottomBarImages {
         exclamation = new Image(TileManager.class.getResource("/image/BottomBar/exclamation-mark.png").toExternalForm());
         close = new Image(TileManager.class.getResource("/image/BottomBar/close.png").toExternalForm());
         undo = new Image(TileManager.class.getResource("/image/BottomBar/undo.png").toExternalForm());
+        minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
+        showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
+        faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
+    }
+
+    public Image getFaceImage() {
+        return faceImage;
+    }
+
+    public void setFaceImage(Image faceImage) {
+        this.faceImage = faceImage;
+    }
+
+    public Image getShowEmpireDetail() {
+        return showEmpireDetail;
+    }
+
+    public void setShowEmpireDetail(Image showEmpireDetail) {
+        this.showEmpireDetail = showEmpireDetail;
+    }
+
+    public Image getMinimapFrame() {
+        return minimapFrame;
+    }
+
+    public void setMinimapFrame(Image minimapFrame) {
+        this.minimapFrame = minimapFrame;
     }
 
     public Background getBackground() {

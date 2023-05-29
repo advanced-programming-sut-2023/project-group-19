@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 
 public class BottomBarButtons {
@@ -138,6 +140,56 @@ public class BottomBarButtons {
         undoButton.setMinSize(50, 50);
         pane.getChildren().add(undoButton);
 
+        Button minimapFrameButton = new Button();
+        ImageView minimapFrameImage = new ImageView(bottomBarImages.getMinimapFrame());
+        minimapFrameButton.setBackground(null);
+        minimapFrameImage.setFitHeight(190);
+        minimapFrameImage.setFitWidth(193);
+        minimapFrameButton.setGraphic(minimapFrameImage);
+        minimapFrameButton.setLayoutX(1170);
+        minimapFrameButton.setLayoutY(675);
+        minimapFrameButton.setMinSize(200, 200);
+        pane.getChildren().add(minimapFrameButton);
+
+
+        Button dataButton = new Button();
+        ImageView dataImage = new ImageView(bottomBarImages.showEmpireDetail);
+        dataButton.setBackground(null);
+        dataImage.setFitHeight(190);
+        dataImage.setFitWidth(190);
+        dataButton.setGraphic(dataImage);
+        dataButton.setLayoutX(1350);
+        dataButton.setLayoutY(675);
+        dataButton.setMinSize(200, 200);
+        pane.getChildren().add(dataButton);
+
+        ImageView face = new ImageView(bottomBarImages.getFaceImage());
+        face.setFitHeight(63);
+        face.setFitWidth(70);
+        face.setX(1415);
+        face.setY(690);
+        pane.getChildren().add(face);
+
+        //TODO : fix the gold source
+        Text popularity = new Text();
+        popularity.setText("POPULARITY : " + 100);
+        popularity.setX(1415);
+        popularity.setY(770);
+        pane.getChildren().add(popularity);
+
+        //TODO : fix the gold source
+        Text gold = new Text();
+        gold.setText("GOLD : " + 2000);
+        gold.setX(1415);
+        gold.setY(790);
+        pane.getChildren().add(gold);
+
+        //TODO : fix the gold source
+        Text population = new Text();
+        population.setText("POPULATION : " + 20);
+        population.setX(1415);
+        population.setY(810);
+        pane.getChildren().add(population);
 
         castleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

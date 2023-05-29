@@ -65,7 +65,7 @@ public class TileManager extends Application {
 //        tilePane.setMaxWidth(10000);
         createButtonsArraylist();
 
-        for (int j = 0; j < 100; j++) {
+        for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
                 applyingMouseEventForButton(newButton,stage);
@@ -76,8 +76,8 @@ public class TileManager extends Application {
                 list.add(newButton);
             }
         }
-//         width  = 1530
-//         height = 800
+         width  = 1530;
+         height = 800;
 
         bottomBarImages = new BottomBarImages();
         bottomBarImages.loadImages();
@@ -87,9 +87,9 @@ public class TileManager extends Application {
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-        width = resolution.getWidth();
-        height = resolution.getHeight();
+//        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+//        width = resolution.getWidth();
+//        height = resolution.getHeight();
         pane.requestFocus();
 
         createViewScene(stage);
@@ -113,6 +113,7 @@ public class TileManager extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
+        stage.setResizable(false);
     }
 
     private void setButtonsOfMenus(Pane pane , BottomBarImages bottomBarImages) {
@@ -133,8 +134,8 @@ public class TileManager extends Application {
         if (moveY + 30 > 100){
             moveY = 70;
         }
-        if (moveX + 16 > 100){
-            moveX = 84;
+        if (moveX + 16 > 103){
+            moveX = 87;
         }
         if (moveX < 0 ) {
             moveX = 0;
