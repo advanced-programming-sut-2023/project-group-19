@@ -201,6 +201,50 @@ public class TileManager extends Application {
         sickleButton.setMinSize(50 , 50);
         pane.getChildren().add(sickleButton);
 
+        Button gameOptionButton = new Button();
+        ImageView gameOptionImage = new ImageView(bottomBarImages.getKey());
+        gameOptionButton.setBackground(null);
+        gameOptionImage.setFitHeight(40);
+        gameOptionImage.setFitWidth(40);
+        gameOptionButton.setGraphic(gameOptionImage);
+        gameOptionButton.setLayoutX(1027);
+        gameOptionButton.setLayoutY(675);
+        gameOptionButton.setMinSize(50 , 50);
+        pane.getChildren().add(gameOptionButton);
+
+        Button informationButton = new Button();
+        ImageView informationImage = new ImageView(bottomBarImages.getExclamation());
+        informationButton.setBackground(null);
+        informationImage.setFitHeight(30);
+        informationImage.setFitWidth(30);
+        informationButton.setGraphic(informationImage);
+        informationButton.setLayoutX(1030);
+        informationButton.setLayoutY(725);
+        informationButton.setMinSize(50 , 50);
+        pane.getChildren().add(informationButton);
+
+        Button deleteButton = new Button();
+        ImageView deleteImage = new ImageView(bottomBarImages.getClose());
+        deleteButton.setBackground(null);
+        deleteImage.setFitHeight(30);
+        deleteImage.setFitWidth(30);
+        deleteButton.setGraphic(deleteImage);
+        deleteButton.setLayoutX(1033);
+        deleteButton.setLayoutY(775);
+        deleteButton.setMinSize(50 , 50);
+        pane.getChildren().add(deleteButton);
+
+        Button undoButton = new Button();
+        ImageView undoImage = new ImageView(bottomBarImages.getUndo());
+        undoButton.setBackground(null);
+        undoImage.setFitHeight(40);
+        undoImage.setFitWidth(40);
+        undoButton.setGraphic(undoImage);
+        undoButton.setLayoutX(1030);
+        undoButton.setLayoutY(825);
+        undoButton.setMinSize(50 , 50);
+        pane.getChildren().add(undoButton);
+
 
         castleButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -238,6 +282,30 @@ public class TileManager extends Application {
         });
 
         sickleButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+        gameOptionButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+        informationButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+        undoButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent mouseEvent) {
 
