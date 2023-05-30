@@ -1189,6 +1189,15 @@ public class BottomBarBuildings {
         granaryButton.setLayoutY(710);
         granaryButton.setMinSize(100, 100);
         pane.getChildren().add(granaryButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Stockpile stockpile = new Stockpile(Manage.getCurrentEmpire());
+                stockpile.foodStockpile();
+                building = stockpile;
+            }
+        };
+        granaryButton.setOnMouseClicked(event);
 
         Button bakeryButton = new Button();
         ImageView bakeryImage = new ImageView(buildingImages.getBakery());
@@ -1206,6 +1215,15 @@ public class BottomBarBuildings {
         bread.setLayoutX(330);
         bread.setLayoutY(760);
         pane.getChildren().add(bread);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.bakery();
+                building = goods;
+            }
+        };
+        bakeryButton.setOnMouseClicked(event1);
 
         Button breweryButton = new Button();
         ImageView breweryImage = new ImageView(buildingImages.getBrewery());
@@ -1223,6 +1241,15 @@ public class BottomBarBuildings {
         barrel.setLayoutX(490);
         barrel.setLayoutY(760);
         pane.getChildren().add(barrel);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.bearFactory();
+                building = goods;
+            }
+        };
+        breweryButton.setOnMouseClicked(event2);
 
         Button millButton = new Button();
         ImageView millImage = new ImageView(buildingImages.getMill());
@@ -1240,6 +1267,15 @@ public class BottomBarBuildings {
         flour.setLayoutX(650);
         flour.setLayoutY(760);
         pane.getChildren().add(flour);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.mill();
+                building = industry;
+            }
+        };
+        millButton.setOnMouseClicked(event3);
 
         Button innButton = new Button();
         ImageView innImage = new ImageView(buildingImages.getInn());
@@ -1257,6 +1293,15 @@ public class BottomBarBuildings {
         beer.setLayoutX(810);
         beer.setLayoutY(760);
         pane.getChildren().add(beer);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Inn inn = new Inn(Manage.getCurrentEmpire());
+                inn.inn();
+                building = inn;
+            }
+        };
+        innButton.setOnMouseClicked(event4);
     }
 
     public void clearPane(Pane pane){
