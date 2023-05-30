@@ -1,6 +1,7 @@
 package view.ImageAndBackground;
 
 import javafx.scene.image.Image;
+import view.TileManager;
 
 public class BuildingImages {
     public Image apothecary;
@@ -46,13 +47,78 @@ public class BuildingImages {
     public Image stockpile;
     public Image stoneWall;
     public Image tanner;
+    public Image mercenary;
     public Image tortureBuilding;
     public Image tunnelersGuild;
+    public Image granary;
+    public Image mill;
     public Image wallStair;
     public Image wheatFarm;
     public Image woodCutter;
     public void loadImage(){
+        apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
+        appleFarm = new Image(TileManager.class.getResource("/image/BuildingImages/appleorchard.gif").toExternalForm());
+        armory = new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm());
+        armourer = new Image(TileManager.class.getResource("/image/BuildingImages/armourer.gif").toExternalForm());
+        bakery = new Image(TileManager.class.getResource("/image/BuildingImages/bakery.png").toExternalForm());
+        ballista = new Image(TileManager.class.getResource("/image/BuildingImages/ballista.png").toExternalForm());
+        barracks = new Image(TileManager.class.getResource("/image/BuildingImages/Barracks.png").toExternalForm());
+        bigChurch = new Image(TileManager.class.getResource("/image/BuildingImages/bigChurch.png").toExternalForm());
+        bigStoneGateHouse = new Image(TileManager.class.getResource("/image/BuildingImages/bigStoneGatehouse.png").toExternalForm());
+        blacksmith = new Image(TileManager.class.getResource("/image/BuildingImages/blackSmith.gif").toExternalForm());
+        brewery = new Image(TileManager.class.getResource("/image/BuildingImages/brewery.png").toExternalForm());
+        cagedWarDogs = new Image(TileManager.class.getResource("/image/BuildingImages/cagedWarDogs.png").toExternalForm());
+        crenulatedWall = new Image(TileManager.class.getResource("/image/BuildingImages/crenulatedWall.png").toExternalForm());
+        dairyFarm = new Image(TileManager.class.getResource("/image/BuildingImages/dairyfarm.gif").toExternalForm());
+        defenceTurret = new Image(TileManager.class.getResource("/image/BuildingImages/defenceTurret.png").toExternalForm());
+        drawBridge = new Image(TileManager.class.getResource("/image/BuildingImages/drawBridge.png").toExternalForm());
+        engineerGuild = new Image(TileManager.class.getResource("/image/BuildingImages/engineerGuild.gif").toExternalForm());
+        fletcher = new Image(TileManager.class.getResource("/image/BuildingImages/fletcher.gif").toExternalForm());
+        garden = new Image(TileManager.class.getResource("/image/BuildingImages/garden.gif").toExternalForm());
+        granary = new Image(TileManager.class.getResource("/image/BuildingImages/granary.gif").toExternalForm());
+        hopsFarm = new Image(TileManager.class.getResource("/image/BuildingImages/hopsfarm.gif").toExternalForm());
+        hovel = new Image(TileManager.class.getResource("/image/BuildingImages/hovel.png").toExternalForm());
+        inn = new Image(TileManager.class.getResource("/image/BuildingImages/inn.png").toExternalForm());
+        ironMine = new Image(TileManager.class.getResource("/image/BuildingImages/ironMine.gif").toExternalForm());
+        killingPit = new Image(TileManager.class.getResource("/image/BuildingImages/killingPit.png").toExternalForm());
+        lookoutTower = new Image(TileManager.class.getResource("/image/BuildingImages/lookoutTower.png").toExternalForm());
+        lowWall = new Image(TileManager.class.getResource("/image/BuildingImages/lowWall.png").toExternalForm());
+        mangonel = new Image(TileManager.class.getResource("/image/BuildingImages/mangonel.png").toExternalForm());
+        market = new Image(TileManager.class.getResource("/image/BuildingImages/Market.png").toExternalForm());
+        mercenary = new Image(TileManager.class.getResource("/image/BuildingImages/mercenary.png").toExternalForm());
+        mill = new Image(TileManager.class.getResource("/image/BuildingImages/mill.gif").toExternalForm());
+        oilSmelter = new Image(TileManager.class.getResource("/image/BuildingImages/oilSmelter.gif").toExternalForm());
+        oxTheater = new Image(TileManager.class.getResource("/image/BuildingImages/oxTheater.gif").toExternalForm());
+        pitchDitch = new Image(TileManager.class.getResource("/image/BuildingImages/pitchDitch.png").toExternalForm());
+        pitchRig = new Image(TileManager.class.getResource("/image/BuildingImages/pitchRig.png").toExternalForm());
+        poleTurner = new Image(TileManager.class.getResource("/image/BuildingImages/poleTurner.gif").toExternalForm());
+        premierTurret = new Image(TileManager.class.getResource("/image/BuildingImages/premierTurret.png").toExternalForm());
+        quarry = new Image(TileManager.class.getResource("/image/BuildingImages/quarry.gif").toExternalForm());
+        roundTower = new Image(TileManager.class.getResource("/image/BuildingImages/roundTower.png").toExternalForm());
+        smallChurch = new Image(TileManager.class.getResource("/image/BuildingImages/smallChurch.png").toExternalForm());
+        smallStoneGatehouse= new Image(TileManager.class.getResource("/image/BuildingImages/smallStoneGatehouse.png").toExternalForm());
+        squareTower = new Image(TileManager.class.getResource("/image/BuildingImages/squareTower.png").toExternalForm());
+        stable = new Image(TileManager.class.getResource("/image/BuildingImages/stable.png").toExternalForm());
+        stockpile = new Image(TileManager.class.getResource("/image/BuildingImages/stockpile.gif").toExternalForm());
+        stoneWall = new Image(TileManager.class.getResource("/image/BuildingImages/StoneWall.png").toExternalForm());
+        tanner = new Image(TileManager.class.getResource("/image/BuildingImages/tanner.gif").toExternalForm());
+        tortureBuilding = new Image(TileManager.class.getResource("/image/BuildingImages/tortureBuilding.gif").toExternalForm());
+        tunnelersGuild = new Image(TileManager.class.getResource("/image/BuildingImages/tunnelersGuild.gif").toExternalForm());
+        wallStair = new Image(TileManager.class.getResource("/image/BuildingImages/wallStair.png").toExternalForm());
+        wheatFarm = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
+        woodCutter = new Image(TileManager.class.getResource("/image/BuildingImages/WoodCutter.png").toExternalForm());
+    }
 
+    public Image getMill() {
+        return mill;
+    }
+
+    public Image getMercenary() {
+        return mercenary;
+    }
+
+    public Image getGranary() {
+        return granary;
     }
 
     public Image getApothecary() {
