@@ -17,9 +17,9 @@ public class TradeAndShopImages {
     public Image request;
     public Image donate;
 
-    public void loadImages(){
+    public void loadImages() {
         background = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/TradeMenuImage.jpg").toExternalForm(),
-                1560,900,false,true);
+                1560, 900, false, true);
         sendRequest = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/SendRequest.png").toExternalForm());
         viewPreviousTrades = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/PreviousTrades.png").toExternalForm());
         send = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/Send.png").toExternalForm());

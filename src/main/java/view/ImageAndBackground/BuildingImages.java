@@ -60,7 +60,12 @@ public class BuildingImages {
     public Image militaryBuildingsIcon;
     public Image siegeTent;
     public Image returnIcon;
-    public void loadImage(){
+    public Image apple;
+    public Image hops;
+    public Image wheat;
+    public Image dairy;
+
+    public void loadImage() {
         apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
         appleFarm = new Image(TileManager.class.getResource("/image/BuildingImages/appleorchard.gif").toExternalForm());
         armory = new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm());
@@ -101,7 +106,7 @@ public class BuildingImages {
         quarry = new Image(TileManager.class.getResource("/image/BuildingImages/quarry.gif").toExternalForm());
         roundTower = new Image(TileManager.class.getResource("/image/BuildingImages/roundTower.png").toExternalForm());
         smallChurch = new Image(TileManager.class.getResource("/image/BuildingImages/smallChurch.png").toExternalForm());
-        smallStoneGatehouse= new Image(TileManager.class.getResource("/image/BuildingImages/smallStoneGatehouse.png").toExternalForm());
+        smallStoneGatehouse = new Image(TileManager.class.getResource("/image/BuildingImages/smallStoneGatehouse.png").toExternalForm());
         squareTower = new Image(TileManager.class.getResource("/image/BuildingImages/squareTower.png").toExternalForm());
         stable = new Image(TileManager.class.getResource("/image/BuildingImages/stable.png").toExternalForm());
         stockpile = new Image(TileManager.class.getResource("/image/BuildingImages/stockpile.png").toExternalForm());
@@ -117,6 +122,26 @@ public class BuildingImages {
         militaryBuildingsIcon = new Image(TileManager.class.getResource("/image/BuildingImages/militaryBuildings.png").toExternalForm());
         returnIcon = new Image(TileManager.class.getResource("/image/BuildingImages/return.png").toExternalForm());
         siegeTent = new Image(TileManager.class.getResource("/image/BuildingImages/siegeTent.png").toExternalForm());
+        apple = new Image(TileManager.class.getResource("/image/BuildingImages/apple.png").toExternalForm());
+        wheat = new Image(TileManager.class.getResource("/image/BuildingImages/wheat.png").toExternalForm());
+        hops = new Image(TileManager.class.getResource("/image/BuildingImages/hops.png").toExternalForm());
+        dairy = new Image(TileManager.class.getResource("/image/BuildingImages/cheese.png").toExternalForm());
+    }
+
+    public Image getApple() {
+        return apple;
+    }
+
+    public Image getHops() {
+        return hops;
+    }
+
+    public Image getWheat() {
+        return wheat;
+    }
+
+    public Image getDairy() {
+        return dairy;
     }
 
     public Image getSiegeTent() {

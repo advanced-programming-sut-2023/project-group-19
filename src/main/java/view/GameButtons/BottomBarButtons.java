@@ -10,7 +10,7 @@ import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 
 public class BottomBarButtons {
-    public void createButtons(Pane pane , BottomBarImages bottomBarImages ) {
+    public void createButtons(Pane pane, BottomBarImages bottomBarImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
         imageView.setFitHeight(250);
         imageView.setFitWidth(1200);

@@ -1,14 +1,16 @@
 package view.GameButtons;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 
 public class BottomBarBuildings {
 
 
-    public void createCastleButtons(Pane pane , BuildingImages buildingImages){
+    public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
         Button wallStairButton = new Button();
         ImageView wallStairImage = new ImageView(buildingImages.getWallStair());
         wallStairButton.setBackground(null);
@@ -121,7 +123,8 @@ public class BottomBarBuildings {
 
 
     }
-    public void createGatehouseButtons(Pane pane , BuildingImages buildingImages){
+
+    public void createGatehouseButtons(Pane pane, BuildingImages buildingImages) {
         Button returnIconButton = new Button();
         ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
         returnIconButton.setBackground(null);
@@ -200,7 +203,8 @@ public class BottomBarBuildings {
         pane.getChildren().add(killingPitButton);
 
     }
-    public void createTowerButtons(Pane pane , BuildingImages buildingImages){
+
+    public void createTowerButtons(Pane pane, BuildingImages buildingImages) {
         Button returnIconButton = new Button();
         ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
         returnIconButton.setBackground(null);
@@ -267,7 +271,8 @@ public class BottomBarBuildings {
         roundTowerButton.setMinSize(100, 100);
         pane.getChildren().add(roundTowerButton);
     }
-    public void createMilitaryBuildingsButtons(Pane pane , BuildingImages buildingImages){
+
+    public void createMilitaryBuildingsButtons(Pane pane, BuildingImages buildingImages) {
         Button returnIconButton = new Button();
         ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
         returnIconButton.setBackground(null);
@@ -347,7 +352,8 @@ public class BottomBarBuildings {
         oilSmelterButton.setMinSize(100, 100);
         pane.getChildren().add(oilSmelterButton);
     }
-    public void createIndustryButtons(Pane pane , BuildingImages buildingImages){
+
+    public void createIndustryButtons(Pane pane, BuildingImages buildingImages) {
         Button stockpileButton = new Button();
         ImageView stockpileImage = new ImageView(buildingImages.getStockpile());
         stockpileButton.setBackground(null);
@@ -427,7 +433,8 @@ public class BottomBarBuildings {
         marketButton.setMinSize(100, 100);
         pane.getChildren().add(marketButton);
     }
-    public void createFarmButtons(Pane pane , BuildingImages buildingImages){
+
+    public void createFarmButtons(Pane pane, BuildingImages buildingImages) {
         Button dairyFarmButton = new Button();
         ImageView dairyFarmImage = new ImageView(buildingImages.getDairyFarm());
         dairyFarmButton.setBackground(null);
@@ -438,6 +445,12 @@ public class BottomBarBuildings {
         dairyFarmButton.setLayoutY(710);
         dairyFarmButton.setMinSize(100, 100);
         pane.getChildren().add(dairyFarmButton);
+        ImageView dairy = new ImageView(buildingImages.getDairy());
+        dairy.setFitWidth(50);
+        dairy.setFitHeight(50);
+        dairy.setLayoutX(130);
+        dairy.setLayoutY(780);
+        pane.getChildren().add(dairy);
 
         Button appleFarmButton = new Button();
         ImageView appleFarmImage = new ImageView(buildingImages.getAppleFarm());
@@ -449,6 +462,12 @@ public class BottomBarBuildings {
         appleFarmButton.setLayoutY(710);
         appleFarmButton.setMinSize(100, 100);
         pane.getChildren().add(appleFarmButton);
+        ImageView apple = new ImageView(buildingImages.getApple());
+        apple.setFitWidth(50);
+        apple.setFitHeight(50);
+        apple.setLayoutX(290);
+        apple.setLayoutY(780);
+        pane.getChildren().add(apple);
 
         Button wheatFarmButton = new Button();
         ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
@@ -460,6 +479,12 @@ public class BottomBarBuildings {
         wheatFarmButton.setLayoutY(710);
         wheatFarmButton.setMinSize(100, 100);
         pane.getChildren().add(wheatFarmButton);
+        ImageView wheat = new ImageView(buildingImages.getWheat());
+        wheat.setFitWidth(50);
+        wheat.setFitHeight(50);
+        wheat.setLayoutX(450);
+        wheat.setLayoutY(780);
+        pane.getChildren().add(wheat);
 
         Button hopsFarmButton = new Button();
         ImageView hopsFarmImage = new ImageView(buildingImages.getHopsFarm());
@@ -471,35 +496,48 @@ public class BottomBarBuildings {
         hopsFarmButton.setLayoutY(710);
         hopsFarmButton.setMinSize(100, 100);
         pane.getChildren().add(hopsFarmButton);
-    }
-    public void createTownButtons(Pane pane , BuildingImages buildingImages){
-
-    }
-    public void createWeaponsButtons(Pane pane , BuildingImages buildingImages){
-
-    }
-    public void createFoodButtons(Pane pane , BuildingImages buildingImages){
-
+        ImageView hops = new ImageView(buildingImages.getHops());
+        hops.setFitWidth(50);
+        hops.setFitHeight(50);
+        hops.setLayoutX(610);
+        hops.setLayoutY(780);
+        pane.getChildren().add(hops);
     }
 
-
-
-    public void clearCastleButtons(){
+    public void createTownButtons(Pane pane, BuildingImages buildingImages) {
 
     }
-    public void clearIndustryButtons(){
+
+    public void createWeaponsButtons(Pane pane, BuildingImages buildingImages) {
 
     }
-    public void clearFarmButtons(){
+
+    public void createFoodButtons(Pane pane, BuildingImages buildingImages) {
 
     }
-    public void clearTownButtons(){
+
+
+    public void clearCastleButtons() {
 
     }
-    public void clearWeaponsButtons(){
+
+    public void clearIndustryButtons() {
 
     }
-    public void clearFoodButtons(){
+
+    public void clearFarmButtons() {
+
+    }
+
+    public void clearTownButtons() {
+
+    }
+
+    public void clearWeaponsButtons() {
+
+    }
+
+    public void clearFoodButtons() {
 
     }
 }

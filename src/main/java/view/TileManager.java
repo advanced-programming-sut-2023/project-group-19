@@ -60,6 +60,7 @@ public class TileManager extends Application {
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
+
     @Override
     public void start(Stage stage) throws Exception {
 //        tilePane.setLayoutX(-100);
@@ -71,7 +72,7 @@ public class TileManager extends Application {
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
-                applyingMouseEventForButton(newButton,stage);
+                applyingMouseEventForButton(newButton, stage);
 //                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
@@ -79,14 +80,13 @@ public class TileManager extends Application {
                 list.add(newButton);
             }
         }
-         width  = 1530;
-         height = 800;
+        width = 1530;
+        height = 800;
 
         bottomBarImages = new BottomBarImages();
         bottomBarImages.loadImages();
         buildingImages = new BuildingImages();
         buildingImages.loadImage();
-
 
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -108,8 +108,7 @@ public class TileManager extends Application {
 
                 } else if (keyName.equals("Subtract")) {
 
-                }
-                else if (keyName.equals("F1")){
+                } else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
                 }
             }
@@ -121,30 +120,30 @@ public class TileManager extends Application {
         stage.setResizable(false);
     }
 
-    private void setButtonsOfMenus(Pane pane , BottomBarImages bottomBarImages , BuildingImages buildingImages) {
+    private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
         BottomBarButtons bottomBarButtons = new BottomBarButtons();
-        bottomBarButtons.createButtons(pane , bottomBarImages);
+        bottomBarButtons.createButtons(pane, bottomBarImages);
         BottomBarBuildings bottomBarBuildings = new BottomBarBuildings();
-        bottomBarBuildings.createFarmButtons(pane , buildingImages);
+        bottomBarBuildings.createFarmButtons(pane, buildingImages);
     }
 
-    public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
+    public void mouseMovement(int x1, int y1, int x2, int y2, Stage stage) {
         int maxX = (int) (x2 / 51.2);
         int minX = (int) (x1 / 51.2);
         int maxY = y2 / 54;
         int minY = y1 / 54;
-        moveX += minY - maxY ;
-        moveY += minX - maxX ;
+        moveX += minY - maxY;
+        moveY += minX - maxX;
         System.out.println("test");
         System.out.println(moveX);
         System.out.println(moveY);
-        if (moveY + 30 > 100){
+        if (moveY + 30 > 100) {
             moveY = 70;
         }
-        if (moveX + 16 > 103){
+        if (moveX + 16 > 103) {
             moveX = 87;
         }
-        if (moveX < 0 ) {
+        if (moveX < 0) {
             moveX = 0;
         }
         if (moveY < 0) {
@@ -183,19 +182,20 @@ public class TileManager extends Application {
             }
         }
     }
-    public void createViewScene(Stage stage){
+
+    public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
-                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
-                NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
+                ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
+                NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
                 pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
                 allButtons[u][g].add(button);
             }
         }
-        setButtonsOfMenus(pane , bottomBarImages , buildingImages);
+        setButtonsOfMenus(pane, bottomBarImages, buildingImages);
     }
 
     public void getCellData(NewButton newButton) {
@@ -253,7 +253,8 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-    private void applyingMouseEventForButton(NewButton newButton,Stage stage){
+
+    private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
@@ -325,7 +326,7 @@ public class TileManager extends Application {
                     if (moveIsOn) {
                         PointerInfo a = MouseInfo.getPointerInfo();
                         secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y,stage);
+                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, stage);
                     }
                 }
             }
