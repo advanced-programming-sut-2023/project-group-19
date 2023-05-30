@@ -1,10 +1,13 @@
 package view;
 
+import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -56,6 +59,8 @@ public class TileManager extends Application {
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
+
+    public GameController gameController = new GameController();
     @Override
     public void start(Stage stage) throws Exception {
 //        tilePane.setLayoutX(-100);
@@ -485,7 +490,10 @@ public class TileManager extends Application {
 
             }
         }
+        gameController.selectUnit(selectedButtons,pane);
+
     }
+
     public void createViewScene(Stage stage){
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {

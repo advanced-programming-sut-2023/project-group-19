@@ -1,5 +1,17 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import model.Building.*;
 import model.Empire;
 import model.GroundType;
@@ -8,8 +20,13 @@ import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
 import view.Messages.GameMenuMessages;
+import view.Model.NewButton;
+import view.ShopMenu;
+import view.TileManager;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -18,25 +35,111 @@ public class GameController {
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
     public ArrayList<ArchersAndThrowers> throwers = new ArrayList<>();
+    public int index = 0;
 
-    public GameMenuMessages selectUnit(Matcher x, Matcher y) {
-        int flag = 0;
-        int xCoordinate = Integer.parseInt(x.group("x"));
-        int yCoordinate = Integer.parseInt(y.group("y"));
-        if (validCoordinates(xCoordinate, yCoordinate)) {
-            if (!Map.getTroopMap()[xCoordinate][yCoordinate].isEmpty()) {
-                for (int i = 0; i < Map.getTroopMap()[xCoordinate][yCoordinate].size(); i++) {
-                    Army army = Map.getTroopMap()[xCoordinate][yCoordinate].get(i);
-                    if (army.getOwner().getName().equals(Manage.getCurrentEmpire().getName())) {
-                        flag = 1;
-                        selectedUnit.add(army);
+    public void selectUnit(ArrayList<NewButton> selectedButtons, Pane pane) {
+        Button next = new Button();
+        Button back = new Button();
+        Button done = new Button();
+        next.setMinSize(20, 20);
+        back.setMinSize(20, 20);
+        done.setMinSize(20, 20);
+        HashMap<ArrayList<Army>, Integer> listOfUnits = typeOfAvailableUnits(selectedButtons);
+        ArrayList<ImageView> images = new ArrayList<>();
+        ArrayList<Spinner<Integer>> spinners = new ArrayList<>();
+        ArrayList<Text> nameOfUnit = new ArrayList<>();
+        VBox vbox = new VBox();
+        vbox.setPrefSize(200, 400);
+        vbox.setLayoutX(1300);
+        for (java.util.Map.Entry<ArrayList<Army>, Integer> unit : listOfUnits.entrySet()) {
+            Text text = new Text(unit.getKey().get(0).getNames().getName());
+            text.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+            text.setLayoutX(1300);
+            text.setLayoutY(10);
+            nameOfUnit.add(text);
+            ImageView image = new ImageView(new Image
+                    (TileManager.class.getResource("/image/Units/3.jpg").toExternalForm()));
+            image.setLayoutX(1300);
+            image.setLayoutY(20);
+            images.add(image);
+            Spinner<Integer> amount = new Spinner<Integer>(0, unit.getValue(), 0);
+            amount.setEditable(true);
+            amount.setMinSize(100, 40);
+            amount.setMinWidth(100);
+            amount.setMinHeight(40);
+            amount.setLayoutX(1300);
+            amount.setLayoutY(300);
+            spinners.add(amount);
+        }
+        pane.getChildren().add(vbox);
+        vbox.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next);
+        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (index > 0) {
+                    vbox.getChildren().clear();
+                    index--;
+                    vbox.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), back);
+                    if (index == images.size() - 1) {
+                        vbox.getChildren().add(done);
+                    } else vbox.getChildren().add(next);
+                }
+            }
+        });
+        next.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (index < images.size() - 1) {
+                    vbox.getChildren().clear();
+                    index++;
+                    vbox.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), back);
+                    if (index == images.size() - 1) {
+                        vbox.getChildren().add(done);
+                    } else vbox.getChildren().add(next);
+                }
+            }
+        });
+        done.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                int j = 0;
+                for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
+                    for (int i = 0; i < spinners.get(j).getValue(); i++) {
+                        selectedUnit.add(army.getKey().get(i));
                     }
                 }
-                if (flag == 1) return GameMenuMessages.SELECT_UNIT_SUCCEEDED;
-                else return GameMenuMessages.NO_UNIT_IN_CELL;
-            } else return GameMenuMessages.NO_UNIT_IN_CELL;
+                pane.getChildren().remove(vbox);
+                index = 0;
+            }
+        });
+
+
+    }
+
+    public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
+        HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
+        for (NewButton selectedButton : selectedButtons) {
+            ArrayList<Army> armies = new ArrayList<>();
+            for (Army army : selectedButton.getArmy()) {
+                if (army.getOwner().equals(Manage.getCurrentEmpire())) {
+                    if (!editInfoOfRepeatedUnitNames(listOfUnits, army.getNames().getName())) {
+                        armies.add(army);
+                        listOfUnits.put(armies, 1);
+                    }
+                }
+            }
         }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+        return listOfUnits;
+    }
+
+    public boolean editInfoOfRepeatedUnitNames(HashMap<ArrayList<Army>, Integer> listOfUnits, String name) {
+        for (java.util.Map.Entry<ArrayList<Army>, Integer> units : listOfUnits.entrySet()) {
+            if (units.getKey().get(0).getNames().getName().equals(name)) {
+                units.setValue(units.getValue() + 1);
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean isArcher(Army army) {
@@ -71,8 +174,8 @@ public class GameController {
                 army.isIntFight = true;
             }
             String unitMoved = moveUnit(x, y).getMessages();
-            System.out.println( "x is: " +  selectedUnit.get(0).getCurrentX() + " y is: " + selectedUnit.get(0).getCurrentY()
-            + selectedUnit.get(0).myPath);
+            System.out.println("x is: " + selectedUnit.get(0).getCurrentX() + " y is: " + selectedUnit.get(0).getCurrentY()
+                    + selectedUnit.get(0).myPath);
 
             //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
@@ -153,7 +256,7 @@ public class GameController {
                         archer.archer(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(archer);
                         Map.getTroopMap()[x][y].add(archer);
-                        System.out.println(archer+" "+archer.getEmpire());
+                        System.out.println(archer + " " + archer.getEmpire());
                     }
                     return true;
                 } else return false;
@@ -274,7 +377,7 @@ public class GameController {
                         knight.Knight(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(knight);
                         Map.getTroopMap()[x][y].add(knight);
-                        System.out.println(knight.getNames()+" "+knight.getOwner());
+                        System.out.println(knight.getNames() + " " + knight.getOwner());
                     }
                     return true;
                 } else return false;
@@ -949,12 +1052,14 @@ public class GameController {
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
+
     private static boolean checkIfWallIsBesideGate(int x, int y, int xOfGate, int yOfGate) {
         return ((validCoordinates(xOfGate, yOfGate - 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate - 1].get(0)))
                 || (validCoordinates(xOfGate, yOfGate + 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate][yOfGate + 1].get(0)))
                 || (validCoordinates(xOfGate + 1, yOfGate) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate + 1][yOfGate].get(0)))
                 || (validCoordinates(xOfGate, yOfGate - 1) && !Map.getBuildingMap()[x][y].isEmpty() && Map.getBuildingMap()[x][y].get(0).equals(Map.getBuildingMap()[xOfGate - 1][yOfGate].get(0))));
     }
+
     private static Army ifLadderManIsAvailable() {
         for (Army army : Manage.getCurrentEmpire().empireArmy) {
             if (army.getNames().getName().equals(Names.LADDER_MEN.getName())) {
