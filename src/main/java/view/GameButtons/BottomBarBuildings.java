@@ -12,21 +12,17 @@ import model.Human.Troop.Army;
 import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
+import view.Model.NewButton;
+
+import java.util.ArrayList;
 
 public class BottomBarBuildings {
     //TODO : handle the draw bridge for now i set the x and y  to 0 , 0
     //TODO : handle the Siegetroop for now I set the x and y  to 0 , 0
+    public ArrayList<Button> addedButtons = new ArrayList<>();
     public Building building ;
     public Army troop;
-    public Pane testPane = new Pane();
 
-    public Pane getTestPane() {
-        return testPane;
-    }
-
-    public void setTestPane(Pane testPane) {
-        this.testPane = testPane;
-    }
 
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
         Button wallStairButton = new Button();
@@ -38,7 +34,8 @@ public class BottomBarBuildings {
         wallStairButton.setLayoutX(110);
         wallStairButton.setLayoutY(700);
         wallStairButton.setMinSize(100, 100);
-        testPane.getChildren().add(wallStairButton);
+        addedButtons.add(wallStairButton);
+        pane.getChildren().add(wallStairButton);
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -58,7 +55,8 @@ public class BottomBarBuildings {
         lowWallButton.setLayoutX(210);
         lowWallButton.setLayoutY(715);
         lowWallButton.setMinSize(100, 100);
-        testPane.getChildren().add(lowWallButton);
+        addedButtons.add(lowWallButton);
+        pane.getChildren().add(lowWallButton);
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -78,7 +76,8 @@ public class BottomBarBuildings {
         stoneWallButton.setLayoutX(340);
         stoneWallButton.setLayoutY(700);
         stoneWallButton.setMinSize(100, 100);
-        testPane.getChildren().add(stoneWallButton);
+        addedButtons.add(stoneWallButton);
+        pane.getChildren().add(stoneWallButton);
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -98,7 +97,8 @@ public class BottomBarBuildings {
         crenulatedWallButton.setLayoutX(470);
         crenulatedWallButton.setLayoutY(700);
         crenulatedWallButton.setMinSize(100, 100);
-        testPane.getChildren().add(crenulatedWallButton);
+        addedButtons.add(crenulatedWallButton);
+        pane.getChildren().add(crenulatedWallButton);
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -118,7 +118,8 @@ public class BottomBarBuildings {
         barracksButton.setLayoutX(600);
         barracksButton.setLayoutY(700);
         barracksButton.setMinSize(100, 100);
-        testPane.getChildren().add(barracksButton);
+        addedButtons.add(barracksButton);
+        pane.getChildren().add(barracksButton);
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -138,7 +139,8 @@ public class BottomBarBuildings {
         mercenaryButton.setLayoutX(730);
         mercenaryButton.setLayoutY(700);
         mercenaryButton.setMinSize(100, 100);
-        testPane.getChildren().add(mercenaryButton);
+        addedButtons.add(mercenaryButton);
+        pane.getChildren().add(mercenaryButton);
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -158,7 +160,8 @@ public class BottomBarBuildings {
         armoryButton.setLayoutX(860);
         armoryButton.setLayoutY(700);
         armoryButton.setMinSize(100, 100);
-        testPane.getChildren().add(armoryButton);
+        addedButtons.add(armoryButton);
+        pane.getChildren().add(armoryButton);
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -178,11 +181,12 @@ public class BottomBarBuildings {
         gatehouseIconButton.setLayoutX(980);
         gatehouseIconButton.setLayoutY(690);
         gatehouseIconButton.setMinSize(40, 40);
-        testPane.getChildren().add(gatehouseIconButton);
+        addedButtons.add(gatehouseIconButton);
+        pane.getChildren().add(gatehouseIconButton);
         EventHandler<MouseEvent> event8 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                clearPane();
+                clearPane(pane);
                 createGatehouseButtons(pane , buildingImages);
             }
         };
@@ -198,11 +202,12 @@ public class BottomBarBuildings {
         towerIconButton.setLayoutX(980);
         towerIconButton.setLayoutY(740);
         towerIconButton.setMinSize(40, 40);
-        testPane.getChildren().add(towerIconButton);
+        addedButtons.add(towerIconButton);
+        pane.getChildren().add(towerIconButton);
         EventHandler<MouseEvent> event9 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                clearPane();
+                clearPane(pane);
                 createTowerButtons(pane , buildingImages);
             }
         };
@@ -217,11 +222,12 @@ public class BottomBarBuildings {
         militaryBuildingsIconButton.setLayoutX(980);
         militaryBuildingsIconButton.setLayoutY(790);
         militaryBuildingsIconButton.setMinSize(40, 40);
-        testPane.getChildren().add(militaryBuildingsIconButton);
+        addedButtons.add(militaryBuildingsIconButton);
+        pane.getChildren().add(militaryBuildingsIconButton);
         EventHandler<MouseEvent> event10 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                clearPane();
+                clearPane(pane);
                 createMilitaryBuildingsButtons(pane , buildingImages);
             }
         };
@@ -238,11 +244,12 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutX(120);
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
-        testPane.getChildren().add(returnIconButton);
+        addedButtons.add(returnIconButton);
+        pane.getChildren().add(returnIconButton);
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                clearPane();
+                clearPane(pane);
                 createCastleButtons(pane , buildingImages);
             }
         };
@@ -257,7 +264,8 @@ public class BottomBarBuildings {
         smallGatehouseButton.setLayoutX(220);
         smallGatehouseButton.setLayoutY(700);
         smallGatehouseButton.setMinSize(100, 100);
-        testPane.getChildren().add(smallGatehouseButton);
+        addedButtons.add(smallGatehouseButton);
+        pane.getChildren().add(smallGatehouseButton);
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -277,7 +285,8 @@ public class BottomBarBuildings {
         bigGatehouseButton.setLayoutX(360);
         bigGatehouseButton.setLayoutY(700);
         bigGatehouseButton.setMinSize(100, 100);
-        testPane.getChildren().add(bigGatehouseButton);
+        addedButtons.add(bigGatehouseButton);
+        pane.getChildren().add(bigGatehouseButton);
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -297,7 +306,8 @@ public class BottomBarBuildings {
         drawBridgeButton.setLayoutX(500);
         drawBridgeButton.setLayoutY(700);
         drawBridgeButton.setMinSize(100, 100);
-        testPane.getChildren().add(drawBridgeButton);
+        addedButtons.add(drawBridgeButton);
+        pane.getChildren().add(drawBridgeButton);
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -316,8 +326,9 @@ public class BottomBarBuildings {
         cagedDogsButton.setGraphic(cagedDogsImage);
         cagedDogsButton.setLayoutX(660);
         cagedDogsButton.setLayoutY(700);
+        addedButtons.add(cagedDogsButton);
         cagedDogsButton.setMinSize(100, 100);
-        testPane.getChildren().add(cagedDogsButton);
+        pane.getChildren().add(cagedDogsButton);
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -337,7 +348,8 @@ public class BottomBarBuildings {
         pitchDitchButton.setLayoutX(800);
         pitchDitchButton.setLayoutY(740);
         pitchDitchButton.setMinSize(50, 50);
-        testPane.getChildren().add(pitchDitchButton);
+        addedButtons.add(pitchDitchButton);
+        pane.getChildren().add(pitchDitchButton);
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -357,7 +369,8 @@ public class BottomBarBuildings {
         killingPitButton.setLayoutX(920);
         killingPitButton.setLayoutY(750);
         killingPitButton.setMinSize(30, 30);
-        testPane.getChildren().add(killingPitButton);
+        addedButtons.add(killingPitButton);
+        pane.getChildren().add(killingPitButton);
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -380,11 +393,12 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutX(120);
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
-        testPane.getChildren().add(returnIconButton);
+        addedButtons.add(returnIconButton);
+        pane.getChildren().add(returnIconButton);
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                clearPane();
+                clearPane(pane);
                 createCastleButtons(pane , buildingImages);
             }
         };
@@ -399,7 +413,8 @@ public class BottomBarBuildings {
         lookoutTowerButton.setLayoutX(240);
         lookoutTowerButton.setLayoutY(680);
         lookoutTowerButton.setMinSize(100, 100);
-        testPane.getChildren().add(lookoutTowerButton);
+        addedButtons.add(lookoutTowerButton);
+        pane.getChildren().add(lookoutTowerButton);
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -419,7 +434,8 @@ public class BottomBarBuildings {
         premierTowerButton.setLayoutX(380);
         premierTowerButton.setLayoutY(710);
         premierTowerButton.setMinSize(100, 100);
-        testPane.getChildren().add(premierTowerButton);
+        addedButtons.add(premierTowerButton);
+        pane.getChildren().add(premierTowerButton);
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -439,7 +455,8 @@ public class BottomBarBuildings {
         defenceTowerButton.setLayoutX(520);
         defenceTowerButton.setLayoutY(710);
         defenceTowerButton.setMinSize(100, 100);
-        testPane.getChildren().add(defenceTowerButton);
+        addedButtons.add(defenceTowerButton);
+        pane.getChildren().add(defenceTowerButton);
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -459,7 +476,8 @@ public class BottomBarBuildings {
         squareTowerButton.setLayoutX(660);
         squareTowerButton.setLayoutY(710);
         squareTowerButton.setMinSize(100, 100);
-        testPane.getChildren().add(squareTowerButton);
+        addedButtons.add(squareTowerButton);
+        pane.getChildren().add(squareTowerButton);
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -479,7 +497,8 @@ public class BottomBarBuildings {
         roundTowerButton.setLayoutX(800);
         roundTowerButton.setLayoutY(710);
         roundTowerButton.setMinSize(100, 100);
-        testPane.getChildren().add(roundTowerButton);
+        addedButtons.add(roundTowerButton);
+        pane.getChildren().add(roundTowerButton);
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -502,11 +521,12 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutX(120);
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
-        testPane.getChildren().add(returnIconButton);
+        addedButtons.add(returnIconButton);
+        pane.getChildren().add(returnIconButton);
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                clearPane();
+                clearPane(pane);
                 createCastleButtons(pane , buildingImages);
             }
         };
@@ -521,7 +541,8 @@ public class BottomBarBuildings {
         engineersGuildButton.setLayoutX(220);
         engineersGuildButton.setLayoutY(710);
         engineersGuildButton.setMinSize(100, 100);
-        testPane.getChildren().add(engineersGuildButton);
+        addedButtons.add(engineersGuildButton);
+        pane.getChildren().add(engineersGuildButton);
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -542,7 +563,8 @@ public class BottomBarBuildings {
         mangonelButton.setLayoutY(710);
         mangonelButton.setMinSize(100, 100);
         mangonelButton.setMaxSize(100, 100);
-        testPane.getChildren().add(mangonelButton);
+        addedButtons.add(mangonelButton);
+        pane.getChildren().add(mangonelButton);
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -563,7 +585,8 @@ public class BottomBarBuildings {
         ballistaButton.setLayoutY(720);
         ballistaButton.setMinSize(100, 100);
         ballistaButton.setMaxSize(100, 100);
-        testPane.getChildren().add(ballistaButton);
+        addedButtons.add(ballistaButton);
+        pane.getChildren().add(ballistaButton);
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -583,7 +606,8 @@ public class BottomBarBuildings {
         stableButton.setLayoutX(630);
         stableButton.setLayoutY(710);
         stableButton.setMinSize(100, 100);
-        testPane.getChildren().add(stableButton);
+        addedButtons.add(stableButton);
+        pane.getChildren().add(stableButton);
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -603,7 +627,8 @@ public class BottomBarBuildings {
         tunnelersGuildButton.setLayoutX(770);
         tunnelersGuildButton.setLayoutY(710);
         tunnelersGuildButton.setMinSize(100, 100);
-        testPane.getChildren().add(tunnelersGuildButton);
+        addedButtons.add(tunnelersGuildButton);
+        pane.getChildren().add(tunnelersGuildButton);
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -623,7 +648,8 @@ public class BottomBarBuildings {
         oilSmelterButton.setLayoutX(910);
         oilSmelterButton.setLayoutY(710);
         oilSmelterButton.setMinSize(100, 100);
-        testPane.getChildren().add(oilSmelterButton);
+        addedButtons.add(oilSmelterButton);
+        pane.getChildren().add(oilSmelterButton);
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -1033,8 +1059,9 @@ public class BottomBarBuildings {
         pane.getChildren().add(beer);
     }
 
-    public void clearPane(){
-        testPane.getChildren().clear();
+    public void clearPane(Pane pane){
+        pane.getChildren().removeAll(addedButtons);
+        addedButtons.clear();
     }
 
 }

@@ -11,6 +11,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Human.Troop.Army;
@@ -125,7 +126,6 @@ public class TileManager extends Application {
         bottomBarButtons.createButtons(pane, bottomBarImages);
         BottomBarBuildings bottomBarBuildings = new BottomBarBuildings();
         bottomBarBuildings.createCastleButtons(pane, buildingImages);
-        pane.getChildren().add(bottomBarBuildings.getTestPane());
     }
 
     public void mouseMovement(int x1, int y1, int x2, int y2, Stage stage) {
