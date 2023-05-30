@@ -123,8 +123,8 @@ public class TileManager extends Application {
 
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
         BottomBarButtons bottomBarButtons = new BottomBarButtons();
-        bottomBarButtons.createButtons(pane, bottomBarImages);
         BottomBarBuildings bottomBarBuildings = new BottomBarBuildings();
+        bottomBarButtons.createButtons(pane, bottomBarImages , bottomBarBuildings , buildingImages );
         bottomBarBuildings.createCastleButtons(pane, buildingImages);
     }
 
