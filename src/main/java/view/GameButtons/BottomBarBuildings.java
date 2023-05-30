@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class BottomBarBuildings {
     //TODO : handle the draw bridge for now i set the x and y  to 0 , 0
     //TODO : handle the Siegetroop for now I set the x and y  to 0 , 0
+    //TODO : add sickness logic to the game and fix its eventhandler
     public ArrayList<Button> addedButtons = new ArrayList<>();
     public Building building ;
     public Army troop;
@@ -922,6 +923,15 @@ public class BottomBarBuildings {
         hovelButton.setLayoutY(710);
         hovelButton.setMinSize(100, 100);
         pane.getChildren().add(hovelButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                House house = new House(Manage.getCurrentEmpire());
+                house.house();
+                building = house;
+            }
+        };
+        hovelButton.setOnMouseClicked(event);
 
         Button smallChurchButton = new Button();
         ImageView smallChurchImage = new ImageView(buildingImages.getSmallChurch());
@@ -933,6 +943,15 @@ public class BottomBarBuildings {
         smallChurchButton.setLayoutY(710);
         smallChurchButton.setMinSize(100, 100);
         pane.getChildren().add(smallChurchButton);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Church church = new Church(Manage.getCurrentEmpire());
+                church.smallChurch();
+                building = church;
+            }
+        };
+        smallChurchButton.setOnMouseClicked(event1);
 
         Button bigChurchButton = new Button();
         ImageView bigChurchImage = new ImageView(buildingImages.getBigChurch());
@@ -944,6 +963,15 @@ public class BottomBarBuildings {
         bigChurchButton.setLayoutY(710);
         bigChurchButton.setMinSize(100, 100);
         pane.getChildren().add(bigChurchButton);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Church church = new Church(Manage.getCurrentEmpire());
+                church.bigChurch();
+                building = church;
+            }
+        };
+        bigChurchButton.setOnMouseClicked(event2);
 
         Button apothecaryButton = new Button();
         ImageView apothecaryImage = new ImageView(buildingImages.getApothecary());
@@ -955,6 +983,14 @@ public class BottomBarBuildings {
         apothecaryButton.setLayoutY(710);
         apothecaryButton.setMinSize(100, 100);
         pane.getChildren().add(apothecaryButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                Goods goods = new Goods(Manage.getCurrentEmpire());
+//                goods.dairyProduct();
+//                building = goods;
+//            }
+//        };
 
         Button tortureBuildingButton = new Button();
         ImageView tortureBuildingImage = new ImageView(buildingImages.getTortureBuilding());
@@ -966,6 +1002,15 @@ public class BottomBarBuildings {
         tortureBuildingButton.setLayoutY(710);
         tortureBuildingButton.setMinSize(100, 100);
         pane.getChildren().add(tortureBuildingButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                FearControl fearControl = new FearControl(Manage.getCurrentEmpire());
+                fearControl.tortureChamber();
+                building = fearControl;
+            }
+        };
+        tortureBuildingButton.setOnMouseClicked(event4);
 
         Button gardenButton = new Button();
         ImageView gardenImage = new ImageView(buildingImages.getGarden());
@@ -977,6 +1022,16 @@ public class BottomBarBuildings {
         gardenButton.setLayoutY(710);
         gardenButton.setMinSize(100, 100);
         pane.getChildren().add(gardenButton);
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                FearControl fearControl = new FearControl(Manage.getCurrentEmpire());
+                fearControl.garden();
+                building = fearControl;
+            }
+        };
+        gardenButton.setOnMouseClicked(event5);
+
     }
 
     public void createWeaponsButtons(Pane pane, BuildingImages buildingImages) {
