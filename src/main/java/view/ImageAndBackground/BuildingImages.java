@@ -60,7 +60,7 @@ public class BuildingImages {
         appleFarm = new Image(TileManager.class.getResource("/image/BuildingImages/appleorchard.gif").toExternalForm());
         armory = new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm());
         armourer = new Image(TileManager.class.getResource("/image/BuildingImages/armourer.gif").toExternalForm());
-        bakery = new Image(TileManager.class.getResource("/image/BuildingImages/bakery.png").toExternalForm());
+        bakery = new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm());
         ballista = new Image(TileManager.class.getResource("/image/BuildingImages/ballista.png").toExternalForm());
         barracks = new Image(TileManager.class.getResource("/image/BuildingImages/Barracks.png").toExternalForm());
         bigChurch = new Image(TileManager.class.getResource("/image/BuildingImages/bigChurch.png").toExternalForm());

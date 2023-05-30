@@ -257,10 +257,6 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-//                if(selectedButtons.size() == 1 ) {
-//                    newButton.setStyle(null);
-//                }
                 showCellData.setText("");
                 pane.getChildren().remove(showCellData);
             }
@@ -345,12 +341,10 @@ public class TileManager extends Application {
                 }
             }
         };
-
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
-        //newButton.setOnMouseExited(event2);
-        newButton.setOnMouseMoved(event3);
-        //newButton.setOnMouseClicked(event6);
+        newButton.setOnMouseExited(event2);
+        newButton.setOnMouseEntered(event3);
     }
 
 
