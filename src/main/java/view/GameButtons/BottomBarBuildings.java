@@ -6,15 +6,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import model.Building.Armoury;
-import model.Building.Building;
-import model.Building.PrepareLaboursAndFighters;
-import model.Building.Wall;
+import model.Building.*;
 import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 
 public class BottomBarBuildings {
+    //TODO : handle the draw bridge for now i set the x and y  to 0 , 0
     public Building building ;
     public Pane testPane = new Pane();
 
@@ -236,7 +234,15 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutX(120);
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
-        pane.getChildren().add(returnIconButton);
+        testPane.getChildren().add(returnIconButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearPane();
+                createCastleButtons(pane , buildingImages);
+            }
+        };
+        returnIconButton.setOnMouseClicked(event);
 
         Button smallGatehouseButton = new Button();
         ImageView smallGatehouseImage = new ImageView(buildingImages.getSmallStoneGatehouse());
@@ -247,7 +253,16 @@ public class BottomBarBuildings {
         smallGatehouseButton.setLayoutX(220);
         smallGatehouseButton.setLayoutY(700);
         smallGatehouseButton.setMinSize(100, 100);
-        pane.getChildren().add(smallGatehouseButton);
+        testPane.getChildren().add(smallGatehouseButton);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                StoneGateWay stoneGateWay = new StoneGateWay(Manage.getCurrentEmpire());
+                stoneGateWay.smallGateWay(Names.NS);
+                building = stoneGateWay;
+            }
+        };
+        smallGatehouseButton.setOnMouseClicked(event1);
 
         Button bigGatehouseButton = new Button();
         ImageView bigGatehouseImage = new ImageView(buildingImages.getBigStoneGateHouse());
@@ -258,7 +273,16 @@ public class BottomBarBuildings {
         bigGatehouseButton.setLayoutX(360);
         bigGatehouseButton.setLayoutY(700);
         bigGatehouseButton.setMinSize(100, 100);
-        pane.getChildren().add(bigGatehouseButton);
+        testPane.getChildren().add(bigGatehouseButton);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                StoneGateWay stoneGateWay = new StoneGateWay(Manage.getCurrentEmpire());
+                stoneGateWay.bigGateWay(Names.NS);
+                building = stoneGateWay;
+            }
+        };
+        bigGatehouseButton.setOnMouseClicked(event2);
 
         Button drawBridgeButton = new Button();
         ImageView drawBridgeImage = new ImageView(buildingImages.getDrawBridge());
@@ -269,7 +293,16 @@ public class BottomBarBuildings {
         drawBridgeButton.setLayoutX(500);
         drawBridgeButton.setLayoutY(700);
         drawBridgeButton.setMinSize(100, 100);
-        pane.getChildren().add(drawBridgeButton);
+        testPane.getChildren().add(drawBridgeButton);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                DrawBridge drawBridge = new DrawBridge(Manage.getCurrentEmpire());
+                drawBridge.drawBridge(0 , 0);
+                building = drawBridge;
+            }
+        };
+        drawBridgeButton.setOnMouseClicked(event3);
 
         Button cagedDogsButton = new Button();
         ImageView cagedDogsImage = new ImageView(buildingImages.getCagedWarDogs());
@@ -280,7 +313,16 @@ public class BottomBarBuildings {
         cagedDogsButton.setLayoutX(660);
         cagedDogsButton.setLayoutY(700);
         cagedDogsButton.setMinSize(100, 100);
-        pane.getChildren().add(cagedDogsButton);
+        testPane.getChildren().add(cagedDogsButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                CagedWarDogs cagedWarDogs = new CagedWarDogs(Manage.getCurrentEmpire());
+                cagedWarDogs.cagedWarDogs();
+                building = cagedWarDogs;
+            }
+        };
+        cagedDogsButton.setOnMouseClicked(event4);
 
         Button pitchDitchButton = new Button();
         ImageView pitchDitchImage = new ImageView(buildingImages.getPitchDitch());
@@ -291,7 +333,16 @@ public class BottomBarBuildings {
         pitchDitchButton.setLayoutX(800);
         pitchDitchButton.setLayoutY(740);
         pitchDitchButton.setMinSize(50, 50);
-        pane.getChildren().add(pitchDitchButton);
+        testPane.getChildren().add(pitchDitchButton);
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
+                pitchDitch.pitchDitch();
+                building = pitchDitch;
+            }
+        };
+        pitchDitchButton.setOnMouseClicked(event5);
 
         Button killingPitButton = new Button();
         ImageView killingPitImage = new ImageView(buildingImages.getKillingPit());
@@ -302,7 +353,16 @@ public class BottomBarBuildings {
         killingPitButton.setLayoutX(920);
         killingPitButton.setLayoutY(750);
         killingPitButton.setMinSize(30, 30);
-        pane.getChildren().add(killingPitButton);
+        testPane.getChildren().add(killingPitButton);
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                KillingPit killingPit = new KillingPit(Manage.getCurrentEmpire());
+                killingPit.killingPit();
+                building = killingPit;
+            }
+        };
+        killingPitButton.setOnMouseClicked(event6);
 
     }
 
