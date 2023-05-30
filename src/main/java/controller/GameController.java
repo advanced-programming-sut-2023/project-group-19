@@ -6,12 +6,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import model.Building.*;
 import model.Empire;
 import model.GroundType;
@@ -37,77 +33,121 @@ public class GameController {
         Button next = new Button();
         Button back = new Button();
         Button done = new Button();
-        next.setMinSize(20, 20);
+        next.setMinSize(30, 30);
         back.setMinSize(20, 20);
         done.setMinSize(20, 20);
+
         HashMap<ArrayList<Army>, Integer> listOfUnits = typeOfAvailableUnits(selectedButtons);
         ArrayList<ImageView> images = new ArrayList<>();
         ArrayList<Spinner<Integer>> spinners = new ArrayList<>();
         ArrayList<Text> nameOfUnit = new ArrayList<>();
-        VBox vbox = new VBox();
-        vbox.setPrefSize(200, 400);
-        vbox.setLayoutX(1300);
+
+
+        VBox box = new VBox();
+
+        BackgroundImage map = new BackgroundImage(new Image(GameController.class.
+                getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+
+        box.setBackground(new Background(map));
+        box.setPrefSize(200,350);
+        box.setLayoutX(1300);
+
+
         for (java.util.Map.Entry<ArrayList<Army>, Integer> unit : listOfUnits.entrySet()) {
             Text text = new Text(unit.getKey().get(0).getNames().getName());
             text.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
-            text.setLayoutX(1300);
-            text.setLayoutY(10);
+            text.setTranslateX(65);
+            text.setTranslateY(25);
+            text.setTabSize(20);
             nameOfUnit.add(text);
+
             ImageView image = new ImageView(new Image
-                    (Objects.requireNonNull(TileManager.class.getResource("/image/Units/3.jpg")).toExternalForm()));
-            image.setLayoutX(1300);
-            image.setLayoutY(20);
+                    (Objects.requireNonNull(TileManager.class.getResource
+                            ("/image/Units/IntroductionPics/archer.png")).toExternalForm()));
+            image.setTranslateX(60);
+            image.setTranslateY(30);
             images.add(image);
+            image.setFitWidth(70);
+            image.setFitHeight(70);
+
             Spinner<Integer> amount = new Spinner<Integer>(0, unit.getValue(), 0);
             amount.setEditable(true);
-            amount.setMinSize(100, 40);
-            amount.setMinWidth(100);
-            amount.setMinHeight(40);
-            amount.setLayoutX(1300);
-            amount.setLayoutY(300);
+            amount.setMinSize(80, 20);
+            amount.setMinWidth(80);
+            amount.setMinHeight(20);
+            amount.setTranslateX(20);
+            amount.setTranslateY(100);
             spinners.add(amount);
         }
-        pane.getChildren().add(vbox);
-        System.out.println(nameOfUnit.size()+" "+images.size()+" "+ spinners.size());
-        //vbox.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next);
+
+        if (nameOfUnit.size() > 0 && images.size() > 0 && spinners.size() > 0) {
+            box.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next, back, done);
+            pane.getChildren().add(box);
+        }
+
+        next.setTranslateX(51);
+        next.setTranslateY(178);
+        ImageView nextButton = new ImageView(new Image(GameController.class.
+                getResource("/image/GameMenu/right-arrow.png").toExternalForm()));
+        nextButton.setFitHeight(30);
+        nextButton.setFitWidth(30);
+        next.setGraphic(nextButton);
+        next.setBackground(null);
+
+        back.setTranslateY(50);
+        back.setTranslateY(140);
+        ImageView backButton = new ImageView(new Image(GameController.class.
+                getResource("/image/GameMenu/arrow.png").toExternalForm()));
+        backButton.setFitWidth(30);
+        backButton.setFitHeight(30);
+        back.setGraphic(backButton);
+        back.setBackground(null);
+
+
+        done.setTranslateX(103);
+        done.setTranslateY(101);
+        ImageView doneButton = new ImageView(new Image(GameController.class.
+                getResource("/image/GameMenu/check.png").toExternalForm()));
+        doneButton.setFitHeight(30);
+        doneButton.setFitWidth(30);
+        done.setGraphic(doneButton);
+        done.setBackground(null);
+
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                System.out.println("back works");
                 if (index > 0) {
-                    vbox.getChildren().clear();
+                    box.getChildren().clear();
                     index--;
-                    vbox.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), back);
-                    if (index == images.size() - 1) {
-                        vbox.getChildren().add(done);
-                    } else vbox.getChildren().add(next);
+                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index));
                 }
             }
         });
         next.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                System.out.println("next works");
                 if (index < images.size() - 1) {
-                    vbox.getChildren().clear();
+                    box.getChildren().clear();
                     index++;
-                    vbox.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), back);
-                    if (index == images.size() - 1) {
-                        vbox.getChildren().add(done);
-                    } else vbox.getChildren().add(next);
+                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index));
                 }
             }
         });
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                System.out.println("done  works");
                 int j = 0;
                 for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
                     for (int i = 0; i < spinners.get(j).getValue(); i++) {
                         selectedUnit.add(army.getKey().get(i));
                     }
                 }
-                pane.getChildren().remove(vbox);
+                pane.getChildren().remove(box);
                 index = 0;
-                System.out.println(selectedButtons.size()+" "+selectedButtons.get(0));
             }
         });
 

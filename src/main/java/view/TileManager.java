@@ -22,6 +22,7 @@ import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.MoveAnimation;
 import view.ImageAndBackground.BottomBarImages;
 import view.Model.NewButton;
 
@@ -101,23 +102,12 @@ public class TileManager extends Application {
 
 
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(10, 20);
-        NewButton newButton = (NewButton) list.get(10 * 100 + 20);
+        archersAndThrowers.archer(5, 20);
+        NewButton newButton = (NewButton) list.get(5 * 100 + 20);
         System.out.println(newButton.getX() + " " + newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
 //        archersAndThrowers.imageView.setX(newButton.getLayoutX());
 //        archersAndThrowers.imageView.setY(newButton.getLayoutY());
-
-
-
-
-
-
-
-        //GameController gameController = new GameController();
-        //gameController.selectedUnit.add(archersAndThrowers);
-        //gameController.setPathForUnits(100,400);
-//        view.Animation.MoveAnimation moveAnimation = new view.Animation.MoveAnimation(archersAndThrowers);
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -129,7 +119,10 @@ public class TileManager extends Application {
         pane.requestFocus();
 
         createViewScene(stage);
-
+//        GameController gameController = new GameController();
+//        gameController.selectedUnit.add(archersAndThrowers);
+//        gameController.setPathForUnits(100,400);
+//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers);
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
