@@ -359,74 +359,118 @@ public class BottomBarBuildings {
         stockpileButton.setMinSize(100, 100);
         pane.getChildren().add(stockpileButton);
 
-//        Button engineersGuildButton = new Button();
-//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
-//        engineersGuildButton.setBackground(null);
-//        engineersGuildImage.setFitHeight(100);
-//        engineersGuildImage.setFitWidth(100);
-//        engineersGuildButton.setGraphic(engineersGuildImage);
-//        engineersGuildButton.setLayoutX(220);
-//        engineersGuildButton.setLayoutY(710);
-//        engineersGuildButton.setMinSize(100, 100);
-//        pane.getChildren().add(engineersGuildButton);
-//
-//        Button engineersGuildButton = new Button();
-//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
-//        engineersGuildButton.setBackground(null);
-//        engineersGuildImage.setFitHeight(100);
-//        engineersGuildImage.setFitWidth(100);
-//        engineersGuildButton.setGraphic(engineersGuildImage);
-//        engineersGuildButton.setLayoutX(220);
-//        engineersGuildButton.setLayoutY(710);
-//        engineersGuildButton.setMinSize(100, 100);
-//        pane.getChildren().add(engineersGuildButton);
-//
-//        Button engineersGuildButton = new Button();
-//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
-//        engineersGuildButton.setBackground(null);
-//        engineersGuildImage.setFitHeight(100);
-//        engineersGuildImage.setFitWidth(100);
-//        engineersGuildButton.setGraphic(engineersGuildImage);
-//        engineersGuildButton.setLayoutX(220);
-//        engineersGuildButton.setLayoutY(710);
-//        engineersGuildButton.setMinSize(100, 100);
-//        pane.getChildren().add(engineersGuildButton);
-//
-//        Button engineersGuildButton = new Button();
-//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
-//        engineersGuildButton.setBackground(null);
-//        engineersGuildImage.setFitHeight(100);
-//        engineersGuildImage.setFitWidth(100);
-//        engineersGuildButton.setGraphic(engineersGuildImage);
-//        engineersGuildButton.setLayoutX(220);
-//        engineersGuildButton.setLayoutY(710);
-//        engineersGuildButton.setMinSize(100, 100);
-//        pane.getChildren().add(engineersGuildButton);
-//
-//        Button engineersGuildButton = new Button();
-//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
-//        engineersGuildButton.setBackground(null);
-//        engineersGuildImage.setFitHeight(100);
-//        engineersGuildImage.setFitWidth(100);
-//        engineersGuildButton.setGraphic(engineersGuildImage);
-//        engineersGuildButton.setLayoutX(220);
-//        engineersGuildButton.setLayoutY(710);
-//        engineersGuildButton.setMinSize(100, 100);
-//        pane.getChildren().add(engineersGuildButton);
-//
-//        Button engineersGuildButton = new Button();
-//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
-//        engineersGuildButton.setBackground(null);
-//        engineersGuildImage.setFitHeight(100);
-//        engineersGuildImage.setFitWidth(100);
-//        engineersGuildButton.setGraphic(engineersGuildImage);
-//        engineersGuildButton.setLayoutX(220);
-//        engineersGuildButton.setLayoutY(710);
-//        engineersGuildButton.setMinSize(100, 100);
-//        pane.getChildren().add(engineersGuildButton);
+        Button woodCutterButton = new Button();
+        ImageView woodCutterImage = new ImageView(buildingImages.getWoodCutter());
+        woodCutterButton.setBackground(null);
+        woodCutterImage.setFitHeight(150);
+        woodCutterImage.setFitWidth(150);
+        woodCutterButton.setGraphic(woodCutterImage);
+        woodCutterButton.setLayoutX(240);
+        woodCutterButton.setLayoutY(710);
+        woodCutterButton.setMinSize(100, 100);
+        woodCutterButton.setMaxSize(100, 100);
+        pane.getChildren().add(woodCutterButton);
+
+        Button quarryButton = new Button();
+        ImageView quarryImage = new ImageView(buildingImages.getQuarry());
+        quarryButton.setBackground(null);
+        quarryImage.setFitHeight(100);
+        quarryImage.setFitWidth(100);
+        quarryButton.setGraphic(quarryImage);
+        quarryButton.setLayoutX(360);
+        quarryButton.setLayoutY(710);
+        quarryButton.setMinSize(100, 100);
+        pane.getChildren().add(quarryButton);
+
+        Button oxTetherButton = new Button();
+        ImageView oxTetherImage = new ImageView(buildingImages.getOxTheater());
+        oxTetherButton.setBackground(null);
+        oxTetherImage.setFitHeight(100);
+        oxTetherImage.setFitWidth(100);
+        oxTetherButton.setGraphic(oxTetherImage);
+        oxTetherButton.setLayoutX(480);
+        oxTetherButton.setLayoutY(710);
+        oxTetherButton.setMinSize(100, 100);
+        pane.getChildren().add(oxTetherButton);
+
+        Button ironMineButton = new Button();
+        ImageView ironMineImage = new ImageView(buildingImages.getIronMine());
+        ironMineButton.setBackground(null);
+        ironMineImage.setFitHeight(100);
+        ironMineImage.setFitWidth(100);
+        ironMineButton.setGraphic(ironMineImage);
+        ironMineButton.setLayoutX(600);
+        ironMineButton.setLayoutY(710);
+        ironMineButton.setMinSize(100, 100);
+        pane.getChildren().add(ironMineButton);
+
+        Button pitchRigButton = new Button();
+        ImageView pitchRigImage = new ImageView(buildingImages.getPitchRig());
+        pitchRigButton.setBackground(null);
+        pitchRigImage.setFitHeight(150);
+        pitchRigImage.setFitWidth(150);
+        pitchRigButton.setGraphic(pitchRigImage);
+        pitchRigButton.setLayoutX(720);
+        pitchRigButton.setLayoutY(710);
+        pitchRigButton.setMinSize(100, 100);
+        pitchRigButton.setMaxSize(100, 100);
+        pane.getChildren().add(pitchRigButton);
+
+        Button marketButton = new Button();
+        ImageView marketImage = new ImageView(buildingImages.getMarket());
+        marketButton.setBackground(null);
+        marketImage.setFitHeight(100);
+        marketImage.setFitWidth(100);
+        marketButton.setGraphic(marketImage);
+        marketButton.setLayoutX(840);
+        marketButton.setLayoutY(710);
+        marketButton.setMinSize(100, 100);
+        pane.getChildren().add(marketButton);
     }
     public void createFarmButtons(Pane pane , BuildingImages buildingImages){
+        Button dairyFarmButton = new Button();
+        ImageView dairyFarmImage = new ImageView(buildingImages.getDairyFarm());
+        dairyFarmButton.setBackground(null);
+        dairyFarmImage.setFitHeight(100);
+        dairyFarmImage.setFitWidth(100);
+        dairyFarmButton.setGraphic(dairyFarmImage);
+        dairyFarmButton.setLayoutX(120);
+        dairyFarmButton.setLayoutY(710);
+        dairyFarmButton.setMinSize(100, 100);
+        pane.getChildren().add(dairyFarmButton);
 
+        Button appleFarmButton = new Button();
+        ImageView appleFarmImage = new ImageView(buildingImages.getAppleFarm());
+        appleFarmButton.setBackground(null);
+        appleFarmImage.setFitHeight(100);
+        appleFarmImage.setFitWidth(100);
+        appleFarmButton.setGraphic(appleFarmImage);
+        appleFarmButton.setLayoutX(280);
+        appleFarmButton.setLayoutY(710);
+        appleFarmButton.setMinSize(100, 100);
+        pane.getChildren().add(appleFarmButton);
+
+        Button wheatFarmButton = new Button();
+        ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
+        wheatFarmButton.setBackground(null);
+        wheatFarmImage.setFitHeight(100);
+        wheatFarmImage.setFitWidth(100);
+        wheatFarmButton.setGraphic(wheatFarmImage);
+        wheatFarmButton.setLayoutX(440);
+        wheatFarmButton.setLayoutY(710);
+        wheatFarmButton.setMinSize(100, 100);
+        pane.getChildren().add(wheatFarmButton);
+
+        Button hopsFarmButton = new Button();
+        ImageView hopsFarmImage = new ImageView(buildingImages.getHopsFarm());
+        hopsFarmButton.setBackground(null);
+        hopsFarmImage.setFitHeight(100);
+        hopsFarmImage.setFitWidth(100);
+        hopsFarmButton.setGraphic(hopsFarmImage);
+        hopsFarmButton.setLayoutX(600);
+        hopsFarmButton.setLayoutY(710);
+        hopsFarmButton.setMinSize(100, 100);
+        pane.getChildren().add(hopsFarmButton);
     }
     public void createTownButtons(Pane pane , BuildingImages buildingImages){
 
