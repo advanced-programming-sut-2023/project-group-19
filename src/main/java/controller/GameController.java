@@ -21,13 +21,12 @@ import model.Manage;
 import model.Map;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
-import view.ShopMenu;
 import view.TileManager;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 
 public class GameController {
@@ -58,7 +57,7 @@ public class GameController {
             text.setLayoutY(10);
             nameOfUnit.add(text);
             ImageView image = new ImageView(new Image
-                    (TileManager.class.getResource("/image/Units/3.jpg").toExternalForm()));
+                    (Objects.requireNonNull(TileManager.class.getResource("/image/Units/3.jpg")).toExternalForm()));
             image.setLayoutX(1300);
             image.setLayoutY(20);
             images.add(image);
