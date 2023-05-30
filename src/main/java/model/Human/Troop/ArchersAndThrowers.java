@@ -1,9 +1,10 @@
 package model.Human.Troop;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import model.Empire;
 import model.Human.Names;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
@@ -64,6 +65,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 100;
         this.defencePower = 50;
         this.restOfMoves = 7;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/Archer/forward.png").toExternalForm())));
     }
 
     public void Crossbowmen(int x, int y) {
@@ -92,6 +94,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 600;
         this.defencePower = 150;
         this.restOfMoves = 7;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/Archer bow/forward.png").toExternalForm())));
     }
 
     public void Slingers(int x, int y) {
@@ -106,6 +109,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 300;
         this.defencePower = 50;
         this.restOfMoves = 7;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/Slinger/forward.png").toExternalForm())));
     }
 
     public void HorseArchers(int x, int y) {
@@ -120,6 +124,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 1000;
         this.defencePower = 350;
         this.restOfMoves = 9;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/Horse Archer/forward.png").toExternalForm())));
     }
 
     public void FireThrowers(int x, int y) {
@@ -166,6 +171,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(3, 0);
+
     }
 
     public void siegeTower(int x, int y) {
@@ -182,6 +188,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/SiegeTower/forward.png").toExternalForm())));
     }
 
     public void fireBallista(int x, int y) {
@@ -195,6 +202,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.speed = 3;
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/Ballista/forward.png").toExternalForm())));
     }
 
     public void batteringRam(int x, int y) {
@@ -210,6 +218,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource("/image/Units/MovePics/BatteringRam/forward.png").toExternalForm())));
     }
 
     public void portableShield(int x, int y) {

@@ -1,12 +1,13 @@
 package model.Human;
 
+import javafx.scene.shape.Rectangle;
 import model.Empire;
 import model.Human.Troop.HumanConstantFunctions;
 
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Human implements HumanConstantFunctions {
+public abstract class Human extends Rectangle implements HumanConstantFunctions {
     private Empire owner;
     public Names typeOfArmy;
     public Names names;

@@ -1,5 +1,7 @@
 package model.Human.Troop;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
@@ -47,6 +49,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 500;
         this.defencePower = 200;
         this.restOfMoves = 5;
+
     }
 
     public void MaceMen(int x, int y) {
@@ -60,6 +63,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 700;
         this.defencePower = 250;
         this.restOfMoves = 5;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/MaceMen/forward.png").toExternalForm())));
     }
 
     public void LadderMen(int x, int y) {
@@ -73,6 +78,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 0;
         this.defencePower = 20;
         this.restOfMoves = 7;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/LadderMen/forward.png").toExternalForm())));
     }
 
     public void Assassins(int x, int y) {
@@ -86,6 +93,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 600;
         this.defencePower = 150;
         this.restOfMoves = 5;
+        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/Assassin/forward.png").toExternalForm())));
     }
 
     @Override

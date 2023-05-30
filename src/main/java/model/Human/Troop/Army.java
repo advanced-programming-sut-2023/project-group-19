@@ -1,5 +1,6 @@
 package model.Human.Troop;
 
+import javafx.scene.image.ImageView;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
@@ -29,6 +30,7 @@ public class Army extends Human {
 
     protected Empire empire;
     protected Army enemy;
+
 
     public boolean isIntFight() {
         return isIntFight;

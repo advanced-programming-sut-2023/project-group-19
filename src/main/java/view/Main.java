@@ -9,6 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Building.Shop;
 import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
+import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
@@ -50,6 +52,13 @@ public class Main extends Application {
         button.setLayoutY(250);
         button.setPrefSize(200,70);
         pane.getChildren().add(button);
+        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        archersAndThrowers.setHeight(100);
+        archersAndThrowers.setWidth(100);
+        archersAndThrowers.setLayoutX(100);
+        archersAndThrowers.setLayoutY(300);
+        archersAndThrowers.archer(100,300);
+        pane.getChildren().add(archersAndThrowers);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
