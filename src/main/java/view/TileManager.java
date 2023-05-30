@@ -16,8 +16,10 @@ import javafx.stage.Stage;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
+import view.ImageAndBackground.BuildingImages;
 import view.Model.NewButton;
 
 import java.awt.*;
@@ -34,6 +36,7 @@ public class TileManager extends Application {
     public int avgDamage;
     public int avgSpeed;
     public BottomBarImages bottomBarImages;
+    public BuildingImages buildingImages;
 
     public TilePane view = new TilePane();
 
@@ -81,6 +84,8 @@ public class TileManager extends Application {
 
         bottomBarImages = new BottomBarImages();
         bottomBarImages.loadImages();
+        buildingImages = new BuildingImages();
+        buildingImages.loadImage();
 
 
 
@@ -116,9 +121,11 @@ public class TileManager extends Application {
         stage.setResizable(false);
     }
 
-    private void setButtonsOfMenus(Pane pane , BottomBarImages bottomBarImages) {
+    private void setButtonsOfMenus(Pane pane , BottomBarImages bottomBarImages , BuildingImages buildingImages) {
         BottomBarButtons bottomBarButtons = new BottomBarButtons();
         bottomBarButtons.createButtons(pane , bottomBarImages);
+        BottomBarBuildings bottomBarBuildings = new BottomBarBuildings();
+        bottomBarBuildings.createCastleButtons(pane , buildingImages);
     }
 
     public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
@@ -188,7 +195,7 @@ public class TileManager extends Application {
                 allButtons[u][g].add(button);
             }
         }
-        setButtonsOfMenus(pane , bottomBarImages);
+        setButtonsOfMenus(pane , bottomBarImages , buildingImages);
     }
 
     public void getCellData(NewButton newButton) {

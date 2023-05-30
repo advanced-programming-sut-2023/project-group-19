@@ -43,7 +43,7 @@ public class BottomBarImages {
         minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
         showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
         faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
-        test = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
+//        test = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
     }
 
     public Background getBackground() {
