@@ -58,6 +58,7 @@ public class BuildingImages {
     public Image gatehouseIcon;
     public Image towersIcon;
     public Image militaryBuildingsIcon;
+    public Image returnIcon;
     public void loadImage(){
         apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
         appleFarm = new Image(TileManager.class.getResource("/image/BuildingImages/appleorchard.gif").toExternalForm());
@@ -113,6 +114,11 @@ public class BuildingImages {
         gatehouseIcon = new Image(TileManager.class.getResource("/image/BuildingImages/gatehouse.png").toExternalForm());
         towersIcon = new Image(TileManager.class.getResource("/image/BuildingImages/towers.png").toExternalForm());
         militaryBuildingsIcon = new Image(TileManager.class.getResource("/image/BuildingImages/militaryBuildings.png").toExternalForm());
+        returnIcon = new Image(TileManager.class.getResource("/image/BuildingImages/return.png").toExternalForm());
+    }
+
+    public Image getReturnIcon() {
+        return returnIcon;
     }
 
     public Image getGatehouseIcon() {
