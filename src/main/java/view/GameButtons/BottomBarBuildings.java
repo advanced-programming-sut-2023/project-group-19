@@ -822,6 +822,15 @@ public class BottomBarBuildings {
         dairy.setLayoutX(130);
         dairy.setLayoutY(780);
         pane.getChildren().add(dairy);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.dairyProduct();
+                building = goods;
+            }
+        };
+        dairyFarmButton.setOnMouseClicked(event);
 
         Button appleFarmButton = new Button();
         ImageView appleFarmImage = new ImageView(buildingImages.getAppleFarm());
@@ -839,6 +848,15 @@ public class BottomBarBuildings {
         apple.setLayoutX(290);
         apple.setLayoutY(780);
         pane.getChildren().add(apple);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.appleFarm();
+                building = goods;
+            }
+        };
+        appleFarmButton.setOnMouseClicked(event1);
 
         Button wheatFarmButton = new Button();
         ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
@@ -856,6 +874,15 @@ public class BottomBarBuildings {
         wheat.setLayoutX(450);
         wheat.setLayoutY(780);
         pane.getChildren().add(wheat);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.wheatFarm();
+                building = goods;
+            }
+        };
+        wheatFarmButton.setOnMouseClicked(event2);
 
         Button hopsFarmButton = new Button();
         ImageView hopsFarmImage = new ImageView(buildingImages.getHopsFarm());
@@ -873,6 +900,15 @@ public class BottomBarBuildings {
         hops.setLayoutX(610);
         hops.setLayoutY(780);
         pane.getChildren().add(hops);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.oatFarm();
+                building = goods;
+            }
+        };
+        hopsFarmButton.setOnMouseClicked(event3);
     }
 
     public void createTownButtons(Pane pane, BuildingImages buildingImages) {
