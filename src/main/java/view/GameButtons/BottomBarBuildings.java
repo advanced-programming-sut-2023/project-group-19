@@ -201,10 +201,151 @@ public class BottomBarBuildings {
 
     }
     public void createTowerButtons(Pane pane , BuildingImages buildingImages){
+        Button returnIconButton = new Button();
+        ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
+        returnIconButton.setBackground(null);
+        returnIconImage.setFitHeight(40);
+        returnIconImage.setFitWidth(40);
+        returnIconButton.setGraphic(returnIconImage);
+        returnIconButton.setLayoutX(120);
+        returnIconButton.setLayoutY(740);
+        returnIconButton.setMinSize(40, 40);
+        pane.getChildren().add(returnIconButton);
 
+        Button lookoutTowerButton = new Button();
+        ImageView lookoutTowerImage = new ImageView(buildingImages.getLookoutTower());
+        lookoutTowerButton.setBackground(null);
+        lookoutTowerImage.setFitHeight(140);
+        lookoutTowerImage.setFitWidth(50);
+        lookoutTowerButton.setGraphic(lookoutTowerImage);
+        lookoutTowerButton.setLayoutX(240);
+        lookoutTowerButton.setLayoutY(680);
+        lookoutTowerButton.setMinSize(100, 100);
+        pane.getChildren().add(lookoutTowerButton);
+
+        Button premierTowerButton = new Button();
+        ImageView premierTowerImage = new ImageView(buildingImages.getPremierTurret());
+        premierTowerButton.setBackground(null);
+        premierTowerImage.setFitHeight(100);
+        premierTowerImage.setFitWidth(100);
+        premierTowerButton.setGraphic(premierTowerImage);
+        premierTowerButton.setLayoutX(380);
+        premierTowerButton.setLayoutY(710);
+        premierTowerButton.setMinSize(100, 100);
+        pane.getChildren().add(premierTowerButton);
+
+        Button defenceTowerButton = new Button();
+        ImageView defenceTowerImage = new ImageView(buildingImages.getDefenceTurret());
+        defenceTowerButton.setBackground(null);
+        defenceTowerImage.setFitHeight(100);
+        defenceTowerImage.setFitWidth(100);
+        defenceTowerButton.setGraphic(defenceTowerImage);
+        defenceTowerButton.setLayoutX(520);
+        defenceTowerButton.setLayoutY(710);
+        defenceTowerButton.setMinSize(100, 100);
+        pane.getChildren().add(defenceTowerButton);
+
+        Button squareTowerButton = new Button();
+        ImageView squareTowerImage = new ImageView(buildingImages.getSquareTower());
+        squareTowerButton.setBackground(null);
+        squareTowerImage.setFitHeight(100);
+        squareTowerImage.setFitWidth(100);
+        squareTowerButton.setGraphic(squareTowerImage);
+        squareTowerButton.setLayoutX(660);
+        squareTowerButton.setLayoutY(710);
+        squareTowerButton.setMinSize(100, 100);
+        pane.getChildren().add(squareTowerButton);
+
+        Button roundTowerButton = new Button();
+        ImageView roundTowerImage = new ImageView(buildingImages.getRoundTower());
+        roundTowerButton.setBackground(null);
+        roundTowerImage.setFitHeight(100);
+        roundTowerImage.setFitWidth(100);
+        roundTowerButton.setGraphic(roundTowerImage);
+        roundTowerButton.setLayoutX(800);
+        roundTowerButton.setLayoutY(710);
+        roundTowerButton.setMinSize(100, 100);
+        pane.getChildren().add(roundTowerButton);
     }
     public void createMilitaryBuildingsButtons(Pane pane , BuildingImages buildingImages){
+        Button returnIconButton = new Button();
+        ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
+        returnIconButton.setBackground(null);
+        returnIconImage.setFitHeight(40);
+        returnIconImage.setFitWidth(40);
+        returnIconButton.setGraphic(returnIconImage);
+        returnIconButton.setLayoutX(120);
+        returnIconButton.setLayoutY(740);
+        returnIconButton.setMinSize(40, 40);
+        pane.getChildren().add(returnIconButton);
 
+        Button engineersGuildButton = new Button();
+        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+        engineersGuildButton.setBackground(null);
+        engineersGuildImage.setFitHeight(100);
+        engineersGuildImage.setFitWidth(100);
+        engineersGuildButton.setGraphic(engineersGuildImage);
+        engineersGuildButton.setLayoutX(220);
+        engineersGuildButton.setLayoutY(710);
+        engineersGuildButton.setMinSize(100, 100);
+        pane.getChildren().add(engineersGuildButton);
+
+        Button mangonelButton = new Button();
+        ImageView mangonelImage = new ImageView(buildingImages.getMangonel());
+        mangonelButton.setBackground(null);
+        mangonelImage.setFitHeight(200);
+        mangonelImage.setFitWidth(200);
+        mangonelButton.setGraphic(mangonelImage);
+        mangonelButton.setLayoutX(360);
+        mangonelButton.setLayoutY(710);
+        mangonelButton.setMinSize(100, 100);
+        mangonelButton.setMaxSize(100, 100);
+        pane.getChildren().add(mangonelButton);
+
+        Button ballistaButton = new Button();
+        ImageView ballistaImage = new ImageView(buildingImages.getBallista());
+        ballistaButton.setBackground(null);
+        ballistaImage.setFitHeight(130);
+        ballistaImage.setFitWidth(130);
+        ballistaButton.setGraphic(ballistaImage);
+        ballistaButton.setLayoutX(490);
+        ballistaButton.setLayoutY(720);
+        ballistaButton.setMinSize(100, 100);
+        ballistaButton.setMaxSize(100, 100);
+        pane.getChildren().add(ballistaButton);
+
+        Button stableButton = new Button();
+        ImageView stableImage = new ImageView(buildingImages.getStable());
+        stableButton.setBackground(null);
+        stableImage.setFitHeight(100);
+        stableImage.setFitWidth(100);
+        stableButton.setGraphic(stableImage);
+        stableButton.setLayoutX(630);
+        stableButton.setLayoutY(710);
+        stableButton.setMinSize(100, 100);
+        pane.getChildren().add(stableButton);
+
+        Button tunnelersGuildButton = new Button();
+        ImageView tunnelersGuildImage = new ImageView(buildingImages.getTunnelersGuild());
+        tunnelersGuildButton.setBackground(null);
+        tunnelersGuildImage.setFitHeight(100);
+        tunnelersGuildImage.setFitWidth(100);
+        tunnelersGuildButton.setGraphic(tunnelersGuildImage);
+        tunnelersGuildButton.setLayoutX(770);
+        tunnelersGuildButton.setLayoutY(710);
+        tunnelersGuildButton.setMinSize(100, 100);
+        pane.getChildren().add(tunnelersGuildButton);
+
+        Button oilSmelterButton = new Button();
+        ImageView oilSmelterImage = new ImageView(buildingImages.getOilSmelter());
+        oilSmelterButton.setBackground(null);
+        oilSmelterImage.setFitHeight(100);
+        oilSmelterImage.setFitWidth(100);
+        oilSmelterButton.setGraphic(oilSmelterImage);
+        oilSmelterButton.setLayoutX(910);
+        oilSmelterButton.setLayoutY(710);
+        oilSmelterButton.setMinSize(100, 100);
+        pane.getChildren().add(oilSmelterButton);
     }
     public void createIndustryButtons(Pane pane , BuildingImages buildingImages){
 
