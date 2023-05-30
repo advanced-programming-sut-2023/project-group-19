@@ -505,11 +505,139 @@ public class BottomBarBuildings {
     }
 
     public void createTownButtons(Pane pane, BuildingImages buildingImages) {
+        Button hovelButton = new Button();
+        ImageView hovelImage = new ImageView(buildingImages.getHovel());
+        hovelButton.setBackground(null);
+        hovelImage.setFitHeight(100);
+        hovelImage.setFitWidth(100);
+        hovelButton.setGraphic(hovelImage);
+        hovelButton.setLayoutX(120);
+        hovelButton.setLayoutY(710);
+        hovelButton.setMinSize(100, 100);
+        pane.getChildren().add(hovelButton);
 
+        Button smallChurchButton = new Button();
+        ImageView smallChurchImage = new ImageView(buildingImages.getSmallChurch());
+        smallChurchButton.setBackground(null);
+        smallChurchImage.setFitHeight(100);
+        smallChurchImage.setFitWidth(100);
+        smallChurchButton.setGraphic(smallChurchImage);
+        smallChurchButton.setLayoutX(280);
+        smallChurchButton.setLayoutY(710);
+        smallChurchButton.setMinSize(100, 100);
+        pane.getChildren().add(smallChurchButton);
+
+        Button bigChurchButton = new Button();
+        ImageView bigChurchImage = new ImageView(buildingImages.getBigChurch());
+        bigChurchButton.setBackground(null);
+        bigChurchImage.setFitHeight(100);
+        bigChurchImage.setFitWidth(100);
+        bigChurchButton.setGraphic(bigChurchImage);
+        bigChurchButton.setLayoutX(440);
+        bigChurchButton.setLayoutY(710);
+        bigChurchButton.setMinSize(100, 100);
+        pane.getChildren().add(bigChurchButton);
+
+        Button apothecaryButton = new Button();
+        ImageView apothecaryImage = new ImageView(buildingImages.getApothecary());
+        apothecaryButton.setBackground(null);
+        apothecaryImage.setFitHeight(100);
+        apothecaryImage.setFitWidth(100);
+        apothecaryButton.setGraphic(apothecaryImage);
+        apothecaryButton.setLayoutX(600);
+        apothecaryButton.setLayoutY(710);
+        apothecaryButton.setMinSize(100, 100);
+        pane.getChildren().add(apothecaryButton);
+
+        Button tortureBuildingButton = new Button();
+        ImageView tortureBuildingImage = new ImageView(buildingImages.getTortureBuilding());
+        tortureBuildingButton.setBackground(null);
+        tortureBuildingImage.setFitHeight(100);
+        tortureBuildingImage.setFitWidth(100);
+        tortureBuildingButton.setGraphic(tortureBuildingImage);
+        tortureBuildingButton.setLayoutX(760);
+        tortureBuildingButton.setLayoutY(710);
+        tortureBuildingButton.setMinSize(100, 100);
+        pane.getChildren().add(tortureBuildingButton);
+
+        Button gardenButton = new Button();
+        ImageView gardenImage = new ImageView(buildingImages.getGarden());
+        gardenButton.setBackground(null);
+        gardenImage.setFitHeight(100);
+        gardenImage.setFitWidth(100);
+        gardenButton.setGraphic(gardenImage);
+        gardenButton.setLayoutX(920);
+        gardenButton.setLayoutY(710);
+        gardenButton.setMinSize(100, 100);
+        pane.getChildren().add(gardenButton);
     }
 
     public void createWeaponsButtons(Pane pane, BuildingImages buildingImages) {
+        Button fletcherButton = new Button();
+        ImageView fletcherImage = new ImageView(buildingImages.getFletcher());
+        fletcherButton.setBackground(null);
+        fletcherImage.setFitHeight(100);
+        fletcherImage.setFitWidth(100);
+        fletcherButton.setGraphic(fletcherImage);
+        fletcherButton.setLayoutX(120);
+        fletcherButton.setLayoutY(710);
+        fletcherButton.setMinSize(100, 100);
+        pane.getChildren().add(fletcherButton);
 
+        Button poleTurnerButton = new Button();
+        ImageView poleTurnerImage = new ImageView(buildingImages.getPoleTurner());
+        poleTurnerButton.setBackground(null);
+        poleTurnerImage.setFitHeight(100);
+        poleTurnerImage.setFitWidth(100);
+        poleTurnerButton.setGraphic(poleTurnerImage);
+        poleTurnerButton.setLayoutX(260);
+        poleTurnerButton.setLayoutY(710);
+        poleTurnerButton.setMinSize(100, 100);
+        pane.getChildren().add(poleTurnerButton);
+
+        Button blacksmithButton = new Button();
+        ImageView blacksmithImage = new ImageView(buildingImages.getBlacksmith());
+        blacksmithButton.setBackground(null);
+        blacksmithImage.setFitHeight(100);
+        blacksmithImage.setFitWidth(100);
+        blacksmithButton.setGraphic(blacksmithImage);
+        blacksmithButton.setLayoutX(400);
+        blacksmithButton.setLayoutY(710);
+        blacksmithButton.setMinSize(100, 100);
+        pane.getChildren().add(blacksmithButton);
+
+        Button tannersButton = new Button();
+        ImageView tannersImage = new ImageView(buildingImages.getTanner());
+        tannersButton.setBackground(null);
+        tannersImage.setFitHeight(100);
+        tannersImage.setFitWidth(100);
+        tannersButton.setGraphic(tannersImage);
+        tannersButton.setLayoutX(540);
+        tannersButton.setLayoutY(710);
+        tannersButton.setMinSize(100, 100);
+        pane.getChildren().add(tannersButton);
+
+        Button armourerButton = new Button();
+        ImageView armourerImage = new ImageView(buildingImages.getArmourer());
+        armourerButton.setBackground(null);
+        armourerImage.setFitHeight(100);
+        armourerImage.setFitWidth(100);
+        armourerButton.setGraphic(armourerImage);
+        armourerButton.setLayoutX(680);
+        armourerButton.setLayoutY(710);
+        armourerButton.setMinSize(100, 100);
+        pane.getChildren().add(armourerButton);
+
+        Button siegeTentButton = new Button();
+        ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
+        siegeTentButton.setBackground(null);
+        siegeTentImage.setFitHeight(100);
+        siegeTentImage.setFitWidth(100);
+        siegeTentButton.setGraphic(siegeTentImage);
+        siegeTentButton.setLayoutX(820);
+        siegeTentButton.setLayoutY(710);
+        siegeTentButton.setMinSize(100, 100);
+        pane.getChildren().add(siegeTentButton);
     }
 
     public void createFoodButtons(Pane pane, BuildingImages buildingImages) {
