@@ -635,7 +635,6 @@ public class GameController {
                 }
             }
         }
-
     }
 
     public boolean moveUpToTheTower(int x, int y) {

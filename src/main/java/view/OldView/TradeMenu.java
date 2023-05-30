@@ -89,6 +89,7 @@ public class TradeMenu extends Application {
         Main.stage = stage;
         Pane pane = new Pane();
         pane.setPrefSize(1000,900);
+        pane.setMaxSize(1000,900);
         tradeController.designTradeMenu(tradeController,pane,stage);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
