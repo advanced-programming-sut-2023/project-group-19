@@ -376,7 +376,15 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutX(120);
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
-        pane.getChildren().add(returnIconButton);
+        testPane.getChildren().add(returnIconButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearPane();
+                createCastleButtons(pane , buildingImages);
+            }
+        };
+        returnIconButton.setOnMouseClicked(event);
 
         Button lookoutTowerButton = new Button();
         ImageView lookoutTowerImage = new ImageView(buildingImages.getLookoutTower());
@@ -387,7 +395,16 @@ public class BottomBarBuildings {
         lookoutTowerButton.setLayoutX(240);
         lookoutTowerButton.setLayoutY(680);
         lookoutTowerButton.setMinSize(100, 100);
-        pane.getChildren().add(lookoutTowerButton);
+        testPane.getChildren().add(lookoutTowerButton);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Tower tower = new Tower(Manage.getCurrentEmpire());
+                tower.lookoutTower();
+                building = tower;
+            }
+        };
+        lookoutTowerButton.setOnMouseClicked(event1);
 
         Button premierTowerButton = new Button();
         ImageView premierTowerImage = new ImageView(buildingImages.getPremierTurret());
@@ -398,7 +415,16 @@ public class BottomBarBuildings {
         premierTowerButton.setLayoutX(380);
         premierTowerButton.setLayoutY(710);
         premierTowerButton.setMinSize(100, 100);
-        pane.getChildren().add(premierTowerButton);
+        testPane.getChildren().add(premierTowerButton);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Tower tower = new Tower(Manage.getCurrentEmpire());
+                tower.perimeterTower();
+                building = tower;
+            }
+        };
+        premierTowerButton.setOnMouseClicked(event2);
 
         Button defenceTowerButton = new Button();
         ImageView defenceTowerImage = new ImageView(buildingImages.getDefenceTurret());
@@ -409,7 +435,16 @@ public class BottomBarBuildings {
         defenceTowerButton.setLayoutX(520);
         defenceTowerButton.setLayoutY(710);
         defenceTowerButton.setMinSize(100, 100);
-        pane.getChildren().add(defenceTowerButton);
+        testPane.getChildren().add(defenceTowerButton);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Tower tower = new Tower(Manage.getCurrentEmpire());
+                tower.defendTower();
+                building = tower;
+            }
+        };
+        defenceTowerButton.setOnMouseClicked(event3);
 
         Button squareTowerButton = new Button();
         ImageView squareTowerImage = new ImageView(buildingImages.getSquareTower());
@@ -420,7 +455,16 @@ public class BottomBarBuildings {
         squareTowerButton.setLayoutX(660);
         squareTowerButton.setLayoutY(710);
         squareTowerButton.setMinSize(100, 100);
-        pane.getChildren().add(squareTowerButton);
+        testPane.getChildren().add(squareTowerButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Tower tower = new Tower(Manage.getCurrentEmpire());
+                tower.squareTower();
+                building = tower;
+            }
+        };
+        squareTowerButton.setOnMouseClicked(event4);
 
         Button roundTowerButton = new Button();
         ImageView roundTowerImage = new ImageView(buildingImages.getRoundTower());
@@ -431,7 +475,16 @@ public class BottomBarBuildings {
         roundTowerButton.setLayoutX(800);
         roundTowerButton.setLayoutY(710);
         roundTowerButton.setMinSize(100, 100);
-        pane.getChildren().add(roundTowerButton);
+        testPane.getChildren().add(roundTowerButton);
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Tower tower = new Tower(Manage.getCurrentEmpire());
+                tower.roundTower();
+                building = tower;
+            }
+        };
+        roundTowerButton.setOnMouseClicked(event5);
     }
 
     public void createMilitaryBuildingsButtons(Pane pane, BuildingImages buildingImages) {
