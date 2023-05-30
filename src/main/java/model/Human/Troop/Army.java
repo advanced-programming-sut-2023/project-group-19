@@ -327,4 +327,24 @@ public class Army extends Human {
     public Names typeOfArmy() {
         return typeOfArmy;
     }
+
+    @Override
+    public ImageView imageView() {
+        return imageView;
+    }
+
+    @Override
+    public String direction() {
+        return direction;
+    }
+
+    @Override
+    public double xLocationOnMap() {
+        return xLocationOnMap;
+    }
+
+    @Override
+    public double yLocationOnMap() {
+        return yLocationOnMap;
+    }
 }

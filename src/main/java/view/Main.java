@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.MoveAnimation;
 import view.LoginMenu;
 
 import java.io.IOException;
@@ -51,25 +53,29 @@ public class Main extends Application {
         button.setLayoutX(700);
         button.setLayoutY(250);
         button.setPrefSize(200,70);
-        pane.getChildren().add(button);
-        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.setHeight(100);
-        archersAndThrowers.setWidth(100);
-        archersAndThrowers.setLayoutX(100);
-        archersAndThrowers.setLayoutY(300);
-        archersAndThrowers.archer(100,300);
-        pane.getChildren().add(archersAndThrowers);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                LoginMenu loginMenu = new LoginMenu();
-                try {
-                    loginMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+//        pane.getChildren().add(button);
+//        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//        archersAndThrowers.setHeight(100);
+//        archersAndThrowers.setWidth(100);
+//        archersAndThrowers.setLayoutX(100);
+//        archersAndThrowers.setLayoutY(300);
+//        archersAndThrowers.archer(100,300);
+//        pane.getChildren().add(archersAndThrowers);
+//        GameController gameController = new GameController();
+//        gameController.selectedUnit.add(archersAndThrowers);
+//        gameController.setPathForUnits(100,400);
+//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers);
+//        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                LoginMenu loginMenu = new LoginMenu();
+//                try {
+//                    loginMenu.start(stage);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
         stage.setScene(scene);
         stage.show();
     }

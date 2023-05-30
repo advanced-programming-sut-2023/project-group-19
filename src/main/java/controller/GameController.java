@@ -68,7 +68,8 @@ public class GameController {
             spinners.add(amount);
         }
         pane.getChildren().add(vbox);
-        vbox.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next);
+        System.out.println(nameOfUnit.size()+" "+images.size()+" "+ spinners.size());
+        //vbox.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next);
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -106,6 +107,7 @@ public class GameController {
                 }
                 pane.getChildren().remove(vbox);
                 index = 0;
+                System.out.println(selectedButtons.size()+" "+selectedButtons.get(0));
             }
         });
 
@@ -222,7 +224,7 @@ public class GameController {
         }
     }
 
-    private static boolean dropUnits(int x , int y ,int count, String typeOfUnit , Pane pane) {
+    /*private static boolean dropUnits(int x , int y ,int count, String typeOfUnit , Pane pane) {
         switch (typeOfUnit) {
             case "Archer":
                 if (Manage.getCurrentEmpire().getEuropeArcherCount() >= count) {
@@ -512,7 +514,7 @@ public class GameController {
                 } else return false;
         }
         return false;
-    }
+    }*/
 
     public GameMenuMessages buildEquipment(Matcher name) {
         return GameMenuMessages.SIEGE_TENT;

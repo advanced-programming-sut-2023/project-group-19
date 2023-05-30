@@ -1,9 +1,8 @@
 package model.Human.Troop;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
+import javafx.scene.image.ImageView;
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 import java.util.List;
@@ -63,8 +62,10 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 700;
         this.defencePower = 250;
         this.restOfMoves = 5;
-        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/MaceMen/forward.png").toExternalForm())));
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/MaceMen/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
     }
 
     public void LadderMen(int x, int y) {
@@ -78,8 +79,10 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 0;
         this.defencePower = 20;
         this.restOfMoves = 7;
-        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/LadderMen/forward.png").toExternalForm())));
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/LadderMen/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
     }
 
     public void Assassins(int x, int y) {
@@ -93,8 +96,10 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.attackPower = 600;
         this.defencePower = 150;
         this.restOfMoves = 5;
-        this.setFill(new ImagePattern(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Assassin/forward.png").toExternalForm())));
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/Assassin/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
     }
 
     @Override
@@ -165,6 +170,11 @@ public class Climbers extends Army implements HumanConstantFunctions {
     @Override
     public Names typeOfArmy() {
         return typeOfArmy;
+    }
+
+    @Override
+    public String direction() {
+        return direction;
     }
 }
 

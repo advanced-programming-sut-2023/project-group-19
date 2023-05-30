@@ -16,9 +16,12 @@ import javafx.scene.layout.*;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import model.User;
 import view.ImageAndBackground.BottomBarImages;
 import view.Model.NewButton;
 
@@ -31,6 +34,8 @@ public class TileManager extends Application {
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
     //TODO : Method which calculates the Production things on a tile
+    // width  = 1530
+    // height = 800
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -61,18 +66,14 @@ public class TileManager extends Application {
     private boolean moveIsOn;
 
     public GameController gameController = new GameController();
+
     @Override
     public void start(Stage stage) throws Exception {
-//        tilePane.setLayoutX(-100);
-//        tilePane.setLayoutY(-100);
-//        tilePane.setPrefColumns(100);
-//        tilePane.setMaxWidth(10000);
-        createButtonsArraylist();
 
         for (int j = 0; j < 100; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
-                applyingMouseEventForButton(newButton,stage);
+                applyingMouseEventForButton(newButton, stage);
 //                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
@@ -80,13 +81,44 @@ public class TileManager extends Application {
                 list.add(newButton);
             }
         }
-//         width  = 1530
-//         height = 800
-
+//
         bottomBarImages = new BottomBarImages();
         bottomBarImages.loadImages();
+//       ===================================================================================================================================================
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+        Empire Ali = new Empire();
+        Empire Dorsa = new Empire();
+        Ali.setUser(newUser);
+        Dorsa.setUser(newUser1);
+        Manage.setCurrentEmpire(Ali);
+        Map.CreateMap(200);
+        Map.mapSize = 200;
+        Manage.getAllEmpires().add(Dorsa);
+        Manage.getAllEmpires().add(Ali);
 
 
+
+
+        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        archersAndThrowers.archer(10, 20);
+        NewButton newButton = (NewButton) list.get(10 * 100 + 20);
+        System.out.println(newButton.getX() + " " + newButton.getY());
+        newButton.getArmy().add(archersAndThrowers);
+//        archersAndThrowers.imageView.setX(newButton.getLayoutX());
+//        archersAndThrowers.imageView.setY(newButton.getLayoutY());
+
+
+
+
+
+
+
+        //GameController gameController = new GameController();
+        //gameController.selectedUnit.add(archersAndThrowers);
+        //gameController.setPathForUnits(100,400);
+//        view.Animation.MoveAnimation moveAnimation = new view.Animation.MoveAnimation(archersAndThrowers);
+//       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -107,8 +139,7 @@ public class TileManager extends Application {
 
                 } else if (keyName.equals("Subtract")) {
 
-                }
-                else if (keyName.equals("F1")){
+                } else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
                 }
             }
@@ -148,7 +179,7 @@ public class TileManager extends Application {
         castleButton.setGraphic(castleImage);
         castleButton.setLayoutX(120);
         castleButton.setLayoutY(825);
-        castleButton.setMinSize(50 , 50);
+        castleButton.setMinSize(50, 50);
         pane.getChildren().add(castleButton);
 
         Button foodButton = new Button();
@@ -159,7 +190,7 @@ public class TileManager extends Application {
         foodButton.setGraphic(foodImage);
         foodButton.setLayoutX(180);
         foodButton.setLayoutY(825);
-        foodButton.setMinSize(50 , 50);
+        foodButton.setMinSize(50, 50);
         pane.getChildren().add(foodButton);
 
         Button hammerButton = new Button();
@@ -170,7 +201,7 @@ public class TileManager extends Application {
         hammerButton.setGraphic(hammerImage);
         hammerButton.setLayoutX(240);
         hammerButton.setLayoutY(825);
-        hammerButton.setMinSize(50 , 50);
+        hammerButton.setMinSize(50, 50);
         pane.getChildren().add(hammerButton);
 
         Button homeButton = new Button();
@@ -181,7 +212,7 @@ public class TileManager extends Application {
         homeButton.setGraphic(homeImage);
         homeButton.setLayoutX(300);
         homeButton.setLayoutY(825);
-        homeButton.setMinSize(50 , 50);
+        homeButton.setMinSize(50, 50);
         pane.getChildren().add(homeButton);
 
         Button shieldButton = new Button();
@@ -192,7 +223,7 @@ public class TileManager extends Application {
         shieldButton.setGraphic(shieldImage);
         shieldButton.setLayoutX(360);
         shieldButton.setLayoutY(825);
-        shieldButton.setMinSize(50 , 50);
+        shieldButton.setMinSize(50, 50);
         pane.getChildren().add(shieldButton);
 
         Button sickleButton = new Button();
@@ -203,7 +234,7 @@ public class TileManager extends Application {
         sickleButton.setGraphic(sickleImage);
         sickleButton.setLayoutX(410);
         sickleButton.setLayoutY(825);
-        sickleButton.setMinSize(50 , 50);
+        sickleButton.setMinSize(50, 50);
         pane.getChildren().add(sickleButton);
 
         Button gameOptionButton = new Button();
@@ -214,7 +245,7 @@ public class TileManager extends Application {
         gameOptionButton.setGraphic(gameOptionImage);
         gameOptionButton.setLayoutX(1027);
         gameOptionButton.setLayoutY(675);
-        gameOptionButton.setMinSize(50 , 50);
+        gameOptionButton.setMinSize(50, 50);
         pane.getChildren().add(gameOptionButton);
 
         Button informationButton = new Button();
@@ -225,7 +256,7 @@ public class TileManager extends Application {
         informationButton.setGraphic(informationImage);
         informationButton.setLayoutX(1030);
         informationButton.setLayoutY(725);
-        informationButton.setMinSize(50 , 50);
+        informationButton.setMinSize(50, 50);
         pane.getChildren().add(informationButton);
 
         Button deleteButton = new Button();
@@ -236,7 +267,7 @@ public class TileManager extends Application {
         deleteButton.setGraphic(deleteImage);
         deleteButton.setLayoutX(1033);
         deleteButton.setLayoutY(775);
-        deleteButton.setMinSize(50 , 50);
+        deleteButton.setMinSize(50, 50);
         pane.getChildren().add(deleteButton);
 
         Button undoButton = new Button();
@@ -247,80 +278,75 @@ public class TileManager extends Application {
         undoButton.setGraphic(undoImage);
         undoButton.setLayoutX(1030);
         undoButton.setLayoutY(825);
-        undoButton.setMinSize(50 , 50);
+        undoButton.setMinSize(50, 50);
         pane.getChildren().add(undoButton);
 
 
-        castleButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        castleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
 
-        foodButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        foodButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
 
-        hammerButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        hammerButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
 
-        homeButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        homeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
 
-        shieldButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        shieldButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
 
-        sickleButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        sickleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
-        gameOptionButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        gameOptionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
-        informationButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        informationButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
-        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
-        undoButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
             }
         });
-
-
-
-
-
 
 
 //        Button castle = new javafx.scene.control.Button();
@@ -436,23 +462,23 @@ public class TileManager extends Application {
 //        pane.getChildren().addAll(castle);
     }
 
-    public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
+    public void mouseMovement(int x1, int y1, int x2, int y2, Stage stage) {
         int maxX = (int) (x2 / 51.2);
         int minX = (int) (x1 / 51.2);
         int maxY = y2 / 54;
         int minY = y1 / 54;
-        moveX += minY - maxY ;
-        moveY += minX - maxX ;
+        moveX += minY - maxY;
+        moveY += minX - maxX;
         System.out.println("test");
         System.out.println(moveX);
         System.out.println(moveY);
-        if (moveY + 30 > 100){
+        if (moveY + 30 > 100) {
             moveY = 70;
         }
-        if (moveX + 16 > 100){
+        if (moveX + 16 > 100) {
             moveX = 84;
         }
-        if (moveX < 0 ) {
+        if (moveX < 0) {
             moveX = 0;
         }
         if (moveY < 0) {
@@ -484,26 +510,33 @@ public class TileManager extends Application {
         for (int j = minY; j <= maxY; j++) {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
-//                newButton.setStyle("-fx-background-color: #1316aa");
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
 
+
             }
         }
-        gameController.selectUnit(selectedButtons,pane);
+
+        gameController.selectUnit(selectedButtons, pane);
 
     }
 
-    public void createViewScene(Stage stage){
+
+    public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
-                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
-                NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
+                ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
+                NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
                 pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
                 allButtons[u][g].add(button);
+                for (int i = 0; i < button.getArmy().size(); i++) {
+                    (button.getArmy().get(i)).imageView().setX(g * 51.2);
+                    (button.getArmy().get(i)).imageView().setY(u * 54);
+                    pane.getChildren().add((button.getArmy().get(i)).imageView());
+                }
             }
         }
         setButtonsOfMenus(stage);
@@ -564,7 +597,8 @@ public class TileManager extends Application {
         }
         drawIsOn = false;
     }
-    private void applyingMouseEventForButton(NewButton newButton,Stage stage){
+
+    private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
@@ -640,7 +674,7 @@ public class TileManager extends Application {
                     if (moveIsOn) {
                         PointerInfo a = MouseInfo.getPointerInfo();
                         secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y,stage);
+                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, stage);
                     }
                 }
             }

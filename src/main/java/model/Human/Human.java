@@ -1,5 +1,6 @@
 package model.Human;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import model.Empire;
 import model.Human.Troop.HumanConstantFunctions;
@@ -7,7 +8,7 @@ import model.Human.Troop.HumanConstantFunctions;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Human extends Rectangle implements HumanConstantFunctions {
+public abstract class Human implements HumanConstantFunctions {
     private Empire owner;
     public Names typeOfArmy;
     public Names names;
@@ -29,8 +30,12 @@ public abstract class Human extends Rectangle implements HumanConstantFunctions 
     public int finalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
+    public ImageView imageView;
     public HashMap<String, Integer> cost = new HashMap<>();
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
+    public String direction;
+    public double xLocationOnMap;
+    public double yLocationOnMap;
 
     public int getHp() {
         return hp;
@@ -120,5 +125,20 @@ public abstract class Human extends Rectangle implements HumanConstantFunctions 
     @Override
     public Names typeOfArmy() {
         return typeOfArmy;
+    }
+
+    @Override
+    public String direction() {
+        return direction;
+    }
+
+    @Override
+    public double xLocationOnMap() {
+        return xLocationOnMap;
+    }
+
+    @Override
+    public double yLocationOnMap() {
+        return yLocationOnMap;
     }
 }
