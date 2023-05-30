@@ -1051,6 +1051,15 @@ public class BottomBarBuildings {
         bow.setLayoutX(150);
         bow.setLayoutY(750);
         pane.getChildren().add(bow);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Weapon weapon = new Weapon(Manage.getCurrentEmpire());
+                weapon.fletcher();
+                building = weapon;
+            }
+        };
+        fletcherButton.setOnMouseClicked(event);
 
         Button poleTurnerButton = new Button();
         ImageView poleTurnerImage = new ImageView(buildingImages.getPoleTurner());
@@ -1068,6 +1077,15 @@ public class BottomBarBuildings {
         pike.setLayoutX(290);
         pike.setLayoutY(750);
         pane.getChildren().add(pike);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Weapon weapon = new Weapon(Manage.getCurrentEmpire());
+                weapon.poleTurner();
+                building = weapon;
+            }
+        };
+        poleTurnerButton.setOnMouseClicked(event1);
 
         Button blacksmithButton = new Button();
         ImageView blacksmithImage = new ImageView(buildingImages.getBlacksmith());
@@ -1085,6 +1103,15 @@ public class BottomBarBuildings {
         sword.setLayoutX(450);
         sword.setLayoutY(760);
         pane.getChildren().add(sword);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Weapon weapon = new Weapon(Manage.getCurrentEmpire());
+                weapon.blacksmith();
+                building = weapon;
+            }
+        };
+        blacksmithButton.setOnMouseClicked(event2);
 
         Button tannersButton = new Button();
         ImageView tannersImage = new ImageView(buildingImages.getTanner());
@@ -1103,6 +1130,7 @@ public class BottomBarBuildings {
         latherArmor.setLayoutY(760);
         pane.getChildren().add(latherArmor);
 
+
         Button armourerButton = new Button();
         ImageView armourerImage = new ImageView(buildingImages.getArmourer());
         armourerButton.setBackground(null);
@@ -1119,6 +1147,15 @@ public class BottomBarBuildings {
         metalArmour.setLayoutX(690);
         metalArmour.setLayoutY(770);
         pane.getChildren().add(metalArmour);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Weapon weapon = new Weapon(Manage.getCurrentEmpire());
+                weapon.armourer();
+                building = weapon;
+            }
+        };
+        armourerButton.setOnMouseClicked(event3);
 
         Button siegeTentButton = new Button();
         ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
@@ -1130,6 +1167,15 @@ public class BottomBarBuildings {
         siegeTentButton.setLayoutY(710);
         siegeTentButton.setMinSize(100, 100);
         pane.getChildren().add(siegeTentButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                SiegeTent siegeTent = new SiegeTent(Manage.getCurrentEmpire());
+                siegeTent.siegeTent();
+                building = siegeTent;
+            }
+        };
+        siegeTentButton.setOnMouseClicked(event4);
     }
 
     public void createFoodButtons(Pane pane, BuildingImages buildingImages) {
