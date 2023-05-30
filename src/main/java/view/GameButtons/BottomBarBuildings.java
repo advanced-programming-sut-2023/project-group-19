@@ -1,14 +1,30 @@
 package view.GameButtons;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import model.Building.Armoury;
+import model.Building.Building;
+import model.Building.PrepareLaboursAndFighters;
+import model.Building.Wall;
+import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 
 public class BottomBarBuildings {
+    public Building building ;
+    public Pane testPane = new Pane();
 
+    public Pane getTestPane() {
+        return testPane;
+    }
+
+    public void setTestPane(Pane testPane) {
+        this.testPane = testPane;
+    }
 
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
         Button wallStairButton = new Button();
@@ -20,7 +36,16 @@ public class BottomBarBuildings {
         wallStairButton.setLayoutX(110);
         wallStairButton.setLayoutY(700);
         wallStairButton.setMinSize(100, 100);
-        pane.getChildren().add(wallStairButton);
+        testPane.getChildren().add(wallStairButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Wall stair = new Wall(Manage.getCurrentEmpire());
+                stair.stair();
+                building = stair;
+            }
+        };
+        wallStairButton.setOnMouseClicked(event);
 
         Button lowWallButton = new Button();
         ImageView lowWallImage = new ImageView(buildingImages.getLowWall());
@@ -31,7 +56,16 @@ public class BottomBarBuildings {
         lowWallButton.setLayoutX(210);
         lowWallButton.setLayoutY(715);
         lowWallButton.setMinSize(100, 100);
-        pane.getChildren().add(lowWallButton);
+        testPane.getChildren().add(lowWallButton);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Wall lowWall = new Wall(Manage.getCurrentEmpire());
+                lowWall.smallWall();
+                building = lowWall;
+            }
+        };
+        lowWallButton.setOnMouseClicked(event2);
 
         Button stoneWallButton = new Button();
         ImageView stoneWallImage = new ImageView(buildingImages.getStoneWall());
@@ -42,7 +76,16 @@ public class BottomBarBuildings {
         stoneWallButton.setLayoutX(340);
         stoneWallButton.setLayoutY(700);
         stoneWallButton.setMinSize(100, 100);
-        pane.getChildren().add(stoneWallButton);
+        testPane.getChildren().add(stoneWallButton);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Wall bigWall = new Wall(Manage.getCurrentEmpire());
+                bigWall.bigWall();
+                building = bigWall;
+            }
+        };
+        stoneWallButton.setOnMouseClicked(event3);
 
         Button crenulatedWallButton = new Button();
         ImageView crenulatedWallImage = new ImageView(buildingImages.getCrenulatedWall());
@@ -53,7 +96,16 @@ public class BottomBarBuildings {
         crenulatedWallButton.setLayoutX(470);
         crenulatedWallButton.setLayoutY(700);
         crenulatedWallButton.setMinSize(100, 100);
-        pane.getChildren().add(crenulatedWallButton);
+        testPane.getChildren().add(crenulatedWallButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Wall bigWall = new Wall(Manage.getCurrentEmpire());
+                bigWall.bigWall();
+                building = bigWall;
+            }
+        };
+        crenulatedWallButton.setOnMouseClicked(event4);
 
         Button barracksButton = new Button();
         ImageView barracksImage = new ImageView(buildingImages.getBarracks());
@@ -64,7 +116,16 @@ public class BottomBarBuildings {
         barracksButton.setLayoutX(600);
         barracksButton.setLayoutY(700);
         barracksButton.setMinSize(100, 100);
-        pane.getChildren().add(barracksButton);
+        testPane.getChildren().add(barracksButton);
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PrepareLaboursAndFighters barracks = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                barracks.barracks();
+                building = barracks;
+            }
+        };
+        barracksButton.setOnMouseClicked(event5);
 
         Button mercenaryButton = new Button();
         ImageView mercenaryImage = new ImageView(buildingImages.getMercenary());
@@ -75,7 +136,16 @@ public class BottomBarBuildings {
         mercenaryButton.setLayoutX(730);
         mercenaryButton.setLayoutY(700);
         mercenaryButton.setMinSize(100, 100);
-        pane.getChildren().add(mercenaryButton);
+        testPane.getChildren().add(mercenaryButton);
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PrepareLaboursAndFighters mercenary = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                mercenary.mercenary();
+                building = mercenary;
+            }
+        };
+        mercenaryButton.setOnMouseClicked(event6);
 
         Button armoryButton = new Button();
         ImageView armoryImage = new ImageView(buildingImages.getArmory());
@@ -86,7 +156,16 @@ public class BottomBarBuildings {
         armoryButton.setLayoutX(860);
         armoryButton.setLayoutY(700);
         armoryButton.setMinSize(100, 100);
-        pane.getChildren().add(armoryButton);
+        testPane.getChildren().add(armoryButton);
+        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Armoury armoury = new Armoury(Manage.getCurrentEmpire());
+                armoury.armoury();
+                building = armoury;
+            }
+        };
+        armoryButton.setOnMouseClicked(event7);
 
         Button gatehouseIconButton = new Button();
         ImageView gatehouseIconImage = new ImageView(buildingImages.getGatehouseIcon());
@@ -97,7 +176,16 @@ public class BottomBarBuildings {
         gatehouseIconButton.setLayoutX(980);
         gatehouseIconButton.setLayoutY(690);
         gatehouseIconButton.setMinSize(40, 40);
-        pane.getChildren().add(gatehouseIconButton);
+        testPane.getChildren().add(gatehouseIconButton);
+        EventHandler<MouseEvent> event8 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearPane();
+                createGatehouseButtons(pane , buildingImages);
+            }
+        };
+        gatehouseIconButton.setOnMouseClicked(event8);
+
 
         Button towerIconButton = new Button();
         ImageView towerIconImage = new ImageView(buildingImages.getTowersIcon());
@@ -108,7 +196,15 @@ public class BottomBarBuildings {
         towerIconButton.setLayoutX(980);
         towerIconButton.setLayoutY(740);
         towerIconButton.setMinSize(40, 40);
-        pane.getChildren().add(towerIconButton);
+        testPane.getChildren().add(towerIconButton);
+        EventHandler<MouseEvent> event9 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearPane();
+                createTowerButtons(pane , buildingImages);
+            }
+        };
+        towerIconButton.setOnMouseClicked(event9);
 
         Button militaryBuildingsIconButton = new Button();
         ImageView militaryBuildingsIconImage = new ImageView(buildingImages.getMilitaryBuildingsIcon());
@@ -119,9 +215,15 @@ public class BottomBarBuildings {
         militaryBuildingsIconButton.setLayoutX(980);
         militaryBuildingsIconButton.setLayoutY(790);
         militaryBuildingsIconButton.setMinSize(40, 40);
-        pane.getChildren().add(militaryBuildingsIconButton);
-
-
+        testPane.getChildren().add(militaryBuildingsIconButton);
+        EventHandler<MouseEvent> event10 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearPane();
+                createMilitaryBuildingsButtons(pane , buildingImages);
+            }
+        };
+        militaryBuildingsIconButton.setOnMouseClicked(event10);
     }
 
     public void createGatehouseButtons(Pane pane, BuildingImages buildingImages) {
@@ -273,6 +375,7 @@ public class BottomBarBuildings {
     }
 
     public void createMilitaryBuildingsButtons(Pane pane, BuildingImages buildingImages) {
+
         Button returnIconButton = new Button();
         ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
         returnIconButton.setBackground(null);
@@ -283,6 +386,12 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
         pane.getChildren().add(returnIconButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        };
 
         Button engineersGuildButton = new Button();
         ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
@@ -294,6 +403,12 @@ public class BottomBarBuildings {
         engineersGuildButton.setLayoutY(710);
         engineersGuildButton.setMinSize(100, 100);
         pane.getChildren().add(engineersGuildButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                building = new
+//            }
+//        };
 
         Button mangonelButton = new Button();
         ImageView mangonelImage = new ImageView(buildingImages.getMangonel());
@@ -306,6 +421,12 @@ public class BottomBarBuildings {
         mangonelButton.setMinSize(100, 100);
         mangonelButton.setMaxSize(100, 100);
         pane.getChildren().add(mangonelButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                newButton.setStyle("-fx-border-color: brown");
+//            }
+//        };
 
         Button ballistaButton = new Button();
         ImageView ballistaImage = new ImageView(buildingImages.getBallista());
@@ -318,6 +439,12 @@ public class BottomBarBuildings {
         ballistaButton.setMinSize(100, 100);
         ballistaButton.setMaxSize(100, 100);
         pane.getChildren().add(ballistaButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                newButton.setStyle("-fx-border-color: brown");
+//            }
+//        };
 
         Button stableButton = new Button();
         ImageView stableImage = new ImageView(buildingImages.getStable());
@@ -329,6 +456,12 @@ public class BottomBarBuildings {
         stableButton.setLayoutY(710);
         stableButton.setMinSize(100, 100);
         pane.getChildren().add(stableButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                newButton.setStyle("-fx-border-color: brown");
+//            }
+//        };
 
         Button tunnelersGuildButton = new Button();
         ImageView tunnelersGuildImage = new ImageView(buildingImages.getTunnelersGuild());
@@ -340,6 +473,12 @@ public class BottomBarBuildings {
         tunnelersGuildButton.setLayoutY(710);
         tunnelersGuildButton.setMinSize(100, 100);
         pane.getChildren().add(tunnelersGuildButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                newButton.setStyle("-fx-border-color: brown");
+//            }
+//        };
 
         Button oilSmelterButton = new Button();
         ImageView oilSmelterImage = new ImageView(buildingImages.getOilSmelter());
@@ -351,6 +490,12 @@ public class BottomBarBuildings {
         oilSmelterButton.setLayoutY(710);
         oilSmelterButton.setMinSize(100, 100);
         pane.getChildren().add(oilSmelterButton);
+//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                newButton.setStyle("-fx-border-color: brown");
+//            }
+//        };
     }
 
     public void createIndustryButtons(Pane pane, BuildingImages buildingImages) {
@@ -751,27 +896,8 @@ public class BottomBarBuildings {
         pane.getChildren().add(beer);
     }
 
-    public void clearCastleButtons() {
-
+    public void clearPane(){
+        testPane.getChildren().clear();
     }
 
-    public void clearIndustryButtons() {
-
-    }
-
-    public void clearFarmButtons() {
-
-    }
-
-    public void clearTownButtons() {
-
-    }
-
-    public void clearWeaponsButtons() {
-
-    }
-
-    public void clearFoodButtons() {
-
-    }
 }
