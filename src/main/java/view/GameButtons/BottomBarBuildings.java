@@ -672,6 +672,15 @@ public class BottomBarBuildings {
         stockpileButton.setLayoutY(710);
         stockpileButton.setMinSize(100, 100);
         pane.getChildren().add(stockpileButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Stockpile stockpile = new Stockpile(Manage.getCurrentEmpire());
+                stockpile.resourcesStockpile();
+                building = stockpile;
+            }
+        };
+        stockpileButton.setOnMouseClicked(event);
 
         Button woodCutterButton = new Button();
         ImageView woodCutterImage = new ImageView(buildingImages.getWoodCutter());
@@ -684,6 +693,15 @@ public class BottomBarBuildings {
         woodCutterButton.setMinSize(100, 100);
         woodCutterButton.setMaxSize(100, 100);
         pane.getChildren().add(woodCutterButton);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.woodCutter();
+                building = industry;
+            }
+        };
+        woodCutterButton.setOnMouseClicked(event1);
 
         Button quarryButton = new Button();
         ImageView quarryImage = new ImageView(buildingImages.getQuarry());
@@ -695,6 +713,15 @@ public class BottomBarBuildings {
         quarryButton.setLayoutY(710);
         quarryButton.setMinSize(100, 100);
         pane.getChildren().add(quarryButton);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.quarry();
+                building = industry;
+            }
+        };
+        quarryButton.setOnMouseClicked(event2);
 
         Button oxTetherButton = new Button();
         ImageView oxTetherImage = new ImageView(buildingImages.getOxTheater());
@@ -706,6 +733,15 @@ public class BottomBarBuildings {
         oxTetherButton.setLayoutY(710);
         oxTetherButton.setMinSize(100, 100);
         pane.getChildren().add(oxTetherButton);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.oxTether();
+                building = industry;
+            }
+        };
+        oxTetherButton.setOnMouseClicked(event3);
 
         Button ironMineButton = new Button();
         ImageView ironMineImage = new ImageView(buildingImages.getIronMine());
@@ -717,6 +753,15 @@ public class BottomBarBuildings {
         ironMineButton.setLayoutY(710);
         ironMineButton.setMinSize(100, 100);
         pane.getChildren().add(ironMineButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.ironDig();
+                building = industry;
+            }
+        };
+        ironMineButton.setOnMouseClicked(event4);
 
         Button pitchRigButton = new Button();
         ImageView pitchRigImage = new ImageView(buildingImages.getPitchRig());
@@ -729,6 +774,15 @@ public class BottomBarBuildings {
         pitchRigButton.setMinSize(100, 100);
         pitchRigButton.setMaxSize(100, 100);
         pane.getChildren().add(pitchRigButton);
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.pitchRig();
+                building = industry;
+            }
+        };
+        pitchRigButton.setOnMouseClicked(event5);
 
         Button marketButton = new Button();
         ImageView marketImage = new ImageView(buildingImages.getMarket());
@@ -740,6 +794,15 @@ public class BottomBarBuildings {
         marketButton.setLayoutY(710);
         marketButton.setMinSize(100, 100);
         pane.getChildren().add(marketButton);
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Shop shop = new Shop(Manage.getCurrentEmpire());
+                shop.shop();
+                building = shop;
+            }
+        };
+        marketButton.setOnMouseClicked(event6);
     }
 
     public void createFarmButtons(Pane pane, BuildingImages buildingImages) {
