@@ -104,7 +104,7 @@ public class BuildingImages {
         smallStoneGatehouse= new Image(TileManager.class.getResource("/image/BuildingImages/smallStoneGatehouse.png").toExternalForm());
         squareTower = new Image(TileManager.class.getResource("/image/BuildingImages/squareTower.png").toExternalForm());
         stable = new Image(TileManager.class.getResource("/image/BuildingImages/stable.png").toExternalForm());
-        stockpile = new Image(TileManager.class.getResource("/image/BuildingImages/stockpile.gif").toExternalForm());
+        stockpile = new Image(TileManager.class.getResource("/image/BuildingImages/stockpile.png").toExternalForm());
         stoneWall = new Image(TileManager.class.getResource("/image/BuildingImages/StoneWall.png").toExternalForm());
         tanner = new Image(TileManager.class.getResource("/image/BuildingImages/tanner.gif").toExternalForm());
         tortureBuilding = new Image(TileManager.class.getResource("/image/BuildingImages/tortureBuilding.gif").toExternalForm());
