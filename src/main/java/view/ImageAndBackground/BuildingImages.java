@@ -69,6 +69,10 @@ public class BuildingImages {
     public Image pike;
     public Image leatherArmor;
     public Image metalArmor;
+    public Image bread;
+    public Image barrel;
+    public Image flour;
+    public Image beer;
 
     public void loadImage() {
         apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
@@ -136,6 +140,26 @@ public class BuildingImages {
         pike = new Image(TileManager.class.getResource("/image/BuildingImages/pike.png").toExternalForm());
         leatherArmor = new Image(TileManager.class.getResource("/image/BuildingImages/letherArmor.png").toExternalForm());
         metalArmor = new Image(TileManager.class.getResource("/image/BuildingImages/metalArmor.png").toExternalForm());
+        bread = new Image(TileManager.class.getResource("/image/BuildingImages/bread.png").toExternalForm());
+        barrel = new Image(TileManager.class.getResource("/image/BuildingImages/barrel.png").toExternalForm());
+        flour = new Image(TileManager.class.getResource("/image/BuildingImages/flour.png").toExternalForm());
+        beer = new Image(TileManager.class.getResource("/image/BuildingImages/beer.png").toExternalForm());
+    }
+
+    public Image getBread() {
+        return bread;
+    }
+
+    public Image getBarrel() {
+        return barrel;
+    }
+
+    public Image getFlour() {
+        return flour;
+    }
+
+    public Image getBeer() {
+        return beer;
     }
 
     public Image getBow() {

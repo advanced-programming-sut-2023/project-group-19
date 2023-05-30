@@ -692,12 +692,12 @@ public class BottomBarBuildings {
         bakeryButton.setLayoutY(710);
         bakeryButton.setMinSize(100, 100);
         pane.getChildren().add(bakeryButton);
-        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
-        latherArmor.setFitWidth(50);
-        latherArmor.setFitHeight(50);
-        latherArmor.setLayoutX(590);
-        latherArmor.setLayoutY(760);
-        pane.getChildren().add(latherArmor);
+        ImageView bread = new ImageView(buildingImages.getBread());
+        bread.setFitWidth(60);
+        bread.setFitHeight(60);
+        bread.setLayoutX(330);
+        bread.setLayoutY(760);
+        pane.getChildren().add(bread);
 
         Button breweryButton = new Button();
         ImageView breweryImage = new ImageView(buildingImages.getBrewery());
@@ -709,12 +709,12 @@ public class BottomBarBuildings {
         breweryButton.setLayoutY(710);
         breweryButton.setMinSize(100, 100);
         pane.getChildren().add(breweryButton);
-        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
-        latherArmor.setFitWidth(50);
-        latherArmor.setFitHeight(50);
-        latherArmor.setLayoutX(590);
-        latherArmor.setLayoutY(760);
-        pane.getChildren().add(latherArmor);
+        ImageView barrel = new ImageView(buildingImages.getBarrel());
+        barrel.setFitWidth(60);
+        barrel.setFitHeight(60);
+        barrel.setLayoutX(490);
+        barrel.setLayoutY(760);
+        pane.getChildren().add(barrel);
 
         Button millButton = new Button();
         ImageView millImage = new ImageView(buildingImages.getMill());
@@ -726,12 +726,12 @@ public class BottomBarBuildings {
         millButton.setLayoutY(710);
         millButton.setMinSize(100, 100);
         pane.getChildren().add(millButton);
-        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
-        latherArmor.setFitWidth(50);
-        latherArmor.setFitHeight(50);
-        latherArmor.setLayoutX(590);
-        latherArmor.setLayoutY(760);
-        pane.getChildren().add(latherArmor);
+        ImageView flour = new ImageView(buildingImages.getFlour());
+        flour.setFitWidth(60);
+        flour.setFitHeight(60);
+        flour.setLayoutX(650);
+        flour.setLayoutY(760);
+        pane.getChildren().add(flour);
 
         Button innButton = new Button();
         ImageView innImage = new ImageView(buildingImages.getInn());
@@ -743,12 +743,12 @@ public class BottomBarBuildings {
         innButton.setLayoutY(710);
         innButton.setMinSize(100, 100);
         pane.getChildren().add(innButton);
-        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
-        latherArmor.setFitWidth(50);
-        latherArmor.setFitHeight(50);
-        latherArmor.setLayoutX(590);
-        latherArmor.setLayoutY(760);
-        pane.getChildren().add(latherArmor);
+        ImageView beer = new ImageView(buildingImages.getBeer());
+        beer.setFitWidth(80);
+        beer.setFitHeight(80);
+        beer.setLayoutX(810);
+        beer.setLayoutY(760);
+        pane.getChildren().add(beer);
     }
 
 
