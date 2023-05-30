@@ -13,7 +13,7 @@ import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 
 public class BottomBarButtons {
-    public void createButtons(Pane pane, BottomBarImages bottomBarImages , BottomBarBuildings bottomBarBuildings , BuildingImages buildingImages) {
+    public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
         imageView.setFitHeight(250);
         imageView.setFitWidth(1200);
@@ -54,14 +54,6 @@ public class BottomBarButtons {
         foodButton.setLayoutY(825);
         foodButton.setMinSize(50, 50);
         pane.getChildren().add(foodButton);
-//        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                bottomBarBuildings.clearPane(pane);
-//                bottomBarBuildings.createFarmButtons(pane, buildingImages);
-//            }
-//        };
-//        foodButton.setOnMouseClicked(event1);
 
         Button hammerButton = new Button();
         ImageView hammerImage = new ImageView(bottomBarImages.getHammer());
@@ -73,14 +65,6 @@ public class BottomBarButtons {
         hammerButton.setLayoutY(825);
         hammerButton.setMinSize(50, 50);
         pane.getChildren().add(hammerButton);
-//        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                bottomBarBuildings.clearPane(pane);
-//                bottomBarBuildings.createIndustryButtons(pane, buildingImages);
-//            }
-//        };
-//        hammerButton.setOnMouseClicked(event2);
 
         Button homeButton = new Button();
         ImageView homeImage = new ImageView(bottomBarImages.getHome());
@@ -92,14 +76,7 @@ public class BottomBarButtons {
         homeButton.setLayoutY(825);
         homeButton.setMinSize(50, 50);
         pane.getChildren().add(homeButton);
-//        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                bottomBarBuildings.clearPane(pane);
-//                bottomBarBuildings.createTownButtons(pane, buildingImages);
-//            }
-//        };
-//        homeButton.setOnMouseClicked(event3);
+        ;
 
         Button shieldButton = new Button();
         ImageView shieldImage = new ImageView(bottomBarImages.getShield());
@@ -111,14 +88,6 @@ public class BottomBarButtons {
         shieldButton.setLayoutY(825);
         shieldButton.setMinSize(50, 50);
         pane.getChildren().add(shieldButton);
-//        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                bottomBarBuildings.clearPane(pane);
-//                bottomBarBuildings.createWeaponsButtons(pane, buildingImages);
-//            }
-//        };
-//        shieldButton.setOnMouseClicked(event4);
 
         Button sickleButton = new Button();
         ImageView sickleImage = new ImageView(bottomBarImages.getSickle());
@@ -130,14 +99,6 @@ public class BottomBarButtons {
         sickleButton.setLayoutY(825);
         sickleButton.setMinSize(50, 50);
         pane.getChildren().add(sickleButton);
-//        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                bottomBarBuildings.clearPane(pane);
-//                bottomBarBuildings.createFoodButtons(pane , buildingImages );
-//            }
-//        };
-//        sickleButton.setOnMouseClicked(event5);
 
         Button gameOptionButton = new Button();
         ImageView gameOptionImage = new ImageView(bottomBarImages.getKey());
