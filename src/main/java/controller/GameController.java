@@ -23,10 +23,7 @@ import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.TileManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 
 public class GameController {
@@ -225,28 +222,7 @@ public class GameController {
         }
     }
 
-    public GameMenuMessages dropUnit(Matcher x1, Matcher y1, Matcher count, Matcher type) {
-        int x = Integer.parseInt(x1.group("x"));
-        int y = Integer.parseInt(y1.group("y"));
-        int countOfUnits = Integer.parseInt(count.group("count"));
-        String typeOfUnit = type.group("type");
-        if (countOfUnits <= 0) return GameMenuMessages.INVALID_NUMBER_OF_UNITS_TO_DROP;
-        if (validCoordinates(x, y)) {
-            if (checkGroundTypeForUnits(x, y)) {
-                if (checkTypeOfUnitWithLocation(x, y, typeOfUnit)) {
-                    if (Map.notPassable[x][y] && isTower(x, y)) {
-                        Map.notPassable[x][y] = false;
-                    }
-                    if (addUnitsToMap(x, y, countOfUnits, typeOfUnit)) {
-                        return GameMenuMessages.SUCCESS;
-                    } else return GameMenuMessages.NOT_ENOUGH_UNITS_TO_DEPLOY;
-                } else return GameMenuMessages.IMPROPER_UNIT;
-            } else return GameMenuMessages.IMPROPER_LOCATION;
-        }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
-    }
-
-    private static boolean addUnitsToMap(int x, int y, int count, String typeOfUnit) {
+    private static boolean dropUnits(int x , int y ,int count, String typeOfUnit , Pane pane) {
         switch (typeOfUnit) {
             case "Archer":
                 if (Manage.getCurrentEmpire().getEuropeArcherCount() >= count) {
@@ -254,9 +230,10 @@ public class GameController {
                         ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         archer.archer(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(archer);
-                        Map.getTroopMap()[x][y].add(archer);
-                        System.out.println(archer + " " + archer.getEmpire());
+                        pane.getChildren().add(archer);
                     }
+                    Manage.getCurrentEmpire().setEuropeArcherCount
+                            (Manage.getCurrentEmpire().getEuropeArcherCount() - count);
                     return true;
                 } else return false;
             case "Crossbowmen":
@@ -265,8 +242,10 @@ public class GameController {
                         ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         crossBowMan.Crossbowmen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
-                        Map.getTroopMap()[x][y].add(crossBowMan);
+                        pane.getChildren().add(crossBowMan);
                     }
+                    Manage.getCurrentEmpire().setCrossbowManCount
+                            (Manage.getCurrentEmpire().getCrossbowManCount() - count);
                     return true;
                 } else return false;
             case "ArcherBow":
@@ -275,8 +254,10 @@ public class GameController {
                         ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         archerBow.ArcherBow(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(archerBow);
-                        Map.getTroopMap()[x][y].add(archerBow);
+                        pane.getChildren().add(archerBow);
                     }
+                    Manage.getCurrentEmpire().setArabianBowCount
+                            (Manage.getCurrentEmpire().getArabianBowCount() - count);
                     return true;
                 } else return false;
             case "Slingers":
@@ -285,8 +266,10 @@ public class GameController {
                         ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         slingers.Slingers(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(slingers);
-                        Map.getTroopMap()[x][y].add(slingers);
+                        pane.getChildren().add(slingers);
                     }
+                    Manage.getCurrentEmpire().setSlingerCount
+                            (Manage.getCurrentEmpire().getSlingerCount() - count);
                     return true;
                 } else return false;
             case "HorseArchers":
@@ -295,8 +278,10 @@ public class GameController {
                         ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         horseArcher.HorseArchers(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(horseArcher);
-                        Map.getTroopMap()[x][y].add(horseArcher);
+                        pane.getChildren().add(horseArcher);
                     }
+                    Manage.getCurrentEmpire().setHorseArcherCount
+                            (Manage.getCurrentEmpire().getHorseArcherCount() - count);
                     return true;
                 } else return false;
             case "FireThrowers":
@@ -305,8 +290,10 @@ public class GameController {
                         ArchersAndThrowers fireThrower = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         fireThrower.FireThrowers(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(fireThrower);
-                        Map.getTroopMap()[x][y].add(fireThrower);
+                        pane.getChildren().add(fireThrower);
                     }
+                    Manage.getCurrentEmpire().setFireThrowerCount
+                            (Manage.getCurrentEmpire().getFireThrowerCount() - count);
                     return true;
                 } else return false;
             case "SpearMen":
@@ -315,8 +302,10 @@ public class GameController {
                         Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
                         spearMen.SpearMen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(spearMen);
-                        Map.getTroopMap()[x][y].add(spearMen);
+                        pane.getChildren().add(spearMen);
                     }
+                    Manage.getCurrentEmpire().setSpearManCount
+                            (Manage.getCurrentEmpire().getSpearManCount() - count);
                     return true;
                 } else return false;
             case "MaceMen":
@@ -325,8 +314,10 @@ public class GameController {
                         Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
                         maceMen.MaceMen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(maceMen);
-                        Map.getTroopMap()[x][y].add(maceMen);
+                        pane.getChildren().add(maceMen);
                     }
+                    Manage.getCurrentEmpire().setMaceManCount
+                            (Manage.getCurrentEmpire().getMaceManCount() - count);
                     return true;
                 } else return false;
             case "LadderMen":
@@ -335,8 +326,10 @@ public class GameController {
                         Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
                         ladderMen.LadderMen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(ladderMen);
-                        Map.getTroopMap()[x][y].add(ladderMen);
+                        pane.getChildren().add(ladderMen);
                     }
+                    Manage.getCurrentEmpire().setLadderManCount
+                            (Manage.getCurrentEmpire().getLadderManCount() - count);
                     return true;
                 } else return false;
             case "Assassins":
@@ -345,8 +338,10 @@ public class GameController {
                         Climbers assassin = new Climbers(Manage.getCurrentEmpire());
                         assassin.Assassins(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(assassin);
-                        Map.getTroopMap()[x][y].add(assassin);
+                        pane.getChildren().add(assassin);
                     }
+                    Manage.getCurrentEmpire().setAssassinCount
+                            (Manage.getCurrentEmpire().getAssassinCount() - count);
                     return true;
                 } else return false;
             case "Engineer":
@@ -355,8 +350,10 @@ public class GameController {
                         Engineer engineer = new Engineer(Manage.getCurrentEmpire());
                         engineer.engineer(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(engineer);
-                        Map.getTroopMap()[x][y].add(engineer);
+                        pane.getChildren().add(engineer);
                     }
+                    Manage.getCurrentEmpire().setEngineerCount
+                            (Manage.getCurrentEmpire().getEngineerCount() - count);
                     return true;
                 } else return false;
             case "BlackMonk":
@@ -365,8 +362,10 @@ public class GameController {
                         Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
                         blackMonk.BlackMonk(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(blackMonk);
-                        Map.getTroopMap()[x][y].add(blackMonk);
+                        pane.getChildren().add(blackMonk);
                     }
+                    Manage.getCurrentEmpire().setBlackMonkCount
+                            (Manage.getCurrentEmpire().getBlackMonkCount() - count);
                     return true;
                 } else return false;
             case "Knight":
@@ -375,9 +374,10 @@ public class GameController {
                         Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
                         knight.Knight(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(knight);
-                        Map.getTroopMap()[x][y].add(knight);
-                        System.out.println(knight.getNames() + " " + knight.getOwner());
+                        pane.getChildren().add(knight);
                     }
+                    Manage.getCurrentEmpire().setKnightCount
+                            (Manage.getCurrentEmpire().getKnightCount() - count);
                     return true;
                 } else return false;
             case "Swordsmen":
@@ -386,7 +386,7 @@ public class GameController {
                         Soldiers swordMen = new Soldiers(Manage.getCurrentEmpire());
                         swordMen.Swordsmen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(swordMen);
-                        Map.getTroopMap()[x][y].add(swordMen);
+                        pane.getChildren().add(swordMen);
                     }
                     return true;
                 } else return false;
@@ -396,8 +396,10 @@ public class GameController {
                         Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
                         pikeMen.PikeMen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(pikeMen);
-                        Map.getTroopMap()[x][y].add(pikeMen);
+                        pane.getChildren().add(pikeMen);
                     }
+                    Manage.getCurrentEmpire().setPikeManCount
+                            (Manage.getCurrentEmpire().getPikeManCount() - count);
                     return true;
                 } else return false;
             case "Slaves":
@@ -406,8 +408,10 @@ public class GameController {
                         Soldiers slave = new Soldiers(Manage.getCurrentEmpire());
                         slave.Slaves(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(slave);
-                        Map.getTroopMap()[x][y].add(slave);
+                        pane.getChildren().add(slave);
                     }
+                    Manage.getCurrentEmpire().setSlaveCount
+                            (Manage.getCurrentEmpire().getSlaveCount() - count);
                     return true;
                 } else return false;
             case "ArabianSwordsmen":
@@ -416,8 +420,10 @@ public class GameController {
                         Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
                         arabSwordMen.ArabianSwordsmen(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
-                        Map.getTroopMap()[x][y].add(arabSwordMen);
+                        pane.getChildren().add(arabSwordMen);
                     }
+                    Manage.getCurrentEmpire().setArabianSwordManCount
+                            (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
                     return true;
                 } else return false;
             case "Tunneler":
@@ -426,8 +432,10 @@ public class GameController {
                         Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
                         tunneler.Tunneler(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(tunneler);
-                        Map.getTroopMap()[x][y].add(tunneler);
+                        pane.getChildren().add(tunneler);
                     }
+                    Manage.getCurrentEmpire().setTunnelerCount
+                            (Manage.getCurrentEmpire().getTunnelerCount() - count);
                     return true;
                 } else return false;
             case "Catapult":
@@ -436,8 +444,10 @@ public class GameController {
                         ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         catapult.catapult(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(catapult);
-                        Map.getTroopMap()[x][y].add(catapult);
+                        pane.getChildren().add(catapult);
                     }
+                    Manage.getCurrentEmpire().setCatapultCount
+                            (Manage.getCurrentEmpire().getCatapultCount() - count);
                     return true;
                 } else return false;
             case "Trebuchet":
@@ -446,8 +456,10 @@ public class GameController {
                         ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         trebuchet.trebuchet(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(trebuchet);
-                        Map.getTroopMap()[x][y].add(trebuchet);
+                        pane.getChildren().add(trebuchet);
                     }
+                    Manage.getCurrentEmpire().setTrebuchetCount
+                            (Manage.getCurrentEmpire().getTrebuchetCount() - count);
                     return true;
                 } else return false;
             case "SiegeTower":
@@ -456,8 +468,10 @@ public class GameController {
                         ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         siegeTower.siegeTower(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(siegeTower);
-                        Map.getTroopMap()[x][y].add(siegeTower);
+                        pane.getChildren().add(siegeTower);
                     }
+                    Manage.getCurrentEmpire().setSiegeTowerCount
+                            (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
                     return true;
                 } else return false;
             case "FireBallista":
@@ -466,8 +480,10 @@ public class GameController {
                         ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         fireBallista.fireBallista(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(fireBallista);
-                        Map.getTroopMap()[x][y].add(fireBallista);
+                        pane.getChildren().add(fireBallista);
                     }
+                    Manage.getCurrentEmpire().setFireBalistaCount
+                            (Manage.getCurrentEmpire().getFireBalistaCount() - count);
                     return true;
                 } else return false;
             case "BatteringRam":
@@ -476,8 +492,10 @@ public class GameController {
                         ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         batteringRam.batteringRam(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(batteringRam);
-                        Map.getTroopMap()[x][y].add(batteringRam);
+                        pane.getChildren().add(batteringRam);
                     }
+                    Manage.getCurrentEmpire().setBatteringRamCount
+                            (Manage.getCurrentEmpire().getBatteringRamCount() - count);
                     return true;
                 } else return false;
             case "PortableShield":
@@ -486,8 +504,10 @@ public class GameController {
                         ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
                         portableShield.portableShield(x, y);
                         Manage.getCurrentEmpire().empireArmy.add(portableShield);
-                        Map.getTroopMap()[x][y].add(0, portableShield);
+                        pane.getChildren().add(0, portableShield);
                     }
+                    Manage.getCurrentEmpire().setPortableShieldCount
+                            (Manage.getCurrentEmpire().getPortableShieldCount() - count);
                     return true;
                 } else return false;
         }
