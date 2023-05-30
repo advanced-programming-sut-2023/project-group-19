@@ -348,7 +348,82 @@ public class BottomBarBuildings {
         pane.getChildren().add(oilSmelterButton);
     }
     public void createIndustryButtons(Pane pane , BuildingImages buildingImages){
+        Button stockpileButton = new Button();
+        ImageView stockpileImage = new ImageView(buildingImages.getStockpile());
+        stockpileButton.setBackground(null);
+        stockpileImage.setFitHeight(100);
+        stockpileImage.setFitWidth(100);
+        stockpileButton.setGraphic(stockpileImage);
+        stockpileButton.setLayoutX(120);
+        stockpileButton.setLayoutY(710);
+        stockpileButton.setMinSize(100, 100);
+        pane.getChildren().add(stockpileButton);
 
+//        Button engineersGuildButton = new Button();
+//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+//        engineersGuildButton.setBackground(null);
+//        engineersGuildImage.setFitHeight(100);
+//        engineersGuildImage.setFitWidth(100);
+//        engineersGuildButton.setGraphic(engineersGuildImage);
+//        engineersGuildButton.setLayoutX(220);
+//        engineersGuildButton.setLayoutY(710);
+//        engineersGuildButton.setMinSize(100, 100);
+//        pane.getChildren().add(engineersGuildButton);
+//
+//        Button engineersGuildButton = new Button();
+//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+//        engineersGuildButton.setBackground(null);
+//        engineersGuildImage.setFitHeight(100);
+//        engineersGuildImage.setFitWidth(100);
+//        engineersGuildButton.setGraphic(engineersGuildImage);
+//        engineersGuildButton.setLayoutX(220);
+//        engineersGuildButton.setLayoutY(710);
+//        engineersGuildButton.setMinSize(100, 100);
+//        pane.getChildren().add(engineersGuildButton);
+//
+//        Button engineersGuildButton = new Button();
+//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+//        engineersGuildButton.setBackground(null);
+//        engineersGuildImage.setFitHeight(100);
+//        engineersGuildImage.setFitWidth(100);
+//        engineersGuildButton.setGraphic(engineersGuildImage);
+//        engineersGuildButton.setLayoutX(220);
+//        engineersGuildButton.setLayoutY(710);
+//        engineersGuildButton.setMinSize(100, 100);
+//        pane.getChildren().add(engineersGuildButton);
+//
+//        Button engineersGuildButton = new Button();
+//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+//        engineersGuildButton.setBackground(null);
+//        engineersGuildImage.setFitHeight(100);
+//        engineersGuildImage.setFitWidth(100);
+//        engineersGuildButton.setGraphic(engineersGuildImage);
+//        engineersGuildButton.setLayoutX(220);
+//        engineersGuildButton.setLayoutY(710);
+//        engineersGuildButton.setMinSize(100, 100);
+//        pane.getChildren().add(engineersGuildButton);
+//
+//        Button engineersGuildButton = new Button();
+//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+//        engineersGuildButton.setBackground(null);
+//        engineersGuildImage.setFitHeight(100);
+//        engineersGuildImage.setFitWidth(100);
+//        engineersGuildButton.setGraphic(engineersGuildImage);
+//        engineersGuildButton.setLayoutX(220);
+//        engineersGuildButton.setLayoutY(710);
+//        engineersGuildButton.setMinSize(100, 100);
+//        pane.getChildren().add(engineersGuildButton);
+//
+//        Button engineersGuildButton = new Button();
+//        ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+//        engineersGuildButton.setBackground(null);
+//        engineersGuildImage.setFitHeight(100);
+//        engineersGuildImage.setFitWidth(100);
+//        engineersGuildButton.setGraphic(engineersGuildImage);
+//        engineersGuildButton.setLayoutX(220);
+//        engineersGuildButton.setLayoutY(710);
+//        engineersGuildButton.setMinSize(100, 100);
+//        pane.getChildren().add(engineersGuildButton);
     }
     public void createFarmButtons(Pane pane , BuildingImages buildingImages){
 

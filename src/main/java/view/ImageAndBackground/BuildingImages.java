@@ -58,6 +58,7 @@ public class BuildingImages {
     public Image gatehouseIcon;
     public Image towersIcon;
     public Image militaryBuildingsIcon;
+    public Image siegeTent;
     public Image returnIcon;
     public void loadImage(){
         apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
@@ -115,6 +116,11 @@ public class BuildingImages {
         towersIcon = new Image(TileManager.class.getResource("/image/BuildingImages/towers.png").toExternalForm());
         militaryBuildingsIcon = new Image(TileManager.class.getResource("/image/BuildingImages/militaryBuildings.png").toExternalForm());
         returnIcon = new Image(TileManager.class.getResource("/image/BuildingImages/return.png").toExternalForm());
+        siegeTent = new Image(TileManager.class.getResource("/image/BuildingImages/siegeTent.png").toExternalForm());
+    }
+
+    public Image getSiegeTent() {
+        return siegeTent;
     }
 
     public Image getReturnIcon() {
