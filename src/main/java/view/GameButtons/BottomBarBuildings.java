@@ -7,13 +7,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.Building.*;
+import model.Human.Troop.ArchersAndThrowers;
+import model.Human.Troop.Army;
 import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 
 public class BottomBarBuildings {
     //TODO : handle the draw bridge for now i set the x and y  to 0 , 0
+    //TODO : handle the Siegetroop for now I set the x and y  to 0 , 0
     public Building building ;
+    public Army troop;
     public Pane testPane = new Pane();
 
     public Pane getTestPane() {
@@ -498,13 +502,15 @@ public class BottomBarBuildings {
         returnIconButton.setLayoutX(120);
         returnIconButton.setLayoutY(740);
         returnIconButton.setMinSize(40, 40);
-        pane.getChildren().add(returnIconButton);
+        testPane.getChildren().add(returnIconButton);
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                clearPane();
+                createCastleButtons(pane , buildingImages);
             }
         };
+        returnIconButton.setOnMouseClicked(event);
 
         Button engineersGuildButton = new Button();
         ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
@@ -515,13 +521,16 @@ public class BottomBarBuildings {
         engineersGuildButton.setLayoutX(220);
         engineersGuildButton.setLayoutY(710);
         engineersGuildButton.setMinSize(100, 100);
-        pane.getChildren().add(engineersGuildButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                building = new
-//            }
-//        };
+        testPane.getChildren().add(engineersGuildButton);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PrepareLaboursAndFighters engineer = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                engineer.engineerGuild();
+                building = engineer;
+            }
+        };
+        engineersGuildButton.setOnMouseClicked(event1);
 
         Button mangonelButton = new Button();
         ImageView mangonelImage = new ImageView(buildingImages.getMangonel());
@@ -533,13 +542,16 @@ public class BottomBarBuildings {
         mangonelButton.setLayoutY(710);
         mangonelButton.setMinSize(100, 100);
         mangonelButton.setMaxSize(100, 100);
-        pane.getChildren().add(mangonelButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                newButton.setStyle("-fx-border-color: brown");
-//            }
-//        };
+        testPane.getChildren().add(mangonelButton);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                archersAndThrowers.trebuchet(0 , 0);
+                troop = archersAndThrowers;
+            }
+        };
+        mangonelButton.setOnMouseClicked(event2);
 
         Button ballistaButton = new Button();
         ImageView ballistaImage = new ImageView(buildingImages.getBallista());
@@ -551,13 +563,16 @@ public class BottomBarBuildings {
         ballistaButton.setLayoutY(720);
         ballistaButton.setMinSize(100, 100);
         ballistaButton.setMaxSize(100, 100);
-        pane.getChildren().add(ballistaButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                newButton.setStyle("-fx-border-color: brown");
-//            }
-//        };
+        testPane.getChildren().add(ballistaButton);
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                archersAndThrowers.fireBallista(0 , 0);
+                troop = archersAndThrowers;
+            }
+        };
+        ballistaButton.setOnMouseClicked(event3);
 
         Button stableButton = new Button();
         ImageView stableImage = new ImageView(buildingImages.getStable());
@@ -568,13 +583,16 @@ public class BottomBarBuildings {
         stableButton.setLayoutX(630);
         stableButton.setLayoutY(710);
         stableButton.setMinSize(100, 100);
-        pane.getChildren().add(stableButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                newButton.setStyle("-fx-border-color: brown");
-//            }
-//        };
+        testPane.getChildren().add(stableButton);
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Stable stable = new Stable(Manage.getCurrentEmpire());
+                stable.stable();
+                building= stable;
+            }
+        };
+        stableButton.setOnMouseClicked(event4);
 
         Button tunnelersGuildButton = new Button();
         ImageView tunnelersGuildImage = new ImageView(buildingImages.getTunnelersGuild());
@@ -585,13 +603,16 @@ public class BottomBarBuildings {
         tunnelersGuildButton.setLayoutX(770);
         tunnelersGuildButton.setLayoutY(710);
         tunnelersGuildButton.setMinSize(100, 100);
-        pane.getChildren().add(tunnelersGuildButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                newButton.setStyle("-fx-border-color: brown");
-//            }
-//        };
+        testPane.getChildren().add(tunnelersGuildButton);
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PrepareLaboursAndFighters prepareLaboursAndFighters = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                prepareLaboursAndFighters.tunnelerGuild();
+                building = prepareLaboursAndFighters;
+            }
+        };
+        tunnelersGuildButton.setOnMouseClicked(event5);
 
         Button oilSmelterButton = new Button();
         ImageView oilSmelterImage = new ImageView(buildingImages.getOilSmelter());
@@ -602,13 +623,16 @@ public class BottomBarBuildings {
         oilSmelterButton.setLayoutX(910);
         oilSmelterButton.setLayoutY(710);
         oilSmelterButton.setMinSize(100, 100);
-        pane.getChildren().add(oilSmelterButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                newButton.setStyle("-fx-border-color: brown");
-//            }
-//        };
+        testPane.getChildren().add(oilSmelterButton);
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                OilSmelter oilSmelter = new OilSmelter(Manage.getCurrentEmpire());
+                oilSmelter.oilSmelter();
+                building = oilSmelter;
+            }
+        };
+        oilSmelterButton.setOnMouseClicked(event6);
     }
 
     public void createIndustryButtons(Pane pane, BuildingImages buildingImages) {
