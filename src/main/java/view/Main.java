@@ -32,6 +32,8 @@ public class Main extends Application {
         Manage.getAllEmpires().add(Dorsa);
         Manage.getAllEmpires().add(Ali);
         Shop shop = new Shop(Ali);
+        ShopMenu.currentShop = shop;
+        Map.getBuildingMap()[1][2].add(shop);
         launch(args);
 //        LoginMenu.run(new Scanner(System.in));
     }

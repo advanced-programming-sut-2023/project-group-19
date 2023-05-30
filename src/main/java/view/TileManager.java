@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -15,12 +16,15 @@ import javafx.stage.Stage;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import view.GameButtons.BottomBarButtons;
+import view.ImageAndBackground.BottomBarImages;
 import view.Model.NewButton;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class TileManager extends Application {
+    //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
@@ -29,6 +33,7 @@ public class TileManager extends Application {
     public Text showCellData = new Text();
     public int avgDamage;
     public int avgSpeed;
+    public BottomBarImages bottomBarImages;
 
     public TilePane view = new TilePane();
 
@@ -46,7 +51,7 @@ public class TileManager extends Application {
     public double height;
     public ArrayList<Node> list = new ArrayList<>();
 
-    public Background background;
+
     public Scene scene;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
@@ -60,7 +65,7 @@ public class TileManager extends Application {
 //        tilePane.setMaxWidth(10000);
         createButtonsArraylist();
 
-        for (int j = 0; j < 100; j++) {
+        for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
                 applyingMouseEventForButton(newButton,stage);
@@ -71,21 +76,20 @@ public class TileManager extends Application {
                 list.add(newButton);
             }
         }
-//         width  = 1530
-//         height = 800
+         width  = 1530;
+         height = 800;
 
-        background = new Background(new BackgroundImage(new Image
-                (TileManager.class.getResource("/image/cegla2.jpg").toExternalForm()),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        bottomBarImages = new BottomBarImages();
+        bottomBarImages.loadImages();
 
 
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-        width = resolution.getWidth();
-        height = resolution.getHeight();
+//        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+//        width = resolution.getWidth();
+//        height = resolution.getHeight();
         pane.requestFocus();
 
         createViewScene(stage);
@@ -109,43 +113,12 @@ public class TileManager extends Application {
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
+        stage.setResizable(false);
     }
 
-    private void setButtonsOfMenus(Stage stage) {
-        javafx.scene.control.Button button = new javafx.scene.control.Button();
-        button.setText("BuildingMenu");
-        button.setLayoutX(0);
-        button.setLayoutY(800);
-        button.setPrefSize(70,70);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                BuildingMenu buildingMenu = new BuildingMenu();
-                try {
-                    buildingMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-        javafx.scene.control.Button button1 = new Button();
-        button1.setText("ShopMenu");
-        button1.setLayoutX(70);
-        button1.setLayoutY(800);
-        button1.setPrefSize(70,70);
-        button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ShopMenu shopMenu = new ShopMenu();
-                try {
-                    shopMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        pane.getChildren().addAll(button,button1);
+    private void setButtonsOfMenus(Pane pane , BottomBarImages bottomBarImages) {
+        BottomBarButtons bottomBarButtons = new BottomBarButtons();
+        bottomBarButtons.createButtons(pane , bottomBarImages);
     }
 
     public void mouseMovement(int x1, int y1, int x2, int y2,Stage stage) {
@@ -161,8 +134,8 @@ public class TileManager extends Application {
         if (moveY + 30 > 100){
             moveY = 70;
         }
-        if (moveX + 16 > 100){
-            moveX = 84;
+        if (moveX + 16 > 103){
+            moveX = 87;
         }
         if (moveX < 0 ) {
             moveX = 0;
@@ -207,7 +180,7 @@ public class TileManager extends Application {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
             for (int g = 0; g < 30; g++) {
-                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(background);
+                ((NewButton)list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX ) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
@@ -215,7 +188,7 @@ public class TileManager extends Application {
                 allButtons[u][g].add(button);
             }
         }
-        setButtonsOfMenus(stage);
+        setButtonsOfMenus(pane , bottomBarImages);
     }
 
     public void getCellData(NewButton newButton) {

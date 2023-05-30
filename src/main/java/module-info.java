@@ -4,8 +4,7 @@ module com.example.projectgroup19 {
     requires javafx.media;
 //    requires com.google.gson;
     requires java.desktop;
-    requires com.google.gson;
-//    requires gson;
+    requires gson;
 
     exports view;
     exports model;
@@ -13,4 +12,6 @@ module com.example.projectgroup19 {
     opens view to javafx.fxml;
     opens model to javafx.fxml;
     opens controller to javafx.fxml;
+    exports view.OldView;
+    opens view.OldView to javafx.fxml;
 }
