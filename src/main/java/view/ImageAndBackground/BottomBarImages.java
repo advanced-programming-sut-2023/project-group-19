@@ -22,6 +22,10 @@ public class BottomBarImages {
     public Image bottomCoverImage;
     public Image faceImage;
     public Image bottomSideCoverImage;
+    public Image apple;
+    public Image hops;
+    public Image wheat;
+    public Image dairy;
     public Image test;
     public void loadImages(){
         background = new Background(new BackgroundImage(new Image
@@ -43,7 +47,27 @@ public class BottomBarImages {
         minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
         showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
         faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
+        apple = new Image(TileManager.class.getResource("/image/BottomBar/apple.png").toExternalForm());
+        wheat = new Image(TileManager.class.getResource("/image/BottomBar/wheat.png").toExternalForm());
+        hops = new Image(TileManager.class.getResource("/image/BottomBar/hops.png").toExternalForm());
+        dairy = new Image(TileManager.class.getResource("/image/BottomBar/cheese.png").toExternalForm());
 //        test = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
+    }
+
+    public Image getApple() {
+        return apple;
+    }
+
+    public Image getHops() {
+        return hops;
+    }
+
+    public Image getWheat() {
+        return wheat;
+    }
+
+    public Image getDairy() {
+        return dairy;
     }
 
     public Background getBackground() {
