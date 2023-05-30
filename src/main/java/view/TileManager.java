@@ -124,7 +124,7 @@ public class TileManager extends Application {
         BottomBarButtons bottomBarButtons = new BottomBarButtons();
         bottomBarButtons.createButtons(pane, bottomBarImages);
         BottomBarBuildings bottomBarBuildings = new BottomBarBuildings();
-        bottomBarBuildings.createFoodButtons(pane, buildingImages);
+        bottomBarBuildings.createMilitaryBuildingsButtons(pane, buildingImages);
     }
 
     public void mouseMovement(int x1, int y1, int x2, int y2, Stage stage) {
@@ -192,6 +192,8 @@ public class TileManager extends Application {
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
                 pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
+                for(int i = 0 ;  i < button.getArmy().size() ; i++)
+                    pane.getChildren().add(button.getArmy().get(i).);
                 allButtons[u][g].add(button);
             }
         }

@@ -751,7 +751,6 @@ public class BottomBarBuildings {
         pane.getChildren().add(beer);
     }
 
-
     public void clearCastleButtons() {
 
     }
