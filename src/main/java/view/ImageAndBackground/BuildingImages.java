@@ -55,6 +55,9 @@ public class BuildingImages {
     public Image wallStair;
     public Image wheatFarm;
     public Image woodCutter;
+    public Image gatehouseIcon;
+    public Image towersIcon;
+    public Image militaryBuildingsIcon;
     public void loadImage(){
         apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
         appleFarm = new Image(TileManager.class.getResource("/image/BuildingImages/appleorchard.gif").toExternalForm());
@@ -107,6 +110,21 @@ public class BuildingImages {
         wallStair = new Image(TileManager.class.getResource("/image/BuildingImages/wallStair.png").toExternalForm());
         wheatFarm = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
         woodCutter = new Image(TileManager.class.getResource("/image/BuildingImages/WoodCutter.png").toExternalForm());
+        gatehouseIcon = new Image(TileManager.class.getResource("/image/BuildingImages/gatehouse.png").toExternalForm());
+        towersIcon = new Image(TileManager.class.getResource("/image/BuildingImages/towers.png").toExternalForm());
+        militaryBuildingsIcon = new Image(TileManager.class.getResource("/image/BuildingImages/militaryBuildings.png").toExternalForm());
+    }
+
+    public Image getGatehouseIcon() {
+        return gatehouseIcon;
+    }
+
+    public Image getTowersIcon() {
+        return towersIcon;
+    }
+
+    public Image getMilitaryBuildingsIcon() {
+        return militaryBuildingsIcon;
     }
 
     public Image getMill() {
