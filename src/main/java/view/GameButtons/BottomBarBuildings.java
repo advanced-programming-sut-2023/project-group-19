@@ -583,6 +583,12 @@ public class BottomBarBuildings {
         fletcherButton.setLayoutY(710);
         fletcherButton.setMinSize(100, 100);
         pane.getChildren().add(fletcherButton);
+        ImageView bow = new ImageView(buildingImages.getBow());
+        bow.setFitWidth(80);
+        bow.setFitHeight(80);
+        bow.setLayoutX(150);
+        bow.setLayoutY(750);
+        pane.getChildren().add(bow);
 
         Button poleTurnerButton = new Button();
         ImageView poleTurnerImage = new ImageView(buildingImages.getPoleTurner());
@@ -594,6 +600,12 @@ public class BottomBarBuildings {
         poleTurnerButton.setLayoutY(710);
         poleTurnerButton.setMinSize(100, 100);
         pane.getChildren().add(poleTurnerButton);
+        ImageView pike = new ImageView(buildingImages.getPike());
+        pike.setFitWidth(80);
+        pike.setFitHeight(80);
+        pike.setLayoutX(290);
+        pike.setLayoutY(750);
+        pane.getChildren().add(pike);
 
         Button blacksmithButton = new Button();
         ImageView blacksmithImage = new ImageView(buildingImages.getBlacksmith());
@@ -605,6 +617,12 @@ public class BottomBarBuildings {
         blacksmithButton.setLayoutY(710);
         blacksmithButton.setMinSize(100, 100);
         pane.getChildren().add(blacksmithButton);
+        ImageView sword = new ImageView(buildingImages.getSword());
+        sword.setFitWidth(50);
+        sword.setFitHeight(50);
+        sword.setLayoutX(450);
+        sword.setLayoutY(760);
+        pane.getChildren().add(sword);
 
         Button tannersButton = new Button();
         ImageView tannersImage = new ImageView(buildingImages.getTanner());
@@ -616,6 +634,12 @@ public class BottomBarBuildings {
         tannersButton.setLayoutY(710);
         tannersButton.setMinSize(100, 100);
         pane.getChildren().add(tannersButton);
+        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
+        latherArmor.setFitWidth(50);
+        latherArmor.setFitHeight(50);
+        latherArmor.setLayoutX(590);
+        latherArmor.setLayoutY(760);
+        pane.getChildren().add(latherArmor);
 
         Button armourerButton = new Button();
         ImageView armourerImage = new ImageView(buildingImages.getArmourer());
@@ -627,6 +651,12 @@ public class BottomBarBuildings {
         armourerButton.setLayoutY(710);
         armourerButton.setMinSize(100, 100);
         pane.getChildren().add(armourerButton);
+        ImageView metalArmour = new ImageView(buildingImages.getMetalArmor());
+        metalArmour.setFitWidth(50);
+        metalArmour.setFitHeight(50);
+        metalArmour.setLayoutX(690);
+        metalArmour.setLayoutY(770);
+        pane.getChildren().add(metalArmour);
 
         Button siegeTentButton = new Button();
         ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
@@ -641,7 +671,84 @@ public class BottomBarBuildings {
     }
 
     public void createFoodButtons(Pane pane, BuildingImages buildingImages) {
+        Button tannersButton = new Button();
+        ImageView tannersImage = new ImageView(buildingImages.getTanner());
+        tannersButton.setBackground(null);
+        tannersImage.setFitHeight(100);
+        tannersImage.setFitWidth(100);
+        tannersButton.setGraphic(tannersImage);
+        tannersButton.setLayoutX(540);
+        tannersButton.setLayoutY(710);
+        tannersButton.setMinSize(100, 100);
+        pane.getChildren().add(tannersButton);
 
+        Button tannersButton = new Button();
+        ImageView tannersImage = new ImageView(buildingImages.getTanner());
+        tannersButton.setBackground(null);
+        tannersImage.setFitHeight(100);
+        tannersImage.setFitWidth(100);
+        tannersButton.setGraphic(tannersImage);
+        tannersButton.setLayoutX(540);
+        tannersButton.setLayoutY(710);
+        tannersButton.setMinSize(100, 100);
+        pane.getChildren().add(tannersButton);
+        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
+        latherArmor.setFitWidth(50);
+        latherArmor.setFitHeight(50);
+        latherArmor.setLayoutX(590);
+        latherArmor.setLayoutY(760);
+        pane.getChildren().add(latherArmor);
+
+        Button tannersButton = new Button();
+        ImageView tannersImage = new ImageView(buildingImages.getTanner());
+        tannersButton.setBackground(null);
+        tannersImage.setFitHeight(100);
+        tannersImage.setFitWidth(100);
+        tannersButton.setGraphic(tannersImage);
+        tannersButton.setLayoutX(540);
+        tannersButton.setLayoutY(710);
+        tannersButton.setMinSize(100, 100);
+        pane.getChildren().add(tannersButton);
+        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
+        latherArmor.setFitWidth(50);
+        latherArmor.setFitHeight(50);
+        latherArmor.setLayoutX(590);
+        latherArmor.setLayoutY(760);
+        pane.getChildren().add(latherArmor);
+
+        Button tannersButton = new Button();
+        ImageView tannersImage = new ImageView(buildingImages.getTanner());
+        tannersButton.setBackground(null);
+        tannersImage.setFitHeight(100);
+        tannersImage.setFitWidth(100);
+        tannersButton.setGraphic(tannersImage);
+        tannersButton.setLayoutX(540);
+        tannersButton.setLayoutY(710);
+        tannersButton.setMinSize(100, 100);
+        pane.getChildren().add(tannersButton);
+        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
+        latherArmor.setFitWidth(50);
+        latherArmor.setFitHeight(50);
+        latherArmor.setLayoutX(590);
+        latherArmor.setLayoutY(760);
+        pane.getChildren().add(latherArmor);
+
+        Button tannersButton = new Button();
+        ImageView tannersImage = new ImageView(buildingImages.getTanner());
+        tannersButton.setBackground(null);
+        tannersImage.setFitHeight(100);
+        tannersImage.setFitWidth(100);
+        tannersButton.setGraphic(tannersImage);
+        tannersButton.setLayoutX(540);
+        tannersButton.setLayoutY(710);
+        tannersButton.setMinSize(100, 100);
+        pane.getChildren().add(tannersButton);
+        ImageView latherArmor = new ImageView(buildingImages.getLeatherArmor());
+        latherArmor.setFitWidth(50);
+        latherArmor.setFitHeight(50);
+        latherArmor.setLayoutX(590);
+        latherArmor.setLayoutY(760);
+        pane.getChildren().add(latherArmor);
     }
 
 

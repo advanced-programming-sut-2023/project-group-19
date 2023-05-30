@@ -64,6 +64,11 @@ public class BuildingImages {
     public Image hops;
     public Image wheat;
     public Image dairy;
+    public Image bow;
+    public Image sword;
+    public Image pike;
+    public Image leatherArmor;
+    public Image metalArmor;
 
     public void loadImage() {
         apothecary = new Image(TileManager.class.getResource("/image/BuildingImages/apothecary.png").toExternalForm());
@@ -126,6 +131,31 @@ public class BuildingImages {
         wheat = new Image(TileManager.class.getResource("/image/BuildingImages/wheat.png").toExternalForm());
         hops = new Image(TileManager.class.getResource("/image/BuildingImages/hops.png").toExternalForm());
         dairy = new Image(TileManager.class.getResource("/image/BuildingImages/cheese.png").toExternalForm());
+        bow = new Image(TileManager.class.getResource("/image/BuildingImages/bow.png").toExternalForm());
+        sword = new Image(TileManager.class.getResource("/image/BuildingImages/sword.png").toExternalForm());
+        pike = new Image(TileManager.class.getResource("/image/BuildingImages/pike.png").toExternalForm());
+        leatherArmor = new Image(TileManager.class.getResource("/image/BuildingImages/letherArmor.png").toExternalForm());
+        metalArmor = new Image(TileManager.class.getResource("/image/BuildingImages/metalArmor.png").toExternalForm());
+    }
+
+    public Image getBow() {
+        return bow;
+    }
+
+    public Image getSword() {
+        return sword;
+    }
+
+    public Image getPike() {
+        return pike;
+    }
+
+    public Image getLeatherArmor() {
+        return leatherArmor;
+    }
+
+    public Image getMetalArmor() {
+        return metalArmor;
     }
 
     public Image getApple() {
