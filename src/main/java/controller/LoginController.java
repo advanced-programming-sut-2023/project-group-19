@@ -213,6 +213,7 @@ public class LoginController {
         User user ;
         if((user = User.getUserByName(username)) == null) return false ;
         if(!user.getPassword().equals(password)) return false ;
+        User.setCurrentUser(user);
         return true ;
     }
 }

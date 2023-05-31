@@ -13,14 +13,29 @@ import java.util.Collections;
 
 public class ProfileController {
 
-    public static String changingFields(String username, String email, String nickname, String slogan) {
+    public static String changingFields(String username, String email, String nickname, String slogan,String password) {
         User user = User.getCurrentUser();
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("changes is: \n");
         if(!username.equals(user.getUsername())) stringBuilder.append("username \n");
         if(!email.equals(user.getEmail())) stringBuilder.append("email \n");
         if(!nickname.equals(user.getNickname())) stringBuilder.append("nickname \n");
         if(!slogan.equals(user.getSlogan())) stringBuilder.append("slogan \n");
+        if(!password.equals(user.getPassword())) stringBuilder.append("password \n");
         return stringBuilder.toString();
+    }
+    public static boolean checkOldPassword(String oldPassword){
+        User user = User.getCurrentUser();
+        return user.getPassword().equals(oldPassword);
+    }
+
+    public static void editProfile(String username, String email, String nickname, String slogan,String password) {
+        User user = User.getCurrentUser();
+        user.setSlogan(slogan);
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setNickname(nickname);
+        user.setPassword(password);
     }
 
     public void changeSlogan(String text){

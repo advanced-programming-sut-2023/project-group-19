@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
 <Pane xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="view.ProfileMenu"
@@ -39,7 +40,10 @@
         <TextField fx:id="email"  promptText="Email"/>
         <TextField fx:id="nickname" promptText="Nickname"/>
         <TextField fx:id="slogan"  promptText="slogan"/>
-        <Button text="remove" onMouseClicked="#removeSlogan"/>
+        <HBox spacing="20">
+            <Button text="remove" onMouseClicked="#removeSlogan"/>
+            <Button text="change password" onMouseClicked="#changePassword"/>
+        </HBox>
         <Button onMouseClicked="#submit" text="submit" focusTraversable="false"/>
     </VBox>
 
@@ -50,9 +54,19 @@
             <Button text="again" onMouseClicked="#anotherCaptcha"/>
         </HBox>
     </VBox>
+    <VBox spacing="20" alignment="CENTER" visible="false" fx:id="passwordBox" translateX="1000" translateY="400"
+          style="-fx-background-color: #4aea4a">
+        <Label style="-fx-text-fill: red" fx:id="oldPasswordError" text="test test 1"/>
+        <TextField promptText="Old password" fx:id="oldPassword"/>
+        <Label style="-fx-text-fill: red" fx:id="newPasswordError" text="test test 1"/>
+        <TextField promptText="New password" fx:id="newPassword"/>
+        <Label style="-fx-text-fill: red" fx:id="confirmPasswordError" text="test test 1"/>
+        <TextField promptText="Retype new password" fx:id="RetypeNewPassword"/>
+    </VBox>
 
 
-    <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling">
+
+    <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling" visible="false">
         <Label style="-fx-text-fill: red" fx:id="usernameError" text="random text 1"/>
         <Label style="-fx-text-fill: red" fx:id="emailError" text="random text 3"/>
         <Label style="-fx-text-fill: red" fx:id="nicknameError" text="random text 4"/>

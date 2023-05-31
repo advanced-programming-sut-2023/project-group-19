@@ -49,6 +49,7 @@ public class LoginMenu extends Application {
         captchaNumber = LoginController.setImageCaptcha(captchaImage);
     }
 
+
     public void forgotPassword(MouseEvent mouseEvent) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -103,7 +104,7 @@ public class LoginMenu extends Application {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setContentText("Login successfully!");
             alert.showAndWait();
-            MainMenu mainMenu = new MainMenu();
+            Main mainMenu = new Main();
             mainMenu.start(stage);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);

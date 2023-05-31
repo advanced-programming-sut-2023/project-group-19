@@ -2,10 +2,12 @@ package view;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Building.Shop;
 import model.Empire;
@@ -17,6 +19,7 @@ import java.io.IOException;
 
 public class Main extends Application {
     public static Stage stage;
+    public Pane pane;
     public static void main(String[] args) throws IOException, InterruptedException {
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
@@ -40,26 +43,56 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Main.stage = stage;
         Pane pane = new Pane();
+        this.pane = pane ;
         Scene scene = new Scene(pane);
-        Button button = new Button();
-        button.setText("LoginMenu");
+        VBox vBox = new VBox();
+        vBox.setTranslateX(700);
+        vBox.setTranslateY(250);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(30);
+
+        createButton(vBox);
+        stage.setScene(scene);
+        stage.show();
+    }
+    private void createButton(VBox vBox){
         pane.setPrefSize(1530,800);
-        button.setLayoutX(700);
-        button.setLayoutY(250);
+        Button button = new Button();
+        button.setText("Profile Menu");
+        button.setPrefWidth(100);
+        button.setPrefHeight(100);
         button.setPrefSize(200,70);
-        pane.getChildren().add(button);
+        vBox.getChildren().add(button);
+        pane.getChildren().add(vBox);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 RegisterMenu registerMenu = new RegisterMenu();
                 try {
-                    registerMenu.start(stage);
+                    ProfileMenu profileMenu = new ProfileMenu();
+                    profileMenu.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         });
-        stage.setScene(scene);
-        stage.show();
+
+
+        Button button2 = new Button();
+        button2.setPrefWidth(100);
+        button2.setPrefHeight(100);
+        button2.setText("ScoreBoard Menu");
+        vBox.getChildren().add(button2);
+        button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
+                    scoreBoardMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }

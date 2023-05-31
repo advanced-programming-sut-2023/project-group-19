@@ -27,6 +27,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static controller.LoginController.checkPassword;
+
 public class ProfileMenu extends Application {
     public ImageView draggedAvatarImage = new ImageView();
     public ImageView avatar;
@@ -58,11 +60,17 @@ public class ProfileMenu extends Application {
     public Label emailError;
     public Label nicknameError;
     public Label sloganError;
+    public VBox passwordBox;
+    public TextField oldPassword;
+    public TextField RetypeNewPassword;
+    public TextField newPassword;
+    public Label oldPasswordError;
+    public Label newPasswordError;
+    public Label confirmPasswordError;
 
     @Override
     public void start(Stage stage) throws Exception {
-        User user = new User("s","s","a","f","w","a",3);
-        User.setCurrentUser(user);
+        ProfileMenu.stage = stage ;
         URL url = RegisterMenu.class.getResource("/fxml/profileMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         this.pane = pane;
@@ -70,6 +78,7 @@ public class ProfileMenu extends Application {
         Scene scene = new Scene(pane);
         this.scene = scene ;
         DragAndDropImage();
+        setBackButton();
 
         Button button = new Button("click");
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -82,6 +91,23 @@ public class ProfileMenu extends Application {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
+    }
+    private void setBackButton(){
+        Button button = new Button("Back");
+        button.setTranslateX(0);
+        button.setTranslateY(600);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Main main = new Main();
+                try {
+                    main.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        pane.getChildren().add(button);
     }
 
     private void StartingFunctions() {
@@ -97,8 +123,44 @@ public class ProfileMenu extends Application {
         initializeDefaultAvatarsImage();
         fillWholeFields();
         ListenerToUsernameField();
-//        ListenerToPassword();
+        ListenerToPassword();
     }
+
+    private void ListenerToPassword() {
+        newPassword.textProperty().addListener((observable, oldText, newText) -> {
+            checkPasswordError(label,"Fill register form");
+        });
+    }
+    private void checkPasswordError(Label label,String textSucess) {
+        String password = newPassword.getText();
+        RegisterMessages messages = LoginController.checkPassword(password);
+        String text = null;
+        switch (messages) {
+            case EMPTY_FIELD:
+                text = " You have empty Field";
+                break;
+            case WEAK_PASSWORD_FOR_LOWERCASE:
+                text = "You should use lowercase characters in your password!";
+                break;
+            case WEAK_PASSWORD_FOR_UPPERCASE:
+                text = "You should use uppercase characters in your password!";
+                break;
+            case WEAK_PASSWORD_FOR_LENGTH:
+                text = "Length of your password must be more than five!";
+                break;
+            case WEAK_PASSWORD_FOR_NUMBER:
+                text = "You should use number characters in your password!";
+                break;
+            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
+                text = "You should use characters except alphabetical!";
+                break;
+            case SUCCESS:
+                text = textSucess;
+                break;
+        }
+        label.setText(text);
+    }
+
     public void usernameError(Label label,String textSuccess){
         String newText =  username.getText();
         RegisterMessages messages = LoginController.checkUsername(newText);
@@ -250,25 +312,43 @@ public class ProfileMenu extends Application {
         else nicknameError.setText("");
     }
 
-    public void submit(MouseEvent mouseEvent) {
+    public void submit(MouseEvent mouseEvent) throws Exception {
         usernameError(usernameError,"");
+        checkPassword();
         checkEmail();
         nicknameError();
         sloganCheck();
         checkFinalChanges();
 
     }
+    private void checkPassword(){
+        if(oldPassword.getText().equals("")) oldPasswordError.setText("Empty Field");
+        else if(ProfileController.checkOldPassword(oldPassword.getText())) oldPasswordError.setText("Old password is wrong!");
+        checkPasswordError(newPasswordError,"");
+        if(RetypeNewPassword.getText().equals("")) confirmPasswordError.setText("Empty Field");
+        else if(!newPassword.getText().equals(RetypeNewPassword.getText())) confirmPasswordError.setText("Is not equal!");
+    }
 
-    private void checkFinalChanges() {
+    private void checkFinalChanges() throws Exception {
         if (usernameError.getText().equals("") &&
                 emailError.getText().equals("") &&
                 nicknameError.getText().equals("") &&
-                sloganError.getText().equals("")
+                sloganError.getText().equals("") &&
+                oldPassword.getText().equals("") &&
+                newPassword.getText().equals("") &&
+                RetypeNewPassword.getText().equals("")
         ) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successfully");
+            ProfileController.editProfile(username.getText(),email.getText()
+                    ,nicknameError.getText(),slogan.getText(),newPassword.getText());
             alert.setContentText(ProfileController.changingFields(username.getText(),email.getText()
-                    ,nicknameError.getText(),slogan.getText()));
+                    ,nicknameError.getText(),slogan.getText(),newPassword.getText()));
+            alert.showAndWait();
+            Main mainMenu = new Main();
+            mainMenu.start(stage);
+        }else {
+            vBoxErrorHandling.setVisible(true);
         }
     }
 
@@ -277,5 +357,9 @@ public class ProfileMenu extends Application {
 
     public void removeSlogan(MouseEvent mouseEvent) {
         slogan.setText("slogan is");
+    }
+
+    public void changePassword(MouseEvent mouseEvent) {
+        passwordBox.setVisible(!passwordBox.isVisible());
     }
 }
