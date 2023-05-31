@@ -1,6 +1,7 @@
 package view;
 
 import controller.Building.BuildingController;
+import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -232,7 +233,7 @@ public class TileManager extends Application {
             }
         }
 
-        gameController.selectUnit(selectedButtons, pane);
+        //gameController.selectUnit(selectedButtons, pane);
 
     }
 

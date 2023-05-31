@@ -1,5 +1,6 @@
 package model.Human.Troop;
 
+import javafx.scene.image.ImageView;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
@@ -29,6 +30,7 @@ public class Army extends Human {
 
     protected Empire empire;
     protected Army enemy;
+    public ImageView imageView;
 
     public boolean isIntFight() {
         return isIntFight;
@@ -324,5 +326,28 @@ public class Army extends Human {
     @Override
     public Names typeOfArmy() {
         return typeOfArmy;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    @Override
+    public String direction() {
+        return direction;
+    }
+
+    @Override
+    public double xLocationOnMap() {
+        return xLocationOnMap;
+    }
+
+    @Override
+    public double yLocationOnMap() {
+        return yLocationOnMap;
     }
 }
