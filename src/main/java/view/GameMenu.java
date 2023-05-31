@@ -29,9 +29,26 @@ public class GameMenu extends Application {
     public static GameController gameController = new GameController();
 
 //    public void run(Scanner scanner) throws IOException, InterruptedException {
+//        Matcher x1;
+//        Matcher y1;
+//        Matcher x2;
+//        Matcher y2;
+//        Matcher type;
+//        Matcher enemy;
+//        Matcher direction;
+//        Matcher equipment;
+//        Matcher count;
 //        GameMenuMessages gameMenuMessages;
 //        while (true) {
-//                  if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
+//            String command = scanner.nextLine();
+//            if (GameMenuCommands.getMatcher(command, GameMenuCommands.SELECT_UNITS) != null) {
+//                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
+//                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
+//                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
+//                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
+//                    System.out.println(gameController.selectUnit(x1, y1).getMessages());
+//                } else System.out.println(gameMenuMessages.getMessages());
+//            }  else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
 //                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
 //                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
 //                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
@@ -155,7 +172,17 @@ public class GameMenu extends Application {
 //                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
 //                    System.out.println(gameController.siegeTowersAction(x1, y1).getMessages());
 //                } else System.out.println(gameMenuMessages.getMessages());
-//                  if(GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TO_MAP) != null){
+//            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_SHOP_MENU) != null) {
+//                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
+//                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
+////                if (gameController.findShop(x1, y1)) {
+////                    int x = Integer.parseInt(x1.group("x"));
+////                    int y = Integer.parseInt(y1.group("y"));
+////                    Shop shop = (Shop) Map.getBuildingMap()[x][y].get(0);
+////                    ShopMenu shopMenu = new ShopMenu();
+////                    shopMenu.run(scanner, shop);
+////                } else System.out.println(GameMenuMessages.IMPROPER_LOCATION.getMessages());
+//            } else if(GameMenuCommands.getMatcher(command, GameMenuCommands.ENTER_TO_MAP) != null){
 //                System.out.println("Welcome to map menu");
 //                ShowMapInGameMenu.run(scanner);
 //            }
@@ -179,6 +206,34 @@ public class GameMenu extends Application {
 //            } else System.out.println(GameMenuMessages.INVALID_COMMAND.getMessages());
 //        }
 //    }
+
+    public GameMenuMessages checkFormatOfSingleCoordinateCommands(Matcher x1, Matcher y1) {
+        if (x1 != null && y1 != null) {
+            return GameMenuMessages.VALID_COMMAND;
+        }
+        return GameMenuMessages.EMPTY_COORDINATE_FIELD;
+    }
+
+    public GameMenuMessages checkFormatOfDoubleCoordinateCommands(Matcher x1, Matcher y1, Matcher x2, Matcher y2) {
+        if (x1 != null && y1 != null && x2 != null && y2 != null) {
+            return GameMenuMessages.VALID_COMMAND;
+        }
+        return GameMenuMessages.EMPTY_COORDINATE_FIELD;
+    }
+
+    public GameMenuMessages checkFormatOfCoordinateCommandsWithType(Matcher x1, Matcher y1, Matcher type) {
+        if (x1 != null && y1 != null && type != null) {
+            return GameMenuMessages.VALID_COMMAND;
+        }
+        return GameMenuMessages.EMPTY_COORDINATE_FIELD;
+    }
+
+    public GameMenuMessages checkFormatOfCoordinateCommandsWithTypeAndCount(Matcher x1, Matcher y1, Matcher type, Matcher count) {
+        if (x1 != null && y1 != null && type != null && count != null) {
+            return GameMenuMessages.VALID_COMMAND;
+        }
+        return GameMenuMessages.EMPTY_COORDINATE_FIELD;
+    }
 
 
     @Override

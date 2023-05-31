@@ -1,6 +1,5 @@
 package model.Human.Troop;
 
-import javafx.scene.image.ImageView;
 import model.Human.Names;
 
 import java.util.List;
@@ -32,7 +31,4 @@ public interface HumanConstantFunctions {
 
     public int getFinalY();
     public Names typeOfArmy();
-    public String direction();
-    public double xLocationOnMap();
-    public double yLocationOnMap();
 }

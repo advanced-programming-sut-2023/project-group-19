@@ -1,12 +1,9 @@
 package model.Human.Troop;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
 import model.Empire;
 import model.Human.Names;
-import view.Model.NewButton;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
@@ -67,11 +64,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 100;
         this.defencePower = 50;
         this.restOfMoves = 7;
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Archer/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
     }
 
     public void Crossbowmen(int x, int y) {
@@ -86,7 +78,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 200;
         this.defencePower = 50;
         this.restOfMoves = 3;
-        this.direction = "forward";
     }
 
     public void ArcherBow(int x, int y) {
@@ -101,11 +92,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 600;
         this.defencePower = 150;
         this.restOfMoves = 7;
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Archer bow/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
     }
 
     public void Slingers(int x, int y) {
@@ -120,12 +106,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 300;
         this.defencePower = 50;
         this.restOfMoves = 7;
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Slinger/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
-
     }
 
     public void HorseArchers(int x, int y) {
@@ -140,11 +120,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 1000;
         this.defencePower = 350;
         this.restOfMoves = 9;
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Horse Archer/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
     }
 
     public void FireThrowers(int x, int y) {
@@ -159,7 +134,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackPower = 800;
         this.defencePower = 150;
         this.restOfMoves = 9;
-        this.direction = "forward";
     }
 
     public void catapult(int x, int y) {
@@ -176,7 +150,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(2, 0);
-        this.direction = "forward";
     }
 
     public void trebuchet(int x, int y) {
@@ -193,8 +166,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(3, 0);
-        this.direction = "forward";
-
     }
 
     public void siegeTower(int x, int y) {
@@ -211,11 +182,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/SiegeTower/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
     }
 
     public void fireBallista(int x, int y) {
@@ -229,11 +195,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.speed = 3;
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Ballista/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
     }
 
     public void batteringRam(int x, int y) {
@@ -249,11 +210,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
-        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/BatteringRam/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
-        this.direction = "forward";
     }
 
     public void portableShield(int x, int y) {
@@ -266,7 +222,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.defencePower = 400;
         createBuildingCost(0, 0, 5, 0, 0);
         createBuildingWorkersNeeded(1, 0);
-        this.direction = "forward";
     }
 
     @Override
@@ -337,20 +292,5 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     @Override
     public Names typeOfArmy() {
         return typeOfArmy;
-    }
-
-    @Override
-    public ImageView getImageView() {
-        return super.getImageView();
-    }
-
-    @Override
-    public void setImageView(ImageView imageView) {
-        super.setImageView(imageView);
-    }
-
-    @Override
-    public String direction() {
-        return direction;
     }
 }
