@@ -1,5 +1,6 @@
 package view;
 
+import controller.Building.BuildingController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -14,9 +15,11 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Empire;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import model.User;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -35,7 +38,6 @@ public class TileManager extends Application {
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
-
     public int avgSpeed;
     public BottomBarImages bottomBarImages;
     public BuildingImages buildingImages;
@@ -67,6 +69,13 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Map.CreateMap(100);
+        Empire empire = new Empire();
+        Empire empire2 = new Empire();
+        Manage.setCurrentEmpire(empire);
+        Manage.allEmpires.add(empire);
+        Manage.allEmpires.add(empire2);
+        BuildingController.currentEmpire = empire;
 //        tilePane.setLayoutX(-100);
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
@@ -284,7 +293,7 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 showCellData.setText("");
-                pane.getChildren().remove(showCellData);
+//                pane.getChildren().remove(showCellData);
             }
         };
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {

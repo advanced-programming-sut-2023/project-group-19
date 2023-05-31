@@ -1139,25 +1139,31 @@ public class BuildingController {
                 } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
-            case "Stairs":
+            case "Stair":
                 Wall stairs = new Wall(currentEmpire);
                 stairs.stair();
                 if (correctGroundType(x, y, stairs)) {
+                    System.out.println(11);
                     if (empireHasEnoughResourcesToBuildTheBuilding(stairs, currentEmpire)) {
+                        System.out.println(22);
                         if (empireHasEnoughWorkersToBuildTheBuilding(stairs, currentEmpire)) {
-                            if (validationOfStairsLocation(x, y)) {
+                            System.out.println(33);
+//                            if (validationOfStairsLocation(x, y)) {
+                                System.out.println(44);
                                 buildingCheckout(stairs, currentEmpire);
                                 Map.AddToBuildingMap(x, y, stairs);
                                 Map.notBuildable[x][y] = true;
                                 Map.wall[x][y] = true;
-                            } else return BuildingMessages.IMPROPER_COORDINATE;
+                                return BuildingMessages.SUCCESS;
+//                            } else return BuildingMessages.IMPROPER_COORDINATE;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
                         }
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                } else {
+                }
+                else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
         }
@@ -1165,6 +1171,7 @@ public class BuildingController {
     }
 
     public BuildingMessages dropBuilding(int x , int y, String type) {
+        System.out.println(Manage.getCurrentEmpire());
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {

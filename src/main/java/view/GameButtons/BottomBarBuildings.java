@@ -66,7 +66,6 @@ public class BottomBarBuildings {
                 stair.stair();
                 building = stair;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
-                System.out.println(output);
                 if (output.equals("building created successfully")) {
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(wallStairImage);
@@ -94,12 +93,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Wall lowWall = new Wall(Manage.getCurrentEmpire());
                 lowWall.smallWall();
                 building = lowWall;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(lowWallImage);
+                    newbutton.setBuilding(lowWall);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        lowWallButton.setOnMouseClicked(event2);
+        lowWallButton.setOnMouseReleased(event2);
 
         Button stoneWallButton = new Button();
         ImageView stoneWallImage = new ImageView(buildingImages.getStoneWall());
@@ -115,12 +129,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Wall bigWall = new Wall(Manage.getCurrentEmpire());
                 bigWall.bigWall();
                 building = bigWall;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(stoneWallImage);
+                    newbutton.setBuilding(bigWall);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        stoneWallButton.setOnMouseClicked(event3);
+        stoneWallButton.setOnMouseReleased(event3);
 
         Button crenulatedWallButton = new Button();
         ImageView crenulatedWallImage = new ImageView(buildingImages.getCrenulatedWall());
@@ -136,12 +165,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Wall bigWall = new Wall(Manage.getCurrentEmpire());
                 bigWall.bigWall();
                 building = bigWall;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(crenulatedWallImage);
+                    newbutton.setBuilding(bigWall);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        crenulatedWallButton.setOnMouseClicked(event4);
+        crenulatedWallButton.setOnMouseReleased(event4);
 
         Button barracksButton = new Button();
         ImageView barracksImage = new ImageView(buildingImages.getBarracks());
@@ -157,12 +201,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 PrepareLaboursAndFighters barracks = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 barracks.barracks();
                 building = barracks;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(barracksImage);
+                    newbutton.setBuilding(barracks);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        barracksButton.setOnMouseClicked(event5);
+        barracksButton.setOnMouseReleased(event5);
 
         Button mercenaryButton = new Button();
         ImageView mercenaryImage = new ImageView(buildingImages.getMercenary());
@@ -178,12 +237,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 PrepareLaboursAndFighters mercenary = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 mercenary.mercenary();
                 building = mercenary;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(mercenaryImage);
+                    newbutton.setBuilding(mercenary);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        mercenaryButton.setOnMouseClicked(event6);
+        mercenaryButton.setOnMouseReleased(event6);
 
         Button armoryButton = new Button();
         ImageView armoryImage = new ImageView(buildingImages.getArmory());
@@ -199,12 +273,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Armoury armoury = new Armoury(Manage.getCurrentEmpire());
                 armoury.armoury();
                 building = armoury;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(armoryImage);
+                    newbutton.setBuilding(armoury);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        armoryButton.setOnMouseClicked(event7);
+        armoryButton.setOnMouseReleased(event7);
 
         Button gatehouseIconButton = new Button();
         ImageView gatehouseIconImage = new ImageView(buildingImages.getGatehouseIcon());
@@ -303,12 +392,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 StoneGateWay stoneGateWay = new StoneGateWay(Manage.getCurrentEmpire());
                 stoneGateWay.smallGateWay(Names.NS);
                 building = stoneGateWay;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(smallGatehouseImage);
+                    newbutton.setBuilding(stoneGateWay);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        smallGatehouseButton.setOnMouseClicked(event1);
+        smallGatehouseButton.setOnMouseReleased(event1);
 
         Button bigGatehouseButton = new Button();
         ImageView bigGatehouseImage = new ImageView(buildingImages.getBigStoneGateHouse());
@@ -324,12 +428,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 StoneGateWay stoneGateWay = new StoneGateWay(Manage.getCurrentEmpire());
                 stoneGateWay.bigGateWay(Names.NS);
                 building = stoneGateWay;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(bigGatehouseImage);
+                    newbutton.setBuilding(stoneGateWay);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        bigGatehouseButton.setOnMouseClicked(event2);
+        bigGatehouseButton.setOnMouseReleased(event2);
 
         Button drawBridgeButton = new Button();
         ImageView drawBridgeImage = new ImageView(buildingImages.getDrawBridge());
@@ -345,18 +464,33 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 DrawBridge drawBridge = new DrawBridge(Manage.getCurrentEmpire());
                 drawBridge.drawBridge(0 , 0);
                 building = drawBridge;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(drawBridgeImage);
+                    newbutton.setBuilding(drawBridge);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        drawBridgeButton.setOnMouseClicked(event3);
+        drawBridgeButton.setOnMouseReleased(event3);
 
         Button cagedDogsButton = new Button();
         ImageView cagedDogsImage = new ImageView(buildingImages.getCagedWarDogs());
         cagedDogsButton.setBackground(null);
-        cagedDogsImage.setFitHeight(100);
-        cagedDogsImage.setFitWidth(100);
+        cagedDogsImage.setFitHeight(150);
+        cagedDogsImage.setFitWidth(150);
         cagedDogsButton.setGraphic(cagedDogsImage);
         cagedDogsButton.setLayoutX(660);
         cagedDogsButton.setLayoutY(700);
@@ -366,12 +500,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 CagedWarDogs cagedWarDogs = new CagedWarDogs(Manage.getCurrentEmpire());
                 cagedWarDogs.cagedWarDogs();
                 building = cagedWarDogs;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(cagedDogsImage);
+                    newbutton.setBuilding(cagedWarDogs);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        cagedDogsButton.setOnMouseClicked(event4);
+        cagedDogsButton.setOnMouseReleased(event4);
 
         Button pitchDitchButton = new Button();
         ImageView pitchDitchImage = new ImageView(buildingImages.getPitchDitch());
@@ -387,12 +536,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
                 pitchDitch.pitchDitch();
                 building = pitchDitch;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(pitchDitchImage);
+                    newbutton.setBuilding(pitchDitch);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        pitchDitchButton.setOnMouseClicked(event5);
+        pitchDitchButton.setOnMouseReleased(event5);
 
         Button killingPitButton = new Button();
         ImageView killingPitImage = new ImageView(buildingImages.getKillingPit());
@@ -408,12 +572,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 KillingPit killingPit = new KillingPit(Manage.getCurrentEmpire());
                 killingPit.killingPit();
                 building = killingPit;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(killingPitImage);
+                    newbutton.setBuilding(killingPit);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        killingPitButton.setOnMouseClicked(event6);
+        killingPitButton.setOnMouseReleased(event6);
 
     }
 
@@ -452,12 +631,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Tower tower = new Tower(Manage.getCurrentEmpire());
                 tower.lookoutTower();
                 building = tower;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(lookoutTowerImage);
+                    newbutton.setBuilding(tower);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        lookoutTowerButton.setOnMouseClicked(event1);
+        lookoutTowerButton.setOnMouseReleased(event1);
 
         Button premierTowerButton = new Button();
         ImageView premierTowerImage = new ImageView(buildingImages.getPremierTurret());
@@ -473,12 +667,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Tower tower = new Tower(Manage.getCurrentEmpire());
                 tower.perimeterTower();
                 building = tower;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(premierTowerImage);
+                    newbutton.setBuilding(tower);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        premierTowerButton.setOnMouseClicked(event2);
+        premierTowerButton.setOnMouseReleased(event2);
 
         Button defenceTowerButton = new Button();
         ImageView defenceTowerImage = new ImageView(buildingImages.getDefenceTurret());
@@ -494,12 +703,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Tower tower = new Tower(Manage.getCurrentEmpire());
                 tower.defendTower();
                 building = tower;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(defenceTowerImage);
+                    newbutton.setBuilding(tower);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        defenceTowerButton.setOnMouseClicked(event3);
+        defenceTowerButton.setOnMouseReleased(event3);
 
         Button squareTowerButton = new Button();
         ImageView squareTowerImage = new ImageView(buildingImages.getSquareTower());
@@ -515,12 +739,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Tower tower = new Tower(Manage.getCurrentEmpire());
                 tower.squareTower();
                 building = tower;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(squareTowerImage);
+                    newbutton.setBuilding(tower);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        squareTowerButton.setOnMouseClicked(event4);
+        squareTowerButton.setOnMouseReleased(event4);
 
         Button roundTowerButton = new Button();
         ImageView roundTowerImage = new ImageView(buildingImages.getRoundTower());
@@ -536,16 +775,30 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Tower tower = new Tower(Manage.getCurrentEmpire());
                 tower.roundTower();
                 building = tower;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(roundTowerImage);
+                    newbutton.setBuilding(tower);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        roundTowerButton.setOnMouseClicked(event5);
+        roundTowerButton.setOnMouseReleased(event5);
     }
 
     public void createMilitaryBuildingsButtons(Pane pane, BuildingImages buildingImages) {
-
         Button returnIconButton = new Button();
         ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
         returnIconButton.setBackground(null);
@@ -580,12 +833,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 PrepareLaboursAndFighters engineer = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 engineer.engineerGuild();
                 building = engineer;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(engineersGuildImage);
+                    newbutton.setBuilding(engineer);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        engineersGuildButton.setOnMouseClicked(event1);
+        engineersGuildButton.setOnMouseReleased(event1);
 
         Button mangonelButton = new Button();
         ImageView mangonelImage = new ImageView(buildingImages.getMangonel());
@@ -599,15 +867,30 @@ public class BottomBarBuildings {
         mangonelButton.setMaxSize(100, 100);
         addedButtons.add(mangonelButton);
         pane.getChildren().add(mangonelButton);
-        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                archersAndThrowers.trebuchet(0 , 0);
-                troop = archersAndThrowers;
-            }
-        };
-        mangonelButton.setOnMouseClicked(event2);
+//        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                PointerInfo a = MouseInfo.getPointerInfo();
+//                Point b = a.getLocation();
+//                int x = (int) ((int) b.getX() / 51);
+//                int y = (int) b.getY() / 54;
+//                NewButton newbutton = allButtons[y][x].get(0);
+//                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                archersAndThrowers.trebuchet(0 , 0);
+//                troop = archersAndThrowers;
+//                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+//                if (output.equals("building created successfully")) {
+//                    pane.getChildren().remove(allButtons[y][x].get(0));
+//                    newbutton.setImageView(stoneWallImage);
+//                    newbutton.setBuilding(archersAndThrowers);
+//                    pane.getChildren().add(newbutton);
+//                }
+//                else {
+//                    showError(output);
+//                }
+//            }
+//        };
+//        mangonelButton.setOnMouseClicked(event2);
 
         Button ballistaButton = new Button();
         ImageView ballistaImage = new ImageView(buildingImages.getBallista());
@@ -621,15 +904,30 @@ public class BottomBarBuildings {
         ballistaButton.setMaxSize(100, 100);
         addedButtons.add(ballistaButton);
         pane.getChildren().add(ballistaButton);
-        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                archersAndThrowers.fireBallista(0 , 0);
-                troop = archersAndThrowers;
-            }
-        };
-        ballistaButton.setOnMouseClicked(event3);
+//        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                PointerInfo a = MouseInfo.getPointerInfo();
+//                Point b = a.getLocation();
+//                int x = (int) ((int) b.getX() / 51);
+//                int y = (int) b.getY() / 54;
+//                NewButton newbutton = allButtons[y][x].get(0);
+//                ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                archersAndThrowers.fireBallista(0 , 0);
+//                troop = archersAndThrowers;
+//                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+//                if (output.equals("building created successfully")) {
+//                    pane.getChildren().remove(allButtons[y][x].get(0));
+//                    newbutton.setImageView(stoneWallImage);
+//                    newbutton.setBuilding(bigWall);
+//                    pane.getChildren().add(newbutton);
+//                }
+//                else {
+//                    showError(output);
+//                }
+//            }
+//        };
+//        ballistaButton.setOnMouseClicked(event3);
 
         Button stableButton = new Button();
         ImageView stableImage = new ImageView(buildingImages.getStable());
@@ -645,12 +943,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Stable stable = new Stable(Manage.getCurrentEmpire());
                 stable.stable();
                 building= stable;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(stableImage);
+                    newbutton.setBuilding(stable);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        stableButton.setOnMouseClicked(event4);
+        stableButton.setOnMouseReleased(event4);
 
         Button tunnelersGuildButton = new Button();
         ImageView tunnelersGuildImage = new ImageView(buildingImages.getTunnelersGuild());
@@ -666,12 +979,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 PrepareLaboursAndFighters prepareLaboursAndFighters = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 prepareLaboursAndFighters.tunnelerGuild();
                 building = prepareLaboursAndFighters;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(tunnelersGuildImage);
+                    newbutton.setBuilding(prepareLaboursAndFighters);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        tunnelersGuildButton.setOnMouseClicked(event5);
+        tunnelersGuildButton.setOnMouseReleased(event5);
 
         Button oilSmelterButton = new Button();
         ImageView oilSmelterImage = new ImageView(buildingImages.getOilSmelter());
@@ -687,12 +1015,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 OilSmelter oilSmelter = new OilSmelter(Manage.getCurrentEmpire());
                 oilSmelter.oilSmelter();
                 building = oilSmelter;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(oilSmelterImage);
+                    newbutton.setBuilding(oilSmelter);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        oilSmelterButton.setOnMouseClicked(event6);
+        oilSmelterButton.setOnMouseReleased(event6);
     }
 
     public void createIndustryButtons(Pane pane, BuildingImages buildingImages) {
@@ -710,12 +1053,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Stockpile stockpile = new Stockpile(Manage.getCurrentEmpire());
                 stockpile.resourcesStockpile();
                 building = stockpile;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(stockpileImage);
+                    newbutton.setBuilding(stockpile);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        stockpileButton.setOnMouseClicked(event);
+        stockpileButton.setOnMouseReleased(event);
 
         Button woodCutterButton = new Button();
         ImageView woodCutterImage = new ImageView(buildingImages.getWoodCutter());
@@ -732,12 +1090,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.woodCutter();
                 building = industry;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(woodCutterImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        woodCutterButton.setOnMouseClicked(event1);
+        woodCutterButton.setOnMouseReleased(event1);
 
         Button quarryButton = new Button();
         ImageView quarryImage = new ImageView(buildingImages.getQuarry());
@@ -753,12 +1126,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.quarry();
                 building = industry;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(quarryImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        quarryButton.setOnMouseClicked(event2);
+        quarryButton.setOnMouseReleased(event2);
 
         Button oxTetherButton = new Button();
         ImageView oxTetherImage = new ImageView(buildingImages.getOxTheater());
@@ -774,12 +1162,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.oxTether();
                 building = industry;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(oxTetherImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        oxTetherButton.setOnMouseClicked(event3);
+        oxTetherButton.setOnMouseReleased(event3);
 
         Button ironMineButton = new Button();
         ImageView ironMineImage = new ImageView(buildingImages.getIronMine());
@@ -795,12 +1198,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.ironDig();
                 building = industry;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(ironMineImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        ironMineButton.setOnMouseClicked(event4);
+        ironMineButton.setOnMouseReleased(event4);
 
         Button pitchRigButton = new Button();
         ImageView pitchRigImage = new ImageView(buildingImages.getPitchRig());
@@ -817,13 +1235,28 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.pitchRig();
                 building = industry;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(pitchRigImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        pitchRigButton.setOnMouseClicked(event5);
-
+        pitchRigButton.setOnMouseReleased(event5);
+        //TODO : fix the market
         Button marketButton = new Button();
         ImageView marketImage = new ImageView(buildingImages.getMarket());
         marketButton.setBackground(null);
@@ -838,12 +1271,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Shop shop = new Shop(Manage.getCurrentEmpire());
                 shop.shop();
                 building = shop;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(marketImage);
+                    newbutton.setBuilding(shop);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        marketButton.setOnMouseClicked(event6);
+        marketButton.setOnMouseReleased(event6);
     }
 
     public void createFarmButtons(Pane pane, BuildingImages buildingImages) {
@@ -868,12 +1316,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.dairyProduct();
                 building = goods;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(dairyFarmImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        dairyFarmButton.setOnMouseClicked(event);
+        dairyFarmButton.setOnMouseReleased(event);
 
         Button appleFarmButton = new Button();
         ImageView appleFarmImage = new ImageView(buildingImages.getAppleFarm());
@@ -896,12 +1359,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.appleFarm();
                 building = goods;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(appleFarmImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        appleFarmButton.setOnMouseClicked(event1);
+        appleFarmButton.setOnMouseReleased(event1);
 
         Button wheatFarmButton = new Button();
         ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
@@ -924,12 +1402,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.wheatFarm();
                 building = goods;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(wheatFarmImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        wheatFarmButton.setOnMouseClicked(event2);
+        wheatFarmButton.setOnMouseReleased(event2);
 
         Button hopsFarmButton = new Button();
         ImageView hopsFarmImage = new ImageView(buildingImages.getHopsFarm());
@@ -952,12 +1445,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.oatFarm();
                 building = goods;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(hopsFarmImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        hopsFarmButton.setOnMouseClicked(event3);
+        hopsFarmButton.setOnMouseReleased(event3);
     }
 
     public void createTownButtons(Pane pane, BuildingImages buildingImages) {
@@ -975,12 +1483,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 House house = new House(Manage.getCurrentEmpire());
                 house.house();
                 building = house;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(hovelImage);
+                    newbutton.setBuilding(house);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        hovelButton.setOnMouseClicked(event);
+        hovelButton.setOnMouseReleased(event);
 
         Button smallChurchButton = new Button();
         ImageView smallChurchImage = new ImageView(buildingImages.getSmallChurch());
@@ -996,12 +1519,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Church church = new Church(Manage.getCurrentEmpire());
                 church.smallChurch();
                 building = church;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(smallChurchImage);
+                    newbutton.setBuilding(church);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        smallChurchButton.setOnMouseClicked(event1);
+        smallChurchButton.setOnMouseReleased(event1);
 
         Button bigChurchButton = new Button();
         ImageView bigChurchImage = new ImageView(buildingImages.getBigChurch());
@@ -1017,12 +1555,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Church church = new Church(Manage.getCurrentEmpire());
                 church.bigChurch();
                 building = church;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(bigChurchImage);
+                    newbutton.setBuilding(church);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        bigChurchButton.setOnMouseClicked(event2);
+        bigChurchButton.setOnMouseReleased(event2);
 
         Button apothecaryButton = new Button();
         ImageView apothecaryImage = new ImageView(buildingImages.getApothecary());
@@ -1035,6 +1588,7 @@ public class BottomBarBuildings {
         apothecaryButton.setMinSize(100, 100);
         addedButtons.add(apothecaryButton);
         pane.getChildren().add(apothecaryButton);
+        //TODO : add this to the source code
 //        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
 //            @Override
 //            public void handle(MouseEvent mouseEvent) {
@@ -1058,12 +1612,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 FearControl fearControl = new FearControl(Manage.getCurrentEmpire());
                 fearControl.tortureChamber();
                 building = fearControl;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(tortureBuildingImage);
+                    newbutton.setBuilding(fearControl);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        tortureBuildingButton.setOnMouseClicked(event4);
+        tortureBuildingButton.setOnMouseReleased(event4);
 
         Button gardenButton = new Button();
         ImageView gardenImage = new ImageView(buildingImages.getGarden());
@@ -1079,12 +1648,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 FearControl fearControl = new FearControl(Manage.getCurrentEmpire());
                 fearControl.garden();
                 building = fearControl;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(gardenImage);
+                    newbutton.setBuilding(fearControl);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        gardenButton.setOnMouseClicked(event5);
+        gardenButton.setOnMouseReleased(event5);
 
     }
 
@@ -1110,12 +1694,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Weapon weapon = new Weapon(Manage.getCurrentEmpire());
                 weapon.fletcher();
                 building = weapon;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(fletcherImage);
+                    newbutton.setBuilding(weapon);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        fletcherButton.setOnMouseClicked(event);
+        fletcherButton.setOnMouseReleased(event);
 
         Button poleTurnerButton = new Button();
         ImageView poleTurnerImage = new ImageView(buildingImages.getPoleTurner());
@@ -1138,12 +1737,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Weapon weapon = new Weapon(Manage.getCurrentEmpire());
                 weapon.poleTurner();
                 building = weapon;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(poleTurnerImage);
+                    newbutton.setBuilding(weapon);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        poleTurnerButton.setOnMouseClicked(event1);
+        poleTurnerButton.setOnMouseReleased(event1);
 
         Button blacksmithButton = new Button();
         ImageView blacksmithImage = new ImageView(buildingImages.getBlacksmith());
@@ -1166,12 +1780,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Weapon weapon = new Weapon(Manage.getCurrentEmpire());
                 weapon.blacksmith();
                 building = weapon;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(blacksmithImage);
+                    newbutton.setBuilding(weapon);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        blacksmithButton.setOnMouseClicked(event2);
+        blacksmithButton.setOnMouseReleased(event2);
 
         Button tannersButton = new Button();
         ImageView tannersImage = new ImageView(buildingImages.getTanner());
@@ -1191,7 +1820,6 @@ public class BottomBarBuildings {
         latherArmor.setLayoutY(760);
         addedImages.add(latherArmor);
         pane.getChildren().add(latherArmor);
-
 
         Button armourerButton = new Button();
         ImageView armourerImage = new ImageView(buildingImages.getArmourer());
@@ -1214,12 +1842,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Weapon weapon = new Weapon(Manage.getCurrentEmpire());
                 weapon.armourer();
                 building = weapon;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(armourerImage);
+                    newbutton.setBuilding(weapon);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        armourerButton.setOnMouseClicked(event3);
+        armourerButton.setOnMouseReleased(event3);
 
         Button siegeTentButton = new Button();
         ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
@@ -1235,12 +1878,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 SiegeTent siegeTent = new SiegeTent(Manage.getCurrentEmpire());
                 siegeTent.siegeTent();
                 building = siegeTent;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(siegeTentImage);
+                    newbutton.setBuilding(siegeTent);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        siegeTentButton.setOnMouseClicked(event4);
+        siegeTentButton.setOnMouseReleased(event4);
     }
 
     public void createFoodButtons(Pane pane, BuildingImages buildingImages) {
@@ -1258,12 +1916,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Stockpile stockpile = new Stockpile(Manage.getCurrentEmpire());
                 stockpile.foodStockpile();
                 building = stockpile;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(granaryImage);
+                    newbutton.setBuilding(stockpile);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        granaryButton.setOnMouseClicked(event);
+        granaryButton.setOnMouseReleased(event);
 
         Button bakeryButton = new Button();
         ImageView bakeryImage = new ImageView(buildingImages.getBakery());
@@ -1286,12 +1959,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.bakery();
                 building = goods;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(bakeryImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        bakeryButton.setOnMouseClicked(event1);
+        bakeryButton.setOnMouseReleased(event1);
 
         Button breweryButton = new Button();
         ImageView breweryImage = new ImageView(buildingImages.getBrewery());
@@ -1314,12 +2002,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.bearFactory();
                 building = goods;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(breweryImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        breweryButton.setOnMouseClicked(event2);
+        breweryButton.setOnMouseReleased(event2);
 
         Button millButton = new Button();
         ImageView millImage = new ImageView(buildingImages.getMill());
@@ -1342,12 +2045,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.mill();
                 building = industry;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(millImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        millButton.setOnMouseClicked(event3);
+        millButton.setOnMouseReleased(event3);
 
         Button innButton = new Button();
         ImageView innImage = new ImageView(buildingImages.getInn());
@@ -1370,12 +2088,27 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Inn inn = new Inn(Manage.getCurrentEmpire());
                 inn.inn();
                 building = inn;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(innImage);
+                    newbutton.setBuilding(inn);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        innButton.setOnMouseClicked(event4);
+        innButton.setOnMouseReleased(event4);
     }
 
     public void clearPane(Pane pane){
