@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 
 public class User implements Comparable<User> {
+    private static ArrayList<String> captchas = new ArrayList<>();
     private static HashMap<Integer, String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
 
@@ -23,11 +24,13 @@ public class User implements Comparable<User> {
     public static ArrayList<User> loginUsers = new ArrayList<>();
 
     static {
-        securityQuestions.put(1, "What is my father\'s name?");
-        securityQuestions.put(2, "What was my first pet\'s name?");
-        securityQuestions.put(3, "What is my mother\'s last name?");
         randomSlogans.add("I march to death...Though I wish it was my own...");
         randomSlogans.add("They think I\'m monster...and I prove them right");
+
+        captchas.add("3855");
+        captchas.add("9386");
+        captchas.add("8003");
+        captchas.add("5771");
     }
 
 
@@ -151,5 +154,8 @@ public class User implements Comparable<User> {
             if (changedEmail.equals(email)) return user;
         }
         return null;
+    }
+    public static ArrayList<String> getCaptchas(){
+        return captchas;
     }
 }

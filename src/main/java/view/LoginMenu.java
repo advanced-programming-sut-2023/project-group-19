@@ -3,308 +3,303 @@ package view;
 import controller.JsonController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import model.*;
 import controller.LoginController;
 import view.Commands.LoginAndRegisterCommands;
 import view.Messages.RegisterMessages;
 
+import java.awt.*;
+import java.awt.geom.QuadCurve2D;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu extends Application {
-    private static int numberToWait = 1;
+    public Stage stage ;
+    public TextField email;
+    public TextField nickname;
+    public TextField slogan;
+    public CheckBox check;
+    public TextField passwordShow;
+    public PasswordField passwordHide;
+    public Button randomSloganButton;
 
-//    public static void run(Scanner scanner) throws InterruptedException, IOException {
-//        JsonController.readDataFile("User.json");
-//        JsonController.saveAllUsersFileData();
-//        isLoggedUser(scanner);
-//        System.out.println("Welcome to Login menu!");
-//        String command;
-//        while (true) {
-//            command = scanner.nextLine();
-//            if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FOR_REGISTER)) != null) {
-//                checkElementsToRegisterUser(command, scanner);
-//            } else if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN)) != null) {
-//                EnterToLogin(command, scanner);
-//            } else if ((LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.FORGOT_MY_PASSWORD)) != null) {
-//                ForgotPasswordCheck(command, scanner);
-//            } else System.out.println("Invalid command!");
-//        }
-//    }
+    //Labels error handeleng
+    public Label usernameError;
+    public Label passwordError;
+    public Label emailError;
+    public Label nicknameError;
+    public Label sloganError;
+    public VBox vBoxErrorHandling;
+    public RadioButton Q1;
+    public RadioButton Q2;
+    public RadioButton Q3;
+    public TextField answer;
+    public VBox secQestionVbox;
+    public VBox captchaBox;
+    public ImageView captchaImage;
+    public TextField answerOfCaptcha;
+    //    public CheckBox check;
+    @FXML
+    private TextField username;
+    private Pane pane;
 
-    public static void isLoggedUser(Scanner scanner) throws InterruptedException, IOException {
-        JsonController.readDataFile("LoggedInUser.json");
-        User user = JsonController.saveLoggedInUserFileData();
-        if (user != null) {
-            User orgUser = User.getUserByName(user.getUsername());
-            User.setCurrentUser(orgUser);
-            User.loginUsers.add(orgUser);
-            System.out.println("Login successfully");
-            //MainMenu.run(scanner);
-        }
-    }
-
-
-    private static void ForgotPasswordCheck(String command, Scanner scanner) throws IOException {
-        String username;
-        Matcher matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
-        if (matcher != null) username = matcher.group("username").replaceAll("\"", "");
-        else {
-            System.out.println("Username not found!");
-            return;
-        }
-        User user = User.getUserByName(username);
-        if (user == null) {
-            System.out.println("This user does not exist!");
-            return;
-        }
-        String secQuestion = (User.getSecurityQuestions().get(user.getRecoveryQuestionNumber()));
-        System.out.println("For recovering password answer the following question:\n " + secQuestion);
-        String answer = scanner.nextLine();
-        if (answer.equals(user.getRecoveryQuestion())) {
-            System.out.println("Please enter your new password: ");
-            answer = scanner.nextLine();
-            RegisterMessages message = LoginController.changePassword(user, answer);
-            switch (message) {
-                case WEAK_PASSWORD_FOR_LENGTH:
-                    System.out.println("Length of your password must be at least 6 characters!");
-                    return;
-                case WEAK_PASSWORD_FOR_LOWERCASE:
-                    System.out.println("You should use lowercase characters");
-                    return;
-                case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
-                    System.out.println("You should use chars except alphabetical!");
-                    return;
-                case WEAK_PASSWORD_FOR_UPPERCASE:
-                    System.out.println("You should use uppercase characters!");
-                    return;
-                case WEAK_PASSWORD_FOR_NUMBER:
-                    System.out.println("You should use numbers into your password!");
-                    return;
-                case SUCCESS:
-                    System.out.println("Password changing is done!");
-            }
-        } else {
-            System.out.println("This is not correct.Try again!");
-        }
-
-
-    }
-
-    private static void EnterToLogin(String command, Scanner scanner) throws InterruptedException, IOException {
-        String username = null;
-        String password = null;
-        Matcher matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN_GET_USERNAME);
-        if (matcher != null) username = matcher.group("username").replaceAll("\"", "");
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.LOGIN_GET_PASSWORD);
-        if (matcher != null) password = matcher.group("password");
-        if (username == null || password == null) {
-            System.out.println("Fill correctly!");
-            return;
-        }
-        RegisterMessages message = LoginController.loginUser(username, password);
-        switch (message) {
-            case NOT_EXIST_USERNAME:
-                System.out.println("Username does not exist!");
-                return;
-            case NOT_SIMILAR_PASSWORD:
-                System.out.println("Wrong password!");
-                Thread.sleep(5000L * numberToWait);
-                numberToWait++;
-                return;
-            case SUCCESS:
-                matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.IS_LOGGED_USER);
-                if (matcher != null) {
-                    String result = LoginController.isLoggedUser(username);
-                    System.out.println(result);
-                    if (result.equals("This user dose not exist!")) return;
-                }
-                numberToWait = 1;
-                System.out.println("Login successfully!");
-                //MainMenu.run(scanner);
-        }
-    }
-
-    public static void checkElementsToRegisterUser(String command, Scanner scanner) throws IOException {
-        String username;
-        String password;
-        String confirmPassword = null;
-        String email;
-        String nickname;
-        String slogan;
-        Matcher matcher;
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_USERNAME_CHECK);
-        if (matcher == null) username = null;
-        else username = matcher.group("username").replaceAll("\"", "");
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_PASSWORD_CHECK);
-        if (matcher == null) password = null;
-        else {
-            password = matcher.group("password");
-            confirmPassword = matcher.group("confirmPassword");
-        }
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_EMAIL_CHECK);
-        if (matcher == null) email = null;
-        else {
-            email = matcher.group("email").replaceAll("\"", "");
-        }
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_NICKNAME_CHECK);
-        if (matcher == null) nickname = null;
-        else {
-            nickname = matcher.group("nickname");
-        }
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK);
-        if (matcher == null) {
-            matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.REGISTER_SLOGAN_CHECK_FOR_EMPTY);
-            if (matcher == null) slogan = "empty";
-            else slogan = null;
-        } else slogan = matcher.group("slogan");
-
-        sendInformationOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
-    }
-
-    private static void sendInformationOfRegisterUser(String username, String password, String confirmPassword,
-                                                      String email, String nickname, String slogan, Scanner scanner) throws IOException {
-        RegisterMessages message = LoginController.checkErrorForRegister(username, password, confirmPassword, email, nickname, slogan);
-        switch (message) {
-            case USERNAME_REPEATED:
-                username = LoginController.makeUserNameForUser(username);
-                System.out.println("Your name is repeated but the name " + username + " exists now. Would you like to use it? Type yes if you want!");
-                String answer = scanner.nextLine();
-                if (answer.equals("yes") || answer.equals("Yes"))
-                    sendInformationOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
-                else {
-                    System.out.println("Try again");
-                    return;
-                }
-                break;
-            case GET_RANDOM_SLOGANS:
-                slogan = LoginController.getRandomSlogan();
-                System.out.println("Your slogan is \"" + slogan + "\"");
-                sendInformationOfRegisterUser(username, password, confirmPassword, email, nickname, slogan, scanner);
-                break;
-            case GET_RANDOM_PASSWORD:
-                password = LoginController.generateRandomPassword();
-                System.out.println("Your random password is: " + password + ".Please type it");
-                String ans = scanner.nextLine();
-                while (true) {
-                    if (ans.equals(password)) {
-                        sendInformationOfRegisterUser(username, password, password, email, nickname, slogan, scanner);
-                        break;
-                    }
-                    System.out.println("Type it again!");
-                    ans = scanner.nextLine();
-                }
-                return;
-            case INCORRECT_FORM_OF_USERNAME:
-                System.out.println("Your format of username is invalid!");
-                return;
-            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
-                System.out.println("You should use chars except alphabetical!");
-                return;
-            case WEAK_PASSWORD_FOR_LENGTH:
-                System.out.println("length of your password is must be at least 6 characters");
-                return;
-            case WEAK_PASSWORD_FOR_LOWERCASE:
-                System.out.println("You should use lowercase characters!");
-                return;
-            case WEAK_PASSWORD_FOR_UPPERCASE:
-                System.out.println("You should use uppercase characters!");
-                return;
-            case WEAK_PASSWORD_FOR_NUMBER:
-                System.out.println("You should use number inside your password!");
-                return;
-            case NOT_SIMILAR_PASSWORD:
-                System.out.println("Not similar your password!");
-                return;
-            case INVALID_FORM_EMAIL:
-                System.out.println("Invalid form of email!");
-                return;
-            case REPEATED_EMAIL:
-                System.out.println("Your email is repeated!");
-                return;
-            case EMPTY_FIELD:
-                System.out.println("Your given entry has empty field!");
-                return;
-            case SUCCESS:
-                String[] list = askSecurityQuestion(scanner);
-                if (list == null) {
-                    System.out.println("There is something wrong with your entry!");
-                    return;
-                } else {
-                    LoginController.register(username, password, nickname, email, list[1], slogan, list[0]);
-                }
-                System.out.println("register successfully");
-        }
-
-    }
-
-    private static String[] askSecurityQuestion(Scanner scanner) {
-        System.out.println("Pick your security quesion: \n1.What is my father\'s name? " +
-                "\n2.What was my first pet\'s name? " +
-                "\n3.What is my mother\'s last name?");
-        String command = scanner.nextLine();
-        return getMatcherForRegister(command);
-
-    }
-
-    private static String[] getMatcherForRegister(String command) {
-        int number = 0;
-        String ask = null;
-        String askConfirm = null;
-        Matcher matcher;
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_NUMBER);
-        if (matcher != null)
-            number = Integer.parseInt(matcher.group("number"));
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_ASK);
-        if (matcher != null)
-            ask = matcher.group("ask");
-        matcher = LoginAndRegisterCommands.getMatcher(command, LoginAndRegisterCommands.GET_QUESTION_ASK_CONFIRM);
-        if (matcher != null)
-            askConfirm = matcher.group("askConfirm");
-        RegisterMessages message = LoginController.checkSecurityAsks(number, ask, askConfirm);
-        if (message.equals(RegisterMessages.IS_OK_ASKS)) {
-            String[] list = new String[2];
-            list[0] = Integer.toString(number);
-            list[1] = ask;
-            return list;
-        }
-        return null;
-
+    @FXML
+    private Label label;
+    public ToggleGroup toggleGroup ;
+    public String captchaNumber ;
+    public static void main(String[] args) {
+        launch();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        Main.stage = stage;
-        Pane pane = new Pane();
+        this.stage = stage  ;
+        URL url = LoginMenu.class.getResource("/fxml/loginMenu.fxml");
+        Pane pane = FXMLLoader.load(url);
+        this.pane = pane;
+        addPopup();
         Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.show();
+    }
+//    public VBox createVboxAnsStructure(Popup popup){
+//
+////        root.setBackground(new Color(red));
+//        return root ;
+//    }
+
+    public void addPopup(){
+        Popup popup = new Popup();
         Button button = new Button();
-        pane.setPrefSize(1530,800);
-        button.setLayoutX(700);
-        button.setLayoutY(250);
-        button.setPrefSize(200,70);
-        button.setText("Main Menu");
-        pane.getChildren().add(button);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                MainMenu mainMenu = new MainMenu();
-                try {
-                    mainMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                if (!popup.isShowing())
+                    popup.show(stage);
+                else
+                    popup.hide();
             }
         });
-        stage.setScene(scene);
-        stage.show();
+        pane.getChildren().add(button);
+//        popup.getContent().add(createVboxAnsStructure(popup));
+        popup.show(stage);
+    }
+
+    public void showAndHidePassword() {
+        String text;
+        if (passwordHide.isVisible()) {
+            passwordShow.setVisible(true);
+            text = passwordHide.getText();
+            passwordShow.setText(text);
+            passwordHide.setVisible(false);
+        } else {
+            text = passwordShow.getText();
+            passwordShow.setVisible(false);
+            passwordHide.setVisible(true);
+            passwordHide.setText(text);
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        ListenerToUsernameField();
+        ListenerToPassword();
+    }
+
+    private void checkPasswordError(Label label,String textSucess) {
+        String password ;
+        if(passwordHide.isVisible()) password = passwordHide.getText();
+        else password = passwordShow.getText();
+        RegisterMessages messages = LoginController.checkPassword(password);
+        String text = null;
+        switch (messages) {
+            case EMPTY_FIELD:
+                text = " You have empty Field";
+                break;
+            case WEAK_PASSWORD_FOR_LOWERCASE:
+                text = "You should use lowercase characters in your password!";
+                break;
+            case WEAK_PASSWORD_FOR_UPPERCASE:
+                text = "You should use uppercase characters in your password!";
+                break;
+            case WEAK_PASSWORD_FOR_LENGTH:
+                text = "Length of your password must be more than five!";
+                break;
+            case WEAK_PASSWORD_FOR_NUMBER:
+                text = "You should use number characters in your password!";
+                break;
+            case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
+                text = "You should use characters except alphabetical!";
+                break;
+            case SUCCESS:
+                text = textSucess;
+                break;
+        }
+        label.setText(text);
+    }
+
+    private void ListenerToPassword() {
+        passwordShow.textProperty().addListener((observable, oldText, newText) -> {
+            checkPasswordError(label,"Fill register form");
+        });
+        passwordHide.textProperty().addListener((observable, oldText, newText) -> {
+            checkPasswordError(label,"Fill register form");
+        });
+
+    }
+
+    private void ListenerToUsernameField() {
+        username.textProperty().addListener((observable, oldText, newText) -> {
+            usernameError(label, "Fill register form");
+        });
+    }
+
+    public void checkingSlogan(MouseEvent mouseEvent) {
+        if (slogan.isVisible()) slogan.setText("empty");
+        else slogan.setText("");
+        slogan.setVisible(!slogan.isVisible());
+        randomSloganButton.setVisible(!randomSloganButton.isVisible());
+    }
+
+    public void randomPassword(MouseEvent mouseEvent) {
+        if (passwordHide.isVisible()) {
+            passwordHide.setText(LoginController.generateRandomPassword());
+        } else {
+            passwordShow.setText(LoginController.generateRandomPassword());
+        }
+    }
+
+    public void randomSlogan(MouseEvent mouseEvent) {
+        slogan.setText(LoginController.getRandomSlogan());
+    }
+
+    public void sloganCheck() {
+        if (slogan.getText().equals("")) sloganError.setText("Empty field");
+        else sloganError.setText("");
+    }
+    public void submit(MouseEvent mouseEvent) throws Exception {
+        stepOneRegister(false);
+    }
+    public void stepOneRegister(boolean isEnd) throws Exception {
+        usernameError(usernameError,"");
+        checkPasswordError(passwordError,"");
+        checkEmail();
+        nicknameError();
+        sloganCheck();
+        if(!isEnd) vBoxErrorHandling.setVisible(true);
+        checkRegisterSucess(isEnd);
+    }
+
+    private void checkRegisterSucess(boolean isEnd) throws Exception {
+        if(usernameError.getText().equals("") &&
+            passwordError.getText().equals("") &&
+                emailError.getText().equals("") &&
+                sloganError.getText().equals("") ) {
+            if(!isEnd) askQuestionShow();
+            else{
+                submitUser();
+            }
+        }
+
+    }
+
+    private void submitUser() throws IOException {
+        int number ;
+        if(toggleGroup.getSelectedToggle().equals(Q1)) number = 1 ;
+        else if(toggleGroup.getSelectedToggle().equals(Q2)) number = 2 ;
+        else number = 3 ;
+        String password ;
+        if(passwordHide.isVisible()) password = passwordHide.getText();
+        else password = passwordShow.getText();
+        LoginController.register(username.getText(),password,nickname.getText(),
+                email.getText(),answer.getText(),slogan.getText(),"" + number);
+    }
+
+    private void askQuestionShow() {
+        toggleGroup = new ToggleGroup();
+        Q1.setToggleGroup(toggleGroup);
+        Q2.setToggleGroup(toggleGroup);
+        Q3.setToggleGroup(toggleGroup);
+        secQestionVbox.setVisible(true);
+    }
+
+    public void usernameError(Label label,String textSuccess){
+        String newText =  username.getText();
+        RegisterMessages messages = LoginController.checkUsername(newText);
+        switch (messages){
+            case EMPTY_FIELD:
+                label.setText("You have empty field");
+                break;
+            case USERNAME_REPEATED :
+                label.setText("Your username is repeated but username " +
+                        LoginController.makeUserNameForUser(newText) +
+                        " is exist now!");
+                break;
+            case INCORRECT_FORM_OF_USERNAME:
+                label.setText("Invalid form of username!");
+                break;
+            case SUCCESS:
+                label.setText(textSuccess);
+        }
+    }
+    public void nicknameError(){
+        String newText = nickname.getText();
+        if(newText.equals("")) nicknameError.setText("Empty field");
+        else nicknameError.setText("");
+    }
+    public void checkEmail(){
+        String newText =  email.getText();
+        RegisterMessages messages = LoginController.checkEmail(newText);
+        switch (messages){
+            case EMPTY_FIELD :
+                emailError.setText("You have empty field");
+                break;
+            case REPEATED_EMAIL:
+                emailError.setText("Your email is repeated");
+                break;
+            case INVALID_FORM_EMAIL:
+                emailError.setText("Your form if email is invalid!");
+                break;
+            case SUCCESS:
+                emailError.setText("");
+                break;
+        }
+    }
+    public void closePopup(MouseEvent mouseEvent) {
+        if(!answer.getText().equals("") && toggleGroup.getSelectedToggle() != null) {
+            secQestionVbox.setVisible(false);
+            captchaNumber = LoginController.setImageCaptcha(captchaImage);
+            captchaBox.setVisible(true);
+        }
+    }
+    public void anotherCaptcha(MouseEvent mouseEvent) {
+        captchaNumber = LoginController.setImageCaptcha(captchaImage);
+    }
+
+    public void submitWholeRegister(MouseEvent mouseEvent) throws Exception {
+        if(answerOfCaptcha.getText().equals(captchaNumber)) stepOneRegister(true);
+        else {
+            captchaNumber = LoginController.setImageCaptcha(captchaImage);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Your input is wrong");
+            alert.show();
+        }
     }
 }
-
-
-

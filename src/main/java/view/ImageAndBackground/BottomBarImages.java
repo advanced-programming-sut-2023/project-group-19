@@ -17,9 +17,15 @@ public class BottomBarImages {
     public Image exclamation;
     public Image close;
     public Image undo;
+    public Image minimapFrame;
+    public Image showEmpireDetail;
     public Image bottomCoverImage;
+    public Image faceImage;
     public Image bottomSideCoverImage;
-    public void loadImages(){
+
+    public Image test;
+
+    public void loadImages() {
         background = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/desert_tile.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
@@ -36,117 +42,83 @@ public class BottomBarImages {
         exclamation = new Image(TileManager.class.getResource("/image/BottomBar/exclamation-mark.png").toExternalForm());
         close = new Image(TileManager.class.getResource("/image/BottomBar/close.png").toExternalForm());
         undo = new Image(TileManager.class.getResource("/image/BottomBar/undo.png").toExternalForm());
+        minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
+        showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
+        faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
+
+//        test = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
     }
+
 
     public Background getBackground() {
         return background;
-    }
-
-    public void setBackground(Background background) {
-        this.background = background;
     }
 
     public Image getBottomImage() {
         return bottomImage;
     }
 
-    public void setBottomImage(Image bottomImage) {
-        this.bottomImage = bottomImage;
-    }
-
     public Image getCastle() {
         return castle;
-    }
-
-    public void setCastle(Image castle) {
-        this.castle = castle;
     }
 
     public Image getHammer() {
         return hammer;
     }
 
-    public void setHammer(Image hammer) {
-        this.hammer = hammer;
-    }
-
     public Image getHome() {
         return home;
-    }
-
-    public void setHome(Image home) {
-        this.home = home;
     }
 
     public Image getFood() {
         return food;
     }
 
-    public void setFood(Image food) {
-        this.food = food;
-    }
-
     public Image getShield() {
         return shield;
-    }
-
-    public void setShield(Image shield) {
-        this.shield = shield;
     }
 
     public Image getSickle() {
         return sickle;
     }
 
-    public void setSickle(Image sickle) {
-        this.sickle = sickle;
-    }
-
-    public Image getBottomCoverImage() {
-        return bottomCoverImage;
-    }
-
-    public void setBottomCoverImage(Image bottomCoverImage) {
-        this.bottomCoverImage = bottomCoverImage;
-    }
-
-    public Image getBottomSideCoverImage() {
-        return bottomSideCoverImage;
-    }
-
-    public void setBottomSideCoverImage(Image bottomSideCoverImage) {
-        this.bottomSideCoverImage = bottomSideCoverImage;
-    }
-
     public Image getKey() {
         return key;
-    }
-
-    public void setKey(Image key) {
-        this.key = key;
     }
 
     public Image getExclamation() {
         return exclamation;
     }
 
-    public void setExclamation(Image exclamation) {
-        this.exclamation = exclamation;
-    }
-
     public Image getClose() {
         return close;
-    }
-
-    public void setClose(Image close) {
-        this.close = close;
     }
 
     public Image getUndo() {
         return undo;
     }
 
-    public void setUndo(Image undo) {
-        this.undo = undo;
+    public Image getMinimapFrame() {
+        return minimapFrame;
+    }
+
+    public Image getShowEmpireDetail() {
+        return showEmpireDetail;
+    }
+
+    public Image getBottomCoverImage() {
+        return bottomCoverImage;
+    }
+
+    public Image getFaceImage() {
+        return faceImage;
+    }
+
+    public Image getBottomSideCoverImage() {
+        return bottomSideCoverImage;
+    }
+
+    public Image getTest() {
+        return test;
     }
 }
