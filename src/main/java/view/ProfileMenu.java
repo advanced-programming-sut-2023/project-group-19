@@ -1,10 +1,15 @@
 package view;
 
+import controller.LoginController;
+import controller.ProfileController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -12,9 +17,11 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.User;
+import view.Messages.RegisterMessages;
 
 import java.io.File;
 import java.net.URL;
@@ -35,6 +42,22 @@ public class ProfileMenu extends Application {
     public ImageView imageView8;
     public ImageView imageView9;
     public Scene scene ;
+    public VBox vBoxOfSelectImage;
+
+
+    public TextField username;
+    public TextField email;
+    public Label label;
+    public TextField nickname;
+    public TextField slogan;
+    public VBox captchaBox;
+    public ImageView captchaImage;
+    public TextField answerOfCaptcha;
+    public VBox vBoxErrorHandling;
+    public Label usernameError;
+    public Label emailError;
+    public Label nicknameError;
+    public Label sloganError;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -52,7 +75,7 @@ public class ProfileMenu extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                draggedAvatarImage.setVisible(!draggedAvatarImage.isVisible());
+                draggedAvatarImage.setImage(null);
             }
         });
         pane.getChildren().add(button);
@@ -64,14 +87,52 @@ public class ProfileMenu extends Application {
     private void StartingFunctions() {
         draggedAvatarImage.setFitWidth(100);
         draggedAvatarImage.setFitHeight(100);
-        draggedAvatarImage.setTranslateX(200);
-        draggedAvatarImage.setTranslateY(200);
+        draggedAvatarImage.setTranslateX(10);
+        draggedAvatarImage.setTranslateY(10);
         pane.getChildren().add(draggedAvatarImage);
     }
 
     public void initialize(){
         setAvatarImage();
         initializeDefaultAvatarsImage();
+        fillWholeFields();
+        ListenerToUsernameField();
+//        ListenerToPassword();
+    }
+    public void usernameError(Label label,String textSuccess){
+        String newText =  username.getText();
+        RegisterMessages messages = LoginController.checkUsername(newText);
+        switch (messages){
+            case EMPTY_FIELD:
+                label.setText("You have empty field");
+                break;
+            case USERNAME_REPEATED :
+                if(!User.getCurrentUser().getUsername().equals(username.getText())) {
+                    label.setText("Your username is repeated but username " +
+                            LoginController.makeUserNameForUser(newText) +
+                            " is exist now!");
+                }else{
+                    label.setText(textSuccess);
+                }
+                break;
+            case INCORRECT_FORM_OF_USERNAME:
+                label.setText("Invalid form of username!");
+                break;
+            case SUCCESS:
+                label.setText(textSuccess);
+        }
+    }
+    private void ListenerToUsernameField() {
+        username.textProperty().addListener((observable, oldText, newText) -> {
+            usernameError(label, "Fill register form");
+        });
+    }
+    private void fillWholeFields(){
+        User user = User.getCurrentUser();
+        username.setText(user.getUsername());
+        email.setText(user.getEmail());
+        slogan.setText(user.getSlogan());
+        nickname.setText(user.getNickname());
     }
 
     private void DragAndDropImage() {
@@ -130,10 +191,6 @@ public class ProfileMenu extends Application {
             imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-//                    avatar.setVisible(true);
-//                    draggedAvatarImage.setVisible(false);
-//                    draggedAvatarImage.setOpacity(0);
-//                    System.out.println("i am here");
                     draggedAvatarImage.setImage(null);
                     System.out.println(draggedAvatarImage.isVisible());
                     User.getCurrentUser().setAvatar(imageView);
@@ -157,5 +214,68 @@ public class ProfileMenu extends Application {
             User.getCurrentUser().setAvatar(imageView);
             setAvatarImage();
         }
+    }
+
+    public void hideShowSelectImage(MouseEvent mouseEvent) {
+        vBoxOfSelectImage.setVisible(!vBoxOfSelectImage.isVisible());
+    }
+    public void checkEmail(){
+        String newText =  email.getText();
+        RegisterMessages messages = LoginController.checkEmail(newText);
+        switch (messages){
+            case EMPTY_FIELD :
+                emailError.setText("You have empty field");
+                break;
+            case REPEATED_EMAIL:
+                if(!email.getText().equals(User.getCurrentUser().getEmail())) {
+                    emailError.setText("Your email is repeated");
+                }else{
+                    emailError.setText("");
+                }
+            case INVALID_FORM_EMAIL:
+                emailError.setText("Your form if email is invalid!");
+                break;
+            case SUCCESS:
+                emailError.setText("");
+                break;
+        }
+    }
+    public void sloganCheck() {
+        if (slogan.getText().equals("")) sloganError.setText("Empty field");
+        else sloganError.setText("");
+    }
+    public void nicknameError(){
+        String newText = nickname.getText();
+        if(newText.equals("")) nicknameError.setText("Empty field");
+        else nicknameError.setText("");
+    }
+
+    public void submit(MouseEvent mouseEvent) {
+        usernameError(usernameError,"");
+        checkEmail();
+        nicknameError();
+        sloganCheck();
+        checkFinalChanges();
+
+    }
+
+    private void checkFinalChanges() {
+        if (usernameError.getText().equals("") &&
+                emailError.getText().equals("") &&
+                nicknameError.getText().equals("") &&
+                sloganError.getText().equals("")
+        ) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successfully");
+            alert.setContentText(ProfileController.changingFields(username.getText(),email.getText()
+                    ,nicknameError.getText(),slogan.getText()));
+        }
+    }
+
+    public void anotherCaptcha(MouseEvent mouseEvent) {
+    }
+
+    public void removeSlogan(MouseEvent mouseEvent) {
+        slogan.setText("slogan is");
     }
 }
