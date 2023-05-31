@@ -1143,13 +1143,9 @@ public class BuildingController {
                 Wall stairs = new Wall(currentEmpire);
                 stairs.stair();
                 if (correctGroundType(x, y, stairs)) {
-                    System.out.println(11);
                     if (empireHasEnoughResourcesToBuildTheBuilding(stairs, currentEmpire)) {
-                        System.out.println(22);
                         if (empireHasEnoughWorkersToBuildTheBuilding(stairs, currentEmpire)) {
-                            System.out.println(33);
 //                            if (validationOfStairsLocation(x, y)) {
-                                System.out.println(44);
                                 buildingCheckout(stairs, currentEmpire);
                                 Map.AddToBuildingMap(x, y, stairs);
                                 Map.notBuildable[x][y] = true;
