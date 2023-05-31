@@ -72,14 +72,14 @@ public class MoveAnimation extends Transition implements Initializable {
 
             NewButton newButton = (NewButton) tileManager.list.get(army.goalXCoordinate * 100 + army.goalYCoordinate);
 
-            if (newButton.getBuilding().getName().equals(Names.TUNNEL.getName())){
-                pane.getChildren().remove(army.imageView);
-                NewButton currentButton = (NewButton) tileManager.list.get(army.getCurrentX() * 100 + army.getCurrentY());
-                currentButton.getArmy().remove(army);
-                GameController.removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-                Manage.getCurrentEmpire().empireArmy.remove(army);
-                this.stop();
-            }
+//            if (newButton.getBuilding().getName().equals(Names.TUNNEL.getName())){
+//                pane.getChildren().remove(army.imageView);
+//                NewButton currentButton = (NewButton) tileManager.list.get(army.getCurrentX() * 100 + army.getCurrentY());
+//                currentButton.getArmy().remove(army);
+//                GameController.removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+//                Manage.getCurrentEmpire().empireArmy.remove(army);
+//                this.stop();
+//            }
 
             if (army.getCurrentX() > army.getGoalXCoordinate()) {     // move to left
                 System.out.println("left");
