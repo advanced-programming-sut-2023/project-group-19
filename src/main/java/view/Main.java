@@ -12,10 +12,8 @@ import model.Empire;
 import model.Manage;
 import model.Map;
 import model.User;
-import view.LoginMenu;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Main extends Application {
     public static Stage stage;
@@ -53,9 +51,9 @@ public class Main extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                LoginMenu loginMenu = new LoginMenu();
+                RegisterMenu registerMenu = new RegisterMenu();
                 try {
-                    loginMenu.start(stage);
+                    registerMenu.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
