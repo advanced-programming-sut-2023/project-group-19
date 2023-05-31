@@ -93,24 +93,24 @@ public class TileManager extends Application {
         bottomBarImages = new BottomBarImages();
         bottomBarImages.loadImages();
 //       ===================================================================================================================================================
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(100);
-        Map.mapSize = 100;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
-
-
-        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(2, 1);
-        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
-        newButton.setBackground(null);
-        newButton.getArmy().add(archersAndThrowers);
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+//        Empire Ali = new Empire();
+//        Empire Dorsa = new Empire();
+//        Ali.setUser(newUser);
+//        Dorsa.setUser(newUser1);
+//        Manage.setCurrentEmpire(Ali);
+//        Map.CreateMap(100);
+//        Map.mapSize = 100;
+//        Manage.getAllEmpires().add(Dorsa);
+//        Manage.getAllEmpires().add(Ali);
+//
+//
+//        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//        archersAndThrowers.archer(2, 1);
+//        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+//        newButton.setBackground(null);
+//        newButton.getArmy().add(archersAndThrowers);
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -122,12 +122,12 @@ public class TileManager extends Application {
         pane.requestFocus();
 
         createViewScene(stage);
-        GameController gameController = new GameController();
-        gameController.selectedUnit.add(archersAndThrowers);
-        gameController.setPathForUnits(3,3);
-        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
-        System.out.println(archersAndThrowers.myPath.size());
-        moveAnimation.play();
+//        GameController gameController = new GameController();
+//        gameController.selectedUnit.add(archersAndThrowers);
+//        gameController.setPathForUnits(3,3);
+//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
+//        System.out.println(archersAndThrowers.myPath.size());
+//        moveAnimation.play();
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
