@@ -30,7 +30,6 @@ public abstract class Human implements HumanConstantFunctions {
     public int finalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
-    public ImageView imageView;
     public HashMap<String, Integer> cost = new HashMap<>();
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
     public String direction;
@@ -141,4 +140,5 @@ public abstract class Human implements HumanConstantFunctions {
     public double yLocationOnMap() {
         return yLocationOnMap;
     }
+
 }

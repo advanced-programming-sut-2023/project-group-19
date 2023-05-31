@@ -125,9 +125,13 @@ public class Tunneler extends Army implements HumanConstantFunctions {
         return typeOfArmy;
     }
 
+    public ImageView getImageView() {
+        return super.getImageView();
+    }
+
     @Override
-    public ImageView imageView() {
-        return imageView;
+    public void setImageView(ImageView imageView) {
+        super.setImageView(imageView);
     }
 
     @Override

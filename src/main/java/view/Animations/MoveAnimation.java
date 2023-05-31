@@ -60,36 +60,34 @@ public class MoveAnimation extends Transition implements Initializable {
         double xArmy = 0, yArmy = 0, translateX = 0,translateY = 0;
 
         List<Integer> pathList = army.myPath;
-        System.out.println("pathlist size: " + pathList.size());
+
         if (pathList.size() == 0) {
-            System.out.println("stopped");
+
             this.stop();
         }
         if (army.restOfMoves != 0 && pathList.size() > 0) {
-            System.out.println("still works");
 
             army.goalXCoordinate = pathList.get(0) / PathFindingController.size;
             army.goalYCoordinate = pathList.get(0) % PathFindingController.size;
-            System.out.println(army.getGoalXCoordinate()+" "+army.getCurrentX()+" "+army.getGoalYCoordinate()+" "+army.getCurrentY());
 
             NewButton newButton = (NewButton) tileManager.list.get(army.goalXCoordinate * 100 + army.goalYCoordinate);
 
-//            if (newButton.getBuilding().getName().equals(Names.TUNNEL.getName())){
-//                pane.getChildren().remove(army.imageView);
-//                NewButton currentButton = (NewButton) tileManager.list.get(army.getCurrentX() * 100 + army.getCurrentY());
-//                currentButton.getArmy().remove(army);
-//                GameController.removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-//                Manage.getCurrentEmpire().empireArmy.remove(army);
-//                this.stop();
-//            }
+            if (newButton.getBuilding().getName().equals(Names.TUNNEL.getName())){
+                pane.getChildren().remove(army.imageView);
+                NewButton currentButton = (NewButton) tileManager.list.get(army.getCurrentX() * 100 + army.getCurrentY());
+                currentButton.getArmy().remove(army);
+                GameController.removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+                Manage.getCurrentEmpire().empireArmy.remove(army);
+                this.stop();
+            }
+
             if (army.getCurrentX() > army.getGoalXCoordinate()) {     // move to left
                 System.out.println("left");
                 direction = "west";
                 //getPicture();
                 xArmy = army.goalXCoordinate;
                 yArmy = army.goalYCoordinate;
-                translateX = army.imageView.getX() -50;
-
+                translateX = army.imageView.getX() -25;
             }
 
             if (army.getCurrentX() < army.getGoalXCoordinate()) {     // move to right
@@ -98,7 +96,7 @@ public class MoveAnimation extends Transition implements Initializable {
                 //getPicture();
                 xArmy = army.goalXCoordinate;
                 yArmy = army.goalYCoordinate;
-                translateX = army.imageView.getX() +50;
+                translateX = army.imageView.getX() +25;
             }
 
             if (army.getCurrentY() > army.getGoalYCoordinate()) {     // move up
@@ -107,7 +105,7 @@ public class MoveAnimation extends Transition implements Initializable {
                 //getPicture();
                 yArmy = army.goalYCoordinate;
                 xArmy = army.goalXCoordinate;
-                translateY = army.imageView.getY()-50;
+                translateY = army.imageView.getY()-25;
             }
 
             if (army.getCurrentY() < army.getGoalYCoordinate()) {    // move down
@@ -116,19 +114,18 @@ public class MoveAnimation extends Transition implements Initializable {
                 //getPicture();
                 yArmy = army.goalYCoordinate;
                 xArmy = army.goalXCoordinate;
-                translateY = army.imageView.getY() + 50;
+                translateY = army.imageView.getY() +25;
             }
 
 
             army.restOfMoves--;
-            System.out.println("coordinates: " + army.xCoordinate + " " + army.yCoordinate+" "+army.imageView.getX()+" "
-            +army.imageView.getY());
             army.setxCoordinate((int) xArmy);
             army.setyCoordinate((int) yArmy);
-            army.imageView.setX(translateX);
-            army.imageView.setY(translateY);
-
+            army.getImageView().setLayoutX(translateX);
+            army.getImageView().setLayoutY(translateY);
+            newButton.setGraphic(army.getImageView());
             pathList.remove(0);
+
         }else{
             this.stop();
         }
@@ -149,28 +146,28 @@ public class MoveAnimation extends Transition implements Initializable {
     public void getPicture() {
         switch (army.direction) {
             case "forward":
-                army.imageView = new ImageView(forward);
+                army.setImageView(new ImageView(forward));
                 break;
             case "east":
-                army.imageView = new ImageView(east);
+                army.setImageView(new ImageView(east));
                 break;
             case "west":
-                army.imageView = new ImageView(west);
+                army.setImageView(new ImageView(west));
                 break;
             case "backward":
-                army.imageView = new ImageView(backward);
+                army.setImageView(new ImageView(backward));
                 break;
             case "northEast":
-                army.imageView = new ImageView(northEast);
+                army.setImageView(new ImageView(northEast));
                 break;
             case "northWest":
-                army.imageView = new ImageView(northWest);
+                army.setImageView(new ImageView(northWest));
                 break;
             case "southEast":
-                army.imageView = new ImageView(southEast);
+                army.setImageView(new ImageView(southEast));
                 break;
             case "southWest":
-                army.imageView = new ImageView(southWest);
+                army.setImageView(new ImageView(southWest));
                 break;
         }
     }

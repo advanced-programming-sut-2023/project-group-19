@@ -30,7 +30,7 @@ public class Army extends Human {
 
     protected Empire empire;
     protected Army enemy;
-
+    public ImageView imageView;
 
     public boolean isIntFight() {
         return isIntFight;
@@ -328,9 +328,12 @@ public class Army extends Human {
         return typeOfArmy;
     }
 
-    @Override
-    public ImageView imageView() {
+    public ImageView getImageView() {
         return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 
     @Override

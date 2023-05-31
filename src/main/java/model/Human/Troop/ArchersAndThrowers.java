@@ -340,8 +340,13 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
 
     @Override
-    public ImageView imageView() {
-        return imageView;
+    public ImageView getImageView() {
+        return super.getImageView();
+    }
+
+    @Override
+    public void setImageView(ImageView imageView) {
+        super.setImageView(imageView);
     }
 
     @Override

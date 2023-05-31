@@ -3,6 +3,7 @@ package view;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,6 +31,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TileManager extends Application {
+    //TODO : Dear TeamMates please pay attention that you should set
+    // the coordinates of your node first then you can set imageView for it.
+
+
+
+
     //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
@@ -99,12 +106,10 @@ public class TileManager extends Application {
         Manage.getAllEmpires().add(Ali);
 
 
-
-
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(10, 3);
-        NewButton newButton = (NewButton) list.get(10 * 100 + 3);
-        System.out.println(newButton.getX() + " " + newButton.getY());
+        archersAndThrowers.archer(2, 1);
+        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+        newButton.setBackground(null);
         newButton.getArmy().add(archersAndThrowers);
 //       ==================================================================================================================================================
 
@@ -119,10 +124,11 @@ public class TileManager extends Application {
         createViewScene(stage);
         GameController gameController = new GameController();
         gameController.selectedUnit.add(archersAndThrowers);
-        gameController.setPathForUnits(10,5);
+        gameController.setPathForUnits(3,3);
         MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
         System.out.println(archersAndThrowers.myPath.size());
         moveAnimation.play();
+
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -523,16 +529,16 @@ public class TileManager extends Application {
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
+                for (int i = 0; i < button.getArmy().size(); i++) {
+                    ImageView imageView = (button.getArmy().get(i)).getImageView();
+                    imageView.setLayoutX(button.getLayoutX());
+                    imageView.setLayoutY(button.getLayoutY());
+                    imageView.setFitWidth(60);
+                    imageView.setFitHeight(60);
+                    button.setGraphic(imageView);
+                }
                 pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
                 allButtons[u][g].add(button);
-                for (int i = 0; i < button.getArmy().size(); i++) {
-                    (button.getArmy().get(i)).imageView().setX(g * 51.2);
-//                    (button.getArmy().get(i)).setX(g * 51.2);
-//                    button.setGraphic(button.getArmy().get(i).imageView());
-                    (button.getArmy().get(i)).imageView().setY(u * 54);
-                    pane.getChildren().add((button.getArmy().get(i)).imageView());
-                }
-
             }
         }
         setButtonsOfMenus(stage);
