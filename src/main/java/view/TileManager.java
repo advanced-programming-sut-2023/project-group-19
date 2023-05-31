@@ -35,9 +35,12 @@ public class TileManager extends Application {
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
+
     public int avgSpeed;
     public BottomBarImages bottomBarImages;
     public BuildingImages buildingImages;
+    public BottomBarBuildings bottomBarBuildings;
+    public BottomBarButtons bottomBarButtons;
 
     public TilePane view = new TilePane();
 
@@ -97,8 +100,10 @@ public class TileManager extends Application {
 //        width = resolution.getWidth();
 //        height = resolution.getHeight();
         pane.requestFocus();
+        pane.setFocusTraversable(false);
 
         createViewScene(stage);
+        bottomBarBuildings.setAllButtons(allButtons);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -122,8 +127,8 @@ public class TileManager extends Application {
     }
 
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
-        BottomBarButtons bottomBarButtons = new BottomBarButtons();
-        BottomBarBuildings bottomBarBuildings = new BottomBarBuildings();
+        bottomBarButtons = new BottomBarButtons();
+        bottomBarBuildings = new BottomBarBuildings();
         bottomBarButtons.createButtons(pane, bottomBarImages , bottomBarBuildings , buildingImages );
         bottomBarBuildings.createCastleButtons(pane, buildingImages);
     }
@@ -152,6 +157,7 @@ public class TileManager extends Application {
         }
         pane.getChildren().clear();
         createViewScene(stage);
+        bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
     }
 
@@ -192,10 +198,21 @@ public class TileManager extends Application {
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
-                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
+                if(button.getImageView() != null) {
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    pane.getChildren().add(button);
+                }
+                else {
+                    pane.getChildren().add(button);
+                }
                 allButtons[u][g].add(button);
             }
         }
+
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
     }
 
@@ -319,6 +336,9 @@ public class TileManager extends Application {
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                     drawIsOn = false;
+                    if(bottomBarBuildings.building != null){
+                        System.out.println("9999999999999999999");
+                    }
 //                    TextInputDialog textInputDialog = new TextInputDialog();
 //                    textInputDialog.setHeaderText("Enter the name and number of required army :");
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
@@ -350,10 +370,23 @@ public class TileManager extends Application {
                 }
             }
         };
+        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() { //----> Number 3
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) b.getX();
+                int y = (int) b.getY();
+                System.out.println("x : " + x+ " y : " + y );
+                System.out.println((int)(x / 51.2 * 100 + y / 54));
+            }
+        };
+
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         newButton.setOnMouseExited(event2);
         newButton.setOnMouseEntered(event3);
+//        newButton.setOnMouseMoved(event7);
     }
 
 

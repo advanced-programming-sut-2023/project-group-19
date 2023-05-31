@@ -1,10 +1,15 @@
 package view.GameButtons;
 
+import controller.Building.BuildingController;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import model.Building.*;
 import model.Human.Troop.ArchersAndThrowers;
@@ -13,8 +18,12 @@ import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.Model.NewButton;
+import view.TileManager;
 
+import java.awt.*;
 import java.util.ArrayList;
+
+import static view.Main.stage;
 
 public class BottomBarBuildings {
     //TODO : handle the draw bridge for now i set the x and y  to 0 , 0
@@ -22,9 +31,16 @@ public class BottomBarBuildings {
     //TODO : add sickness logic to the game and fix its eventhandler
     public ArrayList<Button> addedButtons = new ArrayList<>();
     public ArrayList<ImageView> addedImages = new ArrayList<>();
+    BuildingController buildingController = new BuildingController();
+    public ArrayList<NewButton>[][] allButtons;
     public Building building ;
     public Army troop;
-
+    public void showError(String output){
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("DROP BUILDING FAILED");
+        error.setContentText(output);
+        error.show();
+    }
 
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
         Button wallStairButton = new Button();
@@ -41,12 +57,28 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
                 Wall stair = new Wall(Manage.getCurrentEmpire());
                 stair.stair();
                 building = stair;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                System.out.println(output);
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(wallStairImage);
+                    newbutton.setBuilding(stair);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
             }
         };
-        wallStairButton.setOnMouseClicked(event);
+        wallStairButton.setOnMouseReleased(event);
 
         Button lowWallButton = new Button();
         ImageView lowWallImage = new ImageView(buildingImages.getLowWall());
@@ -1351,5 +1383,14 @@ public class BottomBarBuildings {
         pane.getChildren().removeAll(addedImages);
         addedButtons.clear();
         addedImages.clear();
+    }
+
+
+    public ArrayList<NewButton>[][] getAllButtons() {
+        return allButtons;
+    }
+
+    public void setAllButtons(ArrayList<NewButton>[][] allButtons) {
+        this.allButtons = allButtons;
     }
 }

@@ -1,6 +1,7 @@
 package view.Model;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import model.Building.Building;
 import model.Human.Troop.Army;
 
@@ -12,6 +13,7 @@ public class NewButton extends Button {
     private int x;
     private int y;
     private Building building;
+    private ImageView imageView;
     private ArrayList<Army> army = new ArrayList<>();
     private boolean isSelected = false;
 
@@ -19,6 +21,14 @@ public class NewButton extends Button {
         super();
         this.x = x;
         this.y = y;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 
     public int getX() {

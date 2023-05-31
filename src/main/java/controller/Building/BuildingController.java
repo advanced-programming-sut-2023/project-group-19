@@ -92,7 +92,7 @@ public class BuildingController {
         return false;
     }
 
-    public BuildingMessages callBuildingFunction(int x, int y, String type, Scanner scanner) {
+    public BuildingMessages callBuildingFunction(int x, int y, String type) {
         String direction;
         Names directionOfGate;
         switch (type) {
@@ -143,12 +143,11 @@ public class BuildingController {
                 }
             case "SmallStoneGatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
-                direction = scanner.nextLine();
-                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
-                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
-                else return BuildingMessages.INVALID_DIRECTION;
+//                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
+//                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
+//                else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay smallStoneGateWay = new StoneGateWay(currentEmpire);
-                smallStoneGateWay.smallGateWay(directionOfGate);
+                smallStoneGateWay.smallGateWay(Names.NS);
                 if (correctGroundType(x, y, smallStoneGateWay)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(smallStoneGateWay, currentEmpire)) {
@@ -170,12 +169,11 @@ public class BuildingController {
                 }
             case "BigStoneGatehouse":
                 System.out.println(BuildingMessages.ENTER_DIRECTION.getMessages());
-                direction = scanner.nextLine();
-                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
-                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
-                else return BuildingMessages.INVALID_DIRECTION;
+//                if (direction.equals(Names.NS.getName())) directionOfGate = Names.NS;
+//                else if (direction.equals(Names.WE.getName())) directionOfGate = Names.WE;
+//                else return BuildingMessages.INVALID_DIRECTION;
                 StoneGateWay bigStoneGateWay = new StoneGateWay(currentEmpire);
-                bigStoneGateWay.bigGateWay(directionOfGate);
+                bigStoneGateWay.bigGateWay(Names.NS);
                 if (correctGroundType(x, y, bigStoneGateWay)) {
                     if (empireHasEnoughResourcesToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(bigStoneGateWay, currentEmpire)) {
@@ -1166,16 +1164,13 @@ public class BuildingController {
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
 
-    public BuildingMessages dropBuilding(Matcher xGroup, Matcher yGroup, Matcher typeGroup, Scanner scanner) {
-        int x = Integer.parseInt(xGroup.group("x"));
-        int y = Integer.parseInt(yGroup.group("y"));
-        String type = typeGroup.group("type");
+    public BuildingMessages dropBuilding(int x , int y, String type) {
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
                     if (Manage.getNamesOfAllPossibleBuildings().get(i).equals(type)) {
                         if (!HasBuildingInThisPlace(x, y)) {
-                            return callBuildingFunction(x, y, type, scanner);
+                            return callBuildingFunction(x, y, type);
                         } else return BuildingMessages.FILLED_CELL;
                     }
                 }
