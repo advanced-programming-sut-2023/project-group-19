@@ -93,8 +93,8 @@ public class TileManager extends Application {
         Ali.setUser(newUser);
         Dorsa.setUser(newUser1);
         Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(200);
-        Map.mapSize = 200;
+        Map.CreateMap(100);
+        Map.mapSize = 100;
         Manage.getAllEmpires().add(Dorsa);
         Manage.getAllEmpires().add(Ali);
 
@@ -102,8 +102,8 @@ public class TileManager extends Application {
 
 
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(5, 20);
-        NewButton newButton = (NewButton) list.get(5 * 100 + 20);
+        archersAndThrowers.archer(10, 3);
+        NewButton newButton = (NewButton) list.get(10 * 100 + 3);
         System.out.println(newButton.getX() + " " + newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
 //       ==================================================================================================================================================
@@ -119,7 +119,7 @@ public class TileManager extends Application {
         createViewScene(stage);
         GameController gameController = new GameController();
         gameController.selectedUnit.add(archersAndThrowers);
-        gameController.setPathForUnits(6,28);
+        gameController.setPathForUnits(10,5);
         MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
         System.out.println(archersAndThrowers.myPath.size());
         moveAnimation.play();
@@ -527,9 +527,12 @@ public class TileManager extends Application {
                 allButtons[u][g].add(button);
                 for (int i = 0; i < button.getArmy().size(); i++) {
                     (button.getArmy().get(i)).imageView().setX(g * 51.2);
+//                    (button.getArmy().get(i)).setX(g * 51.2);
+//                    button.setGraphic(button.getArmy().get(i).imageView());
                     (button.getArmy().get(i)).imageView().setY(u * 54);
                     pane.getChildren().add((button.getArmy().get(i)).imageView());
                 }
+
             }
         }
         setButtonsOfMenus(stage);

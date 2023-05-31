@@ -58,6 +58,7 @@ public class MoveAnimation extends Transition implements Initializable {
 
     public void algorithmOfMove() {
         double xArmy = 0, yArmy = 0, translateX = 0,translateY = 0;
+
         List<Integer> pathList = army.myPath;
         System.out.println("pathlist size: " + pathList.size());
         if (pathList.size() == 0) {
@@ -66,11 +67,13 @@ public class MoveAnimation extends Transition implements Initializable {
         }
         if (army.restOfMoves != 0 && pathList.size() > 0) {
             System.out.println("still works");
+
             army.goalXCoordinate = pathList.get(0) / PathFindingController.size;
             army.goalYCoordinate = pathList.get(0) % PathFindingController.size;
             System.out.println(army.getGoalXCoordinate()+" "+army.getCurrentX()+" "+army.getGoalYCoordinate()+" "+army.getCurrentY());
 
             NewButton newButton = (NewButton) tileManager.list.get(army.goalXCoordinate * 100 + army.goalYCoordinate);
+
 //            if (newButton.getBuilding().getName().equals(Names.TUNNEL.getName())){
 //                pane.getChildren().remove(army.imageView);
 //                NewButton currentButton = (NewButton) tileManager.list.get(army.getCurrentX() * 100 + army.getCurrentY());
@@ -115,6 +118,8 @@ public class MoveAnimation extends Transition implements Initializable {
                 xArmy = army.goalXCoordinate;
                 translateY = army.imageView.getY() + 50;
             }
+
+
             army.restOfMoves--;
             System.out.println("coordinates: " + army.xCoordinate + " " + army.yCoordinate+" "+army.imageView.getX()+" "
             +army.imageView.getY());
@@ -172,7 +177,7 @@ public class MoveAnimation extends Transition implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updatePicture();
+        updatePicture();//TODO: Make it a class
     }
 }
 
