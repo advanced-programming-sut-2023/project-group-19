@@ -4,7 +4,6 @@ import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import model.Building.Building;
-import model.Building.Shop;
 import view.Commands.SelectedBuildingCommands;
 import view.Messages.SelectedBuildingMessages;
 
