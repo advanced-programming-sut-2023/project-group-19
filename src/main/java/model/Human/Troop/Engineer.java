@@ -42,6 +42,7 @@ public class Engineer extends Army implements HumanConstantFunctions {
         this.defencePower = 30;
         this.restOfMoves = 5;
         this.imageView = null;
+        this.direction = "forward";
     }
 
     @Override

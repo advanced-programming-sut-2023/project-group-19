@@ -2,18 +2,27 @@ package view.Animations;
 
 import controller.GameController;
 import controller.PathFindingController;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import model.Building.KillingPit;
+import model.Building.Names;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import view.Model.NewButton;
+import view.TileManager;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -21,15 +30,25 @@ public class MoveAnimation extends Transition implements Initializable {
 
 
     private Army army;
-    private boolean rotationOn;
     private String direction;
 
-    private Image north,east,south,west,northEast,northWest,southEast,southWest,backward,forward;
 
-    public MoveAnimation(Army army) {
+    private Image east, west, northEast, northWest, southEast, southWest, backward, forward;
+    private NewButton myButton;
+    private ArrayList<Node> list;
+    private Pane pane;
+    private TileManager tileManager;
+    private GameController gameController = new GameController();
+    private int index = 0;
+    public MoveAnimation(Army army, NewButton myButton, ArrayList<Node> list, Pane pane,TileManager tileManager) {
         this.army = army;
+        this.myButton = myButton;
+        this.list = list;
+        this.pane = pane;
+        this.tileManager = tileManager;
         this.setCycleCount(1);
-        this.setCycleDuration(Duration.seconds(20));
+        this.setCycleDuration(Duration.seconds(10));
+        this.setInterpolator(Interpolator.LINEAR);
     }
 
     @Override
@@ -37,130 +56,123 @@ public class MoveAnimation extends Transition implements Initializable {
         algorithmOfMove();
     }
 
-    public void algorithmOfMove(){
+    public void algorithmOfMove() {
+        double xArmy = 0, yArmy = 0, translateX = 0,translateY = 0;
         List<Integer> pathList = army.myPath;
-        if (army.restOfMoves != 0) {
+        System.out.println("pathlist size: " + pathList.size());
+        if (pathList.size() == 0) {
+            System.out.println("stopped");
+            this.stop();
+        }
+        if (army.restOfMoves != 0 && pathList.size() > 0) {
+            System.out.println("still works");
             army.goalXCoordinate = pathList.get(0) / PathFindingController.size;
             army.goalYCoordinate = pathList.get(0) % PathFindingController.size;
-            Map.getTroopMap()[army.getCurrentX()][army.getCurrentY()].remove(army);
-            /*if (army.getDirection().equals("forward")) {
+            System.out.println(army.getGoalXCoordinate()+" "+army.getCurrentX()+" "+army.getGoalYCoordinate()+" "+army.getCurrentY());
 
-                if (army.getCurrentX() > army.getGoalXCoordinate()){     // move to left
-                    direction = "southWest";
-                    getPicture();
-                    direction = "west";
-                    getPicture();
-
-                }
-
-                if (army.getCurrentX() < army.getGoalXCoordinate()){     // move to right
-                    direction = "southEast";
-                    getPicture();
-                    direction = "east";
-                    getPicture();
-                }
-
-                if (army.getCurrentY() > army.getGoalYCoordinate()){     // move up
-                    army.setDirection("backward");
-                    getPicture();
-                }
-
-                if (army.getCurrentY() < army.getGoalYCoordinate()) {    // move down
-                    army.setDirection("forward");
-                    getPicture();
-                }
-
-            } else if (army.getDirection().equals("backward")) {
-
-                if (army.getCurrentX() > army.getGoalXCoordinate()){     // move to left
-                    direction = "northWest";
-                    getPicture();
-                    direction = "west";
-                    getPicture();
-                }
-
-                if (army.getCurrentX() < army.getGoalXCoordinate()){     // move to right
-                    direction = "northEast";
-                    getPicture();
-                    direction = "east";
-                    getPicture();
-                }
-
-                if (army.getCurrentY() > army.getGoalYCoordinate()){     // move up
-                    army.setDirection("backward");
-                    getPicture();
-                }
-
-                if (army.getCurrentY() < army.getGoalYCoordinate()) {    // move down
-                    army.setDirection("forward");
-                    getPicture();
-                }
-
-            }
-//            if (GameController.validSquareBySquareCell(army) || GameController.isPlain(army)) {
-//                if (Map.getBuildingMap()[army.goalXCoordinate][army.goalYCoordinate].get(0)
-//                        instanceof KillingPit) {
-//                    Map.getBuildingMap()[army.goalXCoordinate][army.goalYCoordinate].clear();
-//                }
+            NewButton newButton = (NewButton) tileManager.list.get(army.goalXCoordinate * 100 + army.goalYCoordinate);
+//            if (newButton.getBuilding().getName().equals(Names.TUNNEL.getName())){
+//                pane.getChildren().remove(army.imageView);
+//                NewButton currentButton = (NewButton) tileManager.list.get(army.getCurrentX() * 100 + army.getCurrentY());
+//                currentButton.getArmy().remove(army);
 //                GameController.removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
 //                Manage.getCurrentEmpire().empireArmy.remove(army);
 //                this.stop();
 //            }
-*/
-            army.xCoordinate = army.goalXCoordinate;
-            army.yCoordinate = army.goalYCoordinate;
+            if (army.getCurrentX() > army.getGoalXCoordinate()) {     // move to left
+                System.out.println("left");
+                direction = "west";
+                //getPicture();
+                xArmy = army.goalXCoordinate;
+                yArmy = army.goalYCoordinate;
+                translateX = army.imageView.getX() -50;
+
+            }
+
+            if (army.getCurrentX() < army.getGoalXCoordinate()) {     // move to right
+                System.out.println("right");
+                direction = "east";
+                //getPicture();
+                xArmy = army.goalXCoordinate;
+                yArmy = army.goalYCoordinate;
+                translateX = army.imageView.getX() +50;
+            }
+
+            if (army.getCurrentY() > army.getGoalYCoordinate()) {     // move up
+                System.out.println("up");
+                army.direction = "backward";
+                //getPicture();
+                yArmy = army.goalYCoordinate;
+                xArmy = army.goalXCoordinate;
+                translateY = army.imageView.getY()-50;
+            }
+
+            if (army.getCurrentY() < army.getGoalYCoordinate()) {    // move down
+                System.out.println("down");
+                army.direction = "forward";
+                //getPicture();
+                yArmy = army.goalYCoordinate;
+                xArmy = army.goalXCoordinate;
+                translateY = army.imageView.getY() + 50;
+            }
             army.restOfMoves--;
-            Map.getTroopMap()[army.xCoordinate][army.yCoordinate].add(army);
+            System.out.println("coordinates: " + army.xCoordinate + " " + army.yCoordinate+" "+army.imageView.getX()+" "
+            +army.imageView.getY());
+            army.setxCoordinate((int) xArmy);
+            army.setyCoordinate((int) yArmy);
+            army.imageView.setX(translateX);
+            army.imageView.setY(translateY);
+
             pathList.remove(0);
+        }else{
+            this.stop();
         }
     }
 
 
-    public void updatePicture(){
-        north = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"north.png").toExternalForm());
-        east = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"east.png").toExternalForm());
-        west = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"west.png").toExternalForm());
-        south = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"south.png").toExternalForm());
-        northEast = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"northEast.png").toExternalForm());
-        northWest = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"northWest.png").toExternalForm());
-        southEast = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"southEast.png").toExternalForm());
-        southWest = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"southWest.png").toExternalForm());
-        backward = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"backward.png").toExternalForm());
-        forward = new Image(MoveAnimation.class.getResource("/image/Units/"+army.getNames().getName()+"forward.png").toExternalForm());
+    public void updatePicture() {
+        east = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/east.png").toExternalForm());
+        west = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/west.png").toExternalForm());
+        northEast = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/northEast.png").toExternalForm());
+        northWest = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/northWest.png").toExternalForm());
+        southEast = new Image(MoveAnimation.class.getResource("image/Units/MovePics/Archer/southEast.png").toExternalForm());
+        southWest = new Image(MoveAnimation.class.getResource("image/Units/MovePics/Archer/southWest.png").toExternalForm());
+        backward = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/backward.png").toExternalForm());
+        forward = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/forward.png").toExternalForm());
     }
 
-    /*public void getPicture(){
-        switch (direction){
-            case "north":
-                army.setFill(new ImagePattern(north));
+    public void getPicture() {
+        switch (army.direction) {
+            case "forward":
+                army.imageView = new ImageView(forward);
                 break;
             case "east":
-                army.setFill(new ImagePattern(east));
+                army.imageView = new ImageView(east);
                 break;
             case "west":
-                army.setFill(new ImagePattern(west));
+                army.imageView = new ImageView(west);
                 break;
-            case "south":
-                army.setFill(new ImagePattern(south));
+            case "backward":
+                army.imageView = new ImageView(backward);
                 break;
             case "northEast":
-                army.setFill(new ImagePattern(northEast));
+                army.imageView = new ImageView(northEast);
                 break;
             case "northWest":
-                army.setFill(new ImagePattern(northWest));
+                army.imageView = new ImageView(northWest);
                 break;
             case "southEast":
-                army.setFill(new ImagePattern(southEast));
+                army.imageView = new ImageView(southEast);
                 break;
             case "southWest":
-                army.setFill(new ImagePattern(southWest));
+                army.imageView = new ImageView(southWest);
                 break;
         }
-    }*/
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //updatePicture();
+        updatePicture();
     }
 }
 

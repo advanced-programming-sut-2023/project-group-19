@@ -106,8 +106,6 @@ public class TileManager extends Application {
         NewButton newButton = (NewButton) list.get(5 * 100 + 20);
         System.out.println(newButton.getX() + " " + newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
-//        archersAndThrowers.imageView.setX(newButton.getLayoutX());
-//        archersAndThrowers.imageView.setY(newButton.getLayoutY());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -119,10 +117,12 @@ public class TileManager extends Application {
         pane.requestFocus();
 
         createViewScene(stage);
-//        GameController gameController = new GameController();
-//        gameController.selectedUnit.add(archersAndThrowers);
-//        gameController.setPathForUnits(100,400);
-//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers);
+        GameController gameController = new GameController();
+        gameController.selectedUnit.add(archersAndThrowers);
+        gameController.setPathForUnits(6,28);
+        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
+        System.out.println(archersAndThrowers.myPath.size());
+        moveAnimation.play();
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
