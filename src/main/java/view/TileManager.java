@@ -1,11 +1,15 @@
 package view;
 
 import controller.Building.BuildingController;
+import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -16,10 +20,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Empire;
+import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.MoveAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -30,11 +37,19 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TileManager extends Application {
+    //TODO : Dear TeamMates please pay attention that you should set
+    // the coordinates of your node first then you can set imageView for it.
+
+
+
+
     //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
     //TODO : Method which calculates the Production things on a tile
+    // width  = 1530
+    // height = 800
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -66,6 +81,9 @@ public class TileManager extends Application {
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
+
+
+    public GameController gameController = new GameController();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -100,7 +118,27 @@ public class TileManager extends Application {
         bottomBarImages.loadImages();
         buildingImages = new BuildingImages();
         buildingImages.loadImage();
+//       ===================================================================================================================================================
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+        Empire Ali = new Empire();
+        Empire Dorsa = new Empire();
+        Ali.setUser(newUser);
+        Dorsa.setUser(newUser1);
+        Manage.setCurrentEmpire(Ali);
+        Map.CreateMap(100);
+        Map.mapSize = 100;
+        Manage.getAllEmpires().add(Dorsa);
+        Manage.getAllEmpires().add(Ali);
 
+
+
+        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        archersAndThrowers.archer(2, 1);
+        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+        newButton.setBackground(null);
+        newButton.getArmy().add(archersAndThrowers);
+//       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -113,6 +151,12 @@ public class TileManager extends Application {
 
         createViewScene(stage);
         bottomBarBuildings.setAllButtons(allButtons);
+        GameController gameController = new GameController();
+        gameController.selectedUnit.add(archersAndThrowers);
+        gameController.setPathForUnits(3,3);
+        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
+        System.out.println(archersAndThrowers.myPath.size());
+        moveAnimation.play();
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -191,13 +235,17 @@ public class TileManager extends Application {
         for (int j = minY; j <= maxY; j++) {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
-//                newButton.setStyle("-fx-background-color: #1316aa");
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
 
+
             }
         }
+
+        gameController.selectUnit(selectedButtons, pane);
+
     }
+
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
@@ -207,17 +255,15 @@ public class TileManager extends Application {
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
-                if(button.getImageView() != null) {
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
-                    button.setMinSize(50, 50);
-                    pane.getChildren().add(button);
+                for (int i = 0; i < button.getArmy().size(); i++) {
+                    ImageView imageView = (button.getArmy().get(i)).getImageView();
+                    imageView.setLayoutX(button.getLayoutX());
+                    imageView.setLayoutY(button.getLayoutY());
+                    imageView.setFitWidth(60);
+                    imageView.setFitHeight(60);
+                    button.setGraphic(imageView);
                 }
-                else {
-                    pane.getChildren().add(button);
-                }
+                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
                 allButtons[u][g].add(button);
             }
         }

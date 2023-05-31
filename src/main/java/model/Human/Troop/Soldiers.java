@@ -1,5 +1,8 @@
 package model.Human.Troop;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import model.Empire;
 import model.Human.Human;
 import model.Human.Names;
@@ -48,6 +51,11 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         this.attackPower = 500;
         this.defencePower = 150;
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/BlackMonk/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
+        this.direction = "forward";
     }
 
     public void Knight(int x, int y) {
@@ -62,6 +70,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.attackPower = 1000;
         this.defencePower = 450;
         this.restOfMoves = 9;
+        this.direction = "forward";
     }
 
     public void Swordsmen(int x, int y) {
@@ -76,6 +85,11 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.attackPower = 800;
         this.defencePower = 100;
         this.restOfMoves = 1;
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/SwordsMen/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
+        this.direction = "forward";
     }
 
     public void PikeMen(int x, int y) {
@@ -90,6 +104,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 3;
         this.attackPower = 600;
         this.defencePower = 350;
+        this.direction = "forward";
     }
 
     public void Slaves(int x, int y) {
@@ -104,6 +119,11 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.attackPower = 200;
         this.defencePower = 20;
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/Slave/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
+        this.direction = "forward";
     }
 
     public void ArabianSwordsmen(int x, int y) {
@@ -118,6 +138,11 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 9;
         this.attackPower = 800;
         this.defencePower = 450;
+        this.imageView= new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/MovePics/Arabian Swordsmen/forward.png").toExternalForm()));
+        this.imageView.setFitHeight(100);
+        this.imageView.setFitWidth(100);
+        this.direction = "forward";
     }
 
     @Override
@@ -188,5 +213,19 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     @Override
     public Names typeOfArmy() {
         return typeOfArmy;
+    }
+
+    public ImageView getImageView() {
+        return super.getImageView();
+    }
+
+    @Override
+    public void setImageView(ImageView imageView) {
+        super.setImageView(imageView);
+    }
+
+    @Override
+    public String direction() {
+        return direction;
     }
 }
