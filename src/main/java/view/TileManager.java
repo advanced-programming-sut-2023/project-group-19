@@ -1,6 +1,7 @@
 package view;
 
 import controller.Building.BuildingController;
+import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -30,11 +31,19 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TileManager extends Application {
+    //TODO : Dear TeamMates please pay attention that you should set
+    // the coordinates of your node first then you can set imageView for it.
+
+
+
+
     //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
     //TODO : Method which calculates the Production things on a tile
+    // width  = 1530
+    // height = 800
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -66,6 +75,8 @@ public class TileManager extends Application {
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
+
+    public GameController gameController = new GameController();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -100,6 +111,26 @@ public class TileManager extends Application {
         buildingImages = new BuildingImages();
         buildingImages.loadImage();
 
+//       ===================================================================================================================================================
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+//        Empire Ali = new Empire();
+//        Empire Dorsa = new Empire();
+//        Ali.setUser(newUser);
+//        Dorsa.setUser(newUser1);
+//        Manage.setCurrentEmpire(Ali);
+//        Map.CreateMap(100);
+//        Map.mapSize = 100;
+//        Manage.getAllEmpires().add(Dorsa);
+//        Manage.getAllEmpires().add(Ali);
+//
+//
+//        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//        archersAndThrowers.archer(2, 1);
+//        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+//        newButton.setBackground(null);
+//        newButton.getArmy().add(archersAndThrowers);
+//       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -112,6 +143,12 @@ public class TileManager extends Application {
 
         createViewScene(stage);
         bottomBarBuildings.setAllButtons(allButtons);
+//        GameController gameController = new GameController();
+//        gameController.selectedUnit.add(archersAndThrowers);
+//        gameController.setPathForUnits(3,3);
+//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
+//        System.out.println(archersAndThrowers.myPath.size());
+//        moveAnimation.play();
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -190,13 +227,16 @@ public class TileManager extends Application {
         for (int j = minY; j <= maxY; j++) {
             for (int i = minX; i <= maxX; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
-//                newButton.setStyle("-fx-background-color: #1316aa");
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
 
             }
         }
+
+        //gameController.selectUnit(selectedButtons, pane);
+
     }
+
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
@@ -223,6 +263,28 @@ public class TileManager extends Application {
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
     }
+//    public void createViewScene(Stage stage) {
+//        createButtonsArraylist();
+//        for (int u = 0; u < 16; u++) {
+//            for (int g = 0; g < 30; g++) {
+//                ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
+//                NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
+//                button.setLayoutX(g * 51.2);
+//                button.setLayoutY(u * 54);
+//                for (int i = 0; i < button.getArmy().size(); i++) {
+//                    ImageView imageView = (button.getArmy().get(i)).getImageView();
+//                    imageView.setLayoutX(button.getLayoutX());
+//                    imageView.setLayoutY(button.getLayoutY());
+//                    imageView.setFitWidth(60);
+//                    imageView.setFitHeight(60);
+//                    button.setGraphic(imageView);
+//                }
+//                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
+//                allButtons[u][g].add(button);
+//            }
+//        }
+//        setButtonsOfMenus(stage);
+//    }
 
     public void getCellData(NewButton newButton) {
         cellArmyNameType.clear();
@@ -291,6 +353,10 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
+//                if(selectedButtons.size() == 1 ) {
+//                    newButton.setStyle(null);
+//                }
                 showCellData.setText("");
 //                pane.getChildren().remove(showCellData);
             }
@@ -344,9 +410,6 @@ public class TileManager extends Application {
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                     drawIsOn = false;
-                    if(bottomBarBuildings.building != null){
-                        System.out.println("9999999999999999999");
-                    }
 //                    TextInputDialog textInputDialog = new TextInputDialog();
 //                    textInputDialog.setHeaderText("Enter the name and number of required army :");
 //                    textInputDialog.setContentText("Name of Army: \nNumber:");
@@ -376,17 +439,6 @@ public class TileManager extends Application {
                 } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                     //Do sth else
                 }
-            }
-        };
-        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() { //----> Number 3
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                PointerInfo a = MouseInfo.getPointerInfo();
-                Point b = a.getLocation();
-                int x = (int) b.getX();
-                int y = (int) b.getY();
-                System.out.println("x : " + x+ " y : " + y );
-                System.out.println((int)(x / 51.2 * 100 + y / 54));
             }
         };
 
