@@ -86,7 +86,6 @@ public class TileManager extends Application {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
                 applyingMouseEventForButton(newButton, stage);
-//                mouseMovement();
                 newButton.setPrefSize(51, 54);
                 newButton.setFocusTraversable(false);
                 newButton.setText(String.valueOf(j * 100 + i));
