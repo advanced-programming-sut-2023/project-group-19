@@ -241,7 +241,7 @@ public class TileManager extends Application {
         ArrayList<Spinner<Integer>> spinners = createSpinnersForUnits();
         ArrayList<ImageView> imageViews = setTheLocationOfImages();
         makeTheDefaultViewOfDrop(spinners, imageViews, hBox);
-        prev.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        prev.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (controllerOfDropUnit > 1) {
@@ -274,7 +274,7 @@ public class TileManager extends Application {
             }
         });
 
-        next.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        next.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (controllerOfDropUnit < 5){
