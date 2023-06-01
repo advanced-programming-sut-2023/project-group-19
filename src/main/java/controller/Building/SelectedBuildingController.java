@@ -4,6 +4,7 @@ import controller.GameController;
 import model.Building.Building;
 import model.Building.DrawBridge;
 import model.Empire;
+import model.Manage;
 import model.Map;
 import view.Messages.SelectedBuildingMessages;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class SelectedBuildingController {
-    public static Empire empire;
+    public static Empire empire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
 
     public SelectedBuildingMessages gatehouse(int matcherTaxRate) {
@@ -93,10 +94,10 @@ public class SelectedBuildingController {
         int requiredSpear = allWeaponTools.get("spear") * troopCount;
         int requiredPeak = allWeaponTools.get("peak") * troopCount;
         int requiredHorse = allWeaponTools.get("horse") * troopCount;
-        if (!(requiredLeatherArmour < empire.getLeatherArmourCount() && requiredMetalArmour < empire.getMetalArmourCount()
-                && requiredBow < empire.getBowCount() && requiredSword < empire.getSwordCount() &&
-                requiredMace < empire.getMaceCount() && requiredSpear < empire.getSpearCount() &&
-                requiredPeak < empire.getPeakCount() && requiredHorse < empire.getHorseCount())) {
+        if (!(requiredLeatherArmour <= empire.getLeatherArmourCount() && requiredMetalArmour <= empire.getMetalArmourCount()
+                && requiredBow <= empire.getBowCount() && requiredSword <= empire.getSwordCount() &&
+                requiredMace <= empire.getMaceCount() && requiredSpear <= empire.getSpearCount() &&
+                requiredPeak <= empire.getPeakCount() && requiredHorse <= empire.getHorseCount())) {
             return SelectedBuildingMessages.NOT_ENOUGH_RESOURCES;
         }
         return SelectedBuildingMessages.ENOUGH_RESOURCES;

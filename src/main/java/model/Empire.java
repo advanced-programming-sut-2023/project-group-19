@@ -833,7 +833,7 @@ public class Empire {
     {
         allWeaponTools.put("leatherArmour", 0);
         allWeaponTools.put("metalArmour", 0);
-        allWeaponTools.put("bow", 0);
+        allWeaponTools.put("bow", 5);
         allWeaponTools.put("sword", 0);
         allWeaponTools.put("mace", 0);
         allWeaponTools.put("spear", 0);

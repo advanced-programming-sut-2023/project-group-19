@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
-    public static int index;
+    public static int index ;
 
 //    public String game(Scanner scanner) throws IOException, InterruptedException {
 //        while (true) {
