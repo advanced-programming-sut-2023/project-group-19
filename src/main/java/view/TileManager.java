@@ -87,6 +87,11 @@ public class TileManager extends Application {
         Manage.allEmpires.add(empire);
         Manage.allEmpires.add(empire2);
         BuildingController.currentEmpire = empire;
+
+
+
+
+
 //        tilePane.setLayoutX(-100);
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
