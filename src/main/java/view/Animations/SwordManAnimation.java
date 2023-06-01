@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import model.Human.Troop.Army;
+import view.TileManager;
 
 import java.util.ArrayList;
 
@@ -45,22 +46,26 @@ public class SwordManAnimation extends Transition {
 
 
 
+
+
+
     public ArrayList<Army> armyArrayList = new ArrayList<>();
+
+
     public SwordManAnimation(){
-        this.setCycleCount(-1);
+        this.setCycleCount(3);
         this.setCycleDuration(Duration.seconds(1));
     }
     @Override
     protected void interpolate(double v) {
         for (Army army : armyArrayList) {
-
+            System.out.println(armyArrayList.size());
             switch (army.getState()) {
                 case BACK :
                     if (v >= 0 && v < 0.33) army.getImageView().setImage(BACK1);
                     if (v >= 0.33 && v < 0.66) army.getImageView().setImage(BACK2);
                     if (v >= 0.66) army.getImageView().setImage(BACK3);
                     break;
-
                 case LEFT:
                     if (v >= 0 && v < 0.25) army.getImageView().setImage(LEFT1);
                     if (v >= 0.25 && v < 0.5) army.getImageView().setImage(LEFT2);
@@ -78,6 +83,10 @@ public class SwordManAnimation extends Transition {
                     if (v >= 0.33 && v < 0.75) army.getImageView().setImage(FRONT2);
                     if (v >= 0.75) army.getImageView().setImage(FRONT3);
                     break;
+//                case DEAD:
+////                    this.setCycleDuration(Duration.seconds(3));
+//                    if( v >= 0 && v < 0.5) army.getImageView().setImage(DEAD1);
+//                    if(v >= 0.5) army.getImageView().setImage(DEAD14);
             }
         }
     }

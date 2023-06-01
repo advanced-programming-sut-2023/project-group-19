@@ -1,6 +1,8 @@
 package view;
 
+import controller.AttackArmyToArmyController;
 import controller.GameController;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -149,25 +151,35 @@ public class TileManager extends Application {
 
         //armin code
 
+
         Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
+        Manage.getCurrentEmpire().empireArmy.add(soldiers);
         soldiers.setState(Army.StateOfStanding.FRONT);
         soldiers.Swordsmen(1,2);
         NewButton button2 = (NewButton) list.get(1 * 100 + 2);
         button2.setBackground(null);
         button2.getArmy().add(soldiers);
 //        button2.setImageView(soldiers.getImageView());
-
-        Soldiers soldiers2 = new Soldiers(Manage.getCurrentEmpire());
+        User user2 = new User("a","a","emir","s","a","q",3);
+        Empire Emir = new Empire();
+        Manage.allEmpires.add(Emir);
+        Emir.setUser(user2);
+        Soldiers soldiers2 = new Soldiers(Emir);
+        Emir.empireArmy.add(soldiers2);
         soldiers2.setState(Army.StateOfStanding.BACK);
         soldiers2.Swordsmen(1,2);
         button2.setBackground(null);
         button2.getArmy().add(soldiers2);
 
-        SwordManAnimation swordManAnimation = new SwordManAnimation();
-        swordManAnimation.setArmyToAnimation(soldiers);
-        swordManAnimation.setArmyToAnimation(soldiers2);
-        swordManAnimation.play();
+        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
+        attackArmyToArmyController.battleWithEnemy();
 
+//        swordManAnimation.setArmyToAnimation(soldiers);
+//        swordManAnimation.setArmyToAnimation(soldiers2);
+        attackArmyToArmyController.swordManAnimation.play();
+        SequentialTransition sequentialTransition = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.deadAnimation);
+       sequentialTransition.play();
+        // SequentialTransitional sequentialTransitional = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.deadAnimation);
 
 
 
@@ -752,13 +764,13 @@ public class TileManager extends Application {
     private int getRandomX(NewButton newButton){
         Random random = new Random();
         int limit = (int)(newButton.getLayoutX() + 1);
-        int randomX = random.nextInt( limit,limit +  13);
+        int randomX = random.nextInt( limit,limit +  10);
         return randomX ;
     }
     private int getRandomY(NewButton newButton){
         Random random = new Random();
         int limit = (int)(newButton.getLayoutY() + 1);
-        int randomY = random.nextInt( limit,limit +  12);
+        int randomY = random.nextInt( limit,limit +  10);
         return randomY ;
     }
 

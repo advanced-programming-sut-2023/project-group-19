@@ -1451,10 +1451,10 @@ public class GameController {
         return false;
     }
 
-    public void fight() {
-        AttackArmyToArmyController.battleWithEnemy();
-        setSieges();
-    }
+//    public void fight() {
+//        AttackArmyToArmyController.battleWithEnemy();
+//        setSieges();
+//    }
 
     public static void removeEmpireTroopsFromGame(Empire empire) {
         for (int i = 0; i < empire.empireArmy.size(); i++) {
