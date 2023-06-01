@@ -38,9 +38,6 @@ public class TileManager extends Application {
     //TODO : Dear TeamMates please pay attention that you should set
     // the coordinates of your node first then you can set imageView for it.
 
-
-
-
     //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
