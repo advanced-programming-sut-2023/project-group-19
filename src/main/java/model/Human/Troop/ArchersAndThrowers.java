@@ -69,6 +69,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/IntroductionPics/swordsMen.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -83,6 +84,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.yCoordinate = y;
         this.speed = 3;
         this.attackRange = 4;
+        defaultImage = imageView.getImage();
         this.attackPower = 200;
         this.defencePower = 50;
         this.restOfMoves = 3;
@@ -103,6 +105,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/Archer bow/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -122,6 +125,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/Slinger/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -142,6 +146,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 9;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/Horse Archer/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -157,6 +162,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.speed = 9;
         this.attackRange = 4;
         this.attackPower = 800;
+        defaultImage = imageView.getImage();
         this.defencePower = 150;
         this.restOfMoves = 9;
         this.direction = "forward";
@@ -172,6 +178,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackRange = 2;
         this.attackPower = 600;
         this.defencePower = 150;
+        defaultImage = imageView.getImage();
         this.speed = 3;
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
@@ -189,6 +196,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.attackRange = 2;
         this.attackPower = 600;
         this.defencePower = 150;
+        defaultImage = imageView.getImage();
         this.speed = 3;
         this.restOfMoves = 3;
         createBuildingCost(0, 0, 150, 0, 0);
@@ -213,6 +221,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         createBuildingWorkersNeeded(4, 0);
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/SiegeTower/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -231,6 +240,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         createBuildingCost(0, 0, 150, 0, 0);
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/Ballista/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -251,6 +261,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         createBuildingWorkersNeeded(4, 0);
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/BatteringRam/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";

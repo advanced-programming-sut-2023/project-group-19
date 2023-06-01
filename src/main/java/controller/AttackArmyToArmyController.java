@@ -48,14 +48,19 @@ public class AttackArmyToArmyController {
             for (int j = 0; j < size; j++) {
                 Army army = empire.empireArmy.get(j);
                 if (army.getHp() <= 0) {
-                    int x = army.xCoordinate;
-                    int y = army.yCoordinate;
-                    swordManDeadAnimation.setArmyToAnimation(army);
-//                    ((NewButton)tileManager.list.get(100 * x + y)).getArmy().remove(army);
-//                    j--;
-//                    size--;
+                    killUnitSetAnimation(army);
                 }
             }
+        }
+    }
+    private void killUnitSetAnimation(Army army){
+        switch (army.getNames()){
+            case SWORDSMEN:
+                swordManDeadAnimation.setArmyToAnimation(army);
+                break;
+            case SLAVES:
+                deadSlaveAnimation.setArmyToAnimation(army);
+                break;
         }
     }
 
@@ -76,8 +81,8 @@ public class AttackArmyToArmyController {
 //        findBuildingToBeAttacked(army);
     }
     private void setAnimationToFight(Army army){
-        switch (army.getTypeOfArmy()){
-            case SWORDSMEN :
+        switch (army.getNames()){
+            case SWORDSMEN:
                 swordManAnimation.setArmyToAnimation(army);
                 break;
             case SLAVES:

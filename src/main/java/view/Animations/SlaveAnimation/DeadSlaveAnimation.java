@@ -57,6 +57,9 @@ public class DeadSlaveAnimation extends Transition {
                 empire.empireArmy.remove(army);
             }
         }
-
     }
+    public void setArmyToAnimation(Army army){
+        armies.add(army);
+    }
+
 }

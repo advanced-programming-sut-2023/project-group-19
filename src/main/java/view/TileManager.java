@@ -23,6 +23,8 @@ import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.SlaveAnimation.DeadSlaveAnimation;
+import view.Animations.SlaveAnimation.SlaveAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -150,12 +152,12 @@ public class TileManager extends Application {
         Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
         Manage.getCurrentEmpire().empireArmy.add(soldiers);
         soldiers.setState(Army.StateOfStanding.FRONT);
-        soldiers.Swordsmen(1,2);
+        soldiers.Swordsmen(1, 2);
         NewButton button2 = (NewButton) list.get(1 * 100 + 2);
         button2.setBackground(null);
         button2.getArmy().add(soldiers);
 //        button2.setImageView(soldiers.getImageView());
-        User user2 = new User("a","a","emir","s","a","q",3);
+        User user2 = new User("a", "a", "emir", "s", "a", "q", 3);
         Empire Emir = new Empire();
         Manage.allEmpires.add(Emir);
         Emir.setUser(user2);
@@ -163,11 +165,17 @@ public class TileManager extends Application {
         Soldiers soldiers2 = new Soldiers(Emir);
         Emir.empireArmy.add(soldiers2);
         soldiers2.setState(Army.StateOfStanding.BACK);
-        soldiers2.Slaves(1,2);
-        System.out.println(soldiers2.getTypeOfArmy());
+        soldiers2.Slaves(1, 2);
+        System.out.println(soldiers2.getNames());
         button2.setBackground(null);
         button2.getArmy().add(soldiers2);
 
+//        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
+//        slaveAnimation.setArmyToAnimation(soldiers2);
+//        slaveAnimation.play();
+//        DeadSlaveAnimation deadSlaveAnimation = new DeadSlaveAnimation(this);
+//        deadSlaveAnimation.setArmyToAnimation(soldiers2);
+//        deadSlaveAnimation.play();
 
         AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
         attackArmyToArmyController.battleWithEnemy();
@@ -175,20 +183,11 @@ public class TileManager extends Application {
 //        swordManAnimation.setArmyToAnimation(soldiers);
 //        swordManAnimation.setArmyToAnimation(soldiers2);
         attackArmyToArmyController.swordManAnimation.play();
-        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.swordManDeadAnimation);
-       sequentialTransitionSwordMan.play();
+        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
+        sequentialTransitionSwordMan.play();
 
-       SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation,attackArmyToArmyController.deadSlaveAnimation);
-       sequentialTransitionSlave.play();
-        // SequentialTransitional sequentialTransitional = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.deadAnimation);
-
-
-
-
-
-
-
-
+        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
+        sequentialTransitionSlave.play();
 
 
 
