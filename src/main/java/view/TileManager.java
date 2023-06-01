@@ -142,13 +142,6 @@ public class TileManager extends Application {
         newButton.setBackground(null);
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
-
-        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers2.HorseArchers(2, 1);
-        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
-        newButton2.setBackground(null);
-        newButton2.getArmy().add(archersAndThrowers2);
-        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -277,30 +270,30 @@ public class TileManager extends Application {
         next.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (controllerOfDropUnit < 5){
-                    if (controllerOfDropUnit == 4){
+                if (controllerOfDropUnit < 5) {
+                    if (controllerOfDropUnit == 4) {
                         isFive = false;
-                        for (int i = 1 ; i <= 10 ; i++){
+                        for (int i = 1; i <= 10; i++) {
                             hBox.getChildren().remove(hBox.getChildren().size() - 1);
                         }
-                        for (int j = 20; j<= 22 ;j++){
+                        for (int j = 20; j <= 22; j++) {
                             hBox.getChildren().add(imageViews.get(j));
                         }
-                        for (int k = 20 ; k <= 22 ; k++){
+                        for (int k = 20; k <= 22; k++) {
                             hBox.getChildren().add(spinners.get(k));
                         }
 
-                    }else{
+                    } else {
                         for (int i = 1; i <= 10; i++) {
                             hBox.getChildren().remove(hBox.getChildren().size() - 1);
 
                         }
-                        int firstIndex = controllerOfDropUnit * 5 ;
-                        int lastIndex = ((controllerOfDropUnit + 1) * 5)-1;
-                        for (int j =  firstIndex ; j <= lastIndex ; j++ ){
+                        int firstIndex = controllerOfDropUnit * 5;
+                        int lastIndex = ((controllerOfDropUnit + 1) * 5) - 1;
+                        for (int j = firstIndex; j <= lastIndex; j++) {
                             hBox.getChildren().add(imageViews.get(j));
                         }
-                        for (int k = firstIndex ; k <= lastIndex ; k++){
+                        for (int k = firstIndex; k <= lastIndex; k++) {
                             hBox.getChildren().add(spinners.get(k));
                         }
                     }
@@ -311,10 +304,12 @@ public class TileManager extends Application {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("done");
-                gameController.dropUnits(selectedButtons.get(0).getX(),selectedButtons.get(0).getY()
-                ,"swordsMen",spinners.get(5).getValue(),pane,selectedButtons.get(0));
                 pane.getChildren().remove(hBox);
+                for (int i = 0; i < spinners.size(); i++) {
+                    gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
+                            , i, spinners.get(i).getValue(), selectedButtons.get(0));
+                }
+
             }
 
         });
