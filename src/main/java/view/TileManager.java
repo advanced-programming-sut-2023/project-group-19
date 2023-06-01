@@ -164,12 +164,27 @@ public class TileManager extends Application {
         Empire Emir = new Empire();
         Manage.allEmpires.add(Emir);
         Emir.setUser(user2);
+
         Soldiers soldiers2 = new Soldiers(Emir);
         Emir.empireArmy.add(soldiers2);
         soldiers2.setState(Army.StateOfStanding.BACK);
         soldiers2.Swordsmen(1,2);
         button2.setBackground(null);
         button2.getArmy().add(soldiers2);
+
+        Soldiers soldiers4 = new Soldiers(Manage.getCurrentEmpire());
+        Manage.getCurrentEmpire().empireArmy.add(soldiers4);
+        soldiers4.setState(Army.StateOfStanding.BACK);
+        soldiers4.Swordsmen(1,2);
+        button2.setBackground(null);
+        button2.getArmy().add(soldiers4);
+
+
+        Soldiers soldiers3 = new Soldiers(Emir);
+        Emir.empireArmy.add(soldiers3);
+        soldiers3.setState(Army.StateOfStanding.BACK);
+        soldiers3.Swordsmen(1,2);
+        button2.getArmy().add(soldiers3);
 
         AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
         attackArmyToArmyController.battleWithEnemy();

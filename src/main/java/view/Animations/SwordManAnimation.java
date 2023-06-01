@@ -54,7 +54,7 @@ public class SwordManAnimation extends Transition {
 
     public SwordManAnimation(){
         this.setCycleCount(3);
-        this.setCycleDuration(Duration.seconds(1));
+        this.setCycleDuration(Duration.seconds(2));
     }
     @Override
     protected void interpolate(double v) {

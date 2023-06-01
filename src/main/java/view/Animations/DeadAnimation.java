@@ -70,10 +70,7 @@ public class DeadAnimation extends Transition {
             if(v == 1) {
                 int x = army.xCoordinate;
                 int y = army.yCoordinate;
-                System.out.println(((NewButton)tileManager.list.get(100 * x + y)).getArmy().size());
                 ((NewButton)tileManager.list.get(100 * x + y)).getArmy().remove(army);
-
-                System.out.println(((NewButton)tileManager.list.get(100 * x + y)).getArmy().size());
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
