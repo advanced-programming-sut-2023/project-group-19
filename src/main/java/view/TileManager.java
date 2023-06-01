@@ -137,8 +137,13 @@ public class TileManager extends Application {
 
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
         archersAndThrowers.archer(2, 1);
+        archersAndThrowers.getImageView().setFitHeight(200);
+        archersAndThrowers.getImageView().setFitWidth(200);
+        pane.getChildren().add(archersAndThrowers.getImageView());
         NewButton newButton = (NewButton) list.get(2 * 100 + 1);
         newButton.setBackground(null);
+        archersAndThrowers.getImageView().setLayoutX(newButton.getX());
+        archersAndThrowers.getImageView().setLayoutY(newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
 //       ==================================================================================================================================================
@@ -153,13 +158,8 @@ public class TileManager extends Application {
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
-        bottomBarBuildings.setAllButtons(allButtons);
-//        GameController gameController = new GameController();
-//        gameController.selectedUnit.add(archersAndThrowers);
-//        gameController.setPathForUnits(3,3);
-//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
-//        System.out.println(archersAndThrowers.myPath.size());
-//        moveAnimation.play();
+//        bottomBarBuildings.setAllButtons(allButtons);
+        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,this);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -174,6 +174,13 @@ public class TileManager extends Application {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
                     designHboxForDropUnit();
+                } else if (keyName.equals("F4")) {
+                    GameController gameController = new GameController();
+                    gameController.selectedUnit.add(archersAndThrowers);
+                    gameController.setPathForUnits(5,5);
+                    //System.out.println(archersAndThrowers.myPath.size());
+                    moveAnimation.play();
+                    //archersAndThrowers.getMyPath().remove(0);
                 }
             }
         });
