@@ -2,7 +2,6 @@ package view.Animations;
 
 import controller.GameController;
 import controller.PathFindingController;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.fxml.Initializable;
@@ -10,17 +9,11 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
-import model.Building.KillingPit;
-import model.Building.Names;
 import model.Human.Troop.Army;
-import model.Manage;
-import model.Map;
 import view.Model.NewButton;
 import view.TileManager;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

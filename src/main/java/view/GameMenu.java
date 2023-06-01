@@ -1,26 +1,14 @@
 package view;
 
 import controller.GameController;
-import controller.NextTurnController;
-import controller.ShowMapController;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.Building.Building;
-import model.Building.Shop;
 import model.Empire;
 import model.Manage;
-import model.Map;
-import view.Commands.GameMenuCommands;
-import view.Commands.MainMenuCommands;
 import view.Messages.GameMenuMessages;
 
-import java.io.IOException;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class GameMenu extends Application {
@@ -28,35 +16,8 @@ public class GameMenu extends Application {
     public static Empire currentEmpire = Manage.getCurrentEmpire();
     public static GameController gameController = new GameController();
 
-//    public void run(Scanner scanner) throws IOException, InterruptedException {
-//        Matcher x1;
-//        Matcher y1;
-//        Matcher x2;
-//        Matcher y2;
-//        Matcher type;
-//        Matcher enemy;
-//        Matcher direction;
-//        Matcher equipment;
-//        Matcher count;
-//        GameMenuMessages gameMenuMessages;
-//        while (true) {
-//            String command = scanner.nextLine();
-//            if (GameMenuCommands.getMatcher(command, GameMenuCommands.SELECT_UNITS) != null) {
-//                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
-//                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
-//                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
-//                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-//                    System.out.println(gameController.selectUnit(x1, y1).getMessages());
-//                } else System.out.println(gameMenuMessages.getMessages());
-//            }  else if (GameMenuCommands.getMatcher(command, GameMenuCommands.MOVE_UNITS) != null) {
-//                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X);
-//                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y);
-//                gameMenuMessages = checkFormatOfSingleCoordinateCommands(x1, y1);
-//                if (gameMenuMessages.getMessages().equals(GameMenuMessages.VALID_COMMAND.getMessages())) {
-//                    int xCoordinate = Integer.parseInt(x1.group("x"));
-//                    int yCoordinate = Integer.parseInt(y1.group("y"));
-//                    System.out.println(gameController.moveUnit(xCoordinate, yCoordinate).getMessages());
-//                } else System.out.println(gameMenuMessages.getMessages());
+//    public void run(Scanner scanner) thro
+
 //            } else if (GameMenuCommands.getMatcher(command, GameMenuCommands.PATROL_UNIT) != null) {
 //                x1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_X1);
 //                y1 = GameMenuCommands.getMatcher(command, GameMenuCommands.COORDINATE_Y1);

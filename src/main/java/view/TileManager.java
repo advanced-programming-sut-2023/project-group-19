@@ -1,26 +1,24 @@
 package view;
 
-import controller.Building.BuildingController;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.MoveAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -80,13 +78,13 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Map.CreateMap(100);
-        Empire empire = new Empire();
-        Empire empire2 = new Empire();
-        Manage.setCurrentEmpire(empire);
-        Manage.allEmpires.add(empire);
-        Manage.allEmpires.add(empire2);
-        BuildingController.currentEmpire = empire;
+//        Map.CreateMap(100);
+//        Empire empire = new Empire();
+//        Empire empire2 = new Empire();
+//        Manage.setCurrentEmpire(empire);
+//        Manage.allEmpires.add(empire);
+//        Manage.allEmpires.add(empire2);
+//        BuildingController.currentEmpire = empire;
 //        tilePane.setLayoutX(-100);
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
@@ -112,24 +110,25 @@ public class TileManager extends Application {
         buildingImages.loadImage();
 
 //       ===================================================================================================================================================
-//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-//        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-//        Empire Ali = new Empire();
-//        Empire Dorsa = new Empire();
-//        Ali.setUser(newUser);
-//        Dorsa.setUser(newUser1);
-//        Manage.setCurrentEmpire(Ali);
-//        Map.CreateMap(100);
-//        Map.mapSize = 100;
-//        Manage.getAllEmpires().add(Dorsa);
-//        Manage.getAllEmpires().add(Ali);
-//
-//
-//        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//        archersAndThrowers.archer(2, 1);
-//        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
-//        newButton.setBackground(null);
-//        newButton.getArmy().add(archersAndThrowers);
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+        Empire Ali = new Empire();
+        Empire Dorsa = new Empire();
+        Ali.setUser(newUser);
+        Dorsa.setUser(newUser1);
+        Manage.setCurrentEmpire(Ali);
+        Map.CreateMap(100);
+        Map.mapSize = 100;
+        Manage.getAllEmpires().add(Dorsa);
+        Manage.getAllEmpires().add(Ali);
+
+
+        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        archersAndThrowers.archer(2, 1);
+        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+        newButton.setBackground(null);
+        newButton.getArmy().add(archersAndThrowers);
+        newButton.setImageView(archersAndThrowers.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -143,12 +142,12 @@ public class TileManager extends Application {
 
         createViewScene(stage);
         bottomBarBuildings.setAllButtons(allButtons);
-//        GameController gameController = new GameController();
-//        gameController.selectedUnit.add(archersAndThrowers);
-//        gameController.setPathForUnits(3,3);
-//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
-//        System.out.println(archersAndThrowers.myPath.size());
-//        moveAnimation.play();
+        GameController gameController = new GameController();
+        gameController.selectedUnit.add(archersAndThrowers);
+        gameController.setPathForUnits(3,3);
+        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
+        System.out.println(archersAndThrowers.myPath.size());
+        moveAnimation.play();
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -263,7 +262,6 @@ public class TileManager extends Application {
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
     }
-
     public void getCellData(NewButton newButton) {
         cellArmyNameType.clear();
         int damage = 0;
