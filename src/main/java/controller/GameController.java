@@ -50,7 +50,7 @@ public class GameController {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
         box.setBackground(new Background(map));
-        box.setPrefSize(200,350);
+        box.setPrefSize(200, 350);
         box.setLayoutX(1300);
 
         for (java.util.Map.Entry<ArrayList<Army>, Integer> unit : listOfUnits.entrySet()) {
@@ -63,7 +63,7 @@ public class GameController {
 
             ImageView image = new ImageView(new Image
                     (Objects.requireNonNull(TileManager.class.getResource
-                            ("/image/Units/IntroductionPics/"+unit.getKey().get(0).getNames().getName()+".png")).toExternalForm()));
+                            ("/image/Units/IntroductionPics/" + unit.getKey().get(0).getNames().getName() + ".png")).toExternalForm()));
             image.setTranslateX(60);
             image.setTranslateY(30);
             images.add(image);
@@ -264,298 +264,330 @@ public class GameController {
     }
 
 
-
-    /*private static boolean dropUnits(int x , int y ,int count, String typeOfUnit , Pane pane) {
+    public void dropUnits(int x, int y, String typeOfUnit, int count, Pane pane, NewButton button) {
         switch (typeOfUnit) {
-            case "Archer":
-                if (Manage.getCurrentEmpire().getEuropeArcherCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        archer.archer(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(archer);
-                        pane.getChildren().add(archer);
-                    }
-                    Manage.getCurrentEmpire().setEuropeArcherCount
-                            (Manage.getCurrentEmpire().getEuropeArcherCount() - count);
-                    return true;
-                } else return false;
-            case "Crossbowmen":
-                if (Manage.getCurrentEmpire().getCrossbowManCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        crossBowMan.Crossbowmen(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
-                        pane.getChildren().add(crossBowMan);
-                    }
-                    Manage.getCurrentEmpire().setCrossbowManCount
-                            (Manage.getCurrentEmpire().getCrossbowManCount() - count);
-                    return true;
-                } else return false;
-            case "ArcherBow":
-                if (Manage.getCurrentEmpire().getArabianBowCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        archerBow.ArcherBow(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(archerBow);
-                        pane.getChildren().add(archerBow);
-                    }
-                    Manage.getCurrentEmpire().setArabianBowCount
-                            (Manage.getCurrentEmpire().getArabianBowCount() - count);
-                    return true;
-                } else return false;
-            case "Slingers":
-                if (Manage.getCurrentEmpire().getSlingerCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        slingers.Slingers(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(slingers);
-                        pane.getChildren().add(slingers);
-                    }
-                    Manage.getCurrentEmpire().setSlingerCount
-                            (Manage.getCurrentEmpire().getSlingerCount() - count);
-                    return true;
-                } else return false;
-            case "HorseArchers":
-                if (Manage.getCurrentEmpire().getHorseArcherCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        horseArcher.HorseArchers(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(horseArcher);
-                        pane.getChildren().add(horseArcher);
-                    }
-                    Manage.getCurrentEmpire().setHorseArcherCount
-                            (Manage.getCurrentEmpire().getHorseArcherCount() - count);
-                    return true;
-                } else return false;
-            case "FireThrowers":
-                if (Manage.getCurrentEmpire().getFireThrowerCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers fireThrower = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        fireThrower.FireThrowers(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(fireThrower);
-                        pane.getChildren().add(fireThrower);
-                    }
-                    Manage.getCurrentEmpire().setFireThrowerCount
-                            (Manage.getCurrentEmpire().getFireThrowerCount() - count);
-                    return true;
-                } else return false;
-            case "SpearMen":
-                if (Manage.getCurrentEmpire().getSpearManCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
-                        spearMen.SpearMen(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(spearMen);
-                        pane.getChildren().add(spearMen);
-                    }
-                    Manage.getCurrentEmpire().setSpearManCount
-                            (Manage.getCurrentEmpire().getSpearManCount() - count);
-                    return true;
-                } else return false;
-            case "MaceMen":
-                if (Manage.getCurrentEmpire().getMaceManCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
-                        maceMen.MaceMen(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(maceMen);
-                        pane.getChildren().add(maceMen);
-                    }
-                    Manage.getCurrentEmpire().setMaceManCount
-                            (Manage.getCurrentEmpire().getMaceManCount() - count);
-                    return true;
-                } else return false;
-            case "LadderMen":
-                if (Manage.getCurrentEmpire().getLadderManCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
-                        ladderMen.LadderMen(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(ladderMen);
-                        pane.getChildren().add(ladderMen);
-                    }
-                    Manage.getCurrentEmpire().setLadderManCount
-                            (Manage.getCurrentEmpire().getLadderManCount() - count);
-                    return true;
-                } else return false;
-            case "Assassins":
-                if (Manage.getCurrentEmpire().getAssassinCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Climbers assassin = new Climbers(Manage.getCurrentEmpire());
-                        assassin.Assassins(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(assassin);
-                        pane.getChildren().add(assassin);
-                    }
-                    Manage.getCurrentEmpire().setAssassinCount
-                            (Manage.getCurrentEmpire().getAssassinCount() - count);
-                    return true;
-                } else return false;
-            case "Engineer":
-                if (Manage.getCurrentEmpire().getEngineerCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Engineer engineer = new Engineer(Manage.getCurrentEmpire());
-                        engineer.engineer(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(engineer);
-                        pane.getChildren().add(engineer);
-                    }
-                    Manage.getCurrentEmpire().setEngineerCount
-                            (Manage.getCurrentEmpire().getEngineerCount() - count);
-                    return true;
-                } else return false;
-            case "BlackMonk":
-                if (Manage.getCurrentEmpire().getBlackMonkCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
-                        blackMonk.BlackMonk(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(blackMonk);
-                        pane.getChildren().add(blackMonk);
-                    }
-                    Manage.getCurrentEmpire().setBlackMonkCount
-                            (Manage.getCurrentEmpire().getBlackMonkCount() - count);
-                    return true;
-                } else return false;
-            case "Knight":
-                if (Manage.getCurrentEmpire().getKnightCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
-                        knight.Knight(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(knight);
-                        pane.getChildren().add(knight);
-                    }
-                    Manage.getCurrentEmpire().setKnightCount
-                            (Manage.getCurrentEmpire().getKnightCount() - count);
-                    return true;
-                } else return false;
-            case "Swordsmen":
-                if (Manage.getCurrentEmpire().getSwordManCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Soldiers swordMen = new Soldiers(Manage.getCurrentEmpire());
-                        swordMen.Swordsmen(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(swordMen);
-                        pane.getChildren().add(swordMen);
-                    }
-                    return true;
-                } else return false;
-            case "PikeMen":
-                if (Manage.getCurrentEmpire().getPikeManCount() >= count) {
+            case "archer":
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    archer.archer((int) (x / 51.2), y / 54);
+                    Manage.getCurrentEmpire().empireArmy.add(archer);
+                    Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(archer);
+                    button.setImageView(archer.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(archer);
+                }
+                Manage.getCurrentEmpire().setEuropeArcherCount
+                        (Manage.getCurrentEmpire().getEuropeArcherCount() - count);
+
+            case "crossbowMen":
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    crossBowMan.Crossbowmen((int) (x / 51.2), y / 54);
+                    Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
+                    Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(crossBowMan);
+                    button.setImageView(crossBowMan.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(crossBowMan);
+                }
+                Manage.getCurrentEmpire().setCrossbowManCount
+                        (Manage.getCurrentEmpire().getCrossbowManCount() - count);
+
+            case "spearMen":
+                for (int i = 0; i < count; i++) {
+                    Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
+                    spearMen.SpearMen((int) (x / 51.2), y / 54);
+                    Manage.getCurrentEmpire().empireArmy.add(spearMen);
+                    Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(spearMen);
+                    button.setImageView(spearMen.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(spearMen);
+                }
+                Manage.getCurrentEmpire().setSpearManCount
+                        (Manage.getCurrentEmpire().getSpearManCount() - count);
+            case "pikeMen":
                     for (int i = 0; i < count; i++) {
                         Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
-                        pikeMen.PikeMen(x, y);
+                        pikeMen.PikeMen((int) (x / 51.2), y / 54);
                         Manage.getCurrentEmpire().empireArmy.add(pikeMen);
-                        pane.getChildren().add(pikeMen);
+                        Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(pikeMen);
+                        button.setImageView(pikeMen.getImageView());
+                        ImageView view = button.getImageView();
+                        view.setFitHeight(50);
+                        view.setFitWidth(50);
+                        button.setGraphic(view);
+                        button.setMinSize(50, 50);
+                        button.getArmy().add(pikeMen);
                     }
                     Manage.getCurrentEmpire().setPikeManCount
                             (Manage.getCurrentEmpire().getPikeManCount() - count);
-                    return true;
-                } else return false;
-            case "Slaves":
-                if (Manage.getCurrentEmpire().getSlaveCount() >= count) {
+
+            case "maceMen":
                     for (int i = 0; i < count; i++) {
-                        Soldiers slave = new Soldiers(Manage.getCurrentEmpire());
-                        slave.Slaves(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(slave);
-                        pane.getChildren().add(slave);
+                        Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
+                        maceMen.MaceMen((int) (x / 51.2), y / 54);
+                        Manage.getCurrentEmpire().empireArmy.add(maceMen);
+                        Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(maceMen);
+                        button.setImageView(maceMen.getImageView());
+                        ImageView view = button.getImageView();
+                        view.setFitHeight(50);
+                        view.setFitWidth(50);
+                        button.setGraphic(view);
+                        button.setMinSize(50, 50);
+                        button.getArmy().add(maceMen);
                     }
-                    Manage.getCurrentEmpire().setSlaveCount
-                            (Manage.getCurrentEmpire().getSlaveCount() - count);
-                    return true;
-                } else return false;
-            case "ArabianSwordsmen":
-                if (Manage.getCurrentEmpire().getArabianSwordManCount() >= count) {
+                    Manage.getCurrentEmpire().setMaceManCount
+                            (Manage.getCurrentEmpire().getMaceManCount() - count);
+
+            case "swordsMen":
                     for (int i = 0; i < count; i++) {
-                        Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
-                        arabSwordMen.ArabianSwordsmen(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
-                        pane.getChildren().add(arabSwordMen);
+                        Soldiers swordsMen = new Soldiers(Manage.getCurrentEmpire());
+                        swordsMen.Swordsmen((int) (x / 51.2), y / 54);
+                        Manage.getCurrentEmpire().empireArmy.add(swordsMen);
+                        Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(swordsMen);
+                        button.setImageView(swordsMen.getImageView());
+                        ImageView view = button.getImageView();
+                        view.setFitHeight(50);
+                        view.setFitWidth(50);
+                        button.setGraphic(view);
+                        button.setMinSize(50, 50);
+                        button.getArmy().add(swordsMen);
+                        System.out.println((int) (x / 51.2)+" "+y / 54);
+                        System.out.println("hi");
+
                     }
-                    Manage.getCurrentEmpire().setArabianSwordManCount
-                            (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
-                    return true;
-                } else return false;
-            case "Tunneler":
-                if (Manage.getCurrentEmpire().getTunnelerCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
-                        tunneler.Tunneler(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(tunneler);
-                        pane.getChildren().add(tunneler);
-                    }
-                    Manage.getCurrentEmpire().setTunnelerCount
-                            (Manage.getCurrentEmpire().getTunnelerCount() - count);
-                    return true;
-                } else return false;
-            case "Catapult":
-                if (Manage.getCurrentEmpire().getCatapultCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        catapult.catapult(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(catapult);
-                        pane.getChildren().add(catapult);
-                    }
-                    Manage.getCurrentEmpire().setCatapultCount
-                            (Manage.getCurrentEmpire().getCatapultCount() - count);
-                    return true;
-                } else return false;
-            case "Trebuchet":
-                if (Manage.getCurrentEmpire().getTrebuchetCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        trebuchet.trebuchet(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(trebuchet);
-                        pane.getChildren().add(trebuchet);
-                    }
-                    Manage.getCurrentEmpire().setTrebuchetCount
-                            (Manage.getCurrentEmpire().getTrebuchetCount() - count);
-                    return true;
-                } else return false;
-            case "SiegeTower":
-                if (Manage.getCurrentEmpire().getSiegeTowerCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        siegeTower.siegeTower(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(siegeTower);
-                        pane.getChildren().add(siegeTower);
-                    }
-                    Manage.getCurrentEmpire().setSiegeTowerCount
-                            (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
-                    return true;
-                } else return false;
-            case "FireBallista":
-                if (Manage.getCurrentEmpire().getFireBalistaCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        fireBallista.fireBallista(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(fireBallista);
-                        pane.getChildren().add(fireBallista);
-                    }
-                    Manage.getCurrentEmpire().setFireBalistaCount
-                            (Manage.getCurrentEmpire().getFireBalistaCount() - count);
-                    return true;
-                } else return false;
-            case "BatteringRam":
-                if (Manage.getCurrentEmpire().getBatteringRamCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        batteringRam.batteringRam(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(batteringRam);
-                        pane.getChildren().add(batteringRam);
-                    }
-                    Manage.getCurrentEmpire().setBatteringRamCount
-                            (Manage.getCurrentEmpire().getBatteringRamCount() - count);
-                    return true;
-                } else return false;
-            case "PortableShield":
-                if (Manage.getCurrentEmpire().getPortableShieldCount() >= count) {
-                    for (int i = 0; i < count; i++) {
-                        ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                        portableShield.portableShield(x, y);
-                        Manage.getCurrentEmpire().empireArmy.add(portableShield);
-                        pane.getChildren().add(0, portableShield);
-                    }
-                    Manage.getCurrentEmpire().setPortableShieldCount
-                            (Manage.getCurrentEmpire().getPortableShieldCount() - count);
-                    return true;
-                } else return false;
+                    Manage.getCurrentEmpire().setSwordManCount
+                            (Manage.getCurrentEmpire().getSwordManCount() - count);
+
+//            case "knight":
+//                if (Manage.getCurrentEmpire().getSpearManCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
+//                        spearMen.SpearMen(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(spearMen);
+//                        pane.getChildren().add(spearMen);
+//                    }
+//                    Manage.getCurrentEmpire().setSpearManCount
+//                            (Manage.getCurrentEmpire().getSpearManCount() - count);
+//                    return true;
+//                } else return false;
+//            case "tunneler":
+//                if (Manage.getCurrentEmpire().getMaceManCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
+//                        maceMen.MaceMen(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(maceMen);
+//                        pane.getChildren().add(maceMen);
+//                    }
+//                    Manage.getCurrentEmpire().setMaceManCount
+//                            (Manage.getCurrentEmpire().getMaceManCount() - count);
+//                    return true;
+//                } else return false;
+//            case "ladderMen":
+//                if (Manage.getCurrentEmpire().getLadderManCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
+//                        ladderMen.LadderMen(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(ladderMen);
+//                        pane.getChildren().add(ladderMen);
+//                    }
+//                    Manage.getCurrentEmpire().setLadderManCount
+//                            (Manage.getCurrentEmpire().getLadderManCount() - count);
+//                    return true;
+//                } else return false;
+//            case "blackMonk":
+//                if (Manage.getCurrentEmpire().getAssassinCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Climbers assassin = new Climbers(Manage.getCurrentEmpire());
+//                        assassin.Assassins(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(assassin);
+//                        pane.getChildren().add(assassin);
+//                    }
+//                    Manage.getCurrentEmpire().setAssassinCount
+//                            (Manage.getCurrentEmpire().getAssassinCount() - count);
+//                    return true;
+//                } else return false;
+//            case "archerBow":
+//                if (Manage.getCurrentEmpire().getEngineerCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Engineer engineer = new Engineer(Manage.getCurrentEmpire());
+//                        engineer.engineer(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(engineer);
+//                        pane.getChildren().add(engineer);
+//                    }
+//                    Manage.getCurrentEmpire().setEngineerCount
+//                            (Manage.getCurrentEmpire().getEngineerCount() - count);
+//                    return true;
+//                } else return false;
+//            case "slaves":
+//                if (Manage.getCurrentEmpire().getBlackMonkCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
+//                        blackMonk.BlackMonk(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(blackMonk);
+//                        pane.getChildren().add(blackMonk);
+//                    }
+//                    Manage.getCurrentEmpire().setBlackMonkCount
+//                            (Manage.getCurrentEmpire().getBlackMonkCount() - count);
+//                    return true;
+//                } else return false;
+//            case "slingers":
+//                if (Manage.getCurrentEmpire().getKnightCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
+//                        knight.Knight(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(knight);
+//                        pane.getChildren().add(knight);
+//                    }
+//                    Manage.getCurrentEmpire().setKnightCount
+//                            (Manage.getCurrentEmpire().getKnightCount() - count);
+//                    return true;
+//                } else return false;
+//            case "assassins":
+//                if (Manage.getCurrentEmpire().getSwordManCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Soldiers swordMen = new Soldiers(Manage.getCurrentEmpire());
+//                        swordMen.Swordsmen(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(swordMen);
+//                        pane.getChildren().add(swordMen);
+//                    }
+//                    return true;
+//                } else return false;
+//            case "horseArchers":
+//                if (Manage.getCurrentEmpire().getPikeManCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
+//                        pikeMen.PikeMen(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(pikeMen);
+//                        pane.getChildren().add(pikeMen);
+//                    }
+//                    Manage.getCurrentEmpire().setPikeManCount
+//                            (Manage.getCurrentEmpire().getPikeManCount() - count);
+//                    return true;
+//                } else return false;
+//            case "arabianSwordMen":
+//                if (Manage.getCurrentEmpire().getSlaveCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Soldiers slave = new Soldiers(Manage.getCurrentEmpire());
+//                        slave.Slaves(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(slave);
+//                        pane.getChildren().add(slave);
+//                    }
+//                    Manage.getCurrentEmpire().setSlaveCount
+//                            (Manage.getCurrentEmpire().getSlaveCount() - count);
+//                    return true;
+//                } else return false;
+//            case "fireThrowers":
+//                if (Manage.getCurrentEmpire().getArabianSwordManCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
+//                        arabSwordMen.ArabianSwordsmen(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
+//                        pane.getChildren().add(arabSwordMen);
+//                    }
+//                    Manage.getCurrentEmpire().setArabianSwordManCount
+//                            (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
+//                    return true;
+//                } else return false;
+//            case "catapult":
+//                if (Manage.getCurrentEmpire().getTunnelerCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
+//                        tunneler.Tunneler(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(tunneler);
+//                        pane.getChildren().add(tunneler);
+//                    }
+//                    Manage.getCurrentEmpire().setTunnelerCount
+//                            (Manage.getCurrentEmpire().getTunnelerCount() - count);
+//                    return true;
+//                } else return false;
+//            case "trebuchet":
+//                if (Manage.getCurrentEmpire().getCatapultCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                        catapult.catapult(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(catapult);
+//                        pane.getChildren().add(catapult);
+//                    }
+//                    Manage.getCurrentEmpire().setCatapultCount
+//                            (Manage.getCurrentEmpire().getCatapultCount() - count);
+//                    return true;
+//                } else return false;
+//            case "siegeTower":
+//                if (Manage.getCurrentEmpire().getTrebuchetCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                        trebuchet.trebuchet(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(trebuchet);
+//                        pane.getChildren().add(trebuchet);
+//                    }
+//                    Manage.getCurrentEmpire().setTrebuchetCount
+//                            (Manage.getCurrentEmpire().getTrebuchetCount() - count);
+//                    return true;
+//                } else return false;
+//            case "fireBallista":
+//                if (Manage.getCurrentEmpire().getSiegeTowerCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                        siegeTower.siegeTower(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(siegeTower);
+//                        pane.getChildren().add(siegeTower);
+//                    }
+//                    Manage.getCurrentEmpire().setSiegeTowerCount
+//                            (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
+//                    return true;
+//                } else return false;
+//            case "batteringRam":
+//                if (Manage.getCurrentEmpire().getFireBalistaCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                        fireBallista.fireBallista(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(fireBallista);
+//                        pane.getChildren().add(fireBallista);
+//                    }
+//                    Manage.getCurrentEmpire().setFireBalistaCount
+//                            (Manage.getCurrentEmpire().getFireBalistaCount() - count);
+//                    return true;
+//                } else return false;
+//            case "portableShield":
+//                if (Manage.getCurrentEmpire().getBatteringRamCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                        batteringRam.batteringRam(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(batteringRam);
+//                        pane.getChildren().add(batteringRam);
+//                    }
+//                    Manage.getCurrentEmpire().setBatteringRamCount
+//                            (Manage.getCurrentEmpire().getBatteringRamCount() - count);
+//                    return true;
+//                } else return false;
+//            case "PortableShield":
+//                if (Manage.getCurrentEmpire().getPortableShieldCount() >= count) {
+//                    for (int i = 0; i < count; i++) {
+//                        ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//                        portableShield.portableShield(x, y);
+//                        Manage.getCurrentEmpire().empireArmy.add(portableShield);
+//                        pane.getChildren().add(0, portableShield);
+//                    }
+//                    Manage.getCurrentEmpire().setPortableShieldCount
+//                            (Manage.getCurrentEmpire().getPortableShieldCount() - count);
+//                    return true;
+//                } else return false;
+//        }
+//        return false;
         }
-        return false;
-    }*/
+    }
 
     public GameMenuMessages buildEquipment(Matcher name) {
         return GameMenuMessages.SIEGE_TENT;

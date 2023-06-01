@@ -312,7 +312,11 @@ public class TileManager extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("done");
+                gameController.dropUnits(selectedButtons.get(0).getX(),selectedButtons.get(0).getY()
+                ,"swordsMen",spinners.get(5).getValue(),pane,selectedButtons.get(0));
+                pane.getChildren().remove(hBox);
             }
+
         });
 
 
@@ -362,76 +366,99 @@ public class TileManager extends Application {
         archer.setTranslateX(-200);
         archer.setTranslateY(170);
         archer.setPrefSize(52, 20);
+        archer.setEditable(true);
         crossbowMen.setTranslateX(-150);
         crossbowMen.setTranslateY(170);
         crossbowMen.setPrefSize(52, 20);
+        crossbowMen.setEditable(true);
         spearMen.setTranslateX(-110);
         spearMen.setTranslateY(170);
         spearMen.setPrefSize(52, 20);
+        spearMen.setEditable(true);
         pikeMen.setTranslateX(-60);
         pikeMen.setTranslateY(170);
         pikeMen.setPrefSize(52, 20);
+        pikeMen.setEditable(true);
         maceMen.setTranslateX(-10);
         maceMen.setTranslateY(170);
         maceMen.setPrefSize(52, 20);
+        maceMen.setEditable(true);
 
         swordsMen.setTranslateX(-200);
         swordsMen.setTranslateY(170);
         swordsMen.setPrefSize(52, 20);
+        swordsMen.setEditable(true);
         knight.setTranslateX(-150);
         knight.setTranslateY(170);
         knight.setPrefSize(52, 20);
+        knight.setEditable(true);
         tunneler.setTranslateX(-110);
         tunneler.setTranslateY(170);
         tunneler.setPrefSize(52, 20);
+        tunneler.setEditable(true);
         ladderMen.setTranslateX(-60);
         ladderMen.setTranslateY(170);
         ladderMen.setPrefSize(52, 20);
+        ladderMen.setEditable(true);
         blackMonk.setTranslateX(-10);
         blackMonk.setTranslateY(170);
         blackMonk.setPrefSize(52, 20);
+        blackMonk.setEditable(true);
 
         archerBow.setTranslateX(-200);
         archerBow.setTranslateY(170);
         archerBow.setPrefSize(52, 20);
+        archerBow.setEditable(true);
         slaves.setTranslateX(-150);
         slaves.setTranslateY(170);
         slaves.setPrefSize(52, 20);
+        slaves.setEditable(true);
         slingers.setTranslateX(-110);
         slingers.setTranslateY(170);
         slingers.setPrefSize(52, 20);
+        slingers.setEditable(true);
         assassins.setTranslateX(-60);
         assassins.setTranslateY(170);
         assassins.setPrefSize(52, 20);
+        assassins.setEditable(true);
         horseArchers.setTranslateX(-10);
         horseArchers.setTranslateY(170);
         horseArchers.setPrefSize(52, 20);
+        horseArchers.setEditable(true);
 
         arabianSwordMen.setTranslateX(-200);
         arabianSwordMen.setTranslateY(170);
         arabianSwordMen.setPrefSize(52, 20);
+        arabianSwordMen.setEditable(true);
         fireThrowers.setTranslateX(-150);
         fireThrowers.setTranslateY(170);
         fireThrowers.setPrefSize(52, 20);
+        fireThrowers.setEditable(true);
         catapult.setTranslateX(-110);
         catapult.setTranslateY(170);
         catapult.setPrefSize(52, 20);
+        catapult.setEditable(true);
         trebuchet.setTranslateX(-60);
         trebuchet.setTranslateY(170);
         trebuchet.setPrefSize(52, 20);
+        trebuchet.setEditable(true);
         siegeTower.setTranslateX(-10);
         siegeTower.setTranslateY(170);
         siegeTower.setPrefSize(52, 20);
+        siegeTower.setEditable(true);
 
-        fireBallista.setTranslateX(-200);
+        fireBallista.setTranslateX(-100);
         fireBallista.setTranslateY(170);
         fireBallista.setPrefSize(52, 20);
-        batteringRam.setTranslateX(-150);
+        fireBallista.setEditable(true);
+        batteringRam.setTranslateX(-50);
         batteringRam.setTranslateY(170);
         batteringRam.setPrefSize(52, 20);
-        portableShield.setTranslateX(-110);
+        batteringRam.setEditable(true);
+        portableShield.setTranslateX(10);
         portableShield.setTranslateY(170);
         portableShield.setPrefSize(52, 20);
+        portableShield.setEditable(true);
 
 
         spinners.add(archer);
