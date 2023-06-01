@@ -159,6 +159,21 @@ public class TileManager extends Application {
         swordManAnimation.setArmyToAnimation(soldiers);
         swordManAnimation.play();
 
+        User amir = new User("amir","1","khalifeh","kali","d","s",3);
+        Empire Emir = new Empire();
+        Soldiers soldiers2 = new Soldiers(Emir);
+        soldiers2.Swordsmen(4,6);
+
+        soldiers2.setState(Army.StateOfStanding.BACK);
+        button2.getArmy().add(soldiers2);
+        newButton.setImageView(soldiers2.getImageView());
+        swordManAnimation.setArmyToAnimation(soldiers2);
+
+
+
+
+
+
 
 
 
