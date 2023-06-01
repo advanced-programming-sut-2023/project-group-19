@@ -20,6 +20,15 @@ import java.io.IOException;
 public class Main extends Application {
     public static Stage stage;
     public Pane pane;
+    static {
+        User user = null;
+        try {
+            user = new User("a","sSdd55@","f","g.@s.s","q","x",4);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        User.setCurrentUser(user);
+    }
     public static void main(String[] args) throws IOException, InterruptedException {
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);

@@ -70,6 +70,7 @@ public class ProfileMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         ProfileMenu.stage = stage ;
         URL url = RegisterMenu.class.getResource("/fxml/profileMenu.fxml");
         Pane pane = FXMLLoader.load(url);
@@ -124,6 +125,14 @@ public class ProfileMenu extends Application {
         fillWholeFields();
         ListenerToUsernameField();
         ListenerToPassword();
+        setFirstPassword();
+    }
+
+    private void setFirstPassword() {
+        User user = User.getCurrentUser();
+        newPassword.setText(user.getPassword());
+        oldPassword.setText(user.getPassword());
+        RetypeNewPassword.setText(user.getPassword());
     }
 
     private void ListenerToPassword() {
@@ -289,11 +298,12 @@ public class ProfileMenu extends Application {
                 emailError.setText("You have empty field");
                 break;
             case REPEATED_EMAIL:
-                if(!email.getText().equals(User.getCurrentUser().getEmail())) {
+                if(!email.getText().equals(User.getCurrentUser().getEmail())){
                     emailError.setText("Your email is repeated");
                 }else{
                     emailError.setText("");
                 }
+                break;
             case INVALID_FORM_EMAIL:
                 emailError.setText("Your form if email is invalid!");
                 break;
@@ -322,11 +332,15 @@ public class ProfileMenu extends Application {
 
     }
     private void checkPassword(){
-        if(oldPassword.getText().equals("")) oldPasswordError.setText("Empty Field");
-        else if(ProfileController.checkOldPassword(oldPassword.getText())) oldPasswordError.setText("Old password is wrong!");
+        if(oldPassword.getText().equals("")) {
+            oldPasswordError.setText("Empty Field");
+        }
+        else if(!ProfileController.checkOldPassword(oldPassword.getText())) oldPasswordError.setText("Old password is wrong!");
+        else oldPasswordError.setText("");
         checkPasswordError(newPasswordError,"");
         if(RetypeNewPassword.getText().equals("")) confirmPasswordError.setText("Empty Field");
         else if(!newPassword.getText().equals(RetypeNewPassword.getText())) confirmPasswordError.setText("Is not equal!");
+        else confirmPasswordError.setText("");
     }
 
     private void checkFinalChanges() throws Exception {
@@ -334,16 +348,23 @@ public class ProfileMenu extends Application {
                 emailError.getText().equals("") &&
                 nicknameError.getText().equals("") &&
                 sloganError.getText().equals("") &&
-                oldPassword.getText().equals("") &&
-                newPassword.getText().equals("") &&
-                RetypeNewPassword.getText().equals("")
+                oldPasswordError.getText().equals("") &&
+                newPasswordError.getText().equals("") &&
+                confirmPasswordError.getText().equals("")
         ) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successfully");
-            ProfileController.editProfile(username.getText(),email.getText()
-                    ,nicknameError.getText(),slogan.getText(),newPassword.getText());
+            System.out.println("username is : " + username.getText());
+            System.out.println("password is : " + email.getText());
+            System.out.println("nickname is : " +  nickname.getText());
+            System.out.println("slogan is : " + slogan.getText());
+            System.out.println("password is : " + newPassword.getText());
+
             alert.setContentText(ProfileController.changingFields(username.getText(),email.getText()
-                    ,nicknameError.getText(),slogan.getText(),newPassword.getText()));
+                    ,nickname.getText(),slogan.getText(),newPassword.getText()));
+
+            ProfileController.editProfile(username.getText(),email.getText()
+                    ,nickname.getText(),slogan.getText(),newPassword.getText());
             alert.showAndWait();
             Main mainMenu = new Main();
             mainMenu.start(stage);
@@ -360,6 +381,19 @@ public class ProfileMenu extends Application {
     }
 
     public void changePassword(MouseEvent mouseEvent) {
+        if(!passwordBox.isVisible()){
+            newPassword.setText("");
+            oldPassword.setText("");
+            RetypeNewPassword.setText("");
+        }else{
+            User user = User.getCurrentUser();
+            newPassword.setText(user.getPassword());
+            oldPassword.setText(user.getPassword());
+            RetypeNewPassword.setText(user.getPassword());
+            System.out.println(newPassword.getText());
+            System.out.println(oldPassword.getText());
+            System.out.println(RetypeNewPassword.getText());
+        }
         passwordBox.setVisible(!passwordBox.isVisible());
     }
 }

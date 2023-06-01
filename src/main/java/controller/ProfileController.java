@@ -30,6 +30,7 @@ public class ProfileController {
     }
 
     public static void editProfile(String username, String email, String nickname, String slogan,String password) {
+        System.out.println("nick name in controller: " + nickname);
         User user = User.getCurrentUser();
         user.setSlogan(slogan);
         user.setUsername(username);

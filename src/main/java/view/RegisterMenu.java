@@ -263,6 +263,8 @@ public class RegisterMenu extends Application {
         if(newText.equals("")) nicknameError.setText("Empty field");
         else nicknameError.setText("");
     }
+    //Dd3Rr5Tt8#
+    //Vv8Ww3Cc5#
     public void checkEmail(){
         String newText =  email.getText();
         RegisterMessages messages = LoginController.checkEmail(newText);

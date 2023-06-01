@@ -56,12 +56,13 @@
     </VBox>
     <VBox spacing="20" alignment="CENTER" visible="false" fx:id="passwordBox" translateX="1000" translateY="400"
           style="-fx-background-color: #4aea4a">
-        <Label style="-fx-text-fill: red" fx:id="oldPasswordError" text="test test 1"/>
+        <Label style="-fx-text-fill: red" fx:id="oldPasswordError"/>
         <TextField promptText="Old password" fx:id="oldPassword"/>
-        <Label style="-fx-text-fill: red" fx:id="newPasswordError" text="test test 1"/>
+        <Label style="-fx-text-fill: red" fx:id="newPasswordError"/>
         <TextField promptText="New password" fx:id="newPassword"/>
-        <Label style="-fx-text-fill: red" fx:id="confirmPasswordError" text="test test 1"/>
+        <Label style="-fx-text-fill: red" fx:id="confirmPasswordError"/>
         <TextField promptText="Retype new password" fx:id="RetypeNewPassword"/>
+
     </VBox>
 
 
