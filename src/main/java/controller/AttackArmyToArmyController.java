@@ -15,13 +15,14 @@ import view.TileManager;
 
 public class AttackArmyToArmyController {
     public  SwordManAnimation swordManAnimation = new SwordManAnimation();
-    public DeadAnimation deadAnimation = new DeadAnimation();
 
     private static int mapSize = CreateMapController.getSizeOfMap();
     TileManager tileManager ;
+    public DeadAnimation deadAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
+        deadAnimation = new DeadAnimation(tileManager);
     }
 
     public void battleWithEnemy() {
@@ -45,7 +46,6 @@ public class AttackArmyToArmyController {
                     int y = army.yCoordinate;
                     deadAnimation.setArmyToAnimation(army);
 //                    ((NewButton)tileManager.list.get(100 * x + y)).getArmy().remove(army);
-//                    empire.empireArmy.remove(army);
 //                    j--;
 //                    size--;
                 }

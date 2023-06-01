@@ -3,7 +3,10 @@ package view.Animations;
 import javafx.animation.Transition;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import model.Empire;
 import model.Human.Troop.Army;
+import view.Model.NewButton;
+import view.TileManager;
 
 import java.util.ArrayList;
 
@@ -37,11 +40,12 @@ public class DeadAnimation extends Transition {
             getResource("/troop/swordManFight/dead/13.png").toExternalForm());
     private Image DEAD14 = new Image(SwordManAnimation.class.
             getResource("/troop/swordManFight/dead/14.png").toExternalForm());
+    TileManager tileManager ;
 
-
-    public DeadAnimation(){
+    public DeadAnimation(TileManager tileManager){
         this.setCycleCount(1);
-        this.setCycleDuration(Duration.seconds(4));
+        this.setCycleDuration(Duration.seconds(3));
+        this.tileManager = tileManager ;
     }
     private ArrayList<Army> armies = new ArrayList<>();
 
@@ -63,6 +67,18 @@ public class DeadAnimation extends Transition {
             if(v >= 0.91 && v < 0.95) army.getImageView().setImage(DEAD12);
             if(v >= 0.95 && v < 0.97) army.getImageView().setImage(DEAD13);
             if(v >= 0.97 ) army.getImageView().setImage(DEAD14);
+            if(v == 1) {
+                int x = army.xCoordinate;
+                int y = army.yCoordinate;
+                System.out.println(((NewButton)tileManager.list.get(100 * x + y)).getArmy().size());
+                ((NewButton)tileManager.list.get(100 * x + y)).getArmy().remove(army);
+
+                System.out.println(((NewButton)tileManager.list.get(100 * x + y)).getArmy().size());
+                army.getImageView().setImage(null);
+                Empire empire = army.getEmpire();
+                empire.empireArmy.remove(army);
+            }
+
 //            if(v >= 0.7 && v < 1.4) army.getImageView().setImage(DEAD2);
 //            if(v >= 0.7 && v < 1.4) army.getImageView().setImage(DEAD2);
         }

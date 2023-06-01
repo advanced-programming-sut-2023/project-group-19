@@ -59,7 +59,6 @@ public class SwordManAnimation extends Transition {
     @Override
     protected void interpolate(double v) {
         for (Army army : armyArrayList) {
-            System.out.println(armyArrayList.size());
             switch (army.getState()) {
                 case BACK :
                     if (v >= 0 && v < 0.33) army.getImageView().setImage(BACK1);
