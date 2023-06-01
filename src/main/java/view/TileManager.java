@@ -263,28 +263,6 @@ public class TileManager extends Application {
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
     }
-//    public void createViewScene(Stage stage) {
-//        createButtonsArraylist();
-//        for (int u = 0; u < 16; u++) {
-//            for (int g = 0; g < 30; g++) {
-//                ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
-//                NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
-//                button.setLayoutX(g * 51.2);
-//                button.setLayoutY(u * 54);
-//                for (int i = 0; i < button.getArmy().size(); i++) {
-//                    ImageView imageView = (button.getArmy().get(i)).getImageView();
-//                    imageView.setLayoutX(button.getLayoutX());
-//                    imageView.setLayoutY(button.getLayoutY());
-//                    imageView.setFitWidth(60);
-//                    imageView.setFitHeight(60);
-//                    button.setGraphic(imageView);
-//                }
-//                pane.getChildren().add(list.get((u + moveX) * 100 + (g + moveY)));
-//                allButtons[u][g].add(button);
-//            }
-//        }
-//        setButtonsOfMenus(stage);
-//    }
 
     public void getCellData(NewButton newButton) {
         cellArmyNameType.clear();
@@ -353,12 +331,7 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-//                if(selectedButtons.size() == 1 ) {
-//                    newButton.setStyle(null);
-//                }
                 showCellData.setText("");
-//                pane.getChildren().remove(showCellData);
             }
         };
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
