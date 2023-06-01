@@ -13,6 +13,24 @@ public class Army extends Human {
         super(government);
         this.empire = government;
     }
+    private StateOfStanding  state ;
+
+    public StateOfStanding getState() {
+        return state;
+    }
+
+    public void setState(StateOfStanding state) {
+        this.state = state;
+    }
+
+    public enum StateOfStanding {
+        BACK ,
+        FRONT ,
+        RIGHT ,
+        LEFT  ,
+        ;
+    }
+
 
     public boolean isIntFight = false;
     public boolean hasMovedForDefensiveState = false;

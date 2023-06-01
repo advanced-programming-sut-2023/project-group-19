@@ -18,11 +18,13 @@ import javafx.stage.Stage;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
+import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
 import javafx.scene.control.Button;
 import view.Animations.MoveAnimation;
+import view.Animations.SwordManAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -137,18 +139,42 @@ public class TileManager extends Application {
 
 
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(2, 1);
-        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+        archersAndThrowers.archer(3, 3);
+        NewButton newButton = (NewButton) list.get(3 * 100 + 3);
         newButton.setBackground(null);
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
 
-        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers2.HorseArchers(2, 1);
-        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
-        newButton2.setBackground(null);
-        newButton2.getArmy().add(archersAndThrowers2);
-        newButton2.setImageView(archersAndThrowers2.getImageView());
+
+        //armin code
+
+        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
+        soldiers.setState(Army.StateOfStanding.FRONT);
+        soldiers.Swordsmen(4,4);
+        NewButton button2 = (NewButton) list.get(4 * 100 + 1);
+        newButton.setBackground(null);
+        button2.getArmy().add(soldiers);
+        newButton.setImageView(soldiers.getImageView());
+        SwordManAnimation swordManAnimation = new SwordManAnimation();
+        swordManAnimation.setArmyToAnimation(soldiers);
+        swordManAnimation.play();
+
+
+
+
+
+
+
+
+
+
+//
+//        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//        archersAndThrowers2.HorseArchers(2, 1);
+//        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
+//        newButton2.setBackground(null);
+//        newButton2.getArmy().add(archersAndThrowers2);
+//        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -191,6 +217,8 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
+
+
 
     private void designHboxForDropUnit() {
         HBox hBox = new HBox();
