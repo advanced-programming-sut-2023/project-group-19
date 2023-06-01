@@ -47,13 +47,7 @@
         <Button onMouseClicked="#submit" text="submit" focusTraversable="false"/>
     </VBox>
 
-    <VBox visible="false" fx:id="captchaBox" spacing="20" alignment="CENTER" translateY="240" translateX="250">
-        <ImageView fx:id="captchaImage"/>
-        <HBox spacing="20">
-            <TextField fx:id="answerOfCaptcha" maxWidth="100"/>
-            <Button text="again" onMouseClicked="#anotherCaptcha"/>
-        </HBox>
-    </VBox>
+
     <VBox spacing="20" alignment="CENTER" visible="false" fx:id="passwordBox" translateX="1000" translateY="400"
           style="-fx-background-color: #4aea4a">
         <Label style="-fx-text-fill: red" fx:id="oldPasswordError"/>
@@ -62,7 +56,11 @@
         <TextField promptText="New password" fx:id="newPassword"/>
         <Label style="-fx-text-fill: red" fx:id="confirmPasswordError"/>
         <TextField promptText="Retype new password" fx:id="RetypeNewPassword"/>
-
+        <ImageView fx:id="captchaImage"/>
+        <HBox spacing="20">
+            <TextField fx:id="answerOfCaptcha" maxWidth="100"/>
+            <Button text="again" onMouseClicked="#anotherCaptcha"/>
+        </HBox>
     </VBox>
 
 

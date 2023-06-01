@@ -67,6 +67,7 @@ public class ProfileMenu extends Application {
     public Label oldPasswordError;
     public Label newPasswordError;
     public Label confirmPasswordError;
+    public String captchaNumber;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -133,6 +134,8 @@ public class ProfileMenu extends Application {
         newPassword.setText(user.getPassword());
         oldPassword.setText(user.getPassword());
         RetypeNewPassword.setText(user.getPassword());
+        captchaNumber = LoginController.setImageCaptcha(captchaImage);
+        answerOfCaptcha.setText(captchaNumber);
     }
 
     private void ListenerToPassword() {
@@ -323,6 +326,12 @@ public class ProfileMenu extends Application {
     }
 
     public void submit(MouseEvent mouseEvent) throws Exception {
+        if(!captchaNumber.equals(answerOfCaptcha.getText())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("captcha is wrong!");
+            alert.showAndWait();
+            return;
+        }
         usernameError(usernameError,"");
         checkPassword();
         checkEmail();
@@ -374,6 +383,7 @@ public class ProfileMenu extends Application {
     }
 
     public void anotherCaptcha(MouseEvent mouseEvent) {
+        captchaNumber = LoginController.setImageCaptcha(captchaImage);
     }
 
     public void removeSlogan(MouseEvent mouseEvent) {
@@ -385,11 +395,13 @@ public class ProfileMenu extends Application {
             newPassword.setText("");
             oldPassword.setText("");
             RetypeNewPassword.setText("");
+            answerOfCaptcha.setText("");
         }else{
             User user = User.getCurrentUser();
             newPassword.setText(user.getPassword());
             oldPassword.setText(user.getPassword());
             RetypeNewPassword.setText(user.getPassword());
+            answerOfCaptcha.setText(captchaNumber);
             System.out.println(newPassword.getText());
             System.out.println(oldPassword.getText());
             System.out.println(RetypeNewPassword.getText());
