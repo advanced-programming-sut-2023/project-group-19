@@ -432,9 +432,9 @@ public class TileManager extends Application {
         SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
         String buildingName = newButton.getBuilding().getName();
-        setSelectedBuildingProperGraphic(buildingName);
+        setSelectedBuildingProperGraphic(buildingName , selectedBuildingMenu);
     }
-    public void setSelectedBuildingProperGraphic(String buildingName){
+    public void setSelectedBuildingProperGraphic(String buildingName , SelectedBuildingMenu selectedBuildingMenu){
         selectedBuildingButtons = new SelectedBuildingButtons();
         selectedBuildingTextField = new Text();
         selectedBuildingTextField.setText(buildingName);

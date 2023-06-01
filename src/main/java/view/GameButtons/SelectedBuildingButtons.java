@@ -1,62 +1,71 @@
 package view.GameButtons;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import model.Building.PrepareLaboursAndFighters;
 import model.Building.Wall;
 import model.Manage;
+import view.Messages.SelectedBuildingMessages;
 import view.Model.NewButton;
+import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SelectedBuildingButtons {
-
-    public void barracks(){
-//        Button archerButton = new Button();
-//        ImageView archerImage = new ImageView(buildingImages.getWallStair());
-//        wallStairButton.setBackground(null);
-//        wallStairImage.setFitHeight(100);
-//        wallStairImage.setFitWidth(100);
-//        wallStairButton.setGraphic(wallStairImage);
-//        wallStairButton.setLayoutX(110);
-//        wallStairButton.setLayoutY(700);
-//        wallStairButton.setMinSize(100, 100);
-//        addedButtons.add(wallStairButton);
-//        pane.getChildren().add(wallStairButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                PointerInfo a = MouseInfo.getPointerInfo();
-//                Point b = a.getLocation();
-//                int x = (int) ((int) b.getX() / 51);
-//                int y = (int) b.getY() / 54;
-//                NewButton newbutton = allButtons[y][x].get(0);
-//                Wall stair = new Wall(Manage.getCurrentEmpire());
-//                stair.stair();
-//                building = stair;
-//                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
-//                if (output.equals("building created successfully")) {
-//                    pane.getChildren().remove(allButtons[y][x].get(0));
-//                    newbutton.setImageView(wallStairImage);
-//                    newbutton.setBuilding(stair);
-//                    pane.getChildren().add(newbutton);
-//                }
-//                else {
-//                    showError(output);
-//                }
-//            }
-//        };
-//        wallStairButton.setOnMouseReleased(event);
+    public ArrayList<Button> selectedBuildingsAddedButtons = new ArrayList<>();
+    public void showError(String output){
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("DROP BUILDING FAILED");
+        error.setContentText(output);
+        error.show();
     }
-    public void mercenary(){
 
+    public void barracks(Pane pane, SelectedBuildingMenu selectedBuildingMenu) {
+        Button archerButton = new Button();
+        ImageView archerImage = new ImageView();
+        archerButton.setBackground(null);
+        archerImage.setFitHeight(100);
+        archerImage.setFitWidth(100);
+        archerButton.setGraphic(archerImage);
+        archerButton.setLayoutX(110);
+        archerButton.setLayoutY(700);
+        archerButton.setMinSize(100, 100);
+        selectedBuildingsAddedButtons.add(archerButton);
+        pane.getChildren().add(archerButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String output = String.valueOf(selectedBuildingMenu.createUnit("archer", 1));
+                if(!output.equals("troop created successfully")){
+                    showError(output);
+                }
+            }
+        };
+        archerButton.setOnMouseClicked(event);
     }
-    public void siegeTent(){
 
-    }
-    public void engineerGuild(){
+    public void mercenary() {
 
     }
 
+    public void siegeTent() {
+
+    }
+
+    public void engineerGuild() {
+
+    }
+
+    public ArrayList<Button> getSelectedBuildingsAddedButtons() {
+        return selectedBuildingsAddedButtons;
+    }
+
+    public void setSelectedBuildingsAddedButtons(ArrayList<Button> selectedBuildingsAddedButtons) {
+        this.selectedBuildingsAddedButtons = selectedBuildingsAddedButtons;
+    }
 }
