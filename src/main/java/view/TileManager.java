@@ -36,6 +36,7 @@ import view.Model.NewButton;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class TileManager extends Application {
     //TODO : Dear TeamMates please pay attention that you should set
@@ -138,36 +139,43 @@ public class TileManager extends Application {
         Manage.getAllEmpires().add(Ali);
 
 
-        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(3, 3);
+//        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//        archersAndThrowers.archer(3, 3);
         NewButton newButton = (NewButton) list.get(3 * 100 + 3);
-        newButton.setBackground(null);
-        newButton.getArmy().add(archersAndThrowers);
-        newButton.setImageView(archersAndThrowers.getImageView());
+//        newButton.setBackground(null);
+//        newButton.getArmy().add(archersAndThrowers);
+//        newButton.setImageView(archersAndThrowers.getImageView());
 
 
         //armin code
 
         Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
         soldiers.setState(Army.StateOfStanding.FRONT);
-        soldiers.Swordsmen(4,4);
-        NewButton button2 = (NewButton) list.get(4 * 100 + 1);
-        newButton.setBackground(null);
+        soldiers.Swordsmen(1,2);
+        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
+        button2.setBackground(null);
         button2.getArmy().add(soldiers);
-        newButton.setImageView(soldiers.getImageView());
+        button2.setImageView(soldiers.getImageView());
+
+//        Soldiers soldiers2 = new Soldiers(Manage.getCurrentEmpire());
+//        soldiers.setState(Army.StateOfStanding.FRONT);
+//        soldiers.Swordsmen(1,2);
+//        button2.setBackground(null);
+//        button2.getArmy().add(soldiers);
+//        button2.setImageView(soldiers2.getImageView());
+//
+//        Soldiers soldiers3 = new Soldiers(Manage.getCurrentEmpire());
+//        soldiers.setState(Army.StateOfStanding.FRONT);
+//        soldiers.Swordsmen(1,2);
+//        button2.setBackground(null);
+//        button2.getArmy().add(soldiers);
+//        button2.setImageView(soldiers3.getImageView());
+
         SwordManAnimation swordManAnimation = new SwordManAnimation();
         swordManAnimation.setArmyToAnimation(soldiers);
         swordManAnimation.play();
 
-        User amir = new User("amir","1","khalifeh","kali","d","s",3);
-        Empire Emir = new Empire();
-        Soldiers soldiers2 = new Soldiers(Emir);
-        soldiers2.Swordsmen(4,6);
 
-        soldiers2.setState(Army.StateOfStanding.BACK);
-        button2.getArmy().add(soldiers2);
-        newButton.setImageView(soldiers2.getImageView());
-        swordManAnimation.setArmyToAnimation(soldiers2);
 
 
 
@@ -753,7 +761,18 @@ public class TileManager extends Application {
         gameController.selectUnit(selectedButtons, pane);
 
     }
-
+    private int getRandomX(NewButton newButton){
+        Random random = new Random();
+        int limit = (int)(newButton.getLayoutX() + 1);
+        int randomX = random.nextInt( limit,limit +  13);
+        return randomX ;
+    }
+    private int getRandomY(NewButton newButton){
+        Random random = new Random();
+        int limit = (int)(newButton.getLayoutY() + 1);
+        int randomY = random.nextInt( limit,limit +  12);
+        return randomY ;
+    }
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
@@ -765,18 +784,32 @@ public class TileManager extends Application {
                 button.setLayoutY(u * 54);
                 if (button.getImageView() != null) {
                     ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
+                    view.setFitHeight(60);
+                    view.setFitWidth(60);
+                    int randomX = getRandomX(button);
+                    int randomY = getRandomY(button);
+                    view.setLayoutX(randomX);
+                    //176
+                    //164
+                    view.setLayoutY(randomY);
+                    System.out.println("x of button: " + button.getLayoutX());
+                    System.out.println("y of button: " + button.getLayoutY());
+                    System.out.println("random x: "+ randomX);
+                    System.out.println("random y: " + randomY);
+//                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     pane.getChildren().add(button);
+                    pane.getChildren().add(view);
                 } else {
                     pane.getChildren().add(button);
                 }
                 allButtons[u][g].add(button);
             }
-        }
-
+        } // x = 51.2
+        //y = 54
+//        System.out.println(((NewButton)list.get(100)).getLayoutY());
+//        System.out.println(((NewButton)list.get(100)).getLayoutX());
+//        System.out.println(getRandomX((NewButton) list.get(100)));
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
     }
 
