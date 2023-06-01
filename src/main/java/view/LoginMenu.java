@@ -2,12 +2,10 @@ package view;
 
 import controller.LoginController;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -40,10 +38,27 @@ public class LoginMenu extends Application {
         URL url = RegisterMenu.class.getResource("/fxml/loginMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         this.pane = pane;
+        backToRegisterMenu();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
+    }
+    public void backToRegisterMenu(){
+        Button  button = new Button("back");
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                RegisterMenu  registerMenu = new RegisterMenu();
+                try {
+                    registerMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        pane.getChildren().add(button);
+
     }
     public void initialize(){
         captchaNumber = LoginController.setImageCaptcha(captchaImage);

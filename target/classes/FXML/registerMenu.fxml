@@ -18,8 +18,8 @@
         <TextField fx:id="email"  promptText="Email"/>
         <TextField fx:id="nickname" promptText="Nickname"/>
         <TextField fx:id="slogan" text="empty" visible="false" promptText="slogan"/>
-        <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan"/>
-        <Button fx:id="famousSlogans" text="famous" visible="false" onMouseClicked="#showFamousSlogan"/>
+        <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan" focusTraversable="false"/>
+        <Button fx:id="famousSlogans" text="famous" visible="false" onMouseClicked="#showFamousSlogan" focusTraversable="false"/>
         <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>
         <Button onMouseClicked="#submit" text="submit" focusTraversable="false"/>
         <Label text="login" style="-fx-text-fill: #00c4ff" onMouseClicked="#enterLoginMenu"/>
@@ -31,7 +31,7 @@
     </VBox>
 
     <CheckBox translateY="300" translateX="870" onMouseClicked="#showAndHidePassword"/>
-    <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword"/>
+    <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword" focusTraversable="false"/>
     <VBox visible="false" fx:id="secQestionVbox" alignment="CENTER"  translateY="240" translateX="610" spacing="20" style="-fx-background-color: #abfa90" >
         <Label text="To complete register please choose and answer one of these questions"/>
         <RadioButton fx:id="Q1" text="1. What is my father’s name?"/>
@@ -44,9 +44,9 @@
         <ImageView fx:id="captchaImage"/>
         <HBox spacing="20">
             <TextField fx:id="answerOfCaptcha" maxWidth="100"/>
-            <Button text="again" onMouseClicked="#anotherCaptcha"/>
+            <Button text="again" onMouseClicked="#anotherCaptcha" focusTraversable="false"/>
         </HBox>
-        <Button text="submit" onMouseClicked="#submitWholeRegister"/>
+        <Button text="submit" onMouseClicked="#submitWholeRegister" focusTraversable="false"/>
     </VBox>
 
 
