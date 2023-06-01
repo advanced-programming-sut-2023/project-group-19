@@ -22,6 +22,7 @@ public class BottomBarImages {
     public Image bottomCoverImage;
     public Image faceImage;
     public Image bottomSideCoverImage;
+    public Image selectedBuildingBackground;
 
     public Image test;
 
@@ -45,10 +46,14 @@ public class BottomBarImages {
         minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
         showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
         faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
+        selectedBuildingBackground = new Image(TileManager.class.getResource("/image/GameMenu/map.jpg").toExternalForm());
 
 //        test = new Image(TileManager.class.getResource("/image/BuildingImages/wheatfarm.gif").toExternalForm());
     }
 
+    public Image getSelectedBuildingBackground() {
+        return selectedBuildingBackground;
+    }
 
     public Background getBackground() {
         return background;

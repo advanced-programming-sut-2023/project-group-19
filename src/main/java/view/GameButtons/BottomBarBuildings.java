@@ -42,6 +42,8 @@ public class BottomBarBuildings {
         error.show();
     }
 
+    //imageView.preserveRatioProperty().set(true);
+
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
         Button wallStairButton = new Button();
         ImageView wallStairImage = new ImageView(buildingImages.getWallStair());
@@ -347,7 +349,7 @@ public class BottomBarBuildings {
         militaryBuildingsIconButton.setMinSize(40, 40);
         addedButtons.add(militaryBuildingsIconButton);
         pane.getChildren().add(militaryBuildingsIconButton);
-        EventHandler<MouseEvent> event10 = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> event10 = new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
@@ -1777,12 +1779,12 @@ public class BottomBarBuildings {
         sword.setLayoutY(760);
         addedImages.add(sword);
         pane.getChildren().add(sword);
-        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> event2 = new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 PointerInfo a = MouseInfo.getPointerInfo();
                 Point b = a.getLocation();
-                int x = (int) ((int) b.getX() / 51);
+                int x = (int) b.getX() / 51;
                 int y = (int) b.getY() / 54;
                 NewButton newbutton = allButtons[y][x].get(0);
                 Weapon weapon = new Weapon(Manage.getCurrentEmpire());

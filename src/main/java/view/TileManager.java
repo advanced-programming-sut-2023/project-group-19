@@ -1,5 +1,7 @@
 package view;
 
+import controller.Building.BuildingController;
+import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -19,11 +21,13 @@ import model.Manage;
 import model.Map;
 import model.User;
 import view.Animations.MoveAnimation;
+import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.Model.NewButton;
+import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -78,13 +82,13 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-//        Map.CreateMap(100);
-//        Empire empire = new Empire();
-//        Empire empire2 = new Empire();
-//        Manage.setCurrentEmpire(empire);
-//        Manage.allEmpires.add(empire);
-//        Manage.allEmpires.add(empire2);
-//        BuildingController.currentEmpire = empire;
+        Map.CreateMap(100);
+        Empire empire = new Empire();
+        Empire empire2 = new Empire();
+        Manage.setCurrentEmpire(empire);
+        Manage.allEmpires.add(empire);
+        Manage.allEmpires.add(empire2);
+        BuildingController.currentEmpire = empire;
 //        tilePane.setLayoutX(-100);
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
@@ -108,20 +112,6 @@ public class TileManager extends Application {
         bottomBarImages.loadImages();
         buildingImages = new BuildingImages();
         buildingImages.loadImage();
-
-//       ===================================================================================================================================================
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(100);
-        Map.mapSize = 100;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
-
 
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
         archersAndThrowers.archer(2, 1);
@@ -169,14 +159,12 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
         bottomBarButtons = new BottomBarButtons();
         bottomBarBuildings = new BottomBarBuildings();
         bottomBarButtons.createButtons(pane, bottomBarImages , bottomBarBuildings , buildingImages );
         bottomBarBuildings.createCastleButtons(pane, buildingImages);
     }
-
     public void mouseMovement(int x1, int y1, int x2, int y2, Stage stage) {
         int maxX = (int) (x2 / 51.2);
         int minX = (int) (x1 / 51.2);
@@ -204,8 +192,6 @@ public class TileManager extends Application {
         bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
     }
-
-
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
         selectedButtons.clear();
         int maxX, minX, maxY, minY;
@@ -235,8 +221,6 @@ public class TileManager extends Application {
         //gameController.selectUnit(selectedButtons, pane);
 
     }
-
-
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
@@ -256,11 +240,13 @@ public class TileManager extends Application {
                 else {
                     pane.getChildren().add(button);
                 }
+
                 allButtons[u][g].add(button);
             }
         }
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
+        selectedBuildingBottomGraphic();
     }
     public void getCellData(NewButton newButton) {
         cellArmyNameType.clear();
@@ -282,7 +268,6 @@ public class TileManager extends Application {
             avgDamage = damage / i;
         }
     }
-
     public void createButtonsArraylist() {
         allButtons = new ArrayList[16][30];
         for (int i = 0; i < 16; i++) {
@@ -291,7 +276,6 @@ public class TileManager extends Application {
             }
         }
     }
-
     public void numberOfAllSoldiers() {
         for (NewButton selectedButton : selectedButtons) {
             int x = selectedButton.getX();
@@ -305,19 +289,16 @@ public class TileManager extends Application {
             }
         }
     }
-
     public void clearSelectedButtons() {
         //TODO: if button is selected :
         selectedButtons.clear();
     }
-
     public void removeColorOfSelectedButtons() {
         for (NewButton selectedButton : selectedButtons) {
             selectedButton.setStyle("");
         }
         drawIsOn = false;
     }
-
     private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
@@ -354,7 +335,7 @@ public class TileManager extends Application {
             }
         };
 
-        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -373,7 +354,7 @@ public class TileManager extends Application {
                 }
             }
         };
-        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
@@ -394,7 +375,7 @@ public class TileManager extends Application {
                 }
             }
         };
-        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -412,13 +393,64 @@ public class TileManager extends Application {
                 }
             }
         };
+        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(newButton.getBuilding() != null){
+                    selectedBuildingBottomGraphic();
+                }
+            }
+        };
 
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         newButton.setOnMouseExited(event2);
         newButton.setOnMouseEntered(event3);
-//        newButton.setOnMouseMoved(event7);
+        newButton.setOnMouseClicked(event7);
     }
+    public void selectedBuildingBottomGraphic(){
+        ImageView selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
+        selectBackground.setFitWidth(980);
+        selectBackground.setFitHeight(200);
+        selectBackground.setLayoutX(100);
+        selectBackground.setLayoutY(675);
+        pane.getChildren().add(selectBackground);
 
+    }
+    public void selectBuildingLogic(NewButton newButton){
+        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
+        SelectedBuildingMenu.selectedBuilding = newButton.getBuilding();
+        SelectedBuildingController.selectedBuilding = newButton.getBuilding();
+        String buildingName = newButton.getBuilding().getName();
+        setBuildingProperGraphic(buildingName);
+
+
+    }
+    public void setBuildingProperGraphic(String buildingName){
+        if (buildingName.equals("Barracks")){
+
+        }
+        else if (buildingName.equals("Mercenary")){
+
+        }
+        else if (buildingName.equals("EngineerGuild")){
+
+        }
+        else if (buildingName.equals("SiegeTent")){
+
+        }
+        else if (buildingName.equals("BigChurch") | buildingName.equals("SmallChurch")){
+
+        }
+        else if (buildingName.equals("SmallStoneGatehouse") | buildingName.equals("BigStoneGatehouse")){
+
+        }
+        else if (buildingName.equals("DrawBridge")){
+
+        }
+        else {
+
+        }
+    }
 
 }

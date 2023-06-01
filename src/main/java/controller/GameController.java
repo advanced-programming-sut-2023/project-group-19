@@ -269,7 +269,7 @@ public class GameController {
         HBox hBox = new HBox();
         hBox.setLayoutX(800);
         hBox.setLayoutY(450);
-        hBox.setBackground(new);
+//        hBox.setBackground(new);
     }
 
     /*private static boolean dropUnits(int x , int y ,int count, String typeOfUnit , Pane pane) {
