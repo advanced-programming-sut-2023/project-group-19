@@ -735,7 +735,7 @@ public class TileManager extends Application {
         }
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
-//        selectedBuildingBottomGraphic();
+
     }
 
     public void getCellData(NewButton newButton) {
@@ -950,9 +950,9 @@ public class TileManager extends Application {
         } else if (buildingName.equals("BigChurch")) {
             selectedBuildingButtons.church(pane, selectedBuildingMenu, unitImages);
         } else if (buildingName.equals("SmallStoneGatehouse") | buildingName.equals("BigStoneGatehouse")) {
-
+            selectedBuildingButtons.gatehouse(pane, selectedBuildingMenu, unitImages);
         } else if (buildingName.equals("DrawBridge")) {
-
+            selectedBuildingButtons.drawBridge(pane, selectedBuildingMenu, unitImages);
         }
     }
 

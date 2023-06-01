@@ -515,6 +515,48 @@ public class SelectedBuildingButtons {
         };
         blackMonkButton.setOnMouseClicked(event1);
     }
+    public void gatehouse(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages){
+
+    }
+    public void drawBridge(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages){
+        Button open = new Button();
+        open.setBackground(null);
+        open.setText("OPEN");
+        open.setLayoutX(350);
+        open.setLayoutY(730);
+        open.setMinSize(100, 100);
+        selectedBuildingsAddedButtons.add(open);
+        pane.getChildren().add(open);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String output = String.valueOf(selectedBuildingMenu.drawBridge("down"));
+                if(!output.equals("bridge opened")){
+                    showError(output);
+                }
+            }
+        };
+        open.setOnMouseClicked(event1);
+
+        Button close = new Button();
+        close.setText("CLOSE");
+        close.setBackground(null);
+        close.setLayoutX(550);
+        close.setLayoutY(730);
+        close.setMinSize(100, 100);
+        selectedBuildingsAddedButtons.add(close);
+        pane.getChildren().add(close);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String output = String.valueOf(selectedBuildingMenu.drawBridge("up"));
+                if(!output.equals("bridge closed")){
+                    showError(output);
+                }
+            }
+        };
+        close.setOnMouseClicked(event2);
+    }
     public ArrayList<Button> getSelectedBuildingsAddedButtons() {
         return selectedBuildingsAddedButtons;
     }
