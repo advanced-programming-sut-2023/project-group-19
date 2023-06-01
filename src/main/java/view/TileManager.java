@@ -897,7 +897,6 @@ public class TileManager extends Application {
                 }
             }
         };
-
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         newButton.setOnMouseExited(event2);
