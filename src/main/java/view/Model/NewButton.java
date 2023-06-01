@@ -13,7 +13,7 @@ public class NewButton extends Button {
     private int x;
     private int y;
     private Building building;
-    private ArrayList<ImageView> imageViews = new ArrayList<>();
+    private ImageView imageView;
     private ArrayList<Army> army = new ArrayList<>();
     private boolean isSelected = false;
 
@@ -23,12 +23,12 @@ public class NewButton extends Button {
         this.y = y;
     }
 
-    public ArrayList<> getImageView() {
-        return imageViews;
+    public ImageView getImageView() {
+        return imageView;
     }
 
-    public void addImageView(ImageView imageView){
-        imageViews.add(imageView);
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 
     public int getX() {
