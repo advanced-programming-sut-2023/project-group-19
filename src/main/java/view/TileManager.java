@@ -723,8 +723,6 @@ public class TileManager extends Application {
         bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
     }
-
-
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
         selectedButtons.clear();
         int maxX, minX, maxY, minY;
@@ -747,12 +745,9 @@ public class TileManager extends Application {
                 NewButton newButton = allButtons[j][i].get(0);
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
-
             }
         }
-
         gameController.selectUnit(selectedButtons, pane);
-
     }
     private int getRandomX(NewButton newButton){
         Random random = new Random();
