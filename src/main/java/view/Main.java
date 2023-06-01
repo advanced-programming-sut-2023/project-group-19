@@ -53,9 +53,10 @@ public class Main extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                LoginMenu loginMenu = new LoginMenu();
+                ShopMenu shopMenu =  new ShopMenu();
+                //LoginMenu loginMenu = new LoginMenu();
                 try {
-                    loginMenu.start(stage);
+                    shopMenu.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

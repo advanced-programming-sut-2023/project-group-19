@@ -22,7 +22,7 @@ public class Empire {
         user = newUser;
     }
 
-    private int foodCapacity = 50;
+    private int foodCapacity = 2500;
     private int foodCount;
     public int foodDiversity;
     private int weaponsCapacity = 100;

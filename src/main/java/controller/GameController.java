@@ -53,7 +53,6 @@ public class GameController {
         box.setPrefSize(200,350);
         box.setLayoutX(1300);
 
-
         for (java.util.Map.Entry<ArrayList<Army>, Integer> unit : listOfUnits.entrySet()) {
             Text text = new Text(unit.getKey().get(0).getNames().getName());
             text.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
@@ -64,7 +63,7 @@ public class GameController {
 
             ImageView image = new ImageView(new Image
                     (Objects.requireNonNull(TileManager.class.getResource
-                            ("/image/Units/IntroductionPics/archer.png")).toExternalForm()));
+                            ("/image/Units/IntroductionPics/"+unit.getKey().get(0).getNames().getName()+".png")).toExternalForm()));
             image.setTranslateX(60);
             image.setTranslateY(30);
             images.add(image);
@@ -108,7 +107,7 @@ public class GameController {
         done.setTranslateX(103);
         done.setTranslateY(101);
         ImageView doneButton = new ImageView(new Image(GameController.class.
-                getResource("/image/GameMenu/check.png").toExternalForm()));
+                getResource("/image/GameMenu/done.png").toExternalForm()));
         doneButton.setFitHeight(30);
         doneButton.setFitWidth(30);
         done.setGraphic(doneButton);
@@ -265,12 +264,6 @@ public class GameController {
     }
 
 
-    public void designDropUnitBox(Pane pane){
-        HBox hBox = new HBox();
-        hBox.setLayoutX(800);
-        hBox.setLayoutY(450);
-        hBox.setBackground(new);
-    }
 
     /*private static boolean dropUnits(int x , int y ,int count, String typeOfUnit , Pane pane) {
         switch (typeOfUnit) {
