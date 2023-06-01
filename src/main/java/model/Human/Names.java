@@ -52,7 +52,7 @@ public enum Names {
         this.name = s;
     }
 
-    public static Matcher getMatcher(String input, model.Human.Names names) {
+    public static Matcher getMatcher(String input, Names names) {
         Matcher matcher = Pattern.compile(names.name).matcher(input);
         return matcher;
     }

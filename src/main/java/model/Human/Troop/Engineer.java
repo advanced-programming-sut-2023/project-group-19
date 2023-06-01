@@ -1,5 +1,6 @@
 package model.Human.Troop;
 
+import javafx.scene.image.ImageView;
 import model.Empire;
 import model.Human.Names;
 
@@ -40,6 +41,8 @@ public class Engineer extends Army implements HumanConstantFunctions {
         this.attackPower = 0;
         this.defencePower = 30;
         this.restOfMoves = 5;
+        this.imageView = null;
+        this.direction = "forward";
     }
 
     @Override
@@ -110,5 +113,10 @@ public class Engineer extends Army implements HumanConstantFunctions {
     @Override
     public Names typeOfArmy() {
         return typeOfArmy;
+    }
+
+    @Override
+    public String direction() {
+        return direction;
     }
 }

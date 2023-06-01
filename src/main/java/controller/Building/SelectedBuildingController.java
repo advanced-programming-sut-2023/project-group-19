@@ -4,7 +4,6 @@ import controller.GameController;
 import model.Building.Building;
 import model.Building.DrawBridge;
 import model.Empire;
-import model.Manage;
 import model.Map;
 import view.Messages.SelectedBuildingMessages;
 
@@ -15,8 +14,8 @@ public class SelectedBuildingController {
     public static Empire empire;
     public static Building selectedBuilding;
 
-    public SelectedBuildingMessages gatehouse(Matcher matcherTaxRate) {
-        int taxRate = Integer.parseInt(matcherTaxRate.group("taxRate"));
+    public SelectedBuildingMessages gatehouse(int matcherTaxRate) {
+        int taxRate = matcherTaxRate;
         if (!(taxRate > 7 | taxRate < -3)) {
             empire.setTaxRateNumber(taxRate);
             return SelectedBuildingMessages.TAX_RATE_CHANGE_SUCCESSFUL;
@@ -24,8 +23,8 @@ public class SelectedBuildingController {
         return SelectedBuildingMessages.TAX_RATE_OUT_OF_BONDS;
     }
 
-    public SelectedBuildingMessages drawBridge(Matcher matcherBridgeCondition) {
-        String bridgeCondition = matcherBridgeCondition.group("bridgeCondition");
+    public SelectedBuildingMessages drawBridge(String matcherBridgeCondition) {
+        String bridgeCondition = matcherBridgeCondition;
         if (GameController.enemyInRange(((DrawBridge) selectedBuilding).getX(), ((DrawBridge) selectedBuilding).getY())) {
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
@@ -103,9 +102,9 @@ public class SelectedBuildingController {
         return SelectedBuildingMessages.ENOUGH_RESOURCES;
     }
 
-    public SelectedBuildingMessages Barracks(Matcher matcherTroopName, Matcher matcherCount) {
-        String troopName = matcherTroopName.group("type");
-        int count = Integer.parseInt(matcherCount.group("count"));
+    public SelectedBuildingMessages Barracks(String matcherTroopName, int matcherCount) {
+        String troopName = matcherTroopName;
+        int count = matcherCount;
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>();
 
         {
@@ -229,9 +228,9 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages mercenary(Matcher matcherTroopName, Matcher matcherCount) {
-        String troopName = matcherTroopName.group("type");
-        int count = Integer.parseInt(matcherCount.group("count"));
+    public SelectedBuildingMessages mercenary(String matcherTroopName, int matcherCount) {
+        String troopName = matcherTroopName;
+        int count = matcherCount;
         HashMap<String, Integer> listOfTroopsBuyPrice = new HashMap<>(); // good name and its buy price
 
         {
@@ -321,9 +320,9 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages engineerGuild(Matcher matcherTroopName, Matcher matcherCount) {
-        String troopName = matcherTroopName.group("type");
-        int count = Integer.parseInt(matcherCount.group("count"));
+    public SelectedBuildingMessages engineerGuild(String matcherTroopName, int matcherCount) {
+        String troopName = matcherTroopName;
+        int count = matcherCount;
         HashMap<String, Integer> engineerGuildTroopPrice = new HashMap<>();
 
         {
@@ -388,9 +387,9 @@ public class SelectedBuildingController {
         }
     }
 
-    public SelectedBuildingMessages siegeTent(Matcher matcherTroopName, Matcher matcherCount) {
-        String siegeName = matcherTroopName.group("type");
-        int count = Integer.parseInt(matcherCount.group("count"));
+    public SelectedBuildingMessages siegeTent(String matcherTroopName, int matcherCount) {
+        String siegeName = matcherTroopName;
+        int count = matcherCount;
 
         HashMap<String, Integer> siegeTentTroopsPrice = new HashMap<>();
 
@@ -467,8 +466,8 @@ public class SelectedBuildingController {
         empire.setBlackMonkCount(empire.getBlackMonkCount() + troopCount);
     }
 
-    public SelectedBuildingMessages church(Matcher matcherCount) {
-        int count = Integer.parseInt(matcherCount.group("count"));
+    public SelectedBuildingMessages church(int matcherCount) {
+        int count = matcherCount;
         HashMap<String, Integer> churchTroopsPrice = new HashMap<>();
         {
             churchTroopsPrice.put("blackMonk", 20);
