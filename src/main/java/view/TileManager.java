@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Empire;
@@ -24,6 +25,7 @@ import view.Animations.MoveAnimation;
 import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
+import view.GameButtons.SelectedBuildingButtons;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.Model.NewButton;
@@ -54,11 +56,15 @@ public class TileManager extends Application {
     public BuildingImages buildingImages;
     public BottomBarBuildings bottomBarBuildings;
     public BottomBarButtons bottomBarButtons;
+    public SelectedBuildingButtons selectedBuildingButtons;
 
     public TilePane view = new TilePane();
 
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
+    public ArrayList<NewButton> selectedBuildingGraphic;
+    public Text selectedBuildingTextField;
+    public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
     public int avgProduction;
@@ -246,7 +252,7 @@ public class TileManager extends Application {
         }
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
-        selectedBuildingBottomGraphic();
+//        selectedBuildingBottomGraphic();
     }
     public void getCellData(NewButton newButton) {
         cellArmyNameType.clear();
@@ -396,8 +402,11 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                pane.getChildren().remove(selectedBuildingGraphic);
+                pane.getChildren().remove(selectedBuildingTextField);
+                pane.getChildren().remove(selectBackground);
                 if(newButton.getBuilding() != null){
-                    selectedBuildingBottomGraphic();
+                    selectedBuildingBottomGraphic(newButton);
                 }
             }
         };
@@ -408,25 +417,31 @@ public class TileManager extends Application {
         newButton.setOnMouseEntered(event3);
         newButton.setOnMouseClicked(event7);
     }
-    public void selectedBuildingBottomGraphic(){
-        ImageView selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
+    public void selectedBuildingBottomGraphic(NewButton newButton){
+        selectedBuildingGraphic = new ArrayList<>();
+        selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
         selectBackground.setFitWidth(980);
         selectBackground.setFitHeight(200);
         selectBackground.setLayoutX(100);
         selectBackground.setLayoutY(675);
         pane.getChildren().add(selectBackground);
-
+        selectBuildingLogic(newButton);
     }
     public void selectBuildingLogic(NewButton newButton){
-        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingMenu.selectedBuilding = newButton.getBuilding();
+        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
         String buildingName = newButton.getBuilding().getName();
-        setBuildingProperGraphic(buildingName);
-
-
+        setSelectedBuildingProperGraphic(buildingName);
     }
-    public void setBuildingProperGraphic(String buildingName){
+    public void setSelectedBuildingProperGraphic(String buildingName){
+        selectedBuildingButtons = new SelectedBuildingButtons();
+        selectedBuildingTextField = new Text();
+        selectedBuildingTextField.setText(buildingName);
+        selectedBuildingTextField.setStyle("-fx-font: 24 arial");
+        selectedBuildingTextField.setLayoutX(550);
+        selectedBuildingTextField.setLayoutY(715);
+        pane.getChildren().add(selectedBuildingTextField);
         if (buildingName.equals("Barracks")){
 
         }
@@ -446,9 +461,6 @@ public class TileManager extends Application {
 
         }
         else if (buildingName.equals("DrawBridge")){
-
-        }
-        else {
 
         }
     }
