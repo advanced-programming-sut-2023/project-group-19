@@ -175,10 +175,6 @@ public class Climbers extends Army implements HumanConstantFunctions {
         return typeOfArmy;
     }
 
-    @Override
-    public String direction() {
-        return direction;
-    }
     public ImageView getImageView() {
         return super.getImageView();
     }
@@ -186,6 +182,15 @@ public class Climbers extends Army implements HumanConstantFunctions {
     @Override
     public void setImageView(ImageView imageView) {
         super.setImageView(imageView);
+    }
+    @Override
+    public String getDirection() {
+        return super.getDirection();
+    }
+
+    @Override
+    public void setDirection(String direction) {
+        super.setDirection(direction);
     }
 }
 

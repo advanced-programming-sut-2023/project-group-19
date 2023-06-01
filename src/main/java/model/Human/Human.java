@@ -32,7 +32,6 @@ public abstract class Human implements HumanConstantFunctions {
     public int restOfMoves;
     public HashMap<String, Integer> cost = new HashMap<>();
     public HashMap<String, Integer> workersNeeded = new HashMap<>();
-    public String direction;
     public double xLocationOnMap;
     public double yLocationOnMap;
 
@@ -126,10 +125,6 @@ public abstract class Human implements HumanConstantFunctions {
         return typeOfArmy;
     }
 
-    @Override
-    public String direction() {
-        return direction;
-    }
 
     @Override
     public double xLocationOnMap() {

@@ -32,7 +32,6 @@ public interface HumanConstantFunctions {
 
     public int getFinalY();
     public Names typeOfArmy();
-    public String direction();
     public double xLocationOnMap();
     public double yLocationOnMap();
 }
