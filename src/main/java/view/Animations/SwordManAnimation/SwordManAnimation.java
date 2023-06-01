@@ -1,11 +1,9 @@
-package view.Animations;
+package view.Animations.SwordManAnimation;
 
 import javafx.animation.Transition;
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import model.Human.Troop.Army;
-import view.TileManager;
 
 import java.util.ArrayList;
 
@@ -43,12 +41,6 @@ public class SwordManAnimation extends Transition {
     private Image RIGHT4 = new Image(SwordManAnimation.class.
             getResource("/troop/swordManFight/right/4.png").toExternalForm());
 
-
-
-
-
-
-
     public ArrayList<Army> armyArrayList = new ArrayList<>();
 
 
@@ -82,10 +74,6 @@ public class SwordManAnimation extends Transition {
                     if (v >= 0.33 && v < 0.75) army.getImageView().setImage(FRONT2);
                     if (v >= 0.75) army.getImageView().setImage(FRONT3);
                     break;
-//                case DEAD:
-////                    this.setCycleDuration(Duration.seconds(3));
-//                    if( v >= 0 && v < 0.5) army.getImageView().setImage(DEAD1);
-//                    if(v >= 0.5) army.getImageView().setImage(DEAD14);
             }
         }
     }

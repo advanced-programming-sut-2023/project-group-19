@@ -1,6 +1,7 @@
 package controller;
 
 import model.Empire;
+import model.Human.Names;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 
@@ -8,21 +9,26 @@ import java.util.ArrayList;
 
 import model.*;
 import model.Building.*;
-import view.Animations.DeadAnimation;
-import view.Animations.SwordManAnimation;
+import view.Animations.SlaveAnimation.DeadSlaveAnimation;
+import view.Animations.SlaveAnimation.SlaveAnimation;
+import view.Animations.SwordManAnimation.SwordManDeadAnimation;
+import view.Animations.SwordManAnimation.SwordManAnimation;
 import view.Model.NewButton;
 import view.TileManager;
 
 public class AttackArmyToArmyController {
     public  SwordManAnimation swordManAnimation = new SwordManAnimation();
+    public SlaveAnimation slaveAnimation = new SlaveAnimation();
 
     private static int mapSize = CreateMapController.getSizeOfMap();
     TileManager tileManager ;
-    public DeadAnimation deadAnimation ;
+    public SwordManDeadAnimation swordManDeadAnimation;
+    public DeadSlaveAnimation deadSlaveAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
-        deadAnimation = new DeadAnimation(tileManager);
+        swordManDeadAnimation = new SwordManDeadAnimation(tileManager);
+        deadSlaveAnimation = new DeadSlaveAnimation(tileManager);
     }
 
     public void battleWithEnemy() {
@@ -44,7 +50,7 @@ public class AttackArmyToArmyController {
                 if (army.getHp() <= 0) {
                     int x = army.xCoordinate;
                     int y = army.yCoordinate;
-                    deadAnimation.setArmyToAnimation(army);
+                    swordManDeadAnimation.setArmyToAnimation(army);
 //                    ((NewButton)tileManager.list.get(100 * x + y)).getArmy().remove(army);
 //                    j--;
 //                    size--;
@@ -64,12 +70,20 @@ public class AttackArmyToArmyController {
             if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
             int newHitPoint = enemy.hp() - army.getAttackPower();
             enemy.setHp(newHitPoint);
-            swordManAnimation.setArmyToAnimation(army);
-//            System.out.println(army.getEmpire().getName());
-//            System.out.println(enemy.getEmpire().getName());
+            setAnimationToFight(army);
             return;
         }
 //        findBuildingToBeAttacked(army);
+    }
+    private void setAnimationToFight(Army army){
+        switch (army.getTypeOfArmy()){
+            case SWORDSMEN :
+                swordManAnimation.setArmyToAnimation(army);
+                break;
+            case SLAVES:
+                slaveAnimation.setArmyToAnimation(army);
+                break;
+        }
     }
 
     private void findArcher() {

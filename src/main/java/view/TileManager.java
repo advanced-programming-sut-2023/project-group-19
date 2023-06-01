@@ -18,15 +18,11 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Empire;
-import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
-import javafx.scene.control.Button;
-import view.Animations.MoveAnimation;
-import view.Animations.SwordManAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -37,7 +33,6 @@ import view.Model.NewButton;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class TileManager extends Application {
@@ -168,23 +163,11 @@ public class TileManager extends Application {
         Soldiers soldiers2 = new Soldiers(Emir);
         Emir.empireArmy.add(soldiers2);
         soldiers2.setState(Army.StateOfStanding.BACK);
-        soldiers2.Swordsmen(1,2);
+        soldiers2.Slaves(1,2);
+        System.out.println(soldiers2.getTypeOfArmy());
         button2.setBackground(null);
         button2.getArmy().add(soldiers2);
 
-        Soldiers soldiers4 = new Soldiers(Manage.getCurrentEmpire());
-        Manage.getCurrentEmpire().empireArmy.add(soldiers4);
-        soldiers4.setState(Army.StateOfStanding.BACK);
-        soldiers4.Swordsmen(1,2);
-        button2.setBackground(null);
-        button2.getArmy().add(soldiers4);
-
-
-        Soldiers soldiers3 = new Soldiers(Emir);
-        Emir.empireArmy.add(soldiers3);
-        soldiers3.setState(Army.StateOfStanding.BACK);
-        soldiers3.Swordsmen(1,2);
-        button2.getArmy().add(soldiers3);
 
         AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
         attackArmyToArmyController.battleWithEnemy();
@@ -192,8 +175,11 @@ public class TileManager extends Application {
 //        swordManAnimation.setArmyToAnimation(soldiers);
 //        swordManAnimation.setArmyToAnimation(soldiers2);
         attackArmyToArmyController.swordManAnimation.play();
-        SequentialTransition sequentialTransition = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.deadAnimation);
-       sequentialTransition.play();
+        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.swordManDeadAnimation);
+       sequentialTransitionSwordMan.play();
+
+       SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation,attackArmyToArmyController.deadSlaveAnimation);
+       sequentialTransitionSlave.play();
         // SequentialTransitional sequentialTransitional = new SequentialTransition(attackArmyToArmyController.swordManAnimation,attackArmyToArmyController.deadAnimation);
 
 

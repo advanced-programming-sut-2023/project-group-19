@@ -1,4 +1,4 @@
-package view.Animations;
+package view.Animations.SwordManAnimation;
 
 import javafx.animation.Transition;
 import javafx.scene.image.Image;
@@ -10,7 +10,7 @@ import view.TileManager;
 
 import java.util.ArrayList;
 
-public class DeadAnimation extends Transition {
+public class SwordManDeadAnimation extends Transition {
 
     private Image DEAD1 = new Image(SwordManAnimation.class.
             getResource("/troop/swordManFight/dead/1.png").toExternalForm());
@@ -42,7 +42,7 @@ public class DeadAnimation extends Transition {
             getResource("/troop/swordManFight/dead/14.png").toExternalForm());
     TileManager tileManager ;
 
-    public DeadAnimation(TileManager tileManager){
+    public SwordManDeadAnimation(TileManager tileManager){
         this.setCycleCount(1);
         this.setCycleDuration(Duration.seconds(3));
         this.tileManager = tileManager ;
