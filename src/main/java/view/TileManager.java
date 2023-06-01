@@ -1,5 +1,7 @@
 package view;
 
+import controller.Building.BuildingController;
+import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -13,6 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Empire;
@@ -23,13 +26,16 @@ import model.Map;
 import model.User;
 import javafx.scene.control.Button;
 import view.Animations.MoveAnimation;
+import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
+import view.GameButtons.SelectedBuildingButtons;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
+import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -57,11 +63,15 @@ public class TileManager extends Application {
     public BottomBarButtons bottomBarButtons;
     public GameImages gameImages;
     public UnitImages unitImages;
+    public SelectedBuildingButtons selectedBuildingButtons;
 
     public TilePane view = new TilePane();
 
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
+    public ArrayList<NewButton> selectedBuildingGraphic;
+    public Text selectedBuildingTextField;
+    public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
     public int avgProduction;
@@ -88,13 +98,13 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-//        Map.CreateMap(100);
-//        Empire empire = new Empire();
-//        Empire empire2 = new Empire();
-//        Manage.setCurrentEmpire(empire);
-//        Manage.allEmpires.add(empire);
-//        Manage.allEmpires.add(empire2);
-//        BuildingController.currentEmpire = empire;
+        Map.CreateMap(100);
+        Empire empire = new Empire();
+        Empire empire2 = new Empire();
+        Manage.setCurrentEmpire(empire);
+        Manage.allEmpires.add(empire);
+        Manage.allEmpires.add(empire2);
+        BuildingController.currentEmpire = empire;
 //        tilePane.setLayoutX(-100);
 //        tilePane.setLayoutY(-100);
 //        tilePane.setPrefColumns(100);
@@ -134,6 +144,7 @@ public class TileManager extends Application {
         Map.mapSize = 100;
         Manage.getAllEmpires().add(Dorsa);
         Manage.getAllEmpires().add(Ali);
+
 
 
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
@@ -646,7 +657,6 @@ public class TileManager extends Application {
         bottomBarButtons.createButtons(pane, bottomBarImages, bottomBarBuildings, buildingImages);
         bottomBarBuildings.createCastleButtons(pane, buildingImages);
     }
-
     public void mouseMovement(int x1, int y1, int x2, int y2, Stage stage) {
         int maxX = (int) (x2 / 51.2);
         int minX = (int) (x1 / 51.2);
@@ -674,8 +684,6 @@ public class TileManager extends Application {
         bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
     }
-
-
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
         selectedButtons.clear();
         int maxX, minX, maxY, minY;
@@ -705,8 +713,6 @@ public class TileManager extends Application {
         gameController.selectUnit(selectedButtons, pane);
 
     }
-
-
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
@@ -725,11 +731,13 @@ public class TileManager extends Application {
                 } else {
                     pane.getChildren().add(button);
                 }
+
                 allButtons[u][g].add(button);
             }
         }
 
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
+//        selectedBuildingBottomGraphic();
     }
 
     public void getCellData(NewButton newButton) {
@@ -752,7 +760,6 @@ public class TileManager extends Application {
             avgDamage = damage / i;
         }
     }
-
     public void createButtonsArraylist() {
         allButtons = new ArrayList[16][30];
         for (int i = 0; i < 16; i++) {
@@ -761,7 +768,6 @@ public class TileManager extends Application {
             }
         }
     }
-
     public void numberOfAllSoldiers() {
         for (NewButton selectedButton : selectedButtons) {
             int x = selectedButton.getX();
@@ -775,19 +781,16 @@ public class TileManager extends Application {
             }
         }
     }
-
     public void clearSelectedButtons() {
         //TODO: if button is selected :
         selectedButtons.clear();
     }
-
     public void removeColorOfSelectedButtons() {
         for (NewButton selectedButton : selectedButtons) {
             selectedButton.setStyle("");
         }
         drawIsOn = false;
     }
-
     private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
@@ -799,12 +802,7 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-//                if(selectedButtons.size() == 1 ) {
-//                    newButton.setStyle(null);
-//                }
                 showCellData.setText("");
-//                pane.getChildren().remove(showCellData);
             }
         };
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
@@ -829,7 +827,7 @@ public class TileManager extends Application {
             }
         };
 
-        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -848,7 +846,7 @@ public class TileManager extends Application {
                 }
             }
         };
-        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
@@ -869,7 +867,7 @@ public class TileManager extends Application {
                 }
             }
         };
-        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -887,13 +885,70 @@ public class TileManager extends Application {
                 }
             }
         };
+        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                pane.getChildren().remove(selectedBuildingGraphic);
+                pane.getChildren().remove(selectedBuildingTextField);
+                pane.getChildren().remove(selectBackground);
+                if(newButton.getBuilding() != null){
+                    selectedBuildingBottomGraphic(newButton);
+                }
+            }
+        };
 
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         newButton.setOnMouseExited(event2);
         newButton.setOnMouseEntered(event3);
-//        newButton.setOnMouseMoved(event7);
+        newButton.setOnMouseClicked(event7);
     }
+    public void selectedBuildingBottomGraphic(NewButton newButton){
+        selectedBuildingGraphic = new ArrayList<>();
+        selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
+        selectBackground.setFitWidth(980);
+        selectBackground.setFitHeight(200);
+        selectBackground.setLayoutX(100);
+        selectBackground.setLayoutY(675);
+        pane.getChildren().add(selectBackground);
+        selectBuildingLogic(newButton);
+    }
+    public void selectBuildingLogic(NewButton newButton){
+        SelectedBuildingMenu.selectedBuilding = newButton.getBuilding();
+        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
+        SelectedBuildingController.selectedBuilding = newButton.getBuilding();
+        String buildingName = newButton.getBuilding().getName();
+        setSelectedBuildingProperGraphic(buildingName , selectedBuildingMenu);
+    }
+    public void setSelectedBuildingProperGraphic(String buildingName , SelectedBuildingMenu selectedBuildingMenu){
+        selectedBuildingButtons = new SelectedBuildingButtons();
+        selectedBuildingTextField = new Text();
+        selectedBuildingTextField.setText(buildingName);
+        selectedBuildingTextField.setStyle("-fx-font: 24 arial");
+        selectedBuildingTextField.setLayoutX(550);
+        selectedBuildingTextField.setLayoutY(715);
+        pane.getChildren().add(selectedBuildingTextField);
+        if (buildingName.equals("Barracks")){
 
+        }
+        else if (buildingName.equals("Mercenary")){
+
+        }
+        else if (buildingName.equals("EngineerGuild")){
+
+        }
+        else if (buildingName.equals("SiegeTent")){
+
+        }
+        else if (buildingName.equals("BigChurch") | buildingName.equals("SmallChurch")){
+
+        }
+        else if (buildingName.equals("SmallStoneGatehouse") | buildingName.equals("BigStoneGatehouse")){
+
+        }
+        else if (buildingName.equals("DrawBridge")){
+
+        }
+    }
 
 }
