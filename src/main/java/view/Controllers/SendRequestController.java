@@ -193,20 +193,11 @@ public class SendRequestController {
                     String good = goodName.getText();
                     int amountOfNeededGood = amount.getValue();
                     String myMessage = message.getText();
-                    TradeController.selectedEmpire = Manage.getEmpireByNickname(receiver);
-                    messages = tradeController.sendRequest(good, amountOfNeededGood, myMessage);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Result Of Sending Request!");
-                    alert.setHeaderText(TradeMenuMessages.REQUEST_SENT_SUCCESSFULLY.getMessages());
-                    alert.showAndWait();
+                    System.out.println(Manage.getCurrentEmpire().getName());
+                    tradeController.selectedEmpire = Manage.getEmpireByNickname(receiver);
+                    tradeController.sendRequest(good, amountOfNeededGood, myMessage);
                     typeOfTradeAction = 0;
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Result Of Sending Request!");
-                    alert.setHeaderText(messages.getMessages());
-                    alert.showAndWait();
                 }
-
             }
         });
         makeTheGoodsChoiceBox(pane, goodName);

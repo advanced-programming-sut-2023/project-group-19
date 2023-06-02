@@ -32,7 +32,9 @@ public class Empire {
     private int maxPossiblePopulation;
     private int PeasantCount = 50;
     private int priestCount;
+    private boolean sickness;
     private int troopCount;
+    private boolean apothecary;
     private int workerCount = 50;
     private int notificationOfRequest;
     private int notificationOfDonation;
@@ -46,12 +48,28 @@ public class Empire {
         this.notificationOfRequest = notificationOfRequest;
     }
 
+    public boolean isSickness() {
+        return sickness;
+    }
+
+    public void setSickness(boolean sickness) {
+        this.sickness = sickness;
+    }
+
     public int getNotificationOfDonation() {
         return notificationOfDonation;
     }
 
     public void setNotificationOfDonation(int notificationOfDonation) {
         this.notificationOfDonation = notificationOfDonation;
+    }
+
+    public boolean getApothecary() {
+        return apothecary;
+    }
+
+    public void setApothecary(boolean apothecary) {
+        this.apothecary = apothecary;
     }
 
     public int getPriestCount() {
@@ -833,7 +851,7 @@ public class Empire {
     {
         allWeaponTools.put("leatherArmour", 0);
         allWeaponTools.put("metalArmour", 0);
-        allWeaponTools.put("bow", 0);
+        allWeaponTools.put("bow", 5);
         allWeaponTools.put("sword", 0);
         allWeaponTools.put("mace", 0);
         allWeaponTools.put("spear", 0);
@@ -871,7 +889,7 @@ public class Empire {
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);
-        productionBuildingCount.put("wheatFactory", 0);
+        productionBuildingCount.put("wheatFarm", 0);
     }
 
     public HashMap<String, Integer> productionBuildingRate = new HashMap<>();

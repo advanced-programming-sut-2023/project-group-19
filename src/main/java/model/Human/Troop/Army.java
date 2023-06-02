@@ -99,8 +99,8 @@ public class Army extends Human {
     public int finalYCoordinate;
     public List<Integer> myPath;
     public int restOfMoves;
-
     public Names typeOfArmy;
+    public String direction;
 
 
     public int getPastXcordinate() {
@@ -360,9 +360,12 @@ public class Army extends Human {
         this.imageView = imageView;
     }
 
-    @Override
-    public String direction() {
+    public String getDirection() {
         return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     @Override

@@ -1,48 +1,56 @@
 package view;
 
-import controller.AttackArmyToArmyController;
+import controller.Building.BuildingController;
+import controller.Building.SelectedBuildingController;
 import controller.GameController;
-import javafx.animation.PathTransition;
-import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
-import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
+import javafx.scene.control.Button;
+import view.Animations.MoveAnimation;
+import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
+import view.GameButtons.SelectedBuildingButtons;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
+import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
+import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Arrays;
 
 public class TileManager extends Application {
     //TODO : Dear TeamMates please pay attention that you should set
     // the coordinates of your node first then you can set imageView for it.
 
+
+    //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
@@ -53,17 +61,23 @@ public class TileManager extends Application {
     public Text showCellData = new Text();
     public int avgDamage;
     public int avgSpeed;
+    public boolean selectedMenuActive;
     public BottomBarImages bottomBarImages;
     public BuildingImages buildingImages;
     public BottomBarBuildings bottomBarBuildings;
     public BottomBarButtons bottomBarButtons;
     public GameImages gameImages;
     public UnitImages unitImages;
+    public SelectedBuildingButtons selectedBuildingButtons;
 
     public TilePane view = new TilePane();
-
+    public Button repair;
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
+    public ArrayList<NewButton> selectedBuildingGraphic;
+    public Text selectedBuildingTextField;
+    public Text selectedBuildingHP;
+    public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
     public int avgProduction;
@@ -74,6 +88,9 @@ public class TileManager extends Application {
     public int numberOfMySoldiers;
     public double width;
     public double height;
+    public ClipboardContent content;
+    public Clipboard cb;
+    public NewButton selectedButton;
     public ArrayList<Node> list = new ArrayList<>();
 
 
@@ -84,23 +101,22 @@ public class TileManager extends Application {
     private boolean moveIsOn;
     public int controllerOfDropUnit = 1;
     public boolean isFive = true;
+    public String clipboardData;
 
     public GameController gameController = new GameController();
     public String nameOfUnit;
 
     @Override
     public void start(Stage stage) throws Exception {
-//        Map.CreateMap(100);
-//        Empire empire = new Empire();
-//        Empire empire2 = new Empire();
-//        Manage.setCurrentEmpire(empire);
-//        Manage.allEmpires.add(empire);
-//        Manage.allEmpires.add(empire2);
-//        BuildingController.currentEmpire = empire;
-//        tilePane.setLayoutX(-100);
-//        tilePane.setLayoutY(-100);
-//        tilePane.setPrefColumns(100);
-//        tilePane.setMaxWidth(10000);
+
+
+        Map.CreateMap(100);
+        Empire empire = new Empire();
+        Empire empire2 = new Empire();
+        Manage.setCurrentEmpire(empire);
+        Manage.allEmpires.add(empire);
+        Manage.allEmpires.add(empire2);
+        BuildingController.currentEmpire = empire;
         createButtonsArraylist();
 
         for (int j = 0; j < 103; j++) {
@@ -124,134 +140,29 @@ public class TileManager extends Application {
         gameImages.loadImages();
         unitImages = new UnitImages();
         unitImages.loadImages();
-//       ===================================================================================================================================================
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(100);
-        Map.mapSize = 100;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
 
 
-//        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//        archersAndThrowers.archer(3, 3);
-//        NewButton newButton = (NewButton) list.get(3 * 100 + 3);
-//        newButton.setBackground(null);
-//        newButton.getArmy().add(archersAndThrowers);
-//        newButton.setImageView(archersAndThrowers.getImageView());
-
-
-        //armin code
-
-
-//        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
-//        Manage.getCurrentEmpire().empireArmy.add(soldiers);
-//        soldiers.setState(Army.StateOfStanding.FRONT);
-//        soldiers.Swordsmen(1, 2);
-//        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
-//        button2.setBackground(null);
-//        button2.getArmy().add(soldiers);
-//        button2.setImageView(soldiers.getImageView());
-
-
-        NewButton button = (NewButton) list.get(3 * 100 + 3);
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-        archersAndThrowers.ArcherBow(3,3);
-        button.getArmy().add(archersAndThrowers);
+        archersAndThrowers.archer(2, 1);
+        archersAndThrowers.getImageView().setFitHeight(200);
+        archersAndThrowers.getImageView().setFitWidth(200);
+        pane.getChildren().add(archersAndThrowers.getImageView());
+        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
+        newButton.setBackground(null);
+        archersAndThrowers.getImageView().setLayoutX(newButton.getX());
+        archersAndThrowers.getImageView().setLayoutY(newButton.getY());
+        newButton.getArmy().add(archersAndThrowers);
+        newButton.setImageView(archersAndThrowers.getImageView());
 
-
-
-
-
-
-//        NewButton button2 = (NewButton) list.get(7 * 100 + 8);
-//        User user2 = new User("a", "a", "emir", "s", "a", "q", 3);
-//        Empire Emir = new Empire();
-//        Manage.allEmpires.add(Emir);
-//        Emir.setUser(user2);
-//
-//        Soldiers soldiers2 = new Soldiers(Emir);
-//        Emir.empireArmy.add(soldiers2);
-//        soldiers2.setState(Army.StateOfStanding.BACK);
-//        soldiers2.BlackMonk(4, 3);
-//        System.out.println(soldiers2.getNames());
-//        button2.setBackground(null);
-//        button2.getArmy().add(soldiers2);
-
-//        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
-//        slaveAnimation.setArmyToAnimation(soldiers2);
-//        slaveAnimation.play();
-//        DeadSlaveAnimation deadSlaveAnimation = new DeadSlaveAnimation(this);
-//        deadSlaveAnimation.setArmyToAnimation(soldiers2);
-//        deadSlaveAnimation.play();
-
-        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-        attackArmyToArmyController.battleWithEnemy();
-
-//        swordManAnimation.setArmyToAnimation(soldiers);
-//        swordManAnimation.setArmyToAnimation(soldiers2);
-//        attackArmyToArmyController.swordManAnimation.play();
-        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-        sequentialTransitionSwordMan.play();
-
-        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-        sequentialTransitionSlave.play();
-
-        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-        sequentialTransitionAssasin.play();
-
-        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-        sequentialTransitionMaceMan.play();
-
-        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-        sequentialTransitionMonk.play();
-
-        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-        sequentialTransitionShortBow.play();
-
-        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-        sequentialTransitionSlinger.play();
-
-        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-        sequentialTransitionArcher.play();
-
-        //TODO picture of sword man after war // DORSA
-
-        //TODO : after each turn clear the armies animation
-
-
-//
-//        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//        archersAndThrowers2.HorseArchers(2, 1);
-//        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
-//        newButton2.setBackground(null);
-//        newButton2.getArmy().add(archersAndThrowers2);
-//        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-//        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-//        width = resolution.getWidth();
-//        height = resolution.getHeight();
         pane.requestFocus();
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
-        bottomBarBuildings.setAllButtons(allButtons);
-//        GameController gameController = new GameController();
-//        gameController.selectedUnit.add(archersAndThrowers);
-//        gameController.setPathForUnits(3,3);
-//        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,pane,this);
-//        System.out.println(archersAndThrowers.myPath.size());
-//        moveAnimation.play();
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -266,6 +177,27 @@ public class TileManager extends Application {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
                     designHboxForDropUnit();
+                } else if (keyName.equals("F4")) {
+                    GameController gameController = new GameController();
+                    gameController.selectedUnit.add(archersAndThrowers);
+                    Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
+                    archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
+                    archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
+                    gameController.moveUnit(5,5,newButton,pane,list);
+                }
+                else if (keyName.equals("C")) {
+                    content = new ClipboardContent();
+                    if(selectedButton.getBuilding() != null) {
+                        content.putString(selectedButton.getBuilding().getName());
+                    }
+                    else {
+                        content.putString("");
+                    }
+                    javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
+                }
+                else if (keyName.equals("P")) {
+                    clipboardData = content.getString();
+                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane , clipboardData , buildingImages);
                 }
             }
         });
@@ -275,8 +207,6 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-
-
 
     private void designHboxForDropUnit() {
         HBox hBox = new HBox();
@@ -363,28 +293,30 @@ public class TileManager extends Application {
         next.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (controllerOfDropUnit < 5){
-                    if (controllerOfDropUnit == 4){
+                if (controllerOfDropUnit < 5) {
+                    if (controllerOfDropUnit == 4) {
                         isFive = false;
-                        for (int i = 1 ; i <= 10 ; i++){
-                            hBox.getChildren().remove(hBox.getChildren().size() - 1);
-                        }
-                        for (int j = 20; j<= 22 ;j++){
-                            hBox.getChildren().add(imageViews.get(j));
-                        }
-                        for (int k = 20 ; k <= 22 ; k++){
-                            hBox.getChildren().add(spinners.get(k));
-                        }
-                    }else{
                         for (int i = 1; i <= 10; i++) {
                             hBox.getChildren().remove(hBox.getChildren().size() - 1);
                         }
-                        int firstIndex = controllerOfDropUnit * 5 ;
-                        int lastIndex = ((controllerOfDropUnit + 1) * 5)-1;
-                        for (int j =  firstIndex ; j <= lastIndex ; j++ ){
+                        for (int j = 20; j <= 22; j++) {
                             hBox.getChildren().add(imageViews.get(j));
                         }
-                        for (int k = firstIndex ; k <= lastIndex ; k++){
+                        for (int k = 20; k <= 22; k++) {
+                            hBox.getChildren().add(spinners.get(k));
+                        }
+
+                    } else {
+                        for (int i = 1; i <= 10; i++) {
+                            hBox.getChildren().remove(hBox.getChildren().size() - 1);
+
+                        }
+                        int firstIndex = controllerOfDropUnit * 5;
+                        int lastIndex = ((controllerOfDropUnit + 1) * 5) - 1;
+                        for (int j = firstIndex; j <= lastIndex; j++) {
+                            hBox.getChildren().add(imageViews.get(j));
+                        }
+                        for (int k = firstIndex; k <= lastIndex; k++) {
                             hBox.getChildren().add(spinners.get(k));
                         }
                     }
@@ -395,10 +327,11 @@ public class TileManager extends Application {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("done");
-                gameController.dropUnits(selectedButtons.get(0).getX(),selectedButtons.get(0).getY()
-                ,"swordsMen",spinners.get(5).getValue(),pane,selectedButtons.get(0));
                 pane.getChildren().remove(hBox);
+                for (int i = 0; i < spinners.size(); i++) {
+                    gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
+                            , i, spinners.get(i).getValue(), selectedButtons.get(0));
+                }
             }
         });
         pane.getChildren().add(hBox);
@@ -760,6 +693,7 @@ public class TileManager extends Application {
         bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
     }
+
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
         selectedButtons.clear();
         int maxX, minX, maxY, minY;
@@ -782,21 +716,12 @@ public class TileManager extends Application {
                 NewButton newButton = allButtons[j][i].get(0);
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
+
             }
         }
+
         gameController.selectUnit(selectedButtons, pane);
-    }
-    private int getRandomX(NewButton newButton){
-        Random random = new Random();
-        int limit = (int)(newButton.getLayoutX() + 1);
-        int randomX = random.nextInt( limit,limit +  10);
-        return randomX ;
-    }
-    private int getRandomY(NewButton newButton){
-        Random random = new Random();
-        int limit = (int)(newButton.getLayoutY() + 1);
-        int randomY = random.nextInt( limit,limit +  10);
-        return randomY ;
+
     }
 
     public void createViewScene(Stage stage) {
@@ -807,32 +732,22 @@ public class TileManager extends Application {
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
-                pane.getChildren().add(button);
-                button.setMinSize(50, 50);
-                for(Army army : button.getArmy()) {
-                    ImageView view = army.getImageView();
-                    view.setImage(view.getImage());
-                    view.setFitHeight(60);
-                    view.setFitWidth(60);
-                    int randomX = getRandomX(button);
-                    int randomY = getRandomY(button);
-                    view.setLayoutX(randomX);
-                    view.setLayoutY(randomY);
-                    pane.getChildren().add(view);
+                if (button.getImageView() != null) {
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    pane.getChildren().add(button);
+                } else {
+                    pane.getChildren().add(button);
                 }
-//                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
+
                 allButtons[u][g].add(button);
             }
         }
+
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
-
-
-//
-//        PathTransition pathTransition = new PathTransition();
-//        pathTransition.setDuration(Duration.millis(2500));
-//        pathTransition.setNode(arrowIMage);
-//        pathTransition.setPath(new Line(300,100,200,100));
-//        pathTransition.play();
 
     }
 
@@ -903,12 +818,7 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-//                if(selectedButtons.size() == 1 ) {
-//                    newButton.setStyle(null);
-//                }
                 showCellData.setText("");
-//                pane.getChildren().remove(showCellData);
             }
         };
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
@@ -933,7 +843,7 @@ public class TileManager extends Application {
             }
         };
 
-        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {//-----> Start of Number 11
+        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -952,7 +862,7 @@ public class TileManager extends Application {
                 }
             }
         };
-        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {// -------> Number 11
+        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
@@ -973,7 +883,7 @@ public class TileManager extends Application {
                 }
             }
         };
-        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() { //----> Number 3
+        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -991,13 +901,106 @@ public class TileManager extends Application {
                 }
             }
         };
-
+        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                selectedButton = newButton;
+                pane.getChildren().remove(selectedBuildingGraphic);
+                pane.getChildren().remove(selectedBuildingTextField);
+                pane.getChildren().remove(selectBackground);
+                if (selectedMenuActive) {
+                    if(selectedBuildingButtons.getGatehouseText() != null)
+                        pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
+                    pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+                    pane.getChildren().remove(selectedBuildingHP);
+                    pane.getChildren().remove(repair);
+                }
+                if (newButton.getBuilding() != null) {
+                    selectedBuildingBottomGraphic(newButton);
+                }
+            }
+        };
         newButton.setOnMousePressed(event4);
         newButton.setOnMouseReleased(event5);
         newButton.setOnMouseExited(event2);
         newButton.setOnMouseEntered(event3);
-//        newButton.setOnMouseMoved(event7);
+        newButton.setOnMouseClicked(event7);
     }
 
+    public void selectedBuildingBottomGraphic(NewButton newButton) {
+        selectedBuildingGraphic = new ArrayList<>();
+        selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
+        selectBackground.setFitWidth(980);
+        selectBackground.setFitHeight(200);
+        selectBackground.setLayoutX(100);
+        selectBackground.setLayoutY(675);
+        pane.getChildren().add(selectBackground);
+        selectBuildingLogic(newButton);
+    }
+
+    public void selectBuildingLogic(NewButton newButton) {
+        SelectedBuildingMenu.selectedBuilding = newButton.getBuilding();
+        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
+        SelectedBuildingController.selectedBuilding = newButton.getBuilding();
+        String buildingName = newButton.getBuilding().getName();
+        setSelectedBuildingProperGraphic(newButton ,buildingName, selectedBuildingMenu, unitImages);
+    }
+
+    public void setSelectedBuildingProperGraphic(NewButton newButton , String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+        selectedMenuActive = true;
+        selectedBuildingButtons = new SelectedBuildingButtons();
+        selectedBuildingTextField = new Text();
+        selectedBuildingTextField.setText(buildingName);
+        selectedBuildingTextField.setStyle("-fx-font: 24 arial");
+        selectedBuildingTextField.setLayoutX(550);
+        selectedBuildingTextField.setLayoutY(715);
+        if(SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+            selectedBuildingHP = new Text();
+            selectedBuildingHP.setText("HP : " + newButton.getBuilding().getHp());
+            selectedBuildingHP.setStyle("-fx-font: 24 arial");
+            selectedBuildingHP.setLayoutX(200);
+            selectedBuildingHP.setLayoutY(715);
+            repair = new Button();
+            repair.setText("repair");
+            repair.setBackground(null);
+            repair.setStyle("-fx-font: 24 arial");
+            repair.setLayoutX(850);
+            repair.setLayoutY(700);
+            EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    String output = String.valueOf(selectedBuildingMenu.repair());
+                    if(!output.equals("building repaired successfully")){
+                        showError(output);
+                    }
+                }
+            };
+            repair.setOnMouseClicked(event);
+            pane.getChildren().add(selectedBuildingHP);
+            pane.getChildren().add(repair);
+        }
+        pane.getChildren().add(selectedBuildingTextField);
+        if (buildingName.equals("Barracks")) {
+            selectedBuildingButtons.barracks(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("Mercenary")) {
+            selectedBuildingButtons.mercenary(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("EngineerGuild")) {
+            selectedBuildingButtons.engineerGuild(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("SiegeTent")) {
+            selectedBuildingButtons.siegeTent(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("BigChurch")) {
+            selectedBuildingButtons.church(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("SmallStoneGatehouse") | buildingName.equals("BigStoneGatehouse")) {
+            selectedBuildingButtons.gatehouse(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("DrawBridge")) {
+            selectedBuildingButtons.drawBridge(pane, selectedBuildingMenu, unitImages);
+        }
+    }
+    public void showError(String output){
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("DROP BUILDING FAILED");
+        error.setContentText(output);
+        error.show();
+    }
 
 }

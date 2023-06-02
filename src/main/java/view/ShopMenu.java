@@ -6,14 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Building.Shop;
-import model.Manage;
-import model.Map;
-import view.Commands.ShopMenuCommands;
-import view.Controllers.ShopMenuController;
-import view.Messages.ShopMenuMessages;
 
-import java.util.Scanner;
-import java.util.regex.Matcher;
+import view.Controllers.ShopMenuController;
+
 
 public class ShopMenu extends Application {
     public static Shop currentShop ;

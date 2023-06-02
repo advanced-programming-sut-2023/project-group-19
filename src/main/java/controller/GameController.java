@@ -1,6 +1,11 @@
 package controller;
 
+import javafx.animation.Interpolator;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
@@ -8,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
+import javafx.util.Duration;
 import model.Building.*;
 import model.Empire;
 import model.GroundType;
@@ -15,6 +21,7 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
+import view.Animations.MoveAnimation;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.TileManager;
@@ -264,14 +271,14 @@ public class GameController {
     }
 
 
-    public void dropUnits(int x, int y, String typeOfUnit, int count, Pane pane, NewButton button) {
+    public void dropUnits(int x, int y, int typeOfUnit, int count, NewButton button) {
         switch (typeOfUnit) {
-            case "archer":
+            case 0:
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    archer.archer((int) (x / 51.2), y / 54);
+                    archer.archer(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archer);
-                    Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(archer);
+                    Map.getTroopMap()[x][y].add(archer);
                     button.setImageView(archer.getImageView());
                     ImageView view = button.getImageView();
                     view.setFitHeight(50);
@@ -282,13 +289,13 @@ public class GameController {
                 }
                 Manage.getCurrentEmpire().setEuropeArcherCount
                         (Manage.getCurrentEmpire().getEuropeArcherCount() - count);
-
-            case "crossbowMen":
+                break;
+            case 1:
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    crossBowMan.Crossbowmen((int) (x / 51.2), y / 54);
+                    crossBowMan.Crossbowmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
-                    Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(crossBowMan);
+                    Map.getTroopMap()[x][y].add(crossBowMan);
                     button.setImageView(crossBowMan.getImageView());
                     ImageView view = button.getImageView();
                     view.setFitHeight(50);
@@ -299,13 +306,13 @@ public class GameController {
                 }
                 Manage.getCurrentEmpire().setCrossbowManCount
                         (Manage.getCurrentEmpire().getCrossbowManCount() - count);
-
-            case "spearMen":
+                break;
+            case 2:
                 for (int i = 0; i < count; i++) {
                     Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
-                    spearMen.SpearMen((int) (x / 51.2), y / 54);
+                    spearMen.SpearMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(spearMen);
-                    Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(spearMen);
+                    Map.getTroopMap()[x][y].add(spearMen);
                     button.setImageView(spearMen.getImageView());
                     ImageView view = button.getImageView();
                     view.setFitHeight(50);
@@ -316,276 +323,358 @@ public class GameController {
                 }
                 Manage.getCurrentEmpire().setSpearManCount
                         (Manage.getCurrentEmpire().getSpearManCount() - count);
-            case "pikeMen":
-                    for (int i = 0; i < count; i++) {
-                        Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
-                        pikeMen.PikeMen((int) (x / 51.2), y / 54);
-                        Manage.getCurrentEmpire().empireArmy.add(pikeMen);
-                        Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(pikeMen);
-                        button.setImageView(pikeMen.getImageView());
-                        ImageView view = button.getImageView();
-                        view.setFitHeight(50);
-                        view.setFitWidth(50);
-                        button.setGraphic(view);
-                        button.setMinSize(50, 50);
-                        button.getArmy().add(pikeMen);
-                    }
-                    Manage.getCurrentEmpire().setPikeManCount
-                            (Manage.getCurrentEmpire().getPikeManCount() - count);
+                break;
+            case 3:
+                for (int i = 0; i < count; i++) {
+                    Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
+                    pikeMen.PikeMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(pikeMen);
+                    Map.getTroopMap()[x][y].add(pikeMen);
+                    button.setImageView(pikeMen.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(pikeMen);
+                }
+                Manage.getCurrentEmpire().setPikeManCount
+                        (Manage.getCurrentEmpire().getPikeManCount() - count);
+                break;
+            case 4:
+                for (int i = 0; i < count; i++) {
+                    Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
+                    maceMen.MaceMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(maceMen);
+                    Map.getTroopMap()[x][y].add(maceMen);
+                    button.setImageView(maceMen.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(maceMen);
+                }
+                Manage.getCurrentEmpire().setMaceManCount
+                        (Manage.getCurrentEmpire().getMaceManCount() - count);
+                break;
+            case 5:
+                for (int i = 0; i < count; i++) {
+                    Soldiers swordsMen = new Soldiers(Manage.getCurrentEmpire());
+                    swordsMen.Swordsmen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(swordsMen);
+                    Map.getTroopMap()[x][y].add(swordsMen);
+                    button.setImageView(swordsMen.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(swordsMen);
+                }
+                Manage.getCurrentEmpire().setSwordManCount
+                        (Manage.getCurrentEmpire().getSwordManCount() - count);
+                break;
+            case 6:
+                for (int i = 0; i < count; i++) {
+                    Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
+                    knight.Knight(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(knight);
+                    Map.getTroopMap()[x][y].add(knight);
+                    button.setImageView(knight.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(knight);
 
-            case "maceMen":
-                    for (int i = 0; i < count; i++) {
-                        Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
-                        maceMen.MaceMen((int) (x / 51.2), y / 54);
-                        Manage.getCurrentEmpire().empireArmy.add(maceMen);
-                        Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(maceMen);
-                        button.setImageView(maceMen.getImageView());
-                        ImageView view = button.getImageView();
-                        view.setFitHeight(50);
-                        view.setFitWidth(50);
-                        button.setGraphic(view);
-                        button.setMinSize(50, 50);
-                        button.getArmy().add(maceMen);
-                    }
-                    Manage.getCurrentEmpire().setMaceManCount
-                            (Manage.getCurrentEmpire().getMaceManCount() - count);
+                }
+                Manage.getCurrentEmpire().setKnightCount
+                        (Manage.getCurrentEmpire().getKnightCount() - count);
+                break;
+            case 7:
+                for (int i = 0; i < count; i++) {
+                    Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
+                    tunneler.Tunneler(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(tunneler);
+                    Map.getTroopMap()[x][y].add(tunneler);
+                    button.setImageView(tunneler.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(tunneler);
+                }
+                Manage.getCurrentEmpire().setTunnelerCount
+                        (Manage.getCurrentEmpire().getTunnelerCount() - count);
+                break;
+            case 8:
+                for (int i = 0; i < count; i++) {
+                    Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
+                    ladderMen.LadderMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(ladderMen);
+                    Map.getTroopMap()[x][y].add(ladderMen);
+                    button.setImageView(ladderMen.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(ladderMen);
+                }
+                Manage.getCurrentEmpire().setLadderManCount
+                        (Manage.getCurrentEmpire().getLadderManCount() - count);
+                break;
+            case 9:
+                for (int i = 0; i < count; i++) {
+                    Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
+                    blackMonk.BlackMonk(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(blackMonk);
+                    Map.getTroopMap()[x][y].add(blackMonk);
+                    button.setImageView(blackMonk.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(blackMonk);
+                }
+                Manage.getCurrentEmpire().setBlackMonkCount
+                        (Manage.getCurrentEmpire().getBlackMonkCount() - count);
+                break;
+            case 10:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    archerBow.ArcherBow(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(archerBow);
+                    Map.getTroopMap()[x][y].add(archerBow);
+                    button.setImageView(archerBow.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(archerBow);
+                }
+                Manage.getCurrentEmpire().setArabianBowCount
+                        (Manage.getCurrentEmpire().getArabianBowCount() - count);
+                break;
+            case 11:
+                for (int i = 0; i < count; i++) {
+                    Soldiers slaves = new Soldiers(Manage.getCurrentEmpire());
+                    slaves.BlackMonk(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(slaves);
+                    Map.getTroopMap()[x][y].add(slaves);
+                    button.setImageView(slaves.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(slaves);
+                }
+                Manage.getCurrentEmpire().setSlaveCount
+                        (Manage.getCurrentEmpire().getSlaveCount() - count);
+                break;
 
-            case "swordsMen":
-                    for (int i = 0; i < count; i++) {
-                        Soldiers swordsMen = new Soldiers(Manage.getCurrentEmpire());
-                        swordsMen.Swordsmen((int) (x / 51.2), y / 54);
-                        Manage.getCurrentEmpire().empireArmy.add(swordsMen);
-                        Map.getTroopMap()[(int) (x / 51.2)][y / 54].add(swordsMen);
-                        button.setImageView(swordsMen.getImageView());
-                        ImageView view = button.getImageView();
-                        view.setFitHeight(50);
-                        view.setFitWidth(50);
-                        button.setGraphic(view);
-                        button.setMinSize(50, 50);
-                        button.getArmy().add(swordsMen);
-                        System.out.println((int) (x / 51.2)+" "+y / 54);
-                        System.out.println("hi");
+            case 12:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    slingers.Slingers(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(slingers);
+                    Map.getTroopMap()[x][y].add(slingers);
+                    button.setImageView(slingers.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(slingers);
+                }
+                Manage.getCurrentEmpire().setSlingerCount
+                        (Manage.getCurrentEmpire().getSlingerCount() - count);
+                break;
 
-                    }
-                    Manage.getCurrentEmpire().setSwordManCount
-                            (Manage.getCurrentEmpire().getSwordManCount() - count);
+            case 13:
+                for (int i = 0; i < count; i++) {
+                    Climbers assassins = new Climbers(Manage.getCurrentEmpire());
+                    assassins.Assassins(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(assassins);
+                    Map.getTroopMap()[x][y].add(assassins);
+                    button.setImageView(assassins.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(assassins);
+                }
+                Manage.getCurrentEmpire().setAssassinCount
+                        (Manage.getCurrentEmpire().getAssassinCount() - count);
+                break;
 
-//            case "knight":
-//                if (Manage.getCurrentEmpire().getSpearManCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
-//                        spearMen.SpearMen(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(spearMen);
-//                        pane.getChildren().add(spearMen);
-//                    }
-//                    Manage.getCurrentEmpire().setSpearManCount
-//                            (Manage.getCurrentEmpire().getSpearManCount() - count);
-//                    return true;
-//                } else return false;
-//            case "tunneler":
-//                if (Manage.getCurrentEmpire().getMaceManCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
-//                        maceMen.MaceMen(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(maceMen);
-//                        pane.getChildren().add(maceMen);
-//                    }
-//                    Manage.getCurrentEmpire().setMaceManCount
-//                            (Manage.getCurrentEmpire().getMaceManCount() - count);
-//                    return true;
-//                } else return false;
-//            case "ladderMen":
-//                if (Manage.getCurrentEmpire().getLadderManCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
-//                        ladderMen.LadderMen(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(ladderMen);
-//                        pane.getChildren().add(ladderMen);
-//                    }
-//                    Manage.getCurrentEmpire().setLadderManCount
-//                            (Manage.getCurrentEmpire().getLadderManCount() - count);
-//                    return true;
-//                } else return false;
-//            case "blackMonk":
-//                if (Manage.getCurrentEmpire().getAssassinCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Climbers assassin = new Climbers(Manage.getCurrentEmpire());
-//                        assassin.Assassins(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(assassin);
-//                        pane.getChildren().add(assassin);
-//                    }
-//                    Manage.getCurrentEmpire().setAssassinCount
-//                            (Manage.getCurrentEmpire().getAssassinCount() - count);
-//                    return true;
-//                } else return false;
-//            case "archerBow":
-//                if (Manage.getCurrentEmpire().getEngineerCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Engineer engineer = new Engineer(Manage.getCurrentEmpire());
-//                        engineer.engineer(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(engineer);
-//                        pane.getChildren().add(engineer);
-//                    }
-//                    Manage.getCurrentEmpire().setEngineerCount
-//                            (Manage.getCurrentEmpire().getEngineerCount() - count);
-//                    return true;
-//                } else return false;
-//            case "slaves":
-//                if (Manage.getCurrentEmpire().getBlackMonkCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
-//                        blackMonk.BlackMonk(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(blackMonk);
-//                        pane.getChildren().add(blackMonk);
-//                    }
-//                    Manage.getCurrentEmpire().setBlackMonkCount
-//                            (Manage.getCurrentEmpire().getBlackMonkCount() - count);
-//                    return true;
-//                } else return false;
-//            case "slingers":
-//                if (Manage.getCurrentEmpire().getKnightCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
-//                        knight.Knight(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(knight);
-//                        pane.getChildren().add(knight);
-//                    }
-//                    Manage.getCurrentEmpire().setKnightCount
-//                            (Manage.getCurrentEmpire().getKnightCount() - count);
-//                    return true;
-//                } else return false;
-//            case "assassins":
-//                if (Manage.getCurrentEmpire().getSwordManCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Soldiers swordMen = new Soldiers(Manage.getCurrentEmpire());
-//                        swordMen.Swordsmen(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(swordMen);
-//                        pane.getChildren().add(swordMen);
-//                    }
-//                    return true;
-//                } else return false;
-//            case "horseArchers":
-//                if (Manage.getCurrentEmpire().getPikeManCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
-//                        pikeMen.PikeMen(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(pikeMen);
-//                        pane.getChildren().add(pikeMen);
-//                    }
-//                    Manage.getCurrentEmpire().setPikeManCount
-//                            (Manage.getCurrentEmpire().getPikeManCount() - count);
-//                    return true;
-//                } else return false;
-//            case "arabianSwordMen":
-//                if (Manage.getCurrentEmpire().getSlaveCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Soldiers slave = new Soldiers(Manage.getCurrentEmpire());
-//                        slave.Slaves(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(slave);
-//                        pane.getChildren().add(slave);
-//                    }
-//                    Manage.getCurrentEmpire().setSlaveCount
-//                            (Manage.getCurrentEmpire().getSlaveCount() - count);
-//                    return true;
-//                } else return false;
-//            case "fireThrowers":
-//                if (Manage.getCurrentEmpire().getArabianSwordManCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
-//                        arabSwordMen.ArabianSwordsmen(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
-//                        pane.getChildren().add(arabSwordMen);
-//                    }
-//                    Manage.getCurrentEmpire().setArabianSwordManCount
-//                            (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
-//                    return true;
-//                } else return false;
-//            case "catapult":
-//                if (Manage.getCurrentEmpire().getTunnelerCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
-//                        tunneler.Tunneler(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(tunneler);
-//                        pane.getChildren().add(tunneler);
-//                    }
-//                    Manage.getCurrentEmpire().setTunnelerCount
-//                            (Manage.getCurrentEmpire().getTunnelerCount() - count);
-//                    return true;
-//                } else return false;
-//            case "trebuchet":
-//                if (Manage.getCurrentEmpire().getCatapultCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//                        catapult.catapult(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(catapult);
-//                        pane.getChildren().add(catapult);
-//                    }
-//                    Manage.getCurrentEmpire().setCatapultCount
-//                            (Manage.getCurrentEmpire().getCatapultCount() - count);
-//                    return true;
-//                } else return false;
-//            case "siegeTower":
-//                if (Manage.getCurrentEmpire().getTrebuchetCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//                        trebuchet.trebuchet(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(trebuchet);
-//                        pane.getChildren().add(trebuchet);
-//                    }
-//                    Manage.getCurrentEmpire().setTrebuchetCount
-//                            (Manage.getCurrentEmpire().getTrebuchetCount() - count);
-//                    return true;
-//                } else return false;
-//            case "fireBallista":
-//                if (Manage.getCurrentEmpire().getSiegeTowerCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//                        siegeTower.siegeTower(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(siegeTower);
-//                        pane.getChildren().add(siegeTower);
-//                    }
-//                    Manage.getCurrentEmpire().setSiegeTowerCount
-//                            (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
-//                    return true;
-//                } else return false;
-//            case "batteringRam":
-//                if (Manage.getCurrentEmpire().getFireBalistaCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//                        fireBallista.fireBallista(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(fireBallista);
-//                        pane.getChildren().add(fireBallista);
-//                    }
-//                    Manage.getCurrentEmpire().setFireBalistaCount
-//                            (Manage.getCurrentEmpire().getFireBalistaCount() - count);
-//                    return true;
-//                } else return false;
-//            case "portableShield":
-//                if (Manage.getCurrentEmpire().getBatteringRamCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//                        batteringRam.batteringRam(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(batteringRam);
-//                        pane.getChildren().add(batteringRam);
-//                    }
-//                    Manage.getCurrentEmpire().setBatteringRamCount
-//                            (Manage.getCurrentEmpire().getBatteringRamCount() - count);
-//                    return true;
-//                } else return false;
-//            case "PortableShield":
-//                if (Manage.getCurrentEmpire().getPortableShieldCount() >= count) {
-//                    for (int i = 0; i < count; i++) {
-//                        ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//                        portableShield.portableShield(x, y);
-//                        Manage.getCurrentEmpire().empireArmy.add(portableShield);
-//                        pane.getChildren().add(0, portableShield);
-//                    }
-//                    Manage.getCurrentEmpire().setPortableShieldCount
-//                            (Manage.getCurrentEmpire().getPortableShieldCount() - count);
-//                    return true;
-//                } else return false;
-//        }
-//        return false;
+            case 14:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    horseArcher.HorseArchers(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(horseArcher);
+                    Map.getTroopMap()[x][y].add(horseArcher);
+                    button.setImageView(horseArcher.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(horseArcher);
+                }
+                Manage.getCurrentEmpire().setHorseArcherCount
+                        (Manage.getCurrentEmpire().getHorseArcherCount() - count);
+                break;
+
+            case 15:
+                for (int i = 0; i < count; i++) {
+                    Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
+                    arabSwordMen.ArabianSwordsmen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
+                    Map.getTroopMap()[x][y].add(arabSwordMen);
+                    button.setImageView(arabSwordMen.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(arabSwordMen);
+                }
+                Manage.getCurrentEmpire().setArabianSwordManCount
+                        (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
+
+            case 16:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers fireThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    fireThrowers.FireThrowers(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(fireThrowers);
+                    Map.getTroopMap()[x][y].add(fireThrowers);
+                    button.setImageView(fireThrowers.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(fireThrowers);
+                }
+                Manage.getCurrentEmpire().setFireThrowerCount
+                        (Manage.getCurrentEmpire().getFireThrowerCount() - count);
+
+                break;
+            case 17:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    catapult.catapult(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(catapult);
+                    Map.getTroopMap()[x][y].add(catapult);
+                    button.setImageView(catapult.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(catapult);
+                }
+                Manage.getCurrentEmpire().setCatapultCount
+                        (Manage.getCurrentEmpire().getCatapultCount() - count);
+                break;
+
+            case 18:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    trebuchet.trebuchet(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(trebuchet);
+                    Map.getTroopMap()[x][y].add(trebuchet);
+                    button.setImageView(trebuchet.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(trebuchet);
+                }
+                Manage.getCurrentEmpire().setTrebuchetCount
+                        (Manage.getCurrentEmpire().getTrebuchetCount() - count);
+                break;
+
+            case 19:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    siegeTower.siegeTower(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(siegeTower);
+                    Map.getTroopMap()[x][y].add(siegeTower);
+                    button.setImageView(siegeTower.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(siegeTower);
+                }
+                Manage.getCurrentEmpire().setSiegeTowerCount
+                        (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
+
+            case 20:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    fireBallista.fireBallista(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(fireBallista);
+                    Map.getTroopMap()[x][y].add(fireBallista);
+                    button.setImageView(fireBallista.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(fireBallista);
+                }
+                Manage.getCurrentEmpire().setFireBalistaCount
+                        (Manage.getCurrentEmpire().getFireBalistaCount() - count);
+
+                break;
+
+            case 21:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    batteringRam.batteringRam(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(batteringRam);
+                    Map.getTroopMap()[x][y].add(batteringRam);
+                    button.setImageView(batteringRam.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(batteringRam);
+                }
+                Manage.getCurrentEmpire().setBatteringRamCount
+                        (Manage.getCurrentEmpire().getBatteringRamCount() - count);
+
+                break;
+            case 22:
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    portableShield.portableShield(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(portableShield);
+                    Map.getTroopMap()[x][y].add(portableShield);
+                    button.setImageView(portableShield.getImageView());
+                    ImageView view = button.getImageView();
+                    view.setFitHeight(50);
+                    view.setFitWidth(50);
+                    button.setGraphic(view);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(portableShield);
+                }
+                Manage.getCurrentEmpire().setPortableShieldCount
+                        (Manage.getCurrentEmpire().getPortableShieldCount() - count);
+                break;
         }
     }
 
@@ -658,12 +747,12 @@ public class GameController {
                         if (!army.hasMovedForDefensiveState) {
                             army.setPastXcordinate(x);
                             army.setPastYcordinate(y);
-                            gameController.moveUnit(i, j);
-                            army.hasMovedForDefensiveState = true;
+                            //gameController.moveUnit(i, j);
+                            //army.hasMovedForDefensiveState = true;
                             return true;
                         }
                         if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
-                            gameController.moveUnit(i, j);
+                            //gameController.moveUnit(i, j);
                             return true;
                         }
                     }
@@ -671,7 +760,7 @@ public class GameController {
             }
         }
         if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
-            gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
+            //gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
             return true;
         } else {
             return false;
@@ -684,7 +773,7 @@ public class GameController {
             checkIfTargetIsAlive(army);
             if (army.getEnemy() == null) continue;
             selectedUnit.add(army);
-            gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+            //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             selectedUnit.clear();
         }
     }
@@ -709,7 +798,7 @@ public class GameController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                    //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
                     return true;
                 }
             }
@@ -718,13 +807,13 @@ public class GameController {
             Army enemy;
             if ((enemy = army.getArcherAttacker()) != null) {
                 army.setEnemy(enemy);
-                gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             }
         }
         return false;
     }
 
-    public void moveUnit(int xCoordinate, int yCoordinate) {
+    public void moveUnit(int xCoordinate, int yCoordinate , NewButton newButton,Pane pane,ArrayList<Node> listOfButtons) {
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
@@ -733,32 +822,83 @@ public class GameController {
                         List<Integer> pathList = myUnit.myPath;
                         if (pathList != null && pathList.size() != 0) {
                             int size = pathList.size();
+                            SequentialTransition sequentialTransition = new SequentialTransition(myUnit.getImageView());
                             for (int i = 0; i < pathList.size(); i++) {
                                 if (myUnit.restOfMoves != 0) {
                                     myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
                                     myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                     Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
+                                    System.out.println(myUnit.getGoalXCoordinate() + " " + myUnit.getGoalYCoordinate());
 
-                                    myUnit.xCoordinate = myUnit.goalXCoordinate;
-                                    myUnit.yCoordinate = myUnit.goalYCoordinate;
+//                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
+//
+//                                    } else if (myUnit.getGoalXCoordinate() < myUnit.getCurrentX()) { //left
+//
+//                                    } else if (myUnit.getGoalYCoordinate() > myUnit.getCurrentY()) { //forward
+//
+//                                    } else if (myUnit.getGoalYCoordinate() < myUnit.getCurrentY()) { //backward
+//
+//                                    }
+
+                                    TranslateTransition transition = new TranslateTransition();
+                                    transition.setNode(myUnit.getImageView());
+                                    transition.setFromX(myUnit.getImageView().getLayoutX());
+                                    transition.setFromY(myUnit.getImageView().getLayoutY());
+                                    NewButton newButton1 = (NewButton) listOfButtons.get(myUnit.getGoalXCoordinate() * 100
+                                            + myUnit.getGoalYCoordinate());
+                                    transition.setToX(newButton1.getLayoutX());
+                                    transition.setToY(newButton1.getLayoutY());
+                                    transition.setDuration(Duration.seconds(1));
+                                    transition.setCycleCount(1);
+                                    transition.setInterpolator(Interpolator.LINEAR);
+                                    sequentialTransition.getChildren().add(transition);
+
+                                    newButton = newButton1;
+                                    pane.getChildren().remove(myUnit.getImageView());
+                                    pane.getChildren().add(pane.getChildren().size(), myUnit.getImageView());
+                                    myUnit.getImageView().setLayoutX(newButton.getLayoutX());
+                                    myUnit.getImageView().setLayoutY(newButton.getLayoutY());
+
+                                    myUnit.setxCoordinate(myUnit.goalXCoordinate);
+                                    myUnit.setyCoordinate(myUnit.goalYCoordinate);
                                     myUnit.restOfMoves--;
                                     Map.getTroopMap()[myUnit.xCoordinate][myUnit.yCoordinate].add(myUnit);
                                     pathList.remove(i);
                                     i--;
                                 }
                             }
+                            sequentialTransition.play();
                             if (size <= myUnit.speed()) {
                                 if (myUnit.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
                                     setPathForPatrols(myUnit.getStartX(), myUnit.getStartY(), myUnit);
                                 } else {
-                                    myUnit.myPath = null;
+                                    myUnit.myPath.clear();
                                 }
                             }
                         }
                     }
+                }else{
+                    Alert noWay = new Alert(Alert.AlertType.ERROR);
+                    noWay.setTitle("GameMenu Error!");
+                    noWay.setHeaderText("Error in Moving Units!");
+                    noWay.setContentText("It's impossible to go there");
+                    noWay.showAndWait();
                 }
+            }else{
+                Alert wrongLocation = new Alert(Alert.AlertType.ERROR);
+                wrongLocation.setTitle("GameMenu Error!");
+                wrongLocation.setHeaderText("Error in Moving Units!");
+                wrongLocation.setContentText("The destination is not proper." +
+                        "Hint: Improper cells for units are those made of stone and shallow water.");
+                wrongLocation.showAndWait();
             }
-            //return GameMenuMessages.NO_UNIT_SELECTED;
+        }else{
+            Alert noUnitSelected = new Alert(Alert.AlertType.ERROR);
+            noUnitSelected.setTitle("GameMenu Error!");
+            noUnitSelected.setHeaderText("Error in Moving Units!");
+            noUnitSelected.setContentText("You didn't choose any unit to be moved!" +
+                    "Hint: By left Clicking on a cell you can choose the unit inside of it.");
+            noUnitSelected.showAndWait();
         }
     }
 
@@ -1451,10 +1591,10 @@ public class GameController {
         return false;
     }
 
-//    public void fight() {
-//        AttackArmyToArmyController.battleWithEnemy();
-//        setSieges();
-//    }
+    public void fight() {
+        AttackArmyToArmyController.battleWithEnemy();
+        setSieges();
+    }
 
     public static void removeEmpireTroopsFromGame(Empire empire) {
         for (int i = 0; i < empire.empireArmy.size(); i++) {
@@ -1591,4 +1731,5 @@ public class GameController {
     private static boolean validCoordinates(int x, int y) {
         return x >= 0 && y >= 0 && x <= Map.mapSize && y <= Map.mapSize;
     }
+
 }

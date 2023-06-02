@@ -7,6 +7,9 @@ import java.util.HashMap;
 public abstract class Building implements BuildingConstantFunctions {
     private Empire owner;
     public String requiredGroundType;
+    public int fireCount = 3;
+    public boolean onFire;
+
 
     public String getName() {
         return name.getName();
@@ -72,5 +75,19 @@ public abstract class Building implements BuildingConstantFunctions {
         return owner;
     }
 
+    public int getFireCount() {
+        return fireCount;
+    }
 
+    public void setFireCount(int fireCount) {
+        this.fireCount = fireCount;
+    }
+
+    public boolean isOnFire() {
+        return onFire;
+    }
+
+    public void setOnFire(boolean onFire) {
+        this.onFire = onFire;
+    }
 }

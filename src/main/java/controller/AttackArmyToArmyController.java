@@ -352,7 +352,7 @@ public class AttackArmyToArmyController {
             for (int j = y1; j <= y2; j++) {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    gameController.moveUnit(enemy.xCoordinate , enemy.yCoordinate );
+                    //gameController.moveUnit(enemy.xCoordinate , enemy.yCoordinate );
                     return true;
                 }
             }
@@ -374,7 +374,7 @@ public class AttackArmyToArmyController {
                 for (int len = up; len <= down; len++) {
                     for (int h = left; h <= right; h++) {
                         if (!Map.notPassable[len][h]) {
-                            gameController.moveUnit(len, h);
+                            //gameController.moveUnit(len, h);
                             return true;
                         }
                     }

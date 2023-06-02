@@ -116,7 +116,12 @@ public class Engineer extends Army implements HumanConstantFunctions {
     }
 
     @Override
-    public String direction() {
-        return direction;
+    public String getDirection() {
+        return super.getDirection();
+    }
+
+    @Override
+    public void setDirection(String direction) {
+        super.setDirection(direction);
     }
 }

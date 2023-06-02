@@ -44,6 +44,14 @@ public class House extends Building implements BuildingConstantFunctions {
         createBuildingCost(6, 0, 0, 0, 0);
         createBuildingWorkersNeeded(0, 0);
     }
+    public void apothecary(){
+        this.name = Names.APOTHECARY;
+        this.hp = 400;
+        this.maxHp = 400;
+        this.requiredGroundType = GroundType.DEFAULT.getGroundType();
+        createBuildingCost(6, 0, 0, 0, 0);
+        createBuildingWorkersNeeded(0, 0);
+    }
 
     @Override
     public int maxHp() {
