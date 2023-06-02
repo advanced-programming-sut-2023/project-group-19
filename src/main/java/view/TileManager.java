@@ -225,7 +225,7 @@ public class TileManager extends Application {
 
         //TODO : fire thrower
 
-        //TODO picture of sword man after war
+        //TODO picture of sword man after war // DORSA
 
         //TODO : after each turn clear the armies animation
 
