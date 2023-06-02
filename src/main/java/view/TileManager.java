@@ -2,6 +2,7 @@ package view;
 
 import controller.AttackArmyToArmyController;
 import controller.GameController;
+import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -15,16 +16,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Empire;
+import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
-import view.Animations.SlaveAnimation.DeadSlaveAnimation;
-import view.Animations.SlaveAnimation.SlaveAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -41,8 +43,6 @@ public class TileManager extends Application {
     //TODO : Dear TeamMates please pay attention that you should set
     // the coordinates of your node first then you can set imageView for it.
 
-
-    //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
@@ -149,26 +149,40 @@ public class TileManager extends Application {
         //armin code
 
 
-        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
-        Manage.getCurrentEmpire().empireArmy.add(soldiers);
-        soldiers.setState(Army.StateOfStanding.FRONT);
-        soldiers.Swordsmen(1, 2);
-        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
-        button2.setBackground(null);
-        button2.getArmy().add(soldiers);
+//        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
+//        Manage.getCurrentEmpire().empireArmy.add(soldiers);
+//        soldiers.setState(Army.StateOfStanding.FRONT);
+//        soldiers.Swordsmen(1, 2);
+//        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
+//        button2.setBackground(null);
+//        button2.getArmy().add(soldiers);
 //        button2.setImageView(soldiers.getImageView());
-        User user2 = new User("a", "a", "emir", "s", "a", "q", 3);
-        Empire Emir = new Empire();
-        Manage.allEmpires.add(Emir);
-        Emir.setUser(user2);
 
-        Soldiers soldiers2 = new Soldiers(Emir);
-        Emir.empireArmy.add(soldiers2);
-        soldiers2.setState(Army.StateOfStanding.BACK);
-        soldiers2.Slaves(1, 2);
-        System.out.println(soldiers2.getNames());
-        button2.setBackground(null);
-        button2.getArmy().add(soldiers2);
+
+        NewButton button = (NewButton) list.get(3 * 100 + 3);
+        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
+        archersAndThrowers.ArcherBow(3,3);
+        button.getArmy().add(archersAndThrowers);
+
+
+
+
+
+
+//        NewButton button2 = (NewButton) list.get(7 * 100 + 8);
+//        User user2 = new User("a", "a", "emir", "s", "a", "q", 3);
+//        Empire Emir = new Empire();
+//        Manage.allEmpires.add(Emir);
+//        Emir.setUser(user2);
+//
+//        Soldiers soldiers2 = new Soldiers(Emir);
+//        Emir.empireArmy.add(soldiers2);
+//        soldiers2.setState(Army.StateOfStanding.BACK);
+//        soldiers2.BlackMonk(4, 3);
+//        System.out.println(soldiers2.getNames());
+//        button2.setBackground(null);
+//        button2.getArmy().add(soldiers2);
 
 //        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
 //        slaveAnimation.setArmyToAnimation(soldiers2);
@@ -182,7 +196,7 @@ public class TileManager extends Application {
 
 //        swordManAnimation.setArmyToAnimation(soldiers);
 //        swordManAnimation.setArmyToAnimation(soldiers2);
-        attackArmyToArmyController.swordManAnimation.play();
+//        attackArmyToArmyController.swordManAnimation.play();
         SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
         sequentialTransitionSwordMan.play();
 
@@ -198,17 +212,16 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
         sequentialTransitionMonk.play();
 
+        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
+        sequentialTransitionShortBow.play();
+
+
+
+        //TODO : fire thrower
+
+        //TODO picture of sword man after war
 
         //TODO : after each turn clear the armies animation
-
-
-
-
-
-
-
-
-
 
 
 //
@@ -810,10 +823,20 @@ public class TileManager extends Application {
                     view.setLayoutY(randomY);
                     pane.getChildren().add(view);
                 }
+//                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
                 allButtons[u][g].add(button);
             }
         }
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
+
+
+//
+//        PathTransition pathTransition = new PathTransition();
+//        pathTransition.setDuration(Duration.millis(2500));
+//        pathTransition.setNode(arrowIMage);
+//        pathTransition.setPath(new Line(300,100,200,100));
+//        pathTransition.play();
+
     }
 
     public void getCellData(NewButton newButton) {
