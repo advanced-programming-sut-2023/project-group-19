@@ -124,7 +124,7 @@ public class AttackArmyToArmyController {
             setAnimationToFight(army);
             return;
         }
-//        findBuildingToBeAttacked(army);
+        findBuildingToBeAttacked(army);
     }
     private void setAnimationToFight(Army army){
         switch (army.getNames()){
@@ -191,17 +191,17 @@ public class AttackArmyToArmyController {
             if (y2 >= mapSize) y2 = mapSize - 1;
             if (applyDamageWithArcher(x, y, x1, x2, y1, y2, army)) return;
         }
-//        for (int i = 1; i <= archerRange; i++) {
-//            x1 = x - i;
-//            x2 = x + i;
-//            y1 = y - i;
-//            y2 = y + i;
-//            if (x1 <= 0) x1 = 0;
-//            if (x2 >= mapSize) x2 = mapSize - 1;
-//            if (y1 <= 0) y1 = 0;
-//            if (y2 >= mapSize) y2 = mapSize - 1;
-//            if (applyDamageWithBuildingByArcher(x, y, x1, x2, y1, y2, army)) return;
-//        }
+        for (int i = 1; i <= archerRange; i++) {
+            x1 = x - i;
+            x2 = x + i;
+            y1 = y - i;
+            y2 = y + i;
+            if (x1 <= 0) x1 = 0;
+            if (x2 >= mapSize) x2 = mapSize - 1;
+            if (y1 <= 0) y1 = 0;
+            if (y2 >= mapSize) y2 = mapSize - 1;
+            if (applyDamageWithBuildingByArcher(x, y, x1, x2, y1, y2, army)) return;
+        }
     }
 
     private void findBuildingToBeAttacked(Army army) {
@@ -216,13 +216,13 @@ public class AttackArmyToArmyController {
         if (y2 >= mapSize) y2 = mapSize - 1;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                if (Map.getBuildingMap()[i][j].isEmpty() ||
-                        Map.getBuildingMap()[i][j].get(0).getHp() <= 0 || Map.getBuildingMap()[i][j].get(0).getOwner().equals(Manage.getCurrentEmpire()))
+                Building building = ((NewButton)(tileManager.list.get(100 * i + j))).getBuilding();
+                if (building == null || building.getHp() <= 0 || building.getOwner().equals(Manage.getCurrentEmpire()))
                     continue;
-                int newHp = Map.getBuildingMap()[i][j].get(0).getHp() - army.getAttackPower();
-                Map.getBuildingMap()[i][j].get(0).setHp(newHp);
-                if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0) {
-                    Map.getBuildingMap()[i][j].remove(0);
+                int newHp = building.getHp() - army.getAttackPower();
+                building.setHp(newHp);
+                if (building.getHp() <= 0) {
+                    ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
                     Map.notPassable[i][j] = false ;
                     Map.notBuildable[i][j] = false ;
                 }
@@ -274,14 +274,14 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
-                if (!Map.getBuildingMap()[i][j].isEmpty()) {
-                    if (Map.getBuildingMap()[i][j].get(0).getOwner().equals(army.getEmpire()) ||
-                            Map.getBuildingMap()[i][j].get(0).getHp() <= 0) continue;
-                    int newHitPoint = Map.getBuildingMap()[i][j].get(0).hp() - army.getAttackPower();
-                    Map.getBuildingMap()[i][j].get(0).setHp(newHitPoint);
-
-                    if (Map.getBuildingMap()[i][j].get(0).getHp() <= 0) {
-                        Map.getBuildingMap()[i][j].remove(0);
+                Building building = ((NewButton)(tileManager.list.get(100 * i + j))).getBuilding();
+                if (building != null) {
+                    if (building.getOwner().equals(army.getEmpire()) ||
+                            building.getHp() <= 0) continue;
+                    int newHitPoint = building.hp() - army.getAttackPower();
+                    building.setHp(newHitPoint);
+                    if (building.getHp() <= 0) {
+                        ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
                         Map.notPassable[i][j] = false ;
                         Map.notBuildable[i][j] = false ;
                     }
