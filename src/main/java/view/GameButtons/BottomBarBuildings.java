@@ -33,9 +33,10 @@ public class BottomBarBuildings {
     public ArrayList<ImageView> addedImages = new ArrayList<>();
     BuildingController buildingController = new BuildingController();
     public ArrayList<NewButton>[][] allButtons;
-    public Building building ;
+    public Building building;
     public Army troop;
-    public void showError(String output){
+
+    public void showError(String output) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
@@ -71,8 +72,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(wallStairImage);
                     newbutton.setBuilding(stair);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -107,8 +107,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(lowWallImage);
                     newbutton.setBuilding(lowWall);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -143,8 +142,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stoneWallImage);
                     newbutton.setBuilding(bigWall);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -178,8 +176,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(crenulatedWallImage);
                     newbutton.setBuilding(bigWall);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -214,8 +211,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(barracksImage);
                     newbutton.setBuilding(barracks);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -250,8 +246,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(mercenaryImage);
                     newbutton.setBuilding(mercenary);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -286,8 +281,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(armoryImage);
                     newbutton.setBuilding(armoury);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -309,7 +303,7 @@ public class BottomBarBuildings {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createGatehouseButtons(pane , buildingImages);
+                createGatehouseButtons(pane, buildingImages);
             }
         };
         gatehouseIconButton.setOnMouseClicked(event8);
@@ -330,7 +324,7 @@ public class BottomBarBuildings {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createTowerButtons(pane , buildingImages);
+                createTowerButtons(pane, buildingImages);
             }
         };
         towerIconButton.setOnMouseClicked(event9);
@@ -350,7 +344,7 @@ public class BottomBarBuildings {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createMilitaryBuildingsButtons(pane , buildingImages);
+                createMilitaryBuildingsButtons(pane, buildingImages);
             }
         };
         militaryBuildingsIconButton.setOnMouseClicked(event10);
@@ -372,7 +366,7 @@ public class BottomBarBuildings {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createCastleButtons(pane , buildingImages);
+                createCastleButtons(pane, buildingImages);
             }
         };
         returnIconButton.setOnMouseClicked(event);
@@ -405,8 +399,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(smallGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -441,8 +434,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bigGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -469,7 +461,7 @@ public class BottomBarBuildings {
                 int y = (int) b.getY() / 54;
                 NewButton newbutton = allButtons[y][x].get(0);
                 DrawBridge drawBridge = new DrawBridge(Manage.getCurrentEmpire());
-                drawBridge.drawBridge(0 , 0);
+                drawBridge.drawBridge(0, 0);
                 building = drawBridge;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
@@ -477,8 +469,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(drawBridgeImage);
                     newbutton.setBuilding(drawBridge);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -513,8 +504,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(cagedDogsImage);
                     newbutton.setBuilding(cagedWarDogs);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -549,8 +539,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(pitchDitchImage);
                     newbutton.setBuilding(pitchDitch);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -585,8 +574,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(killingPitImage);
                     newbutton.setBuilding(killingPit);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -611,7 +599,7 @@ public class BottomBarBuildings {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createCastleButtons(pane , buildingImages);
+                createCastleButtons(pane, buildingImages);
             }
         };
         returnIconButton.setOnMouseClicked(event);
@@ -644,8 +632,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(lookoutTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -680,8 +667,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(premierTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -716,8 +702,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(defenceTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -752,8 +737,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(squareTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -788,8 +772,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(roundTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -813,7 +796,7 @@ public class BottomBarBuildings {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createCastleButtons(pane , buildingImages);
+                createCastleButtons(pane, buildingImages);
             }
         };
         returnIconButton.setOnMouseClicked(event);
@@ -846,8 +829,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(engineersGuildImage);
                     newbutton.setBuilding(engineer);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -949,15 +931,14 @@ public class BottomBarBuildings {
                 NewButton newbutton = allButtons[y][x].get(0);
                 Stable stable = new Stable(Manage.getCurrentEmpire());
                 stable.stable();
-                building= stable;
+                building = stable;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stableImage);
                     newbutton.setBuilding(stable);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -992,8 +973,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(tunnelersGuildImage);
                     newbutton.setBuilding(prepareLaboursAndFighters);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1028,8 +1008,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(oilSmelterImage);
                     newbutton.setBuilding(oilSmelter);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1066,8 +1045,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stockpileImage);
                     newbutton.setBuilding(stockpile);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1103,8 +1081,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(woodCutterImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1139,8 +1116,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(quarryImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1175,8 +1151,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(oxTetherImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1211,8 +1186,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(ironMineImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1248,8 +1222,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(pitchRigImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1284,8 +1257,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(marketImage);
                     newbutton.setBuilding(shop);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1329,8 +1301,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(dairyFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1372,8 +1343,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(appleFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1415,8 +1385,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(wheatFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1458,8 +1427,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(hopsFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1496,8 +1464,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(hovelImage);
                     newbutton.setBuilding(house);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1532,8 +1499,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(smallChurchImage);
                     newbutton.setBuilding(church);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1568,8 +1534,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bigChurchImage);
                     newbutton.setBuilding(church);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1604,8 +1569,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(apothecaryImage);
                     newbutton.setBuilding(apothecary);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1640,8 +1604,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(tortureBuildingImage);
                     newbutton.setBuilding(fearControl);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1676,8 +1639,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(gardenImage);
                     newbutton.setBuilding(fearControl);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1722,8 +1684,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(fletcherImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1765,8 +1726,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(poleTurnerImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1808,8 +1768,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(blacksmithImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1870,8 +1829,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(armourerImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1906,8 +1864,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(siegeTentImage);
                     newbutton.setBuilding(siegeTent);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1944,8 +1901,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(granaryImage);
                     newbutton.setBuilding(stockpile);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -1987,8 +1943,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bakeryImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -2030,8 +1985,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(breweryImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -2073,8 +2027,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(millImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -2116,8 +2069,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(innImage);
                     newbutton.setBuilding(inn);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             }
@@ -2125,7 +2077,7 @@ public class BottomBarBuildings {
         innButton.setOnMouseReleased(event4);
     }
 
-    public void clearPane(Pane pane){
+    public void clearPane(Pane pane) {
         pane.getChildren().removeAll(addedButtons);
         pane.getChildren().removeAll(addedImages);
         addedButtons.clear();
@@ -2140,7 +2092,7 @@ public class BottomBarBuildings {
         this.allButtons = allButtons;
     }
 
-    public void fuckingSuperHardcodeCreateBuilding(Pane pane , String buildingName , BuildingImages buildingImages){
+    public void fuckingSuperHardcodeCreateBuilding(Pane pane, String buildingName, BuildingImages buildingImages) {
         PointerInfo a = MouseInfo.getPointerInfo();
         Point b = a.getLocation();
         int x = (int) ((int) b.getX() / 51);
@@ -2148,8 +2100,7 @@ public class BottomBarBuildings {
         System.out.println("x " + x + " y " + y);
         NewButton newbutton = allButtons[y][x].get(0);
         String output;
-        switch (buildingName)
-        {
+        switch (buildingName) {
             case "Armoury":
                 ImageView armoryImage = new ImageView(buildingImages.getArmory());
                 Armoury armoury = new Armoury(Manage.getCurrentEmpire());
@@ -2161,8 +2112,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(armoryImage);
                     newbutton.setBuilding(armoury);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
@@ -2177,12 +2127,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(barracksImage);
                     newbutton.setBuilding(barracks);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"CagedWarDogs":
+            case "CagedWarDogs":
                 ImageView cagedDogsImage = new ImageView(buildingImages.getCagedWarDogs());
                 CagedWarDogs cagedWarDogs = new CagedWarDogs(Manage.getCurrentEmpire());
                 cagedWarDogs.cagedWarDogs();
@@ -2193,11 +2142,10 @@ public class BottomBarBuildings {
                     newbutton.setImageView(cagedDogsImage);
                     newbutton.setBuilding(cagedWarDogs);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
-            case"SmallChurch":
+            case "SmallChurch":
                 ImageView smallChurchImage = new ImageView(buildingImages.getSmallChurch());
                 Church church = new Church(Manage.getCurrentEmpire());
                 church.smallChurch();
@@ -2208,12 +2156,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(smallChurchImage);
                     newbutton.setBuilding(church);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"BigChurch":
+            case "BigChurch":
                 ImageView bigChurchImage = new ImageView(buildingImages.getBigChurch());
                 Church church2 = new Church(Manage.getCurrentEmpire());
                 church2.bigChurch();
@@ -2224,15 +2171,14 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bigChurchImage);
                     newbutton.setBuilding(church2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
             case "DrawBridge":
                 ImageView drawBridgeImage = new ImageView(buildingImages.getDrawBridge());
                 DrawBridge drawBridge = new DrawBridge(Manage.getCurrentEmpire());
-                drawBridge.drawBridge(0 , 0);
+                drawBridge.drawBridge(0, 0);
                 building = drawBridge;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
@@ -2240,12 +2186,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(drawBridgeImage);
                     newbutton.setBuilding(drawBridge);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"AppleFarm":
+            case "AppleFarm":
                 ImageView appleFarmImage = new ImageView(buildingImages.getAppleFarm());
                 Goods goods2 = new Goods(Manage.getCurrentEmpire());
                 goods2.appleFarm();
@@ -2256,12 +2201,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(appleFarmImage);
                     newbutton.setBuilding(goods2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"DairyProduct":
+            case "DairyProduct":
                 ImageView dairyFarmImage = new ImageView(buildingImages.getDairyFarm());
                 Goods goods = new Goods(Manage.getCurrentEmpire());
                 goods.dairyProduct();
@@ -2272,12 +2216,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(dairyFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"OatFarm":
+            case "OatFarm":
                 ImageView hopsFarmImage = new ImageView(buildingImages.getHopsFarm());
                 Goods goods5 = new Goods(Manage.getCurrentEmpire());
                 goods5.oatFarm();
@@ -2288,14 +2231,13 @@ public class BottomBarBuildings {
                     newbutton.setImageView(hopsFarmImage);
                     newbutton.setBuilding(goods5);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"HuntingPost":
+            case "HuntingPost":
                 break;
-            case"WheatFarm":
+            case "WheatFarm":
                 ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
                 Goods goods1 = new Goods(Manage.getCurrentEmpire());
                 goods1.wheatFarm();
@@ -2306,12 +2248,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(wheatFarmImage);
                     newbutton.setBuilding(goods1);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Bakery":
+            case "Bakery":
                 ImageView bakeryImage = new ImageView(buildingImages.getBakery());
                 Goods goods6 = new Goods(Manage.getCurrentEmpire());
                 goods6.bakery();
@@ -2322,12 +2263,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bakeryImage);
                     newbutton.setBuilding(goods6);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"BeerFactory":
+            case "BeerFactory":
                 ImageView breweryImage = new ImageView(buildingImages.getBrewery());
                 Goods goods7 = new Goods(Manage.getCurrentEmpire());
                 goods7.bearFactory();
@@ -2338,12 +2278,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(breweryImage);
                     newbutton.setBuilding(goods7);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"House":
+            case "House":
                 ImageView hovelImage = new ImageView(buildingImages.getHovel());
                 House house = new House(Manage.getCurrentEmpire());
                 house.house();
@@ -2354,12 +2293,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(hovelImage);
                     newbutton.setBuilding(house);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Mill":
+            case "Mill":
                 ImageView millImage = new ImageView(buildingImages.getMill());
                 Industry industry6 = new Industry(Manage.getCurrentEmpire());
                 industry6.mill();
@@ -2370,12 +2308,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(millImage);
                     newbutton.setBuilding(industry6);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"IronDig":
+            case "IronDig":
                 ImageView ironMineImage = new ImageView(buildingImages.getIronMine());
                 Industry industry3 = new Industry(Manage.getCurrentEmpire());
                 industry3.ironDig();
@@ -2386,12 +2323,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(ironMineImage);
                     newbutton.setBuilding(industry3);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"OxTether":
+            case "OxTether":
                 ImageView oxTetherImage = new ImageView(buildingImages.getOxTheater());
                 Industry industry2 = new Industry(Manage.getCurrentEmpire());
                 industry2.oxTether();
@@ -2402,12 +2338,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(oxTetherImage);
                     newbutton.setBuilding(industry2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"OilSmelter":
+            case "OilSmelter":
                 ImageView oilSmelterImage = new ImageView(buildingImages.getOilSmelter());
                 OilSmelter oilSmelter = new OilSmelter(Manage.getCurrentEmpire());
                 oilSmelter.oilSmelter();
@@ -2418,12 +2353,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(oilSmelterImage);
                     newbutton.setBuilding(oilSmelter);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Quarry":
+            case "Quarry":
                 ImageView quarryImage = new ImageView(buildingImages.getQuarry());
                 Industry industry1 = new Industry(Manage.getCurrentEmpire());
                 industry1.quarry();
@@ -2434,12 +2368,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(quarryImage);
                     newbutton.setBuilding(industry1);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"WoodCutter":
+            case "WoodCutter":
                 ImageView woodCutterImage = new ImageView(buildingImages.getWoodCutter());
                 Industry industry = new Industry(Manage.getCurrentEmpire());
                 industry.woodCutter();
@@ -2450,12 +2383,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(woodCutterImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Inn":
+            case "Inn":
                 ImageView innImage = new ImageView(buildingImages.getInn());
                 Inn inn = new Inn(Manage.getCurrentEmpire());
                 inn.inn();
@@ -2466,12 +2398,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(innImage);
                     newbutton.setBuilding(inn);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"KillingPit":
+            case "KillingPit":
                 Button killingPitButton = new Button();
                 ImageView killingPitImage = new ImageView(buildingImages.getKillingPit());
                 KillingPit killingPit = new KillingPit(Manage.getCurrentEmpire());
@@ -2483,8 +2414,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(killingPitImage);
                     newbutton.setBuilding(killingPit);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
             case "Market":
@@ -2498,12 +2428,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(marketImage);
                     newbutton.setBuilding(shop);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"PitchRig":
+            case "PitchRig":
                 ImageView pitchRigImage = new ImageView(buildingImages.getPitchRig());
                 Industry industry4 = new Industry(Manage.getCurrentEmpire());
                 industry4.pitchRig();
@@ -2514,12 +2443,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(pitchRigImage);
                     newbutton.setBuilding(industry4);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"PitchDitch":
+            case "PitchDitch":
                 ImageView pitchDitchImage = new ImageView(buildingImages.getPitchDitch());
                 PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
                 pitchDitch.pitchDitch();
@@ -2530,11 +2458,10 @@ public class BottomBarBuildings {
                     newbutton.setImageView(pitchDitchImage);
                     newbutton.setBuilding(pitchDitch);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
-            case"Mercenary":
+            case "Mercenary":
                 ImageView mercenaryImage = new ImageView(buildingImages.getMercenary());
                 PrepareLaboursAndFighters mercenary = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 mercenary.mercenary();
@@ -2545,12 +2472,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(mercenaryImage);
                     newbutton.setBuilding(mercenary);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"EngineerGuild":
+            case "EngineerGuild":
                 ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
                 PrepareLaboursAndFighters engineer = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 engineer.engineerGuild();
@@ -2561,12 +2487,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(engineersGuildImage);
                     newbutton.setBuilding(engineer);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"TunnelerGuild":
+            case "TunnelerGuild":
                 ImageView tunnelersGuildImage = new ImageView(buildingImages.getTunnelersGuild());
                 PrepareLaboursAndFighters prepareLaboursAndFighters = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
                 prepareLaboursAndFighters.tunnelerGuild();
@@ -2577,12 +2502,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(tunnelersGuildImage);
                     newbutton.setBuilding(prepareLaboursAndFighters);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Shop":
+            case "Shop":
                 ImageView marketImage2 = new ImageView(buildingImages.getMarket());
                 Shop shop2 = new Shop(Manage.getCurrentEmpire());
                 shop2.shop();
@@ -2593,12 +2517,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(marketImage2);
                     newbutton.setBuilding(shop2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"SiegeTent":
+            case "SiegeTent":
                 ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
                 SiegeTent siegeTent = new SiegeTent(Manage.getCurrentEmpire());
                 siegeTent.siegeTent();
@@ -2609,28 +2532,26 @@ public class BottomBarBuildings {
                     newbutton.setImageView(siegeTentImage);
                     newbutton.setBuilding(siegeTent);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Stable":
+            case "Stable":
                 ImageView stableImage = new ImageView(buildingImages.getStable());
                 Stable stable = new Stable(Manage.getCurrentEmpire());
                 stable.stable();
-                building= stable;
+                building = stable;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stableImage);
                     newbutton.setBuilding(stable);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"ResourcesStockpile":
+            case "ResourcesStockpile":
                 ImageView stockpileImage = new ImageView(buildingImages.getStockpile());
                 Stockpile resourceStockpile = new Stockpile(Manage.getCurrentEmpire());
                 resourceStockpile.resourcesStockpile();
@@ -2641,12 +2562,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stockpileImage);
                     newbutton.setBuilding(resourceStockpile);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"FoodStockpile":
+            case "FoodStockpile":
                 ImageView granaryImage = new ImageView(buildingImages.getGranary());
                 Stockpile stockpile2 = new Stockpile(Manage.getCurrentEmpire());
                 stockpile2.foodStockpile();
@@ -2657,11 +2577,10 @@ public class BottomBarBuildings {
                     newbutton.setImageView(granaryImage);
                     newbutton.setBuilding(stockpile2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
-            case"SmallStoneGatehouse":
+            case "SmallStoneGatehouse":
                 ImageView smallGatehouseImage = new ImageView(buildingImages.getSmallStoneGatehouse());
                 StoneGateWay stoneGateWay = new StoneGateWay(Manage.getCurrentEmpire());
                 stoneGateWay.smallGateWay(Names.NS);
@@ -2672,12 +2591,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(smallGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"BigStoneGatehouse":
+            case "BigStoneGatehouse":
                 ImageView bigGatehouseImage = new ImageView(buildingImages.getBigStoneGateHouse());
                 StoneGateWay stoneGateWayBig = new StoneGateWay(Manage.getCurrentEmpire());
                 stoneGateWayBig.bigGateWay(Names.NS);
@@ -2688,12 +2606,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bigGatehouseImage);
                     newbutton.setBuilding(stoneGateWayBig);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"LookoutTower":
+            case "LookoutTower":
                 ImageView lookoutTowerImage = new ImageView(buildingImages.getLookoutTower());
                 Tower tower = new Tower(Manage.getCurrentEmpire());
                 tower.lookoutTower();
@@ -2704,12 +2621,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(lookoutTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"PerimeterTower":
+            case "PerimeterTower":
                 ImageView premierTowerImage = new ImageView(buildingImages.getPremierTurret());
                 Tower tower2 = new Tower(Manage.getCurrentEmpire());
                 tower2.perimeterTower();
@@ -2720,12 +2636,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(premierTowerImage);
                     newbutton.setBuilding(tower2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"DefendTower":
+            case "DefendTower":
                 ImageView defenceTowerImage = new ImageView(buildingImages.getDefenceTurret());
                 Tower tower3 = new Tower(Manage.getCurrentEmpire());
                 tower3.defendTower();
@@ -2736,12 +2651,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(defenceTowerImage);
                     newbutton.setBuilding(tower3);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"SquareTower":
+            case "SquareTower":
                 ImageView squareTowerImage = new ImageView(buildingImages.getSquareTower());
                 Tower tower4 = new Tower(Manage.getCurrentEmpire());
                 tower4.squareTower();
@@ -2752,12 +2666,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(squareTowerImage);
                     newbutton.setBuilding(tower4);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"RoundTower":
+            case "RoundTower":
                 ImageView roundTowerImage = new ImageView(buildingImages.getRoundTower());
                 Tower tower5 = new Tower(Manage.getCurrentEmpire());
                 tower5.roundTower();
@@ -2768,14 +2681,13 @@ public class BottomBarBuildings {
                     newbutton.setImageView(roundTowerImage);
                     newbutton.setBuilding(tower5);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Tunnel":
+            case "Tunnel":
                 break;
-            case"BigWall":
+            case "BigWall":
                 ImageView stoneWallImage = new ImageView(buildingImages.getStoneWall());
                 Wall bigWall = new Wall(Manage.getCurrentEmpire());
                 bigWall.bigWall();
@@ -2786,12 +2698,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stoneWallImage);
                     newbutton.setBuilding(bigWall);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"SmallWall":
+            case "SmallWall":
                 ImageView lowWallImage = new ImageView(buildingImages.getLowWall());
                 Wall lowWall = new Wall(Manage.getCurrentEmpire());
                 lowWall.smallWall();
@@ -2802,12 +2713,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(lowWallImage);
                     newbutton.setBuilding(lowWall);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Stair":
+            case "Stair":
                 ImageView wallStairImage = new ImageView(buildingImages.getWallStair());
                 Wall stair = new Wall(Manage.getCurrentEmpire());
                 stair.stair();
@@ -2818,13 +2728,13 @@ public class BottomBarBuildings {
                     newbutton.setImageView(wallStairImage);
                     newbutton.setBuilding(stair);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Castle":
-            case"Armourer":
+            case "Castle":
+                break;
+            case "Armourer":
                 ImageView armourerImage = new ImageView(buildingImages.getArmourer());
                 Weapon weapon4 = new Weapon(Manage.getCurrentEmpire());
                 weapon4.armourer();
@@ -2835,12 +2745,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(armourerImage);
                     newbutton.setBuilding(weapon4);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Blacksmith":
+            case "Blacksmith":
                 ImageView blacksmithImage = new ImageView(buildingImages.getBlacksmith());
                 Weapon weapon3 = new Weapon(Manage.getCurrentEmpire());
                 weapon3.blacksmith();
@@ -2851,12 +2760,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(blacksmithImage);
                     newbutton.setBuilding(weapon3);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Fletcher":
+            case "Fletcher":
                 ImageView fletcherImage = new ImageView(buildingImages.getFletcher());
                 Weapon weapon = new Weapon(Manage.getCurrentEmpire());
                 weapon.fletcher();
@@ -2867,12 +2775,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(fletcherImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"PoleTurner":
+            case "PoleTurner":
                 ImageView poleTurnerImage = new ImageView(buildingImages.getPoleTurner());
                 Weapon weapon1 = new Weapon(Manage.getCurrentEmpire());
                 weapon1.poleTurner();
@@ -2883,12 +2790,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(poleTurnerImage);
                     newbutton.setBuilding(weapon1);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"Garden":
+            case "Garden":
                 ImageView gardenImage = new ImageView(buildingImages.getGarden());
                 FearControl fearControl2 = new FearControl(Manage.getCurrentEmpire());
                 fearControl2.garden();
@@ -2899,12 +2805,11 @@ public class BottomBarBuildings {
                     newbutton.setImageView(gardenImage);
                     newbutton.setBuilding(fearControl2);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
-            case"TortureChamber":
+            case "TortureChamber":
                 ImageView tortureBuildingImage = new ImageView(buildingImages.getTortureBuilding());
                 FearControl fearControl = new FearControl(Manage.getCurrentEmpire());
                 fearControl.tortureChamber();
@@ -2915,8 +2820,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(tortureBuildingImage);
                     newbutton.setBuilding(fearControl);
                     pane.getChildren().add(newbutton);
-                }
-                else {
+                } else {
                     showError(output);
                 }
                 break;
