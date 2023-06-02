@@ -7,10 +7,12 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -38,6 +40,8 @@ import view.Model.NewButton;
 import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
+import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,11 +71,12 @@ public class TileManager extends Application {
     public SelectedBuildingButtons selectedBuildingButtons;
 
     public TilePane view = new TilePane();
-
+    public Button repair;
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
     public ArrayList<NewButton> selectedBuildingGraphic;
     public Text selectedBuildingTextField;
+    public Text selectedBuildingHP;
     public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
@@ -83,6 +88,9 @@ public class TileManager extends Application {
     public int numberOfMySoldiers;
     public double width;
     public double height;
+    public ClipboardContent content;
+    public Clipboard cb;
+    public NewButton selectedButton;
     public ArrayList<Node> list = new ArrayList<>();
 
 
@@ -93,12 +101,14 @@ public class TileManager extends Application {
     private boolean moveIsOn;
     public int controllerOfDropUnit = 1;
     public boolean isFive = true;
+    public String clipboardData;
 
     public GameController gameController = new GameController();
     public String nameOfUnit;
 
     @Override
     public void start(Stage stage) throws Exception {
+
         Map.CreateMap(100);
         Empire empire = new Empire();
         Empire empire2 = new Empire();
@@ -106,10 +116,7 @@ public class TileManager extends Application {
         Manage.allEmpires.add(empire);
         Manage.allEmpires.add(empire2);
         BuildingController.currentEmpire = empire;
-//        tilePane.setLayoutX(-100);
-//        tilePane.setLayoutY(-100);
-//        tilePane.setPrefColumns(100);
-//        tilePane.setMaxWidth(10000);
+
         createButtonsArraylist();
 
         for (int j = 0; j < 103; j++) {
@@ -151,14 +158,10 @@ public class TileManager extends Application {
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-//        Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
-//        width = resolution.getWidth();
-//        height = resolution.getHeight();
         pane.requestFocus();
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
-//        bottomBarBuildings.setAllButtons(allButtons);
         MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,this);
 
         scene = new Scene(pane, width - 50, height - 50);
@@ -181,6 +184,20 @@ public class TileManager extends Application {
                     //System.out.println(archersAndThrowers.myPath.size());
                     moveAnimation.play();
                     //archersAndThrowers.getMyPath().remove(0);
+                }
+                else if (keyName.equals("C")) {
+                    content = new ClipboardContent();
+                    if(selectedButton.getBuilding() != null) {
+                        content.putString(selectedButton.getBuilding().getName());
+                    }
+                    else {
+                        content.putString("");
+                    }
+                    javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
+                }
+                else if (keyName.equals("P")) {
+                    clipboardData = content.getString();
+                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane , clipboardData , buildingImages);
                 }
             }
         });
@@ -315,12 +332,8 @@ public class TileManager extends Application {
                     gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
                             , i, spinners.get(i).getValue(), selectedButtons.get(0));
                 }
-
             }
-
         });
-
-
         pane.getChildren().add(hBox);
     }
 
@@ -891,13 +904,16 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                selectedButton = newButton;
                 pane.getChildren().remove(selectedBuildingGraphic);
                 pane.getChildren().remove(selectedBuildingTextField);
                 pane.getChildren().remove(selectBackground);
                 if (selectedMenuActive) {
-                    System.out.println(5);
-                    System.out.println(selectedBuildingButtons.selectedBuildingsAddedButtons.size());
+                    if(selectedBuildingButtons.getGatehouseText() != null)
+                        pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
                     pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+                    pane.getChildren().remove(selectedBuildingHP);
+                    pane.getChildren().remove(repair);
                 }
                 if (newButton.getBuilding() != null) {
                     selectedBuildingBottomGraphic(newButton);
@@ -927,10 +943,10 @@ public class TileManager extends Application {
         SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
         String buildingName = newButton.getBuilding().getName();
-        setSelectedBuildingProperGraphic(buildingName, selectedBuildingMenu, unitImages);
+        setSelectedBuildingProperGraphic(newButton ,buildingName, selectedBuildingMenu, unitImages);
     }
 
-    public void setSelectedBuildingProperGraphic(String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+    public void setSelectedBuildingProperGraphic(NewButton newButton , String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         selectedMenuActive = true;
         selectedBuildingButtons = new SelectedBuildingButtons();
         selectedBuildingTextField = new Text();
@@ -938,6 +954,31 @@ public class TileManager extends Application {
         selectedBuildingTextField.setStyle("-fx-font: 24 arial");
         selectedBuildingTextField.setLayoutX(550);
         selectedBuildingTextField.setLayoutY(715);
+        if(SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+            selectedBuildingHP = new Text();
+            selectedBuildingHP.setText("HP : " + newButton.getBuilding().getHp());
+            selectedBuildingHP.setStyle("-fx-font: 24 arial");
+            selectedBuildingHP.setLayoutX(200);
+            selectedBuildingHP.setLayoutY(715);
+            repair = new Button();
+            repair.setText("repair");
+            repair.setBackground(null);
+            repair.setStyle("-fx-font: 24 arial");
+            repair.setLayoutX(850);
+            repair.setLayoutY(700);
+            EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    String output = String.valueOf(selectedBuildingMenu.repair());
+                    if(!output.equals("building repaired successfully")){
+                        showError(output);
+                    }
+                }
+            };
+            repair.setOnMouseClicked(event);
+            pane.getChildren().add(selectedBuildingHP);
+            pane.getChildren().add(repair);
+        }
         pane.getChildren().add(selectedBuildingTextField);
         if (buildingName.equals("Barracks")) {
             selectedBuildingButtons.barracks(pane, selectedBuildingMenu, unitImages);
@@ -954,6 +995,12 @@ public class TileManager extends Application {
         } else if (buildingName.equals("DrawBridge")) {
             selectedBuildingButtons.drawBridge(pane, selectedBuildingMenu, unitImages);
         }
+    }
+    public void showError(String output){
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("DROP BUILDING FAILED");
+        error.setContentText(output);
+        error.show();
     }
 
 }

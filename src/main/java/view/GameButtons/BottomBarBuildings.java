@@ -42,8 +42,6 @@ public class BottomBarBuildings {
         error.show();
     }
 
-    //imageView.preserveRatioProperty().set(true);
-
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
         Button wallStairButton = new Button();
         ImageView wallStairImage = new ImageView(buildingImages.getWallStair());
@@ -152,7 +150,6 @@ public class BottomBarBuildings {
             }
         };
         stoneWallButton.setOnMouseReleased(event3);
-
         Button crenulatedWallButton = new Button();
         ImageView crenulatedWallImage = new ImageView(buildingImages.getCrenulatedWall());
         crenulatedWallButton.setBackground(null);
@@ -2120,12 +2117,777 @@ public class BottomBarBuildings {
         addedImages.clear();
     }
 
-
     public ArrayList<NewButton>[][] getAllButtons() {
         return allButtons;
     }
 
     public void setAllButtons(ArrayList<NewButton>[][] allButtons) {
         this.allButtons = allButtons;
+    }
+
+    public void fuckingSuperHardcodeCreateBuilding(Pane pane , String buildingName , BuildingImages buildingImages){
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) ((int) b.getX() / 51);
+        int y = (int) b.getY() / 54;
+        System.out.println("x " + x + " y " + y);
+        NewButton newbutton = allButtons[y][x].get(0);
+        String output;
+        switch (buildingName)
+        {
+            case "Armoury":
+                ImageView armoryImage = new ImageView(buildingImages.getArmory());
+                Armoury armoury = new Armoury(Manage.getCurrentEmpire());
+                armoury.armoury();
+                building = armoury;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(armoryImage);
+                    newbutton.setBuilding(armoury);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case "Barracks":
+                ImageView barracksImage = new ImageView(buildingImages.getBarracks());
+                PrepareLaboursAndFighters barracks = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                barracks.barracks();
+                building = barracks;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(barracksImage);
+                    newbutton.setBuilding(barracks);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"CagedWarDogs":
+                ImageView cagedDogsImage = new ImageView(buildingImages.getCagedWarDogs());
+                CagedWarDogs cagedWarDogs = new CagedWarDogs(Manage.getCurrentEmpire());
+                cagedWarDogs.cagedWarDogs();
+                building = cagedWarDogs;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(cagedDogsImage);
+                    newbutton.setBuilding(cagedWarDogs);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+            case"SmallChurch":
+                ImageView smallChurchImage = new ImageView(buildingImages.getSmallChurch());
+                Church church = new Church(Manage.getCurrentEmpire());
+                church.smallChurch();
+                building = church;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(smallChurchImage);
+                    newbutton.setBuilding(church);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"BigChurch":
+                ImageView bigChurchImage = new ImageView(buildingImages.getBigChurch());
+                Church church2 = new Church(Manage.getCurrentEmpire());
+                church2.bigChurch();
+                building = church2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(bigChurchImage);
+                    newbutton.setBuilding(church2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case "DrawBridge":
+                ImageView drawBridgeImage = new ImageView(buildingImages.getDrawBridge());
+                DrawBridge drawBridge = new DrawBridge(Manage.getCurrentEmpire());
+                drawBridge.drawBridge(0 , 0);
+                building = drawBridge;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(drawBridgeImage);
+                    newbutton.setBuilding(drawBridge);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"AppleFarm":
+                ImageView appleFarmImage = new ImageView(buildingImages.getAppleFarm());
+                Goods goods2 = new Goods(Manage.getCurrentEmpire());
+                goods2.appleFarm();
+                building = goods2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(appleFarmImage);
+                    newbutton.setBuilding(goods2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"DairyProduct":
+                ImageView dairyFarmImage = new ImageView(buildingImages.getDairyFarm());
+                Goods goods = new Goods(Manage.getCurrentEmpire());
+                goods.dairyProduct();
+                building = goods;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(dairyFarmImage);
+                    newbutton.setBuilding(goods);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"OatFarm":
+                ImageView hopsFarmImage = new ImageView(buildingImages.getHopsFarm());
+                Goods goods5 = new Goods(Manage.getCurrentEmpire());
+                goods5.oatFarm();
+                building = goods5;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(hopsFarmImage);
+                    newbutton.setBuilding(goods5);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"HuntingPost":
+            case"WheatFarm":
+                ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
+                Goods goods1 = new Goods(Manage.getCurrentEmpire());
+                goods1.wheatFarm();
+                building = goods1;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(wheatFarmImage);
+                    newbutton.setBuilding(goods1);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Bakery":
+                ImageView bakeryImage = new ImageView(buildingImages.getBakery());
+                Goods goods6 = new Goods(Manage.getCurrentEmpire());
+                goods6.bakery();
+                building = goods6;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(bakeryImage);
+                    newbutton.setBuilding(goods6);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"BeerFactory":
+                ImageView breweryImage = new ImageView(buildingImages.getBrewery());
+                Goods goods7 = new Goods(Manage.getCurrentEmpire());
+                goods7.bearFactory();
+                building = goods7;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(breweryImage);
+                    newbutton.setBuilding(goods7);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"House":
+                ImageView hovelImage = new ImageView(buildingImages.getHovel());
+                House house = new House(Manage.getCurrentEmpire());
+                house.house();
+                building = house;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(hovelImage);
+                    newbutton.setBuilding(house);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Mill":
+                ImageView millImage = new ImageView(buildingImages.getMill());
+                Industry industry6 = new Industry(Manage.getCurrentEmpire());
+                industry6.mill();
+                building = industry6;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(millImage);
+                    newbutton.setBuilding(industry6);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"IronDig":
+                ImageView ironMineImage = new ImageView(buildingImages.getIronMine());
+                Industry industry3 = new Industry(Manage.getCurrentEmpire());
+                industry3.ironDig();
+                building = industry3;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(ironMineImage);
+                    newbutton.setBuilding(industry3);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"OxTether":
+                ImageView oxTetherImage = new ImageView(buildingImages.getOxTheater());
+                Industry industry2 = new Industry(Manage.getCurrentEmpire());
+                industry2.oxTether();
+                building = industry2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(oxTetherImage);
+                    newbutton.setBuilding(industry2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"OilSmelter":
+                ImageView oilSmelterImage = new ImageView(buildingImages.getOilSmelter());
+                OilSmelter oilSmelter = new OilSmelter(Manage.getCurrentEmpire());
+                oilSmelter.oilSmelter();
+                building = oilSmelter;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(oilSmelterImage);
+                    newbutton.setBuilding(oilSmelter);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Quarry":
+                ImageView quarryImage = new ImageView(buildingImages.getQuarry());
+                Industry industry1 = new Industry(Manage.getCurrentEmpire());
+                industry1.quarry();
+                building = industry1;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(quarryImage);
+                    newbutton.setBuilding(industry1);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"WoodCutter":
+                ImageView woodCutterImage = new ImageView(buildingImages.getWoodCutter());
+                Industry industry = new Industry(Manage.getCurrentEmpire());
+                industry.woodCutter();
+                building = industry;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(woodCutterImage);
+                    newbutton.setBuilding(industry);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Inn":
+                ImageView innImage = new ImageView(buildingImages.getInn());
+                Inn inn = new Inn(Manage.getCurrentEmpire());
+                inn.inn();
+                building = inn;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(innImage);
+                    newbutton.setBuilding(inn);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"KillingPit":
+                Button killingPitButton = new Button();
+                ImageView killingPitImage = new ImageView(buildingImages.getKillingPit());
+                KillingPit killingPit = new KillingPit(Manage.getCurrentEmpire());
+                killingPit.killingPit();
+                building = killingPit;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(killingPitImage);
+                    newbutton.setBuilding(killingPit);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+            case "Market":
+                ImageView marketImage = new ImageView(buildingImages.getMarket());
+                Shop shop = new Shop(Manage.getCurrentEmpire());
+                shop.shop();
+                building = shop;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(marketImage);
+                    newbutton.setBuilding(shop);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"PitchRig":
+                ImageView pitchRigImage = new ImageView(buildingImages.getPitchRig());
+                Industry industry4 = new Industry(Manage.getCurrentEmpire());
+                industry4.pitchRig();
+                building = industry4;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(pitchRigImage);
+                    newbutton.setBuilding(industry4);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"PitchDitch":
+                ImageView pitchDitchImage = new ImageView(buildingImages.getPitchDitch());
+                PitchDitch pitchDitch = new PitchDitch(Manage.getCurrentEmpire());
+                pitchDitch.pitchDitch();
+                building = pitchDitch;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(pitchDitchImage);
+                    newbutton.setBuilding(pitchDitch);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+            case"Mercenary":
+                ImageView mercenaryImage = new ImageView(buildingImages.getMercenary());
+                PrepareLaboursAndFighters mercenary = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                mercenary.mercenary();
+                building = mercenary;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(mercenaryImage);
+                    newbutton.setBuilding(mercenary);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"EngineerGuild":
+                ImageView engineersGuildImage = new ImageView(buildingImages.getEngineerGuild());
+                PrepareLaboursAndFighters engineer = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                engineer.engineerGuild();
+                building = engineer;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(engineersGuildImage);
+                    newbutton.setBuilding(engineer);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"TunnelerGuild":
+                ImageView tunnelersGuildImage = new ImageView(buildingImages.getTunnelersGuild());
+                PrepareLaboursAndFighters prepareLaboursAndFighters = new PrepareLaboursAndFighters(Manage.getCurrentEmpire());
+                prepareLaboursAndFighters.tunnelerGuild();
+                building = prepareLaboursAndFighters;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(tunnelersGuildImage);
+                    newbutton.setBuilding(prepareLaboursAndFighters);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Shop":
+            case"SiegeTent":
+                ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
+                SiegeTent siegeTent = new SiegeTent(Manage.getCurrentEmpire());
+                siegeTent.siegeTent();
+                building = siegeTent;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(siegeTentImage);
+                    newbutton.setBuilding(siegeTent);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Stable":
+                ImageView stableImage = new ImageView(buildingImages.getStable());
+                Stable stable = new Stable(Manage.getCurrentEmpire());
+                stable.stable();
+                building= stable;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(stableImage);
+                    newbutton.setBuilding(stable);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"ResourcesStockpile":
+                ImageView stockpileImage = new ImageView(buildingImages.getStockpile());
+                Stockpile resourceStockpile = new Stockpile(Manage.getCurrentEmpire());
+                resourceStockpile.resourcesStockpile();
+                building = resourceStockpile;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(stockpileImage);
+                    newbutton.setBuilding(resourceStockpile);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"FoodStockpile":
+                ImageView granaryImage = new ImageView(buildingImages.getGranary());
+                Stockpile stockpile2 = new Stockpile(Manage.getCurrentEmpire());
+                stockpile2.foodStockpile();
+                building = stockpile2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(granaryImage);
+                    newbutton.setBuilding(stockpile2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+            case"SmallStoneGatehouse":
+                ImageView smallGatehouseImage = new ImageView(buildingImages.getSmallStoneGatehouse());
+                StoneGateWay stoneGateWay = new StoneGateWay(Manage.getCurrentEmpire());
+                stoneGateWay.smallGateWay(Names.NS);
+                building = stoneGateWay;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(smallGatehouseImage);
+                    newbutton.setBuilding(stoneGateWay);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"BigStoneGatehouse":
+                ImageView bigGatehouseImage = new ImageView(buildingImages.getBigStoneGateHouse());
+                StoneGateWay stoneGateWayBig = new StoneGateWay(Manage.getCurrentEmpire());
+                stoneGateWayBig.bigGateWay(Names.NS);
+                building = stoneGateWayBig;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(bigGatehouseImage);
+                    newbutton.setBuilding(stoneGateWayBig);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"LookoutTower":
+                ImageView lookoutTowerImage = new ImageView(buildingImages.getLookoutTower());
+                Tower tower = new Tower(Manage.getCurrentEmpire());
+                tower.lookoutTower();
+                building = tower;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(lookoutTowerImage);
+                    newbutton.setBuilding(tower);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"PerimeterTower":
+                ImageView premierTowerImage = new ImageView(buildingImages.getPremierTurret());
+                Tower tower2 = new Tower(Manage.getCurrentEmpire());
+                tower2.perimeterTower();
+                building = tower2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(premierTowerImage);
+                    newbutton.setBuilding(tower2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"DefendTower":
+                ImageView defenceTowerImage = new ImageView(buildingImages.getDefenceTurret());
+                Tower tower3 = new Tower(Manage.getCurrentEmpire());
+                tower3.defendTower();
+                building = tower3;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(defenceTowerImage);
+                    newbutton.setBuilding(tower3);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"SquareTower":
+                ImageView squareTowerImage = new ImageView(buildingImages.getSquareTower());
+                Tower tower4 = new Tower(Manage.getCurrentEmpire());
+                tower4.squareTower();
+                building = tower4;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(squareTowerImage);
+                    newbutton.setBuilding(tower4);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"RoundTower":
+                ImageView roundTowerImage = new ImageView(buildingImages.getRoundTower());
+                Tower tower5 = new Tower(Manage.getCurrentEmpire());
+                tower5.roundTower();
+                building = tower5;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(roundTowerImage);
+                    newbutton.setBuilding(tower5);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Tunnel":
+            case"BigWall":
+                ImageView stoneWallImage = new ImageView(buildingImages.getStoneWall());
+                Wall bigWall = new Wall(Manage.getCurrentEmpire());
+                bigWall.bigWall();
+                building = bigWall;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(stoneWallImage);
+                    newbutton.setBuilding(bigWall);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"SmallWall":
+                ImageView lowWallImage = new ImageView(buildingImages.getLowWall());
+                Wall lowWall = new Wall(Manage.getCurrentEmpire());
+                lowWall.smallWall();
+                building = lowWall;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(lowWallImage);
+                    newbutton.setBuilding(lowWall);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Stair":
+                ImageView wallStairImage = new ImageView(buildingImages.getWallStair());
+                Wall stair = new Wall(Manage.getCurrentEmpire());
+                stair.stair();
+                building = stair;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(wallStairImage);
+                    newbutton.setBuilding(stair);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Castle":
+            case"Armourer":
+                ImageView armourerImage = new ImageView(buildingImages.getArmourer());
+                Weapon weapon4 = new Weapon(Manage.getCurrentEmpire());
+                weapon4.armourer();
+                building = weapon4;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(armourerImage);
+                    newbutton.setBuilding(weapon4);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Blacksmith":
+                ImageView blacksmithImage = new ImageView(buildingImages.getBlacksmith());
+                Weapon weapon3 = new Weapon(Manage.getCurrentEmpire());
+                weapon3.blacksmith();
+                building = weapon3;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(blacksmithImage);
+                    newbutton.setBuilding(weapon3);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Fletcher":
+                ImageView fletcherImage = new ImageView(buildingImages.getFletcher());
+                Weapon weapon = new Weapon(Manage.getCurrentEmpire());
+                weapon.fletcher();
+                building = weapon;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(fletcherImage);
+                    newbutton.setBuilding(weapon);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"PoleTurner":
+                ImageView poleTurnerImage = new ImageView(buildingImages.getPoleTurner());
+                Weapon weapon1 = new Weapon(Manage.getCurrentEmpire());
+                weapon1.poleTurner();
+                building = weapon1;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(poleTurnerImage);
+                    newbutton.setBuilding(weapon1);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"Garden":
+                ImageView gardenImage = new ImageView(buildingImages.getGarden());
+                FearControl fearControl2 = new FearControl(Manage.getCurrentEmpire());
+                fearControl2.garden();
+                building = fearControl2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(gardenImage);
+                    newbutton.setBuilding(fearControl2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+            case"TortureChamber":
+                ImageView tortureBuildingImage = new ImageView(buildingImages.getTortureBuilding());
+                FearControl fearControl = new FearControl(Manage.getCurrentEmpire());
+                fearControl.tortureChamber();
+                building = fearControl;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(tortureBuildingImage);
+                    newbutton.setBuilding(fearControl);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
+        }
     }
 }

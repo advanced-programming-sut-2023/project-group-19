@@ -3,9 +3,12 @@ package view.GameButtons;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import model.Building.PrepareLaboursAndFighters;
 import model.Building.Wall;
 import model.Manage;
@@ -19,14 +22,24 @@ import java.util.ArrayList;
 
 public class SelectedBuildingButtons {
     public ArrayList<Button> selectedBuildingsAddedButtons = new ArrayList<>();
-    public void showError(String output){
+    public TextField gatehouseText;
+
+    public TextField getGatehouseText() {
+        return gatehouseText;
+    }
+
+    public void setGatehouseText(TextField gatehouseText) {
+        this.gatehouseText = gatehouseText;
+    }
+
+    public void showError(String output) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
         error.show();
     }
 
-    public void barracks(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages) {
+    public void barracks(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         Button archerButton = new Button();
         ImageView archerImage = new ImageView(unitImages.getArcher());
         archerButton.setBackground(null);
@@ -40,7 +53,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("archer", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -60,7 +73,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("spearMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -80,7 +93,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("maceMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -100,7 +113,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("crossbowMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -120,7 +133,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("pikeMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -140,7 +153,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("swordMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -159,7 +172,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("knight", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -167,7 +180,7 @@ public class SelectedBuildingButtons {
         knightButton.setOnMouseClicked(event6);
     }
 
-    public void mercenary(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages) {
+    public void mercenary(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         Button arabianBowButton = new Button();
         ImageView arabianBowImage = new ImageView(unitImages.getArcherBow());
         arabianBowButton.setBackground(null);
@@ -181,7 +194,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("arabianBow", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -201,7 +214,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("slave", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -221,7 +234,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("slinger", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -241,7 +254,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("assassin", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -261,7 +274,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("horseArcher", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -281,7 +294,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("arabianSwordMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -301,7 +314,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("fireThrower", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -309,7 +322,7 @@ public class SelectedBuildingButtons {
         fireThrowerButton.setOnMouseClicked(event6);
     }
 
-    public void siegeTent(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages) {
+    public void siegeTent(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         Button catapultButton = new Button();
         ImageView catapultImage = new ImageView(unitImages.getCatapult());
         catapultButton.setBackground(null);
@@ -323,7 +336,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("catapult", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -343,7 +356,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("trebuchet", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -363,7 +376,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("siegeTower", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -383,7 +396,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("batteringRam", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -403,7 +416,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("portableShield", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -423,7 +436,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("fireBallista", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -431,27 +444,26 @@ public class SelectedBuildingButtons {
         fireBallistaButton.setOnMouseClicked(event5);
     }
 
-    public void engineerGuild(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages) {
-        //engineer
-//        Button catapultButton = new Button();
-//        ImageView catapultImage = new ImageView(unitImages.getCatapult());
-//        catapultButton.setBackground(null);
-//        catapultButton.setGraphic(catapultImage);
-//        catapultButton.setLayoutX(110);
-//        catapultButton.setLayoutY(730);
-//        catapultButton.setMinSize(100, 100);
-//        selectedBuildingsAddedButtons.add(catapultButton);
-//        pane.getChildren().add(catapultButton);
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                String output = String.valueOf(selectedBuildingMenu.createUnit("catapult", 1));
-//                if(!output.equals("troop created successfully")){
-//                    showError(output);
-//                }
-//            }
-//        };
-//        catapultButton.setOnMouseClicked(event);
+    public void engineerGuild(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+        Button engineerButton = new Button();
+        ImageView engineerImage = new ImageView(unitImages.getEngineer());
+        engineerButton.setBackground(null);
+        engineerButton.setGraphic(engineerImage);
+        engineerButton.setLayoutX(110);
+        engineerButton.setLayoutY(730);
+        engineerButton.setMinSize(100, 100);
+        selectedBuildingsAddedButtons.add(engineerButton);
+        pane.getChildren().add(engineerButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String output = String.valueOf(selectedBuildingMenu.createUnit("engineer", 1));
+                if (!output.equals("troop created successfully")) {
+                    showError(output);
+                }
+            }
+        };
+        engineerButton.setOnMouseClicked(event);
 
         Button ladderManButton = new Button();
         ImageView ladderManImage = new ImageView(unitImages.getLadderMen());
@@ -466,7 +478,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("ladderMan", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -486,7 +498,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("tunneler", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
@@ -494,7 +506,7 @@ public class SelectedBuildingButtons {
         tunnelerButton.setOnMouseClicked(event2);
     }
 
-    public void church(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages){
+    public void church(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         Button blackMonkButton = new Button();
         ImageView blackMonkImage = new ImageView(unitImages.getBlackMonk());
         blackMonkButton.setBackground(null);
@@ -508,17 +520,50 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("blackMonk", 1));
-                if(!output.equals("troop created successfully")){
+                if (!output.equals("troop created successfully")) {
                     showError(output);
                 }
             }
         };
         blackMonkButton.setOnMouseClicked(event1);
     }
-    public void gatehouse(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages){
 
+    public void gatehouse(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+        Button submit = new Button();
+        submit.setBackground(null);
+        submit.setText("SUBMIT");
+        submit.setLayoutX(450);
+        submit.setLayoutY(750);
+        submit.setMinSize(100, 100);
+        selectedBuildingsAddedButtons.add(submit);
+
+        gatehouseText = new TextField();
+        gatehouseText.setPromptText("tax rate");
+        gatehouseText.setLayoutX(550);
+        gatehouseText.setLayoutY(786);
+
+        selectedBuildingsAddedButtons.add(submit);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String taxRate = gatehouseText.getText();
+                if (taxRate.matches("[-0-9]+")) {
+                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
+                    if (!output.equals("tax rate changed successfully")) {
+                        showError(output);
+                    }
+                } else {
+                    showError("only use number in this field");
+                }
+                gatehouseText.setText("");
+            }
+        };
+        submit.setOnMouseClicked(event1);
+        pane.getChildren().add(submit);
+        pane.getChildren().add(gatehouseText);
     }
-    public void drawBridge(Pane pane, SelectedBuildingMenu selectedBuildingMenu , UnitImages unitImages){
+
+    public void drawBridge(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         Button open = new Button();
         open.setBackground(null);
         open.setText("OPEN");
@@ -531,7 +576,7 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.drawBridge("down"));
-                if(!output.equals("bridge opened")){
+                if (!output.equals("bridge opened")) {
                     showError(output);
                 }
             }
@@ -550,13 +595,14 @@ public class SelectedBuildingButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.drawBridge("up"));
-                if(!output.equals("bridge closed")){
+                if (!output.equals("bridge closed")) {
                     showError(output);
                 }
             }
         };
         close.setOnMouseClicked(event2);
     }
+
     public ArrayList<Button> getSelectedBuildingsAddedButtons() {
         return selectedBuildingsAddedButtons;
     }

@@ -30,6 +30,7 @@ public class UnitImages {
     public Image fireBallista;
     public Image batteringRam;
     public Image portableShield;
+    public Image engineer;
     public Image hboxOfDropUnit;
     public void loadImages(){
         archer = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/archer.png").toExternalForm());
@@ -55,6 +56,7 @@ public class UnitImages {
         fireBallista = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/fireBallista.png").toExternalForm());
         batteringRam = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/batteringRam.png").toExternalForm());
         portableShield = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/portableShield.png").toExternalForm());
+        engineer = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/engineer.png").toExternalForm());
         gatheringImages();
     }
     public void gatheringImages(){
@@ -83,6 +85,15 @@ public class UnitImages {
         images.add(batteringRam);
         images.add(portableShield);
     }
+
+    public Image getEngineer() {
+        return engineer;
+    }
+
+    public void setEngineer(Image engineer) {
+        this.engineer = engineer;
+    }
+
     public Image getHboxOfDropUnit() {
         return hboxOfDropUnit;
     }
