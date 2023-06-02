@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import model.*;
 import model.Building.*;
+import view.Animations.AssasinAnimation.AsssasinAnimation;
+import view.Animations.AssasinAnimation.DeadAssasinAnimation;
 import view.Animations.SlaveAnimation.DeadSlaveAnimation;
 import view.Animations.SlaveAnimation.SlaveAnimation;
 import view.Animations.SwordManAnimation.SwordManDeadAnimation;
@@ -19,16 +21,19 @@ import view.TileManager;
 public class AttackArmyToArmyController {
     public  SwordManAnimation swordManAnimation = new SwordManAnimation();
     public SlaveAnimation slaveAnimation = new SlaveAnimation();
+    public AsssasinAnimation asssasinAnimation = new AsssasinAnimation();
 
     private static int mapSize = CreateMapController.getSizeOfMap();
     TileManager tileManager ;
     public SwordManDeadAnimation swordManDeadAnimation;
     public DeadSlaveAnimation deadSlaveAnimation ;
+    public DeadAssasinAnimation deadAssasinAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
         swordManDeadAnimation = new SwordManDeadAnimation(tileManager);
         deadSlaveAnimation = new DeadSlaveAnimation(tileManager);
+        deadAssasinAnimation = new DeadAssasinAnimation(tileManager);
     }
 
     public void battleWithEnemy() {
@@ -61,6 +66,9 @@ public class AttackArmyToArmyController {
             case SLAVES:
                 deadSlaveAnimation.setArmyToAnimation(army);
                 break;
+            case ASSASSINS:
+                deadAssasinAnimation.setArmyToAnimation(army);
+                break;
         }
     }
 
@@ -87,6 +95,9 @@ public class AttackArmyToArmyController {
                 break;
             case SLAVES:
                 slaveAnimation.setArmyToAnimation(army);
+                break;
+            case ASSASSINS:
+                asssasinAnimation.setArmyToAnimation(army);
                 break;
         }
     }

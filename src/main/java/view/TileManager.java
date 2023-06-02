@@ -189,6 +189,9 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
         sequentialTransitionSlave.play();
 
+        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
+        sequentialTransitionAssasin.play();
+
 
 
 
