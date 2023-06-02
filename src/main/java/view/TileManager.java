@@ -109,6 +109,7 @@ public class TileManager extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+
         Map.CreateMap(100);
         Empire empire = new Empire();
         Empire empire2 = new Empire();

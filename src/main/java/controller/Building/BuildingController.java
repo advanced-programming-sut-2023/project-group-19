@@ -1170,7 +1170,7 @@ public class BuildingController {
                         if (empireHasEnoughWorkersToBuildTheBuilding(apothecary, currentEmpire)) {
                             buildingCheckout(apothecary, currentEmpire);
                             Map.AddToBuildingMap(x, y, apothecary);
-                            currentEmpire.setWheatFarmCount(currentEmpire.getWheatFarmCount() + 1);
+                            currentEmpire.setApothecary(true);
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;

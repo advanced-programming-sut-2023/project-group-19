@@ -52,6 +52,7 @@ public class NextTurnController {
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
+        currentEmpire.setSickness(Math.random() < 0.5);
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
