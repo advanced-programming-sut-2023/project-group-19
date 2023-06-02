@@ -482,6 +482,8 @@ public class TileManager extends Application {
         blackMonk.setTranslateY(170);
         blackMonk.setPrefSize(52, 20);
         blackMonk.setEditable(true);
+        //
+
 
         archerBow.setTranslateX(-200);
         archerBow.setTranslateY(170);
@@ -797,6 +799,7 @@ public class TileManager extends Application {
         return randomY ;
     }
 
+
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
@@ -815,7 +818,6 @@ public class TileManager extends Application {
                 } else {
                     pane.getChildren().add(button);
                 }
-
                 allButtons[u][g].add(button);
             }
         }
