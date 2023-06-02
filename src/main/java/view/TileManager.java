@@ -195,6 +195,9 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
         sequentialTransitionMaceMan.play();
 
+        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
+        sequentialTransitionMonk.play();
+
 
         //TODO : after each turn clear the armies animation
 

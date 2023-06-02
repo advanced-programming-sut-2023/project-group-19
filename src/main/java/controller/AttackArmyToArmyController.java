@@ -14,6 +14,7 @@ import view.Animations.AssasinAnimation.DeadAssasinAnimation;
 import view.Animations.MaceManAnimation.DeadMaceManAnimation;
 import view.Animations.MaceManAnimation.MaceManAnimation;
 import view.Animations.MonkAnimation.DeadMonkAnimation;
+import view.Animations.MonkAnimation.MonkAnimation;
 import view.Animations.SlaveAnimation.DeadSlaveAnimation;
 import view.Animations.SlaveAnimation.SlaveAnimation;
 import view.Animations.SwordManAnimation.SwordManDeadAnimation;
@@ -26,6 +27,7 @@ public class AttackArmyToArmyController {
     public SlaveAnimation slaveAnimation = new SlaveAnimation();
     public AsssasinAnimation asssasinAnimation = new AsssasinAnimation();
     public MaceManAnimation maceManAnimation = new MaceManAnimation();
+    public MonkAnimation monkAnimation = new MonkAnimation();
 
     private static int mapSize = CreateMapController.getSizeOfMap();
     TileManager tileManager ;
@@ -79,6 +81,9 @@ public class AttackArmyToArmyController {
                 break;
             case MACE_MEN:
                 deadMaceManAnimation.setArmyToAnimation(army);
+            case BLACK_MONK:
+                deadMonkAnimation.setArmyToAnimation(army);
+                break;
         }
     }
 
@@ -112,8 +117,9 @@ public class AttackArmyToArmyController {
             case MACE_MEN:
                 maceManAnimation.setArmyToAnimation(army);
                 break;
-
-
+            case BLACK_MONK:
+                monkAnimation.setArmyToAnimation(army);
+                break;
         }
     }
 
