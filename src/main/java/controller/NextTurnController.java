@@ -53,6 +53,7 @@ public class NextTurnController {
 
     public void callStartingTurnFunctions(GameController gameController) {
         currentEmpire.setSickness(Math.random() < 0.5);
+        buildingFire();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
@@ -61,6 +62,18 @@ public class NextTurnController {
         EmpireController.givingPeopleFood(currentEmpire);
         gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
+    }
+    public void buildingFire(){
+        for(int i = 0 ; i < Manage.burningEmpires.size() ; i++ ){
+            if(Manage.burningEmpires.get(i).isOnFire() && Manage.burningEmpires.get(i).getFireCount() != 0){
+                Manage.burningEmpires.get(i).setHp(Manage.burningEmpires.get(i).getHp() - 20);
+                Manage.burningEmpires.get(i).setFireCount(Manage.burningEmpires.get(i).getFireCount() - 1);
+            }
+            if(Manage.burningEmpires.get(i).getFireCount() == 0){
+                Manage.burningEmpires.remove(i);
+                i--;
+            }
+        }
     }
 
     public void setGameController(GameController gameController) {
