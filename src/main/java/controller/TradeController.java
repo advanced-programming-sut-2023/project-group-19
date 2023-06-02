@@ -1,44 +1,102 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.*;
 
+import java.awt.*;
+import java.util.Optional;
 import java.util.regex.Matcher;
 
+import view.ListOfReceivedRequestsMenu;
 import view.Messages.TradeMenuMessages;
 import model.TradeAbleGoods;
 
 public class TradeController {
-    public static Empire selectedEmpire;
-    public static Empire currentEmpire ;
-
-    public void showAllEmpires() {
-        int number = 1;
-        System.out.println("List of all empires :");
-        for (Empire empire : Manage.getAllEmpires()) {
-            System.out.println(number + ". " + empire.getName());
-            number++;
-        }
-    }
-
-    public TradeMenuMessages sendRequest(String goodType, int amount, String messageOfRequest) {
+    public Empire selectedEmpire;
+    public void sendRequest(String goodType, int amount, String messageOfRequest) {
         String[] values = messageOfRequest.split(" ");
-        String valueOfRequest = values[0];
-        int price = Integer.parseInt(values[1]);
-        if (selectedEmpire != null) {
-            if (typeOfResources(goodType)) {
-                if (getNumberOfGoods(valueOfRequest,currentEmpire) >= price) {
-                    if (amount > 0 && checkTheCapacity(amount, goodType, currentEmpire)) {
-                        String id = idProvider(currentEmpire, currentEmpire.getAllRequests().size() + 1);
-                        Request request = new Request(messageOfRequest, price, amount, goodType, id, currentEmpire, selectedEmpire,valueOfRequest);
-                        request.setStatus("Not accepted yet!");
-                        currentEmpire.getAllRequests().add(request);
-                        selectedEmpire.getAllDonations().add(request);
-                        return TradeMenuMessages.REQUEST_SENT_SUCCESSFULLY;
-                    } else return TradeMenuMessages.INVALID_AMOUNT;
-                } else return TradeMenuMessages.INVALID_PRICE;
-            } else return TradeMenuMessages.INVALID_RESOURCE_TYPE;
+        if (values.length < 2) {
+            Alert OutOfSize = new Alert(Alert.AlertType.ERROR);
+            OutOfSize.setTitle("TradeMenu Error");
+            OutOfSize.setHeaderText("Error in format of Input");
+            OutOfSize.setContentText("The format of your input is wrong.\nThe Format is GoodName + Number or " +
+                    "Number + GoodName.");
+            OutOfSize.showAndWait();
+        } else {
+            String valueOfRequest = values[0];
+            int price = Integer.parseInt(values[1]);
+            if (selectedEmpire != null && !selectedEmpire.getName().equals(Manage.getCurrentEmpire().getName())) {
+                if (typeOfResources(goodType)) {
+                    if (getNumberOfGoods(valueOfRequest, Manage.getCurrentEmpire()) >= price) {
+                        if (amount > 0 && checkTheCapacity(amount, goodType, Manage.getCurrentEmpire())) {
+                            String id = idProvider(Manage.getCurrentEmpire(), Manage.getCurrentEmpire().getAllRequests().size() + 1);
+                            Request request = new Request(messageOfRequest, price, amount, goodType, id, Manage.getCurrentEmpire(), selectedEmpire, valueOfRequest);
+                            request.setStatus("Not accepted yet!");
+                            Manage.getCurrentEmpire().getAllRequests().add(request);
+                            selectedEmpire.getAllDonations().add(request);
+                            Alert success = new Alert(Alert.AlertType.INFORMATION);
+                            success.setTitle("TradeMenu Information");
+                            success.setHeaderText("Success!");
+                            success.setContentText("Your request is sent to the court of chosen Empire My Lord.\n" + "" +
+                                    "They will answer to you as soon as they receive your request.");
+                            success.showAndWait();
+                        } else {
+                            Alert notEnoughCapacity = new Alert(Alert.AlertType.ERROR);
+                            notEnoughCapacity.setTitle("TradeMenu Error");
+                            notEnoughCapacity.setHeaderText("Error in Treasury Capacity");
+                            notEnoughCapacity.setContentText("""
+                                    Invalid amount!
+                                    Possible reasons:
+                                    1.The given amount is invalid!
+                                    2.Your treasury can't save this amount of good!""");
+                            notEnoughCapacity.showAndWait();
+                        }
+                    } else {
+                        Alert notEnoughTradingObj = new Alert(Alert.AlertType.ERROR);
+                        notEnoughTradingObj.setTitle("TradeMenu Error");
+                        notEnoughTradingObj.setHeaderText("Error in amount of Good");
+                        notEnoughTradingObj.setContentText("I'm afraid you don't have the entered amount of good to " +
+                                "trade with selected Empire");
+                        notEnoughTradingObj.showAndWait();
+                    }
+                } else {
+                    Alert noChosenGood = new Alert(Alert.AlertType.ERROR);
+                    noChosenGood.setTitle("TradeMenu Error");
+                    noChosenGood.setHeaderText("Error in Chosen Good");
+                    noChosenGood.setContentText("""
+                            Invalid Good Name
+                            Possible Reasons :
+                            1.You haven't filled the good field.
+                            2.The chosen good doesn't exist.""");
+                    noChosenGood.showAndWait();
+                }
+            } else {
+                Alert noChosenEmpire = new Alert(Alert.AlertType.ERROR);
+                noChosenEmpire.setTitle("TradeMenu Error");
+                noChosenEmpire.setHeaderText("Error in Chosen Empire");
+                noChosenEmpire.setContentText("""
+                        Invalid Empire Name
+                        Possible Reasons :
+                        1.You haven't filled the empire field.
+                        2.The chosen empire doesn't exist.
+                        3.You entered the name of your own empire.""");
+                noChosenEmpire.showAndWait();
+            }
         }
-        return TradeMenuMessages.NO_EMPIRE_HAS_BEEN_CHOSEN;
     }
 
     public String idProvider(Empire empire, int number) {
@@ -46,57 +104,138 @@ public class TradeController {
     }
 
 
-    public void showDonations() {
+    public Group showDonations() {
         int number = 1;
-        System.out.println("Donation List :");
-        for (Request donation : currentEmpire.getAllDonations()) {
-            System.out.println("\t" + number + ".Sender: " + donation.getSender().getName() + "\n\t\s\s\sId: " + donation.getId() + "\n\t\s\s\sStatus :" + donation.getStatus()
-                    +"\n\t\s\s\sReceiver: "+donation.getReceiver().getName()+"\n\t\s\s\sMessage: "+donation.getMessage());
+        Group group = new Group();
+        int ySetter = 10;
+        int xSetter = 500;
+        for (Request request : Manage.getCurrentEmpire().getAllDonations()) {
+            VBox vBox = new VBox();
+            vBox.setBackground(new Background(new BackgroundImage(new Image(TradeController.class.getResource("/image/rawButton.jpg").toExternalForm()),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+            vBox.setPrefSize(385, 80);
+            Text sender = new Text();
+            sender.setText(number + ".Sender: " + request.getSender().getName());
+            sender.setStyle("-fx-text-fill: #cba883;");
+            sender.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            Text id = new Text();
+            id.setText("Id: " + request.getId());
+            Text status = new Text();
+            status.setText("Status : " + request.getStatus());
+            Text message = new Text();
+            message.setText("Message: " + request.getMessage());
+            Button accept = new Button();
+            accept.setPrefSize(50, 30);
+            accept.setText("Accept");
+            accept.setStyle("-fx-background-color: #cba883");
+            accept.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            Button deny = new Button();
+            deny.setPrefSize(50, 30);
+            deny.setText("Deny");
+            deny.setStyle("-fx-background-color: #cba883");
+            deny.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            vBox.getChildren().addAll(sender, id, message, status, accept, deny);
+            accept.setTranslateX(300);
+            accept.setTranslateY(-50);
+            deny.setTranslateX(300);
+            deny.setTranslateY(-30);
+            accept.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    tradeAcceptance(request.getId(), request.getMessage(), request);
+                    System.out.println("accept works");
+                }
+            });
+            deny.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    tradeDenied(request.getId(), request.getMessage(), request);
+                }
+            });
+            vBox.setLayoutX(xSetter);
+            vBox.setLayoutY(ySetter);
+            ySetter += 80;
+            group.getChildren().add(vBox);
             number++;
         }
+        return group;
     }
 
-    public void showRequests() {
+    public Group showRequests() {
+        //todo : some effects on the textFields
         int number = 1;
-        System.out.println("Request List :");
-        for (Request request : currentEmpire.getAllRequests()) {
-            System.out.println("\t" + number + ".Sender: " + request.getSender().getName() + "\n\t\s\s\sId: " + request.getId() + "\n\t\s\s\sStatus :" + request.getStatus()
-                    +"\n\t\s\s\sReceiver: "+request.getReceiver().getName()+"\n\t\s\s\sMessage: "+request.getMessage());
+        Group group = new Group();
+        int ySetter = 10;
+        int xSetter = 500;
+        for (Request request : Manage.getCurrentEmpire().getAllRequests()) {
+            VBox vBox = new VBox();
+            vBox.setBackground(new Background(new BackgroundImage(new Image(TradeController.class.getResource("/image/rawButton.jpg").toExternalForm()),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+            vBox.setPrefSize(385, 50);
+            Text sender = new Text();
+            sender.setText(number + ".Sender: " + request.getSender().getName());
+            //sender.setStyle("-fx-text-fill: #cba883");
+            sender.setStyle("-fx-text-color: red;");
+            //sender.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            Text id = new Text();
+            id.setText("Id: " + request.getId());
+            Text status = new Text();
+            status.setText("Status : " + request.getStatus());
+            Text receiver = new Text();
+            receiver.setText("Receiver: " + request.getReceiver().getName());
+            Text message = new Text();
+            message.setText("Message: " + request.getMessage());
+            vBox.getChildren().addAll(sender, id, receiver, message, status);
+            vBox.setLayoutX(xSetter);
+            vBox.setLayoutY(ySetter);
+            ySetter += 80;
+            group.getChildren().add(vBox);
             number++;
         }
+        return group;
     }
 
-    public void showTradeList() {
-        showRequests();
-        showDonations();
-    }
-
-    public TradeMenuMessages tradeAcceptance(Matcher idOfRequest, Matcher messageOfRequest) {
-        Request request;
-        String id = idOfRequest.group("id");
-        String message = messageOfRequest.group("tradeMessage");
-        if ((request = findDonation(id, currentEmpire)) != null) {
-            String goodName = request.getGoodName();
-            int amount = request.getAmount();
-            int price = request.getPrice();
-            String tradableThing = request.tradableThing;
-            Empire empire = request.getSender();
-            if (Manage.getEmpireByNickname(empire.getName()) != null) {
-                if (getNumberOfGoods(goodName, currentEmpire) >= amount) {
-                    Request request1 = findRequest(id, empire);
-                    request1.setFromSellerMessage(message);
-                    request.setFromSellerMessage(message);
-                    setNumberOfGoods(currentEmpire,empire,price,tradableThing);
-                    request1.setAcceptance(true);
-                    request.setAcceptance(true);
-                    setNumberOfGoods(empire, currentEmpire, amount, goodName);
-                    request.setStatus("Accepted!");
-                    request1.setStatus("Accepted!");
-                    return TradeMenuMessages.SUCCESS;
-                } else return TradeMenuMessages.NOT_ENOUGH_RESOURCES;
-            } else return TradeMenuMessages.INVALID_EMPIRE;
+    public void tradeAcceptance(String id, String message, Request request) {
+        String goodName = request.getGoodName();
+        int amount = request.getAmount();
+        int price = request.getPrice();
+        String tradableThing = request.tradableThing;
+        Empire empire = request.getSender();
+        System.out.println("sender :" + request.getSender());
+        if (getNumberOfGoods(goodName, Manage.getCurrentEmpire()) >= amount) {
+            Request request1 = findRequest(id, empire);
+            Request request2 = findDonation(id, Manage.getCurrentEmpire());
+            setNumberOfGoods(Manage.getCurrentEmpire(), empire, price, tradableThing);
+            request1.setAcceptance(true);
+            request2.setAcceptance(true);
+            setNumberOfGoods(empire, Manage.getCurrentEmpire(), amount, goodName);
+            request2.setStatus("Accepted!");
+            request1.setStatus("Accepted!");
+            System.out.println("Request - status :" + request2.getStatus());
+            System.out.println("Request1 - status :" + request1.getStatus());
+            Alert success = new Alert(Alert.AlertType.ERROR);
+            success.setTitle("TradeMenu Information!");
+            success.setHeaderText("Success!");
+            success.setContentText("The trade operation is done!");
+            success.showAndWait();
+        } else {
+            Alert notEnoughResources = new Alert(Alert.AlertType.ERROR);
+            notEnoughResources.setTitle("TradeMenu Error!");
+            notEnoughResources.setHeaderText("Error in Amount Of Good!");
+            notEnoughResources.setContentText("I'm afraid you don't have that much of chosen resource to trade with mentioned empire!");
+            notEnoughResources.showAndWait();
         }
-        return TradeMenuMessages.NO_DONATION;
+    }
+
+    private void tradeDenied(String id, String message, Request request) {
+        Empire empire = request.getSender();
+        Request request1 = findRequest(id, empire);
+        request1.setAcceptance(false);
+        request.setAcceptance(false);
+        request.setStatus("Denied!");
+        request1.setStatus("Denied!");
+        System.out.println("Request :" + request.getStatus());
+        System.out.println("Request1 :" + request1.getStatus());
     }
 
     public boolean typeOfResources(String typeOfResource) {
@@ -359,54 +498,25 @@ public class TradeController {
         }
     }
 
-    public void showTradeHistory() {
+    public void notification(Stage stage) throws Exception {
         int number = 1;
-        System.out.println("List of Accepted Requests:");
-        for (Request request : currentEmpire.getAllRequests()) {
-            if (request.isAcceptance()) {
-                System.out.println("\t" + number + ". Sender: " + request.getSender());
-                System.out.println("\t\s\sGood : " + request.getGoodName());
-                System.out.println("\t\s\sAmount: " + request.getAmount());
-                System.out.println("\t\s\sPrice: " + request.getPrice());
-                System.out.println("\t\s\sCustomer Message : " + request.getMessage());
-                System.out.println("\t\s\sSeller Message : " + request.getFromSellerMessage());
-                number++;
+        if (Manage.getCurrentEmpire().getNotificationOfDonation() >= 1) {
+            String notification = "";
+            for (int i = Manage.getCurrentEmpire().getNotificationOfDonation(); i < Manage.getCurrentEmpire().getAllDonations().size(); i++) {
+                notification = notification.concat(number + ".Id: " + Manage.getCurrentEmpire().getAllDonations().get(i).getId() +
+                        "\nMessage: " + Manage.getCurrentEmpire().getAllDonations().get(i).getMessage());
+            }
+            notification.contains("\nPress OK to see them!");
+            Manage.getCurrentEmpire().setNotificationOfDonation(Manage.getCurrentEmpire().getAllDonations().size());
+            Alert notificationAlert = new Alert(Alert.AlertType.INFORMATION);
+            notificationAlert.setTitle("Notification Message");
+            notificationAlert.setHeaderText("New Messages!");
+            notificationAlert.setContentText(notification);
+            Optional<ButtonType> result = notificationAlert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                ListOfReceivedRequestsMenu list = new ListOfReceivedRequestsMenu();
+                list.start(stage);
             }
         }
-        System.out.println("List of Accepted Donations:");
-        for (Request request : currentEmpire.getAllDonations()) {
-            if (request.isAcceptance()) {
-                System.out.println("\t" + number + ". Sender: " + request.getSender().getName());
-                System.out.println("\t\s\sGood : " + request.getGoodName());
-                System.out.println("\t\s\sAmount: " + request.getAmount());
-                System.out.println("\t\s\sPrice: " + request.getPrice());
-                System.out.println("\t\s\sCustomer Message : " + request.getMessage());
-                System.out.println("\t\s\sSeller Message : " + request.getFromSellerMessage());
-                number++;
-            }
-        }
-    }
-
-    public void notification() {
-        int number = 1;
-        System.out.println("Notifications : ");
-        System.out.println("List Of New Requests : ");
-        for (int j = currentEmpire.getNotificationOfRequest(); j < currentEmpire.getAllRequests().size(); j++) {
-            System.out.println(number+".Id: "+currentEmpire.getAllRequests().get(j).getId());
-            System.out.println("Message: "+currentEmpire.getAllRequests().get(j).getMessage());
-            number++;
-        }
-        number = 1;
-        System.out.println("List Of New Donations : ");
-        for (int i = currentEmpire.getNotificationOfDonation(); i < currentEmpire.getAllDonations().size(); i++) {
-            System.out.println(number+".Id: "+currentEmpire.getAllDonations().get(i).getId());
-            System.out.println("Message: "+currentEmpire.getAllDonations().get(i).getMessage());
-        }
-        currentEmpire.setNotificationOfDonation(currentEmpire.getAllDonations().size());
-        currentEmpire.setNotificationOfRequest(currentEmpire.getAllRequests().size());
-    }
-
-    public boolean enoughMoneyToBuy(Empire empire, int price) {
-        return empire.getGoldCount() >= price && price > 0;
     }
 }

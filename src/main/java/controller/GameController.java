@@ -1,6 +1,11 @@
 package controller;
 
+import javafx.animation.Interpolator;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
@@ -8,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
+import javafx.util.Duration;
 import model.Building.*;
 import model.Empire;
 import model.GroundType;
@@ -15,6 +21,7 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
+import view.Animations.MoveAnimation;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.TileManager;
@@ -740,12 +747,12 @@ public class GameController {
                         if (!army.hasMovedForDefensiveState) {
                             army.setPastXcordinate(x);
                             army.setPastYcordinate(y);
-                            gameController.moveUnit(i, j);
-                            army.hasMovedForDefensiveState = true;
+                            //gameController.moveUnit(i, j);
+                            //army.hasMovedForDefensiveState = true;
                             return true;
                         }
                         if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
-                            gameController.moveUnit(i, j);
+                            //gameController.moveUnit(i, j);
                             return true;
                         }
                     }
@@ -753,7 +760,7 @@ public class GameController {
             }
         }
         if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
-            gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
+            //gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
             return true;
         } else {
             return false;
@@ -766,7 +773,7 @@ public class GameController {
             checkIfTargetIsAlive(army);
             if (army.getEnemy() == null) continue;
             selectedUnit.add(army);
-            gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+            //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             selectedUnit.clear();
         }
     }
@@ -791,7 +798,7 @@ public class GameController {
                 for (Army enemy : Map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     army.setEnemy(enemy);
-                    gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                    //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
                     return true;
                 }
             }
@@ -800,13 +807,13 @@ public class GameController {
             Army enemy;
             if ((enemy = army.getArcherAttacker()) != null) {
                 army.setEnemy(enemy);
-                gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+                //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
             }
         }
         return false;
     }
 
-    public void moveUnit(int xCoordinate, int yCoordinate) {
+    public void moveUnit(int xCoordinate, int yCoordinate , NewButton newButton,Pane pane,ArrayList<Node> listOfButtons) {
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
@@ -815,32 +822,85 @@ public class GameController {
                         List<Integer> pathList = myUnit.myPath;
                         if (pathList != null && pathList.size() != 0) {
                             int size = pathList.size();
+                            SequentialTransition sequentialTransition = new SequentialTransition(myUnit.getImageView());
                             for (int i = 0; i < pathList.size(); i++) {
                                 if (myUnit.restOfMoves != 0) {
                                     myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
                                     myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                     Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
+                                    System.out.println(myUnit.getGoalXCoordinate() + " " + myUnit.getGoalYCoordinate());
 
-                                    myUnit.xCoordinate = myUnit.goalXCoordinate;
-                                    myUnit.yCoordinate = myUnit.goalYCoordinate;
+//                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
+//
+//                                    } else if (myUnit.getGoalXCoordinate() < myUnit.getCurrentX()) { //left
+//
+//                                    } else if (myUnit.getGoalYCoordinate() > myUnit.getCurrentY()) { //forward
+//
+//                                    } else if (myUnit.getGoalYCoordinate() < myUnit.getCurrentY()) { //backward
+//
+//                                    }
+
+                                    TranslateTransition transition = new TranslateTransition();
+                                    transition.setNode(myUnit.getImageView());
+                                    transition.setFromX(myUnit.getImageView().getLayoutX());
+                                    transition.setFromY(myUnit.getImageView().getLayoutY());
+                                    NewButton newButton1 = (NewButton) listOfButtons.get(myUnit.getGoalXCoordinate() * 100
+                                            + myUnit.getGoalYCoordinate());
+                                    transition.setToX(newButton1.getLayoutX());
+                                    transition.setToY(newButton1.getLayoutY());
+                                    transition.setDuration(Duration.seconds(1));
+                                    transition.setCycleCount(1);
+                                    transition.setInterpolator(Interpolator.LINEAR);
+                                    sequentialTransition.getChildren().add(transition);
+
+                                    newButton = newButton1;
+                                    pane.getChildren().remove(myUnit.getImageView());
+                                    pane.getChildren().add(pane.getChildren().size(), myUnit.getImageView());
+                                    myUnit.getImageView().setLayoutX(newButton.getLayoutX());
+                                    myUnit.getImageView().setLayoutY(newButton.getLayoutY());
+
+
+
+                                    myUnit.setxCoordinate(myUnit.goalXCoordinate);
+                                    myUnit.setyCoordinate(myUnit.goalYCoordinate);
                                     myUnit.restOfMoves--;
                                     Map.getTroopMap()[myUnit.xCoordinate][myUnit.yCoordinate].add(myUnit);
                                     pathList.remove(i);
                                     i--;
                                 }
                             }
+                            sequentialTransition.play();
                             if (size <= myUnit.speed()) {
                                 if (myUnit.getArmyForm().equals(Names.PATROL_UNIT.getName())) {
                                     setPathForPatrols(myUnit.getStartX(), myUnit.getStartY(), myUnit);
                                 } else {
-                                    myUnit.myPath = null;
+                                    myUnit.myPath.clear();
                                 }
                             }
                         }
                     }
+                }else{
+                    Alert noWay = new Alert(Alert.AlertType.ERROR);
+                    noWay.setTitle("GameMenu Error!");
+                    noWay.setHeaderText("Error in Moving Units!");
+                    noWay.setContentText("It's impossible to go there");
+                    noWay.showAndWait();
                 }
+            }else{
+                Alert wrongLocation = new Alert(Alert.AlertType.ERROR);
+                wrongLocation.setTitle("GameMenu Error!");
+                wrongLocation.setHeaderText("Error in Moving Units!");
+                wrongLocation.setContentText("The destination is not proper." +
+                        "Hint: Improper cells for units are those made of stone and shallow water.");
+                wrongLocation.showAndWait();
             }
-            //return GameMenuMessages.NO_UNIT_SELECTED;
+        }else{
+            Alert noUnitSelected = new Alert(Alert.AlertType.ERROR);
+            noUnitSelected.setTitle("GameMenu Error!");
+            noUnitSelected.setHeaderText("Error in Moving Units!");
+            noUnitSelected.setContentText("You didn't choose any unit to be moved!" +
+                    "Hint: By left Clicking on a cell you can choose the unit inside of it.");
+            noUnitSelected.showAndWait();
         }
     }
 

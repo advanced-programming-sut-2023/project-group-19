@@ -153,6 +153,7 @@ public class TileManager extends Application {
         archersAndThrowers.getImageView().setLayoutY(newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
+
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -180,10 +181,10 @@ public class TileManager extends Application {
                 } else if (keyName.equals("F4")) {
                     GameController gameController = new GameController();
                     gameController.selectedUnit.add(archersAndThrowers);
-                    gameController.setPathForUnits(5,5);
-                    //System.out.println(archersAndThrowers.myPath.size());
-                    moveAnimation.play();
-                    //archersAndThrowers.getMyPath().remove(0);
+                    Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
+                    archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
+                    archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
+                    gameController.moveUnit(5,5,newButton,pane,list);
                 }
                 else if (keyName.equals("C")) {
                     content = new ClipboardContent();
