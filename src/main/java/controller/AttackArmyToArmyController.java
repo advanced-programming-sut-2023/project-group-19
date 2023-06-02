@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import model.*;
 import model.Building.*;
+import view.Animations.troopFights.ArcherAnimation.ArcherAnimation;
+import view.Animations.troopFights.ArcherAnimation.DeadArcherAnimation;
 import view.Animations.troopFights.AssasinAnimation.AsssasinAnimation;
 import view.Animations.troopFights.AssasinAnimation.DeadAssasinAnimation;
 import view.Animations.troopFights.MaceManAnimation.DeadMaceManAnimation;
@@ -20,6 +22,7 @@ import view.Animations.troopFights.ShortBowAnimation.DeadShortBowAnimation;
 import view.Animations.troopFights.ShortBowAnimation.ShortBowAnimation;
 import view.Animations.troopFights.SlaveAnimation.DeadSlaveAnimation;
 import view.Animations.troopFights.SlaveAnimation.SlaveAnimation;
+import view.Animations.troopFights.SlingerAnimation.DeadSlingerAnimation;
 import view.Animations.troopFights.SlingerAnimation.SlingerAnimation;
 import view.Animations.troopFights.SwordManAnimation.SwordManDeadAnimation;
 import view.Animations.troopFights.SwordManAnimation.SwordManAnimation;
@@ -34,6 +37,7 @@ public class AttackArmyToArmyController {
     public MonkAnimation monkAnimation = new MonkAnimation();
     public ShortBowAnimation shortBowAnimation = new ShortBowAnimation();
     public SlingerAnimation slingerAnimation = new SlingerAnimation();
+    public ArcherAnimation archerAnimation = new ArcherAnimation();
 
     private static int mapSize = 200;
     TileManager tileManager ;
@@ -43,6 +47,8 @@ public class AttackArmyToArmyController {
     public DeadMaceManAnimation deadMaceManAnimation ;
     public DeadMonkAnimation deadMonkAnimation ;
     public DeadShortBowAnimation deadShortBowAnimation ;
+    public DeadSlingerAnimation deadSlingerAnimation ;
+    public DeadArcherAnimation deadArcherAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
@@ -52,8 +58,9 @@ public class AttackArmyToArmyController {
         deadMaceManAnimation = new DeadMaceManAnimation(tileManager);
         deadMonkAnimation = new DeadMonkAnimation(tileManager);
         deadShortBowAnimation = new DeadShortBowAnimation(tileManager);
+        deadSlingerAnimation = new DeadSlingerAnimation(tileManager);
+        deadArcherAnimation = new DeadArcherAnimation(tileManager);
     }
-
     public void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
             for (Army army : empire.empireArmy) {
@@ -63,7 +70,6 @@ public class AttackArmyToArmyController {
         findArcher();
         killUnit();
     }
-
     private void killUnit() {
         for (int i = 0; i < Manage.allEmpires.size(); i++) {
             Empire empire = Manage.allEmpires.get(i);
@@ -95,10 +101,15 @@ public class AttackArmyToArmyController {
             case ARCHER_BOW:
                 deadShortBowAnimation.setArmyToAnimation(army);
                 break;
+            case SLINGERS:
+                deadSlingerAnimation.setArmyToAnimation(army);
+                break;
+            case ARCHER:
+                deadArcherAnimation.setArmyToAnimation(army);
+                break;
 
         }
     }
-
     private boolean isArcher(Army army) {
         return army instanceof ArchersAndThrowers;
     }
@@ -134,6 +145,12 @@ public class AttackArmyToArmyController {
                 break;
             case ARCHER_BOW:
                 shortBowAnimation.setArmyToAnimation(army);
+                break;
+            case SLINGERS:
+                slingerAnimation.setArmyToAnimation(army);
+                break;
+            case ARCHER:
+                archerAnimation.setArmyToAnimation(army);
                 break;
         }
     }
