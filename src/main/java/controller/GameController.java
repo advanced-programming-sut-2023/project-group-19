@@ -1591,5 +1591,4 @@ public class GameController {
     private static boolean validCoordinates(int x, int y) {
         return x >= 0 && y >= 0 && x <= Map.mapSize && y <= Map.mapSize;
     }
-
 }

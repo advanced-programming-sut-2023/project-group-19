@@ -221,10 +221,6 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
         sequentialTransitionArcher.play();
 
-
-
-        //TODO : fire thrower
-
         //TODO picture of sword man after war // DORSA
 
         //TODO : after each turn clear the armies animation
