@@ -11,46 +11,26 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="view.LoginMenu"
       prefHeight="400.0" prefWidth="600.0">
-    <Label text="Fill register form" fx:id="label" translateX="700" translateY="200"/>
-    <VBox alignment="CENTER" spacing="30" translateX="700" translateY="240">
-        <TextField fx:id="username"  promptText="Username"/>
-        <TextField fx:id="passwordShow" visible="false" promptText="Password"/>
-        <TextField fx:id="email"  promptText="Email"/>
-        <TextField fx:id="nickname" promptText="Nickname"/>
-        <TextField fx:id="slogan" text="empty" visible="false" promptText="slogan"/>
-        <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan"/>
-        <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>
-        <Button onMouseClicked="#submit" text="submit" focusTraversable="false"/>
-    </VBox>
-    <PasswordField fx:id="passwordHide" promptText="Password" translateX="700" translateY="297"/>
+            <VBox alignment="CENTER" spacing="30" translateX="700" translateY="400">
+                <TextField promptText="Enter username" fx:id="username"/>
+                <PasswordField promptText="Enter password" fx:id="password"/>
+                <Button text="forget" onMouseClicked="#forgotPassword" focusTraversable="false"/>
+                <HBox spacing="20">
+                    <ImageView fx:id="captchaImage"/>
+                    <Button text="again" onMouseClicked="#anotherCaptcha"/>
+                </HBox>
+                <TextField fx:id="captchaAnswer"/>
+                <Button text="submit" onMouseClicked="#submitAndLogin"/>
+            </VBox>
 
-    <CheckBox translateY="300" translateX="870" onMouseClicked="#showAndHidePassword"/>
-    <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword"/>
+    <VBox translateX="740" translateY="380" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling">
+        <Label style="-fx-text-fill: red" fx:id="usernameError"/>
+        <Label style="-fx-text-fill: red" fx:id="passwordError"/>
+    </VBox>
+
     <VBox visible="false" fx:id="secQestionVbox" alignment="CENTER"  translateY="240" translateX="610" spacing="20" style="-fx-background-color: #abfa90" >
-        <Label text="To complete register please choose and answer one of these questions"/>
-        <RadioButton fx:id="Q1" text="1. What is my father’s name?"/>
-        <RadioButton fx:id="Q2" text="2. What was my first pet’s name?"/>
-        <RadioButton fx:id="Q3" text="3. What is my mother’s last name?"/>
+        <Label fx:id="secQuestionLabel"/>
         <TextField fx:id="answer" promptText="answer question" maxWidth="100"/>
         <Button text="submit" onMouseClicked="#closePopup"/>
     </VBox>
-    <VBox visible="false" fx:id="captchaBox" spacing="20" alignment="CENTER" translateY="240" translateX="250">
-        <ImageView fx:id="captchaImage"/>
-        <HBox spacing="20">
-            <TextField fx:id="answerOfCaptcha" maxWidth="100"/>
-            <Button text="again" onMouseClicked="#anotherCaptcha"/>
-        </HBox>
-        <Button text="submit" onMouseClicked="#submitWholeRegister"/>
-    </VBox>
-
-    <VBox translateX="740" translateY="220" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling" visible="false">
-        <Label style="-fx-text-fill: red" fx:id="usernameError" text="random text 1"/>
-        <Label style="-fx-text-fill: red" fx:id="passwordError" text="random text 2"/>
-        <Label style="-fx-text-fill: red" fx:id="emailError" text="random text 3"/>
-        <Label style="-fx-text-fill: red" fx:id="nicknameError" text="random text 4"/>
-        <Label style="-fx-text-fill: red" fx:id="sloganError" text="random text 5"/>
-    </VBox>
-
-
-
 </Pane>

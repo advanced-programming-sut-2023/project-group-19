@@ -1,7 +1,12 @@
 package model;
 
 import controller.JsonController;
+import javafx.scene.image.Image;
+import view.ProfileMenu;
 
+
+import  javafx.scene.image.ImageView;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +58,14 @@ public class User implements Comparable<User> {
     private int highScore;
     public static ArrayList<User> users = new ArrayList<>();
     private int rank;
+
+    private ImageView avatar = new ImageView();
+    {
+        Image image = new Image(User.class.getResource("/avatars/5.png").toExternalForm());
+        avatar.setImage(image);
+        avatar.setFitWidth(100);
+        avatar.setFitHeight(100);
+    }
 
     public User(String username, String password, String nickname, String email, String recoveryQuestion, String slogan, int recoveryQuestionNumber) throws IOException {
         this.username = username;
@@ -157,5 +170,12 @@ public class User implements Comparable<User> {
     }
     public static ArrayList<String> getCaptchas(){
         return captchas;
+    }
+
+    public ImageView getAvatar(){
+        return avatar ;
+    }
+    public void setAvatar(ImageView avatar){
+        this.avatar = avatar ;
     }
 }

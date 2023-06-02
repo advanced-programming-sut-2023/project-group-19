@@ -88,12 +88,7 @@ public class LoginController {
 
     public static void register(String username, String password, String nickname, String email, String answeroFSecQuestion
             , String slogan, String numberOfSecQuesion) throws IOException {
-        password = changeTextIwithoutCot(password);
-        answeroFSecQuestion = changeTextIwithoutCot(answeroFSecQuestion);
-        slogan = changeTextIwithoutCot(slogan);
-        nickname = changeTextIwithoutCot(nickname);
-        String newPassword = getHashCode(password);
-        new User(username, newPassword, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
+        new User(username, password, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
     }
 
     public static RegisterMessages checkSecurityAsks(int number, String answer, String confirmAnswer) {
@@ -191,5 +186,34 @@ public class LoginController {
         Image image = new Image(LoginController.class.getResource("/captcha/" + number + ".png").toExternalForm());
         captchaImage.setImage(image);
         return number ;
+    }
+
+    public static RegisterMessages checkExitUser(String username) {
+        User user ;
+        if((user = User.getUserByName(username)) == null) return RegisterMessages.NOT_EXIST_USER;
+        return RegisterMessages.SUCCESS;
+    }
+
+    public static String getSecQuestion(String username) {
+        User user = User.getUserByName(username);
+        int number = user.getRecoveryQuestionNumber();
+        if(number ==  1) return "What is my father’s name?";
+        else if (number  == 2) return "What was my first pet’s name?";
+        else return "What is my mother’s last name?";
+    }
+
+    public static String checkAnswerTrue(String username,String text) {
+        User user= User.getUserByName(username);
+        if(user.getRecoveryQuestion().equals(text)){
+            return user.getPassword();
+        }else return null ;
+    }
+
+    public static boolean LoginUser(String username, String password) {
+        User user ;
+        if((user = User.getUserByName(username)) == null) return false ;
+        if(!user.getPassword().equals(password)) return false ;
+        User.setCurrentUser(user);
+        return true ;
     }
 }

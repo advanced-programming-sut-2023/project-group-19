@@ -1,5 +1,6 @@
 package model.Human.Troop;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Empire;
 import model.Human.Human;
@@ -13,6 +14,24 @@ public class Army extends Human {
         super(government);
         this.empire = government;
     }
+    private StateOfStanding  state ;
+
+    public StateOfStanding getState() {
+        return state;
+    }
+
+    public void setState(StateOfStanding state) {
+        this.state = state;
+    }
+
+    public enum StateOfStanding {
+        BACK ,
+        FRONT ,
+        RIGHT ,
+        LEFT  ,
+        ;
+    }
+
 
     public boolean isIntFight = false;
     public boolean hasMovedForDefensiveState = false;
@@ -31,6 +50,11 @@ public class Army extends Human {
     protected Empire empire;
     protected Army enemy;
     public ImageView imageView;
+    protected Image defaultImage ;
+
+    public Image getDefaultImage() {
+        return defaultImage;
+    }
 
     public boolean isIntFight() {
         return isIntFight;
