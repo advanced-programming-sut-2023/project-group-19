@@ -171,7 +171,6 @@ public class TileManager extends Application {
 
         createViewScene(stage);
 //        bottomBarBuildings.setAllButtons(allButtons);
-        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,this);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -189,10 +188,12 @@ public class TileManager extends Application {
                 } else if (keyName.equals("F4")) {
                     GameController gameController = new GameController();
                     gameController.selectedUnit.add(archersAndThrowers);
-                    gameController.setPathForUnits(5,5);
-                    //System.out.println(archersAndThrowers.myPath.size());
-                    moveAnimation.play();
-                    //archersAndThrowers.getMyPath().remove(0);
+                    //gameController.setPathForUnits(5,5);
+                    MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,3,1);
+                    moveAnimation.move();
+//                    newButton.setImageView(archersAndThrowers.getImageView());
+//                    createViewScene(stage);
+
                 }
             }
         });
