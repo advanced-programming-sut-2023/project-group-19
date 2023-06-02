@@ -2,9 +2,7 @@ package model.Human.Troop;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
 import model.Empire;
-import model.Human.Human;
 import model.Human.Names;
 
 import java.util.List;
@@ -52,7 +50,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.attackPower = 500;
         this.defencePower = 150;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/BlackMonk/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/blackMonk/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -86,7 +84,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.defencePower = 100;
         this.restOfMoves = 1;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/SwordsMen/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/swordsMen/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -120,7 +118,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.attackPower = 200;
         this.defencePower = 20;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Slave/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/slaves/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -139,7 +137,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.attackPower = 800;
         this.defencePower = 450;
         this.imageView= new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Arabian Swordsmen/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/arabianSwordMen/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";

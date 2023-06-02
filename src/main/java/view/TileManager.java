@@ -159,6 +159,18 @@ public class TileManager extends Application {
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
 
+        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        archersAndThrowers2.archer(2, 1);
+        archersAndThrowers2.getImageView().setFitHeight(200);
+        archersAndThrowers2.getImageView().setFitWidth(200);
+        pane.getChildren().add(archersAndThrowers2.getImageView());
+        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
+        newButton.setBackground(null);
+        archersAndThrowers2.getImageView().setLayoutX(newButton2.getX());
+        archersAndThrowers2.getImageView().setLayoutY(newButton2.getY());
+        newButton2.getArmy().add(archersAndThrowers2);
+        newButton2.setImageView(archersAndThrowers2.getImageView());
+
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,

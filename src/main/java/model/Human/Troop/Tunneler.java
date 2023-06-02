@@ -2,7 +2,6 @@ package model.Human.Troop;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
 import model.Empire;
 import model.Human.Names;
 
@@ -49,7 +48,7 @@ public class Tunneler extends Army implements HumanConstantFunctions {
         this.defencePower = 50;
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Tunneler/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/tunneler/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";

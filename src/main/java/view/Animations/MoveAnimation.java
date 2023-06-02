@@ -1,11 +1,6 @@
 package view.Animations;
 
-import controller.GameController;
-import controller.PathFindingController;
-import javafx.animation.PathTransition;
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
@@ -13,8 +8,6 @@ import javafx.util.Duration;
 import model.Human.Troop.Army;
 import view.Model.NewButton;
 import view.TileManager;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MoveAnimation{
     private Army army;
@@ -47,10 +40,10 @@ public class MoveAnimation{
 //        backward = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/backward.png").toExternalForm());
 //
 //    }
-    private Image one = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/east.png").toExternalForm());
-    private Image two = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/forward.png").toExternalForm());
-    private Image three = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/west.png").toExternalForm());
-    private Image four = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/Archer/backward.png").toExternalForm());
+    private Image one = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/archer/east.png").toExternalForm());
+    private Image two = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/archer/forward.png").toExternalForm());
+    private Image three = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/archer/west.png").toExternalForm());
+    private Image four = new Image(MoveAnimation.class.getResource("/image/Units/MovePics/archer/backward.png").toExternalForm());
 
 
     public void move(){

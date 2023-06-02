@@ -169,6 +169,9 @@ public class GameController {
                     if (!editInfoOfRepeatedUnitNames(listOfUnits, army.getNames().getName())) {
                         armies.add(army);
                         listOfUnits.put(armies, 1);
+                    }else {
+                        armies.add(army);
+                        listOfUnits.replace(armies,armies.size());
                     }
                 }
             }
@@ -179,7 +182,6 @@ public class GameController {
     public boolean editInfoOfRepeatedUnitNames(HashMap<ArrayList<Army>, Integer> listOfUnits, String name) {
         for (java.util.Map.Entry<ArrayList<Army>, Integer> units : listOfUnits.entrySet()) {
             if (units.getKey().get(0).getNames().getName().equals(name)) {
-                units.setValue(units.getValue() + 1);
                 return true;
             }
         }
@@ -831,13 +833,33 @@ public class GameController {
                                     System.out.println(myUnit.getGoalXCoordinate() + " " + myUnit.getGoalYCoordinate());
 
 //                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
+//                                        myUnit.setDirection("east");
+//                                        System.out.println("forward you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/forward.png").toExternalForm()));
 //
 //                                    } else if (myUnit.getGoalXCoordinate() < myUnit.getCurrentX()) { //left
+//                                        myUnit.setDirection("west");
+//                                        System.out.println("backward you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/backward.png").toExternalForm()));
 //
 //                                    } else if (myUnit.getGoalYCoordinate() > myUnit.getCurrentY()) { //forward
+//                                        myUnit.setDirection("forward");
+//                                        System.out.println("east you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/east.png").toExternalForm()));
+//
 //
 //                                    } else if (myUnit.getGoalYCoordinate() < myUnit.getCurrentY()) { //backward
-//
+//                                        myUnit.setDirection("backward");
+//                                        System.out.println("west you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/west.png").toExternalForm()));
 //                                    }
 
                                     TranslateTransition transition = new TranslateTransition();
