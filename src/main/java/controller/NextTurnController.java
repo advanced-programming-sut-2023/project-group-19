@@ -63,6 +63,7 @@ public class NextTurnController {
         gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
     }
+    //TODO : remove destroyed buildings
     public void buildingFire(){
         for(int i = 0 ; i < Manage.burningEmpires.size() ; i++ ){
             if(Manage.burningEmpires.get(i).isOnFire() && Manage.burningEmpires.get(i).getFireCount() != 0){
@@ -76,21 +77,19 @@ public class NextTurnController {
         }
     }
 
-
-
     public void setGameController(GameController gameController) {
         GameController.gameController = gameController;
         GameMenu.gameController = gameController;
     }
 
-    public void callEndingTurnFunctions(GameController gameController) {
-        gameController.DrawBridge();
-        gameController.cagedWarDogsAttack();
-        gameController.setStateArmy();
-        AttackArmyToArmyController.setFightMode(gameController);
-        gameController.fight();
-        playerHasLost();
-    }
+//    public void callEndingTurnFunctions(GameController gameController) {
+//        gameController.DrawBridge();
+//        gameController.cagedWarDogsAttack();
+//        gameController.setStateArmy();
+//        AttackArmyToArmyController.setFightMode(gameController);
+//        gameController.fight();
+//        playerHasLost();
+//    }
 
     public void playerHasLost() {
         int size = Manage.allEmpires.size();

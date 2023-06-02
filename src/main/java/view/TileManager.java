@@ -1,6 +1,7 @@
 package view;
 import controller.Building.BuildingController;
 import controller.AttackArmyToArmyController;
+import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
@@ -831,7 +832,7 @@ public class TileManager extends Application {
 //            view.setLayoutY(randomY);
 //            pane.getChildren().add(view);
 //        }
-////                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
+//                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
 //        allButtons[u][g].add(button);
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
 
