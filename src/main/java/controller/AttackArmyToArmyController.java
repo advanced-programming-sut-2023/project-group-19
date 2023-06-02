@@ -11,6 +11,9 @@ import model.*;
 import model.Building.*;
 import view.Animations.AssasinAnimation.AsssasinAnimation;
 import view.Animations.AssasinAnimation.DeadAssasinAnimation;
+import view.Animations.MaceManAnimation.DeadMaceManAnimation;
+import view.Animations.MaceManAnimation.MaceManAnimation;
+import view.Animations.MonkAnimation.DeadMonkAnimation;
 import view.Animations.SlaveAnimation.DeadSlaveAnimation;
 import view.Animations.SlaveAnimation.SlaveAnimation;
 import view.Animations.SwordManAnimation.SwordManDeadAnimation;
@@ -22,18 +25,23 @@ public class AttackArmyToArmyController {
     public  SwordManAnimation swordManAnimation = new SwordManAnimation();
     public SlaveAnimation slaveAnimation = new SlaveAnimation();
     public AsssasinAnimation asssasinAnimation = new AsssasinAnimation();
+    public MaceManAnimation maceManAnimation = new MaceManAnimation();
 
     private static int mapSize = CreateMapController.getSizeOfMap();
     TileManager tileManager ;
     public SwordManDeadAnimation swordManDeadAnimation;
     public DeadSlaveAnimation deadSlaveAnimation ;
     public DeadAssasinAnimation deadAssasinAnimation ;
+    public DeadMaceManAnimation deadMaceManAnimation ;
+    public DeadMonkAnimation deadMonkAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
         swordManDeadAnimation = new SwordManDeadAnimation(tileManager);
         deadSlaveAnimation = new DeadSlaveAnimation(tileManager);
         deadAssasinAnimation = new DeadAssasinAnimation(tileManager);
+        deadMaceManAnimation = new DeadMaceManAnimation(tileManager);
+        deadMonkAnimation = new DeadMonkAnimation(tileManager);
     }
 
     public void battleWithEnemy() {
@@ -69,6 +77,8 @@ public class AttackArmyToArmyController {
             case ASSASSINS:
                 deadAssasinAnimation.setArmyToAnimation(army);
                 break;
+            case MACE_MEN:
+                deadMaceManAnimation.setArmyToAnimation(army);
         }
     }
 
@@ -99,6 +109,11 @@ public class AttackArmyToArmyController {
             case ASSASSINS:
                 asssasinAnimation.setArmyToAnimation(army);
                 break;
+            case MACE_MEN:
+                maceManAnimation.setArmyToAnimation(army);
+                break;
+
+
         }
     }
 

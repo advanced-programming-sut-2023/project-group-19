@@ -12,33 +12,33 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class DeadAssasinAnimation extends Transition {
-    private Image DEAD1 = new Image(SwordManAnimation.class.
+    private Image DEAD1 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/1.png").toExternalForm());
-    private Image DEAD2 = new Image(SwordManAnimation.class.
+    private Image DEAD2 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/2.png").toExternalForm());
-    private Image DEAD3 = new Image(SwordManAnimation.class.
+    private Image DEAD3 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/3.png").toExternalForm());
-    private Image DEAD4 = new Image(SwordManAnimation.class.
+    private Image DEAD4 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/4.png").toExternalForm());
-    private Image DEAD5 = new Image(SwordManAnimation.class.
+    private Image DEAD5 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/5.png").toExternalForm());
-    private Image DEAD6 = new Image(SwordManAnimation.class.
+    private Image DEAD6 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/6.png").toExternalForm());
-    private Image DEAD7 = new Image(SwordManAnimation.class.
+    private Image DEAD7 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/7.png").toExternalForm());
-    private Image DEAD8 = new Image(SwordManAnimation.class.
-            getResource("/troop/assasinFight/dead/8.png").toExternalForm());
-    private Image DEAD9 = new Image(SwordManAnimation.class.
+    private Image DEAD8 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/9.png").toExternalForm());
-    private Image DEAD10 = new Image(SwordManAnimation.class.
+    private Image DEAD9 = new Image(DeadAssasinAnimation.class.
+            getResource("/troop/assasinFight/dead/9.png").toExternalForm());
+    private Image DEAD10 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/10.png").toExternalForm());
-    private Image DEAD11 = new Image(SwordManAnimation.class.
+    private Image DEAD11 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/11.png").toExternalForm());
-    private Image DEAD12 = new Image(SwordManAnimation.class.
+    private Image DEAD12 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/12.png").toExternalForm());
-    private Image DEAD13 = new Image(SwordManAnimation.class.
+    private Image DEAD13 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/13.png").toExternalForm());
-    private Image DEAD14 = new Image(SwordManAnimation.class.
+    private Image DEAD14 = new Image(DeadAssasinAnimation.class.
             getResource("/troop/assasinFight/dead/14.png").toExternalForm());
     TileManager tileManager ;
 

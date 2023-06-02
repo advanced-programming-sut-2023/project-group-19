@@ -74,8 +74,8 @@ public class SwordManAnimation extends Transition {
                     break;
                 case FRONT:
                     if (v >= 0 && v < 0.33) army.getImageView().setImage(FRONT1);
-                    if (v >= 0.33 && v < 0.75) army.getImageView().setImage(FRONT2);
-                    if (v >= 0.75) army.getImageView().setImage(FRONT3);
+                    if (v >= 0.33 && v < 0.66) army.getImageView().setImage(FRONT2);
+                    if (v >= 0.66) army.getImageView().setImage(FRONT3);
                     if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
             }
