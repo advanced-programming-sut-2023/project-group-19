@@ -76,6 +76,8 @@ public class NextTurnController {
         }
     }
 
+
+
     public void setGameController(GameController gameController) {
         GameController.gameController = gameController;
         GameMenu.gameController = gameController;
