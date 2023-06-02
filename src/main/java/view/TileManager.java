@@ -375,11 +375,9 @@ public class TileManager extends Application {
                         for (int k = 20 ; k <= 22 ; k++){
                             hBox.getChildren().add(spinners.get(k));
                         }
-
                     }else{
                         for (int i = 1; i <= 10; i++) {
                             hBox.getChildren().remove(hBox.getChildren().size() - 1);
-
                         }
                         int firstIndex = controllerOfDropUnit * 5 ;
                         int lastIndex = ((controllerOfDropUnit + 1) * 5)-1;
@@ -402,10 +400,7 @@ public class TileManager extends Application {
                 ,"swordsMen",spinners.get(5).getValue(),pane,selectedButtons.get(0));
                 pane.getChildren().remove(hBox);
             }
-
         });
-
-
         pane.getChildren().add(hBox);
     }
 
