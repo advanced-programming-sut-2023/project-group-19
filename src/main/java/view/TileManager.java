@@ -158,6 +158,19 @@ public class TileManager extends Application {
         archersAndThrowers.getImageView().setLayoutY(newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
+
+
+        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
+        archersAndThrowers2.archer(4, 2);
+        archersAndThrowers2.getImageView().setFitHeight(200);
+        archersAndThrowers2.getImageView().setFitWidth(200);
+        pane.getChildren().add(archersAndThrowers2.getImageView());
+        NewButton newButton2 = (NewButton) list.get(4 * 100 + 2);
+        newButton2.setBackground(null);
+        archersAndThrowers2.getImageView().setLayoutX(newButton2.getX());
+        archersAndThrowers2.getImageView().setLayoutY(newButton2.getY());
+        newButton2.getArmy().add(archersAndThrowers2);
+        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -188,12 +201,14 @@ public class TileManager extends Application {
                 } else if (keyName.equals("F4")) {
                     GameController gameController = new GameController();
                     gameController.selectedUnit.add(archersAndThrowers);
-                    //gameController.setPathForUnits(5,5);
-                    MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,3,1);
-                    moveAnimation.move();
-//                    newButton.setImageView(archersAndThrowers.getImageView());
-//                    createViewScene(stage);
-
+                    gameController.selectedUnit.add(archersAndThrowers2);
+                    Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
+                    Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers2);
+                    archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
+                    archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
+                    archersAndThrowers2.getImageView().setLayoutX(newButton2.getLayoutX());
+                    archersAndThrowers2.getImageView().setLayoutY(newButton2.getLayoutY());
+                    gameController.moveUnit(5,5,newButton,pane,list);
                 }
             }
         });
