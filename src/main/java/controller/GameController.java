@@ -859,8 +859,6 @@ public class GameController {
                                     myUnit.getImageView().setLayoutX(newButton.getLayoutX());
                                     myUnit.getImageView().setLayoutY(newButton.getLayoutY());
 
-
-
                                     myUnit.setxCoordinate(myUnit.goalXCoordinate);
                                     myUnit.setyCoordinate(myUnit.goalYCoordinate);
                                     myUnit.restOfMoves--;

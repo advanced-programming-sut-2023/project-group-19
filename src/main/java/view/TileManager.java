@@ -163,7 +163,6 @@ public class TileManager extends Application {
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
-        MoveAnimation moveAnimation = new MoveAnimation(archersAndThrowers,newButton,list,this);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
