@@ -1,8 +1,10 @@
 package view;
-
 import controller.Building.BuildingController;
+import controller.AttackArmyToArmyController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
+import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -18,19 +20,20 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
+import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
-import javafx.scene.control.Button;
-import view.Animations.MoveAnimation;
-import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
+import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.SelectedBuildingButtons;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
@@ -43,14 +46,12 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Random;
 
 public class TileManager extends Application {
     //TODO : Dear TeamMates please pay attention that you should set
     // the coordinates of your node first then you can set imageView for it.
 
-
-    //TODO : Show Map ---> Armin's Method
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
     //TODO : Select Unit must change
@@ -142,6 +143,17 @@ public class TileManager extends Application {
         unitImages.loadImages();
 
 
+//        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
+//        Manage.getCurrentEmpire().empireArmy.add(soldiers);
+//        soldiers.setState(Army.StateOfStanding.FRONT);
+//        soldiers.Swordsmen(1, 2);
+//        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
+//        button2.setBackground(null);
+//        button2.getArmy().add(soldiers);
+//        button2.setImageView(soldiers.getImageView());
+
+
+        NewButton button = (NewButton) list.get(3 * 100 + 3);
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
         archersAndThrowers.archer(2, 1);
         archersAndThrowers.getImageView().setFitHeight(200);
@@ -153,7 +165,58 @@ public class TileManager extends Application {
         archersAndThrowers.getImageView().setLayoutY(newButton.getY());
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
+        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
+        archersAndThrowers.ArcherBow(3,3);
+        button.getArmy().add(archersAndThrowers);
+//        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
+//        slaveAnimation.setArmyToAnimation(soldiers2);
+//        slaveAnimation.play();
+//        DeadSlaveAnimation deadSlaveAnimation = new DeadSlaveAnimation(this);
+//        deadSlaveAnimation.setArmyToAnimation(soldiers2);
+//        deadSlaveAnimation.play();
 
+        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
+        attackArmyToArmyController.battleWithEnemy();
+
+//        swordManAnimation.setArmyToAnimation(soldiers);
+//        swordManAnimation.setArmyToAnimation(soldiers2);
+//        attackArmyToArmyController.swordManAnimation.play();
+        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
+        sequentialTransitionSwordMan.play();
+
+        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
+        sequentialTransitionSlave.play();
+
+        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
+        sequentialTransitionAssasin.play();
+
+        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
+        sequentialTransitionMaceMan.play();
+
+        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
+        sequentialTransitionMonk.play();
+
+        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
+        sequentialTransitionShortBow.play();
+
+        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
+        sequentialTransitionSlinger.play();
+
+        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
+        sequentialTransitionArcher.play();
+
+        //TODO picture of sword man after war // DORSA
+
+        //TODO : after each turn clear the armies animation
+
+
+//
+//        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
+//        archersAndThrowers2.HorseArchers(2, 1);
+//        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
+//        newButton2.setBackground(null);
+//        newButton2.getArmy().add(archersAndThrowers2);
+//        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -207,6 +270,8 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
+
+
 
     private void designHboxForDropUnit() {
         HBox hBox = new HBox();
@@ -309,7 +374,6 @@ public class TileManager extends Application {
                     } else {
                         for (int i = 1; i <= 10; i++) {
                             hBox.getChildren().remove(hBox.getChildren().size() - 1);
-
                         }
                         int firstIndex = controllerOfDropUnit * 5;
                         int lastIndex = ((controllerOfDropUnit + 1) * 5) - 1;
@@ -716,12 +780,21 @@ public class TileManager extends Application {
                 NewButton newButton = allButtons[j][i].get(0);
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
-
             }
         }
-
         gameController.selectUnit(selectedButtons, pane);
-
+    }
+    private int getRandomX(NewButton newButton){
+        Random random = new Random();
+        int limit = (int)(newButton.getLayoutX() + 1);
+        int randomX = random.nextInt( limit,limit +  10);
+        return randomX ;
+    }
+    private int getRandomY(NewButton newButton){
+        Random random = new Random();
+        int limit = (int)(newButton.getLayoutY() + 1);
+        int randomY = random.nextInt( limit,limit +  10);
+        return randomY ;
     }
 
     public void createViewScene(Stage stage) {
@@ -746,7 +819,21 @@ public class TileManager extends Application {
                 allButtons[u][g].add(button);
             }
         }
-
+//        pane.getChildren().add(button);
+//        button.setMinSize(50, 50);
+//        for(Army army : button.getArmy()) {
+//            ImageView view = army.getImageView();
+//            view.setImage(view.getImage());
+//            view.setFitHeight(60);
+//            view.setFitWidth(60);
+//            int randomX = getRandomX(button);
+//            int randomY = getRandomY(button);
+//            view.setLayoutX(randomX);
+//            view.setLayoutY(randomY);
+//            pane.getChildren().add(view);
+//        }
+//                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
+//        allButtons[u][g].add(button);
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
 
     }

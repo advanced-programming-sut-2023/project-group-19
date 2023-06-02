@@ -13,6 +13,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     public ArchersAndThrowers(Empire government) {
         super(government);
     }
+    public Image defaultImage;
 
     public int height;
 
@@ -69,6 +70,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/Archer/forward.png").toExternalForm()));
+        defaultImage = imageView.getImage();
         this.imageView.setFitHeight(800);
         this.imageView.setFitWidth(800);
         this.direction = "forward";
