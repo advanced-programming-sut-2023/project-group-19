@@ -215,6 +215,12 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
         sequentialTransitionShortBow.play();
 
+        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
+        sequentialTransitionSlinger.play();
+
+        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
+        sequentialTransitionArcher.play();
+
 
 
         //TODO : fire thrower
