@@ -16,6 +16,8 @@ public class TradeAndShopImages {
     public Image amount;
     public Image request;
     public Image donate;
+    public Image listOfPrevReq;
+    public Image listOfDonationReq;
 
     public void loadImages() {
         background = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/TradeMenuImage.jpg").toExternalForm(),
@@ -27,7 +29,8 @@ public class TradeAndShopImages {
         amount = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/amount.png").toExternalForm());
         request = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/request.png").toExternalForm());
         donate = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/donate.png").toExternalForm());
-
+        listOfPrevReq = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/ListOfPreviousTrades.png").toExternalForm());
+        listOfDonationReq = new Image(TradeAndShopImages.class.getResource("/image/TradeMenuImages/ListOfDonationRequests.png").toExternalForm());
     }
 
     public Image getSendRequest() {
@@ -92,5 +95,21 @@ public class TradeAndShopImages {
 
     public void setDonate(Image donate) {
         this.donate = donate;
+    }
+
+    public Image getListOfPrevReq() {
+        return listOfPrevReq;
+    }
+
+    public void setListOfPrevReq(Image listOfPrevReq) {
+        this.listOfPrevReq = listOfPrevReq;
+    }
+
+    public Image getListOfDonationReq() {
+        return listOfDonationReq;
+    }
+
+    public void setListOfDonationReq(Image listOfDonationReq) {
+        this.listOfDonationReq = listOfDonationReq;
     }
 }

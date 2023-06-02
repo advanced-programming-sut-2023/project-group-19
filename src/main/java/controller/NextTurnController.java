@@ -48,7 +48,7 @@ public class NextTurnController {
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;
-        TradeController.currentEmpire = currentEmpire;
+        //tradeController.currentEmpire = currentEmpire;
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
