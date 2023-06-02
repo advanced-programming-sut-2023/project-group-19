@@ -133,20 +133,20 @@ public class TileManager extends Application {
         unitImages = new UnitImages();
         unitImages.loadImages();
 //       ===================================================================================================================================================
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(100);
-        Map.mapSize = 100;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
-
-
-
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+//        Empire Ali = new Empire();
+//        Empire Dorsa = new Empire();
+//        Ali.setUser(newUser);
+//        Dorsa.setUser(newUser1);
+//        Manage.setCurrentEmpire(Ali);
+//        Map.CreateMap(100);
+//        Map.mapSize = 100;
+//        Manage.getAllEmpires().add(Dorsa);
+//        Manage.getAllEmpires().add(Ali);
+//
+//
+//
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
         archersAndThrowers.archer(2, 1);
         archersAndThrowers.getImageView().setFitHeight(200);
@@ -159,18 +159,6 @@ public class TileManager extends Application {
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
 
-
-        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers2.archer(4, 2);
-        archersAndThrowers2.getImageView().setFitHeight(200);
-        archersAndThrowers2.getImageView().setFitWidth(200);
-        pane.getChildren().add(archersAndThrowers2.getImageView());
-        NewButton newButton2 = (NewButton) list.get(4 * 100 + 2);
-        newButton2.setBackground(null);
-        archersAndThrowers2.getImageView().setLayoutX(newButton2.getX());
-        archersAndThrowers2.getImageView().setLayoutY(newButton2.getY());
-        newButton2.getArmy().add(archersAndThrowers2);
-        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -183,7 +171,7 @@ public class TileManager extends Application {
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
-//        bottomBarBuildings.setAllButtons(allButtons);
+        bottomBarBuildings.setAllButtons(allButtons);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -201,13 +189,9 @@ public class TileManager extends Application {
                 } else if (keyName.equals("F4")) {
                     GameController gameController = new GameController();
                     gameController.selectedUnit.add(archersAndThrowers);
-                    gameController.selectedUnit.add(archersAndThrowers2);
                     Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-                    Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers2);
                     archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
                     archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
-                    archersAndThrowers2.getImageView().setLayoutX(newButton2.getLayoutX());
-                    archersAndThrowers2.getImageView().setLayoutY(newButton2.getLayoutY());
                     gameController.moveUnit(5,5,newButton,pane,list);
                 }
             }
