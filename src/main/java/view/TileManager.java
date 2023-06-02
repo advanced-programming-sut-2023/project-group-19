@@ -116,7 +116,6 @@ public class TileManager extends Application {
         Manage.allEmpires.add(empire);
         Manage.allEmpires.add(empire2);
         BuildingController.currentEmpire = empire;
-
         createButtonsArraylist();
 
         for (int j = 0; j < 103; j++) {

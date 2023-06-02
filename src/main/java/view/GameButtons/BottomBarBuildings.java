@@ -1578,7 +1578,7 @@ public class BottomBarBuildings {
 
         Button apothecaryButton = new Button();
         ImageView apothecaryImage = new ImageView(buildingImages.getApothecary());
-        apothecaryButton.setBackground(null);
+//        apothecaryButton.setBackground(null);
         apothecaryImage.setFitHeight(100);
         apothecaryImage.setFitWidth(100);
         apothecaryButton.setGraphic(apothecaryImage);
@@ -1587,15 +1587,30 @@ public class BottomBarBuildings {
         apothecaryButton.setMinSize(100, 100);
         addedButtons.add(apothecaryButton);
         pane.getChildren().add(apothecaryButton);
-        //TODO : add this to the source code
-//        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                Goods goods = new Goods(Manage.getCurrentEmpire());
-//                goods.dairyProduct();
-//                building = goods;
-//            }
-//        };
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) ((int) b.getX() / 51);
+                int y = (int) b.getY() / 54;
+                NewButton newbutton = allButtons[y][x].get(0);
+                House apothecary = new House(Manage.getCurrentEmpire());
+                apothecary.apothecary();
+                building = apothecary;
+                String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(apothecaryImage);
+                    newbutton.setBuilding(apothecary);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+            }
+        };
+        apothecaryButton.setOnMouseReleased(event3);
 
         Button tortureBuildingButton = new Button();
         ImageView tortureBuildingImage = new ImageView(buildingImages.getTortureBuilding());
@@ -2279,6 +2294,7 @@ public class BottomBarBuildings {
                 }
                 break;
             case"HuntingPost":
+                break;
             case"WheatFarm":
                 ImageView wheatFarmImage = new ImageView(buildingImages.getWheatFarm());
                 Goods goods1 = new Goods(Manage.getCurrentEmpire());
@@ -2567,6 +2583,21 @@ public class BottomBarBuildings {
                 }
                 break;
             case"Shop":
+                ImageView marketImage2 = new ImageView(buildingImages.getMarket());
+                Shop shop2 = new Shop(Manage.getCurrentEmpire());
+                shop2.shop();
+                building = shop2;
+                output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
+                if (output.equals("building created successfully")) {
+                    pane.getChildren().remove(allButtons[y][x].get(0));
+                    newbutton.setImageView(marketImage2);
+                    newbutton.setBuilding(shop2);
+                    pane.getChildren().add(newbutton);
+                }
+                else {
+                    showError(output);
+                }
+                break;
             case"SiegeTent":
                 ImageView siegeTentImage = new ImageView(buildingImages.getSiegeTent());
                 SiegeTent siegeTent = new SiegeTent(Manage.getCurrentEmpire());
@@ -2743,6 +2774,7 @@ public class BottomBarBuildings {
                 }
                 break;
             case"Tunnel":
+                break;
             case"BigWall":
                 ImageView stoneWallImage = new ImageView(buildingImages.getStoneWall());
                 Wall bigWall = new Wall(Manage.getCurrentEmpire());

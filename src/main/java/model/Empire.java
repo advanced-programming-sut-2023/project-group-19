@@ -33,6 +33,7 @@ public class Empire {
     private int PeasantCount = 50;
     private int priestCount;
     private int troopCount;
+    private int apothecary;
     private int workerCount = 50;
     private int notificationOfRequest;
     private int notificationOfDonation;
@@ -871,7 +872,7 @@ public class Empire {
         productionBuildingCount.put("bakery", 0);
         productionBuildingCount.put("mill", 0);
         productionBuildingCount.put("dairyFactory", 0);
-        productionBuildingCount.put("wheatFactory", 0);
+        productionBuildingCount.put("wheatFarm", 0);
     }
 
     public HashMap<String, Integer> productionBuildingRate = new HashMap<>();

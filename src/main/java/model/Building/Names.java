@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public enum Names {
     CASTLE("Castle"),
     SMALL_STONE_GATE_HOUSE("SmallStoneGatehouse"),
+    APOTHECARY("Apothecary"),
     BIG_STONE_GATE_HOUSE("BigStoneGatehouse"),
     DRAW_BRIDGE("DrawBridge"),
     LOOKOUT_TOWER("LookoutTower"),

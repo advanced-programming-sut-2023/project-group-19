@@ -9,6 +9,7 @@ public class Manage {
     static {
         namesOfAllPossibleBuildings.add("Armoury");
         namesOfAllPossibleBuildings.add("Barracks");
+        namesOfAllPossibleBuildings.add("Apothecary");
         namesOfAllPossibleBuildings.add("CagedWarDogs");
         namesOfAllPossibleBuildings.add("SmallChurch");
         namesOfAllPossibleBuildings.add("BigChurch");
