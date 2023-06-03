@@ -269,10 +269,12 @@ public class AttackArmyToArmyController {
     private void setArcherDirection(Army army , Army enemy){
         int deltaX = enemy.xCoordinate - army.xCoordinate ;
         int deltaY = enemy.yCoordinate - army.yCoordinate ;
-        if(deltaX > 0) army.setState(Army.StateOfStanding.RIGHT);
-        else if( deltaX < 0) army.setState(Army.StateOfStanding.LEFT);
-        else if(deltaY > 0 ) army.setState(Army.StateOfStanding.BACK);
-        else if( deltaY < 0) army.setState(Army.StateOfStanding.FRONT);
+        System.out.println(deltaX);
+        System.out.println(deltaY);
+        if(deltaX > 0) army.setState(Army.StateOfStanding.FRONT);
+        else if( deltaX < 0) army.setState(Army.StateOfStanding.BACK);
+        else if(deltaY > 0 ) army.setState(Army.StateOfStanding.RIGHT);
+        else if( deltaY < 0) army.setState(Army.StateOfStanding.LEFT);
         else army.setState(Army.StateOfStanding.RIGHT);
     }
 
