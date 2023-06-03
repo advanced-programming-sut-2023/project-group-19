@@ -21,7 +21,6 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
-import view.Animations.MoveAnimation;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.TileManager;
@@ -217,10 +216,7 @@ public class GameController {
                 army.isIntFight = true;
             }
             //String unitMoved = moveUnit(x, y).getMessages();
-            System.out.println("x is: " + selectedUnit.get(0).getCurrentX() + " y is: " + selectedUnit.get(0).getCurrentY()
-                    + selectedUnit.get(0).myPath);
 
-            //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
@@ -731,7 +727,6 @@ public class GameController {
     }
 
     private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        System.out.println("into defensive state");
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
@@ -827,7 +822,6 @@ public class GameController {
                                     myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
                                     myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                     Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
-                                    System.out.println(myUnit.getGoalXCoordinate() + " " + myUnit.getGoalYCoordinate());
 
 //                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
 //                                        myUnit.setDirection("east");
