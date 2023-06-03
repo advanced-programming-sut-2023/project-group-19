@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class ShopMenuController {
     //TODO : Bugs confirmation form pops up twice , you should make the pops-up attached to the menu,
-    // Bar should be attached to the upper region of menu,background
     public ShopController shopController = new ShopController();
     public int number;
     ArrayList<Integer> getTheSuggestion = new ArrayList<>();
