@@ -255,11 +255,19 @@ public class TileManager extends Application {
                 } else if (keyName.equals("P")) {
                     clipboardData = content.getString();
                     bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
-                } else if (keyName.equals("F5")){
-                    int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
-                    ArrayList<Double> averageDetails;
-                    averageDetails = countTheProductionAveragesOnTiles();
-                    designHBoxOfAverageDetails(totalNumberOfTroops,averageDetails);
+                } else if (keyName.equals("F5")) {
+                    if (selectedButtons.size() != 0) {
+                        int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
+                        ArrayList<Double> averageDetails;
+                        averageDetails = countTheProductionAveragesOnTiles();
+                        designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
+                    }else{
+                        Alert alarm = new Alert(Alert.AlertType.ERROR);
+                        alarm.setTitle("Map Error!");
+                        alarm.setHeaderText("Error in Map Commands");
+                        alarm.setContentText("You didn't choose any cell!");
+                        alarm.showAndWait();
+                    }
                 }
             }
         });
@@ -270,7 +278,7 @@ public class TileManager extends Application {
         stage.setResizable(false);
     }
 
-    private void designHBoxOfAverageDetails(int totalNumberOfTroops , ArrayList<Double> averageDetails ) {
+    private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
         //TODO : CLOSE button
         HBox hBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
@@ -284,7 +292,7 @@ public class TileManager extends Application {
         header.setText("Information");
         header.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 30));
         Text unitNumber = new Text();
-        unitNumber.setText("Number of your Empire's Troops: "+totalNumberOfTroops);
+        unitNumber.setText("Number of your Empire's Troops: " + totalNumberOfTroops);
         unitNumber.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         Text buildingMinAverage = new Text();
         buildingMinAverage.setText("Minimum Average of Buildings of Your Own :" + averageDetails.get(0));
@@ -295,12 +303,24 @@ public class TileManager extends Application {
         Text buildingMaxAverage = new Text();
         buildingMaxAverage.setText("Maximum Average of Buildings of Your Own :" + averageDetails.get(0));
         buildingMaxAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Button close = new Button();
+        ImageView closeIconImage = new ImageView(gameImages.getDone());
+        close.setBackground(null);
+        closeIconImage.setFitHeight(40);
+        closeIconImage.setFitWidth(40);
+        close.setGraphic(closeIconImage);
+        hBox.getChildren().add(close);
+        close.setTranslateX(380);
+        close.setTranslateY(115);
+        close.setMinSize(40, 40);
+        close.setPrefSize(40, 40);
         VBox vBox = new VBox();
         vBox.getChildren().add(header);
         vBox.getChildren().add(unitNumber);
         vBox.getChildren().add(buildingMinAverage);
         vBox.getChildren().add(buildingMidAverage);
         vBox.getChildren().add(buildingMaxAverage);
+        vBox.getChildren().add(close);
         header.setTranslateX(330);
         header.setTranslateY(25);
         unitNumber.setTranslateX(155);
@@ -315,6 +335,13 @@ public class TileManager extends Application {
         buildingMaxAverage.setTranslateY(100);
         hBox.getChildren().add(vBox);
         pane.getChildren().add(hBox);
+
+        close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                pane.getChildren().remove(hBox);
+            }
+        });
 
     }
 
@@ -806,7 +833,9 @@ public class TileManager extends Application {
 
     public double calculateMin(double number, double min) {
         double minimum;
-        if (number >= min) {
+        if (min == 0) {
+            minimum = number;
+        } else if (number >= min) {
             minimum = min;
         } else {
             minimum = number;
@@ -815,15 +844,18 @@ public class TileManager extends Application {
     }
 
     public double calculateMax(double number, double max) {
-        double maximum ;
-        if (number >= max) {
+        double maximum;
+        if (max == 0) {
+            maximum = number;
+        } else if (number >= max) {
             maximum = number;
         } else {
             maximum = max;
         }
         return maximum;
     }
-    public double calculateAverage(ArrayList<Integer> allNumbers){
+
+    public double calculateAverage(ArrayList<Integer> allNumbers) {
         double adding = 0;
         for (Integer allNumber : allNumbers) {
             adding += allNumber;
