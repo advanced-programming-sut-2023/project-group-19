@@ -530,11 +530,13 @@ public class TileManager extends Application {
                 int y = (int) b.getY() - 110;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0));
+                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0)+'\n');
                 for (int i = 0; i < cellArmyNameType.size(); i++) {
                     stringBuilder.append(cellArmyNameType.get(i) + " ");
                 }
                 showCellData.setText(stringBuilder.toString());
+                //TODO : The color of text must change
+                showCellData.setStyle("-fx-text-fill: #0a6562;");
                 showCellData.setX(x);
                 showCellData.setY(y);
                 if (showCellData != null && !pane.getChildren().contains(showCellData))
