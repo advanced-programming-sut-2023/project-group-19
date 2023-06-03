@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Empire;
+import model.Human.Names;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 
@@ -297,11 +298,18 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
+                System.out.println("i is: " + i + " and j is: " + j);
                 Building building = ((NewButton)(tileManager.list.get(100 * i + j))).getBuilding();
                 if (building != null) {
+                    System.out.println("i am here");
                     if (building.getOwner().equals(army.getEmpire()) ||
                             building.getHp() <= 0) continue;
                     int newHitPoint = building.hp() - army.getAttackPower();
+                    if(army.getTypeOfArmy().equals(Names.FireThrowers)){
+                        building.onFire  = true ;
+                        building.setFireCount(3);
+                        Manage.burningEmpires.add(building);
+                    }
                     setDirectionArmyToAttackBuilding(army,i,j);
                     building.setHp(newHitPoint);
                     setAnimationToFight(army);

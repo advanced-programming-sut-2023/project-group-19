@@ -15,7 +15,6 @@ public class GrendiarAnimation extends Transition {
     private Image BACK2 = new Image(GrendiarAnimation.class.
             getResource("/troop/grenadierFight/back/2.png").toExternalForm());
 
-
     private Image FRONT1 = new Image(GrendiarAnimation.class.
             getResource("/troop/grenadierFight/front/1.png").toExternalForm());
     private Image FRONT2 = new Image(GrendiarAnimation.class.

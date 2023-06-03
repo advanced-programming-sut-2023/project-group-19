@@ -69,6 +69,7 @@ public class DeadGrendiarAnimation extends Transition {
             if(v >= 0.95 && v < 0.97) army.getImageView().setImage(DEAD13);
             if(v >= 0.97 ) army.getImageView().setImage(DEAD14);
             if(v == 1) {
+                System.out.println("********");
                 int x = army.xCoordinate;
                 int y = army.yCoordinate;
                 ((NewButton)tileManager.list.get(100 * x + y)).getArmy().remove(army);
