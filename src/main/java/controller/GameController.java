@@ -346,6 +346,7 @@ public class GameController {
                     knight.Knight(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(knight);
                     Map.getTroopMap()[x][y].add(knight);
+                    button.setMinSize(50, 50);
                     button.getArmy().add(knight);
 
                 }
@@ -403,7 +404,7 @@ public class GameController {
             case 11:
                 for (int i = 0; i < count; i++) {
                     Soldiers slaves = new Soldiers(Manage.getCurrentEmpire());
-                    slaves.BlackMonk(x, y);
+                    slaves.Slaves(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slaves);
                     Map.getTroopMap()[x][y].add(slaves);
                     button.setMinSize(50, 50);
@@ -420,11 +421,6 @@ public class GameController {
                     slingers.Slingers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slingers);
                     Map.getTroopMap()[x][y].add(slingers);
-                    button.setImageView(slingers.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(slingers);
                 }
@@ -438,11 +434,6 @@ public class GameController {
                     assassins.Assassins(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(assassins);
                     Map.getTroopMap()[x][y].add(assassins);
-                    button.setImageView(assassins.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(assassins);
                 }
@@ -456,11 +447,6 @@ public class GameController {
                     horseArcher.HorseArchers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(horseArcher);
                     Map.getTroopMap()[x][y].add(horseArcher);
-                    button.setImageView(horseArcher.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(horseArcher);
                 }
@@ -474,28 +460,18 @@ public class GameController {
                     arabSwordMen.ArabianSwordsmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
                     Map.getTroopMap()[x][y].add(arabSwordMen);
-                    button.setImageView(arabSwordMen.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(arabSwordMen);
                 }
                 Manage.getCurrentEmpire().setArabianSwordManCount
                         (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
-
+                break;
             case 16:
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers fireThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     fireThrowers.FireThrowers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(fireThrowers);
                     Map.getTroopMap()[x][y].add(fireThrowers);
-                    button.setImageView(fireThrowers.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(fireThrowers);
                 }
@@ -509,11 +485,6 @@ public class GameController {
                     catapult.catapult(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(catapult);
                     Map.getTroopMap()[x][y].add(catapult);
-                    button.setImageView(catapult.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(catapult);
                 }
@@ -527,11 +498,6 @@ public class GameController {
                     trebuchet.trebuchet(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(trebuchet);
                     Map.getTroopMap()[x][y].add(trebuchet);
-                    button.setImageView(trebuchet.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(trebuchet);
                 }
@@ -545,28 +511,18 @@ public class GameController {
                     siegeTower.siegeTower(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(siegeTower);
                     Map.getTroopMap()[x][y].add(siegeTower);
-                    button.setImageView(siegeTower.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(siegeTower);
                 }
                 Manage.getCurrentEmpire().setSiegeTowerCount
                         (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
-
+                break;
             case 20:
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     fireBallista.fireBallista(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(fireBallista);
                     Map.getTroopMap()[x][y].add(fireBallista);
-                    button.setImageView(fireBallista.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(fireBallista);
                 }
@@ -581,11 +537,6 @@ public class GameController {
                     batteringRam.batteringRam(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(batteringRam);
                     Map.getTroopMap()[x][y].add(batteringRam);
-                    button.setImageView(batteringRam.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(batteringRam);
                 }
@@ -599,11 +550,6 @@ public class GameController {
                     portableShield.portableShield(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(portableShield);
                     Map.getTroopMap()[x][y].add(portableShield);
-                    button.setImageView(portableShield.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(portableShield);
                 }
@@ -748,6 +694,7 @@ public class GameController {
     }
 
     public void moveUnit(int xCoordinate, int yCoordinate, NewButton newButton, Pane pane, ArrayList<Node> listOfButtons) {
+        ImageView current = new ImageView();
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
