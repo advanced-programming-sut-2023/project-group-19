@@ -188,22 +188,23 @@ public class TileManager extends Application {
         //armin test code
         Empire Ahmed = new Empire();
         ArchersAndThrowers fireThrower =  new ArchersAndThrowers(Ahmed);
-        fireThrower.FireThrowers(6,4);
-        NewButton AhmedButton = (NewButton) list.get(6 * 100 + 4);
+        fireThrower.FireThrowers(4,1);
+        NewButton AhmedButton = (NewButton) list.get(4 * 100 + 1);
         Ahmed.empireArmy.add(fireThrower);
         AhmedButton.getArmy().add(fireThrower);
 
 
         Empire Richard = new Empire();
-//        Armoury armoury = new Armoury(Richard);
+        Armoury armoury = new Armoury(Richard);
         NewButton RichardButton = (NewButton) list.get(7 * 100 + 4);
         Soldiers soldiers = new Soldiers(Richard);
-        soldiers.BlackMonk(7,4);
-        Richard.empireArmy.add(soldiers);
-        RichardButton.getArmy().add(soldiers);
-//        RichardButton.setBuilding(armoury);
-//        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm()));
-//        RichardButton.setImageView(imageView);
+//        soldiers.BlackMonk(6,3);
+//        NewButton RButton = (NewButton) list.get(6 * 100 + 3);
+//        Richard.empireArmy.add(soldiers);
+//        RButton.getArmy().add(soldiers);
+        RichardButton.setBuilding(armoury);
+        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm()));
+        RichardButton.setImageView(imageView);
 
         Manage.getAllEmpires().add(Richard);
         Manage.getAllEmpires().add(Ahmed);
@@ -875,8 +876,12 @@ public class TileManager extends Application {
                 button.setLayoutY(u * 54);
                 if (button.getImageView() != null) {
                     ImageView view ;
-                    if (button.getBuilding() != null && button.getBuilding().onFire) view = fireImage ;
-                    else view = button.getImageView();
+                    if (button.getBuilding() != null && button.getBuilding().onFire) {
+                        view = fireImage ;
+                    }
+                    else {
+                        view = button.getImageView();
+                    }
                     view.setFitHeight(50);
                     view.setFitWidth(50);
                     button.setGraphic(view);

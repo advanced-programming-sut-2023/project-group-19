@@ -1,12 +1,17 @@
 package controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import model.Empire;
 import model.Human.Names;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.util.ArrayList;
 
 import model.*;
@@ -300,15 +305,23 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
-                System.out.println("i is: " + i + " and j is: " + j);
+//                System.out.println("i is: " + i + " and j is: " + j);
                 Building building = ((NewButton)(tileManager.list.get(100 * i + j))).getBuilding();
                 if (building != null) {
-                    System.out.println("i am here");
-                    if (building.getOwner().equals(army.getEmpire()) ||
-                            building.getHp() <= 0) continue;
+                    if (building.getOwner().equals(army.getEmpire())) continue;
+                    //building.getHp() <= 0
                     int newHitPoint = building.hp() - army.getAttackPower();
-                    if(army.getTypeOfArmy().equals(Names.FireThrowers)){
-                        building.onFire  = true ;
+                    System.out.println(newHitPoint);
+                    if(army.getNames().equals(Names.FireThrowers)){
+                        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(6000),actionEvent -> {
+                            try {
+                                setTimeLIneToFire(building);
+                            } catch (AWTException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }));
+                        timeline.play();
+                        ;
                         building.setFireCount(3);
                         Manage.burningEmpires.add(building);
                     }
@@ -316,7 +329,7 @@ public class AttackArmyToArmyController {
                     building.setHp(newHitPoint);
                     setAnimationToFight(army);
                     if (building.getHp() <= 0) {
-                        ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
+//                        ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
                         Map.notPassable[i][j] = false ;
                         Map.notBuildable[i][j] = false ;
                     }
@@ -325,6 +338,12 @@ public class AttackArmyToArmyController {
             }
         }
         return false;
+    }
+    private void setTimeLIneToFire(Building building) throws AWTException {
+        building.onFire = true ;
+        Robot rob = new Robot();
+        rob.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+        rob.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
     private void setDirectionArmyToAttackBuilding(Army army , int x , int y){
         int deltaX = x - army.xCoordinate ;
