@@ -92,6 +92,7 @@ public class TileManager extends Application {
     public int numberOfMySoldiers;
     public double width;
     public double height;
+    public ArrayList<Button> minimapButtons = new ArrayList<>();
     public ClipboardContent content;
     public Clipboard cb;
     public NewButton selectedButton;
@@ -358,7 +359,6 @@ public class TileManager extends Application {
                 } else {
                     pane.getChildren().add(button);
                 }
-
                 allButtons[u][g].add(button);
             }
         }
@@ -378,6 +378,7 @@ public class TileManager extends Application {
 //                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
 //        allButtons[u][g].add(button);
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
+
 
     }
 
@@ -409,6 +410,7 @@ public class TileManager extends Application {
                 allButtons[i][j] = new ArrayList<>();
             }
         }
+
     }
 
     public void numberOfAllSoldiers() {
@@ -632,29 +634,29 @@ public class TileManager extends Application {
         error.setContentText(output);
         error.show();
     }
-    public void createMinimap(Pane pane){
-        for(int i = 0 ; i < 100 ; i++){
-            for(int j = 0 ; j < 100 ; j++){
-                Button test = new Button();
-                test.setBackground(null);
-                //building brown
-                //tree green
-                //water blue
-                //stone gray
-                //default ground range dorsa
-                //castle black
-                //troop red
-                if(j % 2 == 0)
-                    test.setStyle("-fx-background-color: #805300;");
-                else
-                    test.setStyle("-fx-background-color: red;");
-                test.setLayoutX(500 + 7.5 * i);
-                test.setLayoutY(300 + 8 * j);
-                test.setMinSize(7.5, 8);
-                test.setMaxSize(1.5, 1.6);
-                pane.getChildren().add(test);
-            }
-        }
-    }
+//    public void createMinimap(Pane pane){
+//        for(int i = 0 ; i < 100 ; i++){
+//            for(int j = 0 ; j < 100 ; j++){
+//                Button test = new Button();
+//                test.setBackground(null);
+//                //building brown
+//                //tree green
+//                //water blue
+//                //stone gray
+//                //default ground range dorsa
+//                //castle black
+//                //troop red
+//                if(i % 2 == 0)
+//                    test.setStyle("-fx-background-color: #805300;");
+//                else
+//                    test.setStyle("-fx-background-color: #380b0b;");
+//                test.setLayoutX(1200 + 1.5 * i);
+//                test.setLayoutY(697 + 1.6 * j);
+//                test.setMinSize(1.5, 1.6);
+//                test.setMaxSize(1.5, 1.6);
+//                minimapButtons.add(test);
+//            }
+//        }
+//    }
 
 }
