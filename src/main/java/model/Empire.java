@@ -289,6 +289,37 @@ public class Empire {
     public HashMap<String, Integer> getAllFood() {
         return allFood;
     }
+    public int getWheatFactoryRate(){
+        return productionBuildingRate.get("wheatFactory");
+    }
+
+    public int getHuntingPostRate(){
+        return productionBuildingRate.get("huntingPost");
+    }
+
+    public int getOatFarmRate(){
+        return productionBuildingRate.get("oatFarm");
+    }
+
+    public int getAppleFarmRate(){
+        return productionBuildingRate.get("appleFarm");
+    }
+     public int getQuarryRate(){
+        return productionBuildingRate.get("quarry");
+     }
+
+     public int getPitchRigRate(){
+        return productionBuildingRate.get("pitchRig");
+     }
+
+     public int getIronMineRate(){
+         return productionBuildingRate.get("ironMine");
+     }
+
+     public int getWoodCutterRate(){
+         return productionBuildingRate.get("woodCutter");
+     }
+
 
     public int getBeerFactoryRate() {
         return productionBuildingRate.get("beerFactory");

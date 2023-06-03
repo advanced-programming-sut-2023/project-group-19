@@ -1,4 +1,5 @@
 package view;
+
 import controller.Building.BuildingController;
 import controller.AttackArmyToArmyController;
 import controller.Building.SelectedBuildingController;
@@ -21,6 +22,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -57,10 +61,8 @@ public class TileManager extends Application {
 
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
-    //TODO : Select Unit must change
+
     //TODO : Method which calculates the Production things on a tile
-    // width  = 1530
-    // height = 800
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -168,7 +170,7 @@ public class TileManager extends Application {
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
         Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-        archersAndThrowers.ArcherBow(3,3);
+        archersAndThrowers.ArcherBow(3, 3);
         button.getArmy().add(archersAndThrowers);
 //        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
 //        slaveAnimation.setArmyToAnimation(soldiers2);
@@ -234,28 +236,30 @@ public class TileManager extends Application {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
-                    dropUnitDesign.designHBoxForDropUnit(pane,gameController,selectedButtons);
+                    dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
                     GameController gameController = new GameController();
                     gameController.selectedUnit.add(archersAndThrowers);
                     Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
                     archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
                     archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
-                    gameController.moveUnit(5,5,newButton,pane,list);
-                }
-                else if (keyName.equals("C")) {
+                    gameController.moveUnit(5, 5, newButton, pane, list);
+                } else if (keyName.equals("C")) {
                     content = new ClipboardContent();
-                    if(selectedButton.getBuilding() != null) {
+                    if (selectedButton.getBuilding() != null) {
                         content.putString(selectedButton.getBuilding().getName());
-                    }
-                    else {
+                    } else {
                         content.putString("");
                     }
                     javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
-                }
-                else if (keyName.equals("P")) {
+                } else if (keyName.equals("P")) {
                     clipboardData = content.getString();
-                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane , clipboardData , buildingImages);
+                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
+                } else if (keyName.equals("F5")){
+                    int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
+                    ArrayList<Double> averageDetails;
+                    averageDetails = countTheProductionAveragesOnTiles();
+                    designHBoxOfAverageDetails(totalNumberOfTroops,averageDetails);
                 }
             }
         });
@@ -264,6 +268,54 @@ public class TileManager extends Application {
         stage.show();
         stage.setFullScreen(true);
         stage.setResizable(false);
+    }
+
+    private void designHBoxOfAverageDetails(int totalNumberOfTroops , ArrayList<Double> averageDetails ) {
+        //TODO : CLOSE button
+        HBox hBox = new HBox();
+        BackgroundImage map = new BackgroundImage(new Image(GameController.class.
+                getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        hBox.setBackground(new Background(map));
+        hBox.setPrefSize(800, 300);
+        hBox.setLayoutX(350);
+        hBox.setLayoutY(150);
+        Text header = new Text();
+        header.setText("Information");
+        header.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 30));
+        Text unitNumber = new Text();
+        unitNumber.setText("Number of your Empire's Troops: "+totalNumberOfTroops);
+        unitNumber.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Text buildingMinAverage = new Text();
+        buildingMinAverage.setText("Minimum Average of Buildings of Your Own :" + averageDetails.get(0));
+        buildingMinAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Text buildingMidAverage = new Text();
+        buildingMidAverage.setText("Mid Average of Buildings of Your Own :" + averageDetails.get(1));
+        buildingMidAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Text buildingMaxAverage = new Text();
+        buildingMaxAverage.setText("Maximum Average of Buildings of Your Own :" + averageDetails.get(0));
+        buildingMaxAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        VBox vBox = new VBox();
+        vBox.getChildren().add(header);
+        vBox.getChildren().add(unitNumber);
+        vBox.getChildren().add(buildingMinAverage);
+        vBox.getChildren().add(buildingMidAverage);
+        vBox.getChildren().add(buildingMaxAverage);
+        header.setTranslateX(330);
+        header.setTranslateY(25);
+        unitNumber.setTranslateX(155);
+        unitNumber.setTranslateY(60);
+        buildingMinAverage.setTranslateX(150);
+        buildingMinAverage.setTranslateY(70);
+        buildingMidAverage.setTranslateX(150);
+        buildingMidAverage.setTranslateY(60);
+        buildingMidAverage.setTranslateX(150);
+        buildingMidAverage.setTranslateY(85);
+        buildingMaxAverage.setTranslateX(150);
+        buildingMaxAverage.setTranslateY(100);
+        hBox.getChildren().add(vBox);
+        pane.getChildren().add(hBox);
+
     }
 
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
@@ -327,17 +379,19 @@ public class TileManager extends Application {
         }
         gameController.selectUnit(selectedButtons, pane);
     }
-    private int getRandomX(NewButton newButton){
+
+    private int getRandomX(NewButton newButton) {
         Random random = new Random();
-        int limit = (int)(newButton.getLayoutX() + 1);
-        int randomX = random.nextInt( limit,limit +  10);
-        return randomX ;
+        int limit = (int) (newButton.getLayoutX() + 1);
+        int randomX = random.nextInt(limit, limit + 10);
+        return randomX;
     }
-    private int getRandomY(NewButton newButton){
+
+    private int getRandomY(NewButton newButton) {
         Random random = new Random();
-        int limit = (int)(newButton.getLayoutY() + 1);
-        int randomY = random.nextInt( limit,limit +  10);
-        return randomY ;
+        int limit = (int) (newButton.getLayoutY() + 1);
+        int randomY = random.nextInt(limit, limit + 10);
+        return randomY;
     }
 
     public void createViewScene(Stage stage) {
@@ -454,14 +508,15 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                //TODO : The data of present army in the cell and groundType collides
                 getCellData(newButton);
                 PointerInfo a = MouseInfo.getPointerInfo();
                 Point b = a.getLocation();
                 int x = (int) b.getX();
-                int y = (int) b.getY() - 100;
+                int y = (int) b.getY() - 110;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n');
+                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0));
                 for (int i = 0; i < cellArmyNameType.size(); i++) {
                     stringBuilder.append(cellArmyNameType.get(i) + " ");
                 }
@@ -539,7 +594,7 @@ public class TileManager extends Application {
                 pane.getChildren().remove(selectedBuildingTextField);
                 pane.getChildren().remove(selectBackground);
                 if (selectedMenuActive) {
-                    if(selectedBuildingButtons.getGatehouseText() != null)
+                    if (selectedBuildingButtons.getGatehouseText() != null)
                         pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
                     pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
                     pane.getChildren().remove(selectedBuildingHP);
@@ -573,10 +628,10 @@ public class TileManager extends Application {
         SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
         String buildingName = newButton.getBuilding().getName();
-        setSelectedBuildingProperGraphic(newButton ,buildingName, selectedBuildingMenu, unitImages);
+        setSelectedBuildingProperGraphic(newButton, buildingName, selectedBuildingMenu, unitImages);
     }
 
-    public void setSelectedBuildingProperGraphic(NewButton newButton , String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+    public void setSelectedBuildingProperGraphic(NewButton newButton, String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         selectedMenuActive = true;
         selectedBuildingButtons = new SelectedBuildingButtons();
         selectedBuildingTextField = new Text();
@@ -584,7 +639,7 @@ public class TileManager extends Application {
         selectedBuildingTextField.setStyle("-fx-font: 24 arial");
         selectedBuildingTextField.setLayoutX(550);
         selectedBuildingTextField.setLayoutY(715);
-        if(SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+        if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
             selectedBuildingHP = new Text();
             selectedBuildingHP.setText("HP : " + newButton.getBuilding().getHp());
             selectedBuildingHP.setStyle("-fx-font: 24 arial");
@@ -600,7 +655,7 @@ public class TileManager extends Application {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     String output = String.valueOf(selectedBuildingMenu.repair());
-                    if(!output.equals("building repaired successfully")){
+                    if (!output.equals("building repaired successfully")) {
                         showError(output);
                     }
                 }
@@ -626,15 +681,17 @@ public class TileManager extends Application {
             selectedBuildingButtons.drawBridge(pane, selectedBuildingMenu, unitImages);
         }
     }
-    public void showError(String output){
+
+    public void showError(String output) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
         error.show();
     }
-    public void createMinimap(Pane pane){
-        for(int i = 0 ; i < 100 ; i++){
-            for(int j = 0 ; j < 100 ; j++){
+
+    public void createMinimap(Pane pane) {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
                 Button test = new Button();
                 test.setBackground(null);
                 //building brown
@@ -644,7 +701,7 @@ public class TileManager extends Application {
                 //default ground range dorsa
                 //castle black
                 //troop red
-                if(j % 2 == 0)
+                if (j % 2 == 0)
                     test.setStyle("-fx-background-color: #805300;");
                 else
                     test.setStyle("-fx-background-color: red;");
@@ -655,6 +712,126 @@ public class TileManager extends Application {
                 pane.getChildren().add(test);
             }
         }
+    }
+
+    public int totalNumberOfSoldiersInTiles() {
+        int number = 0;
+        for (NewButton button : selectedButtons) {
+            number += button.getArmy().size();
+        }
+        return number;
+    }
+
+    public ArrayList<Double> countTheProductionAveragesOnTiles() {
+        double minAvg = 0, maxAvg = 0, midAvg;
+        ArrayList<Integer> allNumbers = new ArrayList<>();
+        ArrayList<Double> finalAverages = new ArrayList<>();
+        for (NewButton button : selectedButtons) {
+            if (button.getBuilding() != null) {
+                switch (button.getBuilding().getName()) {
+                    case "IronDig":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getIronMineRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getIronMineRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getIronMineRate());
+                        break;
+                    case "PitchRig":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getPitchRigRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getPitchRigRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getPitchRigRate());
+                        break;
+                    case "Quarry":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getQuarryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getQuarryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getQuarryRate());
+                        break;
+                    case "WoodCutter":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getWoodCutterRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getWoodCutterRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getWoodCutterRate());
+                        break;
+                    case "AppleFarm":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getAppleFarmRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getAppleFarmRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getAppleFarmRate());
+                        break;
+                    case "OatFarm":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getOatFarmRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getOatFarmRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getOatFarmRate());
+                        break;
+                    case "HuntingPost":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getHuntingPostRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getHuntingPostRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getHuntingPostRate());
+                        break;
+                    case "BearFactory":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getBeerFactoryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getHuntingPostRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getHuntingPostRate());
+                        break;
+                    case "Bakery":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getBakeryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getBakeryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getBakeryRate());
+                        break;
+                    case "Mill":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getMillRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getMillRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getMillRate());
+                        break;
+                    case "DairyProduct":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getDairyFactoryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getDairyFactoryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getDairyFactoryRate());
+                        break;
+                    case "WheatFarm":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getWheatFactoryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getWheatFactoryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getWheatFactoryRate());
+                        break;
+                    case "Inn":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getInnRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getInnRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getInnRate());
+                        break;
+                }
+            }
+        }
+        midAvg = calculateAverage(allNumbers);
+        finalAverages.add(minAvg);
+        finalAverages.add(midAvg);
+        finalAverages.add(maxAvg);
+        return finalAverages;
+    }
+
+    public double calculateMin(double number, double min) {
+        double minimum;
+        if (number >= min) {
+            minimum = min;
+        } else {
+            minimum = number;
+        }
+        return minimum;
+    }
+
+    public double calculateMax(double number, double max) {
+        double maximum ;
+        if (number >= max) {
+            maximum = number;
+        } else {
+            maximum = max;
+        }
+        return maximum;
+    }
+    public double calculateAverage(ArrayList<Integer> allNumbers){
+        double adding = 0;
+        for (Integer allNumber : allNumbers) {
+            adding += allNumber;
+        }
+        if (allNumbers.size() > 0) {
+            return adding / allNumbers.size();
+        }
+        return 0.0;
     }
 
 }
