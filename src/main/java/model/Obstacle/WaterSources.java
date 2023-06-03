@@ -16,6 +16,7 @@ public class WaterSources extends Obstacle {
     public void river() {
         name = ObstacleName.RIVER;
     }
+    //
 
     public void bigPond() {
         name = ObstacleName.BIG_POND;

@@ -16,6 +16,8 @@ import view.Animations.troopFights.AssasinAnimation.AsssasinAnimation;
 import view.Animations.troopFights.AssasinAnimation.DeadAssasinAnimation;
 import view.Animations.troopFights.GrendiarAnimation.DeadGrendiarAnimation;
 import view.Animations.troopFights.GrendiarAnimation.GrendiarAnimation;
+import view.Animations.troopFights.HorseRiderAnimation.DeadHorseRiderAnimation;
+import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.Animations.troopFights.MaceManAnimation.DeadMaceManAnimation;
 import view.Animations.troopFights.MaceManAnimation.MaceManAnimation;
 import view.Animations.troopFights.MonkAnimation.DeadMonkAnimation;
@@ -41,6 +43,7 @@ public class AttackArmyToArmyController {
     public SlingerAnimation slingerAnimation = new SlingerAnimation();
     public ArcherAnimation archerAnimation = new ArcherAnimation();
     public GrendiarAnimation grendiarAnimation = new GrendiarAnimation();
+    public HorseRiderAnimation horseRiderAnimation = new HorseRiderAnimation();
 
     private static int mapSize = 200;
     TileManager tileManager ;
@@ -53,6 +56,7 @@ public class AttackArmyToArmyController {
     public DeadSlingerAnimation deadSlingerAnimation ;
     public DeadArcherAnimation deadArcherAnimation ;
     public DeadGrendiarAnimation deadGrendiarAnimation ;
+    public DeadHorseRiderAnimation deadHorseRiderAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
@@ -65,6 +69,7 @@ public class AttackArmyToArmyController {
         deadSlingerAnimation = new DeadSlingerAnimation(tileManager);
         deadArcherAnimation = new DeadArcherAnimation(tileManager);
         deadGrendiarAnimation = new DeadGrendiarAnimation(tileManager);
+        deadHorseRiderAnimation = new DeadHorseRiderAnimation(tileManager);
     }
     public void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
@@ -87,6 +92,11 @@ public class AttackArmyToArmyController {
             }
         }
     }
+    //TODO : fire ballista
+    //catapult‏
+    //trebuchet‏
+    //shield‏
+    //siege tower‏
     private void killUnitSetAnimation(Army army){
         switch (army.getNames()){
             case SWORDSMEN:
@@ -115,7 +125,9 @@ public class AttackArmyToArmyController {
             case FireThrowers:
                 deadGrendiarAnimation.setArmyToAnimation(army);
                 break;
-
+            case HORSE_ARCHERS:
+                deadHorseRiderAnimation.setArmyToAnimation(army);
+                break;
         }
     }
     private boolean isArcher(Army army) {
@@ -162,6 +174,9 @@ public class AttackArmyToArmyController {
                 break;
             case FireThrowers:
                 grendiarAnimation.setArmyToAnimation(army);
+            case HORSE_ARCHERS:
+                horseRiderAnimation.setArmyToAnimation(army);
+                break;
         }
     }
     private boolean IsEnemyIntoCell(Army army){

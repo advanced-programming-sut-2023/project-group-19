@@ -1333,8 +1333,7 @@ public class GameController {
     public void setSieges() {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
-                if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
-                        || army.getNames().equals(Names.FIRE_BALLISTA)) {
+                if (army.getNames().equals(Names.FIRE_BALLISTA)) {
                     throwers.add((ArchersAndThrowers) army);
                 }
             }
@@ -1591,10 +1590,10 @@ public class GameController {
         return false;
     }
 
-    public void fight() {
-        AttackArmyToArmyController.battleWithEnemy();
-        setSieges();
-    }
+//    public void fight() {
+//        AttackArmyToArmyController.battleWithEnemy();
+//        setSieges();
+//    }
 
     public static void removeEmpireTroopsFromGame(Empire empire) {
         for (int i = 0; i < empire.empireArmy.size(); i++) {

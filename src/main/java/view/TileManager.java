@@ -31,6 +31,7 @@ import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.Commands.SelectedBuildingCommands;
@@ -204,6 +205,10 @@ public class TileManager extends Application {
 
         SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
         sequentialTransitionArcher.play();
+
+        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
+        sequentialTransitionHorseRider.play();
+        
 
         //TODO picture of sword man after war // DORSA
 
