@@ -1543,7 +1543,7 @@ public class BottomBarBuildings {
 
         Button apothecaryButton = new Button();
         ImageView apothecaryImage = new ImageView(buildingImages.getApothecary());
-//        apothecaryButton.setBackground(null);
+        apothecaryButton.setBackground(null);
         apothecaryImage.setFitHeight(100);
         apothecaryImage.setFitWidth(100);
         apothecaryButton.setGraphic(apothecaryImage);
