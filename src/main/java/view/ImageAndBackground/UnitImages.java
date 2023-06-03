@@ -30,6 +30,7 @@ public class UnitImages {
     public Image fireBallista;
     public Image batteringRam;
     public Image portableShield;
+    public Image engineer;
     public Image hboxOfDropUnit;
     public void loadImages(){
         archer = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/archer.png").toExternalForm());
@@ -55,6 +56,7 @@ public class UnitImages {
         fireBallista = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/fireBallista.png").toExternalForm());
         batteringRam = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/batteringRam.png").toExternalForm());
         portableShield = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/portableShield.png").toExternalForm());
+        engineer = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/engineer.png").toExternalForm());
         gatheringImages();
     }
     public void gatheringImages(){
@@ -83,11 +85,112 @@ public class UnitImages {
         images.add(batteringRam);
         images.add(portableShield);
     }
+
+    public Image getEngineer() {
+        return engineer;
+    }
+
+    public void setEngineer(Image engineer) {
+        this.engineer = engineer;
+    }
+
     public Image getHboxOfDropUnit() {
         return hboxOfDropUnit;
     }
 
     public void setHboxOfDropUnit(Image hboxOfDropUnit) {
         this.hboxOfDropUnit = hboxOfDropUnit;
+    }
+
+    public Image getArcher() {
+        return archer;
+    }
+
+    public Image getCrossbowMen() {
+        return crossbowMen;
+    }
+
+    public Image getSpearMen() {
+        return spearMen;
+    }
+
+    public Image getPikeMen() {
+        return pikeMen;
+    }
+
+    public Image getMaceMen() {
+        return maceMen;
+    }
+
+    public Image getSwordsMen() {
+        return swordsMen;
+    }
+
+    public Image getKnight() {
+        return knight;
+    }
+
+    public Image getTunneler() {
+        return tunneler;
+    }
+
+    public Image getLadderMen() {
+        return ladderMen;
+    }
+
+    public Image getBlackMonk() {
+        return blackMonk;
+    }
+
+    public Image getArcherBow() {
+        return archerBow;
+    }
+
+    public Image getSlaves() {
+        return slaves;
+    }
+
+    public Image getSlingers() {
+        return slingers;
+    }
+
+    public Image getAssassins() {
+        return assassins;
+    }
+
+    public Image getHorseArchers() {
+        return horseArchers;
+    }
+
+    public Image getArabianSwordMen() {
+        return arabianSwordMen;
+    }
+
+    public Image getFireThrowers() {
+        return fireThrowers;
+    }
+
+    public Image getCatapult() {
+        return catapult;
+    }
+
+    public Image getTrebuchet() {
+        return trebuchet;
+    }
+
+    public Image getSiegeTower() {
+        return siegeTower;
+    }
+
+    public Image getFireBallista() {
+        return fireBallista;
+    }
+
+    public Image getBatteringRam() {
+        return batteringRam;
+    }
+
+    public Image getPortableShield() {
+        return portableShield;
     }
 }

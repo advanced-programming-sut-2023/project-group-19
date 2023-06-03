@@ -47,10 +47,7 @@ public class SelectedBuildingMenu {
     public Pattern repair(){
         if (!GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
             if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append(buildingName + "\n");
-                stringBuilder.append(BuildingController.repairBuilding(selectedBuilding).getMessages());
-                return Pattern.compile(stringBuilder.toString());
+                return Pattern.compile(BuildingController.repairBuilding(selectedBuilding).getMessages());
             } else {
                 return Pattern.compile(BuildingController.repairBuilding(selectedBuilding).getMessages());
             }

@@ -1,14 +1,18 @@
 package model;
 
+import model.Building.Building;
+
 import java.util.ArrayList;
 
 public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
+    public static ArrayList<Building> burningEmpires = new ArrayList<>();
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
 
     static {
         namesOfAllPossibleBuildings.add("Armoury");
         namesOfAllPossibleBuildings.add("Barracks");
+        namesOfAllPossibleBuildings.add("Apothecary");
         namesOfAllPossibleBuildings.add("CagedWarDogs");
         namesOfAllPossibleBuildings.add("SmallChurch");
         namesOfAllPossibleBuildings.add("BigChurch");

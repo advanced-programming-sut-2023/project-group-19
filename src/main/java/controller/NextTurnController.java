@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
-    public static int index;
+    public static int index ;
 
 //    public String game(Scanner scanner) throws IOException, InterruptedException {
 //        while (true) {
@@ -52,6 +52,8 @@ public class NextTurnController {
     }
 
     public void callStartingTurnFunctions(GameController gameController) {
+        currentEmpire.setSickness(Math.random() < 0.5);
+        buildingFire();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
         currentEmpire.independentProductionBuilding();
@@ -61,20 +63,33 @@ public class NextTurnController {
         gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
     }
+    //TODO : remove destroyed buildings
+    public void buildingFire(){
+        for(int i = 0 ; i < Manage.burningEmpires.size() ; i++ ){
+            if(Manage.burningEmpires.get(i).isOnFire() && Manage.burningEmpires.get(i).getFireCount() != 0){
+                Manage.burningEmpires.get(i).setHp(Manage.burningEmpires.get(i).getHp() - 20);
+                Manage.burningEmpires.get(i).setFireCount(Manage.burningEmpires.get(i).getFireCount() - 1);
+            }
+            if(Manage.burningEmpires.get(i).getFireCount() == 0){
+                Manage.burningEmpires.remove(i);
+                i--;
+            }
+        }
+    }
 
     public void setGameController(GameController gameController) {
         GameController.gameController = gameController;
         GameMenu.gameController = gameController;
     }
 
-    public void callEndingTurnFunctions(GameController gameController) {
-        gameController.DrawBridge();
-        gameController.cagedWarDogsAttack();
-        gameController.setStateArmy();
-        AttackArmyToArmyController.setFightMode(gameController);
-        gameController.fight();
-        playerHasLost();
-    }
+//    public void callEndingTurnFunctions(GameController gameController) {
+//        gameController.DrawBridge();
+//        gameController.cagedWarDogsAttack();
+//        gameController.setStateArmy();
+//        AttackArmyToArmyController.setFightMode(gameController);
+//        gameController.fight();
+//        playerHasLost();
+//    }
 
     public void playerHasLost() {
         int size = Manage.allEmpires.size();

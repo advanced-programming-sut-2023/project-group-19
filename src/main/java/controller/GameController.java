@@ -838,12 +838,6 @@ public class GameController {
 //                                                        myUnit.getNames().getName()+"/backward.png").toExternalForm()));
 //
 //                                    } else if (myUnit.getGoalYCoordinate() > myUnit.getCurrentY()) { //forward
-//                                        myUnit.setDirection("forward");
-//                                        System.out.println("east you got");
-//                                        myUnit.getImageView().setImage(new Image
-//                                                (GameController.class.getResource("/image/Units/MovePics/"+
-//                                                        myUnit.getNames().getName()+"/east.png").toExternalForm()));
-//
 //
 //                                    } else if (myUnit.getGoalYCoordinate() < myUnit.getCurrentY()) { //backward
 //                                        myUnit.setDirection("backward");
@@ -1605,10 +1599,10 @@ public class GameController {
         return false;
     }
 
-    public void fight() {
-        AttackArmyToArmyController.battleWithEnemy();
-        setSieges();
-    }
+//    public void fight() {
+//        AttackArmyToArmyController.battleWithEnemy();
+//        setSieges();
+//    }
 
     public static void removeEmpireTroopsFromGame(Empire empire) {
         for (int i = 0; i < empire.empireArmy.size(); i++) {
@@ -1745,5 +1739,4 @@ public class GameController {
     private static boolean validCoordinates(int x, int y) {
         return x >= 0 && y >= 0 && x <= Map.mapSize && y <= Map.mapSize;
     }
-
 }

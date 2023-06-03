@@ -67,6 +67,7 @@ public class NewButton extends Button {
         return isSelected;
     }
 
+
     public void setSelected(boolean selected) {
         isSelected = selected;
     }

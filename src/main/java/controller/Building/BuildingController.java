@@ -1162,6 +1162,28 @@ public class BuildingController {
                 else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
+            case "Apothecary":
+                House apothecary = new House(currentEmpire);
+                apothecary.apothecary();
+                if (correctGroundType(x, y, apothecary)) {
+                    if (empireHasEnoughResourcesToBuildTheBuilding(apothecary, currentEmpire)) {
+                        if (empireHasEnoughWorkersToBuildTheBuilding(apothecary, currentEmpire)) {
+                            buildingCheckout(apothecary, currentEmpire);
+                            Map.AddToBuildingMap(x, y, apothecary);
+                            currentEmpire.setApothecary(true);
+                            Map.notBuildable[x][y] = true;
+                            Map.notPassable[x][y] = true;
+                            Map.wallPassable[x][y] = true;
+                            return BuildingMessages.SUCCESS;
+                        } else {
+                            return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
+                        }
+                    } else {
+                        return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
+                    }
+                } else {
+                    return BuildingMessages.IMPROPER_GROUND_TYPE;
+                }
         }
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
