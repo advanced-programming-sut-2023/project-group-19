@@ -208,7 +208,7 @@ public class TileManager extends Application {
 
         SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
         sequentialTransitionHorseRider.play();
-        
+
 
         //TODO picture of sword man after war // DORSA
 
