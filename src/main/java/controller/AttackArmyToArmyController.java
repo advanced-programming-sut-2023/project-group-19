@@ -253,8 +253,7 @@ public class AttackArmyToArmyController {
     private void setArcherDirection(Army army , Army enemy){
         int deltaX = enemy.xCoordinate - army.xCoordinate ;
         int deltaY = enemy.yCoordinate - army.yCoordinate ;
-        System.out.println(deltaX);
-        System.out.println(deltaY);
+
         if(deltaX > 0) army.setState(Army.StateOfStanding.RIGHT);
         else if( deltaX < 0) army.setState(Army.StateOfStanding.LEFT);
         else if(deltaY > 0 ) army.setState(Army.StateOfStanding.BACK);
@@ -265,12 +264,10 @@ public class AttackArmyToArmyController {
     private boolean applyDamageWithArcher(int x, int y, int x1, int x2, int y1, int y2, Army army) {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                System.out.println(((NewButton)(tileManager.list.get(100 * i + j))).getArmy().size());
                 if (i == x && j == y) continue;
                 for (Army enemy : ((NewButton)(tileManager.list.get(100 * i + j))).getArmy()) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
-                    System.out.println(newHitPoint);
                     enemy.setHp(newHitPoint);
                     enemy.setArcherAttacker((ArchersAndThrowers) army);
                     setArcherDirection(army,enemy);

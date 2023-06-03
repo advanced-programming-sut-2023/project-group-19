@@ -219,6 +219,7 @@ public class TileManager extends Application {
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
+//        createMinimap(pane);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -636,14 +637,21 @@ public class TileManager extends Application {
             for(int j = 0 ; j < 100 ; j++){
                 Button test = new Button();
                 test.setBackground(null);
+                //building brown
+                //tree green
+                //water blue
+                //stone gray
+                //default ground range dorsa
+                //castle black
+                //troop red
                 if(j % 2 == 0)
-                    test.setStyle("-fx-background-color: green;");
+                    test.setStyle("-fx-background-color: #805300;");
                 else
                     test.setStyle("-fx-background-color: red;");
-                test.setLayoutX(1200 + 1.5 * i);
-                test.setLayoutY(697 + 1.5 * j);
-                test.setMinSize(1.5, 1.5);
-                test.setMaxSize(1.5, 1.5);
+                test.setLayoutX(500 + 7.5 * i);
+                test.setLayoutY(300 + 8 * j);
+                test.setMinSize(7.5, 8);
+                test.setMaxSize(1.5, 1.6);
                 pane.getChildren().add(test);
             }
         }
