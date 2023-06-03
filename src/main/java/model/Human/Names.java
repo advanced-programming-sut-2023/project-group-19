@@ -5,12 +5,12 @@ import java.util.regex.Pattern;
 
 public enum Names {
     ARCHER("archer"),
-    CROSSBOWMEN("crossbowMen"),
-    SPEAR_MEN("spearMen"),
-    PIKE_MEN("pikeMen"),
+    CROSSBOWMEN("crossbowMen"), //left
+    SPEAR_MEN("spearMen"), //left
+    PIKE_MEN("pikeMen"), //left
     MACE_MEN("maceMen"),
     SWORDSMEN("swordsMen"),
-    KNIGHT("knight"),
+    KNIGHT("knight"), //left
     TUNNELER("tunneler"),
     LADDER_MEN("ladderMen"),
     ENGINEER("engineer"),
@@ -21,13 +21,13 @@ public enum Names {
     ASSASSINS("assassins"),
     HORSE_ARCHERS("horseArchers"),
     ARABIAN_SWORDSMEN("arabianSwordMen"),
-    FireThrowers("fireThrowers"),
-    CATAPULT("catapult"),
-    TREBUCHET("trebuchet"),
+    FireThrowers("fireThrowers"), //left
+    CATAPULT("catapult"), //left
+    TREBUCHET("trebuchet"),//left
     SIEGE_TOWER("siegeTower"),
     FIRE_BALLISTA("fireBallista"),
     BATTERING_RAM("batteringRam"),
-    PORTABLE_SHIELD("portableShield"),
+    PORTABLE_SHIELD("portableShield"),//left
     STANDING_ARMY("standing"),
     DEFENSIVE_ARMY("defensive"),
     OFFENSIVE("offensive"),

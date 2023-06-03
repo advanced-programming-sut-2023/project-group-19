@@ -19,7 +19,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class ShopController {
-    public Empire ownerOfShop = ShopMenu.currentShop.getOwner();
 
     public ArrayList<Group> showPriceList() {
         int number = 0;
@@ -33,11 +32,12 @@ public class ShopController {
             for (Map.Entry<String, Integer> goodsForSelling : ShopMenu.currentShop.getListOfGoodsSellPrice().entrySet()) {
                 String nameOfGoodsForSelling = goodsForSelling.getKey();
                 if (nameOfGoodsForBuying.equals(nameOfGoodsForSelling)) {
-                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying, ownerOfShop);
+                    int resourceCount = getNumberOfGoods(nameOfGoodsForBuying, Manage.getCurrentEmpire());
                     CheckBox c = new CheckBox();
                     imageView = new ImageView(imageSetter(nameOfGoodsForBuying));
                     text = new Text("\tBuying Price: "
-                            + goodsForBuying.getValue() + "\n\tSell Price: " + goodsForSelling.getValue() + "\n\tResource count: Infinite\n");
+                            + goodsForBuying.getValue() + "\n\tSell Price: " + goodsForSelling.getValue() +
+                            "User's Resource amount : "+resourceCount+"\n\tResource count: Infinite\n");
                     if (number <= 8) {
                         c.setLayoutX(250);
                         c.setLayoutY(ySetter);

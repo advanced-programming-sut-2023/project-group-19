@@ -21,7 +21,6 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
-import view.Animations.MoveAnimation;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.TileManager;
@@ -49,7 +48,6 @@ public class GameController {
         ArrayList<Spinner<Integer>> spinners = new ArrayList<>();
         ArrayList<Text> nameOfUnit = new ArrayList<>();
 
-
         VBox box = new VBox();
 
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
@@ -67,15 +65,14 @@ public class GameController {
             text.setTranslateY(25);
             text.setTabSize(20);
             nameOfUnit.add(text);
-
             ImageView image = new ImageView(new Image
-                    (Objects.requireNonNull(TileManager.class.getResource
-                            ("/image/Units/IntroductionPics/" + unit.getKey().get(0).getNames().getName() + ".png")).toExternalForm()));
+                    (GameController.class.getResource
+                            ("/image/Units/IntroductionPics/" + unit.getKey().get(0).getNames().getName() + ".png").toExternalForm()));
             image.setTranslateX(60);
             image.setTranslateY(30);
-            images.add(image);
             image.setFitWidth(70);
             image.setFitHeight(70);
+            images.add(image);
 
             Spinner<Integer> amount = new Spinner<Integer>(0, unit.getValue(), 0);
             amount.setEditable(true);
@@ -123,50 +120,50 @@ public class GameController {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("back works");
                 if (index > 0) {
                     box.getChildren().clear();
                     index--;
-                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index));
+                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), next, back, done);
                 }
             }
         });
         next.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("next works");
                 if (index < images.size() - 1) {
                     box.getChildren().clear();
                     index++;
-                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index));
+                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), next, back, done);
                 }
             }
         });
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("done  works");
                 int j = 0;
-                for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
-                    for (int i = 0; i < spinners.get(j).getValue(); i++) {
-                        selectedUnit.add(army.getKey().get(i));
+                for (Text text : nameOfUnit) {
+                    for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
+                        if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
+                            for (int i = 0; i < spinners.get(j).getValue(); i++) {
+                                selectedUnit.add(army.getKey().get(i));
+                            }
+                            j++;
+                        }
                     }
                 }
                 pane.getChildren().remove(box);
                 index = 0;
             }
         });
-
-
     }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
         HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
         for (NewButton selectedButton : selectedButtons) {
-            ArrayList<Army> armies = new ArrayList<>();
             for (Army army : selectedButton.getArmy()) {
+                ArrayList<Army> armies = new ArrayList<>();
                 if (army.getOwner().equals(Manage.getCurrentEmpire())) {
-                    if (!editInfoOfRepeatedUnitNames(listOfUnits, army.getNames().getName())) {
+                    if (!editInfoOfRepeatedUnitNames(listOfUnits, army)) {
                         armies.add(army);
                         listOfUnits.put(armies, 1);
                     }
@@ -176,9 +173,10 @@ public class GameController {
         return listOfUnits;
     }
 
-    public boolean editInfoOfRepeatedUnitNames(HashMap<ArrayList<Army>, Integer> listOfUnits, String name) {
+    public boolean editInfoOfRepeatedUnitNames(HashMap<ArrayList<Army>, Integer> listOfUnits, Army army) {
         for (java.util.Map.Entry<ArrayList<Army>, Integer> units : listOfUnits.entrySet()) {
-            if (units.getKey().get(0).getNames().getName().equals(name)) {
+            if (units.getKey().get(0).getNames().getName().equals(army.getNames().getName())) {
+                units.getKey().add(army);
                 units.setValue(units.getValue() + 1);
                 return true;
             }
@@ -218,10 +216,7 @@ public class GameController {
                 army.isIntFight = true;
             }
             //String unitMoved = moveUnit(x, y).getMessages();
-            System.out.println("x is: " + selectedUnit.get(0).getCurrentX() + " y is: " + selectedUnit.get(0).getCurrentY()
-                    + selectedUnit.get(0).myPath);
 
-            //TODO : DO WE NEED TO CALL OTHER ATTACK FUNCTIONS ?
             return GameMenuMessages.ATTACK_ORDER_HANDLED;
         }
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
@@ -732,7 +727,6 @@ public class GameController {
     }
 
     private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        System.out.println("into defensive state");
         for (Army enemy : Map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
@@ -813,7 +807,7 @@ public class GameController {
         return false;
     }
 
-    public void moveUnit(int xCoordinate, int yCoordinate , NewButton newButton,Pane pane,ArrayList<Node> listOfButtons) {
+    public void moveUnit(int xCoordinate, int yCoordinate, NewButton newButton, Pane pane, ArrayList<Node> listOfButtons) {
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
@@ -828,16 +822,29 @@ public class GameController {
                                     myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
                                     myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                     Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
-                                    System.out.println(myUnit.getGoalXCoordinate() + " " + myUnit.getGoalYCoordinate());
 
 //                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
+//                                        myUnit.setDirection("east");
+//                                        System.out.println("forward you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/forward.png").toExternalForm()));
 //
 //                                    } else if (myUnit.getGoalXCoordinate() < myUnit.getCurrentX()) { //left
+//                                        myUnit.setDirection("west");
+//                                        System.out.println("backward you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/backward.png").toExternalForm()));
 //
 //                                    } else if (myUnit.getGoalYCoordinate() > myUnit.getCurrentY()) { //forward
 //
 //                                    } else if (myUnit.getGoalYCoordinate() < myUnit.getCurrentY()) { //backward
-//
+//                                        myUnit.setDirection("backward");
+//                                        System.out.println("west you got");
+//                                        myUnit.getImageView().setImage(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/west.png").toExternalForm()));
 //                                    }
 
                                     TranslateTransition transition = new TranslateTransition();
@@ -859,6 +866,7 @@ public class GameController {
                                     myUnit.getImageView().setLayoutX(newButton.getLayoutX());
                                     myUnit.getImageView().setLayoutY(newButton.getLayoutY());
 
+
                                     myUnit.setxCoordinate(myUnit.goalXCoordinate);
                                     myUnit.setyCoordinate(myUnit.goalYCoordinate);
                                     myUnit.restOfMoves--;
@@ -877,14 +885,14 @@ public class GameController {
                             }
                         }
                     }
-                }else{
+                } else {
                     Alert noWay = new Alert(Alert.AlertType.ERROR);
                     noWay.setTitle("GameMenu Error!");
                     noWay.setHeaderText("Error in Moving Units!");
                     noWay.setContentText("It's impossible to go there");
                     noWay.showAndWait();
                 }
-            }else{
+            } else {
                 Alert wrongLocation = new Alert(Alert.AlertType.ERROR);
                 wrongLocation.setTitle("GameMenu Error!");
                 wrongLocation.setHeaderText("Error in Moving Units!");
@@ -892,7 +900,7 @@ public class GameController {
                         "Hint: Improper cells for units are those made of stone and shallow water.");
                 wrongLocation.showAndWait();
             }
-        }else{
+        } else {
             Alert noUnitSelected = new Alert(Alert.AlertType.ERROR);
             noUnitSelected.setTitle("GameMenu Error!");
             noUnitSelected.setHeaderText("Error in Moving Units!");
