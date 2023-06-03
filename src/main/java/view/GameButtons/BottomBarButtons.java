@@ -4,7 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import model.Building.Castle;
 import model.Building.Stockpile;
@@ -13,6 +16,7 @@ import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 
 public class BottomBarButtons {
+
     public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
         imageView.setFitHeight(250);
@@ -154,6 +158,15 @@ public class BottomBarButtons {
         minimapFrameButton.setLayoutY(675);
         minimapFrameButton.setMinSize(200, 200);
         pane.getChildren().add(minimapFrameButton);
+
+//        Button test = new Button();
+//        test.setBackground(null);
+//        test.setStyle("-fx-background-color: green;");
+//        test.setLayoutX(1346);
+//        test.setLayoutY(849);
+//        test.setMinSize(1.5, 1.5);
+//        test.setMaxSize(1.5, 1.5);
+//        pane.getChildren().add(test);
 
 
         Button dataButton = new Button();

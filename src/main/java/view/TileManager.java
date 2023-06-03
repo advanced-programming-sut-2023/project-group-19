@@ -110,7 +110,6 @@ public class TileManager extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
         Map.CreateMap(100);
         Empire empire = new Empire();
         Empire empire2 = new Empire();
@@ -1088,6 +1087,23 @@ public class TileManager extends Application {
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
         error.show();
+    }
+    public void createMinimap(Pane pane){
+        for(int i = 0 ; i < 100 ; i++){
+            for(int j = 0 ; j < 100 ; j++){
+                Button test = new Button();
+                test.setBackground(null);
+                if(j % 2 == 0)
+                    test.setStyle("-fx-background-color: green;");
+                else
+                    test.setStyle("-fx-background-color: red;");
+                test.setLayoutX(1200 + 1.5 * i);
+                test.setLayoutY(697 + 1.5 * j);
+                test.setMinSize(1.5, 1.5);
+                test.setMaxSize(1.5, 1.5);
+                pane.getChildren().add(test);
+            }
+        }
     }
 
 }
