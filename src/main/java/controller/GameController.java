@@ -49,7 +49,6 @@ public class GameController {
         ArrayList<Spinner<Integer>> spinners = new ArrayList<>();
         ArrayList<Text> nameOfUnit = new ArrayList<>();
 
-
         VBox box = new VBox();
 
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
@@ -67,15 +66,14 @@ public class GameController {
             text.setTranslateY(25);
             text.setTabSize(20);
             nameOfUnit.add(text);
-
             ImageView image = new ImageView(new Image
-                    (Objects.requireNonNull(TileManager.class.getResource
-                            ("/image/Units/IntroductionPics/" + unit.getKey().get(0).getNames().getName() + ".png")).toExternalForm()));
+                    (GameController.class.getResource
+                            ("/image/Units/IntroductionPics/" + unit.getKey().get(0).getNames().getName() + ".png").toExternalForm()));
             image.setTranslateX(60);
             image.setTranslateY(30);
-            images.add(image);
             image.setFitWidth(70);
             image.setFitHeight(70);
+            images.add(image);
 
             Spinner<Integer> amount = new Spinner<Integer>(0, unit.getValue(), 0);
             amount.setEditable(true);
@@ -123,55 +121,52 @@ public class GameController {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("back works");
                 if (index > 0) {
                     box.getChildren().clear();
                     index--;
-                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index));
+                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), next, back, done);
                 }
             }
         });
         next.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("next works");
                 if (index < images.size() - 1) {
                     box.getChildren().clear();
                     index++;
-                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index));
+                    box.getChildren().addAll(nameOfUnit.get(index), images.get(index), spinners.get(index), next, back, done);
                 }
             }
         });
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("done  works");
                 int j = 0;
-                for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
-                    for (int i = 0; i < spinners.get(j).getValue(); i++) {
-                        selectedUnit.add(army.getKey().get(i));
+                for (Text text : nameOfUnit) {
+                    for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
+                        if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
+                            for (int i = 0; i < spinners.get(j).getValue(); i++) {
+                                selectedUnit.add(army.getKey().get(i));
+                            }
+                            j++;
+                        }
                     }
                 }
                 pane.getChildren().remove(box);
                 index = 0;
             }
         });
-
-
     }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
         HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
         for (NewButton selectedButton : selectedButtons) {
-            ArrayList<Army> armies = new ArrayList<>();
             for (Army army : selectedButton.getArmy()) {
+                ArrayList<Army> armies = new ArrayList<>();
                 if (army.getOwner().equals(Manage.getCurrentEmpire())) {
-                    if (!editInfoOfRepeatedUnitNames(listOfUnits, army.getNames().getName())) {
+                    if (!editInfoOfRepeatedUnitNames(listOfUnits, army)) {
                         armies.add(army);
                         listOfUnits.put(armies, 1);
-                    }else {
-                        armies.add(army);
-                        listOfUnits.replace(armies,armies.size());
                     }
                 }
             }
@@ -179,9 +174,11 @@ public class GameController {
         return listOfUnits;
     }
 
-    public boolean editInfoOfRepeatedUnitNames(HashMap<ArrayList<Army>, Integer> listOfUnits, String name) {
+    public boolean editInfoOfRepeatedUnitNames(HashMap<ArrayList<Army>, Integer> listOfUnits, Army army) {
         for (java.util.Map.Entry<ArrayList<Army>, Integer> units : listOfUnits.entrySet()) {
-            if (units.getKey().get(0).getNames().getName().equals(name)) {
+            if (units.getKey().get(0).getNames().getName().equals(army.getNames().getName())) {
+                units.getKey().add(army);
+                units.setValue(units.getValue() + 1);
                 return true;
             }
         }
@@ -815,7 +812,7 @@ public class GameController {
         return false;
     }
 
-    public void moveUnit(int xCoordinate, int yCoordinate , NewButton newButton,Pane pane,ArrayList<Node> listOfButtons) {
+    public void moveUnit(int xCoordinate, int yCoordinate, NewButton newButton, Pane pane, ArrayList<Node> listOfButtons) {
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
@@ -882,7 +879,6 @@ public class GameController {
                                     myUnit.getImageView().setLayoutY(newButton.getLayoutY());
 
 
-
                                     myUnit.setxCoordinate(myUnit.goalXCoordinate);
                                     myUnit.setyCoordinate(myUnit.goalYCoordinate);
                                     myUnit.restOfMoves--;
@@ -901,14 +897,14 @@ public class GameController {
                             }
                         }
                     }
-                }else{
+                } else {
                     Alert noWay = new Alert(Alert.AlertType.ERROR);
                     noWay.setTitle("GameMenu Error!");
                     noWay.setHeaderText("Error in Moving Units!");
                     noWay.setContentText("It's impossible to go there");
                     noWay.showAndWait();
                 }
-            }else{
+            } else {
                 Alert wrongLocation = new Alert(Alert.AlertType.ERROR);
                 wrongLocation.setTitle("GameMenu Error!");
                 wrongLocation.setHeaderText("Error in Moving Units!");
@@ -916,7 +912,7 @@ public class GameController {
                         "Hint: Improper cells for units are those made of stone and shallow water.");
                 wrongLocation.showAndWait();
             }
-        }else{
+        } else {
             Alert noUnitSelected = new Alert(Alert.AlertType.ERROR);
             noUnitSelected.setTitle("GameMenu Error!");
             noUnitSelected.setHeaderText("Error in Moving Units!");
