@@ -274,11 +274,6 @@ public class GameController {
                     archer.archer(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archer);
                     Map.getTroopMap()[x][y].add(archer);
-                    button.setImageView(archer.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(archer);
                 }
@@ -291,11 +286,6 @@ public class GameController {
                     crossBowMan.Crossbowmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
                     Map.getTroopMap()[x][y].add(crossBowMan);
-                    button.setImageView(crossBowMan.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(crossBowMan);
                 }
@@ -308,11 +298,6 @@ public class GameController {
                     spearMen.SpearMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(spearMen);
                     Map.getTroopMap()[x][y].add(spearMen);
-                    button.setImageView(spearMen.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(spearMen);
                 }
@@ -325,11 +310,6 @@ public class GameController {
                     pikeMen.PikeMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(pikeMen);
                     Map.getTroopMap()[x][y].add(pikeMen);
-                    button.setImageView(pikeMen.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(pikeMen);
                 }
@@ -342,11 +322,6 @@ public class GameController {
                     maceMen.MaceMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(maceMen);
                     Map.getTroopMap()[x][y].add(maceMen);
-                    button.setImageView(maceMen.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(maceMen);
                 }
@@ -359,11 +334,6 @@ public class GameController {
                     swordsMen.Swordsmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(swordsMen);
                     Map.getTroopMap()[x][y].add(swordsMen);
-                    button.setImageView(swordsMen.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(swordsMen);
                 }
@@ -376,12 +346,6 @@ public class GameController {
                     knight.Knight(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(knight);
                     Map.getTroopMap()[x][y].add(knight);
-                    button.setImageView(knight.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
-                    button.setMinSize(50, 50);
                     button.getArmy().add(knight);
 
                 }
@@ -394,11 +358,6 @@ public class GameController {
                     tunneler.Tunneler(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(tunneler);
                     Map.getTroopMap()[x][y].add(tunneler);
-                    button.setImageView(tunneler.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(tunneler);
                 }
@@ -411,11 +370,6 @@ public class GameController {
                     ladderMen.LadderMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(ladderMen);
                     Map.getTroopMap()[x][y].add(ladderMen);
-                    button.setImageView(ladderMen.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(ladderMen);
                 }
@@ -428,11 +382,6 @@ public class GameController {
                     blackMonk.BlackMonk(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(blackMonk);
                     Map.getTroopMap()[x][y].add(blackMonk);
-                    button.setImageView(blackMonk.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(blackMonk);
                 }
@@ -445,11 +394,6 @@ public class GameController {
                     archerBow.ArcherBow(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archerBow);
                     Map.getTroopMap()[x][y].add(archerBow);
-                    button.setImageView(archerBow.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(archerBow);
                 }
@@ -462,11 +406,6 @@ public class GameController {
                     slaves.BlackMonk(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slaves);
                     Map.getTroopMap()[x][y].add(slaves);
-                    button.setImageView(slaves.getImageView());
-                    ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
-                    button.setGraphic(view);
                     button.setMinSize(50, 50);
                     button.getArmy().add(slaves);
                 }
@@ -475,6 +414,7 @@ public class GameController {
                 break;
 
             case 12:
+                //TODO : REST OF CHANGES
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     slingers.Slingers(x, y);
@@ -826,25 +766,28 @@ public class GameController {
 //                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
 //                                        myUnit.setDirection("east");
 //                                        System.out.println("forward you got");
-//                                        myUnit.getImageView().setImage(new Image
+//                                        myUnit.setImageView(new ImageView(new Image
 //                                                (GameController.class.getResource("/image/Units/MovePics/"+
-//                                                        myUnit.getNames().getName()+"/forward.png").toExternalForm()));
+//                                                        myUnit.getNames().getName()+"/forward.png").toExternalForm())));
 //
 //                                    } else if (myUnit.getGoalXCoordinate() < myUnit.getCurrentX()) { //left
 //                                        myUnit.setDirection("west");
 //                                        System.out.println("backward you got");
-//                                        myUnit.getImageView().setImage(new Image
+//                                        myUnit.setImageView(new ImageView(new Image
 //                                                (GameController.class.getResource("/image/Units/MovePics/"+
-//                                                        myUnit.getNames().getName()+"/backward.png").toExternalForm()));
+//                                                        myUnit.getNames().getName()+"/backward.png").toExternalForm())));
 //
 //                                    } else if (myUnit.getGoalYCoordinate() > myUnit.getCurrentY()) { //forward
+//                                        myUnit.setImageView(new ImageView(new Image
+//                                                (GameController.class.getResource("/image/Units/MovePics/"+
+//                                                        myUnit.getNames().getName()+"/east.png").toExternalForm())));
 //
 //                                    } else if (myUnit.getGoalYCoordinate() < myUnit.getCurrentY()) { //backward
 //                                        myUnit.setDirection("backward");
 //                                        System.out.println("west you got");
-//                                        myUnit.getImageView().setImage(new Image
+//                                        myUnit.setImageView(new ImageView(new Image
 //                                                (GameController.class.getResource("/image/Units/MovePics/"+
-//                                                        myUnit.getNames().getName()+"/west.png").toExternalForm()));
+//                                                        myUnit.getNames().getName()+"/west.png").toExternalForm())));
 //                                    }
 
                                     TranslateTransition transition = new TranslateTransition();
@@ -1341,8 +1284,7 @@ public class GameController {
     public void setSieges() {
         for (Empire empire : Manage.getAllEmpires()) {
             for (Army army : empire.empireArmy) {
-                if (army.getNames().equals(Names.TREBUCHET) || army.getNames().equals(Names.CATAPULT)
-                        || army.getNames().equals(Names.FIRE_BALLISTA)) {
+                if (army.getNames().equals(Names.FIRE_BALLISTA)) {
                     throwers.add((ArchersAndThrowers) army);
                 }
             }

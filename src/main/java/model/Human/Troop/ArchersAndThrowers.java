@@ -219,7 +219,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         createBuildingCost(0, 0, 150, 0, 0);
         createBuildingWorkersNeeded(4, 0);
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/SiegeTower/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/siegeTower/0_0img0.png").toExternalForm()));
         defaultImage = imageView.getImage();
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);

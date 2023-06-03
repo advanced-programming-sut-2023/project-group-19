@@ -99,18 +99,13 @@ public class TileManager extends Application {
     public NewButton selectedButton;
     public ArrayList<Node> list = new ArrayList<>();
 
-
     public Scene scene;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
-    public int controllerOfDropUnit = 1;
-    public boolean isFive = true;
     public String clipboardData;
-
     public GameController gameController = new GameController();
-    public String nameOfUnit;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -157,7 +152,6 @@ public class TileManager extends Application {
 //        button2.setImageView(soldiers.getImageView());
 
 
-        NewButton button = (NewButton) list.get(3 * 100 + 3);
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
         archersAndThrowers.archer(2, 1);
         archersAndThrowers.getImageView().setFitHeight(200);
@@ -170,8 +164,7 @@ public class TileManager extends Application {
         newButton.getArmy().add(archersAndThrowers);
         newButton.setImageView(archersAndThrowers.getImageView());
         Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-        archersAndThrowers.ArcherBow(3, 3);
-        button.getArmy().add(archersAndThrowers);
+        newButton.getArmy().add(archersAndThrowers);
 //        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
 //        slaveAnimation.setArmyToAnimation(soldiers2);
 //        slaveAnimation.play();
@@ -179,35 +172,35 @@ public class TileManager extends Application {
 //        deadSlaveAnimation.setArmyToAnimation(soldiers2);
 //        deadSlaveAnimation.play();
 
-        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-        attackArmyToArmyController.battleWithEnemy();
+//        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
+//        attackArmyToArmyController.battleWithEnemy();
 
 //        swordManAnimation.setArmyToAnimation(soldiers);
 //        swordManAnimation.setArmyToAnimation(soldiers2);
 //        attackArmyToArmyController.swordManAnimation.play();
-        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-        sequentialTransitionSwordMan.play();
-
-        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-        sequentialTransitionSlave.play();
-
-        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-        sequentialTransitionAssasin.play();
-
-        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-        sequentialTransitionMaceMan.play();
-
-        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-        sequentialTransitionMonk.play();
-
-        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-        sequentialTransitionShortBow.play();
-
-        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-        sequentialTransitionSlinger.play();
-
-        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-        sequentialTransitionArcher.play();
+//        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
+//        sequentialTransitionSwordMan.play();
+//
+//        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
+//        sequentialTransitionSlave.play();
+//
+//        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
+//        sequentialTransitionAssasin.play();
+//
+//        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
+//        sequentialTransitionMaceMan.play();
+//
+//        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
+//        sequentialTransitionMonk.play();
+//
+//        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
+//        sequentialTransitionShortBow.play();
+//
+//        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
+//        sequentialTransitionSlinger.play();
+//
+//        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
+//        sequentialTransitionArcher.play();
 
         //TODO picture of sword man after war // DORSA
 
@@ -261,7 +254,7 @@ public class TileManager extends Application {
                         ArrayList<Double> averageDetails;
                         averageDetails = countTheProductionAveragesOnTiles();
                         designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
-                    }else{
+                    } else {
                         Alert alarm = new Alert(Alert.AlertType.ERROR);
                         alarm.setTitle("Map Error!");
                         alarm.setHeaderText("Error in Map Commands");
@@ -438,28 +431,22 @@ public class TileManager extends Application {
                     pane.getChildren().add(button);
                 } else {
                     pane.getChildren().add(button);
+                    for (Army army : button.getArmy()) {
+                        ImageView view = army.getImageView();
+                        view.setImage(view.getImage());
+                        view.setFitHeight(50);
+                        view.setFitWidth(50);
+                        int randomX = getRandomX(button);
+                        int randomY = getRandomY(button);
+                        view.setLayoutX(randomX);
+                        view.setLayoutY(randomY);
+                        pane.getChildren().add(view);
+                    }
                 }
-
                 allButtons[u][g].add(button);
             }
         }
-//        pane.getChildren().add(button);
-//        button.setMinSize(50, 50);
-//        for(Army army : button.getArmy()) {
-//            ImageView view = army.getImageView();
-//            view.setImage(view.getImage());
-//            view.setFitHeight(60);
-//            view.setFitWidth(60);
-//            int randomX = getRandomX(button);
-//            int randomY = getRandomY(button);
-//            view.setLayoutX(randomX);
-//            view.setLayoutY(randomY);
-//            pane.getChildren().add(view);
-//        }
-//                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
-//        allButtons[u][g].add(button);
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
-
     }
 
     public void getCellData(NewButton newButton) {
