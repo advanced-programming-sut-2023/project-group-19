@@ -15,6 +15,7 @@ import model.Empire;
 import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
+import view.OldView.EmpireMenu;
 
 public class BottomBarButtons {
 
@@ -225,7 +226,8 @@ public class BottomBarButtons {
             public void handle(MouseEvent mouseEvent) {
                 bottomBarBuildings.clearPane(pane);
                 EmpireButtons empireButtons = new EmpireButtons();
-                empireButtons.createButtons(pane , bottomBarImages , buildingImages);
+                EmpireMenu empireMenu = new EmpireMenu();
+                empireButtons.createButtons(pane , bottomBarImages , buildingImages , empireMenu);
             }
         });
 

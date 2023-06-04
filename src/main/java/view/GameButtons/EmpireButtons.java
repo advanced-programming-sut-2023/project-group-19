@@ -1,16 +1,20 @@
 package view.GameButtons;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import model.Empire;
 import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
+import view.OldView.EmpireMenu;
+
 
 import java.util.ArrayList;
 
@@ -19,8 +23,15 @@ public class EmpireButtons {
     public ArrayList<Button> addedButtons = new ArrayList<>();
     public ArrayList<Text> addedText = new ArrayList<>();
     public BottomBarImages testbottomBarImages;
+    public TextField foodRate;
+    public TextField fearRate;
+    public TextField taxRate;
+    public Label l;
+    public Slider slider;
+    public int rate;
 
-    public void createButtons(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
+
+    public void createButtons(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages, EmpireMenu empireMenu) {
         testbottomBarImages = bottomBarImages;
         ImageView selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
         selectBackground.setFitWidth(980);
@@ -60,7 +71,7 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                showPopularityFactors(pane, buildingImages);
+                showPopularityFactors(pane, buildingImages , empireMenu);
             }
         });
 
@@ -68,13 +79,13 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                setRateMenu(pane);
+                setRateMenu(pane, buildingImages, empireMenu);
             }
         });
 
     }
 
-    public void showPopularityFactors(Pane pane, BuildingImages buildingImages) {
+    public void showPopularityFactors(Pane pane, BuildingImages buildingImages, EmpireMenu empireMenu) {
         Text food = new Text();
         food.setText("Food : " + (Manage.getCurrentEmpire().getPopularityFactorFood() + Manage.getCurrentEmpire().getFoodDiversity()));
         if (Manage.getCurrentEmpire().getPopularityFactorFood() + Manage.getCurrentEmpire().getFoodDiversity() >= 0) {
@@ -165,20 +176,169 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                createButtons(pane, testbottomBarImages, buildingImages);
+                createButtons(pane, testbottomBarImages, buildingImages, empireMenu);
             }
         };
         returnIconButton.setOnMouseClicked(event);
     }
 
-    public void setRateMenu(Pane pane) {
+    public void setRateMenu(Pane pane, BuildingImages buildingImages, EmpireMenu empireMenu) {
+        Button returnIconButton = new Button();
+        ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
+        returnIconButton.setBackground(null);
+        returnIconImage.setFitHeight(40);
+        returnIconImage.setFitWidth(40);
+        returnIconButton.setGraphic(returnIconImage);
+        returnIconButton.setLayoutX(120);
+        returnIconButton.setLayoutY(740);
+        returnIconButton.setMinSize(40, 40);
+        addedButtons.add(returnIconButton);
+        pane.getChildren().add(returnIconButton);
+        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                clearPane(pane);
+                createButtons(pane, testbottomBarImages, buildingImages, empireMenu);
+            }
+        };
+        returnIconButton.setOnMouseClicked(event);
+
+        Button submit1 = new Button();
+        submit1.setBackground(null);
+        submit1.setText("SUBMIT");
+        submit1.setLayoutX(400);
+        submit1.setLayoutY(700);
+        submit1.setMinSize(100, 100);
+
+
+        foodRate = new TextField();
+        foodRate.setPromptText("Food Rate");
+        foodRate.setLayoutX(250);
+        foodRate.setLayoutY(736);
+
+        addedButtons.add(submit1);
+        EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String Rate = foodRate.getText();
+//                if (taxRate.matches("[-0-9]+")) {
+//                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
+//                    if (!output.equals("tax rate changed successfully")) {
+//                        showError(output);
+//                    }
+//                } else {
+//                    showError("only use number in this field");
+//                }
+                foodRate.setText("");
+            }
+        };
+        submit1.setOnMouseClicked(event1);
+        pane.getChildren().add(submit1);
+        pane.getChildren().add(foodRate);
+
+
+        Button submit2 = new Button();
+        submit2.setBackground(null);
+        submit2.setText("SUBMIT");
+        submit2.setLayoutX(750);
+        submit2.setLayoutY(700);
+        submit2.setMinSize(100, 100);
+
+
+        taxRate = new TextField();
+        taxRate.setPromptText("Tax Rate");
+        taxRate.setLayoutX(600);
+        taxRate.setLayoutY(736);
+
+        addedButtons.add(submit2);
+        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String Rate = taxRate.getText();
+//                if (taxRate.matches("[-0-9]+")) {
+//                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
+//                    if (!output.equals("tax rate changed successfully")) {
+//                        showError(output);
+//                    }
+//                } else {
+//                    showError("only use number in this field");
+//                }
+                taxRate.setText("");
+            }
+        };
+        submit2.setOnMouseClicked(event2);
+        pane.getChildren().add(submit2);
+        pane.getChildren().add(taxRate);
+
+        Button submit3 = new Button();
+        submit3.setBackground(null);
+        submit3.setText("SUBMIT");
+        submit3.setLayoutX(640);
+        submit3.setLayoutY(780);
+        submit3.setMinSize(100, 100);
+        addedButtons.add(submit3);
+
+
+
+
+        l = new Label(" ");
+        l.setTextFill(Color.BLACK);
+        slider = new Slider();
+        slider.setMin(-5);
+        slider.setMax(+5);
+        slider.setValue(0);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setBlockIncrement(1);
+
+        slider.valueProperty().addListener(
+                new ChangeListener<Number>() {
+
+                    public void changed(ObservableValue<? extends Number >
+                                                observable, Number oldValue, Number newValue)
+                    {
+                        rate = newValue.intValue();
+                        l.setText("Fear Rate: " + newValue.intValue());
+                    }
+                });
+        slider.setLayoutX(500);
+        slider.setLayoutY(790);
+        l.setLayoutX(530);
+        l.setLayoutY(820);
+
+        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                int Rate = rate;
+//                if (taxRate.matches("[-0-9]+")) {
+//                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
+//                    if (!output.equals("tax rate changed successfully")) {
+//                        showError(output);
+//                    }
+//                } else {
+//                    showError("only use number in this field");
+//                }
+
+            }
+        };
+
+        submit3.setOnMouseClicked(event3);
+        pane.getChildren().add(submit3);
+        pane.getChildren().addAll(slider, l);
 
     }
 
     public void clearPane(Pane pane) {
         pane.getChildren().removeAll(addedButtons);
         pane.getChildren().removeAll(addedText);
+        pane.getChildren().removeAll(l , slider);
         addedText.clear();
         addedButtons.clear();
+    }
+    public void showError(String output) {
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("DROP BUILDING FAILED");
+        error.setContentText(output);
+        error.show();
     }
 }
