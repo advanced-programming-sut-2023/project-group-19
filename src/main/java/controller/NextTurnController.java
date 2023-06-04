@@ -99,7 +99,9 @@ public class NextTurnController {
             if (isDestroyed) {
                 GameController.removeEmpireTroopsFromGame(currentEmpire);
                 Manage.allEmpires.remove(i);
-                if (index != 0) NextTurnController.index--;
+//                if (index != 0) NextTurnController.index--;
+                if(i == size - 1) index = 0 ;
+                else if(index > i) index -- ;
                 i--;
                 size--;
             }
