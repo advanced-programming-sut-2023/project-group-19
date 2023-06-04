@@ -37,12 +37,11 @@ public class LoginMenu extends Application {
     public void start(Stage stage) throws Exception {
         LoginMenu.stage = stage;
         User user = new User("armin", "123", "jeneral", "email.com", "mamad", "khas", 2);
-        URL url = RegisterMenu.class.getResource("/fxml/loginMenu.fxml");
         Pane pane = new Pane();
         this.pane = pane;
         GameImages gameImages = new GameImages();
         gameImages.loadImages();
-        pane.setBackground(gameImages.getBackground());
+        pane.setBackground(gameImages.getLoginBackground());
         designLoginMenu();
         backToRegisterMenu();
         Scene scene = new Scene(pane);

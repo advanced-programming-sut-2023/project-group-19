@@ -11,27 +11,27 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="view.RegisterMenu"
       prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f5f52b">
-    <Label text="Fill register form" fx:id="label" translateX="700" translateY="170"/>
-    <VBox alignment="CENTER" spacing="30" translateX="700" translateY="240">
-        <TextField fx:id="username"  promptText="Username"/>
-        <TextField fx:id="passwordShow" visible="false" promptText="Password"/>
-        <TextField fx:id="email"  promptText="Email"/>
-        <TextField fx:id="nickname" promptText="Nickname"/>
-        <TextField fx:id="slogan" text="empty" visible="false" promptText="slogan"/>
-        <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan" focusTraversable="false"/>
-        <Button fx:id="famousSlogans" text="famous" visible="false" onMouseClicked="#showFamousSlogan" focusTraversable="false"/>
-        <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>
+<!--    <Label text="Fill register form" fx:id="label" translateX="700" translateY="170"/>-->
+<!--    <VBox alignment="CENTER" spacing="30" translateX="700" translateY="240">-->
+<!--        <TextField fx:id="username"  promptText="Username"/>-->
+<!--        <TextField fx:id="passwordShow" visible="false" promptText="Password"/>-->
+<!--        <TextField fx:id="email"  promptText="Email"/>-->
+<!--        <TextField fx:id="nickname" promptText="Nickname"/>-->
+<!--        <TextField fx:id="slogan" text="empty" visible="false" promptText="slogan"/>-->
+<!--        <Button fx:id="randomSloganButton" text="random" visible="false" onMouseClicked="#randomSlogan" focusTraversable="false"/>-->
+<!--        <Button fx:id="famousSlogans" text="famous" visible="false" onMouseClicked="#showFamousSlogan" focusTraversable="false"/>-->
+<!--        <CheckBox fx:id="check" onMouseClicked="#checkingSlogan"/>-->
         <Button onMouseClicked="#submit" text="submit" focusTraversable="false"/>
         <Label text="login" style="-fx-text-fill: #00c4ff" onMouseClicked="#enterLoginMenu"/>
-    </VBox>
-    <PasswordField fx:id="passwordHide" promptText="Password" translateX="700" translateY="297"/>
-    <VBox visible="false" fx:id="famousDialogue" spacing="20" alignment="CENTER" translateX="1100" translateY="500">
-        <Label text="I march to death...Though I wish it was my own..."/>
-        <Label text="They think I'm monster...and I prove them right"/>
-    </VBox>
+<!--    </VBox>-->
+<!--    <PasswordField fx:id="passwordHide" promptText="Password" translateX="700" translateY="297"/>-->
+<!--    <VBox visible="false" fx:id="famousDialogue" spacing="20" alignment="CENTER" translateX="1100" translateY="500">-->
+<!--        <Label text="I march to death...Though I wish it was my own..."/>-->
+<!--        <Label text="They think I'm monster...and I prove them right"/>-->
+<!--    </VBox>-->
 
-    <CheckBox translateY="300" translateX="870" onMouseClicked="#showAndHidePassword"/>
-    <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword" focusTraversable="false"/>
+<!--    <CheckBox translateY="300" translateX="870" onMouseClicked="#showAndHidePassword"/>-->
+<!--    <Button text="random" translateY="300" translateX="900" onMouseClicked="#randomPassword" focusTraversable="false"/>-->
     <VBox visible="false" fx:id="secQestionVbox" alignment="CENTER"  translateY="240" translateX="610" spacing="20" style="-fx-background-color: #abfa90" >
         <Label text="To complete register please choose and answer one of these questions"/>
         <RadioButton fx:id="Q1" text="1. What is my father’s name?"/>
