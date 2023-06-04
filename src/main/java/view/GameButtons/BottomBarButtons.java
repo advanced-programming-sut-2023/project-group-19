@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import model.Building.Castle;
 import model.Building.Stockpile;
+import model.Empire;
 import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
@@ -218,6 +219,15 @@ public class BottomBarButtons {
         population.setX(1415);
         population.setY(810);
         pane.getChildren().add(population);
+
+        dataButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                bottomBarBuildings.clearPane(pane);
+                EmpireButtons empireButtons = new EmpireButtons();
+                empireButtons.createButtons(pane , bottomBarImages , buildingImages);
+            }
+        });
 
         castleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
