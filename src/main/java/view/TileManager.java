@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Building.Armoury;
 import model.Building.Building;
+import model.Building.Castle;
 import model.Building.House;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
@@ -213,6 +214,19 @@ public class TileManager extends Application {
 
         AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
         attackArmyToArmyController.battleWithEnemy();
+
+
+        //Castle castle = new Castle(Ahmed);
+//        NewButton castleButton = (NewButton) list.get(4 * 100 + 9);
+//        ImageView apple = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm()));
+//        castleButton.setImageView(apple);
+//        castle.castle();
+//        castleButton.setBuilding(castle);
+//        empire.castleXCoordinate = 4 ;
+//        empire.castleYCCoordinate = 9 ;
+//
+//        AhmedButton.setSickButton(true);
+//        Manage.setCurrentEmpire(Ahmed);
 
 
 
