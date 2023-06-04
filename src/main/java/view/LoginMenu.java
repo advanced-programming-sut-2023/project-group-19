@@ -2,6 +2,7 @@ package view;
 
 import controller.LoginController;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,17 +21,13 @@ import view.Messages.RegisterMessages;
 
 import java.io.CharArrayReader;
 import java.net.URL;
+import java.util.Optional;
 
 public class LoginMenu extends Application {
     public Pane pane;
-    public Label usernameError = new Label();
-    public Label passwordError = new Label();
     public TextField username = new TextField();
     public PasswordField password = new PasswordField();
-    public VBox vBoxErrorHandling = new VBox();
-    public TextField answer = new TextField();
-    public Label secQuestionLabel = new Label();
-    public VBox secQestionVbox = new VBox();
+    public String securityQuestionAnswer;
     public ImageView captchaImage = new ImageView();
     public String captchaNumber;
     public TextField captchaAnswer = new TextField();
@@ -82,7 +79,7 @@ public class LoginMenu extends Application {
         again.setStyle("-fx-background-color: #cba883");
         again.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         again.setLayoutX(860);
-        again.setLayoutY(350);
+        again.setLayoutY(320);
         again.setPrefSize(80, 40);
         again.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -91,14 +88,42 @@ public class LoginMenu extends Application {
             }
         });
 
-//        captchaImage.setTranslateX(-50);
-//        captchaImage.setTranslateY(-50);
+        captchaImage = new ImageView();
+        captchaNumber = LoginController.setImageCaptcha(captchaImage);
+        captchaImage.setTranslateX(650);
+        captchaImage.setTranslateY(320);
+
+        captchaAnswer.setPromptText("Enter captcha");
+        captchaAnswer.setPrefSize(300, 35);
+        captchaAnswer.setLayoutX(650);
+        captchaAnswer.setLayoutY(425);
+
+        Button submit = new Button("Submit");
+        submit.setStyle("-fx-background-color: #cba883");
+        submit.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        submit.setLayoutX(740);
+        submit.setLayoutY(480);
+        submit.setPrefSize(100, 40);
+        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    submitAndLogin(mouseEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
 
         pane.getChildren().add(username);
         pane.getChildren().add(password);
         pane.getChildren().add(forgot);
         pane.getChildren().add(again);
         pane.getChildren().add(captchaImage);
+        pane.getChildren().add(captchaAnswer);
+        pane.getChildren().add(submit);
+
     }
 
     public void backToRegisterMenu() {  //----> back button
@@ -122,10 +147,6 @@ public class LoginMenu extends Application {
         pane.getChildren().add(back);
     }
 
-    public void initialize() {
-        captchaNumber = LoginController.setImageCaptcha(captchaImage);
-    }
-
 
     public void forgotPassword(MouseEvent mouseEvent) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -145,24 +166,30 @@ public class LoginMenu extends Application {
     }
 
     private void prepareSecQuestion() {
-        secQuestionLabel.setText(LoginController.getSecQuestion(username.getText()));
-        secQestionVbox.setVisible(true);
+        TextInputDialog securityQuestion = new TextInputDialog();
+        securityQuestion.setTitle("Security Question");
+        securityQuestion.setHeaderText(LoginController.getSecQuestion(username.getText()));
+        Optional<String> result = securityQuestion.showAndWait();
+        if (result.isPresent()) {
+            securityQuestionAnswer = result.get();
+            closePopup();
+        }
     }
 
-    public void closePopup(MouseEvent mouseEvent) {
+    public void closePopup() {
         String password;
-        if ((password = LoginController.checkAnswerTrue(username.getText(), answer.getText())) != null) {
+        System.out.println(securityQuestionAnswer);
+        if ((password = LoginController.checkAnswerTrue(username.getText(), securityQuestionAnswer)) != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Recovery password");
             alert.setContentText("Your password is: " + password);
-            alert.show();
+            alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Recovery password");
             alert.setContentText("Your answer is incorrect!");
-            alert.show();
+            alert.showAndWait();
         }
-        secQestionVbox.setVisible(false);
     }
 
     public void anotherCaptcha(MouseEvent mouseEvent) {
@@ -170,14 +197,24 @@ public class LoginMenu extends Application {
     }
 
     public void submitAndLogin(MouseEvent mouseEvent) throws Exception {
-        if (username.getText().equals("")) usernameError.setText("Empty field!");
-        if (password.getText().equals("")) passwordError.setText("Empty field!");
-        if (!captchaAnswer.getText().equals(captchaNumber)) {
+        if (username.getText().equals("")) {
+            Alert usernameAlert = new Alert(Alert.AlertType.ERROR);
+            usernameAlert.setTitle("LoginMenu Error!");
+            usernameAlert.setHeaderText("Error in filling Username field!");
+            usernameAlert.setContentText("Username field is Empty!");
+            usernameAlert.show();
+        } else if (password.getText().equals("")) {
+            Alert passwordAlert = new Alert(Alert.AlertType.ERROR);
+            passwordAlert.setTitle("LoginMenu Error!");
+            passwordAlert.setHeaderText("Error in filling Password field!");
+            passwordAlert.setContentText("Password field is Empty!");
+            passwordAlert.show();
+        } else if (!captchaAnswer.getText().equals(captchaNumber)) {
             captchaNumber = LoginController.setImageCaptcha(captchaImage);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("LoginMenu Error!");
             alert.setHeaderText("Error in filling Captcha!");
-            alert.setContentText("Captcha is wrong!");
+            alert.setContentText("Captcha field didn't fill correctly!");
             alert.showAndWait();
         } else if (LoginController.LoginUser(username.getText(), password.getText())) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

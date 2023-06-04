@@ -12,25 +12,25 @@
       fx:controller="view.LoginMenu"
       prefHeight="400.0" prefWidth="600.0">
             <VBox alignment="CENTER" spacing="30" translateX="700" translateY="400">
-                <TextField promptText="Enter username" fx:id="username"/>
-                <PasswordField promptText="Enter password" fx:id="password"/>
-                <Button text="forget" onMouseClicked="#forgotPassword" focusTraversable="false"/>
-                <HBox spacing="20">
-                    <ImageView fx:id="captchaImage"/>
-                    <Button text="again" onMouseClicked="#anotherCaptcha"/>
-                </HBox>
-                <TextField fx:id="captchaAnswer"/>
+<!--                <TextField promptText="Enter username" fx:id="username"/>-->
+<!--                <PasswordField promptText="Enter password" fx:id="password"/>-->
+<!--                <Button text="forget" onMouseClicked="#forgotPassword" focusTraversable="false"/>-->
+<!--                <HBox spacing="20">-->
+<!--&lt;!&ndash;                    <ImageView fx:id="captchaImage"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <Button text="again" onMouseClicked="#anotherCaptcha"/>&ndash;&gt;-->
+<!--                </HBox>-->
+<!--                <TextField fx:id="captchaAnswer"/>-->
                 <Button text="submit" onMouseClicked="#submitAndLogin"/>
             </VBox>
 
-    <VBox translateX="740" translateY="380" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling">
-        <Label style="-fx-text-fill: red" fx:id="usernameError"/>
-        <Label style="-fx-text-fill: red" fx:id="passwordError"/>
+<!--    <VBox translateX="740" translateY="380" spacing="40" alignment="CENTER" fx:id="vBoxErrorHandling">-->
+<!--        <Label style="-fx-text-fill: red" fx:id="usernameError"/>-->
+<!--        <Label style="-fx-text-fill: red" fx:id="passwordError"/>-->
     </VBox>
 
-    <VBox visible="false" fx:id="secQestionVbox" alignment="CENTER"  translateY="240" translateX="610" spacing="20" style="-fx-background-color: #abfa90" >
-        <Label fx:id="secQuestionLabel"/>
-        <TextField fx:id="answer" promptText="answer question" maxWidth="100"/>
-        <Button text="submit" onMouseClicked="#closePopup"/>
-    </VBox>
+<!--    <VBox visible="false" fx:id="secQestionVbox" alignment="CENTER"  translateY="240" translateX="610" spacing="20" style="-fx-background-color: #abfa90" >-->
+<!--        <Label fx:id="secQuestionLabel"/>-->
+<!--        <TextField fx:id="answer" promptText="answer question" maxWidth="100"/>-->
+<!--        <Button text="submit" onMouseClicked="#closePopup"/>-->
+<!--    </VBox>-->
 </Pane>
