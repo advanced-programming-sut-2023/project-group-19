@@ -34,6 +34,7 @@ public class BottomBarBuildings {
     BuildingController buildingController = new BuildingController();
     public ArrayList<NewButton>[][] allButtons;
     public Building building;
+    public static NewButton lastButton;
     public Army troop;
 
     public void showError(String output) {
@@ -211,6 +212,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(barracksImage);
                     newbutton.setBuilding(barracks);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }

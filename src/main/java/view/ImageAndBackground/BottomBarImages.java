@@ -20,7 +20,9 @@ public class BottomBarImages {
     public Image minimapFrame;
     public Image showEmpireDetail;
     public Image bottomCoverImage;
-    public Image faceImage;
+    public Image faceImage1;
+    public Image faceImage2;
+    public Image faceImage3;
     public Image bottomSideCoverImage;
     public Image selectedBuildingBackground;
     public Image popularity;
@@ -47,7 +49,9 @@ public class BottomBarImages {
         undo = new Image(TileManager.class.getResource("/image/BottomBar/undo.png").toExternalForm());
         minimapFrame = new Image(TileManager.class.getResource("/image/BottomBar/minimapFrame.jpg").toExternalForm());
         showEmpireDetail = new Image(TileManager.class.getResource("/image/BottomBar/showEmpireDetails.png").toExternalForm());
-        faceImage = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
+        faceImage1 = new Image(TileManager.class.getResource("/image/BottomBar/happy.png").toExternalForm());
+        faceImage2 = new Image(TileManager.class.getResource("/image/BottomBar/nonsense.png").toExternalForm());
+        faceImage3 = new Image(TileManager.class.getResource("/image/BottomBar/angry.png").toExternalForm());
         selectedBuildingBackground = new Image(TileManager.class.getResource("/image/GameMenu/map.jpg").toExternalForm());
         popularity = new Image(TileManager.class.getResource("/image/GameMenu/popularity.png").toExternalForm());
         setRate = new Image(TileManager.class.getResource("/image/GameMenu/setRate.png").toExternalForm());
@@ -127,8 +131,16 @@ public class BottomBarImages {
         return bottomCoverImage;
     }
 
-    public Image getFaceImage() {
-        return faceImage;
+    public Image getFaceImage1() {
+        return faceImage1;
+    }
+
+    public Image getFaceImage2() {
+        return faceImage2;
+    }
+
+    public Image getFaceImage3() {
+        return faceImage3;
     }
 
     public Image getBottomSideCoverImage() {

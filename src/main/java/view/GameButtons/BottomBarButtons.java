@@ -17,6 +17,8 @@ import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.OldView.EmpireMenu;
 
+import java.util.Collection;
+
 public class BottomBarButtons {
 
     public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
@@ -192,31 +194,36 @@ public class BottomBarButtons {
 //        testButton.setLayoutY(400);
 //        testButton.setMinSize(200, 200);
 //        pane.getChildren().add(testButton);
-
-        ImageView face = new ImageView(bottomBarImages.getFaceImage());
+        ImageView face;
+        if(Manage.getCurrentEmpire().getTotalPopularity() > 66) {
+            face = new ImageView(bottomBarImages.getFaceImage1());
+        }
+        else if(Manage.getCurrentEmpire().getTotalPopularity() > 33){
+            face = new ImageView(bottomBarImages.getFaceImage2());
+        }
+        else {
+            face = new ImageView(bottomBarImages.getFaceImage3());
+        }
         face.setFitHeight(63);
         face.setFitWidth(70);
         face.setX(1415);
         face.setY(690);
         pane.getChildren().add(face);
 
-        //TODO : fix the gold source
         Text popularity = new Text();
         popularity.setText("POPULARITY : " + 100);
         popularity.setX(1415);
         popularity.setY(770);
         pane.getChildren().add(popularity);
 
-        //TODO : fix the gold source
         Text gold = new Text();
-        gold.setText("GOLD : " + 2000);
+        gold.setText("GOLD : " + Manage.getCurrentEmpire().getGoldCount());
         gold.setX(1415);
         gold.setY(790);
         pane.getChildren().add(gold);
 
-        //TODO : fix the gold source
         Text population = new Text();
-        population.setText("POPULATION : " + 20);
+        population.setText("POPULATION : " + Manage.getCurrentEmpire().getPopulation());
         population.setX(1415);
         population.setY(810);
         pane.getChildren().add(population);
@@ -299,8 +306,12 @@ public class BottomBarButtons {
         undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-            }
+                if(BottomBarBuildings.lastButton != null) {
+                    pane.getChildren().remove(BottomBarBuildings.lastButton);
+                    BottomBarBuildings.lastButton.setImageView(null);
+                    BottomBarBuildings.lastButton.setBuilding(null);
+                    pane.getChildren().add(BottomBarBuildings.lastButton);
+                }}
         });
     }
 }

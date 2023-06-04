@@ -53,6 +53,7 @@ public class NextTurnController {
 
     public void callStartingTurnFunctions(GameController gameController) {
         currentEmpire.setSickness(Math.random() < 0.5);
+        empireTotalPopularity();
         sicknessLogic();
         buildingFire();
         EmpireController.setFearFactor();
@@ -75,6 +76,19 @@ public class NextTurnController {
                 Manage.burningEmpires.remove(i);
                 i--;
             }
+        }
+    }
+    public void empireTotalPopularity(){
+        int popularity = Manage.getCurrentEmpire().getTotalPopularity();
+        int popularityChange = Manage.getCurrentEmpire().getPopularity();
+        if(popularity + popularityChange > 100){
+            Manage.getCurrentEmpire().setTotalPopularity(100);
+        }
+        else if(popularity + popularityChange < 0){
+            Manage.getCurrentEmpire().setTotalPopularity(0);
+        }
+        else{
+            Manage.getCurrentEmpire().setTotalPopularity(popularity + popularityChange);
         }
     }
 

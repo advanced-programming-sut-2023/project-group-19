@@ -121,6 +121,7 @@ public class Empire {
     }
 
     private int population = 10;
+    public int totalPopularity = 100;
     public int popularity;
     private int goldCount = 100000000;
     private int foodRateNumber = -2;
@@ -135,6 +136,14 @@ public class Empire {
     private double fearWorkerImpact;
     private double fearTroopImpact;
     public int sicknessImpactOnPopularity;
+
+    public int getTotalPopularity() {
+        return totalPopularity;
+    }
+
+    public void setTotalPopularity(int totalPopularity) {
+        this.totalPopularity = totalPopularity;
+    }
 
     public int getSicknessImpactOnPopularity() {
         return sicknessImpactOnPopularity;
