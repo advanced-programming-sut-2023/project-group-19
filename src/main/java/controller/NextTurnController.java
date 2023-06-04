@@ -74,7 +74,6 @@ public class NextTurnController {
         gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
     }
-    public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
     private void putGraphicSickEmpire(Empire empire) {
         if(!empire.isSickness()) return;
         int x = empire.castleXCoordinate ;
@@ -92,7 +91,7 @@ public class NextTurnController {
             for(int j = y1 ; j <= y2 ; j ++){
                 NewButton newButton = ((NewButton)(tileManager.list.get(100 * i + j)));
                 if(newButton.getImageView() != null || !newButton.getArmy().isEmpty()) continue;
-                newButton.setImageView(sickImage);
+                newButton.setSickButton(true);
             }
         }
     }

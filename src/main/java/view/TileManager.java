@@ -3,6 +3,7 @@ import controller.Building.BuildingController;
 import controller.AttackArmyToArmyController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
+import controller.NextTurnController;
 import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
@@ -866,6 +867,7 @@ public class TileManager extends Application {
     }
 
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
+    public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < 16; u++) {
@@ -874,6 +876,12 @@ public class TileManager extends Application {
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * 51.2);
                 button.setLayoutY(u * 54);
+                pane.getChildren().add(button);
+                if(button.isSickButton()){
+                    sickImage.setFitHeight(50);
+                    sickImage.setFitWidth(50);
+                    button.setGraphic(sickImage);
+                }
                 if (button.getImageView() != null) {
                     ImageView view ;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
@@ -886,9 +894,7 @@ public class TileManager extends Application {
                     view.setFitWidth(50);
                     button.setGraphic(view);
                     button.setMinSize(50, 50);
-                    pane.getChildren().add(button);
                 } else {
-                    pane.getChildren().add(button);
                     for(Army army : button.getArmy()) {
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());

@@ -15,6 +15,7 @@ public class NewButton extends Button {
     private Building building;
     private ImageView imageView;
     private ArrayList<Army> army = new ArrayList<>();
+    private boolean isSickButton ;
     private boolean isSelected = false;
 
     public NewButton(int x, int y) {
@@ -70,5 +71,13 @@ public class NewButton extends Button {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public boolean isSickButton() {
+        return isSickButton;
+    }
+
+    public void setSickButton(boolean sickButton) {
+        isSickButton = sickButton;
     }
 }
