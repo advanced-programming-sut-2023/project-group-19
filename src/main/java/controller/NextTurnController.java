@@ -82,6 +82,7 @@ public class NextTurnController {
         GameMenu.gameController = gameController;
     }
 
+
 //    public void callEndingTurnFunctions(GameController gameController) {
 //        gameController.DrawBridge();
 //        gameController.cagedWarDogsAttack();
