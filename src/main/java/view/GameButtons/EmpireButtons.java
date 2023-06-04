@@ -137,10 +137,10 @@ public class EmpireButtons {
 
         Text sickness = new Text();
         if (!Manage.getCurrentEmpire().isSickness()) {
-            sickness.setText("Food : " + 0);
+            sickness.setText("sickness : " + 0);
             sickness.setStroke(Color.GREEN);
         } else {
-            sickness.setText("Food : " + -2);
+            sickness.setText("sickness : " + -2);
             sickness.setStroke(Color.RED);
         }
         sickness.setLayoutX(600);
@@ -150,7 +150,7 @@ public class EmpireButtons {
 
 
         Text popularity = new Text();
-        popularity.setText("Popularity : " + Manage.getCurrentEmpire().getPopularity());
+        popularity.setText("Popularity : " + (Manage.getCurrentEmpire().getPopularity() +  Manage.getCurrentEmpire().getSicknessImpactOnPopularity()));
         if (Manage.getCurrentEmpire().getPopularity() >= 0) {
             popularity.setStroke(Color.GREEN);
         } else {
@@ -221,14 +221,14 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String Rate = foodRate.getText();
-//                if (taxRate.matches("[-0-9]+")) {
-//                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
-//                    if (!output.equals("tax rate changed successfully")) {
-//                        showError(output);
-//                    }
-//                } else {
-//                    showError("only use number in this field");
-//                }
+                if (Rate.matches("[-0-9]+")) {
+                    String output = String.valueOf(empireMenu.setFoodRate(Integer.parseInt(Rate)));
+                    if (!output.equals("successful")) {
+                        showError(output);
+                    }
+                } else {
+                    showError("only use number in this field");
+                }
                 foodRate.setText("");
             }
         };
@@ -255,14 +255,14 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String Rate = taxRate.getText();
-//                if (taxRate.matches("[-0-9]+")) {
-//                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
-//                    if (!output.equals("tax rate changed successfully")) {
-//                        showError(output);
-//                    }
-//                } else {
-//                    showError("only use number in this field");
-//                }
+                if (Rate.matches("[-0-9]+")) {
+                    String output = String.valueOf(empireMenu.setTaxRate(Integer.parseInt(Rate)));
+                    if (!output.equals("successful")) {
+                        showError(output);
+                    }
+                } else {
+                    showError("only use number in this field");
+                }
                 taxRate.setText("");
             }
         };
@@ -310,15 +310,10 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 int Rate = rate;
-//                if (taxRate.matches("[-0-9]+")) {
-//                    String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
-//                    if (!output.equals("tax rate changed successfully")) {
-//                        showError(output);
-//                    }
-//                } else {
-//                    showError("only use number in this field");
-//                }
-
+                String output = String.valueOf(empireMenu.setFearRate(Rate));
+                if (!output.equals("successful")) {
+                    showError(output);
+                }
             }
         };
 
@@ -341,4 +336,5 @@ public class EmpireButtons {
         error.setContentText(output);
         error.show();
     }
+
 }

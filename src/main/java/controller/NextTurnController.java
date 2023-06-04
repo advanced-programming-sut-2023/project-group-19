@@ -53,6 +53,7 @@ public class NextTurnController {
 
     public void callStartingTurnFunctions(GameController gameController) {
         currentEmpire.setSickness(Math.random() < 0.5);
+        sicknessLogic();
         buildingFire();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
@@ -90,6 +91,14 @@ public class NextTurnController {
 //        gameController.fight();
 //        playerHasLost();
 //    }
+    public void sicknessLogic(){
+        if (Manage.getCurrentEmpire().getApothecary()) {
+            Manage.getCurrentEmpire().setSickness(false);
+            Manage.getCurrentEmpire().setSicknessImpactOnPopularity(0);
+        }
+        if (Manage.getCurrentEmpire().isSickness())
+            Manage.getCurrentEmpire().setSicknessImpactOnPopularity(-2);
+    }
 
     public void playerHasLost() {
         int size = Manage.allEmpires.size();

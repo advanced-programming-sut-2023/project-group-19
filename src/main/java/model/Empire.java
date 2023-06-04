@@ -134,6 +134,15 @@ public class Empire {
     private int fearRateNumber;
     private double fearWorkerImpact;
     private double fearTroopImpact;
+    public int sicknessImpactOnPopularity;
+
+    public int getSicknessImpactOnPopularity() {
+        return sicknessImpactOnPopularity;
+    }
+
+    public void setSicknessImpactOnPopularity(int sicknessImpactOnPopularity) {
+        this.sicknessImpactOnPopularity = sicknessImpactOnPopularity;
+    }
 
     public int getFoodPopularityRate() {
         return foodPopularityRate;
