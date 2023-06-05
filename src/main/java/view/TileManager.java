@@ -112,9 +112,13 @@ public class TileManager extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
         Map.CreateMap(100);
         Empire empire = new Empire();
         Empire empire2 = new Empire();
+        empire.setUser(newUser);
+        empire2.setUser(newUser1);
         Manage.setCurrentEmpire(empire);
         Manage.allEmpires.add(empire);
         Manage.allEmpires.add(empire2);

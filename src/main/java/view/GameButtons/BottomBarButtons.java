@@ -1,6 +1,8 @@
 package view.GameButtons;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -9,6 +11,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.Building.Castle;
 import model.Building.Stockpile;
 import model.Empire;
@@ -19,6 +22,7 @@ import view.ImageAndBackground.BuildingImages;
 import view.OldView.EmpireMenu;
 import view.TileManager;
 
+import java.io.IOException;
 import java.util.Collection;
 
 public class BottomBarButtons {
@@ -296,7 +300,32 @@ public class BottomBarButtons {
         informationButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                Pane pane1 = new Pane();
+                Text text = new Text();
+                Text text2 = new Text();
+                Button button = new Button();
+                Stage stage2 = new Stage();
+                button.setText("Exit");
+                EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        stage2.close();
+                    }
+                };
+                text2.setText(Manage.allEmpires.get(0).getName() + "                   Gold : " + Manage.allEmpires.get(0).getGoldCount());
+                text2.setX(170);
+                text2.setY(125);
+                text.setX(150);
+                text.setY(150);
+                button.setLayoutX(175);
+                button.setLayoutY(200);
+                button.setOnAction(event);
+                text.setText(Manage.allEmpires.get(1).getName() + "                   Gold : " + Manage.allEmpires.get(1).getGoldCount());
+                pane1.getChildren().addAll(text, button, text2);
 
+                stage2.setTitle("Info");
+                Scene scene = new Scene(pane1, 400, 400);
+                stage2.setScene(scene);
+                stage2.show();
             }
         });
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
