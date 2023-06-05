@@ -1617,8 +1617,8 @@ public class BottomBarBuildings {
         Button tortureBuildingButton = new Button();
         ImageView tortureBuildingImage = new ImageView(buildingImages.getTortureBuilding());
         tortureBuildingButton.setBackground(null);
-        tortureBuildingImage.setFitHeight(100);
-        tortureBuildingImage.setFitWidth(100);
+        tortureBuildingImage.setFitHeight(120);
+        tortureBuildingImage.setFitWidth(120);
         tortureBuildingButton.setGraphic(tortureBuildingImage);
         tortureBuildingButton.setLayoutX(760);
         tortureBuildingButton.setLayoutY(710);

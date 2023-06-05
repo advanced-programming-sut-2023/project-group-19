@@ -383,45 +383,38 @@ public class TileManager extends Application {
         ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree.png").toExternalForm()));
         castleButton.setImageView(treeImage);
         Map.notBuildable[x][y] = true ;
-
-
     }
 
     private void createMapGame() {
-        //sallahDin empire :
+        BuildingController buildingController = new BuildingController();
         Empire sallahDin = new Empire();
         Castle castleSallah =  new Castle(sallahDin);
+        buildingController.dropBuilding(4, 9, "Castle");
         NewButton castleButtonSllah = (NewButton) list.get(4 * 100 + 9);
         dropStockFunction(4,9,sallahDin);
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
-
-        //richard empire :
         Empire richard = new Empire();
         Castle castleRichard =  new Castle(richard);
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
+        buildingController.dropBuilding(9, 3, "Castle");
         castleButton.setBuilding(castleRichard);
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
         dropStockFunction(9,3,richard);
-
-
-        //Art Of The Great Armin
         artOfTree();
-
-
     }
 
     private void dropStockFunction(int x, int y, Empire empire) {
         Manage.setCurrentEmpire(empire);
         BuildingController.dropFirstStockpile(x, y);
         ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
-        NewButton foodRecourceBtn = (NewButton) list.get(x * 100 + y - 1);
+        NewButton foodRecourceBtn = (NewButton) list.get((x+1) * 100 + y);
         foodRecourceBtn.setImageView(foodRecource);
 
         ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
-        NewButton sourceStock = (NewButton) list.get(x * 100 + y + 1);
+        NewButton sourceStock = (NewButton) list.get((x-1) * 100 + y);
         sourceStock.setImageView(stockPile);
 
     }
@@ -944,16 +937,13 @@ public class TileManager extends Application {
         dropTree(9,19);
         dropTree(9,18);
         dropTree(5,2);
-        dropTree(3,9);
         dropTree(2,4);
-        dropTree(9,3);
         dropTree(1,3);
         dropTree(4,6);
         dropTree(7,1);
         dropTree(2,6);
         dropTree(8,1);
         dropTree(8,2);
-        dropTree(8,3);
         dropTree(8,4);
         dropTree(7,1);
         dropTree(7,2);
@@ -979,11 +969,11 @@ public class TileManager extends Application {
                 else if ( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Stone){
                     test.setStyle("-fx-background-color: #353333;");
                 }
+                else if ( Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")){
+                    test.setStyle("-fx-background-color: #ff4a00;");
+                }
                 else if (Map.buildingMap[x][y].size() != 0){
                     test.setStyle("-fx-background-color: #4d2e0a;");
-                }
-                else if ( Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")){
-                    test.setStyle("-fx-background-color: #370138;");
                 }
                 else if( Map.troopMap[x][y].size() != 0 && Map.troopMap[x][y].size() != 0){
                     test.setStyle("-fx-background-color: #a00101;");

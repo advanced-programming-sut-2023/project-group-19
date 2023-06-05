@@ -130,7 +130,7 @@ public class BuildingController {
                             Map.notBuildable[x][y] = true;
                             Map.notPassable[x][y] = true;
                             Map.wallPassable[x][y] = true;
-                            dropFirstStockpile(x, y);
+//                            dropFirstStockpile(x, y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
@@ -1189,7 +1189,6 @@ public class BuildingController {
     }
 
     public BuildingMessages dropBuilding(int x , int y, String type) {
-        System.out.println(Manage.getCurrentEmpire());
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!Map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {
