@@ -4,7 +4,7 @@ import controller.LoginController;
 import controller.ProfileController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,103 +16,371 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.User;
+import view.ImageAndBackground.GameImages;
 import view.Messages.RegisterMessages;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 
-import static controller.LoginController.checkPassword;
 
 public class ProfileMenu extends Application {
-    public ImageView draggedAvatarImage = new ImageView();
-    public ImageView avatar;
     public Pane pane ;
     public static Stage stage ;
-    public ImageView imageView1;
-    public ImageView imageView2;
-    public ImageView imageView3;
-    public ImageView imageView4;
-    public ImageView imageView5;
-    public ImageView imageView6;
-    public ImageView imageView7;
-    public ImageView imageView8;
-    public ImageView imageView9;
-    public Scene scene ;
-    public VBox vBoxOfSelectImage;
+    public ImageView draggedAvatarImage = new ImageView();
+    public ImageView avatar = new ImageView();
+    public ImageView imageView1 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/1.png").toExternalForm()));
+    public ImageView imageView2 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/2.png").toExternalForm()));
+    public ImageView imageView3 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/3.png").toExternalForm()));
+    public ImageView imageView4 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/4.png").toExternalForm()));
+    public ImageView imageView5 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/5.png").toExternalForm()));
+    public ImageView imageView6 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/6.png").toExternalForm()));
+    public ImageView imageView7 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/7.png").toExternalForm()));
+    public ImageView imageView8 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/8.png").toExternalForm()));
+    public ImageView imageView9 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/9.png").toExternalForm()));
+    public Scene scene;
+    public VBox vBoxOfSelectImage = new VBox();
 
 
-    public TextField username;
-    public TextField email;
-    public Label label;
-    public TextField nickname;
-    public TextField slogan;
-    public VBox captchaBox;
-    public ImageView captchaImage;
-    public TextField answerOfCaptcha;
-    public VBox vBoxErrorHandling;
-    public Label usernameError;
-    public Label emailError;
-    public Label nicknameError;
-    public Label sloganError;
-    public VBox passwordBox;
-    public TextField oldPassword;
-    public TextField RetypeNewPassword;
-    public TextField newPassword;
-    public Label oldPasswordError;
-    public Label newPasswordError;
-    public Label confirmPasswordError;
+    public TextField username = new TextField();
+    public TextField email = new TextField();
+    public Label headerLabel = new Label();
+    public TextField nickname = new TextField();
+    public TextField slogan = new TextField();
+    public ImageView captchaImage = new ImageView();
+    public TextField answerOfCaptcha = new TextField();
+    public VBox vBoxErrorHandling = new VBox();
+    public Label usernameError = new Label();
+    public Label emailError = new Label();
+    public Label nicknameError = new Label();
+    public Label sloganError = new Label();
+    public VBox passwordBox = new VBox();
+    public TextField oldPassword = new TextField();
+    public TextField retypeNewPassword = new TextField();
+    public TextField newPassword = new TextField();
+    public Label oldPasswordError = new Label();
+    public Label newPasswordError = new Label();
+    public Label confirmPasswordError = new Label();
     public String captchaNumber;
-
+    public Button remove = new Button("Remove");
+    public Button changePasswordButton = new Button("Change Password");
+    public Button submit = new Button("Submit");
+    public Button selectImage = new Button("Select Image");
+    public Button selectImageFromSystem = new Button("Choose");
+    public Button refresh = new Button("Refresh");
     @Override
     public void start(Stage stage) throws Exception {
-
         ProfileMenu.stage = stage ;
-        URL url = RegisterMenu.class.getResource("/fxml/profileMenu.fxml");
-        Pane pane = FXMLLoader.load(url);
+        Pane pane = new Pane();
         this.pane = pane;
         StartingFunctions();
+        designProfileMenu();
         Scene scene = new Scene(pane);
         this.scene = scene ;
         DragAndDropImage();
-        setBackButton();
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.show();
+    }
 
-        Button button = new Button("click");
+    private void designProfileMenu() {
+        Button backButton = new Button("Back");
+        backButton.setTranslateX(20);
+        backButton.setTranslateY(20);
+        backButton.setStyle("-fx-background-color: #cba883");
+        backButton.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        backButton.setPrefSize(100,40);
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                MainMenu mainMenu = new MainMenu();
+                try {
+                    mainMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        headerLabel.setText("Profile Menu");
+        headerLabel.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 26));
+        headerLabel.setTranslateX(700);
+        headerLabel.setTranslateY(50);
+
+        username.setPrefSize(260,30);
+        username.setTranslateX(200);
+        username.setTranslateY(130);
+        username.setPromptText("Enter new username");
+        username.setFocusTraversable(false);
+        username.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
+        username.textProperty().addListener((observable, oldText, newText) -> {
+            usernameError(headerLabel, "ProfileMenu");
+        });
+
+        email.setPrefSize(260,30);
+        email.setTranslateX(200);
+        email.setTranslateY(220);
+        email.setPromptText("Enter new email");
+        email.setFocusTraversable(false);
+        email.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
+
+        nickname.setPrefSize(260,30);
+        nickname.setTranslateX(200);
+        nickname.setTranslateY(310);
+        nickname.setPromptText("Enter new nickname");
+        nickname.setFocusTraversable(false);
+        nickname.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
+
+        slogan.setPrefSize(260,30);
+        slogan.setTranslateX(200);
+        slogan.setTranslateY(400);
+        slogan.setPromptText("Enter new slogan");
+        slogan.setFocusTraversable(false);
+        slogan.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
+
+        remove.setStyle("-fx-background-color: #cba883");
+        remove.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 12));
+        remove.setLayoutX(200);
+        remove.setLayoutY(490);
+        remove.setPrefSize(80, 40);
+        remove.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                removeSlogan(mouseEvent);
+            }
+        });
+        remove.setFocusTraversable(false);
+
+        changePasswordButton.setStyle("-fx-background-color: #cba883");
+        changePasswordButton.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 12));
+        changePasswordButton.setLayoutX(290);
+        changePasswordButton.setLayoutY(490);
+        changePasswordButton.setPrefSize(130, 40);
+        changePasswordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                changePassword(mouseEvent);
+            }
+        });
+        changePasswordButton.setFocusTraversable(false);
+
+        submit.setStyle("-fx-background-color: #cba883");
+        submit.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        submit.setLayoutX(700);
+        submit.setLayoutY(670);
+        submit.setPrefSize(130, 40);
+        submit.setFocusTraversable(false);
+        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    submit(mouseEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        avatar.setTranslateX(1000);
+        avatar.setTranslateY(100);
+        avatar.setVisible(true);
+
+        selectImage.setStyle("-fx-background-color: #cba883");
+        selectImage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        selectImage.setLayoutX(1200);
+        selectImage.setLayoutY(80);
+        selectImage.setPrefSize(140, 40);
+        selectImage.setFocusTraversable(false);
+        selectImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    hideShowSelectImage(mouseEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        designVBoxOfImage();
+
+        selectImageFromSystem.setStyle("-fx-background-color: #cba883");
+        selectImageFromSystem.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        selectImageFromSystem.setLayoutX(1010);
+        selectImageFromSystem.setLayoutY(460);
+        selectImageFromSystem.setPrefSize(80, 40);
+        selectImageFromSystem.setFocusTraversable(false);
+        selectImageFromSystem.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    ChooseFileFromSystem(mouseEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        selectImageFromSystem.setVisible(false);
+
+        Button button = new Button("Dragged Image");
+        button.setStyle("-fx-background-color: #cba883");
+        button.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        button.setLayoutX(1200);
+        button.setLayoutY(125);
+        button.setPrefSize(140,40);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 draggedAvatarImage.setImage(null);
             }
         });
-        pane.getChildren().add(button);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
-    }
-    private void setBackButton(){
-        Button button = new Button("Back");
-        button.setTranslateX(0);
-        button.setTranslateY(600);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+        designVboxOfChangePassword();
+
+        refresh.setStyle("-fx-background-color: #cba883");
+        refresh.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        refresh.setFocusTraversable(false);
+        refresh.setLayoutX(990);
+        refresh.setLayoutY(630);
+        refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Main main = new Main();
                 try {
-                    main.start(stage);
+                    anotherCaptcha(mouseEvent);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         });
+        refresh.setVisible(false);
+        designVboxOfErrors();
+
+        pane.getChildren().add(headerLabel);
+        pane.getChildren().add(backButton);
+        pane.getChildren().add(username);
+        pane.getChildren().add(email);
+        pane.getChildren().add(nickname);
+        pane.getChildren().add(slogan);
+        pane.getChildren().add(remove);
+        pane.getChildren().add(changePasswordButton);
+        pane.getChildren().add(submit);
+        pane.getChildren().add(avatar);
+        pane.getChildren().add(selectImage);
         pane.getChildren().add(button);
+        pane.getChildren().add(vBoxOfSelectImage);
+        pane.getChildren().add(selectImageFromSystem);
+        pane.getChildren().add(passwordBox);
+        pane.getChildren().add(refresh);
+        pane.getChildren().add(vBoxErrorHandling);
+    }
+
+    private void designVboxOfChangePassword() {
+        HBox hBox = new HBox();
+        hBox.setSpacing(20);
+        passwordBox.setSpacing(20);
+        oldPasswordError.setStyle("-fx-text-fill: #871818");
+        oldPassword.setPromptText("Old password");
+        oldPassword.setMaxWidth(100);
+        oldPassword.setTranslateX(30);
+        newPasswordError.setStyle("-fx-text-fill: #871818");
+        newPassword.setPromptText("New password");
+        newPassword.setMaxWidth(100);
+        newPassword.setTranslateX(30);
+        newPassword.textProperty().addListener((observable, oldText, newText) -> {
+            checkPasswordError(headerLabel,"Profile Menu");
+        });
+        confirmPasswordError.setStyle("-fx-text-fill: #871818");
+        retypeNewPassword.setPromptText("Repeat new password");
+        retypeNewPassword.setMaxWidth(100);
+        retypeNewPassword.setTranslateX(30);
+        answerOfCaptcha.setMaxWidth(100);
+        answerOfCaptcha.setMaxWidth(100);
+        answerOfCaptcha.setTranslateX(30);
+        hBox.getChildren().add(answerOfCaptcha);
+        passwordBox.setTranslateX(950);
+        passwordBox.setTranslateY(250);
+        passwordBox.setPrefSize(100,300);
+        passwordBox.getChildren().add(oldPasswordError);
+        passwordBox.getChildren().add(oldPassword);
+        passwordBox.getChildren().add(newPasswordError);
+        passwordBox.getChildren().add(newPassword);
+        passwordBox.getChildren().add(confirmPasswordError);
+        passwordBox.getChildren().add(retypeNewPassword);
+        passwordBox.getChildren().add(captchaImage);
+        passwordBox.getChildren().add(answerOfCaptcha);
+        passwordBox.getChildren().add(hBox);
+        passwordBox.setStyle("-fx-background-color: #cba883");
+        passwordBox.setVisible(false);
+
+    }
+
+    public void designVboxOfErrors(){
+        usernameError.setText("random text 1");
+        usernameError.setStyle("-fx-text-fill: #871818");
+        emailError.setText("random text 3");
+        emailError.setStyle("-fx-text-fill: #871818");
+        nicknameError.setText("random text 4");
+        nicknameError.setStyle("-fx-text-fill: #871818");
+        sloganError.setText("random text 5");
+        sloganError.setStyle("-fx-text-fill: #871818");
+        vBoxErrorHandling.setSpacing(70);
+        vBoxErrorHandling.getChildren().add(usernameError);
+        vBoxErrorHandling.getChildren().add(emailError);
+        vBoxErrorHandling.getChildren().add(nicknameError);
+        vBoxErrorHandling.getChildren().add(sloganError);
+        vBoxErrorHandling.setTranslateX(200);
+        vBoxErrorHandling.setTranslateY(110);
+        vBoxErrorHandling.setVisible(false);
+    }
+
+
+    public void designVBoxOfImage(){
+        HBox hBox1 = new HBox();
+        HBox hBox2 = new HBox();
+        HBox hBox3 = new HBox();
+        hBox1.setSpacing(30);
+        hBox1.setAlignment(Pos.CENTER);
+        hBox1.getChildren().add(imageView1);
+        hBox1.getChildren().add(imageView2);
+        hBox1.getChildren().add(imageView3);
+        hBox2.setSpacing(30);
+        hBox2.setAlignment(Pos.CENTER);
+        hBox2.getChildren().add(imageView4);
+        hBox2.getChildren().add(imageView5);
+        hBox2.getChildren().add(imageView6);
+        hBox3.setSpacing(30);
+        hBox3.setAlignment(Pos.CENTER);
+        hBox3.getChildren().add(imageView7);
+        hBox3.getChildren().add(imageView8);
+        hBox3.getChildren().add(imageView9);
+
+        vBoxOfSelectImage.setSpacing(20);
+        vBoxOfSelectImage.getChildren().add(hBox1);
+        vBoxOfSelectImage.getChildren().add(hBox2);
+        vBoxOfSelectImage.getChildren().add(hBox3);
+        vBoxOfSelectImage.setTranslateX(950);
+        vBoxOfSelectImage.setTranslateY(250);
+        vBoxOfSelectImage.setStyle("-fx-background-color: #cba883");
+        vBoxOfSelectImage.setVisible(false);
+
     }
 
     private void StartingFunctions() {
+        GameImages gameImages = new GameImages();
+        gameImages.loadImages();
+        pane.setBackground(gameImages.getProfileBackground());
+        setAvatarImage();
+        initializeDefaultAvatarsImage();
+        fillWholeFields();
+        setFirstPassword();
         draggedAvatarImage.setFitWidth(100);
         draggedAvatarImage.setFitHeight(100);
         draggedAvatarImage.setTranslateX(10);
@@ -120,28 +388,13 @@ public class ProfileMenu extends Application {
         pane.getChildren().add(draggedAvatarImage);
     }
 
-    public void initialize(){
-        setAvatarImage();
-        initializeDefaultAvatarsImage();
-        fillWholeFields();
-        ListenerToUsernameField();
-        ListenerToPassword();
-        setFirstPassword();
-    }
-
     private void setFirstPassword() {
         User user = User.getCurrentUser();
         newPassword.setText(user.getPassword());
         oldPassword.setText(user.getPassword());
-        RetypeNewPassword.setText(user.getPassword());
+        retypeNewPassword.setText(user.getPassword());
         captchaNumber = LoginController.setImageCaptcha(captchaImage);
         answerOfCaptcha.setText(captchaNumber);
-    }
-
-    private void ListenerToPassword() {
-        newPassword.textProperty().addListener((observable, oldText, newText) -> {
-            checkPasswordError(label,"Fill register form");
-        });
     }
     private void checkPasswordError(Label label,String textSucess) {
         String password = newPassword.getText();
@@ -149,7 +402,7 @@ public class ProfileMenu extends Application {
         String text = null;
         switch (messages) {
             case EMPTY_FIELD:
-                text = " You have empty Field";
+                text = "You have empty Field!";
                 break;
             case WEAK_PASSWORD_FOR_LOWERCASE:
                 text = "You should use lowercase characters in your password!";
@@ -161,7 +414,7 @@ public class ProfileMenu extends Application {
                 text = "Length of your password must be more than five!";
                 break;
             case WEAK_PASSWORD_FOR_NUMBER:
-                text = "You should use number characters in your password!";
+                text = "You should use numbers in your password!";
                 break;
             case WEAK_PASSWORD_FOR_NOTHING_CHARS_EXCEPT_ALPHABETICAL:
                 text = "You should use characters except alphabetical!";
@@ -184,7 +437,7 @@ public class ProfileMenu extends Application {
                 if(!User.getCurrentUser().getUsername().equals(username.getText())) {
                     label.setText("Your username is repeated but username " +
                             LoginController.makeUserNameForUser(newText) +
-                            " is exist now!");
+                            " is available!");
                 }else{
                     label.setText(textSuccess);
                 }
@@ -195,11 +448,6 @@ public class ProfileMenu extends Application {
             case SUCCESS:
                 label.setText(textSuccess);
         }
-    }
-    private void ListenerToUsernameField() {
-        username.textProperty().addListener((observable, oldText, newText) -> {
-            usernameError(label, "Fill register form");
-        });
     }
     private void fillWholeFields(){
         User user = User.getCurrentUser();
@@ -246,7 +494,6 @@ public class ProfileMenu extends Application {
     }
 
     public void setAvatarImage(){
-//        if(dra)dra
         avatar.setImage(User.getCurrentUser().getAvatar().getImage());
         avatar.setFitWidth(100);
         avatar.setFitHeight(100);
@@ -292,6 +539,7 @@ public class ProfileMenu extends Application {
 
     public void hideShowSelectImage(MouseEvent mouseEvent) {
         vBoxOfSelectImage.setVisible(!vBoxOfSelectImage.isVisible());
+        selectImageFromSystem.setVisible(vBoxOfSelectImage.isVisible());
     }
     public void checkEmail(){
         String newText =  email.getText();
@@ -308,7 +556,7 @@ public class ProfileMenu extends Application {
                 }
                 break;
             case INVALID_FORM_EMAIL:
-                emailError.setText("Your form if email is invalid!");
+                emailError.setText("Your form of email is invalid!");
                 break;
             case SUCCESS:
                 emailError.setText("");
@@ -347,8 +595,8 @@ public class ProfileMenu extends Application {
         else if(!ProfileController.checkOldPassword(oldPassword.getText())) oldPasswordError.setText("Old password is wrong!");
         else oldPasswordError.setText("");
         checkPasswordError(newPasswordError,"");
-        if(RetypeNewPassword.getText().equals("")) confirmPasswordError.setText("Empty Field");
-        else if(!newPassword.getText().equals(RetypeNewPassword.getText())) confirmPasswordError.setText("Is not equal!");
+        if(retypeNewPassword.getText().equals("")) confirmPasswordError.setText("Empty Field");
+        else if(!newPassword.getText().equals(retypeNewPassword.getText())) confirmPasswordError.setText("Is not equal!");
         else confirmPasswordError.setText("");
     }
 
@@ -387,25 +635,27 @@ public class ProfileMenu extends Application {
     }
 
     public void removeSlogan(MouseEvent mouseEvent) {
-        slogan.setText("slogan is");
+        slogan.setText("");
+        slogan.setPromptText("Slogan is");
     }
 
     public void changePassword(MouseEvent mouseEvent) {
         if(!passwordBox.isVisible()){
             newPassword.setText("");
             oldPassword.setText("");
-            RetypeNewPassword.setText("");
+            retypeNewPassword.setText("");
             answerOfCaptcha.setText("");
         }else{
             User user = User.getCurrentUser();
             newPassword.setText(user.getPassword());
             oldPassword.setText(user.getPassword());
-            RetypeNewPassword.setText(user.getPassword());
+            retypeNewPassword.setText(user.getPassword());
             answerOfCaptcha.setText(captchaNumber);
             System.out.println(newPassword.getText());
             System.out.println(oldPassword.getText());
-            System.out.println(RetypeNewPassword.getText());
+            System.out.println(retypeNewPassword.getText());
         }
         passwordBox.setVisible(!passwordBox.isVisible());
+        refresh.setVisible(passwordBox.isVisible());
     }
 }

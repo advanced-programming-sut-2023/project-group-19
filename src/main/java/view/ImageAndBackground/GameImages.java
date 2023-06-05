@@ -12,6 +12,8 @@ public class GameImages {
     public Background loginBackground;
     public Background registerBackground;
 
+    public Background profileBackground;
+
 
     public void loadImages(){
         loginBackground = new Background(new BackgroundImage(new Image
@@ -19,6 +21,9 @@ public class GameImages {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         registerBackground = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/MenuImages/registerBackground.jpg").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        profileBackground =  new Background(new BackgroundImage(new Image
+                (TileManager.class.getResource("/image/MenuImages/ProfileMenuImage.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         next = new Image(TileManager.class.getResource("/image/GameMenu/next.png").toExternalForm());
         done = new Image(TileManager.class.getResource("/image/GameMenu/done.png").toExternalForm());
@@ -47,5 +52,9 @@ public class GameImages {
 
     public Background getRegisterBackground() {
         return registerBackground;
+    }
+
+    public Background getProfileBackground() {
+        return profileBackground;
     }
 }

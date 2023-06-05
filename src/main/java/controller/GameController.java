@@ -146,6 +146,7 @@ public class GameController {
                         if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
+                                System.out.println(army.getKey().get(i));
                             }
                             j++;
                         }
@@ -693,8 +694,8 @@ public class GameController {
         return false;
     }
 
-    public void moveUnit(int xCoordinate, int yCoordinate, NewButton newButton, Pane pane, ArrayList<Node> listOfButtons) {
-        ImageView current = new ImageView();
+    public void moveUnit(int xCoordinate, int yCoordinate,Pane pane, ArrayList<Node> listOfButtons) {
+        System.out.println(selectedUnit.size());
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
@@ -750,11 +751,10 @@ public class GameController {
                                     transition.setInterpolator(Interpolator.LINEAR);
                                     sequentialTransition.getChildren().add(transition);
 
-                                    newButton = newButton1;
                                     pane.getChildren().remove(myUnit.getImageView());
                                     pane.getChildren().add(pane.getChildren().size(), myUnit.getImageView());
-                                    myUnit.getImageView().setLayoutX(newButton.getLayoutX());
-                                    myUnit.getImageView().setLayoutY(newButton.getLayoutY());
+                                    myUnit.getImageView().setLayoutX(newButton1.getLayoutX());
+                                    myUnit.getImageView().setLayoutY(newButton1.getLayoutY());
 
 
                                     myUnit.setxCoordinate(myUnit.goalXCoordinate);

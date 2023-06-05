@@ -221,7 +221,7 @@ public class LoginMenu extends Application {
             alert.setHeaderText("Success!");
             alert.setContentText("Login successfully!");
             alert.showAndWait();
-            Main mainMenu = new Main();
+            MainMenu mainMenu = new MainMenu();
             mainMenu.start(stage);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
