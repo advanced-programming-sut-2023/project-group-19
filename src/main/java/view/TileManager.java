@@ -377,6 +377,8 @@ public class TileManager extends Application {
         stage.setResizable(false);
     }
     private void dropTree(int x , int y){
+        Tree tree = new Tree();
+        Map.getObstacleMap()[x][y].add(tree);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
         ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree.png").toExternalForm()));
         castleButton.setImageView(treeImage);
@@ -968,24 +970,22 @@ public class TileManager extends Application {
                 test.setBackground(null);
                 int x = button.getX();
                 int y = button.getY();
-                if(Map.obstacleMap[x][y].isEmpty())
-                    continue;
-                if(Map.obstacleMap[x][y].get(0) instanceof Tree){
+                if( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Tree ){
                     test.setStyle("-fx-background-color: #33ce12;");
                 }
-                else if (Map.obstacleMap[x][y].get(0) instanceof WaterSources){
+                else if ( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof WaterSources){
                     test.setStyle("-fx-background-color: #091a5b;");
                 }
-                else if (Map.obstacleMap[x][y].get(0) instanceof Stone){
+                else if ( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Stone){
                     test.setStyle("-fx-background-color: #353333;");
                 }
                 else if (Map.buildingMap[x][y].size() != 0){
                     test.setStyle("-fx-background-color: #4d2e0a;");
                 }
-                else if (Map.buildingMap[x][y].get(0).getName().equals("Castle")){
+                else if ( Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")){
                     test.setStyle("-fx-background-color: #370138;");
                 }
-                else if(Map.troopMap[x][y].size() != 0){
+                else if( Map.troopMap[x][y].size() != 0 && Map.troopMap[x][y].size() != 0){
                     test.setStyle("-fx-background-color: #a00101;");
                 }
                 else {
