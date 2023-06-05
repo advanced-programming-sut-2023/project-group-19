@@ -35,6 +35,10 @@ import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import model.Obstacle.ObstacleName;
+import model.Obstacle.Stone;
+import model.Obstacle.Tree;
+import model.Obstacle.WaterSources;
 import model.User;
 import view.Commands.SelectedBuildingCommands;
 import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
@@ -106,7 +110,7 @@ public class TileManager extends Application {
     public int viewButtonSize = 50;
     public int verticalButtons = 30;
     public int horizontalButtons = 16;
-    public int zoomSize = 3;
+    public int zoomSize = 1;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
@@ -907,7 +911,6 @@ public class TileManager extends Application {
         dropTree(7,15);
         dropTree(8,15);
         dropTree(9,15);
-
         dropTree(2,16);
         dropTree(3,16);
         dropTree(4,16);
@@ -916,7 +919,6 @@ public class TileManager extends Application {
         dropTree(7,16);
         dropTree(8,16);
         dropTree(9,16);
-
         dropTree(2,18);
         dropTree(2,19);
         dropTree(2,20);
@@ -939,20 +941,11 @@ public class TileManager extends Application {
         dropTree(9,20);
         dropTree(9,19);
         dropTree(9,18);
-
-
-
-
-
-
-
         dropTree(5,2);
         dropTree(3,9);
         dropTree(2,4);
         dropTree(9,3);
         dropTree(1,3);
-
-
         dropTree(4,6);
         dropTree(7,1);
         dropTree(2,6);
@@ -968,21 +961,37 @@ public class TileManager extends Application {
 
 
     public void createMinimap(Pane pane) {
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int i = 0; i < horizontalButtons; i++) {
+            for (int j = 0; j < verticalButtons; j++) {
+                NewButton button = (NewButton) list.get((i + moveX) * 100 + (j + moveY));
                 Button test = new Button();
                 test.setBackground(null);
-                //building brown
-                //tree green
-                //water blue
-                //stone gray
-                //default ground range dorsa
-                //castle black
-                //troop red
-                if (i % 2 == 0)
-                    test.setStyle("-fx-background-color: #805300;");
-                else
+                int x = button.getX();
+                int y = button.getY();
+                if(Map.obstacleMap[x][y].isEmpty())
+                    continue;
+                if(Map.obstacleMap[x][y].get(0) instanceof Tree){
                     test.setStyle("-fx-background-color: #33ce12;");
+                }
+                else if (Map.obstacleMap[x][y].get(0) instanceof WaterSources){
+                    test.setStyle("-fx-background-color: #091a5b;");
+                }
+                else if (Map.obstacleMap[x][y].get(0) instanceof Stone){
+                    test.setStyle("-fx-background-color: #353333;");
+                }
+                else if (Map.buildingMap[x][y].size() != 0){
+                    test.setStyle("-fx-background-color: #4d2e0a;");
+                }
+                else if (Map.buildingMap[x][y].get(0).getName().equals("Castle")){
+                    test.setStyle("-fx-background-color: #370138;");
+                }
+                else if(Map.troopMap[x][y].size() != 0){
+                    test.setStyle("-fx-background-color: #a00101;");
+                }
+                else {
+                    test.setStyle("-fx-background-color: rgba(102,255,199,0.3);");
+                }
+
                 test.setLayoutX(1200 + 5 * j);
                 test.setLayoutY(697 + 9.7 * i);
                 test.setMinSize(5, 9.7);
