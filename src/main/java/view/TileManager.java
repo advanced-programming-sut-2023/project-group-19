@@ -384,6 +384,14 @@ public class TileManager extends Application {
         castleButton.setImageView(treeImage);
         Map.notBuildable[x][y] = true ;
     }
+    private void dropStone(int x , int y,int number){
+        Stone stone = new Stone();
+        Map.getObstacleMap()[x][y].add(stone);
+        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number +".png").toExternalForm()));
+        castleButton.setImageView(treeImage);
+        Map.notBuildable[x][y] = true ;
+    }
     private void dropSea(int x , int y , int number){
         WaterSources waterSources = new WaterSources();
         Map.getObstacleMap()[x][y].add(waterSources);
@@ -926,6 +934,11 @@ public class TileManager extends Application {
             dropSea(x,i,number);
         }
     }
+    private void dropStoneLocation(int x , int y1 , int y2 , int number){
+        for(int i = y1 ; i <= y2 ; i ++){
+            dropStone(x,i,number);
+        }
+    }
     private void artOfTree(){
         dropTreeToLocation(0,0,12,5);
         dropTreeToLocation(0,3,8,1);
@@ -946,6 +959,14 @@ public class TileManager extends Application {
         dropTreeToLocation(5,0,6,5);
         dropTreeToLocation(6,1,3,5);
         dropTreeToLocation(7,0,2,5);
+        dropStoneLocation(0,13,17,8);
+        dropStoneLocation(1,18,19,6);
+        dropStoneLocation(2,9,9,6);
+        dropStoneLocation(3,8,8,8);
+        dropStoneLocation(4,7,7,8);
+        dropStoneLocation(5,7,7,8);
+        dropStoneLocation(6,4,5,8);
+        dropStoneLocation(7,3,4,8);
 
 
         dropTreeToLocation(0,18,29,1);
@@ -964,6 +985,13 @@ public class TileManager extends Application {
         dropTreeToLocation(6,23,26,5);
         dropTreeToLocation(7,21,29,1);
         dropTreeToLocation(8,27,29,5);
+        dropStoneLocation(9,21,28,3);
+        dropStoneLocation(10,19,21,1);
+        dropStoneLocation(11,18,20,2);
+        dropTreeToLocation(10,22,29,5);
+        dropTreeToLocation(11,21,29,5);
+
+
 
 
 
