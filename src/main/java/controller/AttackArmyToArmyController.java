@@ -26,6 +26,8 @@ import view.Animations.troopFights.HorseRiderAnimation.DeadHorseRiderAnimation;
 import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.Animations.troopFights.MaceManAnimation.DeadMaceManAnimation;
 import view.Animations.troopFights.MaceManAnimation.MaceManAnimation;
+import view.Animations.troopFights.MachineAnimation.DeadMachineAnimation;
+import view.Animations.troopFights.MachineAnimation.MachineAnimation;
 import view.Animations.troopFights.MonkAnimation.DeadMonkAnimation;
 import view.Animations.troopFights.MonkAnimation.MonkAnimation;
 import view.Animations.troopFights.ShortBowAnimation.DeadShortBowAnimation;
@@ -50,6 +52,7 @@ public class AttackArmyToArmyController {
     public ArcherAnimation archerAnimation = new ArcherAnimation();
     public GrendiarAnimation grendiarAnimation = new GrendiarAnimation();
     public HorseRiderAnimation horseRiderAnimation = new HorseRiderAnimation();
+    public MachineAnimation machineAnimation = new MachineAnimation();
 
     private static int mapSize = 200;
     TileManager tileManager ;
@@ -63,6 +66,7 @@ public class AttackArmyToArmyController {
     public DeadArcherAnimation deadArcherAnimation ;
     public DeadGrendiarAnimation deadGrendiarAnimation ;
     public DeadHorseRiderAnimation deadHorseRiderAnimation ;
+    public DeadMachineAnimation deadMachineAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
@@ -76,6 +80,7 @@ public class AttackArmyToArmyController {
         deadArcherAnimation = new DeadArcherAnimation(tileManager);
         deadGrendiarAnimation = new DeadGrendiarAnimation(tileManager);
         deadHorseRiderAnimation = new DeadHorseRiderAnimation(tileManager);
+        deadMachineAnimation = new DeadMachineAnimation(tileManager);
     }
     public void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {

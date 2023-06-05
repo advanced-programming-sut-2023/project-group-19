@@ -265,8 +265,7 @@ public class ProfileMenu extends Application {
             imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    draggedAvatarImage.setImage(null);
-                    System.out.println(draggedAvatarImage.isVisible());
+//                    draggedAvatarImage.setImage(null);
                     User.getCurrentUser().setAvatar(imageView);
                     setAvatarImage();
                 }
