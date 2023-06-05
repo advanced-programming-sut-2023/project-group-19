@@ -1,11 +1,17 @@
 package controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import model.Empire;
+import model.Human.Names;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.util.ArrayList;
 
 import model.*;
@@ -16,8 +22,12 @@ import view.Animations.troopFights.AssasinAnimation.AsssasinAnimation;
 import view.Animations.troopFights.AssasinAnimation.DeadAssasinAnimation;
 import view.Animations.troopFights.GrendiarAnimation.DeadGrendiarAnimation;
 import view.Animations.troopFights.GrendiarAnimation.GrendiarAnimation;
+import view.Animations.troopFights.HorseRiderAnimation.DeadHorseRiderAnimation;
+import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.Animations.troopFights.MaceManAnimation.DeadMaceManAnimation;
 import view.Animations.troopFights.MaceManAnimation.MaceManAnimation;
+import view.Animations.troopFights.MachineAnimation.DeadMachineAnimation;
+import view.Animations.troopFights.MachineAnimation.MachineAnimation;
 import view.Animations.troopFights.MonkAnimation.DeadMonkAnimation;
 import view.Animations.troopFights.MonkAnimation.MonkAnimation;
 import view.Animations.troopFights.ShortBowAnimation.DeadShortBowAnimation;
@@ -41,6 +51,8 @@ public class AttackArmyToArmyController {
     public SlingerAnimation slingerAnimation = new SlingerAnimation();
     public ArcherAnimation archerAnimation = new ArcherAnimation();
     public GrendiarAnimation grendiarAnimation = new GrendiarAnimation();
+    public HorseRiderAnimation horseRiderAnimation = new HorseRiderAnimation();
+    public MachineAnimation machineAnimation = new MachineAnimation();
 
     private static int mapSize = 200;
     TileManager tileManager ;
@@ -53,6 +65,8 @@ public class AttackArmyToArmyController {
     public DeadSlingerAnimation deadSlingerAnimation ;
     public DeadArcherAnimation deadArcherAnimation ;
     public DeadGrendiarAnimation deadGrendiarAnimation ;
+    public DeadHorseRiderAnimation deadHorseRiderAnimation ;
+    public DeadMachineAnimation deadMachineAnimation ;
 
     public AttackArmyToArmyController(TileManager tileManager){
         this.tileManager =  tileManager ;
@@ -65,6 +79,8 @@ public class AttackArmyToArmyController {
         deadSlingerAnimation = new DeadSlingerAnimation(tileManager);
         deadArcherAnimation = new DeadArcherAnimation(tileManager);
         deadGrendiarAnimation = new DeadGrendiarAnimation(tileManager);
+        deadHorseRiderAnimation = new DeadHorseRiderAnimation(tileManager);
+        deadMachineAnimation = new DeadMachineAnimation(tileManager);
     }
     public void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
@@ -115,7 +131,9 @@ public class AttackArmyToArmyController {
             case FireThrowers:
                 deadGrendiarAnimation.setArmyToAnimation(army);
                 break;
-
+            case HORSE_ARCHERS:
+                deadHorseRiderAnimation.setArmyToAnimation(army);
+                break;
         }
     }
     private boolean isArcher(Army army) {
@@ -162,6 +180,9 @@ public class AttackArmyToArmyController {
                 break;
             case FireThrowers:
                 grendiarAnimation.setArmyToAnimation(army);
+            case HORSE_ARCHERS:
+                horseRiderAnimation.setArmyToAnimation(army);
+                break;
         }
     }
     private boolean IsEnemyIntoCell(Army army){
@@ -253,11 +274,12 @@ public class AttackArmyToArmyController {
     private void setArcherDirection(Army army , Army enemy){
         int deltaX = enemy.xCoordinate - army.xCoordinate ;
         int deltaY = enemy.yCoordinate - army.yCoordinate ;
-
-        if(deltaX > 0) army.setState(Army.StateOfStanding.RIGHT);
-        else if( deltaX < 0) army.setState(Army.StateOfStanding.LEFT);
-        else if(deltaY > 0 ) army.setState(Army.StateOfStanding.BACK);
-        else if( deltaY < 0) army.setState(Army.StateOfStanding.FRONT);
+        System.out.println(deltaX);
+        System.out.println(deltaY);
+        if(deltaX > 0) army.setState(Army.StateOfStanding.FRONT);
+        else if( deltaX < 0) army.setState(Army.StateOfStanding.BACK);
+        else if(deltaY > 0 ) army.setState(Army.StateOfStanding.RIGHT);
+        else if( deltaY < 0) army.setState(Army.StateOfStanding.LEFT);
         else army.setState(Army.StateOfStanding.RIGHT);
     }
 
@@ -285,14 +307,28 @@ public class AttackArmyToArmyController {
                 if (i == x && j == y) continue;
                 Building building = ((NewButton)(tileManager.list.get(100 * i + j))).getBuilding();
                 if (building != null) {
-                    if (building.getOwner().equals(army.getEmpire()) ||
-                            building.getHp() <= 0) continue;
+                    if (building.getOwner().equals(army.getEmpire())) continue;
+                    //building.getHp() <= 0
                     int newHitPoint = building.hp() - army.getAttackPower();
+                    System.out.println(newHitPoint);
+                    if(army.getNames().equals(Names.FireThrowers)){
+                        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(6000),actionEvent -> {
+                            try {
+                                setTimeLIneToFire(building);
+                            } catch (AWTException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }));
+                        timeline.play();
+                        ;
+                        building.setFireCount(3);
+                        Manage.burningEmpires.add(building);
+                    }
                     setDirectionArmyToAttackBuilding(army,i,j);
                     building.setHp(newHitPoint);
                     setAnimationToFight(army);
                     if (building.getHp() <= 0) {
-                        ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
+//                        ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
                         Map.notPassable[i][j] = false ;
                         Map.notBuildable[i][j] = false ;
                     }
@@ -301,6 +337,12 @@ public class AttackArmyToArmyController {
             }
         }
         return false;
+    }
+    private void setTimeLIneToFire(Building building) throws AWTException {
+        building.onFire = true ;
+        Robot rob = new Robot();
+        rob.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+        rob.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
     private void setDirectionArmyToAttackBuilding(Army army , int x , int y){
         int deltaX = x - army.xCoordinate ;

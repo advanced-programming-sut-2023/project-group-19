@@ -3,6 +3,9 @@ package view;
 import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
+import controller.NextTurnController;
+import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -21,6 +24,11 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import model.Building.Armoury;
+import model.Building.Building;
+import model.Building.Castle;
+import model.Building.House;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
@@ -28,6 +36,7 @@ import model.Manage;
 import model.Map;
 import model.User;
 import view.Commands.SelectedBuildingCommands;
+import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.GameButtons.DropUnitDesign;
@@ -174,19 +183,21 @@ public class TileManager extends Application {
 //        button2.setImageView(soldiers.getImageView());
 
 
+//        NewButton button = (NewButton) list.get(3 * 100 + 3);
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(2, 1);
-        archersAndThrowers.getImageView().setFitHeight(200);
-        archersAndThrowers.getImageView().setFitWidth(200);
-        pane.getChildren().add(archersAndThrowers.getImageView());
+//        archersAndThrowers.archer(2, 1);
+//        archersAndThrowers.getImageView().setFitHeight(200);
+//        archersAndThrowers.getImageView().setFitWidth(200);
+//        pane.getChildren().add(archersAndThrowers.getImageView());
         NewButton newButton = (NewButton) list.get(2 * 100 + 1);
-        newButton.setBackground(null);
-        archersAndThrowers.getImageView().setLayoutX(newButton.getX());
-        archersAndThrowers.getImageView().setLayoutY(newButton.getY());
-        newButton.getArmy().add(archersAndThrowers);
-        newButton.setImageView(archersAndThrowers.getImageView());
-        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-        newButton.getArmy().add(archersAndThrowers);
+//        newButton.setBackground(null);
+//        archersAndThrowers.getImageView().setLayoutX(newButton.getX());
+//        archersAndThrowers.getImageView().setLayoutY(newButton.getY());
+//        newButton.getArmy().add(archersAndThrowers);
+//        newButton.setImageView(archersAndThrowers.getImageView());
+//        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
+//        archersAndThrowers.ArcherBow(3,3);
+//        button.getArmy().add(archersAndThrowers);
 //        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
 //        slaveAnimation.setArmyToAnimation(soldiers2);
 //        slaveAnimation.play();
@@ -197,32 +208,84 @@ public class TileManager extends Application {
 //        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
 //        attackArmyToArmyController.battleWithEnemy();
 
+
 //        swordManAnimation.setArmyToAnimation(soldiers);
 //        swordManAnimation.setArmyToAnimation(soldiers2);
 //        attackArmyToArmyController.swordManAnimation.play();
-//        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-//        sequentialTransitionSwordMan.play();
+
+        createMapGame();
+
+        //armin test code
+//        Empire Ahmed = new Empire();
+//        ArchersAndThrowers fireThrower =  new ArchersAndThrowers(Ahmed);
+//        fireThrower.FireThrowers(4,1);
+//        NewButton AhmedButton = (NewButton) list.get(4 * 100 + 1);
+//        Ahmed.empireArmy.add(fireThrower);
+//        AhmedButton.getArmy().add(fireThrower);
+
+
+//        Empire Richard = new Empire();
+//        Armoury armoury = new Armoury(Richard);
+//        NewButton RichardButton = (NewButton) list.get(7 * 100 + 4);
+//        Soldiers soldiers = new Soldiers(Richard);
+//        soldiers.BlackMonk(6,3);
+//        NewButton RButton = (NewButton) list.get(6 * 100 + 3);
+//        Richard.empireArmy.add(soldiers);
+//        RButton.getArmy().add(soldiers);
+//        RichardButton.setBuilding(armoury);
+//        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm()));
+//        RichardButton.setImageView(imageView);
 //
-//        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-//        sequentialTransitionSlave.play();
+//        Manage.getAllEmpires().add(Richard);
+//        Manage.getAllEmpires().add(Ahmed);
+
+
+        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
+        attackArmyToArmyController.battleWithEnemy();
+
+
+        //Castle castle = new Castle(Ahmed);
+//        NewButton castleButton = (NewButton) list.get(4 * 100 + 9);
+//        ImageView apple = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm()));
+//        castleButton.setImageView(apple);
+//        castle.castle();
+//        castleButton.setBuilding(castle);
+//        empire.castleXCoordinate = 4 ;
+//        empire.castleYCCoordinate = 9 ;
 //
-//        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-//        sequentialTransitionAssasin.play();
-//
-//        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-//        sequentialTransitionMaceMan.play();
-//
-//        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-//        sequentialTransitionMonk.play();
-//
-//        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-//        sequentialTransitionShortBow.play();
-//
-//        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-//        sequentialTransitionSlinger.play();
-//
-//        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-//        sequentialTransitionArcher.play();
+//        AhmedButton.setSickButton(true);
+//        Manage.setCurrentEmpire(Ahmed);
+
+        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
+        sequentialTransitionSwordMan.play();
+
+        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
+        sequentialTransitionSlave.play();
+
+        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
+        sequentialTransitionAssasin.play();
+
+        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
+        sequentialTransitionMaceMan.play();
+
+        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
+        sequentialTransitionMonk.play();
+
+        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
+        sequentialTransitionShortBow.play();
+
+        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
+        sequentialTransitionSlinger.play();
+
+        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
+        sequentialTransitionArcher.play();
+
+        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
+        sequentialTransitionHorseRider.play();
+
+        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation,attackArmyToArmyController.deadGrendiarAnimation);
+        sequentialTransitiongrendiar.play();
+
 
         //TODO picture of sword man after war // DORSA
 
@@ -244,7 +307,6 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
-                    System.out.println(5);
                     if(zoomSize != 3){
                         zoomSize++;
                         if(zoomSize == 3){
@@ -255,7 +317,6 @@ public class TileManager extends Application {
                         }
                     }
                 } else if (keyName.equals("Subtract")) {
-                    System.out.println(6);
                     if(zoomSize != 1){
                         zoomSize--;
                         if(zoomSize == 2){
@@ -310,9 +371,67 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
+    private void dropTree(int x , int y){
+        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree.png").toExternalForm()));
+        castleButton.setImageView(treeImage);
+        Map.notBuildable[x][y] = true ;
 
-    private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
-        //TODO : CLOSE button
+
+    }
+
+    private void createMapGame() {
+        //sallahDin empire :
+        Empire sallahDin = new Empire();
+        Castle castleSallah =  new Castle(sallahDin);
+        NewButton castleButtonSllah = (NewButton) list.get(4 * 100 + 9);
+        dropStockFunction(4,9,sallahDin);
+        castleButtonSllah.setBuilding(castleSallah);
+        ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
+        castleButtonSllah.setImageView(castleImage);
+
+        //richard empire :
+        Empire richard = new Empire();
+        Castle castleRichard =  new Castle(richard);
+        NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
+        castleButton.setBuilding(castleRichard);
+        ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
+        castleButton.setImageView(castleImage2);
+        dropStockFunction(9,3,richard);
+
+
+        //Art Of The Great Armin
+        artOfTree();
+
+
+    }
+
+    private void dropStockFunction(int x, int y, Empire empire) {
+        Manage.setCurrentEmpire(empire);
+        BuildingController.dropFirstStockpile(x, y);
+        ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
+        NewButton foodRecourceBtn = (NewButton) list.get(x * 100 + y - 1);
+        foodRecourceBtn.setImageView(foodRecource);
+
+        ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
+        NewButton sourceStock = (NewButton) list.get(x * 100 + y + 1);
+        sourceStock.setImageView(stockPile);
+
+    }
+    //Castle castle = new Castle(Ahmed);
+//        NewButton castleButton = (NewButton) list.get(4 * 100 + 9);
+//        ImageView apple = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm()));
+//        castleButton.setImageView(apple);
+//        castle.castle();
+//        castleButton.setBuilding(castle);
+//        empire.castleXCoordinate = 4 ;
+//        empire.castleYCCoordinate = 9 ;
+//
+//        AhmedButton.setSickButton(true);
+//        Manage.setCurrentEmpire(Ahmed);
+
+
+    private void designHboxForDropUnit(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
         HBox hBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
                 getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
@@ -454,6 +573,8 @@ public class TileManager extends Application {
         return randomY;
     }
 
+    public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
+    public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < horizontalButtons; u++) {
@@ -463,14 +584,24 @@ public class TileManager extends Application {
                 button.setLayoutX(g * verticalSize);
                 button.setLayoutY(u * horizontalSize);
                 button.setMinSize(viewButtonSize, viewButtonSize);
+                pane.getChildren().add(button);
+                if(button.isSickButton()){
+                    sickImage.setFitHeight(viewButtonSize);
+                    sickImage.setFitWidth(viewButtonSize);
+                    button.setGraphic(sickImage);
+                }
                 if (button.getImageView() != null) {
-                    ImageView view = button.getImageView();
+                    ImageView view;
+                    if (button.getBuilding() != null && button.getBuilding().onFire) {
+                        view = fireImage ;
+                    }
+                    else {
+                        view = button.getImageView();
+                    }
                     view.setFitHeight(viewButtonSize);
                     view.setFitWidth(viewButtonSize);
                     button.setGraphic(view);
-                    pane.getChildren().add(button);
                 } else {
-                    pane.getChildren().add(button);
                     for (Army army : button.getArmy()) {
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
@@ -766,6 +897,74 @@ public class TileManager extends Application {
         error.setContentText(output);
         error.show();
     }
+    private void artOfTree(){
+        dropTree(2,15);
+        dropTree(3,15);
+        dropTree(4,15);
+        dropTree(5,15);
+        dropTree(6,15);
+        dropTree(7,15);
+        dropTree(8,15);
+        dropTree(9,15);
+
+        dropTree(2,16);
+        dropTree(3,16);
+        dropTree(4,16);
+        dropTree(5,16);
+        dropTree(6,16);
+        dropTree(7,16);
+        dropTree(8,16);
+        dropTree(9,16);
+
+        dropTree(2,18);
+        dropTree(2,19);
+        dropTree(2,20);
+        dropTree(2,21);
+        dropTree(2,22);
+        dropTree(3,22);
+        dropTree(4,22);
+        dropTree(5,22);
+        dropTree(5,21);
+        dropTree(5,20);
+        dropTree(5,19);
+        dropTree(5,18);
+        dropTree(4,18);
+        dropTree(3,18);
+        dropTree(6,22);
+        dropTree(7,22);
+        dropTree(8,22);
+        dropTree(9,22);
+        dropTree(9,21);
+        dropTree(9,20);
+        dropTree(9,19);
+        dropTree(9,18);
+
+
+
+
+
+
+
+        dropTree(5,2);
+        dropTree(3,9);
+        dropTree(2,4);
+        dropTree(9,3);
+        dropTree(1,3);
+
+
+        dropTree(4,6);
+        dropTree(7,1);
+        dropTree(2,6);
+        dropTree(8,1);
+        dropTree(8,2);
+        dropTree(8,3);
+        dropTree(8,4);
+        dropTree(7,1);
+        dropTree(7,2);
+        dropTree(7,3);
+        dropTree(7,4);
+    }
+
 
     public void createMinimap(Pane pane) {
         for (int i = 0; i < 16; i++) {
