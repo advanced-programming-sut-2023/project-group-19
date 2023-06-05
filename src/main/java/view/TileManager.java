@@ -143,71 +143,7 @@ public class TileManager extends Application {
         unitImages = new UnitImages();
         unitImages.loadImages();
 
-
-//        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
-//        Manage.getCurrentEmpire().empireArmy.add(soldiers);
-//        soldiers.setState(Army.StateOfStanding.FRONT);
-//        soldiers.Swordsmen(1, 2);
-//        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
-//        button2.setBackground(null);
-//        button2.getArmy().add(soldiers);
-//        button2.setImageView(soldiers.getImageView());
-
-
-        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        archersAndThrowers.archer(2, 1);
-        archersAndThrowers.getImageView().setFitHeight(200);
-        archersAndThrowers.getImageView().setFitWidth(200);
-        pane.getChildren().add(archersAndThrowers.getImageView());
-        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
-        newButton.setBackground(null);
-        archersAndThrowers.getImageView().setLayoutX(newButton.getX());
-        archersAndThrowers.getImageView().setLayoutY(newButton.getY());
-        newButton.getArmy().add(archersAndThrowers);
-        newButton.setImageView(archersAndThrowers.getImageView());
-        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-        newButton.getArmy().add(archersAndThrowers);
-//        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
-//        slaveAnimation.setArmyToAnimation(soldiers2);
-//        slaveAnimation.play();
-//        DeadSlaveAnimation deadSlaveAnimation = new DeadSlaveAnimation(this);
-//        deadSlaveAnimation.setArmyToAnimation(soldiers2);
-//        deadSlaveAnimation.play();
-
-//        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-//        attackArmyToArmyController.battleWithEnemy();
-
-//        swordManAnimation.setArmyToAnimation(soldiers);
-//        swordManAnimation.setArmyToAnimation(soldiers2);
-//        attackArmyToArmyController.swordManAnimation.play();
-//        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-//        sequentialTransitionSwordMan.play();
-//
-//        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-//        sequentialTransitionSlave.play();
-//
-//        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-//        sequentialTransitionAssasin.play();
-//
-//        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-//        sequentialTransitionMaceMan.play();
-//
-//        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-//        sequentialTransitionMonk.play();
-//
-//        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-//        sequentialTransitionShortBow.play();
-//
-//        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-//        sequentialTransitionSlinger.play();
-//
-//        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-//        sequentialTransitionArcher.play();
-
         //TODO picture of sword man after war // DORSA
-
-
-//       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -379,8 +315,7 @@ public class TileManager extends Application {
                 if (x.getText() != null && y.getText() != null && x.getText().matches("\\d+") && y.getText().matches("\\d+")) {
                     int xOfDestination = Integer.parseInt(x.getText());
                     int yOfDestination = Integer.parseInt(y.getText());
-                    GameController gameController = new GameController();
-                    gameController.moveUnit(xOfDestination, yOfDestination, pane, list);
+                    gameController.moveUnit(xOfDestination, yOfDestination,selectedButton, pane, list);
                 }else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Game Error!");

@@ -146,7 +146,7 @@ public class GameController {
                         if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
-                                System.out.println(army.getKey().get(i));
+
                             }
                             j++;
                         }
@@ -273,6 +273,9 @@ public class GameController {
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     archer.archer(x, y);
+                    archer.getImageView().setLayoutX(button.getLayoutX());
+                    archer.getImageView().setLayoutY(button.getLayoutY());
+                    button.setImageView(archer.getImageView());
                     Manage.getCurrentEmpire().empireArmy.add(archer);
                     Map.getTroopMap()[x][y].add(archer);
                     button.setMinSize(50, 50);
@@ -694,23 +697,25 @@ public class GameController {
         return false;
     }
 
-    public void moveUnit(int xCoordinate, int yCoordinate,Pane pane, ArrayList<Node> listOfButtons) {
-        System.out.println(selectedUnit.size());
+    public void moveUnit(int xCoordinate, int yCoordinate,NewButton newButton,Pane pane, ArrayList<Node> listOfButtons) {
         if (selectedUnit.size() != 0) {
             if (checkGroundTypeForUnits(xCoordinate, yCoordinate)) {
                 if (setPathForUnits(xCoordinate, yCoordinate)) {
                     for (int k = 0; k < Manage.getCurrentEmpire().empireArmy.size(); k++) {
+                        System.out.println("enters first");
                         Army myUnit = Manage.getCurrentEmpire().empireArmy.get(k);
                         List<Integer> pathList = myUnit.myPath;
                         if (pathList != null && pathList.size() != 0) {
                             int size = pathList.size();
                             SequentialTransition sequentialTransition = new SequentialTransition(myUnit.getImageView());
                             for (int i = 0; i < pathList.size(); i++) {
+                                myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
+                                myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
+                                System.out.println(myUnit.goalXCoordinate+" "+myUnit.getGoalYCoordinate());
                                 if (myUnit.restOfMoves != 0) {
                                     myUnit.goalXCoordinate = pathList.get(i) / PathFindingController.size;
                                     myUnit.goalYCoordinate = pathList.get(i) % PathFindingController.size;
                                     Map.getTroopMap()[myUnit.getCurrentX()][myUnit.getCurrentY()].remove(myUnit);
-
 //                                    if (myUnit.getGoalXCoordinate() > myUnit.getCurrentX()){ //right
 //                                        myUnit.setDirection("east");
 //                                        System.out.println("forward you got");
@@ -737,7 +742,6 @@ public class GameController {
 //                                                (GameController.class.getResource("/image/Units/MovePics/"+
 //                                                        myUnit.getNames().getName()+"/west.png").toExternalForm())));
 //                                    }
-
                                     TranslateTransition transition = new TranslateTransition();
                                     transition.setNode(myUnit.getImageView());
                                     transition.setFromX(myUnit.getImageView().getLayoutX());
