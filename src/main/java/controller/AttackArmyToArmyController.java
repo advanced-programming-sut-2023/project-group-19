@@ -183,6 +183,7 @@ public class AttackArmyToArmyController {
                 break;
             case FireThrowers:
                 grendiarAnimation.setArmyToAnimation(army);
+                break;
             case HORSE_ARCHERS:
                 horseRiderAnimation.setArmyToAnimation(army);
                 break;
