@@ -397,8 +397,8 @@ public class TileManager extends Application {
         //sallahDin empire :
         Empire sallahDin = new Empire();
         Castle castleSallah =  new Castle(sallahDin);
-        NewButton castleButtonSllah = (NewButton) list.get(2 * 100 + 23);
-        dropStockFunction(2,23,sallahDin);
+        NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
+        dropStockFunction(5,22,sallahDin);
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
@@ -935,7 +935,6 @@ public class TileManager extends Application {
         dropSea(4,5,1);dropSea(3,1,1);
         dropSea(4,5,1);dropSea(3,1,1);
         dropSea(3,4,1);dropSea(3,3,1);
-//        dropTree();
         dropTree(3,0,2);
         dropTree(4,0,2);
         dropTree(2,0,2);
