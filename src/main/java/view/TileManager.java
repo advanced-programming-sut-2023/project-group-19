@@ -430,7 +430,8 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                     button.setMinSize(50, 50);
                     pane.getChildren().add(button);
-                } else {
+                }
+                else {
                     pane.getChildren().add(button);
                     for (Army army : button.getArmy()) {
                         ImageView view = army.getImageView();

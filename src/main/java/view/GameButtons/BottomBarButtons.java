@@ -13,6 +13,7 @@ import model.Building.Castle;
 import model.Building.Stockpile;
 import model.Empire;
 import model.Manage;
+import model.Map;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.OldView.EmpireMenu;
@@ -308,8 +309,15 @@ public class BottomBarButtons {
             public void handle(MouseEvent mouseEvent) {
                 if(BottomBarBuildings.lastButton != null) {
                     pane.getChildren().remove(BottomBarBuildings.lastButton);
+                    BottomBarBuildings.lastButton.setGraphic(null);
                     BottomBarBuildings.lastButton.setImageView(null);
                     BottomBarBuildings.lastButton.setBuilding(null);
+                    int x = BottomBarBuildings.lastButton.getX();
+                    int y = BottomBarBuildings.lastButton.getY();
+                    if(Map.buildingMap[x][y].size() != 0)
+                        Map.buildingMap[x][y].remove(0);
+                    Map.notPassable[x][y] = false;
+                    Map.notBuildable[x][y] = false;
                     pane.getChildren().add(BottomBarBuildings.lastButton);
                 }}
         });
