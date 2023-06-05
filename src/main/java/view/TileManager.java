@@ -187,29 +187,31 @@ public class TileManager extends Application {
 //        swordManAnimation.setArmyToAnimation(soldiers2);
 //        attackArmyToArmyController.swordManAnimation.play();
 
+        createMapGame();
+
         //armin test code
-        Empire Ahmed = new Empire();
-        ArchersAndThrowers fireThrower =  new ArchersAndThrowers(Ahmed);
-        fireThrower.FireThrowers(4,1);
-        NewButton AhmedButton = (NewButton) list.get(4 * 100 + 1);
-        Ahmed.empireArmy.add(fireThrower);
-        AhmedButton.getArmy().add(fireThrower);
+//        Empire Ahmed = new Empire();
+//        ArchersAndThrowers fireThrower =  new ArchersAndThrowers(Ahmed);
+//        fireThrower.FireThrowers(4,1);
+//        NewButton AhmedButton = (NewButton) list.get(4 * 100 + 1);
+//        Ahmed.empireArmy.add(fireThrower);
+//        AhmedButton.getArmy().add(fireThrower);
 
 
-        Empire Richard = new Empire();
-        Armoury armoury = new Armoury(Richard);
-        NewButton RichardButton = (NewButton) list.get(7 * 100 + 4);
-        Soldiers soldiers = new Soldiers(Richard);
+//        Empire Richard = new Empire();
+//        Armoury armoury = new Armoury(Richard);
+//        NewButton RichardButton = (NewButton) list.get(7 * 100 + 4);
+//        Soldiers soldiers = new Soldiers(Richard);
 //        soldiers.BlackMonk(6,3);
 //        NewButton RButton = (NewButton) list.get(6 * 100 + 3);
 //        Richard.empireArmy.add(soldiers);
 //        RButton.getArmy().add(soldiers);
-        RichardButton.setBuilding(armoury);
-        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm()));
-        RichardButton.setImageView(imageView);
-
-        Manage.getAllEmpires().add(Richard);
-        Manage.getAllEmpires().add(Ahmed);
+//        RichardButton.setBuilding(armoury);
+//        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm()));
+//        RichardButton.setImageView(imageView);
+//
+//        Manage.getAllEmpires().add(Richard);
+//        Manage.getAllEmpires().add(Ahmed);
 
 
         AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
@@ -351,7 +353,84 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
+    private void dropTree(int x , int y){
+        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree.png").toExternalForm()));
+        castleButton.setImageView(treeImage);
+        Map.notBuildable[x][y] = true ;
 
+
+    }
+
+    private void createMapGame() {
+        //sallahDin empire :
+        Empire sallahDin = new Empire();
+        Castle castleSallah =  new Castle(sallahDin);
+        NewButton castleButtonSllah = (NewButton) list.get(4 * 100 + 9);
+        dropStockFunction(4,9,sallahDin);
+        castleButtonSllah.setBuilding(castleSallah);
+        ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
+        castleButtonSllah.setImageView(castleImage);
+
+        //richard empire :
+        Empire richard = new Empire();
+        Castle castleRichard =  new Castle(richard);
+        NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
+        castleButton.setBuilding(castleRichard);
+        ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
+        castleButton.setImageView(castleImage2);
+        dropStockFunction(9,3,richard);
+
+
+        //Art of The Great Armin
+
+
+
+        dropTree(5,2);
+        dropTree(3,9);
+        dropTree(2,4);
+        dropTree(6,15);
+        dropTree(9,3);
+        dropTree(1,3);
+
+
+        dropTree(4,6);
+        dropTree(7,1);
+        dropTree(2,6);
+        dropTree(8,1);
+        dropTree(8,2);
+        dropTree(8,3);
+        dropTree(8,4);
+        dropTree(7,1);
+        dropTree(7,2);
+        dropTree(7,3);
+        dropTree(7,4);
+
+    }
+
+    private void dropStockFunction(int x, int y, Empire empire) {
+        Manage.setCurrentEmpire(empire);
+        BuildingController.dropFirstStockpile(x, y);
+        ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
+        NewButton foodRecourceBtn = (NewButton) list.get(x * 100 + y - 1);
+        foodRecourceBtn.setImageView(foodRecource);
+
+        ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
+        NewButton sourceStock = (NewButton) list.get(x * 100 + y + 1);
+        sourceStock.setImageView(stockPile);
+
+    }
+    //Castle castle = new Castle(Ahmed);
+//        NewButton castleButton = (NewButton) list.get(4 * 100 + 9);
+//        ImageView apple = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm()));
+//        castleButton.setImageView(apple);
+//        castle.castle();
+//        castleButton.setBuilding(castle);
+//        empire.castleXCoordinate = 4 ;
+//        empire.castleYCCoordinate = 9 ;
+//
+//        AhmedButton.setSickButton(true);
+//        Manage.setCurrentEmpire(Ahmed);
 
 
     private void designHboxForDropUnit() {
