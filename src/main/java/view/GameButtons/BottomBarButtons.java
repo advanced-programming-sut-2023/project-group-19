@@ -294,7 +294,27 @@ public class BottomBarButtons {
         gameOptionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                Pane pane1 = new Pane();
+                Button button = new Button();
+                Button button1 = new Button();
+                Stage stage2 = new Stage();
+                button.setText("Exit");
+                button1.setText("continue");
+                EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        stage2.close();
+                    }
+                };
+                button.setLayoutX(175);
+                button.setLayoutY(200);
+                button1.setLayoutX(175);
+                button1.setLayoutY(150);
+                button.setOnAction(event);
+                pane1.getChildren().addAll(button , button1);
+                stage2.setTitle("Game Options");
+                Scene scene = new Scene(pane1, 400, 400);
+                stage2.setScene(scene);
+                stage2.show();
             }
         });
         informationButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
