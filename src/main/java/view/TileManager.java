@@ -1,5 +1,6 @@
 package view;
 
+import controller.AttackArmyToArmyController;
 import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
@@ -431,7 +432,7 @@ public class TileManager extends Application {
 //        Manage.setCurrentEmpire(Ahmed);
 
 
-    private void designHboxForDropUnit(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
+    private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
         HBox hBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
                 getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,

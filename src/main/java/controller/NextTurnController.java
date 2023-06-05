@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
+    public TileManager tileManager;
     public static int index;
 //    public int mapSize = 200 ;
 //    public TileManager tileManager ;
@@ -86,9 +87,9 @@ public class NextTurnController {
         y1 = y - 1;
         y2 = y + 1;
         if (x1 <= 0) x1 = 0;
-        if (x2 >= mapSize) x2 = mapSize - 1;
+        if (x2 >= Map.mapSize) x2 = Map.mapSize - 1;
         if (y1 <= 0) y1 = 0;
-        if (y2 >= mapSize) y2 = mapSize - 1;
+        if (y2 >= Map.mapSize) y2 = Map.mapSize - 1;
         for(int i = x1 ; i <= x2 ; i ++){
             for(int j = y1 ; j <= y2 ; j ++){
                 NewButton newButton = ((NewButton)(tileManager.list.get(100 * i + j)));
