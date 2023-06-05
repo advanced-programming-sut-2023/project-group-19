@@ -287,6 +287,9 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation,attackArmyToArmyController.deadGrendiarAnimation);
         sequentialTransitiongrendiar.play();
 
+        SequentialTransition sequentialTransitionMachine = new SequentialTransition(attackArmyToArmyController.machineAnimation,attackArmyToArmyController.deadMachineAnimation);
+        sequentialTransitionMachine.play();
+
 
         //TODO picture of sword man after war // DORSA
 

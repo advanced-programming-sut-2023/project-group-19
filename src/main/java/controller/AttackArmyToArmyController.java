@@ -139,6 +139,9 @@ public class AttackArmyToArmyController {
             case HORSE_ARCHERS:
                 deadHorseRiderAnimation.setArmyToAnimation(army);
                 break;
+            case FIRE_BALLISTA:
+                deadMachineAnimation.setArmyToAnimation(army);
+                break;
         }
     }
     private boolean isArcher(Army army) {
@@ -187,6 +190,9 @@ public class AttackArmyToArmyController {
                 grendiarAnimation.setArmyToAnimation(army);
             case HORSE_ARCHERS:
                 horseRiderAnimation.setArmyToAnimation(army);
+                break;
+            case FIRE_BALLISTA:
+                machineAnimation.setArmyToAnimation(army);
                 break;
         }
     }
