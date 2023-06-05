@@ -17,6 +17,7 @@ import model.Map;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.OldView.EmpireMenu;
+import view.TileManager;
 
 import java.util.Collection;
 
@@ -301,7 +302,12 @@ public class BottomBarButtons {
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                if(TileManager.deleteOn){
+                    TileManager.deleteOn = false;
+                }
+                else {
+                    TileManager.deleteOn = true;
+                }
             }
         });
         undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {

@@ -66,6 +66,7 @@ public class TileManager extends Application {
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
+    public static boolean deleteOn;
     public int avgSpeed;
     public boolean selectedMenuActive;
     public BottomBarImages bottomBarImages;
@@ -430,8 +431,7 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                     button.setMinSize(50, 50);
                     pane.getChildren().add(button);
-                }
-                else {
+                } else {
                     pane.getChildren().add(button);
                     for (Army army : button.getArmy()) {
                         ImageView view = army.getImageView();
@@ -538,7 +538,7 @@ public class TileManager extends Application {
                 int y = (int) b.getY() - 110;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0)+'\n');
+                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
                 for (int i = 0; i < cellArmyNameType.size(); i++) {
                     stringBuilder.append(cellArmyNameType.get(i) + " ");
                 }
@@ -613,20 +613,36 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                selectedButton = newButton;
-                pane.getChildren().remove(selectedBuildingGraphic);
-                pane.getChildren().remove(selectedBuildingTextField);
-                pane.getChildren().remove(selectBackground);
-                if (selectedMenuActive) {
-                    if (selectedBuildingButtons.getGatehouseText() != null)
-                        pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
-                    pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
-                    pane.getChildren().remove(selectedBuildingHP);
-                    pane.getChildren().remove(repair);
+                if(deleteOn){
+                    pane.getChildren().remove(newButton);
+                    newButton.setGraphic(null);
+                    newButton.setImageView(null);
+                    newButton.setBuilding(null);
+                    int x = newButton.getX();
+                    int y = newButton.getY();
+                    if(Map.buildingMap[x][y].size() != 0)
+                        Map.buildingMap[x][y].remove(0);
+                    Map.notPassable[x][y] = false;
+                    Map.notBuildable[x][y] = false;
+                    pane.getChildren().add(newButton);
                 }
-                if (newButton.getBuilding() != null) {
-                    selectedBuildingBottomGraphic(newButton);
+                else {
+                    selectedButton = newButton;
+                    pane.getChildren().remove(selectedBuildingGraphic);
+                    pane.getChildren().remove(selectedBuildingTextField);
+                    pane.getChildren().remove(selectBackground);
+                    if (selectedMenuActive) {
+                        if (selectedBuildingButtons.getGatehouseText() != null)
+                            pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
+                        pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+                        pane.getChildren().remove(selectedBuildingHP);
+                        pane.getChildren().remove(repair);
+                    }
+                    if (newButton.getBuilding() != null) {
+                        selectedBuildingBottomGraphic(newButton);
+                    }
                 }
+
             }
         };
         newButton.setOnMousePressed(event4);
@@ -712,9 +728,10 @@ public class TileManager extends Application {
         error.setContentText(output);
         error.show();
     }
-    public void createMinimap(Pane pane){
-        for(int i = 0 ; i < 16 ; i++){
-            for(int j = 0 ; j < 30 ; j++){
+
+    public void createMinimap(Pane pane) {
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 30; j++) {
                 Button test = new Button();
                 test.setBackground(null);
                 //building brown
@@ -724,7 +741,7 @@ public class TileManager extends Application {
                 //default ground range dorsa
                 //castle black
                 //troop red
-                if(i % 2 == 0)
+                if (i % 2 == 0)
                     test.setStyle("-fx-background-color: #805300;");
                 else
                     test.setStyle("-fx-background-color: #33ce12;");
