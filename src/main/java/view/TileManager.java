@@ -1,18 +1,14 @@
 package view;
 
 import controller.Building.BuildingController;
-import controller.AttackArmyToArmyController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
-import javafx.animation.PathTransition;
-import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -20,26 +16,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
-import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
-import javafx.scene.control.Button;
 import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
-import view.Commands.SelectedBuildingCommands;
 import view.GameButtons.DropUnitDesign;
 import view.GameButtons.SelectedBuildingButtons;
 import view.ImageAndBackground.BottomBarImages;
@@ -51,7 +41,6 @@ import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -102,18 +91,45 @@ public class TileManager extends Application {
     public ArrayList<Node> list = new ArrayList<>();
 
     public Scene scene;
+    public double verticalSize = 51.2;
+    public int horizontalSize = 54;
+    public int viewButtonSize = 50;
+    public int verticalButtons = 30;
+    public int horizontalButtons = 16;
+    public int zoomSize = 3;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
     public String clipboardData;
     public GameController gameController = new GameController();
+    public void zoom1(){
+        verticalSize = 51.2;
+        horizontalSize = 54;
+        viewButtonSize = 50;
+        verticalButtons = 30;
+        horizontalButtons = 16;
+    }
+    public void zoom2(){
+        verticalSize = 59;
+        horizontalSize = 58;
+        viewButtonSize = 62;
+        verticalButtons = 26;
+        horizontalButtons = 14;
+    }
+    public void zoom3(){
+        verticalSize = 70;
+        horizontalSize = 68;
+        viewButtonSize = 86;
+        verticalButtons = 22;
+        horizontalButtons = 12;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
 
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
         Map.CreateMap(100);
         Empire empire = new Empire();
         Empire empire2 = new Empire();
@@ -129,7 +145,7 @@ public class TileManager extends Application {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
                 applyingMouseEventForButton(newButton, stage);
-                newButton.setPrefSize(51, 54);
+                newButton.setPrefSize(verticalSize, horizontalSize);
                 newButton.setFocusTraversable(false);
                 newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
@@ -228,9 +244,27 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
-
+                    System.out.println(5);
+                    if(zoomSize != 3){
+                        zoomSize++;
+                        if(zoomSize == 3){
+                            zoom3();
+                        }
+                        else if (zoomSize == 2){
+                            zoom2();
+                        }
+                    }
                 } else if (keyName.equals("Subtract")) {
-
+                    System.out.println(6);
+                    if(zoomSize != 1){
+                        zoomSize--;
+                        if(zoomSize == 2){
+                            zoom2();
+                        }
+                        else if (zoomSize == 1){
+                            zoom1();
+                        }
+                    }
                 } else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
@@ -422,26 +456,26 @@ public class TileManager extends Application {
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
-        for (int u = 0; u < 16; u++) {
-            for (int g = 0; g < 30; g++) {
+        for (int u = 0; u < horizontalButtons; u++) {
+            for (int g = 0; g < verticalButtons; g++) {
                 ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
-                button.setLayoutX(g * 51.2);
-                button.setLayoutY(u * 54);
+                button.setLayoutX(g * verticalSize);
+                button.setLayoutY(u * horizontalSize);
+                button.setMinSize(viewButtonSize, viewButtonSize);
                 if (button.getImageView() != null) {
                     ImageView view = button.getImageView();
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
+                    view.setFitHeight(viewButtonSize);
+                    view.setFitWidth(viewButtonSize);
                     button.setGraphic(view);
-                    button.setMinSize(50, 50);
                     pane.getChildren().add(button);
                 } else {
                     pane.getChildren().add(button);
                     for (Army army : button.getArmy()) {
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
-                        view.setFitHeight(50);
-                        view.setFitWidth(50);
+                        view.setFitHeight(viewButtonSize);
+                        view.setFitWidth(viewButtonSize);
                         int randomX = getRandomX(button);
                         int randomY = getRandomY(button);
                         view.setLayoutX(randomX);
