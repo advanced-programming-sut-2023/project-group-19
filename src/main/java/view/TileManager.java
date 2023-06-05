@@ -921,6 +921,11 @@ public class TileManager extends Application {
             dropTree(x,i,number);
         }
     }
+    private void dropSeaoLocation(int x , int y1 , int y2 , int number){
+        for(int i = y1 ; i <= y2 ; i ++){
+            dropSea(x,i,number);
+        }
+    }
     private void artOfTree(){
         dropTreeToLocation(0,0,12,5);
         dropTreeToLocation(0,3,8,1);
@@ -941,6 +946,30 @@ public class TileManager extends Application {
         dropTreeToLocation(5,0,6,5);
         dropTreeToLocation(6,1,3,5);
         dropTreeToLocation(7,0,2,5);
+
+
+        dropTreeToLocation(0,18,29,1);
+        dropTreeToLocation(1,20,29,1);
+        dropTreeToLocation(1,22,26,5);
+        dropTreeToLocation(2,19,29,1);
+        dropTreeToLocation(2,21,25,5);
+
+        dropSeaoLocation(3,27,29,1);
+        dropSeaoLocation(5,24,25,1);
+        dropSeaoLocation(4,27,29,1);
+        dropSeaoLocation(5,27,29,1);
+        dropTreeToLocation(3,21,26,1);
+        dropTreeToLocation(4,23,26,5);
+        dropTree(5,26,1);
+        dropTreeToLocation(6,23,26,5);
+        dropTreeToLocation(7,21,29,1);
+        dropTreeToLocation(8,27,29,5);
+
+
+
+
+
+//        dropTreeToLocation();
 
 //        dropTree(32,65,1);
 //        dropTree(33,65,1);
