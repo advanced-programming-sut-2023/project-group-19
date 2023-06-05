@@ -121,6 +121,7 @@ public class Empire {
     }
 
     private int population = 10;
+    public int totalPopularity = 100;
     public int popularity;
     private int goldCount = 100000000;
     private int foodRateNumber = -2;
@@ -134,6 +135,23 @@ public class Empire {
     private int fearRateNumber;
     private double fearWorkerImpact;
     private double fearTroopImpact;
+    public int sicknessImpactOnPopularity;
+
+    public int getTotalPopularity() {
+        return totalPopularity;
+    }
+
+    public void setTotalPopularity(int totalPopularity) {
+        this.totalPopularity = totalPopularity;
+    }
+
+    public int getSicknessImpactOnPopularity() {
+        return sicknessImpactOnPopularity;
+    }
+
+    public void setSicknessImpactOnPopularity(int sicknessImpactOnPopularity) {
+        this.sicknessImpactOnPopularity = sicknessImpactOnPopularity;
+    }
 
     public int getFoodPopularityRate() {
         return foodPopularityRate;
@@ -289,6 +307,37 @@ public class Empire {
     public HashMap<String, Integer> getAllFood() {
         return allFood;
     }
+    public int getWheatFactoryRate(){
+        return productionBuildingRate.get("wheatFactory");
+    }
+
+    public int getHuntingPostRate(){
+        return productionBuildingRate.get("huntingPost");
+    }
+
+    public int getOatFarmRate(){
+        return productionBuildingRate.get("oatFarm");
+    }
+
+    public int getAppleFarmRate(){
+        return productionBuildingRate.get("appleFarm");
+    }
+     public int getQuarryRate(){
+        return productionBuildingRate.get("quarry");
+     }
+
+     public int getPitchRigRate(){
+        return productionBuildingRate.get("pitchRig");
+     }
+
+     public int getIronMineRate(){
+         return productionBuildingRate.get("ironMine");
+     }
+
+     public int getWoodCutterRate(){
+         return productionBuildingRate.get("woodCutter");
+     }
+
 
     public int getBeerFactoryRate() {
         return productionBuildingRate.get("beerFactory");

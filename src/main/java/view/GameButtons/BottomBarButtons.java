@@ -1,18 +1,32 @@
 package view.GameButtons;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.Building.Castle;
 import model.Building.Stockpile;
+import model.Empire;
 import model.Manage;
+import model.Map;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
+import view.OldView.EmpireMenu;
+import view.TileManager;
+
+import java.io.IOException;
+import java.util.Collection;
 
 public class BottomBarButtons {
+
     public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
         imageView.setFitHeight(250);
@@ -155,6 +169,15 @@ public class BottomBarButtons {
         minimapFrameButton.setMinSize(200, 200);
         pane.getChildren().add(minimapFrameButton);
 
+//        Button test = new Button();
+//        test.setBackground(null);
+//        test.setStyle("-fx-background-color: green;");
+//        test.setLayoutX(1346);
+//        test.setLayoutY(849);
+//        test.setMinSize(1.5, 1.5);
+//        test.setMaxSize(1.5, 1.5);
+//        pane.getChildren().add(test);
+
 
         Button dataButton = new Button();
         ImageView dataImage = new ImageView(bottomBarImages.showEmpireDetail);
@@ -177,34 +200,49 @@ public class BottomBarButtons {
 //        testButton.setLayoutY(400);
 //        testButton.setMinSize(200, 200);
 //        pane.getChildren().add(testButton);
-
-        ImageView face = new ImageView(bottomBarImages.getFaceImage());
+        ImageView face;
+        if(Manage.getCurrentEmpire().getTotalPopularity() > 66) {
+            face = new ImageView(bottomBarImages.getFaceImage1());
+        }
+        else if(Manage.getCurrentEmpire().getTotalPopularity() > 33){
+            face = new ImageView(bottomBarImages.getFaceImage2());
+        }
+        else {
+            face = new ImageView(bottomBarImages.getFaceImage3());
+        }
         face.setFitHeight(63);
         face.setFitWidth(70);
         face.setX(1415);
         face.setY(690);
         pane.getChildren().add(face);
 
-        //TODO : fix the gold source
         Text popularity = new Text();
         popularity.setText("POPULARITY : " + 100);
         popularity.setX(1415);
         popularity.setY(770);
         pane.getChildren().add(popularity);
 
-        //TODO : fix the gold source
         Text gold = new Text();
-        gold.setText("GOLD : " + 2000);
+        gold.setText("GOLD : " + Manage.getCurrentEmpire().getGoldCount());
         gold.setX(1415);
         gold.setY(790);
         pane.getChildren().add(gold);
 
-        //TODO : fix the gold source
         Text population = new Text();
-        population.setText("POPULATION : " + 20);
+        population.setText("POPULATION : " + Manage.getCurrentEmpire().getPopulation());
         population.setX(1415);
         population.setY(810);
         pane.getChildren().add(population);
+
+        dataButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                bottomBarBuildings.clearPane(pane);
+                EmpireButtons empireButtons = new EmpireButtons();
+                EmpireMenu empireMenu = new EmpireMenu();
+                empireButtons.createButtons(pane , bottomBarImages , buildingImages , empireMenu);
+            }
+        });
 
         castleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -256,26 +294,87 @@ public class BottomBarButtons {
         gameOptionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                Pane pane1 = new Pane();
+                Button button = new Button();
+                Button button1 = new Button();
+                Stage stage2 = new Stage();
+                button.setText("Exit");
+                button1.setText("continue");
+                EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        stage2.close();
+                    }
+                };
+                button.setLayoutX(175);
+                button.setLayoutY(200);
+                button1.setLayoutX(175);
+                button1.setLayoutY(150);
+                button.setOnAction(event);
+                pane1.getChildren().addAll(button , button1);
+                stage2.setTitle("Game Options");
+                Scene scene = new Scene(pane1, 400, 400);
+                stage2.setScene(scene);
+                stage2.show();
             }
         });
         informationButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                Pane pane1 = new Pane();
+                Text text = new Text();
+                Text text2 = new Text();
+                Button button = new Button();
+                Stage stage2 = new Stage();
+                button.setText("Exit");
+                EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        stage2.close();
+                    }
+                };
+                text2.setText(Manage.allEmpires.get(0).getName() + "                   Gold : " + Manage.allEmpires.get(0).getGoldCount());
+                text2.setX(170);
+                text2.setY(125);
+                text.setX(150);
+                text.setY(150);
+                button.setLayoutX(175);
+                button.setLayoutY(200);
+                button.setOnAction(event);
+                text.setText(Manage.allEmpires.get(1).getName() + "                   Gold : " + Manage.allEmpires.get(1).getGoldCount());
+                pane1.getChildren().addAll(text, button, text2);
 
+                stage2.setTitle("Info");
+                Scene scene = new Scene(pane1, 400, 400);
+                stage2.setScene(scene);
+                stage2.show();
             }
         });
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                if(TileManager.deleteOn){
+                    TileManager.deleteOn = false;
+                }
+                else {
+                    TileManager.deleteOn = true;
+                }
             }
         });
         undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-            }
+                if(BottomBarBuildings.lastButton != null) {
+                    pane.getChildren().remove(BottomBarBuildings.lastButton);
+                    BottomBarBuildings.lastButton.setGraphic(null);
+                    BottomBarBuildings.lastButton.setImageView(null);
+                    BottomBarBuildings.lastButton.setBuilding(null);
+                    int x = BottomBarBuildings.lastButton.getX();
+                    int y = BottomBarBuildings.lastButton.getY();
+                    if(Map.buildingMap[x][y].size() != 0)
+                        Map.buildingMap[x][y].remove(0);
+                    Map.notPassable[x][y] = false;
+                    Map.notBuildable[x][y] = false;
+                    pane.getChildren().add(BottomBarBuildings.lastButton);
+                }}
         });
     }
 }

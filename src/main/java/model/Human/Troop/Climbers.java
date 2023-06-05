@@ -63,7 +63,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.defencePower = 250;
         this.restOfMoves = 5;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/MaceMen/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/maceMen/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -81,7 +81,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.defencePower = 20;
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/LadderMen/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/ladderMen/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";
@@ -99,7 +99,7 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.defencePower = 150;
         this.restOfMoves = 5;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/Assassin/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/assassins/forward.png").toExternalForm()));
         this.imageView.setFitHeight(100);
         this.imageView.setFitWidth(100);
         this.direction = "forward";

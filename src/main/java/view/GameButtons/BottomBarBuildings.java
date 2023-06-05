@@ -34,6 +34,7 @@ public class BottomBarBuildings {
     BuildingController buildingController = new BuildingController();
     public ArrayList<NewButton>[][] allButtons;
     public Building building;
+    public static NewButton lastButton;
     public Army troop;
 
     public void showError(String output) {
@@ -72,6 +73,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(wallStairImage);
                     newbutton.setBuilding(stair);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -107,6 +109,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(lowWallImage);
                     newbutton.setBuilding(lowWall);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -142,6 +145,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stoneWallImage);
                     newbutton.setBuilding(bigWall);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -176,6 +180,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(crenulatedWallImage);
                     newbutton.setBuilding(bigWall);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -211,6 +216,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(barracksImage);
                     newbutton.setBuilding(barracks);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -246,6 +252,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(mercenaryImage);
                     newbutton.setBuilding(mercenary);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -281,6 +288,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(armoryImage);
                     newbutton.setBuilding(armoury);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -399,6 +407,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(smallGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -434,6 +443,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bigGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -469,6 +479,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(drawBridgeImage);
                     newbutton.setBuilding(drawBridge);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -504,6 +515,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(cagedDogsImage);
                     newbutton.setBuilding(cagedWarDogs);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -539,6 +551,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(pitchDitchImage);
                     newbutton.setBuilding(pitchDitch);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -574,6 +587,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(killingPitImage);
                     newbutton.setBuilding(killingPit);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -632,6 +646,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(lookoutTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -667,6 +682,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(premierTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -702,6 +718,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(defenceTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -737,6 +754,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(squareTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -772,6 +790,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(roundTowerImage);
                     newbutton.setBuilding(tower);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -829,6 +848,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(engineersGuildImage);
                     newbutton.setBuilding(engineer);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -938,6 +958,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stableImage);
                     newbutton.setBuilding(stable);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -973,6 +994,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(tunnelersGuildImage);
                     newbutton.setBuilding(prepareLaboursAndFighters);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1008,6 +1030,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(oilSmelterImage);
                     newbutton.setBuilding(oilSmelter);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1045,6 +1068,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(stockpileImage);
                     newbutton.setBuilding(stockpile);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1081,6 +1105,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(woodCutterImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1116,6 +1141,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(quarryImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1151,6 +1177,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(oxTetherImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1186,6 +1213,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(ironMineImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1222,6 +1250,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(pitchRigImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1257,6 +1286,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(marketImage);
                     newbutton.setBuilding(shop);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1301,6 +1331,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(dairyFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1343,6 +1374,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(appleFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1385,6 +1417,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(wheatFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1427,6 +1460,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(hopsFarmImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1464,6 +1498,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(hovelImage);
                     newbutton.setBuilding(house);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1499,6 +1534,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(smallChurchImage);
                     newbutton.setBuilding(church);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1534,6 +1570,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bigChurchImage);
                     newbutton.setBuilding(church);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1543,7 +1580,7 @@ public class BottomBarBuildings {
 
         Button apothecaryButton = new Button();
         ImageView apothecaryImage = new ImageView(buildingImages.getApothecary());
-//        apothecaryButton.setBackground(null);
+        apothecaryButton.setBackground(null);
         apothecaryImage.setFitHeight(100);
         apothecaryImage.setFitWidth(100);
         apothecaryButton.setGraphic(apothecaryImage);
@@ -1569,6 +1606,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(apothecaryImage);
                     newbutton.setBuilding(apothecary);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1604,6 +1642,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(tortureBuildingImage);
                     newbutton.setBuilding(fearControl);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1639,6 +1678,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(gardenImage);
                     newbutton.setBuilding(fearControl);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1684,6 +1724,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(fletcherImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1726,6 +1767,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(poleTurnerImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1768,6 +1810,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(blacksmithImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1829,6 +1872,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(armourerImage);
                     newbutton.setBuilding(weapon);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1864,6 +1908,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(siegeTentImage);
                     newbutton.setBuilding(siegeTent);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1901,6 +1946,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(granaryImage);
                     newbutton.setBuilding(stockpile);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1943,6 +1989,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(bakeryImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -1985,6 +2032,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(breweryImage);
                     newbutton.setBuilding(goods);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -2027,6 +2075,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(millImage);
                     newbutton.setBuilding(industry);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }
@@ -2069,6 +2118,7 @@ public class BottomBarBuildings {
                     newbutton.setImageView(innImage);
                     newbutton.setBuilding(inn);
                     pane.getChildren().add(newbutton);
+                    lastButton = newbutton;
                 } else {
                     showError(output);
                 }

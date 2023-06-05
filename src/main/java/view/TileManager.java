@@ -1,6 +1,7 @@
 package view;
-import controller.Building.BuildingController;
+
 import controller.AttackArmyToArmyController;
+import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import controller.NextTurnController;
@@ -12,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -20,8 +20,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -32,14 +33,14 @@ import model.Building.House;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
-import model.Human.Troop.Soldiers;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Commands.SelectedBuildingCommands;
 import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
-import view.Commands.SelectedBuildingCommands;
+import view.GameButtons.DropUnitDesign;
 import view.GameButtons.SelectedBuildingButtons;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
@@ -50,7 +51,6 @@ import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -60,13 +60,12 @@ public class TileManager extends Application {
 
     //TODO : Check that selected unit would be empty or not in GameController if it was full
     // show an error that user should make a decision for them
-    //TODO : Select Unit must change
+
     //TODO : Method which calculates the Production things on a tile
-    // width  = 1530
-    // height = 800
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
+    public static boolean deleteOn;
     public int avgSpeed;
     public boolean selectedMenuActive;
     public BottomBarImages bottomBarImages;
@@ -95,31 +94,57 @@ public class TileManager extends Application {
     public int numberOfMySoldiers;
     public double width;
     public double height;
+    public ArrayList<Button> minimapButtons = new ArrayList<>();
     public ClipboardContent content;
     public Clipboard cb;
     public NewButton selectedButton;
     public ArrayList<Node> list = new ArrayList<>();
 
-
     public Scene scene;
+    public double verticalSize = 51.2;
+    public int horizontalSize = 54;
+    public int viewButtonSize = 50;
+    public int verticalButtons = 30;
+    public int horizontalButtons = 16;
+    public int zoomSize = 3;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
     private boolean moveIsOn;
-    public int controllerOfDropUnit = 1;
-    public boolean isFive = true;
     public String clipboardData;
-
     public GameController gameController = new GameController();
-    public String nameOfUnit;
+    public void zoom1(){
+        verticalSize = 51.2;
+        horizontalSize = 54;
+        viewButtonSize = 50;
+        verticalButtons = 30;
+        horizontalButtons = 16;
+    }
+    public void zoom2(){
+        verticalSize = 59;
+        horizontalSize = 58;
+        viewButtonSize = 62;
+        verticalButtons = 26;
+        horizontalButtons = 14;
+    }
+    public void zoom3(){
+        verticalSize = 70;
+        horizontalSize = 68;
+        viewButtonSize = 86;
+        verticalButtons = 22;
+        horizontalButtons = 12;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
 
-
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
         Map.CreateMap(100);
         Empire empire = new Empire();
         Empire empire2 = new Empire();
+        empire.setUser(newUser);
+        empire2.setUser(newUser1);
         Manage.setCurrentEmpire(empire);
         Manage.allEmpires.add(empire);
         Manage.allEmpires.add(empire2);
@@ -130,7 +155,7 @@ public class TileManager extends Application {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
                 applyingMouseEventForButton(newButton, stage);
-                newButton.setPrefSize(51, 54);
+                newButton.setPrefSize(verticalSize, horizontalSize);
                 newButton.setFocusTraversable(false);
                 newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
@@ -181,6 +206,8 @@ public class TileManager extends Application {
 //        deadSlaveAnimation.setArmyToAnimation(soldiers2);
 //        deadSlaveAnimation.play();
 
+//        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
+//        attackArmyToArmyController.battleWithEnemy();
 
 
 //        swordManAnimation.setArmyToAnimation(soldiers);
@@ -230,33 +257,6 @@ public class TileManager extends Application {
 //        AhmedButton.setSickButton(true);
 //        Manage.setCurrentEmpire(Ahmed);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //armin test code
-
-
-
-
-
-
-
-
-
-
-
         SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
         sequentialTransitionSwordMan.play();
 
@@ -293,16 +293,7 @@ public class TileManager extends Application {
 
         //TODO picture of sword man after war // DORSA
 
-        //TODO : after each turn clear the armies animation
 
-
-//
-//        ArchersAndThrowers archersAndThrowers2 = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//        archersAndThrowers2.HorseArchers(2, 1);
-//        NewButton newButton2 = (NewButton) list.get(2 * 100 + 1);
-//        newButton2.setBackground(null);
-//        newButton2.getArmy().add(archersAndThrowers2);
-//        newButton2.setImageView(archersAndThrowers2.getImageView());
 //       ==================================================================================================================================================
 
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
@@ -312,6 +303,7 @@ public class TileManager extends Application {
         pane.setFocusTraversable(false);
 
         createViewScene(stage);
+        createMinimap(pane);
 
         scene = new Scene(pane, width - 50, height - 50);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -319,34 +311,61 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
-
+                    if(zoomSize != 3){
+                        zoomSize++;
+                        if(zoomSize == 3){
+                            zoom3();
+                        }
+                        else if (zoomSize == 2){
+                            zoom2();
+                        }
+                    }
                 } else if (keyName.equals("Subtract")) {
-
+                    if(zoomSize != 1){
+                        zoomSize--;
+                        if(zoomSize == 2){
+                            zoom2();
+                        }
+                        else if (zoomSize == 1){
+                            zoom1();
+                        }
+                    }
                 } else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
-                    designHboxForDropUnit();
+                    DropUnitDesign dropUnitDesign = new DropUnitDesign();
+                    dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
                     GameController gameController = new GameController();
                     gameController.selectedUnit.add(archersAndThrowers);
                     Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
                     archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
                     archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
-                    gameController.moveUnit(5,5,newButton,pane,list);
-                }
-                else if (keyName.equals("C")) {
+                    gameController.moveUnit(5, 5, newButton, pane, list);
+                } else if (keyName.equals("C")) {
                     content = new ClipboardContent();
-                    if(selectedButton.getBuilding() != null) {
+                    if (selectedButton.getBuilding() != null) {
                         content.putString(selectedButton.getBuilding().getName());
-                    }
-                    else {
+                    } else {
                         content.putString("");
                     }
                     javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
-                }
-                else if (keyName.equals("P")) {
+                } else if (keyName.equals("P")) {
                     clipboardData = content.getString();
-                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane , clipboardData , buildingImages);
+                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
+                } else if (keyName.equals("F5")) {
+                    if (selectedButtons.size() != 0) {
+                        int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
+                        ArrayList<Double> averageDetails;
+                        averageDetails = countTheProductionAveragesOnTiles();
+                        designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
+                    } else {
+                        Alert alarm = new Alert(Alert.AlertType.ERROR);
+                        alarm.setTitle("Map Error!");
+                        alarm.setHeaderText("Error in Map Commands");
+                        alarm.setContentText("You didn't choose any cell!");
+                        alarm.showAndWait();
+                    }
                 }
             }
         });
@@ -416,7 +435,7 @@ public class TileManager extends Application {
 //        Manage.setCurrentEmpire(Ahmed);
 
 
-    private void designHboxForDropUnit() {
+    private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
         HBox hBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
                 getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
@@ -425,447 +444,61 @@ public class TileManager extends Application {
         hBox.setPrefSize(800, 300);
         hBox.setLayoutX(350);
         hBox.setLayoutY(150);
+        Text header = new Text();
+        header.setText("Information");
+        header.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 30));
+        Text unitNumber = new Text();
+        unitNumber.setText("Number of your Empire's Troops: " + totalNumberOfTroops);
+        unitNumber.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Text buildingMinAverage = new Text();
+        buildingMinAverage.setText("Minimum Average of Buildings of Your Own :" + averageDetails.get(0));
+        buildingMinAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Text buildingMidAverage = new Text();
+        buildingMidAverage.setText("Mid Average of Buildings of Your Own :" + averageDetails.get(1));
+        buildingMidAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Text buildingMaxAverage = new Text();
+        buildingMaxAverage.setText("Maximum Average of Buildings of Your Own :" + averageDetails.get(0));
+        buildingMaxAverage.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        Button close = new Button();
+        ImageView closeIconImage = new ImageView(gameImages.getDone());
+        close.setBackground(null);
+        closeIconImage.setFitHeight(40);
+        closeIconImage.setFitWidth(40);
+        close.setGraphic(closeIconImage);
+        hBox.getChildren().add(close);
+        close.setTranslateX(380);
+        close.setTranslateY(115);
+        close.setMinSize(40, 40);
+        close.setPrefSize(40, 40);
+        VBox vBox = new VBox();
+        vBox.getChildren().add(header);
+        vBox.getChildren().add(unitNumber);
+        vBox.getChildren().add(buildingMinAverage);
+        vBox.getChildren().add(buildingMidAverage);
+        vBox.getChildren().add(buildingMaxAverage);
+        vBox.getChildren().add(close);
+        header.setTranslateX(330);
+        header.setTranslateY(25);
+        unitNumber.setTranslateX(155);
+        unitNumber.setTranslateY(60);
+        buildingMinAverage.setTranslateX(150);
+        buildingMinAverage.setTranslateY(70);
+        buildingMidAverage.setTranslateX(150);
+        buildingMidAverage.setTranslateY(60);
+        buildingMidAverage.setTranslateX(150);
+        buildingMidAverage.setTranslateY(85);
+        buildingMaxAverage.setTranslateX(150);
+        buildingMaxAverage.setTranslateY(100);
+        hBox.getChildren().add(vBox);
+        pane.getChildren().add(hBox);
 
-        Button prev = new Button();
-        ImageView returnIconImage = new ImageView(buildingImages.getReturnIcon());
-        prev.setBackground(null);
-        returnIconImage.setFitHeight(40);
-        returnIconImage.setFitWidth(40);
-        prev.setGraphic(returnIconImage);
-        hBox.getChildren().add(prev);
-        prev.setTranslateX(150);
-        prev.setTranslateY(240);
-        prev.setMinSize(40, 40);
-        prev.setPrefSize(40, 40);
-
-        Button next = new Button();
-        ImageView nextIconImage = new ImageView(gameImages.getNext());
-        next.setBackground(null);
-        nextIconImage.setFitHeight(40);
-        nextIconImage.setFitWidth(40);
-        next.setGraphic(nextIconImage);
-        hBox.getChildren().add(next);
-        next.setTranslateX(565);
-        next.setTranslateY(240);
-        next.setMinSize(40, 40);
-        next.setPrefSize(40, 40);
-
-        Button done = new Button();
-        ImageView doneIconImage = new ImageView(gameImages.getDone());
-        done.setBackground(null);
-        doneIconImage.setFitHeight(40);
-        doneIconImage.setFitWidth(40);
-        done.setGraphic(doneIconImage);
-        hBox.getChildren().add(done);
-        done.setTranslateX(300);
-        done.setTranslateY(240);
-        done.setMinSize(40, 40);
-        done.setPrefSize(40, 40);
-
-        ArrayList<Spinner<Integer>> spinners = createSpinnersForUnits();
-        ArrayList<ImageView> imageViews = setTheLocationOfImages();
-        makeTheDefaultViewOfDrop(spinners, imageViews, hBox);
-        prev.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (controllerOfDropUnit > 1) {
-                    if (controllerOfDropUnit == 5) {
-                        for (int i = 1; i <= 6; i++) {
-                            hBox.getChildren().remove(hBox.getChildren().size() - 1);
-                        }
-                        for (int j = 15; j <= 19; j++) {
-                            hBox.getChildren().add(imageViews.get(j));
-                        }
-                        for (int k = 15; k <= 19; k++) {
-                            hBox.getChildren().add(spinners.get(k));
-                        }
-                    } else {
-                        for (int i = 1; i <= 10; i++) {
-                            hBox.getChildren().remove(hBox.getChildren().size() - 1);
-                        }
-                        int firstIndex = (controllerOfDropUnit - 2) * 5;
-                        int lastIndex = (controllerOfDropUnit - 1) * 5 - 1;
-                        for (int j = firstIndex; j <= lastIndex; j++) {
-                            hBox.getChildren().add(imageViews.get(j));
-                        }
-                        for (int k = firstIndex; k <= lastIndex; k++) {
-                            hBox.getChildren().add(spinners.get(k));
-                        }
-                    }
-                    isFive = true;
-                    controllerOfDropUnit--;
-                }
-            }
-        });
-
-        next.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (controllerOfDropUnit < 5) {
-                    if (controllerOfDropUnit == 4) {
-                        isFive = false;
-                        for (int i = 1; i <= 10; i++) {
-                            hBox.getChildren().remove(hBox.getChildren().size() - 1);
-                        }
-                        for (int j = 20; j <= 22; j++) {
-                            hBox.getChildren().add(imageViews.get(j));
-                        }
-                        for (int k = 20; k <= 22; k++) {
-                            hBox.getChildren().add(spinners.get(k));
-                        }
-
-                    } else {
-                        for (int i = 1; i <= 10; i++) {
-                            hBox.getChildren().remove(hBox.getChildren().size() - 1);
-                        }
-                        int firstIndex = controllerOfDropUnit * 5;
-                        int lastIndex = ((controllerOfDropUnit + 1) * 5) - 1;
-                        for (int j = firstIndex; j <= lastIndex; j++) {
-                            hBox.getChildren().add(imageViews.get(j));
-                        }
-                        for (int k = firstIndex; k <= lastIndex; k++) {
-                            hBox.getChildren().add(spinners.get(k));
-                        }
-                    }
-                    controllerOfDropUnit++;
-                }
-            }
-        });
-        done.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        close.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 pane.getChildren().remove(hBox);
-                for (int i = 0; i < spinners.size(); i++) {
-                    gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
-                            , i, spinners.get(i).getValue(), selectedButtons.get(0));
-                }
             }
         });
-        pane.getChildren().add(hBox);
-    }
 
-    private void makeTheDefaultViewOfDrop(ArrayList<Spinner<Integer>> spinners, ArrayList<ImageView> imageViews, HBox hBox) {
-        for (int i = 0; i < 5; i++) {
-            hBox.getChildren().add(imageViews.get(i));
-        }
-        for (int j = 0; j < 5; j++) {
-            hBox.getChildren().add(spinners.get(j));
-        }
-    }
-
-    private ArrayList<Spinner<Integer>> createSpinnersForUnits() {
-        ArrayList<Spinner<Integer>> spinners = new ArrayList<>();
-
-        Spinner<Integer> archer = new Spinner<>(0, Manage.getCurrentEmpire().getEuropeArcherCount(), 0);
-        Spinner<Integer> crossbowMen = new Spinner<>(0, Manage.getCurrentEmpire().getCrossbowManCount(), 0);
-        Spinner<Integer> spearMen = new Spinner<>(0, Manage.getCurrentEmpire().getSpearCount(), 0);
-        Spinner<Integer> pikeMen = new Spinner<>(0, Manage.getCurrentEmpire().getPikeManCount(), 0);
-        Spinner<Integer> maceMen = new Spinner<>(0, Manage.getCurrentEmpire().getMaceManCount(), 0);
-
-        Spinner<Integer> swordsMen = new Spinner<>(0, Manage.getCurrentEmpire().getSwordManCount(), 0);
-        Spinner<Integer> knight = new Spinner<>(0, Manage.getCurrentEmpire().getKnightCount(), 0);
-        Spinner<Integer> tunneler = new Spinner<>(0, Manage.getCurrentEmpire().getTunnelerCount(), 0);
-        Spinner<Integer> ladderMen = new Spinner<>(0, Manage.getCurrentEmpire().getLadderManCount(), 0);
-        Spinner<Integer> blackMonk = new Spinner<>(0, Manage.getCurrentEmpire().getBlackMonkCount(), 0);
-
-        Spinner<Integer> archerBow = new Spinner<>(0, Manage.getCurrentEmpire().getArabianBowCount(), 0);
-        Spinner<Integer> slaves = new Spinner<>(0, Manage.getCurrentEmpire().getSlaveCount(), 0);
-        Spinner<Integer> slingers = new Spinner<>(0, Manage.getCurrentEmpire().getSlingerCount(), 0);
-        Spinner<Integer> assassins = new Spinner<>(0, Manage.getCurrentEmpire().getAssassinCount(), 0);
-        Spinner<Integer> horseArchers = new Spinner<>(0, Manage.getCurrentEmpire().getHorseArcherCount(), 0);
-
-        Spinner<Integer> arabianSwordMen = new Spinner<>(0, Manage.getCurrentEmpire().getArabianSwordManCount(), 0);
-        Spinner<Integer> fireThrowers = new Spinner<>(0, Manage.getCurrentEmpire().getFireThrowerCount(), 0);
-        Spinner<Integer> catapult = new Spinner<>(0, Manage.getCurrentEmpire().getCatapultCount(), 0);
-        Spinner<Integer> trebuchet = new Spinner<>(0, Manage.getCurrentEmpire().getTrebuchetCount(), 0);
-        Spinner<Integer> siegeTower = new Spinner<>(0, Manage.getCurrentEmpire().getSiegeTowerCount(), 0);
-
-        Spinner<Integer> fireBallista = new Spinner<>(0, Manage.getCurrentEmpire().getFireBalistaCount(), 0);
-        Spinner<Integer> batteringRam = new Spinner<>(0, Manage.getCurrentEmpire().getBatteringRamCount(), 0);
-        Spinner<Integer> portableShield = new Spinner<>(0, Manage.getCurrentEmpire().getPortableShieldCount(), 0);
-
-        archer.setTranslateX(-200);
-        archer.setTranslateY(170);
-        archer.setPrefSize(52, 20);
-        archer.setEditable(true);
-        crossbowMen.setTranslateX(-150);
-        crossbowMen.setTranslateY(170);
-        crossbowMen.setPrefSize(52, 20);
-        crossbowMen.setEditable(true);
-        spearMen.setTranslateX(-110);
-        spearMen.setTranslateY(170);
-        spearMen.setPrefSize(52, 20);
-        spearMen.setEditable(true);
-        pikeMen.setTranslateX(-60);
-        pikeMen.setTranslateY(170);
-        pikeMen.setPrefSize(52, 20);
-        pikeMen.setEditable(true);
-        maceMen.setTranslateX(-10);
-        maceMen.setTranslateY(170);
-        maceMen.setPrefSize(52, 20);
-        maceMen.setEditable(true);
-
-        swordsMen.setTranslateX(-200);
-        swordsMen.setTranslateY(170);
-        swordsMen.setPrefSize(52, 20);
-        swordsMen.setEditable(true);
-        knight.setTranslateX(-150);
-        knight.setTranslateY(170);
-        knight.setPrefSize(52, 20);
-        knight.setEditable(true);
-        tunneler.setTranslateX(-110);
-        tunneler.setTranslateY(170);
-        tunneler.setPrefSize(52, 20);
-        tunneler.setEditable(true);
-        ladderMen.setTranslateX(-60);
-        ladderMen.setTranslateY(170);
-        ladderMen.setPrefSize(52, 20);
-        ladderMen.setEditable(true);
-        blackMonk.setTranslateX(-10);
-        blackMonk.setTranslateY(170);
-        blackMonk.setPrefSize(52, 20);
-        blackMonk.setEditable(true);
-        //
-
-
-        archerBow.setTranslateX(-200);
-        archerBow.setTranslateY(170);
-        archerBow.setPrefSize(52, 20);
-        archerBow.setEditable(true);
-        slaves.setTranslateX(-150);
-        slaves.setTranslateY(170);
-        slaves.setPrefSize(52, 20);
-        slaves.setEditable(true);
-        slingers.setTranslateX(-110);
-        slingers.setTranslateY(170);
-        slingers.setPrefSize(52, 20);
-        slingers.setEditable(true);
-        assassins.setTranslateX(-60);
-        assassins.setTranslateY(170);
-        assassins.setPrefSize(52, 20);
-        assassins.setEditable(true);
-        horseArchers.setTranslateX(-10);
-        horseArchers.setTranslateY(170);
-        horseArchers.setPrefSize(52, 20);
-        horseArchers.setEditable(true);
-
-        arabianSwordMen.setTranslateX(-200);
-        arabianSwordMen.setTranslateY(170);
-        arabianSwordMen.setPrefSize(52, 20);
-        arabianSwordMen.setEditable(true);
-        fireThrowers.setTranslateX(-150);
-        fireThrowers.setTranslateY(170);
-        fireThrowers.setPrefSize(52, 20);
-        fireThrowers.setEditable(true);
-        catapult.setTranslateX(-110);
-        catapult.setTranslateY(170);
-        catapult.setPrefSize(52, 20);
-        catapult.setEditable(true);
-        trebuchet.setTranslateX(-60);
-        trebuchet.setTranslateY(170);
-        trebuchet.setPrefSize(52, 20);
-        trebuchet.setEditable(true);
-        siegeTower.setTranslateX(-10);
-        siegeTower.setTranslateY(170);
-        siegeTower.setPrefSize(52, 20);
-        siegeTower.setEditable(true);
-
-        fireBallista.setTranslateX(-100);
-        fireBallista.setTranslateY(170);
-        fireBallista.setPrefSize(52, 20);
-        fireBallista.setEditable(true);
-        batteringRam.setTranslateX(-50);
-        batteringRam.setTranslateY(170);
-        batteringRam.setPrefSize(52, 20);
-        batteringRam.setEditable(true);
-        portableShield.setTranslateX(10);
-        portableShield.setTranslateY(170);
-        portableShield.setPrefSize(52, 20);
-        portableShield.setEditable(true);
-
-
-        spinners.add(archer);
-        spinners.add(crossbowMen);
-        spinners.add(spearMen);
-        spinners.add(pikeMen);
-        spinners.add(maceMen);
-
-        spinners.add(swordsMen);
-        spinners.add(knight);
-        spinners.add(tunneler);
-        spinners.add(ladderMen);
-        spinners.add(blackMonk);
-
-        spinners.add(archerBow);
-        spinners.add(slaves);
-        spinners.add(slingers);
-        spinners.add(assassins);
-        spinners.add(horseArchers);
-
-        spinners.add(arabianSwordMen);
-        spinners.add(fireThrowers);
-        spinners.add(catapult);
-        spinners.add(trebuchet);
-        spinners.add(siegeTower);
-
-        spinners.add(fireBallista);
-        spinners.add(batteringRam);
-        spinners.add(portableShield);
-
-        return spinners;
-    }
-
-    private ArrayList<ImageView> setTheLocationOfImages() {
-        ImageView archer = new ImageView(unitImages.archer);
-        ImageView crossbowMen = new ImageView(unitImages.crossbowMen);
-        ImageView spearMen = new ImageView(unitImages.spearMen);
-        ImageView pikeMen = new ImageView(unitImages.pikeMen);
-        ImageView maceMen = new ImageView(unitImages.maceMen);
-
-        ImageView swordsMen = new ImageView(unitImages.swordsMen);
-        ImageView knight = new ImageView(unitImages.knight);
-        ImageView tunneler = new ImageView(unitImages.tunneler);
-        ImageView ladderMen = new ImageView(unitImages.ladderMen);
-        ImageView blackMonk = new ImageView(unitImages.blackMonk);
-
-        ImageView archerBow = new ImageView(unitImages.archerBow);
-        ImageView slaves = new ImageView(unitImages.slaves);
-        ImageView slingers = new ImageView(unitImages.slingers);
-        ImageView assassins = new ImageView(unitImages.assassins);
-        ImageView horseArchers = new ImageView(unitImages.horseArchers);
-
-        ImageView arabianSwordMen = new ImageView(unitImages.arabianSwordMen);
-        ImageView fireThrowers = new ImageView(unitImages.fireThrowers);
-        ImageView catapult = new ImageView(unitImages.catapult);
-        ImageView trebuchet = new ImageView(unitImages.trebuchet);
-        ImageView siegeTower = new ImageView(unitImages.siegeTower);
-
-        ImageView fireBallista = new ImageView(unitImages.fireBallista);
-        ImageView batteringRam = new ImageView(unitImages.batteringRam);
-        ImageView portableShield = new ImageView(unitImages.portableShield);
-
-        archer.setTranslateX(50);
-        archer.setTranslateY(50);
-        archer.setFitWidth(50);
-        archer.setFitHeight(80);
-        crossbowMen.setTranslateX(100);
-        crossbowMen.setTranslateY(50);
-        crossbowMen.setFitWidth(50);
-        crossbowMen.setFitHeight(80);
-        spearMen.setTranslateX(150);
-        spearMen.setTranslateY(50);
-        spearMen.setFitWidth(50);
-        spearMen.setFitHeight(80);
-        pikeMen.setTranslateX(200);
-        pikeMen.setTranslateY(50);
-        pikeMen.setFitWidth(50);
-        pikeMen.setFitHeight(80);
-        maceMen.setTranslateX(250);
-        maceMen.setTranslateY(50);
-        maceMen.setFitWidth(50);
-        maceMen.setFitHeight(80);
-
-        swordsMen.setTranslateX(50);
-        swordsMen.setTranslateY(50);
-        swordsMen.setFitWidth(50);
-        swordsMen.setFitHeight(80);
-        knight.setTranslateX(100);
-        knight.setTranslateY(50);
-        knight.setFitWidth(50);
-        knight.setFitHeight(80);
-        tunneler.setTranslateX(150);
-        tunneler.setTranslateY(50);
-        tunneler.setFitWidth(50);
-        tunneler.setFitHeight(80);
-        ladderMen.setTranslateX(200);
-        ladderMen.setTranslateY(50);
-        ladderMen.setFitWidth(50);
-        ladderMen.setFitHeight(80);
-        blackMonk.setTranslateX(250);
-        blackMonk.setTranslateY(50);
-        blackMonk.setFitWidth(50);
-        blackMonk.setFitHeight(80);
-
-        archerBow.setTranslateX(50);
-        archerBow.setTranslateY(50);
-        archerBow.setFitWidth(50);
-        archerBow.setFitHeight(80);
-        slaves.setTranslateX(100);
-        slaves.setTranslateY(50);
-        slaves.setFitWidth(50);
-        slaves.setFitHeight(80);
-        slingers.setTranslateX(150);
-        slingers.setTranslateY(50);
-        slingers.setFitWidth(50);
-        slingers.setFitHeight(80);
-        assassins.setTranslateX(200);
-        assassins.setTranslateY(50);
-        assassins.setFitWidth(50);
-        assassins.setFitHeight(80);
-        horseArchers.setTranslateX(250);
-        horseArchers.setTranslateY(50);
-        horseArchers.setFitWidth(50);
-        horseArchers.setFitHeight(80);
-
-        arabianSwordMen.setTranslateX(50);
-        arabianSwordMen.setTranslateY(50);
-        arabianSwordMen.setFitWidth(50);
-        arabianSwordMen.setFitHeight(80);
-        fireThrowers.setTranslateX(100);
-        fireThrowers.setTranslateY(50);
-        fireThrowers.setFitWidth(50);
-        fireThrowers.setFitHeight(80);
-        catapult.setTranslateX(150);
-        catapult.setTranslateY(50);
-        catapult.setFitWidth(50);
-        catapult.setFitHeight(80);
-        trebuchet.setTranslateX(200);
-        trebuchet.setTranslateY(50);
-        trebuchet.setFitWidth(50);
-        trebuchet.setFitHeight(80);
-        siegeTower.setTranslateX(250);
-        siegeTower.setTranslateY(50);
-        siegeTower.setFitWidth(50);
-        siegeTower.setFitHeight(80);
-
-        fireBallista.setTranslateX(50);
-        fireBallista.setTranslateY(50);
-        fireBallista.setFitWidth(50);
-        fireBallista.setFitHeight(80);
-        batteringRam.setTranslateX(100);
-        batteringRam.setTranslateY(50);
-        batteringRam.setFitWidth(50);
-        batteringRam.setFitHeight(80);
-        portableShield.setTranslateX(150);
-        portableShield.setTranslateY(50);
-        portableShield.setFitWidth(50);
-        portableShield.setFitHeight(80);
-
-        ArrayList<ImageView> imageViews = new ArrayList<>();
-        imageViews.add(archer);
-        imageViews.add(crossbowMen);
-        imageViews.add(spearMen);
-        imageViews.add(pikeMen);
-        imageViews.add(maceMen);
-        imageViews.add(swordsMen);
-        imageViews.add(knight);
-        imageViews.add(tunneler);
-        imageViews.add(ladderMen);
-        imageViews.add(blackMonk);
-        imageViews.add(archerBow);
-        imageViews.add(slaves);
-        imageViews.add(slingers);
-        imageViews.add(assassins);
-        imageViews.add(horseArchers);
-        imageViews.add(arabianSwordMen);
-        imageViews.add(fireThrowers);
-        imageViews.add(catapult);
-        imageViews.add(trebuchet);
-        imageViews.add(siegeTower);
-        imageViews.add(fireBallista);
-        imageViews.add(batteringRam);
-        imageViews.add(portableShield);
-        return imageViews;
     }
 
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
@@ -929,53 +562,55 @@ public class TileManager extends Application {
         }
         gameController.selectUnit(selectedButtons, pane);
     }
-    private int getRandomX(NewButton newButton){
+
+    private int getRandomX(NewButton newButton) {
         Random random = new Random();
-        int limit = (int)(newButton.getLayoutX() + 1);
-        int randomX = random.nextInt( limit,limit +  10);
-        return randomX ;
+        int limit = (int) (newButton.getLayoutX() + 1);
+        int randomX = random.nextInt(limit, limit + 10);
+        return randomX;
     }
-    private int getRandomY(NewButton newButton){
+
+    private int getRandomY(NewButton newButton) {
         Random random = new Random();
-        int limit = (int)(newButton.getLayoutY() + 1);
-        int randomY = random.nextInt( limit,limit +  10);
-        return randomY ;
+        int limit = (int) (newButton.getLayoutY() + 1);
+        int randomY = random.nextInt(limit, limit + 10);
+        return randomY;
     }
 
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
     public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
-        for (int u = 0; u < 16; u++) {
-            for (int g = 0; g < 30; g++) {
+        for (int u = 0; u < horizontalButtons; u++) {
+            for (int g = 0; g < verticalButtons; g++) {
                 ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
-                button.setLayoutX(g * 51.2);
-                button.setLayoutY(u * 54);
+                button.setLayoutX(g * verticalSize);
+                button.setLayoutY(u * horizontalSize);
+                button.setMinSize(viewButtonSize, viewButtonSize);
                 pane.getChildren().add(button);
                 if(button.isSickButton()){
-                    sickImage.setFitHeight(50);
-                    sickImage.setFitWidth(50);
+                    sickImage.setFitHeight(viewButtonSize);
+                    sickImage.setFitWidth(viewButtonSize);
                     button.setGraphic(sickImage);
                 }
                 if (button.getImageView() != null) {
-                    ImageView view ;
+                    ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
                         view = fireImage ;
                     }
                     else {
                         view = button.getImageView();
                     }
-                    view.setFitHeight(50);
-                    view.setFitWidth(50);
+                    view.setFitHeight(viewButtonSize);
+                    view.setFitWidth(viewButtonSize);
                     button.setGraphic(view);
-                    button.setMinSize(50, 50);
                 } else {
-                    for(Army army : button.getArmy()) {
+                    for (Army army : button.getArmy()) {
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
-                        view.setFitHeight(60);
-                        view.setFitWidth(60);
+                        view.setFitHeight(viewButtonSize);
+                        view.setFitWidth(viewButtonSize);
                         int randomX = getRandomX(button);
                         int randomY = getRandomY(button);
                         view.setLayoutX(randomX);
@@ -986,12 +621,8 @@ public class TileManager extends Application {
                 allButtons[u][g].add(button);
             }
         }
-//        pane.getChildren().add(button);
-//        button.setMinSize(50, 50);
-
-//                System.out.println(((NewButton)list.get(100 * 2 + 1)).getArrows().size());
-//        allButtons[u][g].add(button);
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
+        createMinimap(pane);
 
     }
 
@@ -1023,6 +654,7 @@ public class TileManager extends Application {
                 allButtons[i][j] = new ArrayList<>();
             }
         }
+
     }
 
     public void numberOfAllSoldiers() {
@@ -1068,18 +700,24 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                avgHp = 0;
+                avgDamage = 0;
+                avgSpeed = 0;
+                //TODO : The data of present army in the cell and groundType collides
                 getCellData(newButton);
                 PointerInfo a = MouseInfo.getPointerInfo();
                 Point b = a.getLocation();
                 int x = (int) b.getX();
-                int y = (int) b.getY() - 100;
+                int y = (int) b.getY() - 110;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n');
+                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
                 for (int i = 0; i < cellArmyNameType.size(); i++) {
                     stringBuilder.append(cellArmyNameType.get(i) + " ");
                 }
                 showCellData.setText(stringBuilder.toString());
+                //TODO : The color of text must change
+                showCellData.setStyle("-fx-text-fill: #0a6562;");
                 showCellData.setX(x);
                 showCellData.setY(y);
                 if (showCellData != null && !pane.getChildren().contains(showCellData))
@@ -1148,20 +786,36 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                selectedButton = newButton;
-                pane.getChildren().remove(selectedBuildingGraphic);
-                pane.getChildren().remove(selectedBuildingTextField);
-                pane.getChildren().remove(selectBackground);
-                if (selectedMenuActive) {
-                    if(selectedBuildingButtons.getGatehouseText() != null)
-                        pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
-                    pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
-                    pane.getChildren().remove(selectedBuildingHP);
-                    pane.getChildren().remove(repair);
+                if(deleteOn){
+                    pane.getChildren().remove(newButton);
+                    newButton.setGraphic(null);
+                    newButton.setImageView(null);
+                    newButton.setBuilding(null);
+                    int x = newButton.getX();
+                    int y = newButton.getY();
+                    if(Map.buildingMap[x][y].size() != 0)
+                        Map.buildingMap[x][y].remove(0);
+                    Map.notPassable[x][y] = false;
+                    Map.notBuildable[x][y] = false;
+                    pane.getChildren().add(newButton);
                 }
-                if (newButton.getBuilding() != null) {
-                    selectedBuildingBottomGraphic(newButton);
+                else {
+                    selectedButton = newButton;
+                    pane.getChildren().remove(selectedBuildingGraphic);
+                    pane.getChildren().remove(selectedBuildingTextField);
+                    pane.getChildren().remove(selectBackground);
+                    if (selectedMenuActive) {
+                        if (selectedBuildingButtons.getGatehouseText() != null)
+                            pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
+                        pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+                        pane.getChildren().remove(selectedBuildingHP);
+                        pane.getChildren().remove(repair);
+                    }
+                    if (newButton.getBuilding() != null) {
+                        selectedBuildingBottomGraphic(newButton);
+                    }
                 }
+
             }
         };
         newButton.setOnMousePressed(event4);
@@ -1187,10 +841,10 @@ public class TileManager extends Application {
         SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
         String buildingName = newButton.getBuilding().getName();
-        setSelectedBuildingProperGraphic(newButton ,buildingName, selectedBuildingMenu, unitImages);
+        setSelectedBuildingProperGraphic(newButton, buildingName, selectedBuildingMenu, unitImages);
     }
 
-    public void setSelectedBuildingProperGraphic(NewButton newButton , String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+    public void setSelectedBuildingProperGraphic(NewButton newButton, String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
         selectedMenuActive = true;
         selectedBuildingButtons = new SelectedBuildingButtons();
         selectedBuildingTextField = new Text();
@@ -1198,7 +852,7 @@ public class TileManager extends Application {
         selectedBuildingTextField.setStyle("-fx-font: 24 arial");
         selectedBuildingTextField.setLayoutX(550);
         selectedBuildingTextField.setLayoutY(715);
-        if(SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null){
+        if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
             selectedBuildingHP = new Text();
             selectedBuildingHP.setText("HP : " + newButton.getBuilding().getHp());
             selectedBuildingHP.setStyle("-fx-font: 24 arial");
@@ -1214,7 +868,7 @@ public class TileManager extends Application {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     String output = String.valueOf(selectedBuildingMenu.repair());
-                    if(!output.equals("building repaired successfully")){
+                    if (!output.equals("building repaired successfully")) {
                         showError(output);
                     }
                 }
@@ -1240,7 +894,8 @@ public class TileManager extends Application {
             selectedBuildingButtons.drawBridge(pane, selectedBuildingMenu, unitImages);
         }
     }
-    public void showError(String output){
+
+    public void showError(String output) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
@@ -1314,5 +969,155 @@ public class TileManager extends Application {
         dropTree(7,4);
     }
 
+
+    public void createMinimap(Pane pane) {
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 30; j++) {
+                Button test = new Button();
+                test.setBackground(null);
+                //building brown
+                //tree green
+                //water blue
+                //stone gray
+                //default ground range dorsa
+                //castle black
+                //troop red
+                if (i % 2 == 0)
+                    test.setStyle("-fx-background-color: #805300;");
+                else
+                    test.setStyle("-fx-background-color: #33ce12;");
+                test.setLayoutX(1200 + 5 * j);
+                test.setLayoutY(697 + 9.7 * i);
+                test.setMinSize(5, 9.7);
+                test.setMaxSize(5, 9.7);
+                pane.getChildren().add(test);
+            }
+        }
+    }
+
+    public int totalNumberOfSoldiersInTiles() {
+        int number = 0;
+        for (NewButton button : selectedButtons) {
+            number += button.getArmy().size();
+        }
+        return number;
+    }
+
+    public ArrayList<Double> countTheProductionAveragesOnTiles() {
+        double minAvg = 0, maxAvg = 0, midAvg;
+        ArrayList<Integer> allNumbers = new ArrayList<>();
+        ArrayList<Double> finalAverages = new ArrayList<>();
+        for (NewButton button : selectedButtons) {
+            if (button.getBuilding() != null) {
+                switch (button.getBuilding().getName()) {
+                    case "IronDig":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getIronMineRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getIronMineRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getIronMineRate());
+                        break;
+                    case "PitchRig":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getPitchRigRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getPitchRigRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getPitchRigRate());
+                        break;
+                    case "Quarry":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getQuarryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getQuarryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getQuarryRate());
+                        break;
+                    case "WoodCutter":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getWoodCutterRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getWoodCutterRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getWoodCutterRate());
+                        break;
+                    case "AppleFarm":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getAppleFarmRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getAppleFarmRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getAppleFarmRate());
+                        break;
+                    case "OatFarm":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getOatFarmRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getOatFarmRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getOatFarmRate());
+                        break;
+                    case "HuntingPost":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getHuntingPostRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getHuntingPostRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getHuntingPostRate());
+                        break;
+                    case "BearFactory":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getBeerFactoryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getHuntingPostRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getHuntingPostRate());
+                        break;
+                    case "Bakery":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getBakeryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getBakeryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getBakeryRate());
+                        break;
+                    case "Mill":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getMillRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getMillRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getMillRate());
+                        break;
+                    case "DairyProduct":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getDairyFactoryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getDairyFactoryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getDairyFactoryRate());
+                        break;
+                    case "WheatFarm":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getWheatFactoryRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getWheatFactoryRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getWheatFactoryRate());
+                        break;
+                    case "Inn":
+                        minAvg = calculateMin(Manage.getCurrentEmpire().getInnRate(), minAvg);
+                        maxAvg = calculateMax(Manage.getCurrentEmpire().getInnRate(), maxAvg);
+                        allNumbers.add(Manage.getCurrentEmpire().getInnRate());
+                        break;
+                }
+            }
+        }
+        midAvg = calculateAverage(allNumbers);
+        finalAverages.add(minAvg);
+        finalAverages.add(midAvg);
+        finalAverages.add(maxAvg);
+        return finalAverages;
+    }
+
+    public double calculateMin(double number, double min) {
+        double minimum;
+        if (min == 0) {
+            minimum = number;
+        } else if (number >= min) {
+            minimum = min;
+        } else {
+            minimum = number;
+        }
+        return minimum;
+    }
+
+    public double calculateMax(double number, double max) {
+        double maximum;
+        if (max == 0) {
+            maximum = number;
+        } else if (number >= max) {
+            maximum = number;
+        } else {
+            maximum = max;
+        }
+        return maximum;
+    }
+
+    public double calculateAverage(ArrayList<Integer> allNumbers) {
+        double adding = 0;
+        for (Integer allNumber : allNumbers) {
+            adding += allNumber;
+        }
+        if (allNumbers.size() > 0) {
+            return adding / allNumbers.size();
+        }
+        return 0.0;
+    }
 
 }

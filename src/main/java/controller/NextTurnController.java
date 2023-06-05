@@ -19,9 +19,10 @@ import java.util.Scanner;
 
 public class NextTurnController {
     public static Empire currentEmpire;
+    public TileManager tileManager;
     public static int index;
-    public int mapSize = 200 ;
-    public TileManager tileManager ;
+//    public int mapSize = 200 ;
+//    public TileManager tileManager ;
 
 //    public String game(Scanner scanner) throws IOException, InterruptedException {
 
@@ -64,6 +65,8 @@ public class NextTurnController {
     public void callStartingTurnFunctions(GameController gameController) {
         currentEmpire.setSickness(Math.random() < 0.5);
         putGraphicSickEmpire(currentEmpire);
+        empireTotalPopularity();
+        sicknessLogic();
         buildingFire();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
@@ -84,9 +87,9 @@ public class NextTurnController {
         y1 = y - 1;
         y2 = y + 1;
         if (x1 <= 0) x1 = 0;
-        if (x2 >= mapSize) x2 = mapSize - 1;
+        if (x2 >= Map.mapSize) x2 = Map.mapSize - 1;
         if (y1 <= 0) y1 = 0;
-        if (y2 >= mapSize) y2 = mapSize - 1;
+        if (y2 >= Map.mapSize) y2 = Map.mapSize - 1;
         for(int i = x1 ; i <= x2 ; i ++){
             for(int j = y1 ; j <= y2 ; j ++){
                 NewButton newButton = ((NewButton)(tileManager.list.get(100 * i + j)));
@@ -109,6 +112,19 @@ public class NextTurnController {
             }
         }
     }
+    public void empireTotalPopularity(){
+        int popularity = Manage.getCurrentEmpire().getTotalPopularity();
+        int popularityChange = Manage.getCurrentEmpire().getPopularity();
+        if(popularity + popularityChange > 100){
+            Manage.getCurrentEmpire().setTotalPopularity(100);
+        }
+        else if(popularity + popularityChange < 0){
+            Manage.getCurrentEmpire().setTotalPopularity(0);
+        }
+        else{
+            Manage.getCurrentEmpire().setTotalPopularity(popularity + popularityChange);
+        }
+    }
 
     public void setGameController(GameController gameController) {
         GameController.gameController = gameController;
@@ -124,6 +140,14 @@ public class NextTurnController {
 //        gameController.fight();
 //        playerHasLost();
 //    }
+    public void sicknessLogic(){
+        if (Manage.getCurrentEmpire().getApothecary()) {
+            Manage.getCurrentEmpire().setSickness(false);
+            Manage.getCurrentEmpire().setSicknessImpactOnPopularity(0);
+        }
+        if (Manage.getCurrentEmpire().isSickness())
+            Manage.getCurrentEmpire().setSicknessImpactOnPopularity(-2);
+    }
 
     public void playerHasLost() {
         int size = Manage.allEmpires.size();

@@ -103,11 +103,6 @@ public class AttackArmyToArmyController {
             }
         }
     }
-    //TODO : fire ballista
-    //catapult‏
-    //trebuchet‏
-    //shield‏
-    //siege tower‏
     private void killUnitSetAnimation(Army army){
         switch (army.getNames()){
             case SWORDSMEN:
@@ -316,7 +311,6 @@ public class AttackArmyToArmyController {
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
                 if (i == x && j == y) continue;
-//                System.out.println("i is: " + i + " and j is: " + j);
                 Building building = ((NewButton)(tileManager.list.get(100 * i + j))).getBuilding();
                 if (building != null) {
                     if (building.getOwner().equals(army.getEmpire())) continue;
