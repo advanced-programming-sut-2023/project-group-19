@@ -35,6 +35,7 @@ import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import model.Obstacle.Tree;
 import model.User;
 import view.Commands.SelectedBuildingCommands;
 import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
@@ -376,6 +377,8 @@ public class TileManager extends Application {
         stage.setResizable(false);
     }
     private void dropTree(int x , int y){
+        Tree tree = new Tree();
+        Map.getObstacleMap()[x][y].add(tree);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
         ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree.png").toExternalForm()));
         castleButton.setImageView(treeImage);
@@ -952,7 +955,6 @@ public class TileManager extends Application {
         dropTree(5,2);
         dropTree(3,9);
         dropTree(2,4);
-        dropTree(9,3);
         dropTree(1,3);
 
 

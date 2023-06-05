@@ -128,7 +128,6 @@ public class CreateMapController {
                 Map.getGroundType()[x][y].get(0).equals(GroundType.STONE)
         ) return "not good type of ground!";
         Tree tree = new Tree();
-        ;
         if (type.equals("desertTree")) {
             tree.desertTree();
         } else if (type.equals("cherryTree")) {
