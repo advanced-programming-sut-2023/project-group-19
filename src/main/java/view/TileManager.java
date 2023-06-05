@@ -382,14 +382,57 @@ public class TileManager extends Application {
         dropStockFunction(9,3,richard);
 
 
-        //Art of The Great Armin
+        //Art Of The Great Armin
+        dropTree(2,15);
+        dropTree(3,15);
+        dropTree(4,15);
+        dropTree(5,15);
+        dropTree(6,15);
+        dropTree(7,15);
+        dropTree(8,15);
+        dropTree(9,15);
+
+        dropTree(2,16);
+        dropTree(3,16);
+        dropTree(4,16);
+        dropTree(5,16);
+        dropTree(6,16);
+        dropTree(7,16);
+        dropTree(8,16);
+        dropTree(9,16);
+
+        dropTree(2,18);
+        dropTree(2,19);
+        dropTree(2,20);
+        dropTree(2,21);
+        dropTree(2,22);
+        dropTree(3,22);
+        dropTree(4,22);
+        dropTree(5,22);
+        dropTree(5,21);
+        dropTree(5,20);
+        dropTree(5,19);
+        dropTree(5,18);
+        dropTree(4,18);
+        dropTree(3,18);
+        dropTree(6,22);
+        dropTree(7,22);
+        dropTree(8,22);
+        dropTree(9,22);
+        dropTree(9,21);
+        dropTree(9,20);
+        dropTree(9,19);
+        dropTree(9,18);
+
+
+
+
 
 
 
         dropTree(5,2);
         dropTree(3,9);
         dropTree(2,4);
-        dropTree(6,15);
         dropTree(9,3);
         dropTree(1,3);
 
