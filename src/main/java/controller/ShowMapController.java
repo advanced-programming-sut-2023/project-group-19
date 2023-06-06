@@ -81,6 +81,7 @@ public class ShowMapController {
                             if (name.equals(ObstacleName.DESERT_TREE) || name.equals(ObstacleName.OliveTree) ||
                                     name.equals(ObstacleName.DateTree) || name.equals(ObstacleName.CoconutTree) ||
                                     name.equals(ObstacleName.CherryTree)) type = "T";
+
                             else if (obstacle instanceof WaterSources) {
                                 type = "W";
                                 type = ANSI_PERFEFT_BLUE_BACKGROUND + type + ANSI_RESET;

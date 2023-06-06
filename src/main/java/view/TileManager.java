@@ -376,11 +376,27 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-    private void dropTree(int x , int y){
+    private void dropTree(int x , int y,int number){
         Tree tree = new Tree();
         Map.getObstacleMap()[x][y].add(tree);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree.png").toExternalForm()));
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number +".png").toExternalForm()));
+        castleButton.setImageView(treeImage);
+        Map.notBuildable[x][y] = true ;
+    }
+    private void dropStone(int x , int y,int number){
+        Stone stone = new Stone();
+        Map.getObstacleMap()[x][y].add(stone);
+        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number +".png").toExternalForm()));
+        castleButton.setImageView(treeImage);
+        Map.notBuildable[x][y] = true ;
+    }
+    private void dropSea(int x , int y , int number){
+        WaterSources waterSources = new WaterSources();
+        Map.getObstacleMap()[x][y].add(waterSources);
+        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number +".jpg").toExternalForm()));
         castleButton.setImageView(treeImage);
         Map.notBuildable[x][y] = true ;
     }
@@ -389,9 +405,8 @@ public class TileManager extends Application {
         BuildingController buildingController = new BuildingController();
         Empire sallahDin = new Empire();
         Castle castleSallah =  new Castle(sallahDin);
-        buildingController.dropBuilding(4, 9, "Castle");
-        NewButton castleButtonSllah = (NewButton) list.get(4 * 100 + 9);
-        dropStockFunction(4,9,sallahDin);
+        NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
+        dropStockFunction(5,22,sallahDin);
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
@@ -404,17 +419,18 @@ public class TileManager extends Application {
         castleButton.setImageView(castleImage2);
         dropStockFunction(9,3,richard);
         artOfTree();
+
     }
 
     private void dropStockFunction(int x, int y, Empire empire) {
         Manage.setCurrentEmpire(empire);
         BuildingController.dropFirstStockpile(x, y);
         ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
-        NewButton foodRecourceBtn = (NewButton) list.get((x+1) * 100 + y);
+        NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
         foodRecourceBtn.setImageView(foodRecource);
 
         ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
-        NewButton sourceStock = (NewButton) list.get((x-1) * 100 + y);
+        NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
         sourceStock.setImageView(stockPile);
 
     }
@@ -494,7 +510,14 @@ public class TileManager extends Application {
                 pane.getChildren().remove(hBox);
             }
         });
-
+    }
+    private void dropWater(int x , int y){
+        WaterSources waterSources = new WaterSources();
+        Map.getObstacleMap()[x][y].add(waterSources);
+        Map.notBuildable[x][y] = true ;
+        Map.notPassable[x][y] = true ;
+        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/images/water.png").toExternalForm()));
+//        NewButton newButton = ((NewButton) list.get(100 * x + y)).setImageView();
     }
 
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
@@ -897,58 +920,143 @@ public class TileManager extends Application {
         error.setContentText(output);
         error.show();
     }
+    private void dropTreeToLocation(int x , int y1 , int y2 , int number){
+        for(int i = y1 ; i <= y2 ; i ++){
+            dropTree(x,i,number);
+        }
+    }
+    private void dropSeaoLocation(int x , int y1 , int y2 , int number){
+        for(int i = y1 ; i <= y2 ; i ++){
+            dropSea(x,i,number);
+        }
+    }
+    private void dropStoneLocation(int x , int y1 , int y2 , int number){
+        for(int i = y1 ; i <= y2 ; i ++){
+            dropStone(x,i,number);
+        }
+    }
     private void artOfTree(){
-        dropTree(2,15);
-        dropTree(3,15);
-        dropTree(4,15);
-        dropTree(5,15);
-        dropTree(6,15);
-        dropTree(7,15);
-        dropTree(8,15);
-        dropTree(9,15);
-        dropTree(2,16);
-        dropTree(3,16);
-        dropTree(4,16);
-        dropTree(5,16);
-        dropTree(6,16);
-        dropTree(7,16);
-        dropTree(8,16);
-        dropTree(9,16);
-        dropTree(2,18);
-        dropTree(2,19);
-        dropTree(2,20);
-        dropTree(2,21);
-        dropTree(2,22);
-        dropTree(3,22);
-        dropTree(4,22);
-        dropTree(5,22);
-        dropTree(5,21);
-        dropTree(5,20);
-        dropTree(5,19);
-        dropTree(5,18);
-        dropTree(4,18);
-        dropTree(3,18);
-        dropTree(6,22);
-        dropTree(7,22);
-        dropTree(8,22);
-        dropTree(9,22);
-        dropTree(9,21);
-        dropTree(9,20);
-        dropTree(9,19);
-        dropTree(9,18);
-        dropTree(5,2);
-        dropTree(2,4);
-        dropTree(1,3);
-        dropTree(4,6);
-        dropTree(7,1);
-        dropTree(2,6);
-        dropTree(8,1);
-        dropTree(8,2);
-        dropTree(8,4);
-        dropTree(7,1);
-        dropTree(7,2);
-        dropTree(7,3);
-        dropTree(7,4);
+        dropTreeToLocation(0,0,12,5);
+        dropTreeToLocation(0,3,8,1);
+        dropTreeToLocation(1,0,10,5);
+        dropTreeToLocation(2,1,8,5);
+        dropTreeToLocation(2,0,4,1);
+        dropTreeToLocation(3,6,7,2);
+        dropTreeToLocation(4,0,1,2);
+        dropTreeToLocation(4,3,4,2);
+        dropTreeToLocation(4,6,6,1);
+        dropStoneLocation(3,8,8,8);
+        dropStoneLocation(4,7,7,8);
+        dropSea(3,2,1);
+        dropSea(3,5,1);
+        dropSea(4,2,1);
+        dropSea(4,5,1);dropSea(3,1,1);
+        dropSea(4,5,1);dropSea(3,1,1);
+        dropSea(3,4,1);dropSea(3,3,1);
+        dropTree(3,0,2);
+        dropTree(4,0,2);
+        dropTree(2,0,2);
+        dropTreeToLocation(5,0,6,5);
+        dropTreeToLocation(6,1,3,5);
+        dropTreeToLocation(7,0,2,5);
+        dropStoneLocation(0,13,17,8);
+        dropStoneLocation(1,18,19,6);
+        dropStoneLocation(2,9,9,6);
+
+        dropStoneLocation(5,7,7,8);
+        dropStoneLocation(6,4,5,8);
+        dropStoneLocation(7,3,4,8);
+        dropTreeToLocation(8,0,2,1);
+        dropTreeToLocation(9,1,2,5);
+        dropTreeToLocation(10,0,1,1);
+        dropSeaoLocation(11,0,3,1);
+        dropStoneLocation(11,4,4,6);
+        dropStoneLocation(12,0,5,3);
+
+
+        dropTreeToLocation(0,18,29,1);
+        dropTreeToLocation(1,20,29,1);
+        dropTreeToLocation(1,22,26,5);
+        dropTreeToLocation(2,19,29,1);
+        dropTreeToLocation(2,21,25,5);
+
+        dropSeaoLocation(3,27,29,1);
+        dropSeaoLocation(5,24,25,1);
+        dropSeaoLocation(4,27,29,1);
+        dropSeaoLocation(5,27,29,1);
+        dropTreeToLocation(3,21,26,1);
+        dropTreeToLocation(4,23,26,5);
+        dropTree(5,26,1);
+        dropTreeToLocation(6,23,26,5);
+        dropTreeToLocation(7,21,29,1);
+        dropTreeToLocation(8,27,29,5);
+        dropStoneLocation(9,21,28,3);
+        dropStoneLocation(10,19,21,1);
+        dropStoneLocation(11,18,20,2);
+        dropTreeToLocation(10,22,29,5);
+        dropTreeToLocation(11,21,29,5);
+
+
+
+
+
+
+
+//        dropTreeToLocation();
+
+//        dropTree(32,65,1);
+//        dropTree(33,65,1);
+//        dropTree(34,65,1);
+//        dropTree(35,65,1);
+//        dropTree(36,65,1);
+//        dropTree(37,65,1);
+//        dropTree(38,65,1);
+//        dropTree(39,65,1);
+//        dropTree(32,66,1);
+//        dropTree(33,66);
+//        dropTree(34,66);
+//        dropTree(35,66);
+//        dropTree(36,66);
+//        dropTree(37,66);
+//        dropTree(38,66);
+//        dropTree(39,66);
+//        dropTree(32,68);
+//        dropTree(32,69);
+//        dropTree(32,70);
+//        dropTree(32,71);
+//        dropTree(32,72);
+//        dropTree(33,72);
+//        dropTree(34,72);
+//        dropTree(35,72);
+//        dropTree(35,71);
+//        dropTree(35,70);
+//        dropTree(35,69);
+//        dropTree(35,68);
+//        dropTree(34,68);
+//        dropTree(33,68);
+//        dropTree(36,72);
+//        dropTree(37,72);
+//        dropTree(38,72);
+//        dropTree(39,72);
+//        dropTree(39,71);
+//        dropTree(39,70);
+//        dropTree(39,69);
+//        dropTree(39,68);
+//        dropTree(35,52);
+//        dropTree(33,59);
+//        dropTree(32,54);
+//        dropTree(31,53);
+//        dropTree(34,56);
+//        dropTree(37,51);
+//        dropTree(32,56);
+//        dropTree(38,51);
+//        dropTree(38,52);
+//        dropTree(38,53);
+//        dropTree(38,54);
+//        dropTree(37,51);
+//        dropTree(37,52);
+//        dropTree(37,53);
+//        dropTree(37,54);
     }
 
 
