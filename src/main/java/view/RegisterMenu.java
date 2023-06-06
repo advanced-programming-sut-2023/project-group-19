@@ -85,7 +85,7 @@ public class RegisterMenu extends Application {
             playLoginMusic();
         }));
         timeline.play();
-        pane.getChildren().add(mediaView);
+
 
 
         URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
@@ -94,6 +94,7 @@ public class RegisterMenu extends Application {
         Scene scene = new Scene(pane);
         Image image = new Image(RegisterMenu.class.getResource("/sowrd.png").toExternalForm());
         scene.setCursor(new ImageCursor(image));
+        pane.getChildren().add(mediaView);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
