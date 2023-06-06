@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import model.Empire;
 import model.Human.Troop.Army;
+import model.Map;
 import view.Animations.troopFights.SwordManAnimation.SwordManAnimation;
 import view.Model.NewButton;
 import view.TileManager;
@@ -47,7 +48,7 @@ public class DeadArcherAnimation extends Transition {
         this.setCycleDuration(Duration.seconds(3));
         this.tileManager = tileManager ;
     }
-    private ArrayList<Army> armies = new ArrayList<>();
+    public ArrayList<Army> armies = new ArrayList<>();
 
 
     @Override
@@ -74,6 +75,7 @@ public class DeadArcherAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
+                Map.getTroopMap()[x][y].remove(army);
             }
         }
     }

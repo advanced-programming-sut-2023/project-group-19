@@ -3,13 +3,23 @@ package controller;
 import controller.Building.BuildingController;
 import controller.Building.FunctionBuildingController;
 import controller.Building.SelectedBuildingController;
+import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 import model.Empire;
 import model.Manage;
 import model.Map;
 import model.User;
+import view.Animations.troopFights.SwordManAnimation.SwordManAnimation;
 import view.GameMenu;
 import view.Model.NewButton;
 import view.TileManager;
@@ -24,9 +34,11 @@ public class NextTurnController {
     public static int index = 1;
     public int mapSize = Map.mapSize ;
     public AttackArmyToArmyController attackArmyToArmyController ;
+    //
 
     public void nextTurn(){
-        System.out.println(Manage.getCurrentEmpire());
+        System.out.println(Manage.getAllEmpires().size());
+        System.out.println(Manage.getCurrentEmpire().getUser().getUsername());
         if (Manage.allEmpires.size() != 1) {
             GameController gameController = tileManager.gameController;
             findCurrentEmpire();
@@ -50,10 +62,10 @@ public class NextTurnController {
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;
-        System.out.println();
     }
     //TODO : check set enemy to target
     public void callStartingTurnFunctions(GameController gameController) {
+        attackArmyToArmyController.clearAllAnimationsArrayList();
         currentEmpire.setSickness(Math.random() < 0.5);
         putGraphicSickEmpire(currentEmpire);
         empireTotalPopularity();
@@ -67,6 +79,34 @@ public class NextTurnController {
         EmpireController.givingPeopleFood(currentEmpire);
         gameController.setEnemyToTarget();
         resetTroopsMovesLeft();
+    }
+    public void attackBanner(){
+        System.out.println(attackArmyToArmyController.isInAttack);
+        if(!attackArmyToArmyController.isInAttack) return;
+        designAttackBanner();
+
+    }
+    public void designAttackBanner(){
+        HBox hBox = new HBox();
+        hBox.setSpacing(50);
+        hBox.setAlignment(Pos.CENTER);
+        BackgroundImage map = new BackgroundImage(new Image(GameController.class.
+                getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        hBox.setBackground(new Background(map));
+        hBox.setPrefSize(300,60);
+        hBox.setLayoutX(620);
+        hBox.setOpacity(0.9);
+        hBox.setLayoutY(3);
+        Label label = new Label();
+        label.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 26));
+        label.setText("attack mode");
+        hBox.getChildren().add(label);
+        tileManager.pane.getChildren().add(hBox);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(6), actionEvent -> {
+            tileManager.pane.getChildren().remove(hBox);
+        }));
+        timeline.play();
     }
     private void putGraphicSickEmpire(Empire empire) {
         if(!empire.isSickness()) return;
@@ -148,8 +188,8 @@ public class NextTurnController {
     }
 
     public void callEndingTurnFunctions() {
-        System.out.println("yy");
         attackArmyToArmyController.battleWithEnemy();
+        attackBanner();
         playerHasLost();
         startFightAnimations();
     }
@@ -167,15 +207,16 @@ public class NextTurnController {
         for (int i = 0; i < size; i++) {
             Empire empire = Manage.allEmpires.get(i);
             boolean isDestroyed = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
-            if (isDestroyed) {
-                GameController.removeEmpireTroopsFromGame(currentEmpire);
-                Manage.allEmpires.remove(i);
-//                if (index != 0) NextTurnController.index--;
-                if(i == size - 1) index = 0 ;
-                else if(index > i) index -- ;
-                i--;
-                size--;
-            }
+//            if (isDestroyed) {
+//                System.out.println("desyroy");
+//                GameController.removeEmpireTroopsFromGame(currentEmpire);
+//                Manage.allEmpires.remove(i);
+////                if (index != 0) NextTurnController.index--;
+//                if(i == size - 1) index = 0 ;
+//                else if(index > i) index -- ;
+//                i--;
+//                size--;
+//            }
         }
     }
 

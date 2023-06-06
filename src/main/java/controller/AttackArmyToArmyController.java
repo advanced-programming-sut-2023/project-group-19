@@ -55,7 +55,8 @@ public class AttackArmyToArmyController {
     public HorseRiderAnimation horseRiderAnimation = new HorseRiderAnimation();
     public MachineAnimation machineAnimation = new MachineAnimation();
 
-    private static int mapSize = 200;
+    private static int mapSize = 100;
+    public boolean isInAttack = false ;
     TileManager tileManager ;
     public SwordManDeadAnimation swordManDeadAnimation;
     public DeadSlaveAnimation deadSlaveAnimation ;
@@ -82,6 +83,30 @@ public class AttackArmyToArmyController {
         deadGrendiarAnimation = new DeadGrendiarAnimation(tileManager);
         deadHorseRiderAnimation = new DeadHorseRiderAnimation(tileManager);
         deadMachineAnimation = new DeadMachineAnimation(tileManager);
+    }
+    public void clearAllAnimationsArrayList(){
+        swordManAnimation.armyArrayList.clear();
+        swordManDeadAnimation.armies.clear();
+        slingerAnimation.armyArrayList.clear();
+        deadSlingerAnimation.armies.clear();
+        slaveAnimation.armyArrayList.clear();
+        deadSlaveAnimation.armies.clear();
+        shortBowAnimation.armyArrayList.clear();
+        deadShortBowAnimation.armies.clear();
+        monkAnimation.armyArrayList.clear();
+        deadMonkAnimation.armies.clear();
+        machineAnimation.armyArrayList.clear();
+        deadMachineAnimation.armies.clear();
+        maceManAnimation.armyArrayList.clear();
+        deadMaceManAnimation.armies.clear();
+        horseRiderAnimation.armyArrayList.clear();
+        deadHorseRiderAnimation.armies.clear();
+        grendiarAnimation.armyArrayList.clear();
+        deadGrendiarAnimation.armies.clear();
+        asssasinAnimation.armyArrayList.clear();
+        deadAssasinAnimation.armies.clear();
+        archerAnimation.armyArrayList.clear();
+        deadArcherAnimation.armies.clear();
     }
     public void battleWithEnemy() {
         for (Empire empire : Manage.allEmpires) {
@@ -150,6 +175,7 @@ public class AttackArmyToArmyController {
         for (Army enemy : ((NewButton)(tileManager.list.get(100 * x + y))).getArmy()) {
             if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
             int newHitPoint = enemy.hp() - army.getAttackPower();
+            isInAttack = true ;
             enemy.setHp(newHitPoint);
             setAnimationToFight(army);
             return;
@@ -259,6 +285,7 @@ public class AttackArmyToArmyController {
                 if (building == null || building.getHp() <= 0 || building.getOwner().equals(Manage.getCurrentEmpire()))
                     continue;
                 int newHp = building.getHp() - army.getAttackPower();
+                isInAttack = true ;
                 setDirectionArmyToAttackBuilding(army,i,j);
                 setAnimationToFight(army);
                 building.setHp(newHp);
@@ -296,6 +323,8 @@ public class AttackArmyToArmyController {
                 for (Army enemy : ((NewButton)(tileManager.list.get(100 * i + j))).getArmy()) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     int newHitPoint = enemy.hp() - army.getAttackPower();
+                    isInAttack = true ;
+                    System.out.println("hihihihhi");
                     enemy.setHp(newHitPoint);
                     enemy.setArcherAttacker((ArchersAndThrowers) army);
                     setArcherDirection(army,enemy);
@@ -316,6 +345,7 @@ public class AttackArmyToArmyController {
                     if (building.getOwner().equals(army.getEmpire())) continue;
                     //building.getHp() <= 0
                     int newHitPoint = building.hp() - army.getAttackPower();
+                    isInAttack = true ;
                     if(army.getNames().equals(Names.FireThrowers)){
                         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(6000),actionEvent -> {
                             try {

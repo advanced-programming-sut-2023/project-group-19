@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,6 +50,7 @@ import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -140,25 +142,10 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("enter tile manager");
         this.stage = stage;
         tileManager = this ;
-
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        System.out.println(newUser);
-        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
         Map.CreateMap(100);
-//        Empire empire = new Empire();
-//        System.out.println(empire);
-//        Empire empire2 = new Empire();
-//        System.out.println(empire2);
-//        empire.setUser(newUser);
-//        empire2.setUser(newUser1);
-//        Manage.setCurrentEmpire(empire);
-//        Manage.allEmpires.add(empire);
-//        Manage.allEmpires.add(empire2);
         createButtonsArraylist();
-
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
@@ -180,48 +167,7 @@ public class TileManager extends Application {
         gameImages.loadImages();
         unitImages = new UnitImages();
         unitImages.loadImages();
-        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
         createMapGame();
-//        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-//        attackArmyToArmyController.battleWithEnemy();
-
-//        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-//        sequentialTransitionSwordMan.play();
-//
-//        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-//        sequentialTransitionSlave.play();
-//
-//        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-//        sequentialTransitionAssasin.play();
-//
-//        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-//        sequentialTransitionMaceMan.play();
-//
-//        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-//        sequentialTransitionMonk.play();
-//
-//        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-//        sequentialTransitionShortBow.play();
-//
-//        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-//        sequentialTransitionSlinger.play();
-//
-//        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-//        sequentialTransitionArcher.play();
-//
-//        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
-//        sequentialTransitionHorseRider.play();
-//
-//        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation, attackArmyToArmyController.deadGrendiarAnimation);
-//        sequentialTransitiongrendiar.play();
-
-
-        //TODO picture of sword man after war // DORSA
-
-//        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-
         pane.requestFocus();
         pane.setFocusTraversable(false);
 
@@ -297,6 +243,7 @@ public class TileManager extends Application {
         stage.setResizable(false);
     }
 
+
     private void dropTree(int x, int y, int number) {
         Tree tree = new Tree();
         Map.getObstacleMap()[x][y].add(tree);
@@ -305,6 +252,7 @@ public class TileManager extends Application {
         castleButton.setImageView(treeImage);
         Map.notBuildable[x][y] = true;
     }
+
 
     private void dropStone(int x, int y, int number) {
         Stone stone = new Stone();
@@ -324,12 +272,19 @@ public class TileManager extends Application {
         Map.notBuildable[x][y] = true;
     }
 
-    private void createMapGame() {
+    private void createMapGame() throws IOException {
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
+
+
         BuildingController buildingController = new BuildingController();
         Empire sallahDin = new Empire();
+        sallahDin.setUser(newUser);
         Castle castleSallah = new Castle(sallahDin);
+        castleSallah.castle();
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
         Manage.setCurrentEmpire(sallahDin);
+
 //        buildingController.dropBuilding(5, 22, "Castle");
         dropStockFunction(5, 22, sallahDin);
         castleButtonSllah.setBuilding(castleSallah);
@@ -339,7 +294,10 @@ public class TileManager extends Application {
 
 
         Empire richard = new Empire();
+        richard.setUser(newUser1);
         Castle castleRichard = new Castle(richard);
+        castleRichard.castle();
+
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
         Manage.setCurrentEmpire(richard);
 //        buildingController.dropBuilding(9, 3, "Castle");
