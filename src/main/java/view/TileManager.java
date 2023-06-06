@@ -263,35 +263,7 @@ public class TileManager extends Application {
 //        AhmedButton.setSickButton(true);
 //        Manage.setCurrentEmpire(Ahmed);
 
-        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-        sequentialTransitionSwordMan.play();
 
-        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-        sequentialTransitionSlave.play();
-
-        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-        sequentialTransitionAssasin.play();
-
-        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-        sequentialTransitionMaceMan.play();
-
-        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-        sequentialTransitionMonk.play();
-
-        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-        sequentialTransitionShortBow.play();
-
-        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-        sequentialTransitionSlinger.play();
-
-        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-        sequentialTransitionArcher.play();
-
-        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
-        sequentialTransitionHorseRider.play();
-
-        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation,attackArmyToArmyController.deadGrendiarAnimation);
-        sequentialTransitiongrendiar.play();
 
 
         //TODO picture of sword man after war // DORSA
