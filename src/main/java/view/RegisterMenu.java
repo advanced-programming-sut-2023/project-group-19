@@ -92,6 +92,7 @@ public class RegisterMenu extends Application {
     private Label headerLabel = new Label();
     public ToggleGroup toggleGroup = new ToggleGroup();
     public String captchaNumber;
+    public MediaPlayer mediaPlayer ;
 
     public static void main(String[] args) {
         launch();
@@ -113,9 +114,6 @@ public class RegisterMenu extends Application {
         }));
         timeline.play();
 
-
-
-        URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
         RegisterMenu.stage = stage;
         Pane pane = new Pane();
         GameImages gameImages = new GameImages();
@@ -133,11 +131,12 @@ public class RegisterMenu extends Application {
 
     }
     private void playLoginMusic(){
-        String defultSong  = getClass().getResource("/Music/register.mp3").toString();
+        String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
         Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//        mediaPlayer.setCycleCount(-1);
-        mediaPlayer.setAutoPlay(true);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
     }
 
     private void designRegisterMenu() {

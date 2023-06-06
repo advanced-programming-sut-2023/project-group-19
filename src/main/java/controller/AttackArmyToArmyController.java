@@ -38,6 +38,7 @@ import view.Animations.troopFights.SlingerAnimation.DeadSlingerAnimation;
 import view.Animations.troopFights.SlingerAnimation.SlingerAnimation;
 import view.Animations.troopFights.SwordManAnimation.SwordManDeadAnimation;
 import view.Animations.troopFights.SwordManAnimation.SwordManAnimation;
+import view.GameButtons.BottomBarBuildings;
 import view.Model.NewButton;
 import view.TileManager;
 
@@ -262,7 +263,7 @@ public class AttackArmyToArmyController {
                 setAnimationToFight(army);
                 building.setHp(newHp);
                 if (building.getHp() <= 0) {
-                    ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
+                    removeBuilding((NewButton)(tileManager.list.get(100 * i + j)));
                     Map.notPassable[i][j] = false ;
                     Map.notBuildable[i][j] = false ;
                 }
@@ -335,7 +336,7 @@ public class AttackArmyToArmyController {
                     building.setHp(newHitPoint);
                     setAnimationToFight(army);
                     if (building.getHp() <= 0) {
-//                        ((NewButton)(tileManager.list.get(100 * i + j))).setBuilding(null);
+                        removeBuilding(((NewButton)(tileManager.list.get(100 * i + j))));
                         Map.notPassable[i][j] = false ;
                         Map.notBuildable[i][j] = false ;
                     }
@@ -359,6 +360,17 @@ public class AttackArmyToArmyController {
         else if(deltaY > 0 ) army.setState(Army.StateOfStanding.BACK);
         else if( deltaY < 0) army.setState(Army.StateOfStanding.FRONT);
         else army.setState(Army.StateOfStanding.RIGHT);
+    }
+    private void removeBuilding(NewButton button){
+        button.setGraphic(null);
+        button.setImageView(null);
+        button.setBuilding(null);
+        int x = button.getX();
+        int y = button.getY();
+        if(Map.buildingMap[x][y].size() != 0)
+            Map.buildingMap[x][y].remove(0);
+        Map.notPassable[x][y] = false;
+        Map.notBuildable[x][y] = false;
     }
 
     public void setFightMode(GameController gameController) {

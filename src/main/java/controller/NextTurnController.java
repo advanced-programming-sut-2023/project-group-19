@@ -34,12 +34,10 @@ public class NextTurnController {
 //                GameController gameController = new GameController();
 //                setGameController(gameController);
 //                findCurrentEmpire();
-//                System.out.println("Current Empire To Play : " + Manage.getCurrentEmpire().getName());
 //                callStartingTurnFunctions(gameController);
 //                GameMenu gameMenu = new GameMenu();
 //                gameMenu.run(scanner);
 //                callEndingTurnFunctions(gameController);
-//
 //            } else {
 //                User user = Manage.getAllEmpires().get(0).getUser();
 //                int oldScore = user.getHighScore();
