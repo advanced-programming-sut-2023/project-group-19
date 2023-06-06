@@ -1,5 +1,7 @@
 package view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,10 +15,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Popup;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import controller.LoginController;
+import javafx.util.Duration;
 import view.Messages.RegisterMessages;
 
+import java.awt.*;
+import java.io.File;
 import java.net.URL;
 
 public class RegisterMenu extends Application {
@@ -63,13 +71,28 @@ public class RegisterMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         RegisterMenu.stage = stage  ;
+
+        String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
+        Media media = new Media(path);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        mediaPlayer.setAutoPlay(true);
+        mediaView.setFitWidth(1550);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
+            pane.getChildren().remove(mediaView);
+        }));
+        timeline.play();
+
+
         URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
         Pane pane = FXMLLoader.load(url);
         this.pane = pane;
+        pane.getChildren().add(mediaView);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
+
     }
 //    public VBox createVboxAnsStructure(Popup popup){
 //
