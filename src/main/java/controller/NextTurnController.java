@@ -21,10 +21,12 @@ import java.util.Scanner;
 public class NextTurnController {
     public static Empire currentEmpire;
     public TileManager tileManager;
-    public static int index;
+    public static int index = 1;
     public int mapSize = Map.mapSize ;
+    public AttackArmyToArmyController attackArmyToArmyController ;
 
     public void nextTurn(){
+        System.out.println(Manage.getCurrentEmpire());
         if (Manage.allEmpires.size() != 1) {
             GameController gameController = tileManager.gameController;
             findCurrentEmpire();
@@ -48,6 +50,7 @@ public class NextTurnController {
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;
+        System.out.println();
     }
     //TODO : check set enemy to target
     public void callStartingTurnFunctions(GameController gameController) {
@@ -58,7 +61,7 @@ public class NextTurnController {
         buildingFire();
         EmpireController.setFearFactor();
         EmpireController.taxImpactOnEmpire(currentEmpire, currentEmpire.getTaxRateNumber());
-        currentEmpire.independentProductionBuilding();
+//        currentEmpire.independentProductionBuilding();
         EmpireController.functionBuildings();
         EmpireController.findFoodDiversity();
         EmpireController.givingPeopleFood(currentEmpire);
@@ -145,9 +148,10 @@ public class NextTurnController {
     }
 
     public void callEndingTurnFunctions() {
-        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
+        System.out.println("yy");
         attackArmyToArmyController.battleWithEnemy();
         playerHasLost();
+        startFightAnimations();
     }
     public void sicknessLogic(){
         if (Manage.getCurrentEmpire().getApothecary()) {

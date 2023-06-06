@@ -282,8 +282,6 @@ public class AttackArmyToArmyController {
     private void setArcherDirection(Army army , Army enemy){
         int deltaX = enemy.xCoordinate - army.xCoordinate ;
         int deltaY = enemy.yCoordinate - army.yCoordinate ;
-        System.out.println(deltaX);
-        System.out.println(deltaY);
         if(deltaX > 0) army.setState(Army.StateOfStanding.FRONT);
         else if( deltaX < 0) army.setState(Army.StateOfStanding.BACK);
         else if(deltaY > 0 ) army.setState(Army.StateOfStanding.RIGHT);
@@ -318,7 +316,6 @@ public class AttackArmyToArmyController {
                     if (building.getOwner().equals(army.getEmpire())) continue;
                     //building.getHp() <= 0
                     int newHitPoint = building.hp() - army.getAttackPower();
-                    System.out.println(newHitPoint);
                     if(army.getNames().equals(Names.FireThrowers)){
                         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(6000),actionEvent -> {
                             try {

@@ -142,18 +142,21 @@ public class TileManager extends Application {
     public void start(Stage stage) throws Exception {
         System.out.println("enter tile manager");
         this.stage = stage;
-        tileManager = new TileManager();
+        tileManager = this ;
+
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        System.out.println(newUser);
         User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
         Map.CreateMap(100);
-        Empire empire = new Empire();
-        Empire empire2 = new Empire();
-        empire.setUser(newUser);
-        empire2.setUser(newUser1);
-        Manage.setCurrentEmpire(empire);
-        Manage.allEmpires.add(empire);
-        Manage.allEmpires.add(empire2);
-        BuildingController.currentEmpire = empire;
+//        Empire empire = new Empire();
+//        System.out.println(empire);
+//        Empire empire2 = new Empire();
+//        System.out.println(empire2);
+//        empire.setUser(newUser);
+//        empire2.setUser(newUser1);
+//        Manage.setCurrentEmpire(empire);
+//        Manage.allEmpires.add(empire);
+//        Manage.allEmpires.add(empire2);
         createButtonsArraylist();
 
         for (int j = 0; j < 103; j++) {
@@ -180,38 +183,38 @@ public class TileManager extends Application {
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
         NewButton newButton = (NewButton) list.get(2 * 100 + 1);
         createMapGame();
-        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-        attackArmyToArmyController.battleWithEnemy();
+//        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
+//        attackArmyToArmyController.battleWithEnemy();
 
-        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-        sequentialTransitionSwordMan.play();
-
-        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-        sequentialTransitionSlave.play();
-
-        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-        sequentialTransitionAssasin.play();
-
-        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-        sequentialTransitionMaceMan.play();
-
-        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-        sequentialTransitionMonk.play();
-
-        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-        sequentialTransitionShortBow.play();
-
-        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-        sequentialTransitionSlinger.play();
-
-        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-        sequentialTransitionArcher.play();
-
-        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
-        sequentialTransitionHorseRider.play();
-
-        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation, attackArmyToArmyController.deadGrendiarAnimation);
-        sequentialTransitiongrendiar.play();
+//        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
+//        sequentialTransitionSwordMan.play();
+//
+//        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
+//        sequentialTransitionSlave.play();
+//
+//        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
+//        sequentialTransitionAssasin.play();
+//
+//        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
+//        sequentialTransitionMaceMan.play();
+//
+//        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
+//        sequentialTransitionMonk.play();
+//
+//        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
+//        sequentialTransitionShortBow.play();
+//
+//        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
+//        sequentialTransitionSlinger.play();
+//
+//        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
+//        sequentialTransitionArcher.play();
+//
+//        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
+//        sequentialTransitionHorseRider.play();
+//
+//        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation, attackArmyToArmyController.deadGrendiarAnimation);
+//        sequentialTransitiongrendiar.play();
 
 
         //TODO picture of sword man after war // DORSA
@@ -248,9 +251,10 @@ public class TileManager extends Application {
                             zoom1();
                         }
                     }
-                } else if (keyName.equals("Enter")) {
+                } else if (keyName.equals("F6")) {
                     NextTurnController nextTurnController = new NextTurnController();
                     nextTurnController.tileManager = tileManager;
+                    nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
                     nextTurnController.nextTurn();
                 } else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
@@ -325,20 +329,29 @@ public class TileManager extends Application {
         Empire sallahDin = new Empire();
         Castle castleSallah = new Castle(sallahDin);
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
+        Manage.setCurrentEmpire(sallahDin);
+//        buildingController.dropBuilding(5, 22, "Castle");
         dropStockFunction(5, 22, sallahDin);
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
+
+
+
         Empire richard = new Empire();
         Castle castleRichard = new Castle(richard);
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
-        buildingController.dropBuilding(9, 3, "Castle");
+        Manage.setCurrentEmpire(richard);
+//        buildingController.dropBuilding(9, 3, "Castle");
         castleButton.setBuilding(castleRichard);
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
         dropStockFunction(9, 3, richard);
+        Manage.setCurrentEmpire(sallahDin);
+        BuildingController.currentEmpire = sallahDin;
+        Manage.getAllEmpires().add(sallahDin);
+        Manage.getAllEmpires().add(richard);
         artOfTree();
-
     }
 
     private void dropStockFunction(int x, int y, Empire empire) {
