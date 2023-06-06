@@ -71,7 +71,7 @@ public class EmpireButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 clearPane(pane);
-                showPopularityFactors(pane, buildingImages , empireMenu);
+                showPopularityFactors(pane, buildingImages, empireMenu);
             }
         });
 
@@ -150,7 +150,7 @@ public class EmpireButtons {
 
 
         Text popularity = new Text();
-        popularity.setText("Popularity : " + (Manage.getCurrentEmpire().getPopularity() +  Manage.getCurrentEmpire().getSicknessImpactOnPopularity()));
+        popularity.setText("Popularity : " + (Manage.getCurrentEmpire().getPopularity() + Manage.getCurrentEmpire().getSicknessImpactOnPopularity()));
         if (Manage.getCurrentEmpire().getPopularity() >= 0) {
             popularity.setStroke(Color.GREEN);
         } else {
@@ -279,8 +279,6 @@ public class EmpireButtons {
         addedButtons.add(submit3);
 
 
-
-
         l = new Label(" ");
         l.setTextFill(Color.BLACK);
         slider = new Slider();
@@ -294,9 +292,8 @@ public class EmpireButtons {
         slider.valueProperty().addListener(
                 new ChangeListener<Number>() {
 
-                    public void changed(ObservableValue<? extends Number >
-                                                observable, Number oldValue, Number newValue)
-                    {
+                    public void changed(ObservableValue<? extends Number>
+                                                observable, Number oldValue, Number newValue) {
                         rate = newValue.intValue();
                         l.setText("Fear Rate: " + newValue.intValue());
                     }
@@ -326,10 +323,11 @@ public class EmpireButtons {
     public void clearPane(Pane pane) {
         pane.getChildren().removeAll(addedButtons);
         pane.getChildren().removeAll(addedText);
-        pane.getChildren().removeAll(l , slider);
+        pane.getChildren().removeAll(l, slider);
         addedText.clear();
         addedButtons.clear();
     }
+
     public void showError(String output) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("DROP BUILDING FAILED");

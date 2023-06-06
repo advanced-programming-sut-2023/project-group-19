@@ -76,8 +76,6 @@ public class RegisterMenu extends Application {
     public Button submitSecurityAnswer = new Button("Submit");
 
 
-
-
     public VBox captchaBox;
 
     public ImageView captchaImage = new ImageView();
@@ -99,7 +97,7 @@ public class RegisterMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        RegisterMenu.stage = stage  ;
+        RegisterMenu.stage = stage;
 
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
         Media media = new Media(path);
@@ -112,7 +110,6 @@ public class RegisterMenu extends Application {
             playLoginMusic();
         }));
         timeline.play();
-
 
 
         URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
@@ -132,8 +129,9 @@ public class RegisterMenu extends Application {
         stage.show();
 
     }
-    private void playLoginMusic(){
-        String defultSong  = getClass().getResource("/Music/register.mp3").toString();
+
+    private void playLoginMusic() {
+        String defultSong = getClass().getResource("/Music/register.mp3").toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 //        mediaPlayer.setCycleCount(-1);
@@ -146,7 +144,7 @@ public class RegisterMenu extends Application {
         headerLabel.setTranslateX(610);
         headerLabel.setTranslateY(50);
 
-        username.setPrefSize(260,30);
+        username.setPrefSize(260, 30);
         username.setTranslateX(200);
         username.setTranslateY(130);
         username.setPromptText("Enter username");
@@ -156,7 +154,7 @@ public class RegisterMenu extends Application {
             usernameError(headerLabel, "Complete the registration form");
         });
 
-        passwordHide.setPrefSize(260,30);
+        passwordHide.setPrefSize(260, 30);
         passwordHide.setTranslateX(200);
         passwordHide.setTranslateY(220);
         passwordHide.setPromptText("Enter password");
@@ -166,7 +164,7 @@ public class RegisterMenu extends Application {
             checkPasswordError(headerLabel, "Complete the registration form");
         });
 
-        passwordShow.setPrefSize(260,30);
+        passwordShow.setPrefSize(260, 30);
         passwordShow.setTranslateX(200);
         passwordShow.setTranslateY(220);
         passwordShow.setPromptText("Enter password");
@@ -176,7 +174,7 @@ public class RegisterMenu extends Application {
             checkPasswordError(headerLabel, "Complete the registration form");
         });
 
-        passwordVisibility.setPrefSize(30,30);
+        passwordVisibility.setPrefSize(30, 30);
         passwordVisibility.setTranslateX(480);
         passwordVisibility.setTranslateY(220);
 
@@ -202,14 +200,14 @@ public class RegisterMenu extends Application {
         randomPassword.setFocusTraversable(false);
 
 
-        email.setPrefSize(260,30);
+        email.setPrefSize(260, 30);
         email.setTranslateX(200);
         email.setTranslateY(310);
         email.setPromptText("Enter email");
         email.setFocusTraversable(false);
         email.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
 
-        nickname.setPrefSize(260,30);
+        nickname.setPrefSize(260, 30);
         nickname.setTranslateX(200);
         nickname.setTranslateY(400);
         nickname.setPromptText("Enter nickname");
@@ -229,7 +227,7 @@ public class RegisterMenu extends Application {
         });
         showSlogan.setFocusTraversable(false);
 
-        slogan.setPrefSize(260,30);
+        slogan.setPrefSize(260, 30);
         slogan.setTranslateX(200);
         slogan.setTranslateY(580);
         slogan.setPromptText("Enter slogan");
@@ -357,11 +355,11 @@ public class RegisterMenu extends Application {
         Q3.setTranslateY(30);
         securityQuestionBox.setLayoutX(960);
         securityQuestionBox.setLayoutY(200);
-        securityQuestionBox.setPrefSize(200,110);
+        securityQuestionBox.setPrefSize(200, 110);
         securityQuestionBox.setVisible(false);
 
         answerOfSecurityBox.setPromptText("Answer the chosen question");
-        answerOfSecurityBox.setPrefSize(330,30);
+        answerOfSecurityBox.setPrefSize(330, 30);
         answerOfSecurityBox.setLayoutX(960);
         answerOfSecurityBox.setLayoutY(350);
         answerOfSecurityBox.setFocusTraversable(false);
@@ -387,7 +385,7 @@ public class RegisterMenu extends Application {
         submitSecurityAnswer.setVisible(false);
 
         answerOfCaptcha.setPromptText("Enter captcha");
-        answerOfCaptcha.setPrefSize(230,30);
+        answerOfCaptcha.setPrefSize(230, 30);
         answerOfCaptcha.setLayoutX(960);
         answerOfCaptcha.setLayoutY(350);
         answerOfCaptcha.setFocusTraversable(false);
@@ -546,7 +544,7 @@ public class RegisterMenu extends Application {
         checkEmail();
         nicknameError();
         sloganCheck();
-        if (!isEnd){
+        if (!isEnd) {
             usernameError.setVisible(true);
             passwordError.setVisible(true);
             emailError.setVisible(true);

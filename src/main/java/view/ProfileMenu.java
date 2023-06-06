@@ -33,8 +33,8 @@ import java.util.ArrayList;
 
 
 public class ProfileMenu extends Application {
-    public Pane pane ;
-    public static Stage stage ;
+    public Pane pane;
+    public static Stage stage;
     public ImageView draggedAvatarImage = new ImageView();
     public ImageView avatar = new ImageView();
     public ImageView imageView1 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/1.png").toExternalForm()));
@@ -76,15 +76,16 @@ public class ProfileMenu extends Application {
     public Button selectImage = new Button("Select Image");
     public Button selectImageFromSystem = new Button("Choose");
     public Button refresh = new Button("Refresh");
+
     @Override
     public void start(Stage stage) throws Exception {
-        ProfileMenu.stage = stage ;
+        ProfileMenu.stage = stage;
         Pane pane = new Pane();
         this.pane = pane;
         StartingFunctions();
         designProfileMenu();
         Scene scene = new Scene(pane);
-        this.scene = scene ;
+        this.scene = scene;
         DragAndDropImage();
         stage.setScene(scene);
         stage.setFullScreen(true);
@@ -97,7 +98,7 @@ public class ProfileMenu extends Application {
         backButton.setTranslateY(20);
         backButton.setStyle("-fx-background-color: #cba883");
         backButton.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
-        backButton.setPrefSize(100,40);
+        backButton.setPrefSize(100, 40);
         backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -115,7 +116,7 @@ public class ProfileMenu extends Application {
         headerLabel.setTranslateX(700);
         headerLabel.setTranslateY(50);
 
-        username.setPrefSize(260,30);
+        username.setPrefSize(260, 30);
         username.setTranslateX(200);
         username.setTranslateY(130);
         username.setPromptText("Enter new username");
@@ -125,21 +126,21 @@ public class ProfileMenu extends Application {
             usernameError(headerLabel, "ProfileMenu");
         });
 
-        email.setPrefSize(260,30);
+        email.setPrefSize(260, 30);
         email.setTranslateX(200);
         email.setTranslateY(220);
         email.setPromptText("Enter new email");
         email.setFocusTraversable(false);
         email.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
 
-        nickname.setPrefSize(260,30);
+        nickname.setPrefSize(260, 30);
         nickname.setTranslateX(200);
         nickname.setTranslateY(310);
         nickname.setPromptText("Enter new nickname");
         nickname.setFocusTraversable(false);
         nickname.setStyle("-fx-background-color: #cba883; -fx-prompt-text-fill: black");
 
-        slogan.setPrefSize(260,30);
+        slogan.setPrefSize(260, 30);
         slogan.setTranslateX(200);
         slogan.setTranslateY(400);
         slogan.setPromptText("Enter new slogan");
@@ -235,7 +236,7 @@ public class ProfileMenu extends Application {
         button.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
         button.setLayoutX(1200);
         button.setLayoutY(125);
-        button.setPrefSize(140,40);
+        button.setPrefSize(140, 40);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -295,7 +296,7 @@ public class ProfileMenu extends Application {
         newPassword.setMaxWidth(100);
         newPassword.setTranslateX(30);
         newPassword.textProperty().addListener((observable, oldText, newText) -> {
-            checkPasswordError(headerLabel,"Profile Menu");
+            checkPasswordError(headerLabel, "Profile Menu");
         });
         confirmPasswordError.setStyle("-fx-text-fill: #871818");
         retypeNewPassword.setPromptText("Repeat new password");
@@ -307,7 +308,7 @@ public class ProfileMenu extends Application {
         hBox.getChildren().add(answerOfCaptcha);
         passwordBox.setTranslateX(950);
         passwordBox.setTranslateY(250);
-        passwordBox.setPrefSize(100,300);
+        passwordBox.setPrefSize(100, 300);
         passwordBox.getChildren().add(oldPasswordError);
         passwordBox.getChildren().add(oldPassword);
         passwordBox.getChildren().add(newPasswordError);
@@ -322,7 +323,7 @@ public class ProfileMenu extends Application {
 
     }
 
-    public void designVboxOfErrors(){
+    public void designVboxOfErrors() {
         usernameError.setText("random text 1");
         usernameError.setStyle("-fx-text-fill: #871818");
         emailError.setText("random text 3");
@@ -342,7 +343,7 @@ public class ProfileMenu extends Application {
     }
 
 
-    public void designVBoxOfImage(){
+    public void designVBoxOfImage() {
         HBox hBox1 = new HBox();
         HBox hBox2 = new HBox();
         HBox hBox3 = new HBox();
@@ -396,7 +397,8 @@ public class ProfileMenu extends Application {
         captchaNumber = LoginController.setImageCaptcha(captchaImage);
         answerOfCaptcha.setText(captchaNumber);
     }
-    private void checkPasswordError(Label label,String textSucess) {
+
+    private void checkPasswordError(Label label, String textSucess) {
         String password = newPassword.getText();
         RegisterMessages messages = LoginController.checkPassword(password);
         String text = null;
@@ -426,19 +428,19 @@ public class ProfileMenu extends Application {
         label.setText(text);
     }
 
-    public void usernameError(Label label,String textSuccess){
-        String newText =  username.getText();
+    public void usernameError(Label label, String textSuccess) {
+        String newText = username.getText();
         RegisterMessages messages = LoginController.checkUsername(newText);
-        switch (messages){
+        switch (messages) {
             case EMPTY_FIELD:
                 label.setText("You have empty field");
                 break;
-            case USERNAME_REPEATED :
-                if(!User.getCurrentUser().getUsername().equals(username.getText())) {
+            case USERNAME_REPEATED:
+                if (!User.getCurrentUser().getUsername().equals(username.getText())) {
                     label.setText("Your username is repeated but username " +
                             LoginController.makeUserNameForUser(newText) +
                             " is available!");
-                }else{
+                } else {
                     label.setText(textSuccess);
                 }
                 break;
@@ -449,7 +451,8 @@ public class ProfileMenu extends Application {
                 label.setText(textSuccess);
         }
     }
-    private void fillWholeFields(){
+
+    private void fillWholeFields() {
         User user = User.getCurrentUser();
         username.setText(user.getUsername());
         email.setText(user.getEmail());
@@ -479,10 +482,10 @@ public class ProfileMenu extends Application {
                 if (db.hasFiles()) {
                     success = true;
                     String filePath = null;
-                    for (File file:db.getFiles()) {
+                    for (File file : db.getFiles()) {
                         filePath = file.getAbsolutePath();
                         System.out.println(filePath);
-                        Image image  = new Image(filePath);
+                        Image image = new Image(filePath);
                         User.getCurrentUser().setAvatar(draggedAvatarImage);
                         draggedAvatarImage.setImage(image);
                     }
@@ -493,17 +496,24 @@ public class ProfileMenu extends Application {
         });
     }
 
-    public void setAvatarImage(){
+    public void setAvatarImage() {
         avatar.setImage(User.getCurrentUser().getAvatar().getImage());
         avatar.setFitWidth(100);
         avatar.setFitHeight(100);
     }
-    public void initializeDefaultAvatarsImage(){
+
+    public void initializeDefaultAvatarsImage() {
         ArrayList<ImageView> imageViews = new ArrayList<>();
-        imageViews.add(imageView1); imageViews.add(imageView2); imageViews.add(imageView3);
-        imageViews.add(imageView4); imageViews.add(imageView5); imageViews.add(imageView6);
-        imageViews.add(imageView7); imageViews.add(imageView8); imageViews.add(imageView9);
-        for(ImageView imageView : imageViews){
+        imageViews.add(imageView1);
+        imageViews.add(imageView2);
+        imageViews.add(imageView3);
+        imageViews.add(imageView4);
+        imageViews.add(imageView5);
+        imageViews.add(imageView6);
+        imageViews.add(imageView7);
+        imageViews.add(imageView8);
+        imageViews.add(imageView9);
+        for (ImageView imageView : imageViews) {
             Image image = new Image(ProfileMenu.class.getResource(
                     "/avatars/" + (imageViews.indexOf(imageView) + 1) + ".png").toExternalForm());
             imageView.setImage(image);
@@ -540,17 +550,18 @@ public class ProfileMenu extends Application {
         vBoxOfSelectImage.setVisible(!vBoxOfSelectImage.isVisible());
         selectImageFromSystem.setVisible(vBoxOfSelectImage.isVisible());
     }
-    public void checkEmail(){
-        String newText =  email.getText();
+
+    public void checkEmail() {
+        String newText = email.getText();
         RegisterMessages messages = LoginController.checkEmail(newText);
-        switch (messages){
-            case EMPTY_FIELD :
+        switch (messages) {
+            case EMPTY_FIELD:
                 emailError.setText("You have empty field");
                 break;
             case REPEATED_EMAIL:
-                if(!email.getText().equals(User.getCurrentUser().getEmail())){
+                if (!email.getText().equals(User.getCurrentUser().getEmail())) {
                     emailError.setText("Your email is repeated");
-                }else{
+                } else {
                     emailError.setText("");
                 }
                 break;
@@ -562,24 +573,26 @@ public class ProfileMenu extends Application {
                 break;
         }
     }
+
     public void sloganCheck() {
         if (slogan.getText().equals("")) sloganError.setText("Empty field");
         else sloganError.setText("");
     }
-    public void nicknameError(){
+
+    public void nicknameError() {
         String newText = nickname.getText();
-        if(newText.equals("")) nicknameError.setText("Empty field");
+        if (newText.equals("")) nicknameError.setText("Empty field");
         else nicknameError.setText("");
     }
 
     public void submit(MouseEvent mouseEvent) throws Exception {
-        if(!captchaNumber.equals(answerOfCaptcha.getText())){
+        if (!captchaNumber.equals(answerOfCaptcha.getText())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("captcha is wrong!");
             alert.showAndWait();
             return;
         }
-        usernameError(usernameError,"");
+        usernameError(usernameError, "");
         checkPassword();
         checkEmail();
         nicknameError();
@@ -587,15 +600,17 @@ public class ProfileMenu extends Application {
         checkFinalChanges();
 
     }
-    private void checkPassword(){
-        if(oldPassword.getText().equals("")) {
+
+    private void checkPassword() {
+        if (oldPassword.getText().equals("")) {
             oldPasswordError.setText("Empty Field");
-        }
-        else if(!ProfileController.checkOldPassword(oldPassword.getText())) oldPasswordError.setText("Old password is wrong!");
+        } else if (!ProfileController.checkOldPassword(oldPassword.getText()))
+            oldPasswordError.setText("Old password is wrong!");
         else oldPasswordError.setText("");
-        checkPasswordError(newPasswordError,"");
-        if(retypeNewPassword.getText().equals("")) confirmPasswordError.setText("Empty Field");
-        else if(!newPassword.getText().equals(retypeNewPassword.getText())) confirmPasswordError.setText("Is not equal!");
+        checkPasswordError(newPasswordError, "");
+        if (retypeNewPassword.getText().equals("")) confirmPasswordError.setText("Empty Field");
+        else if (!newPassword.getText().equals(retypeNewPassword.getText()))
+            confirmPasswordError.setText("Is not equal!");
         else confirmPasswordError.setText("");
     }
 
@@ -612,19 +627,19 @@ public class ProfileMenu extends Application {
             alert.setTitle("Successfully");
             System.out.println("username is : " + username.getText());
             System.out.println("password is : " + email.getText());
-            System.out.println("nickname is : " +  nickname.getText());
+            System.out.println("nickname is : " + nickname.getText());
             System.out.println("slogan is : " + slogan.getText());
             System.out.println("password is : " + newPassword.getText());
 
-            alert.setContentText(ProfileController.changingFields(username.getText(),email.getText()
-                    ,nickname.getText(),slogan.getText(),newPassword.getText()));
+            alert.setContentText(ProfileController.changingFields(username.getText(), email.getText()
+                    , nickname.getText(), slogan.getText(), newPassword.getText()));
 
-            ProfileController.editProfile(username.getText(),email.getText()
-                    ,nickname.getText(),slogan.getText(),newPassword.getText());
+            ProfileController.editProfile(username.getText(), email.getText()
+                    , nickname.getText(), slogan.getText(), newPassword.getText());
             alert.showAndWait();
             Main mainMenu = new Main();
             mainMenu.start(stage);
-        }else {
+        } else {
             vBoxErrorHandling.setVisible(true);
         }
     }
@@ -639,12 +654,12 @@ public class ProfileMenu extends Application {
     }
 
     public void changePassword(MouseEvent mouseEvent) {
-        if(!passwordBox.isVisible()){
+        if (!passwordBox.isVisible()) {
             newPassword.setText("");
             oldPassword.setText("");
             retypeNewPassword.setText("");
             answerOfCaptcha.setText("");
-        }else{
+        } else {
             User user = User.getCurrentUser();
             newPassword.setText(user.getPassword());
             oldPassword.setText(user.getPassword());

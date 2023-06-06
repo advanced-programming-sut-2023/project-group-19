@@ -21,13 +21,13 @@ import view.OldView.TradeMenu;
 public class ListOfReceivedRequestsMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        TradeAndShopImages tradeAndShopImages =  new TradeAndShopImages();
+        TradeAndShopImages tradeAndShopImages = new TradeAndShopImages();
         tradeAndShopImages.loadImages();
         TradeController tradeController = new TradeController();
 
         Main.stage = stage;
         Button back = new Button();
-        back.setPrefSize(100,40);
+        back.setPrefSize(100, 40);
         back.setLayoutX(20);
         back.setLayoutY(20);
         back.setStyle("-fx-background-color: #cba883");
@@ -49,7 +49,7 @@ public class ListOfReceivedRequestsMenu extends Application {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         ImageView backGround = new ImageView(tradeAndShopImages.getBackground());
         Pane pane = new Pane();
-        pane.getChildren().addAll(backGround,scrollPane,back);
+        pane.getChildren().addAll(backGround, scrollPane, back);
         scrollPane.setLayoutX(580);
         scrollPane.setLayoutY(200);
         scrollPane.setPrefWidth(400);

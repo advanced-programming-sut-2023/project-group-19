@@ -32,10 +32,11 @@ public class UnitImages {
     public Image portableShield;
     public Image engineer;
     public Image hboxOfDropUnit;
-    public void loadImages(){
+
+    public void loadImages() {
         archer = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/archer.png").toExternalForm());
         crossbowMen = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/crossbowMen.png").toExternalForm());
-        spearMen =  new Image(TileManager.class.getResource("/image/Units/IntroductionPics/spearMen.png").toExternalForm());
+        spearMen = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/spearMen.png").toExternalForm());
         pikeMen = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/pikeMen.png").toExternalForm());
         maceMen = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/maceMen.png").toExternalForm());
         swordsMen = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/swordsMen.png").toExternalForm());
@@ -59,7 +60,8 @@ public class UnitImages {
         engineer = new Image(TileManager.class.getResource("/image/Units/IntroductionPics/engineer.png").toExternalForm());
         gatheringImages();
     }
-    public void gatheringImages(){
+
+    public void gatheringImages() {
         images = new ArrayList<>();
         images.add(archer);
         images.add(crossbowMen);

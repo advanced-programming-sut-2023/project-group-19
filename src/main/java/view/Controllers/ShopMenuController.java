@@ -125,9 +125,8 @@ public class ShopMenuController {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager tileManager = new TileManager();
                 try {
-                    tileManager.start(stage);
+                    stage.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

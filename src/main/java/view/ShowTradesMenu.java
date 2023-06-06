@@ -20,8 +20,8 @@ public class ShowTradesMenu extends Application {
     public void start(Stage stage) throws Exception {
         Main.stage = stage;
         Pane pane = new Pane();
-        pane.setPrefSize(1000,900);
-        designShopTradeMenu(pane,stage);
+        pane.setPrefSize(1000, 900);
+        designShopTradeMenu(pane, stage);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
@@ -37,9 +37,9 @@ public class ShowTradesMenu extends Application {
         Button back = new Button();
         Button listOfSentRequests = new Button();
         Button listOfAskedForDonation = new Button();
-        back.setPrefSize(100,50);
-        listOfSentRequests.setPrefSize(400 , 300);
-        listOfAskedForDonation.setPrefSize(400,300);
+        back.setPrefSize(100, 50);
+        listOfSentRequests.setPrefSize(400, 300);
+        listOfAskedForDonation.setPrefSize(400, 300);
         back.setLayoutX(30);
         back.setLayoutY(30);
         listOfSentRequests.setLayoutX(250);
@@ -60,11 +60,11 @@ public class ShowTradesMenu extends Application {
         seeDonationView.setFitWidth(400);
         listOfSentRequests.setGraphic(sentReqView);
         listOfAskedForDonation.setGraphic(seeDonationView);
-        setActionOfButtons(listOfSentRequests,listOfAskedForDonation,back,stage);
-        pane.getChildren().addAll(background,listOfSentRequests,listOfAskedForDonation,back);
+        setActionOfButtons(listOfSentRequests, listOfAskedForDonation, back, stage);
+        pane.getChildren().addAll(background, listOfSentRequests, listOfAskedForDonation, back);
     }
 
-    private void setActionOfButtons(Button listOfSentRequests, Button listOfAskedForDonation,Button back, Stage stage) throws Exception {
+    private void setActionOfButtons(Button listOfSentRequests, Button listOfAskedForDonation, Button back, Stage stage) throws Exception {
         TradeController tradeController = new TradeController();
         tradeController.notification(stage);
         listOfSentRequests.setOnMouseClicked(new EventHandler<MouseEvent>() {

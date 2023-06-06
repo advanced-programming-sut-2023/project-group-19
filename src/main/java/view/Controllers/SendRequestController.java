@@ -184,7 +184,7 @@ public class SendRequestController {
             }
         });
         makeTheGoodsChoiceBox(pane, goodName);
-        makeTheEmpiresChoiceBox(pane,empireName);
+        makeTheEmpiresChoiceBox(pane, empireName);
     }
 
     public boolean setEventHandler(TextField empireName, TextField goodName, Spinner<Integer> amount, TextField message) {

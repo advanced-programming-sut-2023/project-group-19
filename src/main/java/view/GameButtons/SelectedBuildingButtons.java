@@ -6,18 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import model.Building.PrepareLaboursAndFighters;
-import model.Building.Wall;
+import javafx.stage.Stage;
+import model.Building.Shop;
 import model.Manage;
 import view.ImageAndBackground.UnitImages;
-import view.Messages.SelectedBuildingMessages;
-import view.Model.NewButton;
 import view.OldView.SelectedBuildingMenu;
+import view.ShopMenu;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class SelectedBuildingButtons {
@@ -37,6 +33,18 @@ public class SelectedBuildingButtons {
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
         error.show();
+    }
+
+    public void shop(Pane pane) throws Exception {
+        Stage stage = new Stage();
+        System.out.println(5);
+        ShopMenu shopMenu = new ShopMenu();
+        Shop shop = new Shop(Manage.getCurrentEmpire());
+        shop.shop();
+        shopMenu.currentShop = shop;
+
+        shopMenu.start(stage);
+        stage.setFullScreen(true);
     }
 
     public void barracks(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {

@@ -17,7 +17,7 @@ public class SelectedBuildingMenu {
     public SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
     public String buildingName = selectedBuilding.getNameEnum().getName();
 
-    public Pattern createUnit(String troopName , int matcherCount ){
+    public Pattern createUnit(String troopName, int matcherCount) {
         if (SelectedBuildingCommands.getMatcher(troopName,
                 SelectedBuildingCommands.SELECTED_BUILDING_BARRACKS_TROOP_NAME_CHECK) != null && buildingName.equals("Barracks")) {
             return selectedBuildingController.Barracks(troopName, matcherCount).getName();
@@ -38,13 +38,16 @@ public class SelectedBuildingMenu {
         }
         return null;
     }
+
     public Pattern setTax(int matcherTaxRate) {
         return selectedBuildingController.gatehouse(matcherTaxRate).getName();
     }
-    public Pattern drawBridge(String matcherBridgeCondition){
+
+    public Pattern drawBridge(String matcherBridgeCondition) {
         return selectedBuildingController.drawBridge(matcherBridgeCondition).getName();
     }
-    public Pattern repair(){
+
+    public Pattern repair() {
         if (!GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
             if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
                 return Pattern.compile(BuildingController.repairBuilding(selectedBuilding).getMessages());

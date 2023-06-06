@@ -5,7 +5,6 @@ import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import controller.NextTurnController;
-import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -13,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,23 +25,17 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import model.Building.Armoury;
-import model.Building.Building;
 import model.Building.Castle;
-import model.Building.House;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
-import model.Obstacle.ObstacleName;
 import model.Obstacle.Stone;
 import model.Obstacle.Tree;
 import model.Obstacle.WaterSources;
 import model.User;
 import view.Commands.SelectedBuildingCommands;
-import view.Animations.troopFights.HorseRiderAnimation.HorseRiderAnimation;
 import view.GameButtons.BottomBarBuildings;
 import view.GameButtons.BottomBarButtons;
 import view.GameButtons.DropUnitDesign;
@@ -61,13 +53,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TileManager extends Application {
-    //TODO : Dear TeamMates please pay attention that you should set
-    // the coordinates of your node first then you can set imageView for it.
-
-    //TODO : Check that selected unit would be empty or not in GameController if it was full
-    // show an error that user should make a decision for them
-
-    //TODO : Method which calculates the Production things on a tile
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -95,6 +80,7 @@ public class TileManager extends Application {
     public int avgProduction;
     public int moveX;
     public int moveY;
+    public Stage stage;
     public int leastProduction;
     public int mostProduction;
     public int numberOfMySoldiers;
@@ -120,21 +106,24 @@ public class TileManager extends Application {
     private boolean moveIsOn;
     public String clipboardData;
     public GameController gameController = new GameController();
-    public void zoom1(){
+
+    public void zoom1() {
         verticalSize = 51.2;
         horizontalSize = 54;
         viewButtonSize = 50;
         verticalButtons = 30;
         horizontalButtons = 16;
     }
-    public void zoom2(){
+
+    public void zoom2() {
         verticalSize = 59;
         horizontalSize = 58;
         viewButtonSize = 62;
         verticalButtons = 26;
         horizontalButtons = 14;
     }
-    public void zoom3(){
+
+    public void zoom3() {
         verticalSize = 70;
         horizontalSize = 68;
         viewButtonSize = 86;
@@ -144,6 +133,8 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println("enter tile manager");
+        this.stage = stage;
         tileManager = new TileManager();
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
@@ -212,7 +203,7 @@ public class TileManager extends Application {
         SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
         sequentialTransitionHorseRider.play();
 
-        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation,attackArmyToArmyController.deadGrendiarAnimation);
+        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation, attackArmyToArmyController.deadGrendiarAnimation);
         sequentialTransitiongrendiar.play();
 
         pane.requestFocus();
@@ -227,31 +218,28 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
-                    if(zoomSize != 3){
+                    if (zoomSize != 3) {
                         zoomSize++;
-                        if(zoomSize == 3){
+                        if (zoomSize == 3) {
                             zoom3();
-                        }
-                        else if (zoomSize == 2){
+                        } else if (zoomSize == 2) {
                             zoom2();
                         }
                     }
                 } else if (keyName.equals("Subtract")) {
-                    if(zoomSize != 1){
+                    if (zoomSize != 1) {
                         zoomSize--;
-                        if(zoomSize == 2){
+                        if (zoomSize == 2) {
                             zoom2();
-                        }
-                        else if (zoomSize == 1){
+                        } else if (zoomSize == 1) {
                             zoom1();
                         }
                     }
-                }
-                else if (keyName.equals("Enter")) {
+                } else if (keyName.equals("Enter")) {
                     NextTurnController nextTurnController = new NextTurnController();
-                    nextTurnController.tileManager = tileManager ;
+                    nextTurnController.tileManager = tileManager;
                     nextTurnController.nextTurn();
-                }else if (keyName.equals("F1")) {
+                } else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
@@ -291,48 +279,51 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-    private void dropTree(int x , int y,int number){
+
+    private void dropTree(int x, int y, int number) {
         Tree tree = new Tree();
         Map.getObstacleMap()[x][y].add(tree);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number +".png").toExternalForm()));
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number + ".png").toExternalForm()));
         castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true ;
+        Map.notBuildable[x][y] = true;
     }
-    private void dropStone(int x , int y,int number){
+
+    private void dropStone(int x, int y, int number) {
         Stone stone = new Stone();
         Map.getObstacleMap()[x][y].add(stone);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number +".png").toExternalForm()));
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number + ".png").toExternalForm()));
         castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true ;
+        Map.notBuildable[x][y] = true;
     }
-    private void dropSea(int x , int y , int number){
+
+    private void dropSea(int x, int y, int number) {
         WaterSources waterSources = new WaterSources();
         Map.getObstacleMap()[x][y].add(waterSources);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number +".jpg").toExternalForm()));
+        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number + ".jpg").toExternalForm()));
         castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true ;
+        Map.notBuildable[x][y] = true;
     }
 
     private void createMapGame() {
         BuildingController buildingController = new BuildingController();
         Empire sallahDin = new Empire();
-        Castle castleSallah =  new Castle(sallahDin);
+        Castle castleSallah = new Castle(sallahDin);
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
-        dropStockFunction(5,22,sallahDin);
+        dropStockFunction(5, 22, sallahDin);
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
         Empire richard = new Empire();
-        Castle castleRichard =  new Castle(richard);
+        Castle castleRichard = new Castle(richard);
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
         buildingController.dropBuilding(9, 3, "Castle");
         castleButton.setBuilding(castleRichard);
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
-        dropStockFunction(9,3,richard);
+        dropStockFunction(9, 3, richard);
         artOfTree();
 
     }
@@ -349,17 +340,6 @@ public class TileManager extends Application {
         sourceStock.setImageView(stockPile);
 
     }
-    //Castle castle = new Castle(Ahmed);
-//        NewButton castleButton = (NewButton) list.get(4 * 100 + 9);
-//        ImageView apple = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm()));
-//        castleButton.setImageView(apple);
-//        castle.castle();
-//        castleButton.setBuilding(castle);
-//        empire.castleXCoordinate = 4 ;
-//        empire.castleYCCoordinate = 9 ;
-//
-//        AhmedButton.setSickButton(true);
-//        Manage.setCurrentEmpire(Ahmed);
 
 
     private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
@@ -426,16 +406,16 @@ public class TileManager extends Application {
             }
         });
     }
-    private void dropWater(int x , int y){
+
+    private void dropWater(int x, int y) {
         WaterSources waterSources = new WaterSources();
         Map.getObstacleMap()[x][y].add(waterSources);
-        Map.notBuildable[x][y] = true ;
-        Map.notPassable[x][y] = true ;
+        Map.notBuildable[x][y] = true;
+        Map.notPassable[x][y] = true;
         ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/images/water.png").toExternalForm()));
-//        NewButton newButton = ((NewButton) list.get(100 * x + y)).setImageView();
     }
 
-    public void designBoxOfMoveCommand(){
+    public void designBoxOfMoveCommand() {
         HBox hBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
                 getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
@@ -479,8 +459,8 @@ public class TileManager extends Application {
                 if (x.getText() != null && y.getText() != null && x.getText().matches("\\d+") && y.getText().matches("\\d+")) {
                     int xOfDestination = Integer.parseInt(x.getText());
                     int yOfDestination = Integer.parseInt(y.getText());
-                    gameController.moveUnit(xOfDestination, yOfDestination,selectedButton, pane, list);
-                }else{
+                    gameController.moveUnit(xOfDestination, yOfDestination, selectedButton, pane, list);
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Game Error!");
                     alert.setHeaderText("Error in Move Command!");
@@ -567,6 +547,7 @@ public class TileManager extends Application {
 
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
     public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
+
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < horizontalButtons; u++) {
@@ -577,7 +558,7 @@ public class TileManager extends Application {
                 button.setLayoutY(u * horizontalSize);
                 button.setMinSize(viewButtonSize, viewButtonSize);
                 pane.getChildren().add(button);
-                if(button.isSickButton()){
+                if (button.isSickButton()) {
                     sickImage.setFitHeight(viewButtonSize);
                     sickImage.setFitWidth(viewButtonSize);
                     button.setGraphic(sickImage);
@@ -585,9 +566,8 @@ public class TileManager extends Application {
                 if (button.getImageView() != null) {
                     ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
-                        view = fireImage ;
-                    }
-                    else {
+                        view = fireImage;
+                    } else {
                         view = button.getImageView();
                     }
                     view.setFitHeight(viewButtonSize);
@@ -770,20 +750,19 @@ public class TileManager extends Application {
         EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(deleteOn){
+                if (deleteOn) {
                     pane.getChildren().remove(newButton);
                     newButton.setGraphic(null);
                     newButton.setImageView(null);
                     newButton.setBuilding(null);
                     int x = newButton.getX();
                     int y = newButton.getY();
-                    if(Map.buildingMap[x][y].size() != 0)
+                    if (Map.buildingMap[x][y].size() != 0)
                         Map.buildingMap[x][y].remove(0);
                     Map.notPassable[x][y] = false;
                     Map.notBuildable[x][y] = false;
                     pane.getChildren().add(newButton);
-                }
-                else {
+                } else {
                     selectedButton = newButton;
                     pane.getChildren().remove(selectedBuildingGraphic);
                     pane.getChildren().remove(selectedBuildingTextField);
@@ -796,7 +775,11 @@ public class TileManager extends Application {
                         pane.getChildren().remove(repair);
                     }
                     if (newButton.getBuilding() != null) {
-                        selectedBuildingBottomGraphic(newButton);
+                        try {
+                            selectedBuildingBottomGraphic(newButton);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
 
@@ -809,7 +792,7 @@ public class TileManager extends Application {
         newButton.setOnMouseClicked(event7);
     }
 
-    public void selectedBuildingBottomGraphic(NewButton newButton) {
+    public void selectedBuildingBottomGraphic(NewButton newButton) throws Exception {
         selectedBuildingGraphic = new ArrayList<>();
         selectBackground = new ImageView(bottomBarImages.getSelectedBuildingBackground());
         selectBackground.setFitWidth(980);
@@ -820,7 +803,7 @@ public class TileManager extends Application {
         selectBuildingLogic(newButton);
     }
 
-    public void selectBuildingLogic(NewButton newButton) {
+    public void selectBuildingLogic(NewButton newButton) throws Exception {
         SelectedBuildingMenu.selectedBuilding = newButton.getBuilding();
         SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
@@ -828,7 +811,7 @@ public class TileManager extends Application {
         setSelectedBuildingProperGraphic(newButton, buildingName, selectedBuildingMenu, unitImages);
     }
 
-    public void setSelectedBuildingProperGraphic(NewButton newButton, String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
+    public void setSelectedBuildingProperGraphic(NewButton newButton, String buildingName, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) throws Exception {
         selectedMenuActive = true;
         selectedBuildingButtons = new SelectedBuildingButtons();
         selectedBuildingTextField = new Text();
@@ -864,6 +847,8 @@ public class TileManager extends Application {
         pane.getChildren().add(selectedBuildingTextField);
         if (buildingName.equals("Barracks")) {
             selectedBuildingButtons.barracks(pane, selectedBuildingMenu, unitImages);
+        } else if (buildingName.equals("Shop")) {
+            selectedBuildingButtons.shop(pane);
         } else if (buildingName.equals("Mercenary")) {
             selectedBuildingButtons.mercenary(pane, selectedBuildingMenu, unitImages);
         } else if (buildingName.equals("EngineerGuild")) {
@@ -885,77 +870,84 @@ public class TileManager extends Application {
         error.setContentText(output);
         error.show();
     }
-    private void dropTreeToLocation(int x , int y1 , int y2 , int number){
-        for(int i = y1 ; i <= y2 ; i ++){
-            dropTree(x,i,number);
+
+    private void dropTreeToLocation(int x, int y1, int y2, int number) {
+        for (int i = y1; i <= y2; i++) {
+            dropTree(x, i, number);
         }
     }
-    private void dropSeaoLocation(int x , int y1 , int y2 , int number){
-        for(int i = y1 ; i <= y2 ; i ++){
-            dropSea(x,i,number);
+
+    private void dropSeaoLocation(int x, int y1, int y2, int number) {
+        for (int i = y1; i <= y2; i++) {
+            dropSea(x, i, number);
         }
     }
-    private void dropStoneLocation(int x , int y1 , int y2 , int number){
-        for(int i = y1 ; i <= y2 ; i ++){
-            dropStone(x,i,number);
+
+    private void dropStoneLocation(int x, int y1, int y2, int number) {
+        for (int i = y1; i <= y2; i++) {
+            dropStone(x, i, number);
         }
     }
-    private void artOfTree(){
-        dropTreeToLocation(0,0,12,5);
-        dropTreeToLocation(0,3,8,1);
-        dropTreeToLocation(1,0,10,5);
-        dropTreeToLocation(2,1,8,5);
-        dropTreeToLocation(2,0,4,1);
-        dropTreeToLocation(3,6,7,2);
-        dropTreeToLocation(4,0,1,2);
-        dropTreeToLocation(4,3,4,2);
-        dropTreeToLocation(4,6,6,1);
-        dropStoneLocation(3,8,8,8);
-        dropStoneLocation(4,7,7,8);
-        dropSea(3,2,1);
-        dropSea(3,5,1);
-        dropSea(4,2,1);
-        dropSea(4,5,1);dropSea(3,1,1);
-        dropSea(4,5,1);dropSea(3,1,1);
-        dropSea(3,4,1);dropSea(3,3,1);
-        dropTree(3,0,2);
-        dropTree(4,0,2);
-        dropTree(2,0,2);
-        dropTreeToLocation(5,0,6,5);
-        dropTreeToLocation(6,1,3,5);
-        dropTreeToLocation(7,0,2,5);
-        dropStoneLocation(0,13,17,8);
-        dropStoneLocation(1,18,19,6);
-        dropStoneLocation(2,9,9,6);
-        dropStoneLocation(5,7,7,8);
-        dropStoneLocation(6,4,5,8);
-        dropStoneLocation(7,3,4,8);
-        dropTreeToLocation(8,0,2,1);
-        dropTreeToLocation(9,1,2,5);
-        dropTreeToLocation(10,0,1,1);
-        dropSeaoLocation(11,0,3,1);
-        dropStoneLocation(11,4,4,6);
-        dropStoneLocation(12,0,5,3);
-        dropTreeToLocation(0,18,29,1);
-        dropTreeToLocation(1,20,29,1);
-        dropTreeToLocation(1,22,26,5);
-        dropTreeToLocation(2,19,29,1);
-        dropTreeToLocation(2,21,25,5);
-        dropSeaoLocation(3,27,29,1);
-        dropSeaoLocation(5,24,25,1);
-        dropSeaoLocation(4,27,29,1);
-        dropSeaoLocation(5,27,29,1);
-        dropTreeToLocation(3,21,26,1);
-        dropTreeToLocation(4,23,26,5);
-        dropTree(5,26,1);
-        dropTreeToLocation(6,23,26,5);
-        dropTreeToLocation(7,21,29,1);
-        dropTreeToLocation(8,27,29,5);
-        dropStoneLocation(9,21,28,3);
-        dropStoneLocation(10,19,21,1);
-        dropStoneLocation(11,18,20,2);
-        dropTreeToLocation(10,22,29,5);
-        dropTreeToLocation(11,21,29,5);
+
+    private void artOfTree() {
+        dropTreeToLocation(0, 0, 12, 5);
+        dropTreeToLocation(0, 3, 8, 1);
+        dropTreeToLocation(1, 0, 10, 5);
+        dropTreeToLocation(2, 1, 8, 5);
+        dropTreeToLocation(2, 0, 4, 1);
+        dropTreeToLocation(3, 6, 7, 2);
+        dropTreeToLocation(4, 0, 1, 2);
+        dropTreeToLocation(4, 3, 4, 2);
+        dropTreeToLocation(4, 6, 6, 1);
+        dropStoneLocation(3, 8, 8, 8);
+        dropStoneLocation(4, 7, 7, 8);
+        dropSea(3, 2, 1);
+        dropSea(3, 5, 1);
+        dropSea(4, 2, 1);
+        dropSea(4, 5, 1);
+        dropSea(3, 1, 1);
+        dropSea(4, 5, 1);
+        dropSea(3, 1, 1);
+        dropSea(3, 4, 1);
+        dropSea(3, 3, 1);
+        dropTree(3, 0, 2);
+        dropTree(4, 0, 2);
+        dropTree(2, 0, 2);
+        dropTreeToLocation(5, 0, 6, 5);
+        dropTreeToLocation(6, 1, 3, 5);
+        dropTreeToLocation(7, 0, 2, 5);
+        dropStoneLocation(0, 13, 17, 8);
+        dropStoneLocation(1, 18, 19, 6);
+        dropStoneLocation(2, 9, 9, 6);
+        dropStoneLocation(5, 7, 7, 8);
+        dropStoneLocation(6, 4, 5, 8);
+        dropStoneLocation(7, 3, 4, 8);
+        dropTreeToLocation(8, 0, 2, 1);
+        dropTreeToLocation(9, 1, 2, 5);
+        dropTreeToLocation(10, 0, 1, 1);
+        dropSeaoLocation(11, 0, 3, 1);
+        dropStoneLocation(11, 4, 4, 6);
+        dropStoneLocation(12, 0, 5, 3);
+        dropTreeToLocation(0, 18, 29, 1);
+        dropTreeToLocation(1, 20, 29, 1);
+        dropTreeToLocation(1, 22, 26, 5);
+        dropTreeToLocation(2, 19, 29, 1);
+        dropTreeToLocation(2, 21, 25, 5);
+        dropSeaoLocation(3, 27, 29, 1);
+        dropSeaoLocation(5, 24, 25, 1);
+        dropSeaoLocation(4, 27, 29, 1);
+        dropSeaoLocation(5, 27, 29, 1);
+        dropTreeToLocation(3, 21, 26, 1);
+        dropTreeToLocation(4, 23, 26, 5);
+        dropTree(5, 26, 1);
+        dropTreeToLocation(6, 23, 26, 5);
+        dropTreeToLocation(7, 21, 29, 1);
+        dropTreeToLocation(8, 27, 29, 5);
+        dropStoneLocation(9, 21, 28, 3);
+        dropStoneLocation(10, 19, 21, 1);
+        dropStoneLocation(11, 18, 20, 2);
+        dropTreeToLocation(10, 22, 29, 5);
+        dropTreeToLocation(11, 21, 29, 5);
     }
 
 
@@ -967,25 +959,19 @@ public class TileManager extends Application {
                 test.setBackground(null);
                 int x = button.getX();
                 int y = button.getY();
-                if( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Tree ){
+                if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Tree) {
                     test.setStyle("-fx-background-color: #33ce12;");
-                }
-                else if ( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof WaterSources){
+                } else if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof WaterSources) {
                     test.setStyle("-fx-background-color: #091a5b;");
-                }
-                else if ( Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Stone){
+                } else if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Stone) {
                     test.setStyle("-fx-background-color: #353333;");
-                }
-                else if ( Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")){
+                } else if (Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")) {
                     test.setStyle("-fx-background-color: #ff4a00;");
-                }
-                else if (Map.buildingMap[x][y].size() != 0){
+                } else if (Map.buildingMap[x][y].size() != 0) {
                     test.setStyle("-fx-background-color: #4d2e0a;");
-                }
-                else if( Map.troopMap[x][y].size() != 0 && Map.troopMap[x][y].size() != 0){
+                } else if (Map.troopMap[x][y].size() != 0 && Map.troopMap[x][y].size() != 0) {
                     test.setStyle("-fx-background-color: #a00101;");
-                }
-                else {
+                } else {
                     test.setStyle("-fx-background-color: rgba(102,255,199,0.3);");
                 }
                 test.setLayoutX(1200 + 5 * j);

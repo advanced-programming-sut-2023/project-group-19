@@ -15,7 +15,7 @@ public class NewButton extends Button {
     private Building building;
     private ImageView imageView;
     private ArrayList<Army> army = new ArrayList<>();
-    private boolean isSickButton ;
+    private boolean isSickButton;
     private boolean isSelected = false;
 
     public NewButton(int x, int y) {

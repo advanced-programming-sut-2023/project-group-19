@@ -61,7 +61,6 @@ public class TradeAndShopImages {
     }
 
 
-
     public Image getRequest() {
         return request;
     }

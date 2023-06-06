@@ -12,8 +12,8 @@ public class SendRequestMenu extends Application {
         SendRequestController sendRequestController = new SendRequestController();
         Main.stage = stage;
         Pane pane = new Pane();
-        pane.setPrefSize(1000,900);
-        pane.setMaxSize(1000,900);
+        pane.setPrefSize(1000, 900);
+        pane.setMaxSize(1000, 900);
         sendRequestController.designTheMenu(pane);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
