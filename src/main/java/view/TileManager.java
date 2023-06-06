@@ -945,8 +945,12 @@ public class TileManager extends Application {
         dropTreeToLocation(1,0,10,5);
         dropTreeToLocation(2,1,8,5);
         dropTreeToLocation(2,0,4,1);
-        dropTreeToLocation(3,1,7,5);
-        dropTreeToLocation(4,1,6,1);
+        dropTreeToLocation(3,6,7,2);
+        dropTreeToLocation(4,0,1,2);
+        dropTreeToLocation(4,3,4,2);
+        dropTreeToLocation(4,6,6,1);
+        dropStoneLocation(3,8,8,8);
+        dropStoneLocation(4,7,7,8);
         dropSea(3,2,1);
         dropSea(3,5,1);
         dropSea(4,2,1);
@@ -962,8 +966,7 @@ public class TileManager extends Application {
         dropStoneLocation(0,13,17,8);
         dropStoneLocation(1,18,19,6);
         dropStoneLocation(2,9,9,6);
-        dropStoneLocation(3,8,8,8);
-        dropStoneLocation(4,7,7,8);
+
         dropStoneLocation(5,7,7,8);
         dropStoneLocation(6,4,5,8);
         dropStoneLocation(7,3,4,8);
