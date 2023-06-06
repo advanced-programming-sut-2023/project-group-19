@@ -297,7 +297,7 @@ public class ShopController {
         alert.setHeaderText("Shop Operations");
         alert.setTitle("Confirmation Form :");
         alert.setContentText(validationForm);
-        alert.showAndWait();
+        alert.show();
         Optional<ButtonType> result = alert.showAndWait();
          if (result.get() == ButtonType.OK) {
             return true;

@@ -1,11 +1,7 @@
 package view.ImageAndBackground;
 
-import javafx.scene.layout.*;
-import view.OldView.TradeMenu;
-import view.TileManager;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 
 public class TradeAndShopImages {
     public Image background;
@@ -37,17 +33,11 @@ public class TradeAndShopImages {
         return sendRequest;
     }
 
-    public void setSendRequest(Image sendRequest) {
-        this.sendRequest = sendRequest;
-    }
 
     public Image getViewPreviousTrades() {
         return viewPreviousTrades;
     }
 
-    public void setViewPreviousTrades(Image viewPreviousTrades) {
-        this.viewPreviousTrades = viewPreviousTrades;
-    }
 
     public Image getBackground() {
         return background;
@@ -61,9 +51,6 @@ public class TradeAndShopImages {
         return send;
     }
 
-    public void setSend(Image send) {
-        this.send = send;
-    }
 
     public Image getBack() {
         return back;
@@ -73,43 +60,25 @@ public class TradeAndShopImages {
         this.back = back;
     }
 
-    public Image getAmount() {
-        return amount;
-    }
 
-    public void setAmount(Image amount) {
-        this.amount = amount;
-    }
 
     public Image getRequest() {
         return request;
     }
 
-    public void setRequest(Image request) {
-        this.request = request;
-    }
 
     public Image getDonate() {
         return donate;
     }
 
-    public void setDonate(Image donate) {
-        this.donate = donate;
-    }
 
     public Image getListOfPrevReq() {
         return listOfPrevReq;
     }
 
-    public void setListOfPrevReq(Image listOfPrevReq) {
-        this.listOfPrevReq = listOfPrevReq;
-    }
 
     public Image getListOfDonationReq() {
         return listOfDonationReq;
     }
 
-    public void setListOfDonationReq(Image listOfDonationReq) {
-        this.listOfDonationReq = listOfDonationReq;
-    }
 }

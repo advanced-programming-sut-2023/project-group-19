@@ -12,7 +12,8 @@ public class Request {
     public String status;
     public boolean acceptance;
     public String tradableThing;
-    public Request(String message, int price, int amount, String goodName, String id, Empire sender, Empire receiver,String tradableThing) {
+    public Request(String message, int price, int amount, String goodName,
+                   String id, Empire sender, Empire receiver,String tradableThing) {
         this.message = message;
         this.price = price;
         this.amount = amount;
@@ -55,21 +56,11 @@ public class Request {
         this.status = status;
     }
 
-    public boolean isAcceptance() {
-        return acceptance;
-    }
 
     public void setAcceptance(boolean acceptance) {
         this.acceptance = acceptance;
     }
 
-    public String getFromSellerMessage() {
-        return fromSellerMessage;
-    }
-
-    public void setFromSellerMessage(String fromSellerMessage) {
-        this.fromSellerMessage = fromSellerMessage;
-    }
 
     public Empire getReceiver() {
         return receiver;

@@ -52,8 +52,8 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/blackMonk/forward.png").toExternalForm()));
         defaultImage = imageView.getImage();
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 
@@ -68,7 +68,10 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.speed = 9;
         this.attackPower = 1000;
         this.defencePower = 450;
-        //TODO : dorsa bayad image view ro set koneh.
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/IntroductionPics/knight.png").toExternalForm()));
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         defaultImage = imageView.getImage();
         this.restOfMoves = 9;
         this.direction = "forward";
@@ -89,8 +92,8 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/swordsMen/forward.png").toExternalForm()));
         defaultImage = imageView.getImage();
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 
@@ -103,7 +106,10 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.yCoordinate = y;
         this.attackRange = 3;
         this.speed = 3;
-        //TODO : dorsa bayad image view ro set koneh.
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/IntroductionPics/pikeMen.png").toExternalForm()));
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         defaultImage = imageView.getImage();
         this.restOfMoves = 3;
         this.attackPower = 600;
@@ -126,8 +132,8 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/slaves/forward.png").toExternalForm()));
         defaultImage = imageView.getImage();
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 
@@ -146,8 +152,8 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.imageView= new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/arabianSwordMen/forward.png").toExternalForm()));
         defaultImage = imageView.getImage();
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 

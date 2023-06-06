@@ -34,17 +34,6 @@ public class SendRequestController {
     public void designTheMenu(Pane pane) throws IOException {
         tradeAndShopImages.loadImages();
         ImageView background = new ImageView(tradeAndShopImages.getBackground());
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(200);
-        Map.mapSize = 200;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
         pane.getChildren().add(background);
         makeTheRequestForm(pane);
     }
@@ -86,7 +75,6 @@ public class SendRequestController {
 
 
     public void makeTheRequestForm(Pane pane) {
-
         TextField empireName = new TextField();
         empireName.setPromptText("Choose the receiver :");
         empireName.setPrefSize(300, 40);
@@ -121,7 +109,6 @@ public class SendRequestController {
         request.setStyle("-fx-background-color: #9a0d0d");
         request.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         request.setText("Request");
-        //request.setGraphic(requestImage);
         request.setLayoutX(620);
         request.setLayoutY(400);
         request.setMinSize(300, 40);
@@ -131,11 +118,9 @@ public class SendRequestController {
 
         Button donate = new Button();
         ImageView donateImage = new ImageView(tradeAndShopImages.getDonate());
-        //donate.setBackground(null);
         donateImage.setFitWidth(310);
         donateImage.setFitHeight(200);
         donateImage.setPreserveRatio(true);
-        //donate.setGraphic(donateImage);
         donate.setStyle("-fx-background-color: #9a0d0d");
         donate.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         donate.setText("Donate");
@@ -160,7 +145,6 @@ public class SendRequestController {
         sendButton.setPrefSize(150, 30);
         sendButton.setLayoutX(700);
         sendButton.setLayoutY(700);
-//        sendButton.setBackground(null);
         ImageView send = new ImageView(tradeAndShopImages.getSend());
         send.setFitWidth(300);
         send.setFitHeight(200);
@@ -168,7 +152,6 @@ public class SendRequestController {
         sendButton.setStyle("-fx-background-color: #9a0d0d");
         sendButton.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         sendButton.setText("Send");
-        //sendButton.setGraphic(send);
         pane.getChildren().add(sendButton);
 
         donate.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -203,7 +186,6 @@ public class SendRequestController {
         makeTheGoodsChoiceBox(pane, goodName);
         makeTheEmpiresChoiceBox(pane,empireName);
     }
-    // pane.getChildren().addAll(empireName,goodName,amount,message,sendButton);
 
     public boolean setEventHandler(TextField empireName, TextField goodName, Spinner<Integer> amount, TextField message) {
         String receiver = empireName.getText();

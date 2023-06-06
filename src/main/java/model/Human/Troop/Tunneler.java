@@ -49,8 +49,8 @@ public class Tunneler extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/tunneler/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 

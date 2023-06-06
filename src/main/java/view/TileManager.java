@@ -13,6 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -294,9 +296,6 @@ public class TileManager extends Application {
 
         //TODO picture of sword man after war // DORSA
 
-
-//       ==================================================================================================================================================
-
 //        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
 //                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
@@ -337,12 +336,7 @@ public class TileManager extends Application {
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
                     dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
-                    GameController gameController = new GameController();
-                    gameController.selectedUnit.add(archersAndThrowers);
-                    Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-                    archersAndThrowers.getImageView().setLayoutX(newButton.getLayoutX());
-                    archersAndThrowers.getImageView().setLayoutY(newButton.getLayoutY());
-                    gameController.moveUnit(5, 5, newButton, pane, list);
+                    designBoxOfMoveCommand();
                 } else if (keyName.equals("C")) {
                     content = new ClipboardContent();
                     if (selectedButton.getBuilding() != null) {
@@ -520,6 +514,63 @@ public class TileManager extends Application {
 //        NewButton newButton = ((NewButton) list.get(100 * x + y)).setImageView();
     }
 
+    public void designBoxOfMoveCommand(){
+        HBox hBox = new HBox();
+        BackgroundImage map = new BackgroundImage(new Image(GameController.class.
+                getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        hBox.setBackground(new Background(map));
+        hBox.setPrefSize(800, 300);
+        hBox.setLayoutX(350);
+        hBox.setLayoutY(150);
+        Text text = new Text("Move Command");
+        text.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 26));
+        text.setTranslateX(310);
+        text.setTranslateY(30);
+        TextField x = new TextField();
+        x.setPromptText("Enter x of Destination");
+        x.setTranslateX(20);
+        x.setTranslateY(175);
+        TextField y = new TextField();
+        y.setPromptText("Enter y of Destination");
+        y.setTranslateX(120);
+        y.setTranslateY(175);
+        Button close = new Button();
+        close.setTranslateX(-100);
+        close.setTranslateY(230);
+        close.setMinSize(40, 40);
+        close.setPrefSize(40, 40);
+        ImageView closeIconImage = new ImageView(gameImages.getDone());
+        close.setBackground(null);
+        closeIconImage.setFitHeight(40);
+        closeIconImage.setFitWidth(40);
+        close.setGraphic(closeIconImage);
+        hBox.getChildren().add(text);
+        hBox.getChildren().add(x);
+        hBox.getChildren().add(y);
+        hBox.getChildren().add(close);
+        pane.getChildren().add(hBox);
+
+        close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                pane.getChildren().remove(hBox);
+                if (x.getText() != null && y.getText() != null && x.getText().matches("\\d+") && y.getText().matches("\\d+")) {
+                    int xOfDestination = Integer.parseInt(x.getText());
+                    int yOfDestination = Integer.parseInt(y.getText());
+                    gameController.moveUnit(xOfDestination, yOfDestination,selectedButton, pane, list);
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Game Error!");
+                    alert.setHeaderText("Error in Move Command!");
+                    alert.setContentText("You didn't fill the fields properly!");
+                    alert.showAndWait();
+                }
+            }
+        });
+
+    }
+
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
         bottomBarButtons = new BottomBarButtons();
         bottomBarBuildings = new BottomBarBuildings();
@@ -534,9 +585,6 @@ public class TileManager extends Application {
         int minY = y1 / 54;
         moveX += minY - maxY;
         moveY += minX - maxX;
-        System.out.println("test");
-        System.out.println(moveX);
-        System.out.println(moveY);
         if (moveY + 30 > 100) {
             moveY = 70;
         }
