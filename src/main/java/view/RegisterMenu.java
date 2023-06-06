@@ -74,7 +74,18 @@ public class RegisterMenu extends Application {
     public void start(Stage stage) throws Exception {
         RegisterMenu.stage = stage  ;
 
-
+        String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
+        Media media = new Media(path);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        mediaPlayer.setAutoPlay(true);
+        mediaView.setFitWidth(1550);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
+            pane.getChildren().remove(mediaView);
+            playLoginMusic();
+        }));
+        timeline.play();
+        pane.getChildren().add(mediaView);
 
 
         URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
@@ -88,7 +99,13 @@ public class RegisterMenu extends Application {
         stage.show();
 
     }
-
+    private void playLoginMusic(){
+        String defultSong  = getClass().getResource("/Music/register.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setCycleCount(-1);
+        mediaPlayer.setAutoPlay(true);
+    }
 //    public VBox createVboxAnsStructure(Popup popup){
 //
 ////        root.setBackground(new Color(red));
