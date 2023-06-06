@@ -16,15 +16,14 @@ public class ShowMapInGameMenu {
             command = scanner.nextLine();
             if (CreateMapCommands.getMatcher(command, CreateMapCommands.MOVING_MAP) != null) {
                 movingMap(command);
-            }else if (MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP) != null) {
+            } else if (MainMenuCommands.getMatcher(command, MainMenuCommands.SHOW_MAP) != null) {
                 showMap(command);
-            }
-            else if (CreateMapCommands.getMatcher(command, CreateMapCommands.SHOW_DETAIL) != null) {
+            } else if (CreateMapCommands.getMatcher(command, CreateMapCommands.SHOW_DETAIL) != null) {
                 showDetail(command);
             } else if ((CreateMapCommands.getMatcher(command, CreateMapCommands.EXIT)) != null) {
                 System.out.println("Exit from map menu is successfully done!");
                 return;
-            }else{
+            } else {
                 System.out.println("Invalid command");
             }
         }

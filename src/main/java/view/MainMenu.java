@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 public class MainMenu extends Application {
     public GameImages gameImages = new GameImages();
+
     @Override
     public void start(Stage stage) throws Exception {
         Main.stage = stage;
@@ -35,7 +36,7 @@ public class MainMenu extends Application {
         button.setText("CreateMapMenu");
         button.setLayoutX(700);
         button.setLayoutY(250);
-        button.setPrefSize(200,70);
+        button.setPrefSize(200, 70);
         button.setStyle("-fx-background-color: #cba883");
         button.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -53,7 +54,7 @@ public class MainMenu extends Application {
         button1.setText("ProfileMenu");
         button1.setLayoutX(700);
         button1.setLayoutY(350);
-        button1.setPrefSize(200,70);
+        button1.setPrefSize(200, 70);
         button1.setStyle("-fx-background-color: #cba883");
         button1.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -72,7 +73,7 @@ public class MainMenu extends Application {
         button2.setText("GameMenu");
         button2.setLayoutX(700);
         button2.setLayoutY(450);
-        button2.setPrefSize(200,70);
+        button2.setPrefSize(200, 70);
         button2.setStyle("-fx-background-color: #cba883");
         button2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
 
@@ -87,7 +88,7 @@ public class MainMenu extends Application {
                 }
             }
         });
-        pane.getChildren().addAll(button,button1,button2);
+        pane.getChildren().addAll(button, button1, button2);
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);

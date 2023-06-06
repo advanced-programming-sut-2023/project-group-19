@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 
 public class EmpireMenu {
     public int sicknessImpactOnPopularity;
+
     //TODO : handle these commands here for the legacy part
     public String setFoodRate(int foodRateNumber) {
         if (foodRateNumber < -2 | foodRateNumber > 2)
@@ -18,6 +19,7 @@ public class EmpireMenu {
             return "successful";
         }
     }
+
     public String setTaxRate(int taxRate) {
         if (taxRate < -3 | taxRate > 8) {
             return "rate out of bounds";
@@ -26,6 +28,7 @@ public class EmpireMenu {
             return "successful";
         }
     }
+
     public String setFearRate(int fearRate) {
         if (fearRate > 5 | fearRate < -5) {
             return "rate out of bounds";

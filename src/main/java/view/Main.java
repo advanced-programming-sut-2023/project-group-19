@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 public class Main extends Application {
     public static Stage stage;
+
     public static void main(String[] args) throws IOException, InterruptedException {
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
@@ -45,15 +46,15 @@ public class Main extends Application {
         Scene scene = new Scene(pane);
         Button button = new Button();
         button.setText("LoginMenu");
-        pane.setPrefSize(1530,800);
+        pane.setPrefSize(1530, 800);
         button.setLayoutX(700);
         button.setLayoutY(250);
-        button.setPrefSize(200,70);
+        button.setPrefSize(200, 70);
         pane.getChildren().add(button);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                ShopMenu shopMenu =  new ShopMenu();
+                ShopMenu shopMenu = new ShopMenu();
                 //LoginMenu loginMenu = new LoginMenu();
                 try {
                     shopMenu.start(stage);

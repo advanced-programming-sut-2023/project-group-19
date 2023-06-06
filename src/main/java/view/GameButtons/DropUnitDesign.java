@@ -25,6 +25,7 @@ public class DropUnitDesign {
     public GameImages gameImages = new GameImages();
     public int controllerOfDropUnit = 1;
     public boolean isFive = true;
+
     public void designHBoxForDropUnit(Pane pane, GameController gameController, ArrayList<NewButton> selectedButtons) {
         unitImages.loadImages();
         buildingImages.loadImage();

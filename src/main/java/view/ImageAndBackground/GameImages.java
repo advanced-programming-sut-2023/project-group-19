@@ -16,14 +16,14 @@ public class GameImages {
     public Background mainMenuBackground;
 
 
-    public void loadImages(){
+    public void loadImages() {
         loginBackground = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/MenuImages/loginBackground.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         registerBackground = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/MenuImages/registerBackground.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
-        profileBackground =  new Background(new BackgroundImage(new Image
+        profileBackground = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/MenuImages/ProfileMenuImage.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         mainMenuBackground = new Background(new BackgroundImage(new Image
@@ -44,7 +44,6 @@ public class GameImages {
     public Image getDone() {
         return done;
     }
-
 
 
     public Background getLoginBackground() {

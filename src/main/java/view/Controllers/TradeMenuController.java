@@ -12,7 +12,7 @@ import view.ShowTradesMenu;
 
 public class TradeMenuController {
 
-    public TradeAndShopImages tradeAndShopImages =  new TradeAndShopImages();
+    public TradeAndShopImages tradeAndShopImages = new TradeAndShopImages();
 
 
     public void designTradeMenu(TradeMenuController tradeController, Pane pane, Stage stage) {
@@ -20,8 +20,8 @@ public class TradeMenuController {
         ImageView background = new ImageView(tradeAndShopImages.getBackground());
         Button createRequest = new Button();
         Button viewPrevRequests = new Button();
-        createRequest.setPrefSize(400 , 300);
-        viewPrevRequests.setPrefSize(400,300);
+        createRequest.setPrefSize(400, 300);
+        viewPrevRequests.setPrefSize(400, 300);
         createRequest.setLayoutX(250);
         createRequest.setLayoutY(250);
         viewPrevRequests.setLayoutX(850);
@@ -36,11 +36,11 @@ public class TradeMenuController {
         prevRequestView.setFitWidth(400);
         createRequest.setGraphic(createRequestView);
         viewPrevRequests.setGraphic(prevRequestView);
-        setActionOfButtons(createRequest,viewPrevRequests,stage);
-        pane.getChildren().addAll(background,createRequest,viewPrevRequests);
+        setActionOfButtons(createRequest, viewPrevRequests, stage);
+        pane.getChildren().addAll(background, createRequest, viewPrevRequests);
     }
 
-    public void setActionOfButtons(Button createRequest , Button viewPrevRequest,Stage stage){
+    public void setActionOfButtons(Button createRequest, Button viewPrevRequest, Stage stage) {
         createRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -52,17 +52,17 @@ public class TradeMenuController {
                 }
             }
         });
-         viewPrevRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
-             @Override
-             public void handle(MouseEvent mouseEvent) {
-                 ShowTradesMenu showTradesMenu = new ShowTradesMenu();
-                 try {
-                     showTradesMenu.start(stage);
-                 } catch (Exception e) {
-                     throw new RuntimeException(e);
-                 }
-             }
-         });
+        viewPrevRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ShowTradesMenu showTradesMenu = new ShowTradesMenu();
+                try {
+                    showTradesMenu.start(stage);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
     }
 }

@@ -169,16 +169,6 @@ public class BottomBarButtons {
         minimapFrameButton.setMinSize(200, 200);
         pane.getChildren().add(minimapFrameButton);
 
-//        Button test = new Button();
-//        test.setBackground(null);
-//        test.setStyle("-fx-background-color: green;");
-//        test.setLayoutX(1346);
-//        test.setLayoutY(849);
-//        test.setMinSize(1.5, 1.5);
-//        test.setMaxSize(1.5, 1.5);
-//        pane.getChildren().add(test);
-
-
         Button dataButton = new Button();
         ImageView dataImage = new ImageView(bottomBarImages.showEmpireDetail);
         dataButton.setBackground(null);
@@ -189,25 +179,12 @@ public class BottomBarButtons {
         dataButton.setLayoutY(675);
         dataButton.setMinSize(200, 200);
         pane.getChildren().add(dataButton);
-
-//        Button testButton = new Button();
-//        ImageView testImage = new ImageView(bottomBarImages.getTest());
-//        testButton.setBackground(null);
-//        testImage.setFitHeight(100);
-//        testImage.setFitWidth(100);
-//        testButton.setGraphic(testImage);
-//        testButton.setLayoutX(600);
-//        testButton.setLayoutY(400);
-//        testButton.setMinSize(200, 200);
-//        pane.getChildren().add(testButton);
         ImageView face;
-        if(Manage.getCurrentEmpire().getTotalPopularity() > 66) {
+        if (Manage.getCurrentEmpire().getTotalPopularity() > 66) {
             face = new ImageView(bottomBarImages.getFaceImage1());
-        }
-        else if(Manage.getCurrentEmpire().getTotalPopularity() > 33){
+        } else if (Manage.getCurrentEmpire().getTotalPopularity() > 33) {
             face = new ImageView(bottomBarImages.getFaceImage2());
-        }
-        else {
+        } else {
             face = new ImageView(bottomBarImages.getFaceImage3());
         }
         face.setFitHeight(63);
@@ -240,7 +217,7 @@ public class BottomBarButtons {
                 bottomBarBuildings.clearPane(pane);
                 EmpireButtons empireButtons = new EmpireButtons();
                 EmpireMenu empireMenu = new EmpireMenu();
-                empireButtons.createButtons(pane , bottomBarImages , buildingImages , empireMenu);
+                empireButtons.createButtons(pane, bottomBarImages, buildingImages, empireMenu);
             }
         });
 
@@ -310,7 +287,7 @@ public class BottomBarButtons {
                 button1.setLayoutX(175);
                 button1.setLayoutY(150);
                 button.setOnAction(event);
-                pane1.getChildren().addAll(button , button1);
+                pane1.getChildren().addAll(button, button1);
                 stage2.setTitle("Game Options");
                 Scene scene = new Scene(pane1, 400, 400);
                 stage2.setScene(scene);
@@ -351,10 +328,9 @@ public class BottomBarButtons {
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(TileManager.deleteOn){
+                if (TileManager.deleteOn) {
                     TileManager.deleteOn = false;
-                }
-                else {
+                } else {
                     TileManager.deleteOn = true;
                 }
             }
@@ -362,19 +338,20 @@ public class BottomBarButtons {
         undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(BottomBarBuildings.lastButton != null) {
+                if (BottomBarBuildings.lastButton != null) {
                     pane.getChildren().remove(BottomBarBuildings.lastButton);
                     BottomBarBuildings.lastButton.setGraphic(null);
                     BottomBarBuildings.lastButton.setImageView(null);
                     BottomBarBuildings.lastButton.setBuilding(null);
                     int x = BottomBarBuildings.lastButton.getX();
                     int y = BottomBarBuildings.lastButton.getY();
-                    if(Map.buildingMap[x][y].size() != 0)
+                    if (Map.buildingMap[x][y].size() != 0)
                         Map.buildingMap[x][y].remove(0);
                     Map.notPassable[x][y] = false;
                     Map.notBuildable[x][y] = false;
                     pane.getChildren().add(BottomBarBuildings.lastButton);
-                }}
+                }
+            }
         });
     }
 }
