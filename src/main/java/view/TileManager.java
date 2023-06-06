@@ -342,9 +342,6 @@ public class TileManager extends Application {
         int minY = y1 / 54;
         moveX += minY - maxY;
         moveY += minX - maxX;
-        System.out.println("test");
-        System.out.println(moveX);
-        System.out.println(moveY);
         if (moveY + 30 > 100) {
             moveY = 70;
         }
@@ -423,7 +420,6 @@ public class TileManager extends Application {
                     pane.getChildren().add(button);
                     for (Army army : button.getArmy()) {
                         ImageView view = army.getImageView();
-                        view.setImage(view.getImage());
                         view.setFitHeight(50);
                         view.setFitWidth(50);
                         int randomX = getRandomX(button);

@@ -162,7 +162,6 @@ public class TradeController {
     }
 
     public Group showRequests() {
-        //todo : some effects on the textFields
         int number = 1;
         Group group = new Group();
         int ySetter = 10;

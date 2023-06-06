@@ -13,6 +13,7 @@ public class GameImages {
     public Background registerBackground;
 
     public Background profileBackground;
+    public Background mainMenuBackground;
 
 
     public void loadImages(){
@@ -25,6 +26,10 @@ public class GameImages {
         profileBackground =  new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/MenuImages/ProfileMenuImage.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        mainMenuBackground = new Background(new BackgroundImage(new Image
+                (TileManager.class.getResource("/image/MenuImages/MainMenu.jpg").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
         next = new Image(TileManager.class.getResource("/image/GameMenu/next.png").toExternalForm());
         done = new Image(TileManager.class.getResource("/image/GameMenu/done.png").toExternalForm());
         close = new Image(TileManager.class.getResource("/image/GameMenu/close.png").toExternalForm());
@@ -41,10 +46,6 @@ public class GameImages {
     }
 
 
-    public Image getClose() {
-        return close;
-    }
-
 
     public Background getLoginBackground() {
         return loginBackground;
@@ -56,5 +57,9 @@ public class GameImages {
 
     public Background getProfileBackground() {
         return profileBackground;
+    }
+
+    public Background getMainMenuBackground() {
+        return mainMenuBackground;
     }
 }

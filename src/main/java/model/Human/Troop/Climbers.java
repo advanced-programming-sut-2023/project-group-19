@@ -45,6 +45,10 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.names = Names.SPEAR_MEN;
         this.armyForm = Names.STANDING_ARMY.getName();
         this.speed = 1;
+        this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
+                ("/image/Units/IntroductionPics/spearMen.png").toExternalForm()));
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.attackPower = 500;
         this.defencePower = 200;
         this.restOfMoves = 5;
@@ -64,8 +68,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 5;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/maceMen/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 
@@ -82,8 +86,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/ladderMen/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 
@@ -100,8 +104,8 @@ public class Climbers extends Army implements HumanConstantFunctions {
         this.restOfMoves = 5;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
                 ("/image/Units/MovePics/assassins/forward.png").toExternalForm()));
-        this.imageView.setFitHeight(100);
-        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(50);
+        this.imageView.setFitWidth(50);
         this.direction = "forward";
     }
 

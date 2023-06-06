@@ -18,7 +18,6 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class ShopMenuController {
-    //TODO : Bugs confirmation form pops up twice , you should make the pops-up attached to the menu,
     public ShopController shopController = new ShopController();
     public int number;
     ArrayList<Integer> getTheSuggestion = new ArrayList<>();
@@ -56,7 +55,8 @@ public class ShopMenuController {
         pane.getChildren().addAll(sell, buy,back,tradeMenu);
     }
 
-    private void makeTheButtonsReady(Button sell, Button buy,Button back , Button tradeMenu ,ArrayList<Group> list,Stage stage) {
+    private void makeTheButtonsReady(Button sell, Button buy,Button back ,
+                                     Button tradeMenu ,ArrayList<Group> list,Stage stage) {
         for (int i = 0 ; i < list.size() ; i++) {
             Group group = list.get(i);
             CheckBox checkBox = (CheckBox) group.getChildren().get(0);
