@@ -740,10 +740,6 @@ public class TileManager extends Application {
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                     drawIsOn = false;
-//                    TextInputDialog textInputDialog = new TextInputDialog();
-//                    textInputDialog.setHeaderText("Enter the name and number of required army :");
-//                    textInputDialog.setContentText("Name of Army: \nNumber:");
-//                    Optional<String> result = textInputDialog.showAndWait();
                 } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                     if (moveIsOn) {
                         PointerInfo a = MouseInfo.getPointerInfo();
@@ -931,7 +927,6 @@ public class TileManager extends Application {
         dropStoneLocation(0,13,17,8);
         dropStoneLocation(1,18,19,6);
         dropStoneLocation(2,9,9,6);
-
         dropStoneLocation(5,7,7,8);
         dropStoneLocation(6,4,5,8);
         dropStoneLocation(7,3,4,8);
@@ -941,14 +936,11 @@ public class TileManager extends Application {
         dropSeaoLocation(11,0,3,1);
         dropStoneLocation(11,4,4,6);
         dropStoneLocation(12,0,5,3);
-
-
         dropTreeToLocation(0,18,29,1);
         dropTreeToLocation(1,20,29,1);
         dropTreeToLocation(1,22,26,5);
         dropTreeToLocation(2,19,29,1);
         dropTreeToLocation(2,21,25,5);
-
         dropSeaoLocation(3,27,29,1);
         dropSeaoLocation(5,24,25,1);
         dropSeaoLocation(4,27,29,1);
@@ -964,68 +956,6 @@ public class TileManager extends Application {
         dropStoneLocation(11,18,20,2);
         dropTreeToLocation(10,22,29,5);
         dropTreeToLocation(11,21,29,5);
-
-
-
-
-
-
-
-//        dropTreeToLocation();
-
-//        dropTree(32,65,1);
-//        dropTree(33,65,1);
-//        dropTree(34,65,1);
-//        dropTree(35,65,1);
-//        dropTree(36,65,1);
-//        dropTree(37,65,1);
-//        dropTree(38,65,1);
-//        dropTree(39,65,1);
-//        dropTree(32,66,1);
-//        dropTree(33,66);
-//        dropTree(34,66);
-//        dropTree(35,66);
-//        dropTree(36,66);
-//        dropTree(37,66);
-//        dropTree(38,66);
-//        dropTree(39,66);
-//        dropTree(32,68);
-//        dropTree(32,69);
-//        dropTree(32,70);
-//        dropTree(32,71);
-//        dropTree(32,72);
-//        dropTree(33,72);
-//        dropTree(34,72);
-//        dropTree(35,72);
-//        dropTree(35,71);
-//        dropTree(35,70);
-//        dropTree(35,69);
-//        dropTree(35,68);
-//        dropTree(34,68);
-//        dropTree(33,68);
-//        dropTree(36,72);
-//        dropTree(37,72);
-//        dropTree(38,72);
-//        dropTree(39,72);
-//        dropTree(39,71);
-//        dropTree(39,70);
-//        dropTree(39,69);
-//        dropTree(39,68);
-//        dropTree(35,52);
-//        dropTree(33,59);
-//        dropTree(32,54);
-//        dropTree(31,53);
-//        dropTree(34,56);
-//        dropTree(37,51);
-//        dropTree(32,56);
-//        dropTree(38,51);
-//        dropTree(38,52);
-//        dropTree(38,53);
-//        dropTree(38,54);
-//        dropTree(37,51);
-//        dropTree(37,52);
-//        dropTree(37,53);
-//        dropTree(37,54);
     }
 
 
@@ -1058,7 +988,6 @@ public class TileManager extends Application {
                 else {
                     test.setStyle("-fx-background-color: rgba(102,255,199,0.3);");
                 }
-
                 test.setLayoutX(1200 + 5 * j);
                 test.setLayoutY(697 + 9.7 * i);
                 test.setMinSize(5, 9.7);
