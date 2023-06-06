@@ -116,7 +116,6 @@ public class RegisterMenu extends Application {
 
 
         URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
-        Pane pane = FXMLLoader.load(url);
         RegisterMenu.stage = stage;
         Pane pane = new Pane();
         GameImages gameImages = new GameImages();
