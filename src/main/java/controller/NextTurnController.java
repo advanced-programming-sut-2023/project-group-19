@@ -21,36 +21,24 @@ public class NextTurnController {
     public static Empire currentEmpire;
     public TileManager tileManager;
     public static int index;
-//    public int mapSize = 200 ;
-//    public TileManager tileManager ;
+    public int mapSize = Map.mapSize ;
 
-//    public String game(Scanner scanner) throws IOException, InterruptedException {
-
-//        while (true) {
-//          if(Manage.allEmpires.size() == 0){
-//                //mosavi
-//            }
-//            if (Manage.allEmpires.size() != 1) {
-//                GameController gameController = new GameController();
-//                setGameController(gameController);
-//                findCurrentEmpire();
-//                System.out.println("Current Empire To Play : " + Manage.getCurrentEmpire().getName());
-//                callStartingTurnFunctions(gameController);
-//                GameMenu gameMenu = new GameMenu();
-//                gameMenu.run(scanner);
-//                callEndingTurnFunctions(gameController);
-//
-//            } else {
-//                User user = Manage.getAllEmpires().get(0).getUser();
-//                int oldScore = user.getHighScore();
-//                int newScore = oldScore + 100;
-//                user.setHighScore(newScore);
-//                Collections.sort(User.users);
-//                index = 0;
-//                return ("Winner is: " + Manage.allEmpires.get(0).getName());
-//            }
-//        }
-//    }
+    public void nextTurn(){
+        if (Manage.allEmpires.size() != 1) {
+            GameController gameController = tileManager.gameController;
+            findCurrentEmpire();
+            callStartingTurnFunctions(gameController);
+            callEndingTurnFunctions();
+        }
+        else {
+            User user = Manage.getAllEmpires().get(0).getUser();
+            int oldScore = user.getHighScore();
+            int newScore = oldScore + 100;
+            user.setHighScore(newScore);
+            Collections.sort(User.users);
+            index = 0;
+        }
+    }
 
     public void findCurrentEmpire() {
         Manage.setCurrentEmpire(Manage.allEmpires.get(index));
@@ -59,9 +47,8 @@ public class NextTurnController {
         BuildingController.currentEmpire = currentEmpire;
         FunctionBuildingController.empire = currentEmpire;
         SelectedBuildingController.empire = currentEmpire;
-        //tradeController.currentEmpire = currentEmpire;
     }
-
+    //TODO : check set enemy to target
     public void callStartingTurnFunctions(GameController gameController) {
         currentEmpire.setSickness(Math.random() < 0.5);
         putGraphicSickEmpire(currentEmpire);
@@ -99,7 +86,6 @@ public class NextTurnController {
         }
     }
 
-    //TODO : remove destroyed buildings
     public void buildingFire(){
         for(int i = 0 ; i < Manage.burningEmpires.size() ; i++ ){
             if(Manage.burningEmpires.get(i).isOnFire() && Manage.burningEmpires.get(i).getFireCount() != 0){
@@ -126,20 +112,11 @@ public class NextTurnController {
         }
     }
 
-    public void setGameController(GameController gameController) {
-        GameController.gameController = gameController;
-        GameMenu.gameController = gameController;
+    public void callEndingTurnFunctions() {
+        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
+        attackArmyToArmyController.battleWithEnemy();
+        playerHasLost();
     }
-
-
-//    public void callEndingTurnFunctions(GameController gameController) {
-//        gameController.DrawBridge();
-//        gameController.cagedWarDogsAttack();
-//        gameController.setStateArmy();
-//        AttackArmyToArmyController.setFightMode(gameController);
-//        gameController.fight();
-//        playerHasLost();
-//    }
     public void sicknessLogic(){
         if (Manage.getCurrentEmpire().getApothecary()) {
             Manage.getCurrentEmpire().setSickness(false);

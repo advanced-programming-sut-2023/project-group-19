@@ -116,6 +116,7 @@ public class TileManager extends Application {
     Point firstPoint = new Point();
     Point secondPoint = new Point();
     private boolean drawIsOn;
+    public TileManager tileManager;
     private boolean moveIsOn;
     public String clipboardData;
     public GameController gameController = new GameController();
@@ -143,7 +144,7 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        tileManager = new TileManager();
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
         Map.CreateMap(100);
@@ -178,90 +179,11 @@ public class TileManager extends Application {
         gameImages.loadImages();
         unitImages = new UnitImages();
         unitImages.loadImages();
-
-
-//        Soldiers soldiers = new Soldiers(Manage.getCurrentEmpire());
-//        Manage.getCurrentEmpire().empireArmy.add(soldiers);
-//        soldiers.setState(Army.StateOfStanding.FRONT);
-//        soldiers.Swordsmen(1, 2);
-//        NewButton button2 = (NewButton) list.get(1 * 100 + 2);
-//        button2.setBackground(null);
-//        button2.getArmy().add(soldiers);
-//        button2.setImageView(soldiers.getImageView());
-
-
-//        NewButton button = (NewButton) list.get(3 * 100 + 3);
         ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-//        archersAndThrowers.archer(2, 1);
-//        archersAndThrowers.getImageView().setFitHeight(200);
-//        archersAndThrowers.getImageView().setFitWidth(200);
-//        pane.getChildren().add(archersAndThrowers.getImageView());
         NewButton newButton = (NewButton) list.get(2 * 100 + 1);
-//        newButton.setBackground(null);
-//        archersAndThrowers.getImageView().setLayoutX(newButton.getX());
-//        archersAndThrowers.getImageView().setLayoutY(newButton.getY());
-//        newButton.getArmy().add(archersAndThrowers);
-//        newButton.setImageView(archersAndThrowers.getImageView());
-//        Manage.getCurrentEmpire().empireArmy.add(archersAndThrowers);
-//        archersAndThrowers.ArcherBow(3,3);
-//        button.getArmy().add(archersAndThrowers);
-//        SlaveAnimation slaveAnimation  =  new SlaveAnimation();
-//        slaveAnimation.setArmyToAnimation(soldiers2);
-//        slaveAnimation.play();
-//        DeadSlaveAnimation deadSlaveAnimation = new DeadSlaveAnimation(this);
-//        deadSlaveAnimation.setArmyToAnimation(soldiers2);
-//        deadSlaveAnimation.play();
-
-//        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-//        attackArmyToArmyController.battleWithEnemy();
-
-
-//        swordManAnimation.setArmyToAnimation(soldiers);
-//        swordManAnimation.setArmyToAnimation(soldiers2);
-//        attackArmyToArmyController.swordManAnimation.play();
-
         createMapGame();
-
-        //armin test code
-//        Empire Ahmed = new Empire();
-//        ArchersAndThrowers fireThrower =  new ArchersAndThrowers(Ahmed);
-//        fireThrower.FireThrowers(4,1);
-//        NewButton AhmedButton = (NewButton) list.get(4 * 100 + 1);
-//        Ahmed.empireArmy.add(fireThrower);
-//        AhmedButton.getArmy().add(fireThrower);
-
-
-//        Empire Richard = new Empire();
-//        Armoury armoury = new Armoury(Richard);
-//        NewButton RichardButton = (NewButton) list.get(7 * 100 + 4);
-//        Soldiers soldiers = new Soldiers(Richard);
-//        soldiers.BlackMonk(6,3);
-//        NewButton RButton = (NewButton) list.get(6 * 100 + 3);
-//        Richard.empireArmy.add(soldiers);
-//        RButton.getArmy().add(soldiers);
-//        RichardButton.setBuilding(armoury);
-//        ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/armory.png").toExternalForm()));
-//        RichardButton.setImageView(imageView);
-//
-//        Manage.getAllEmpires().add(Richard);
-//        Manage.getAllEmpires().add(Ahmed);
-
-
         AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
         attackArmyToArmyController.battleWithEnemy();
-
-
-        //Castle castle = new Castle(Ahmed);
-//        NewButton castleButton = (NewButton) list.get(4 * 100 + 9);
-//        ImageView apple = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/backery.png").toExternalForm()));
-//        castleButton.setImageView(apple);
-//        castle.castle();
-//        castleButton.setBuilding(castle);
-//        empire.castleXCoordinate = 4 ;
-//        empire.castleYCCoordinate = 9 ;
-//
-//        AhmedButton.setSickButton(true);
-//        Manage.setCurrentEmpire(Ahmed);
 
         SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
         sequentialTransitionSwordMan.play();
@@ -292,12 +214,6 @@ public class TileManager extends Application {
 
         SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation,attackArmyToArmyController.deadGrendiarAnimation);
         sequentialTransitiongrendiar.play();
-
-
-        //TODO picture of sword man after war // DORSA
-
-//        view.setBackground(new Background( new BackgroundImage( new Image(Game.class.getResource("/image/cegla2.jpg").toExternalForm()) ,
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
         pane.requestFocus();
         pane.setFocusTraversable(false);
@@ -330,7 +246,12 @@ public class TileManager extends Application {
                             zoom1();
                         }
                     }
-                } else if (keyName.equals("F1")) {
+                }
+                else if (keyName.equals("Enter")) {
+                    NextTurnController nextTurnController = new NextTurnController();
+                    nextTurnController.tileManager = tileManager ;
+                    nextTurnController.nextTurn();
+                }else if (keyName.equals("F1")) {
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
