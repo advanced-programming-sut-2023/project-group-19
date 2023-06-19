@@ -12,7 +12,7 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class DeadMaceManAnimation extends Transition {
-
+    public Map map ;
     private Image DEAD1 = new Image(MaceManAnimation.class.
             getResource("/troop/maceManFight/dead/1.png").toExternalForm());
     private Image DEAD2 = new Image(MaceManAnimation.class.
@@ -75,7 +75,7 @@ public class DeadMaceManAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
-                Map.getTroopMap()[x][y].remove(army);
+                map.getTroopMap()[x][y].remove(army);
 //                armies.remove(army);
             }
         }

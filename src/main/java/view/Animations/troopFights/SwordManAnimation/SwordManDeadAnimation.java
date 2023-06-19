@@ -12,6 +12,7 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class SwordManDeadAnimation extends Transition {
+    public Map map ;
 
     private Image DEAD1 = new Image(SwordManAnimation.class.
             getResource("/troop/swordManFight/dead/1.png").toExternalForm());
@@ -75,7 +76,7 @@ public class SwordManDeadAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
-                Map.getTroopMap()[x][y].remove(army);
+                map.getTroopMap()[x][y].remove(army);
             }
         }
     }

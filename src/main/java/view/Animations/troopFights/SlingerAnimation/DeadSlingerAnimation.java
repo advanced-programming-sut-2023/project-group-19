@@ -13,6 +13,7 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class DeadSlingerAnimation extends Transition {
+    public Map map ;
     private Image DEAD1 = new Image(DeadSlingerAnimation.class.
             getResource("/troop/slingerFight/dead/1.png").toExternalForm());
     private Image DEAD2 = new Image(DeadSlingerAnimation.class.
@@ -75,7 +76,7 @@ public class DeadSlingerAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
-                Map.getTroopMap()[x][y].remove(army);
+                map.getTroopMap()[x][y].remove(army);
             }
         }
     }

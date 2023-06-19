@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Map;
 import model.User;
 import view.Commands.CreateMapCommands;
 import view.Commands.MainMenuCommands;
@@ -27,8 +28,19 @@ public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
     public Pane pane ;
     public Stage stage ;
+
+    public Map map  ;
+    public RadioButton tree;
+    public RadioButton water;
+    public RadioButton stone;
+    public TextField getX0 ;
+    public TextField getX1 ;
+    public TextField getY0 ;
+    public TextField getY1 ;
+    public CreateMapController createMapController ;
     @Override
     public void start(Stage stage) throws Exception {
+        setSettings();
         Main.stage = stage;
         this.stage = stage ;
         Pane pane = new Pane();
@@ -40,13 +52,18 @@ public class CreateMapMenu extends Application {
         stage.setFullScreen(true);
     }
 
+    private void setSettings() {
+        map =  new Map();
+        createMapController = new CreateMapController(map);
+    }
+
     private void handleDesign() {
         placeBackButton();
         VBox mainVbox = new VBox();
         mainVbox.setAlignment(Pos.CENTER);
         setSettingToMainVbox(mainVbox);
         handleGetCoordinate(mainVbox);
-        handleCheckBox(mainVbox,"tree","water","stone");
+        handleCheckBox(mainVbox);
         placeSubmitButton(mainVbox);
     }
 
@@ -69,21 +86,42 @@ public class CreateMapMenu extends Application {
 
     private void placeSubmitButton(VBox vBox){
         Button submit = new Button("submit");
+        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(toggleGroup.getSelectedToggle().equals(tree)){
+                    dropTree();
+                }
+            }
+        });
         vBox.getChildren().add(submit);
     }
-    private void handleGetCoordinate(VBox vBox) {
-        placeTextFields(vBox,"x0","x1");
-        placeTextFields(vBox,"y0","y1");
+    private void dropTree(){
+        int x0  =  Integer.parseInt(getX0.getText());
+        int x1  =  Integer.parseInt(getX1.getText());
+        int y0  =  Integer.parseInt(getY0.getText());
+        int y1  =  Integer.parseInt(getY1.getText());
+        createMapController.dropSeveralTrees(x0,x1,y0,y1);
     }
-    private void placeTextFields(VBox vBox,String promptText1, String promptText2){
-        TextField getT0 = new TextField();
-        TextField getT1 = new TextField();
-        getT0.setPromptText(promptText1);
-        getT1.setPromptText(promptText2);
-        HBox hBox = new HBox(getT0,getT1);
-        hBox.setMaxWidth(200);
-        hBox.setSpacing(20);
-        vBox.getChildren().add(hBox);
+    private void handleGetCoordinate(VBox vBox) {
+        placeTextFields(vBox);
+    }
+    private void placeTextFields(VBox vBox){
+        getX0 = new TextField();
+        getX0.setPromptText("x start");
+        getX1 = new TextField();
+        getX1.setPromptText("x end");
+        getY0 = new TextField();
+        getY0.setPromptText("x start");
+        getY1 = new TextField();
+        getY1.setPromptText("x end");
+        HBox hBox1 = new HBox(getX0,getX1);
+        HBox hBox2 = new HBox(getY0,getY1);
+        hBox1.setMaxWidth(200);
+        hBox1.setSpacing(20);
+        hBox2.setMaxWidth(200);
+        hBox2.setSpacing(20);
+        vBox.getChildren().addAll(hBox1,hBox2);
     }
 
     private void setSettingToMainVbox(VBox vBox){
@@ -93,17 +131,17 @@ public class CreateMapMenu extends Application {
         vBox.setAlignment(Pos.CENTER);
         pane.getChildren().add(vBox);
     }
-    private void handleCheckBox(VBox vBox,String h1,String h2,String h3){
+    private void handleCheckBox(VBox vBox){
         HBox hBox = new HBox();
         hBox.setSpacing(20);
         hBox.setAlignment(Pos.CENTER);
-        RadioButton check1 = new RadioButton(h1);
-        check1.setToggleGroup(toggleGroup);
-        RadioButton check2 = new RadioButton(h2);
-        check2.setToggleGroup(toggleGroup);
-        RadioButton check3 = new RadioButton(h3);
-        check3.setToggleGroup(toggleGroup);
-        hBox.getChildren().addAll(check1,check2,check3);
+        tree = new RadioButton("tree");
+        tree.setToggleGroup(toggleGroup);
+        water = new RadioButton("water");
+        water.setToggleGroup(toggleGroup);
+        stone = new RadioButton("stone");
+        stone.setToggleGroup(toggleGroup);
+        hBox.getChildren().addAll(tree,water,stone);
         vBox.getChildren().add(hBox);
     }
 }

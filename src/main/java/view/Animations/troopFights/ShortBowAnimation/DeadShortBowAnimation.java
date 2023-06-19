@@ -13,6 +13,7 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class DeadShortBowAnimation extends Transition {
+    public Map map ;
     private Image DEAD1 = new Image(DeadShortBowAnimation.class.
             getResource("/troop/shortBowFight/dead/1.png").toExternalForm());
     private Image DEAD2 = new Image(DeadShortBowAnimation.class.
@@ -75,7 +76,7 @@ public class DeadShortBowAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
-                Map.getTroopMap()[x][y].remove(army);
+                map.getTroopMap()[x][y].remove(army);
             }
         }
     }

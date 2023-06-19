@@ -7,6 +7,10 @@ import model.Obstacle.Obstacle;
 import java.util.ArrayList;
 
 public class Map {
+
+    public Map(){
+
+    }
     public static int mapSize = 100;
     public ArrayList<Building>[][] buildingMap;
     public ArrayList<Army>[][] troopMap;

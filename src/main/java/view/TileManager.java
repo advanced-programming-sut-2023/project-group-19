@@ -530,9 +530,12 @@ public class TileManager extends Application {
         int randomY = random.nextInt(limit, limit + 10);
         return randomY;
     }
-
+    ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
     public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
+    public ImageView seaImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
+
+    public ImageView stoneIMage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
@@ -552,8 +555,17 @@ public class TileManager extends Application {
                 if (button.getImageView() != null) {
                     ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
-                        view = fireImage;
-                    } else {
+                        view = fireImage ;
+                    } else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Tree){
+                        view = treeImage ;
+                    }
+                    else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Stone){
+                        view = stoneIMage ;
+                    }
+                    else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof WaterSources){
+                        view = seaImage ;
+                    }
+                    else {
                         view = button.getImageView();
                     }
                     view.setFitHeight(viewButtonSize);

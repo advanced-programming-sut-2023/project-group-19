@@ -12,6 +12,7 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class DeadMonkAnimation extends Transition {
+    public Map map ;
 
     private Image DEAD1 = new Image(DeadMonkAnimation.class.
             getResource("/troop/monkFight/dead/1.png").toExternalForm());
@@ -53,6 +54,7 @@ public class DeadMonkAnimation extends Transition {
 
     @Override
     protected void interpolate(double v) {
+
         for(Army army : armies){
             if(v >= 0 && v < 0.07) army.getImageView().setImage(DEAD1);
             if(v >= 0.14 && v < 0.21) army.getImageView().setImage(DEAD2);
@@ -75,7 +77,7 @@ public class DeadMonkAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
-                Map.getTroopMap()[x][y].remove(army);
+                map.getTroopMap()[x][y].remove(army);
             }
         }
     }

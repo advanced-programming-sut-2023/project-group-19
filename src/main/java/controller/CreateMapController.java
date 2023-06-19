@@ -1,6 +1,8 @@
 package controller;
 
 import controller.Building.BuildingController;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.GroundType;
 import model.Map;
 import model.Obstacle.Stone;
@@ -8,12 +10,18 @@ import model.Obstacle.Tree;
 import model.Obstacle.WaterSources;
 import model.*;
 import model.Building.*;
+import view.Model.NewButton;
+import view.TileManager;
 
 public class CreateMapController {
     public Map map;
     public static int numberOfEmpires;
     public static boolean mapIsBuilt = false;
     private static int sizeOfMap;
+
+    public CreateMapController(Map map) {
+        this.map =  map;
+    }
 
     public static int getSizeOfMap() {
         return sizeOfMap;
@@ -113,12 +121,18 @@ public class CreateMapController {
         map.getGroundType()[x][y].add(GroundType.DEFAULT);
         return "Successfully";
     }
+    public void dropSeveralTrees(int x1 ,  int x2, int y1 , int y2){
+        for(int i =  x1 ; i  <=  x2 ; i ++){
+            for(int j = y1 ; j <= y2  ; j ++){
+                dropTree(i,j,"desertTree");
+            }
+        }
+    }
     public String dropTree(int x , int y , String type){
-        if (!mapIsBuilt) return "You first must build a map!";
-        if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "yure location is out of bounds";
+//        if (!mapIsBuilt) return "You first must build a map!";
+//        if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "yure location is out of bounds";
 
-        if(map.notBuildable[x][y]) return "Is occupied";
-
+//        if(map.notBuildable[x][y]) return "Is occupied";
 
         if (map.getGroundType()[x][y].get(0).equals(GroundType.IRON) ||
                 map.getGroundType()[x][y].get(0).equals(GroundType.STONE_ROCK) ||
@@ -131,7 +145,6 @@ public class CreateMapController {
             tree.cherryTree();
         } else if (type.equals("oliveTree")) {
             tree.oliveTree();
-            ;
         } else if (type.equals("coconutTree")) {
             tree.coconutTree();
         } else if (type.equals("dateTree")) {
@@ -139,8 +152,15 @@ public class CreateMapController {
         } else {
             return "Selected tree does not exist";
         }
-//        Map.obstacleMap[x][y].add(tree);
-//        Map.notBuildable[x][y] = true ;
+        //
+        map.getObstacleMap()[x][y].add(tree);
+//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
+//        castleButton.setImageView(treeImage);
+        map.notBuildable[x][y] = true;
+        //
+//        map.obstacleMap[x][y].add(tree);
+//        map.notBuildable[x][y] = true ;
         return "successfully";
     }
 //    public static int indexOfUser = 0 ;

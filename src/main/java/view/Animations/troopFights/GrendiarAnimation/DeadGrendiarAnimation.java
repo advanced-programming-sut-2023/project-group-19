@@ -13,6 +13,7 @@ import view.TileManager;
 import java.util.ArrayList;
 
 public class DeadGrendiarAnimation extends Transition {
+    public Map map ;
 
     private Image DEAD1 = new Image(DeadGrendiarAnimation.class.
             getResource("/troop/grenadierFight/dead/1.png").toExternalForm());
@@ -77,7 +78,7 @@ public class DeadGrendiarAnimation extends Transition {
                 army.getImageView().setImage(null);
                 Empire empire = army.getEmpire();
                 empire.empireArmy.remove(army);
-                Map.getTroopMap()[x][y].remove(army);
+                map.getTroopMap()[x][y].remove(army);
             }
         }
     }
