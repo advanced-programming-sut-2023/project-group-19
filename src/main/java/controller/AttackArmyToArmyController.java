@@ -431,12 +431,12 @@ public class AttackArmyToArmyController {
     }
 
     private boolean setFightModeIntoArmy(int x, int y, int x1, int x2, int y1, int y2, Army army, GameController gameController) {
-        for (Army enemy : Map.getTroopMap()[x][y]) {
+        for (Army enemy : map.getTroopMap()[x][y]) {
             if (!enemy.getEmpire().equals(army.getEmpire())) return true;
         }
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                for (Army enemy : Map.getTroopMap()[i][j]) {
+                for (Army enemy : map.getTroopMap()[i][j]) {
                     if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
                     //gameController.moveUnit(enemy.xCoordinate , enemy.yCoordinate );
                     return true;

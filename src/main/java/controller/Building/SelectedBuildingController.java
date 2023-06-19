@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 
 public class SelectedBuildingController {
     public static Empire empire = Manage.getCurrentEmpire();
+    public GameController gameController ;
     public static Building selectedBuilding;
     public Map map ;
 
@@ -27,7 +28,7 @@ public class SelectedBuildingController {
 
     public SelectedBuildingMessages drawBridge(String matcherBridgeCondition) {
         String bridgeCondition = matcherBridgeCondition;
-        if (GameController.enemyInRange(((DrawBridge) selectedBuilding).getX(), ((DrawBridge) selectedBuilding).getY())) {
+        if (gameController.enemyInRange(((DrawBridge) selectedBuilding).getX(), ((DrawBridge) selectedBuilding).getY())) {
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
             ((DrawBridge) selectedBuilding).setBridgeOpen(false);

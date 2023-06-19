@@ -665,7 +665,7 @@ public class TileManager extends Application {
                 int y = (int) b.getY() - 110;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
+                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
                 for (int i = 0; i < cellArmyNameType.size(); i++) {
                     stringBuilder.append(cellArmyNameType.get(i) + " ");
                 }

@@ -1,6 +1,6 @@
 package view;
 
-import controller.CreateMapController;
+//import controller.CreateMapController;
 //import controller.NextTurnController;
 import controller.JsonController;
 import javafx.application.Application;

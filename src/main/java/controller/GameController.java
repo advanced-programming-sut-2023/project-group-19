@@ -189,25 +189,25 @@ public class GameController {
         return army instanceof ArchersAndThrowers;
     }
 
-    public GameMenuMessages setFormOfUnit(Matcher xCoordinate, Matcher yCoordinate, Matcher form) {
-        int flag = 0;
-        int x = Integer.parseInt(xCoordinate.group("x"));
-        int y = Integer.parseInt(yCoordinate.group("y"));
-        String formOfUnit = form.group("type");
-        if (validCoordinates(x, y)) {
-            if (!Map.getTroopMap()[x][y].isEmpty()) {
-                for (Army army : Map.getTroopMap()[x][y]) {
-                    if (army.getOwner().equals(Manage.getCurrentEmpire())) {
-                        flag = 1;
-                        army.setArmyForm(formOfUnit);
-                    }
-                }
-                if (flag == 1) return GameMenuMessages.SUCCESS;
-                else return GameMenuMessages.NO_UNIT_IN_CELL;
-            } else return GameMenuMessages.NO_UNIT_IN_CELL;
-        }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
-    }
+//    public GameMenuMessages setFormOfUnit(Matcher xCoordinate, Matcher yCoordinate, Matcher form) {
+//        int flag = 0;
+//        int x = Integer.parseInt(xCoordinate.group("x"));
+//        int y = Integer.parseInt(yCoordinate.group("y"));
+//        String formOfUnit = form.group("type");
+//        if (validCoordinates(x, y)) {
+//            if (!Map.getTroopMap()[x][y].isEmpty()) {
+//                for (Army army : Map.getTroopMap()[x][y]) {
+//                    if (army.getOwner().equals(Manage.getCurrentEmpire())) {
+//                        flag = 1;
+//                        army.setArmyForm(formOfUnit);
+//                    }
+//                }
+//                if (flag == 1) return GameMenuMessages.SUCCESS;
+//                else return GameMenuMessages.NO_UNIT_IN_CELL;
+//            } else return GameMenuMessages.NO_UNIT_IN_CELL;
+//        }
+//        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+//    }
 
     public GameMenuMessages readyToAttack(Matcher enemy) {
         int x = Integer.parseInt(enemy.group("x"));
@@ -223,48 +223,48 @@ public class GameController {
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
 
-    public GameMenuMessages attackAllSelectedArchers(Matcher xCoordinate, Matcher yCoordinate) {
-        int x = Integer.parseInt(xCoordinate.group("x"));
-        int y = Integer.parseInt(yCoordinate.group("y"));
-        if (validCoordinates(x, y)) {
-            for (Army army : selectedUnit) {
-                if (!isArcher(army)) continue;
-                for (Army enemy : Map.getTroopMap()[x][y]) {
-                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    int newHitPoint = enemy.hp() - army.getAttackPower();
-                    enemy.setHp(newHitPoint);
-                    break;
-                }
-            }
-            return GameMenuMessages.SUCCESS;
-        }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
-    }
+//    public GameMenuMessages attackAllSelectedArchers(Matcher xCoordinate, Matcher yCoordinate) {
+//        int x = Integer.parseInt(xCoordinate.group("x"));
+//        int y = Integer.parseInt(yCoordinate.group("y"));
+//        if (validCoordinates(x, y)) {
+//            for (Army army : selectedUnit) {
+//                if (!isArcher(army)) continue;
+//                for (Army enemy : Map.getTroopMap()[x][y]) {
+//                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
+//                    int newHitPoint = enemy.hp() - army.getAttackPower();
+//                    enemy.setHp(newHitPoint);
+//                    break;
+//                }
+//            }
+//            return GameMenuMessages.SUCCESS;
+//        }
+//        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+//    }
 
-    public GameMenuMessages disbandUnit() {
-        if (selectedUnit.isEmpty()) return GameMenuMessages.NO_UNIT_SELECTED;
-        for (Army army : selectedUnit) {
-            int x = army.getCurrentX();
-            int y = army.getCurrentY();
-            Empire empire = army.getEmpire();
-            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), empire);
-            empire.empireArmy.remove(army);
-            Map.getTroopMap()[x][y].remove(army);
-        }
-        return GameMenuMessages.SUCCESS;
-    }
+//    public GameMenuMessages disbandUnit() {
+//        if (selectedUnit.isEmpty()) return GameMenuMessages.NO_UNIT_SELECTED;
+//        for (Army army : selectedUnit) {
+//            int x = army.getCurrentX();
+//            int y = army.getCurrentY();
+//            Empire empire = army.getEmpire();
+//            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), empire);
+//            empire.empireArmy.remove(army);
+//            Map.getTroopMap()[x][y].remove(army);
+//        }
+//        return GameMenuMessages.SUCCESS;
+//    }
 
-    public void setStateArmy() {
-        selectedUnit.clear();
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
-                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
-                continue;
-            selectedUnit.add(army);
-            findEnemyInRange(army, army.getArmyForm());
-            selectedUnit.clear();
-        }
-    }
+//    public void setStateArmy() {
+//        selectedUnit.clear();
+//        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+//            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
+//                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
+//                continue;
+//            selectedUnit.add(army);
+//            findEnemyInRange(army, army.getArmyForm());
+//            selectedUnit.clear();
+//        }
+//    }
 
 
     public void dropUnits(int x, int y, int typeOfUnit, int count, NewButton button) {
@@ -274,7 +274,7 @@ public class GameController {
                     ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     archer.archer(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archer);
-                    Map.getTroopMap()[x][y].add(archer);
+                    map.getTroopMap()[x][y].add(archer);
                     button.setMinSize(50, 50);
                     button.getArmy().add(archer);
                 }
@@ -286,7 +286,7 @@ public class GameController {
                     ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     crossBowMan.Crossbowmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
-                    Map.getTroopMap()[x][y].add(crossBowMan);
+                    map.getTroopMap()[x][y].add(crossBowMan);
                     button.setMinSize(50, 50);
                     button.getArmy().add(crossBowMan);
                 }
@@ -298,7 +298,7 @@ public class GameController {
                     Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
                     spearMen.SpearMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(spearMen);
-                    Map.getTroopMap()[x][y].add(spearMen);
+                    map.getTroopMap()[x][y].add(spearMen);
                     button.setMinSize(50, 50);
                     button.getArmy().add(spearMen);
                 }
@@ -310,7 +310,7 @@ public class GameController {
                     Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
                     pikeMen.PikeMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(pikeMen);
-                    Map.getTroopMap()[x][y].add(pikeMen);
+                    map.getTroopMap()[x][y].add(pikeMen);
                     button.setMinSize(50, 50);
                     button.getArmy().add(pikeMen);
                 }
@@ -322,7 +322,7 @@ public class GameController {
                     Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
                     maceMen.MaceMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(maceMen);
-                    Map.getTroopMap()[x][y].add(maceMen);
+                    map.getTroopMap()[x][y].add(maceMen);
                     button.setMinSize(50, 50);
                     button.getArmy().add(maceMen);
                 }
@@ -334,7 +334,7 @@ public class GameController {
                     Soldiers swordsMen = new Soldiers(Manage.getCurrentEmpire());
                     swordsMen.Swordsmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(swordsMen);
-                    Map.getTroopMap()[x][y].add(swordsMen);
+                    map.getTroopMap()[x][y].add(swordsMen);
                     button.setMinSize(50, 50);
                     button.getArmy().add(swordsMen);
                 }
@@ -346,7 +346,7 @@ public class GameController {
                     Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
                     knight.Knight(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(knight);
-                    Map.getTroopMap()[x][y].add(knight);
+                    map.getTroopMap()[x][y].add(knight);
                     button.setMinSize(50, 50);
                     button.getArmy().add(knight);
 
@@ -359,7 +359,7 @@ public class GameController {
                     Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
                     tunneler.Tunneler(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(tunneler);
-                    Map.getTroopMap()[x][y].add(tunneler);
+                    map.getTroopMap()[x][y].add(tunneler);
                     button.setMinSize(50, 50);
                     button.getArmy().add(tunneler);
                 }
@@ -371,7 +371,7 @@ public class GameController {
                     Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
                     ladderMen.LadderMen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(ladderMen);
-                    Map.getTroopMap()[x][y].add(ladderMen);
+                    map.getTroopMap()[x][y].add(ladderMen);
                     button.setMinSize(50, 50);
                     button.getArmy().add(ladderMen);
                 }
@@ -383,7 +383,7 @@ public class GameController {
                     Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
                     blackMonk.BlackMonk(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(blackMonk);
-                    Map.getTroopMap()[x][y].add(blackMonk);
+                    map.getTroopMap()[x][y].add(blackMonk);
                     button.setMinSize(50, 50);
                     button.getArmy().add(blackMonk);
                 }
@@ -395,7 +395,7 @@ public class GameController {
                     ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     archerBow.ArcherBow(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(archerBow);
-                    Map.getTroopMap()[x][y].add(archerBow);
+                    map.getTroopMap()[x][y].add(archerBow);
                     button.setMinSize(50, 50);
                     button.getArmy().add(archerBow);
                 }
@@ -407,7 +407,7 @@ public class GameController {
                     Soldiers slaves = new Soldiers(Manage.getCurrentEmpire());
                     slaves.Slaves(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slaves);
-                    Map.getTroopMap()[x][y].add(slaves);
+                    map.getTroopMap()[x][y].add(slaves);
                     button.setMinSize(50, 50);
                     button.getArmy().add(slaves);
                 }
@@ -419,7 +419,7 @@ public class GameController {
                     ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     slingers.Slingers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(slingers);
-                    Map.getTroopMap()[x][y].add(slingers);
+                    map.getTroopMap()[x][y].add(slingers);
                     button.setMinSize(50, 50);
                     button.getArmy().add(slingers);
                 }
@@ -431,7 +431,7 @@ public class GameController {
                     Climbers assassins = new Climbers(Manage.getCurrentEmpire());
                     assassins.Assassins(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(assassins);
-                    Map.getTroopMap()[x][y].add(assassins);
+                    map.getTroopMap()[x][y].add(assassins);
                     button.setMinSize(50, 50);
                     button.getArmy().add(assassins);
                 }
@@ -443,7 +443,7 @@ public class GameController {
                     ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     horseArcher.HorseArchers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(horseArcher);
-                    Map.getTroopMap()[x][y].add(horseArcher);
+                    map.getTroopMap()[x][y].add(horseArcher);
                     button.setMinSize(50, 50);
                     button.getArmy().add(horseArcher);
                 }
@@ -455,7 +455,7 @@ public class GameController {
                     Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
                     arabSwordMen.Swordsmen(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
-                    Map.getTroopMap()[x][y].add(arabSwordMen);
+                    map.getTroopMap()[x][y].add(arabSwordMen);
                     button.setMinSize(50, 50);
                     button.getArmy().add(arabSwordMen);
                 }
@@ -467,7 +467,7 @@ public class GameController {
                     ArchersAndThrowers fireThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     fireThrowers.FireThrowers(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(fireThrowers);
-                    Map.getTroopMap()[x][y].add(fireThrowers);
+                    map.getTroopMap()[x][y].add(fireThrowers);
                     button.setMinSize(50, 50);
                     button.getArmy().add(fireThrowers);
                 }
@@ -480,7 +480,7 @@ public class GameController {
                     ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     catapult.catapult(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(catapult);
-                    Map.getTroopMap()[x][y].add(catapult);
+                    map.getTroopMap()[x][y].add(catapult);
                     button.setMinSize(50, 50);
                     button.getArmy().add(catapult);
                 }
@@ -493,7 +493,7 @@ public class GameController {
                     ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     trebuchet.trebuchet(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(trebuchet);
-                    Map.getTroopMap()[x][y].add(trebuchet);
+                    map.getTroopMap()[x][y].add(trebuchet);
                     button.setMinSize(50, 50);
                     button.getArmy().add(trebuchet);
                 }
@@ -509,7 +509,7 @@ public class GameController {
                     siegeTower.getImageView().setLayoutY(button.getLayoutY());
                     button.setImageView(siegeTower.getImageView());
                     Manage.getCurrentEmpire().empireArmy.add(siegeTower);
-                    Map.getTroopMap()[x][y].add(siegeTower);
+                    map.getTroopMap()[x][y].add(siegeTower);
                     button.setMinSize(50, 50);
                     button.getArmy().add(siegeTower);
                 }
@@ -524,7 +524,7 @@ public class GameController {
                     fireBallista.getImageView().setLayoutY(button.getLayoutY());
                     button.setImageView(fireBallista.getImageView());
                     Manage.getCurrentEmpire().empireArmy.add(fireBallista);
-                    Map.getTroopMap()[x][y].add(fireBallista);
+                    map.getTroopMap()[x][y].add(fireBallista);
                     button.setMinSize(50, 50);
                     button.getArmy().add(fireBallista);
                 }
@@ -540,7 +540,7 @@ public class GameController {
                     batteringRam.getImageView().setLayoutY(button.getLayoutY());
                     button.setImageView(batteringRam.getImageView());
                     Manage.getCurrentEmpire().empireArmy.add(batteringRam);
-                    Map.getTroopMap()[x][y].add(batteringRam);
+                    map.getTroopMap()[x][y].add(batteringRam);
                     button.setMinSize(50, 50);
                     button.getArmy().add(batteringRam);
                 }
@@ -553,7 +553,7 @@ public class GameController {
                     ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     portableShield.portableShield(x, y);
                     Manage.getCurrentEmpire().empireArmy.add(portableShield);
-                    Map.getTroopMap()[x][y].add(portableShield);
+                    map.getTroopMap()[x][y].add(portableShield);
                     button.setMinSize(50, 50);
                     button.getArmy().add(portableShield);
                 }
@@ -583,26 +583,26 @@ public class GameController {
         return true;
     }
 
-    private static void findEnemyInRange(Army army, String State) {
-        int x = army.xCoordinate;
-        int y = army.yCoordinate;
-        int x1, x2, y1, y2;
-        for (int i = 1; i <= army.getAttackRange(); i++) {
-            x1 = x - i;
-            x2 = x + i;
-            y1 = y - i;
-            y2 = y + i;
-            if (x1 <= 0) x1 = 0;
-            if (x2 >= mapSize) x2 = mapSize - 1;
-            if (y1 <= 0) y1 = 0;
-            if (y2 >= mapSize) y2 = mapSize - 1;
-            if (State.equals(Names.OFFENSIVE.getName())) {
-                if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army, i)) return;
-            } else {
-                if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
-            }
-        }
-    }
+//    private static void findEnemyInRange(Army army, String State) {
+//        int x = army.xCoordinate;
+//        int y = army.yCoordinate;
+//        int x1, x2, y1, y2;
+//        for (int i = 1; i <= army.getAttackRange(); i++) {
+//            x1 = x - i;
+//            x2 = x + i;
+//            y1 = y - i;
+//            y2 = y + i;
+//            if (x1 <= 0) x1 = 0;
+//            if (x2 >= mapSize) x2 = mapSize - 1;
+//            if (y1 <= 0) y1 = 0;
+//            if (y2 >= mapSize) y2 = mapSize - 1;
+//            if (State.equals(Names.OFFENSIVE.getName())) {
+//                if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army, i)) return;
+//            } else {
+//                if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
+//            }
+//        }
+//    }
 
     private static boolean isSameGridIntoRange(int x, int y, Army army, int chosenX, int chosenY) {
         int x1 = x - army.getAttackRange();
@@ -616,40 +616,40 @@ public class GameController {
         return chosenX >= x1 && chosenX <= x2 && chosenY >= y1 && chosenY <= y2;
     }
 
-    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        for (Army enemy : Map.getTroopMap()[x][y]) {
-            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
-        }
-        for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
-                if (i == x && j == y) continue;
-                for (Army enemy : Map.getTroopMap()[i][j]) {
-                    if (army.getPastXcordinate() == army.getCurrentX() && army.getPastYcordinate() == army.getCurrentY()) {
-                        army.hasMovedForDefensiveState = false;
-                    }
-                    if (!army.getEmpire().equals(enemy.getEmpire())) {
-                        if (!army.hasMovedForDefensiveState) {
-                            army.setPastXcordinate(x);
-                            army.setPastYcordinate(y);
-                            //gameController.moveUnit(i, j);
-                            //army.hasMovedForDefensiveState = true;
-                            return true;
-                        }
-                        if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
-                            //gameController.moveUnit(i, j);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
-            //gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
+//        for (Army enemy : Map.getTroopMap()[x][y]) {
+//            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
+//        }
+//        for (int i = x1; i <= x2; i++) {
+//            for (int j = y1; j <= y2; j++) {
+//                if (i == x && j == y) continue;
+//                for (Army enemy : Map.getTroopMap()[i][j]) {
+//                    if (army.getPastXcordinate() == army.getCurrentX() && army.getPastYcordinate() == army.getCurrentY()) {
+//                        army.hasMovedForDefensiveState = false;
+//                    }
+//                    if (!army.getEmpire().equals(enemy.getEmpire())) {
+//                        if (!army.hasMovedForDefensiveState) {
+//                            army.setPastXcordinate(x);
+//                            army.setPastYcordinate(y);
+//                            //gameController.moveUnit(i, j);
+//                            //army.hasMovedForDefensiveState = true;
+//                            return true;
+//                        }
+//                        if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
+//                            //gameController.moveUnit(i, j);
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
+//            //gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     public void setEnemyToTarget() {
         selectedUnit.clear();
@@ -673,29 +673,29 @@ public class GameController {
         army.setEnemy(null);
     }
 
-    private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        for (Army enemy : Map.getTroopMap()[x][y]) {
-            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
-        }
-        for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
-                for (Army enemy : Map.getTroopMap()[i][j]) {
-                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    army.setEnemy(enemy);
-                    //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
-                    return true;
-                }
-            }
-        }
-        if (range == army.getAttackRange()) {
-            Army enemy;
-            if ((enemy = army.getArcherAttacker()) != null) {
-                army.setEnemy(enemy);
-                //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
-            }
-        }
-        return false;
-    }
+//    private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
+//        for (Army enemy : Map.getTroopMap()[x][y]) {
+//            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
+//        }
+//        for (int i = x1; i <= x2; i++) {
+//            for (int j = y1; j <= y2; j++) {
+//                for (Army enemy : Map.getTroopMap()[i][j]) {
+//                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
+//                    army.setEnemy(enemy);
+//                    //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+//                    return true;
+//                }
+//            }
+//        }
+//        if (range == army.getAttackRange()) {
+//            Army enemy;
+//            if ((enemy = army.getArcherAttacker()) != null) {
+//                army.setEnemy(enemy);
+//                //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+//            }
+//        }
+//        return false;
+//    }
 
 
     public boolean setPathForUnits(int xCoordinate, int yCoordinate) {
@@ -803,32 +803,32 @@ public class GameController {
         return false;
     }
 
-    public void patrolUnit(Matcher x1, Matcher y1, Matcher x2, Matcher y2) {
-        int xOne = Integer.parseInt(x1.group("x"));
-        int xTwo = Integer.parseInt(x2.group("x"));
-        int yOne = Integer.parseInt(y1.group("y"));
-        int yTwo = Integer.parseInt(y2.group("y"));
-        if (validCoordinates(xOne, yOne) && !map.notPassable[xOne][yOne] && validCoordinates(xTwo, yTwo) && !map.notPassable[xTwo][yTwo]) {
-            if (setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo)) {
-                //String unitMoved = moveUnit(xTwo, yTwo).getMessages();
-            } else System.out.println(GameMenuMessages.NO_UNIT_IN_CELL.getMessages());
-        } else System.out.println(GameMenuMessages.COORDINATES_OUT_OF_BOUNDS.getMessages());
-    }
+//    public void patrolUnit(Matcher x1, Matcher y1, Matcher x2, Matcher y2) {
+//        int xOne = Integer.parseInt(x1.group("x"));
+//        int xTwo = Integer.parseInt(x2.group("x"));
+//        int yOne = Integer.parseInt(y1.group("y"));
+//        int yTwo = Integer.parseInt(y2.group("y"));
+//        if (validCoordinates(xOne, yOne) && !map.notPassable[xOne][yOne] && validCoordinates(xTwo, yTwo) && !map.notPassable[xTwo][yTwo]) {
+//            if (setCoordinatesForPatrols(xOne, yOne, xTwo, yTwo)) {
+//                //String unitMoved = moveUnit(xTwo, yTwo).getMessages();
+//            } else System.out.println(GameMenuMessages.NO_UNIT_IN_CELL.getMessages());
+//        } else System.out.println(GameMenuMessages.COORDINATES_OUT_OF_BOUNDS.getMessages());
+//    }
 
-    public boolean setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
-        if (!Map.getTroopMap()[x1][y1].isEmpty()) {
-            for (Army army : Map.getTroopMap()[x1][y1]) {
-                army.setArmyForm(Names.PATROL_UNIT.getName());
-                army.startXCoordinate = x1;
-                army.startYCoordinate = y1;
-                army.finalXCoordinate = x2;
-                army.finalYCoordinate = y2;
-                selectedUnit.add(army);
-            }
-            return true;
-        }
-        return false;
-    }
+//    public boolean setCoordinatesForPatrols(int x1, int y1, int x2, int y2) {
+//        if (!Map.getTroopMap()[x1][y1].isEmpty()) {
+//            for (Army army : Map.getTroopMap()[x1][y1]) {
+//                army.setArmyForm(Names.PATROL_UNIT.getName());
+//                army.startXCoordinate = x1;
+//                army.startYCoordinate = y1;
+//                army.finalXCoordinate = x2;
+//                army.finalYCoordinate = y2;
+//                selectedUnit.add(army);
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
 
     public GameMenuMessages stopPatrols(int x, int y) {
         if (validCoordinates(x, y)) {
@@ -843,37 +843,37 @@ public class GameController {
         return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
     }
 
-    public GameMenuMessages pitchDitchHauntsEnemy(Matcher x1, Matcher y1) {
-        int xOfPitch = Integer.parseInt(x1.group("x"));
-        int yOfPitch = Integer.parseInt(y1.group("y"));
-        ArchersAndThrowers archer;
-        if (validCoordinates(xOfPitch, yOfPitch)) {
-            if (!map.getBuildingMap()[xOfPitch][yOfPitch].isEmpty() &&
-                    map.getBuildingMap()[xOfPitch][yOfPitch].get(0) instanceof PitchDitch) {
-                if ((archer = checkIfSomeAreArchers()) != null) {
-                    setPathForUnits(xOfPitch, yOfPitch);
-                    if (archer.myPath.size() <= archer.getAttackRange()) {
-                        ((PitchDitch) map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
-                        map.getBuildingMap()[xOfPitch][yOfPitch].clear();
-                        map.getObstacleMap()[xOfPitch][yOfPitch].clear();
-                        map.notPassable[xOfPitch][yOfPitch] = false;
-                        map.notBuildable[xOfPitch][yOfPitch] = false;
-                        map.wallPassable[xOfPitch][yOfPitch] = false;
-                        for (Army army : Map.getTroopMap()[xOfPitch][yOfPitch]) {
-                            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-                        }
-                        Map.getTroopMap()[xOfPitch][yOfPitch].clear();
-                        archer.myPath.clear();
-                        return GameMenuMessages.SUCCESS;
-                    }
-                    return GameMenuMessages.OUT_OF_UNIT_RANGE;
-                }
-                return GameMenuMessages.IMPROPER_UNIT;
-            }
-            return GameMenuMessages.IMPROPER_LOCATION;
-        }
-        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
-    }
+//    public GameMenuMessages pitchDitchHauntsEnemy(Matcher x1, Matcher y1) {
+//        int xOfPitch = Integer.parseInt(x1.group("x"));
+//        int yOfPitch = Integer.parseInt(y1.group("y"));
+//        ArchersAndThrowers archer;
+//        if (validCoordinates(xOfPitch, yOfPitch)) {
+//            if (!map.getBuildingMap()[xOfPitch][yOfPitch].isEmpty() &&
+//                    map.getBuildingMap()[xOfPitch][yOfPitch].get(0) instanceof PitchDitch) {
+//                if ((archer = checkIfSomeAreArchers()) != null) {
+//                    setPathForUnits(xOfPitch, yOfPitch);
+//                    if (archer.myPath.size() <= archer.getAttackRange()) {
+//                        ((PitchDitch) map.getBuildingMap()[xOfPitch][yOfPitch].get(0)).fireState = true;
+//                        map.getBuildingMap()[xOfPitch][yOfPitch].clear();
+//                        map.getObstacleMap()[xOfPitch][yOfPitch].clear();
+//                        map.notPassable[xOfPitch][yOfPitch] = false;
+//                        map.notBuildable[xOfPitch][yOfPitch] = false;
+//                        map.wallPassable[xOfPitch][yOfPitch] = false;
+//                        for (Army army : Map.getTroopMap()[xOfPitch][yOfPitch]) {
+//                            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+//                        }
+//                        Map.getTroopMap()[xOfPitch][yOfPitch].clear();
+//                        archer.myPath.clear();
+//                        return GameMenuMessages.SUCCESS;
+//                    }
+//                    return GameMenuMessages.OUT_OF_UNIT_RANGE;
+//                }
+//                return GameMenuMessages.IMPROPER_UNIT;
+//            }
+//            return GameMenuMessages.IMPROPER_LOCATION;
+//        }
+//        return GameMenuMessages.COORDINATES_OUT_OF_BOUNDS;
+//    }
 
     public ArchersAndThrowers checkIfSomeAreArchers() {
         for (Army army : selectedUnit) {
@@ -886,57 +886,57 @@ public class GameController {
         return null;
     }
 
-    public GameMenuMessages pourOil(String direction) {
-        int y0fPossibleEnemy = 0;
-        int xOfPossibleEnemy = 0;
-        int killCount = Manage.getCurrentEmpire().getEngineerCount();
-        if (checkDirection(direction)) {
-            for (int j = 0; j < Manage.getCurrentEmpire().pourOilCoordinate.size(); j++) {
-                int x = Manage.getCurrentEmpire().pourOilCoordinate.get(j) / Map.mapSize;
-                int y = Manage.getCurrentEmpire().pourOilCoordinate.get(j) % Map.mapSize;
-                if (direction.equals(Names.NORTH.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        y0fPossibleEnemy = y + i;
-                        if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
-                            }
-                        }
-                    }
-                } else if (direction.equals(Names.SOUTH.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        y0fPossibleEnemy = y + i;
-                        if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
-                            }
-                        }
-                    }
-                } else if (direction.equals(Names.WEST.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        xOfPossibleEnemy = x + i;
-                        if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
-                            }
-                        }
-                    }
-
-                } else if (direction.equals(Names.EAST.getName())) {
-                    for (int i = -1; i <= 1; i++) {
-                        xOfPossibleEnemy = x + i;
-                        if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
-                            if (killCount != 0) {
-                                killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
-                            }
-                        }
-                    }
-                }
-            }
-            return GameMenuMessages.SUCCESS;
-        } else return GameMenuMessages.INVALID_DIRECTION;
-
-    }
+//    public GameMenuMessages pourOil(String direction) {
+//        int y0fPossibleEnemy = 0;
+//        int xOfPossibleEnemy = 0;
+//        int killCount = Manage.getCurrentEmpire().getEngineerCount();
+//        if (checkDirection(direction)) {
+//            for (int j = 0; j < Manage.getCurrentEmpire().pourOilCoordinate.size(); j++) {
+//                int x = Manage.getCurrentEmpire().pourOilCoordinate.get(j) / Map.mapSize;
+//                int y = Manage.getCurrentEmpire().pourOilCoordinate.get(j) % Map.mapSize;
+//                if (direction.equals(Names.NORTH.getName())) {
+//                    for (int i = -1; i <= 1; i++) {
+//                        y0fPossibleEnemy = y + i;
+//                        if (!Map.getTroopMap()[x - 2][y0fPossibleEnemy].isEmpty()) {
+//                            if (killCount != 0) {
+//                                killTroopsOfEnemy(x - 2, y0fPossibleEnemy, killCount);
+//                            }
+//                        }
+//                    }
+//                } else if (direction.equals(Names.SOUTH.getName())) {
+//                    for (int i = -1; i <= 1; i++) {
+//                        y0fPossibleEnemy = y + i;
+//                        if (!Map.getTroopMap()[x + 2][y0fPossibleEnemy].isEmpty()) {
+//                            if (killCount != 0) {
+//                                killTroopsOfEnemy(x + 2, y0fPossibleEnemy, killCount);
+//                            }
+//                        }
+//                    }
+//                } else if (direction.equals(Names.WEST.getName())) {
+//                    for (int i = -1; i <= 1; i++) {
+//                        xOfPossibleEnemy = x + i;
+//                        if (!Map.getTroopMap()[xOfPossibleEnemy][y - 2].isEmpty()) {
+//                            if (killCount != 0) {
+//                                killTroopsOfEnemy(xOfPossibleEnemy, y - 2, killCount);
+//                            }
+//                        }
+//                    }
+//
+//                } else if (direction.equals(Names.EAST.getName())) {
+//                    for (int i = -1; i <= 1; i++) {
+//                        xOfPossibleEnemy = x + i;
+//                        if (!Map.getTroopMap()[xOfPossibleEnemy][y + 2].isEmpty()) {
+//                            if (killCount != 0) {
+//                                killTroopsOfEnemy(xOfPossibleEnemy, y + 2, killCount);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            return GameMenuMessages.SUCCESS;
+//        } else return GameMenuMessages.INVALID_DIRECTION;
+//
+//    }
 
     public boolean checkDirection(String direction) {
         return direction.equals(Names.NORTH.getName()) || direction.equals(Names.SOUTH.getName())
@@ -952,78 +952,78 @@ public class GameController {
         return false;
     }
 
-    public void cagedWarDogsAttack() {
-        for (int j = 0; j < Manage.getCurrentEmpire().cagedWarDogsCoordinate.size(); j++) {
-            int x = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
-            int y = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) % mapSize;
-            int floorOfX, floorOfY, ceilOfX, ceilOfY;
-            for (int i = 1; i <= 3; i++) {
-                floorOfX = x - i;
-                floorOfY = y - i;
-                ceilOfX = x + i;
-                ceilOfY = y + i;
-                if (floorOfX < 0) floorOfX = 0;
-                if (floorOfY < 0) floorOfY = 0;
-                if (ceilOfX >= Map.mapSize) ceilOfX = Map.mapSize - 1;
-                if (ceilOfY >= Map.mapSize) ceilOfY = Map.mapSize - 1;
-                for (int m = floorOfX; m <= ceilOfX; m++) {
-                    for (int n = floorOfY; n <= ceilOfY; n++) {
-                        if (!Map.getTroopMap()[m][n].isEmpty()) {
-                            if (killedByDogs(m, n)) {
-                                return;
-                            }
-                            if (!map.getBuildingMap()[m][n].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
-                                map.getBuildingMap()[m][n].clear();
-                                map.notBuildable[m][n] = false;
-                                map.notPassable[m][n] = false;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    public void cagedWarDogsAttack() {
+//        for (int j = 0; j < Manage.getCurrentEmpire().cagedWarDogsCoordinate.size(); j++) {
+//            int x = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) / mapSize;
+//            int y = Manage.getCurrentEmpire().cagedWarDogsCoordinate.get(j) % mapSize;
+//            int floorOfX, floorOfY, ceilOfX, ceilOfY;
+//            for (int i = 1; i <= 3; i++) {
+//                floorOfX = x - i;
+//                floorOfY = y - i;
+//                ceilOfX = x + i;
+//                ceilOfY = y + i;
+//                if (floorOfX < 0) floorOfX = 0;
+//                if (floorOfY < 0) floorOfY = 0;
+//                if (ceilOfX >= Map.mapSize) ceilOfX = Map.mapSize - 1;
+//                if (ceilOfY >= Map.mapSize) ceilOfY = Map.mapSize - 1;
+//                for (int m = floorOfX; m <= ceilOfX; m++) {
+//                    for (int n = floorOfY; n <= ceilOfY; n++) {
+//                        if (!Map.getTroopMap()[m][n].isEmpty()) {
+//                            if (killedByDogs(m, n)) {
+//                                return;
+//                            }
+//                            if (!map.getBuildingMap()[m][n].get(0).getOwner().equals(Manage.getCurrentEmpire())) {
+//                                map.getBuildingMap()[m][n].clear();
+//                                map.notBuildable[m][n] = false;
+//                                map.notPassable[m][n] = false;
+//                                return;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-    public void DrawBridge() {
-        for (int i = 0; i < Manage.getCurrentEmpire().DrawBridge.size(); i++) {
-            int x = Manage.getCurrentEmpire().DrawBridge.get(i) / mapSize;
-            int y = Manage.getCurrentEmpire().DrawBridge.get(i) % mapSize;
-            if (GameController.enemyInRange(x, y)) {
-                DrawBridge drawBridge = (DrawBridge) map.getBuildingMap()[x][y].get(0);
-                drawBridge.bridgeOpen = false;
-            }
-        }
-    }
+//    public void DrawBridge() {
+//        for (int i = 0; i < Manage.getCurrentEmpire().DrawBridge.size(); i++) {
+//            int x = Manage.getCurrentEmpire().DrawBridge.get(i) / mapSize;
+//            int y = Manage.getCurrentEmpire().DrawBridge.get(i) % mapSize;
+//            if (GameController.enemyInRange(x, y)) {
+//                DrawBridge drawBridge = (DrawBridge) map.getBuildingMap()[x][y].get(0);
+//                drawBridge.bridgeOpen = false;
+//            }
+//        }
+//    }
 
-    public void killTroopsOfEnemy(int x, int y, int killCount) {
-        for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
-            Army army = Map.getTroopMap()[x][y].get(i);
-            if (!army.getOwner().equals(Manage.getCurrentEmpire()) && killCount != 0) {
-                removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-                Map.getTroopMap()[army.xCoordinate][army.yCoordinate].remove(army);
-                army.getOwner().empireArmy.remove(army);
-                i--;
-                killCount--;
-            }
-        }
-    }
+//    public void killTroopsOfEnemy(int x, int y, int killCount) {
+//        for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
+//            Army army = Map.getTroopMap()[x][y].get(i);
+//            if (!army.getOwner().equals(Manage.getCurrentEmpire()) && killCount != 0) {
+//                removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+//                Map.getTroopMap()[army.xCoordinate][army.yCoordinate].remove(army);
+//                army.getOwner().empireArmy.remove(army);
+//                i--;
+//                killCount--;
+//            }
+//        }
+//    }
 
-    public static boolean killedByDogs(int x, int y) {
-        boolean flag = false;
-        for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
-            Army army = Map.getTroopMap()[x][y].get(i);
-            if (!army.getOwner().getName().equals(Manage.getCurrentEmpire().getName())) {
-                flag = true;
-                removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-                Map.getTroopMap()[x][y].remove(army);
-                Empire empire = army.getEmpire();
-                empire.empireArmy.remove(army);
-
-            }
-        }
-        return flag;
-    }
+//    public static boolean killedByDogs(int x, int y) {
+//        boolean flag = false;
+//        for (int i = 0; i < Map.getTroopMap()[x][y].size(); i++) {
+//            Army army = Map.getTroopMap()[x][y].get(i);
+//            if (!army.getOwner().getName().equals(Manage.getCurrentEmpire().getName())) {
+//                flag = true;
+//                removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+//                Map.getTroopMap()[x][y].remove(army);
+//                Empire empire = army.getEmpire();
+//                empire.empireArmy.remove(army);
+//
+//            }
+//        }
+//        return flag;
+//    }
 
 //    public GameMenuMessages conquerGates(Matcher x1, Matcher y1) {
 //        int xOfGate = Integer.parseInt(x1.group("x"));
@@ -1111,20 +1111,20 @@ public class GameController {
         return null;
     }
 
-    private static void killUnit() {
-        for (Empire empire : Manage.getAllEmpires()) {
-            for (int i = 0; i < empire.empireArmy.size(); i++) {
-                Army army = empire.empireArmy.get(i);
-                if (army.getHp() <= 0) {
-                    int x = army.xCoordinate;
-                    int y = army.yCoordinate;
-                    removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-                    Map.getTroopMap()[x][y].remove(army);
-                    empire.empireArmy.remove(army);
-                }
-            }
-        }
-    }
+//    private static void killUnit() {
+//        for (Empire empire : Manage.getAllEmpires()) {
+//            for (int i = 0; i < empire.empireArmy.size(); i++) {
+//                Army army = empire.empireArmy.get(i);
+//                if (army.getHp() <= 0) {
+//                    int x = army.xCoordinate;
+//                    int y = army.yCoordinate;
+//                    removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+//                    Map.getTroopMap()[x][y].remove(army);
+//                    empire.empireArmy.remove(army);
+//                }
+//            }
+//        }
+//    }
 
 //    public void setSieges() {
 //        for (Empire empire : Manage.getAllEmpires()) {
@@ -1189,24 +1189,24 @@ public class GameController {
 //        return false;
 //    }
 
-    public boolean LookForEnemyInRangeForTroops(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers siege) {
-        for (int i = floorX; i <= ceilX; i++) {
-            for (int j = floorY; j <= ceilY; j++) {
-                if (i == siege.getCurrentX() && j == siege.getCurrentY()) continue;
-                if (!Map.getTroopMap()[i][j].isEmpty()) {
-                    for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
-                        Army army = Map.getTroopMap()[i][j].get(k);
-                        if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
-                            army.setHp(0);
-                            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
-                        }
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    public boolean LookForEnemyInRangeForTroops(int floorX, int floorY, int ceilX, int ceilY, ArchersAndThrowers siege) {
+//        for (int i = floorX; i <= ceilX; i++) {
+//            for (int j = floorY; j <= ceilY; j++) {
+//                if (i == siege.getCurrentX() && j == siege.getCurrentY()) continue;
+//                if (!Map.getTroopMap()[i][j].isEmpty()) {
+//                    for (int k = 0; k < Map.getTroopMap()[i][j].size(); k++) {
+//                        Army army = Map.getTroopMap()[i][j].get(k);
+//                        if (!army.getOwner().equals(Manage.getCurrentEmpire())) {
+//                            army.setHp(0);
+//                            removeKilledUnitFromEmpireHashmap(army.getNames().getName(), army.getEmpire());
+//                        }
+//                    }
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
 //    public GameMenuMessages digDitch(Matcher x1, Matcher y1) {
 //        int x = Integer.parseInt(x1.group("x"));
@@ -1478,7 +1478,7 @@ public class GameController {
         }
     }
 
-    public static boolean enemyInRange(int x, int y) {
+    public boolean enemyInRange(int x, int y) {
         int floorOfX, floorOfY, ceilOfX, ceilOfY;
         for (int i = 1; i <= 5; i++) {
             floorOfX = x - i;
@@ -1514,8 +1514,8 @@ public class GameController {
         return !map.getBuildingMap()[j][k].isEmpty() && !map.getBuildingMap()[j][k].get(0).getOwner().equals(Manage.getCurrentEmpire());
     }
 
-    private static boolean isEnemyUnit(int j, int k) {
-        for (Army army : Map.getTroopMap()[j][k]) {
+    private boolean isEnemyUnit(int j, int k) {
+        for (Army army : map.getTroopMap()[j][k]) {
             if (!army.getEmpire().getName().equals(Manage.getCurrentEmpire().getName())) {
                 return true;
             }
@@ -1582,8 +1582,8 @@ public class GameController {
                         passingArmy.getImageView().setLayoutX(passingArmy.getGoalXCoordinate() * 51.2);
                         passingArmy.getImageView().setLayoutY(passingArmy.getGoalYCoordinate() * 54);
 
-                        Map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].add(passingArmy);
-                        Map.getTroopMap()[passingArmy.getGoalXCoordinate()][passingArmy.getGoalYCoordinate()].add(passingArmy);
+                        map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].add(passingArmy);
+                        map.getTroopMap()[passingArmy.getGoalXCoordinate()][passingArmy.getGoalYCoordinate()].add(passingArmy);
 
                     } else {
                         break;
