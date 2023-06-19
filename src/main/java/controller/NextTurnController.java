@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class NextTurnController {
+    public Map map;
     public static Empire currentEmpire;
     public TileManager tileManager;
     public static int index = 1;
@@ -206,7 +207,7 @@ public class NextTurnController {
         int size = Manage.allEmpires.size();
         for (int i = 0; i < size; i++) {
             Empire empire = Manage.allEmpires.get(i);
-            boolean isDestroyed = Map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
+            boolean isDestroyed = map.getBuildingMap()[empire.castleXCoordinate][empire.castleYCCoordinate].isEmpty();
 //            if (isDestroyed) {
 //                System.out.println("desyroy");
 //                GameController.removeEmpireTroopsFromGame(currentEmpire);

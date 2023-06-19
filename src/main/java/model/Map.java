@@ -8,33 +8,33 @@ import java.util.ArrayList;
 
 public class Map {
     public static int mapSize = 100;
-    public static ArrayList<Building>[][] buildingMap;
-    public static ArrayList<Army>[][] troopMap;
-    public static ArrayList<Obstacle>[][] obstacleMap;
+    public ArrayList<Building>[][] buildingMap;
+    public ArrayList<Army>[][] troopMap;
+    public ArrayList<Obstacle>[][] obstacleMap;
 
-    public static ArrayList<GroundType>[][] groundType;
-    public static boolean[][] notBuildable;
-    public static boolean[][] notPassable;
-    public static boolean[][] wallPassable;
-    public static boolean[][] wall;
+    public ArrayList<GroundType>[][] groundType;
+    public boolean[][] notBuildable;
+    public boolean[][] notPassable;
+    public boolean[][] wallPassable;
+    public boolean[][] wall;
 
-    public static ArrayList<Building>[][] getBuildingMap() {
+    public ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
     }
 
-    public static void AddToBuildingMap(int x, int y, Building newBuilding) {
+    public void AddToBuildingMap(int x, int y, Building newBuilding) {
         buildingMap[x][y].add(newBuilding);
     }
 
-    public static ArrayList<Obstacle>[][] getObstacleMap() {
+    public ArrayList<Obstacle>[][] getObstacleMap() {
         return obstacleMap;
     }
 
-    public static ArrayList<Army>[][] getTroopMap() {
+    public ArrayList<Army>[][] getTroopMap() {
         return troopMap;
     }
 
-    public static void CreateMap(int size) {
+    public void CreateMap(int size) {
         Map.mapSize = size;
         buildingMap = new ArrayList[size][size];
         for (int i = 0; i < size; i++) {
@@ -72,7 +72,7 @@ public class Map {
         wall = new boolean[size][size];
     }
 
-    public static ArrayList<GroundType>[][] getGroundType() {
+    public ArrayList<GroundType>[][] getGroundType() {
         return groundType;
     }
 }

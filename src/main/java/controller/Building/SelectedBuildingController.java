@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 public class SelectedBuildingController {
     public static Empire empire = Manage.getCurrentEmpire();
     public static Building selectedBuilding;
+    public Map map ;
 
     public SelectedBuildingMessages gatehouse(int matcherTaxRate) {
         int taxRate = matcherTaxRate;
@@ -30,21 +31,21 @@ public class SelectedBuildingController {
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
             ((DrawBridge) selectedBuilding).setBridgeOpen(false);
-            Map.notPassable[x][y] = true;
+            map.notPassable[x][y] = true;
             return SelectedBuildingMessages.ENEMY_IN_RANGE;
         } else if (bridgeCondition.equals("down")) {
             if (((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_OPEN;
             ((DrawBridge) selectedBuilding).setBridgeOpen(true);
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
-            Map.notPassable[x][y] = false;
+            map.notPassable[x][y] = false;
             return SelectedBuildingMessages.BRIDGE_OPENED;
         } else {
             if (!((DrawBridge) selectedBuilding).bridgeOpen) return SelectedBuildingMessages.BRIDGE_ALREADY_CLOSE;
             ((DrawBridge) selectedBuilding).setBridgeOpen(true);
             int x = ((DrawBridge) selectedBuilding).getX();
             int y = ((DrawBridge) selectedBuilding).getY();
-            Map.notPassable[x][y] = true;
+            map.notPassable[x][y] = true;
             return SelectedBuildingMessages.BRIDGE_CLOSED;
         }
     }

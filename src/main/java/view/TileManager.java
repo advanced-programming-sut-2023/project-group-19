@@ -62,6 +62,7 @@ public class TileManager extends Application {
     // show an error that user should make a decision for them
 
     //TODO : Method which calculates the Production things on a tile
+    public Map map ;
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -144,7 +145,8 @@ public class TileManager extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         tileManager = this ;
-        Map.CreateMap(100);
+        this.map = new Map();
+        map.CreateMap(100);
         createButtonsArraylist();
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
@@ -246,30 +248,30 @@ public class TileManager extends Application {
 
     private void dropTree(int x, int y, int number) {
         Tree tree = new Tree();
-        Map.getObstacleMap()[x][y].add(tree);
+        map.getObstacleMap()[x][y].add(tree);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
         ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number + ".png").toExternalForm()));
         castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true;
+        map.notBuildable[x][y] = true;
     }
 
 
     private void dropStone(int x, int y, int number) {
         Stone stone = new Stone();
-        Map.getObstacleMap()[x][y].add(stone);
+        map.getObstacleMap()[x][y].add(stone);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
         ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number + ".png").toExternalForm()));
         castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true;
+        map.notBuildable[x][y] = true;
     }
 
     private void dropSea(int x, int y, int number) {
         WaterSources waterSources = new WaterSources();
-        Map.getObstacleMap()[x][y].add(waterSources);
+        map.getObstacleMap()[x][y].add(waterSources);
         NewButton castleButton = (NewButton) list.get(x * 100 + y);
         ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number + ".jpg").toExternalForm()));
         castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true;
+        map.notBuildable[x][y] = true;
     }
 
     private void createMapGame() throws IOException {
@@ -314,7 +316,7 @@ public class TileManager extends Application {
 
     private void dropStockFunction(int x, int y, Empire empire) {
         Manage.setCurrentEmpire(empire);
-        BuildingController.dropFirstStockpile(x, y);
+//        BuildingController.dropFirstStockpile(x, y);
         ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
         NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
         foodRecourceBtn.setImageView(foodRecource);
@@ -393,9 +395,9 @@ public class TileManager extends Application {
 
     private void dropWater(int x, int y) {
         WaterSources waterSources = new WaterSources();
-        Map.getObstacleMap()[x][y].add(waterSources);
-        Map.notBuildable[x][y] = true;
-        Map.notPassable[x][y] = true;
+        map.getObstacleMap()[x][y].add(waterSources);
+        map.notBuildable[x][y] = true;
+        map.notPassable[x][y] = true;
         ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/images/water.png").toExternalForm()));
     }
 
@@ -613,8 +615,8 @@ public class TileManager extends Application {
         for (NewButton selectedButton : selectedButtons) {
             int x = selectedButton.getX();
             int y = selectedButton.getY();
-            if (Map.getTroopMap()[x][y].size() != 0) {
-                for (Army army : Map.getTroopMap()[x][y]) {
+            if (map.getTroopMap()[x][y].size() != 0) {
+                for (Army army : map.getTroopMap()[x][y]) {
                     if (army.getOwner().equals(Manage.getCurrentEmpire())) {
                         numberOfMySoldiers++;
                     }
@@ -741,10 +743,10 @@ public class TileManager extends Application {
                     newButton.setBuilding(null);
                     int x = newButton.getX();
                     int y = newButton.getY();
-                    if (Map.buildingMap[x][y].size() != 0)
-                        Map.buildingMap[x][y].remove(0);
-                    Map.notPassable[x][y] = false;
-                    Map.notBuildable[x][y] = false;
+                    if (map.buildingMap[x][y].size() != 0)
+                        map.buildingMap[x][y].remove(0);
+                    map.notPassable[x][y] = false;
+                    map.notBuildable[x][y] = false;
                     pane.getChildren().add(newButton);
                 } else {
                     selectedButton = newButton;
@@ -943,17 +945,17 @@ public class TileManager extends Application {
                 test.setBackground(null);
                 int x = button.getX();
                 int y = button.getY();
-                if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Tree) {
+                if (map.obstacleMap[x][y].size() != 0 && map.obstacleMap[x][y].get(0) instanceof Tree) {
                     test.setStyle("-fx-background-color: #33ce12;");
-                } else if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof WaterSources) {
+                } else if (map.obstacleMap[x][y].size() != 0 && map.obstacleMap[x][y].get(0) instanceof WaterSources) {
                     test.setStyle("-fx-background-color: #091a5b;");
-                } else if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Stone) {
+                } else if (map.obstacleMap[x][y].size() != 0 && map.obstacleMap[x][y].get(0) instanceof Stone) {
                     test.setStyle("-fx-background-color: #353333;");
-                } else if (Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")) {
+                } else if (map.buildingMap[x][y].size() != 0 && map.buildingMap[x][y].get(0).getName().equals("Castle")) {
                     test.setStyle("-fx-background-color: #ff4a00;");
-                } else if (Map.buildingMap[x][y].size() != 0) {
+                } else if (map.buildingMap[x][y].size() != 0) {
                     test.setStyle("-fx-background-color: #4d2e0a;");
-                } else if (Map.troopMap[x][y].size() != 0 && Map.troopMap[x][y].size() != 0) {
+                } else if (map.troopMap[x][y].size() != 0 && map.troopMap[x][y].size() != 0) {
                     test.setStyle("-fx-background-color: #a00101;");
                 } else {
                     test.setStyle("-fx-background-color: rgba(102,255,199,0.3);");

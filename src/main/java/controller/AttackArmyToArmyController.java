@@ -43,6 +43,7 @@ import view.Model.NewButton;
 import view.TileManager;
 
 public class AttackArmyToArmyController {
+    public Map map ;
     public  SwordManAnimation swordManAnimation = new SwordManAnimation();
     public SlaveAnimation slaveAnimation = new SlaveAnimation();
     public AsssasinAnimation asssasinAnimation = new AsssasinAnimation();
@@ -291,8 +292,8 @@ public class AttackArmyToArmyController {
                 building.setHp(newHp);
                 if (building.getHp() <= 0) {
                     removeBuilding((NewButton)(tileManager.list.get(100 * i + j)));
-                    Map.notPassable[i][j] = false ;
-                    Map.notBuildable[i][j] = false ;
+                    map.notPassable[i][j] = false ;
+                    map.notBuildable[i][j] = false ;
                 }
                 return;
             }
@@ -301,7 +302,7 @@ public class AttackArmyToArmyController {
 
     private void determineRange(Army army) {
         int height;
-        ArrayList<Building> buildings = Map.getBuildingMap()[army.xCoordinate][army.yCoordinate];
+        ArrayList<Building> buildings = map.getBuildingMap()[army.xCoordinate][army.yCoordinate];
         if (buildings.isEmpty()) height = 0;
         else height = buildings.get(0).getHeight();
         archerRange = army.getAttackRange() + height;
@@ -364,8 +365,8 @@ public class AttackArmyToArmyController {
                     setAnimationToFight(army);
                     if (building.getHp() <= 0) {
                         removeBuilding(((NewButton)(tileManager.list.get(100 * i + j))));
-                        Map.notPassable[i][j] = false ;
-                        Map.notBuildable[i][j] = false ;
+                        map.notPassable[i][j] = false ;
+                        map.notBuildable[i][j] = false ;
                     }
                     return true;
                 }
@@ -394,10 +395,10 @@ public class AttackArmyToArmyController {
         button.setBuilding(null);
         int x = button.getX();
         int y = button.getY();
-        if(Map.buildingMap[x][y].size() != 0)
-            Map.buildingMap[x][y].remove(0);
-        Map.notPassable[x][y] = false;
-        Map.notBuildable[x][y] = false;
+        if(map.buildingMap[x][y].size() != 0)
+            map.buildingMap[x][y].remove(0);
+        map.notPassable[x][y] = false;
+        map.notBuildable[x][y] = false;
     }
 
     public void setFightMode(GameController gameController) {
@@ -445,7 +446,7 @@ public class AttackArmyToArmyController {
         int left, right, up, down;
         for (int i = x1; i <= x2; i++) {
             for (int j = y1; j <= y2; j++) {
-                if (Map.getBuildingMap()[i][j].isEmpty()) continue;
+                if (map.getBuildingMap()[i][j].isEmpty()) continue;
                 int xBuilding = i;
                 int yBuilding = j;
                 up = xBuilding - 1;
@@ -458,7 +459,7 @@ public class AttackArmyToArmyController {
                 if (down >= mapSize) down = mapSize - 1;
                 for (int len = up; len <= down; len++) {
                     for (int h = left; h <= right; h++) {
-                        if (!Map.notPassable[len][h]) {
+                        if (!map.notPassable[len][h]) {
                             //gameController.moveUnit(len, h);
                             return true;
                         }
@@ -468,6 +469,4 @@ public class AttackArmyToArmyController {
         }
         return false;
     }
-
-
 }
