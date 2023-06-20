@@ -23,6 +23,14 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
         writer.value(savedObstacles.getName());
         writer.name("type");
         writer.value(savedObstacles.getType());
+        writer.name("notBuildable");
+        writer.value(savedObstacles.isNotBuildable());
+        writer.name("notPassable");
+        writer.value(savedObstacles.isNotPassable());
+        writer.name("x");
+        writer.value(savedObstacles.getX());
+        writer.name("y");
+        writer.value(savedObstacles.getY());
         writer.endObject();
     }
 
@@ -52,21 +60,26 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
                 token = reader.peek();
                 savedObstacles.type = reader.nextString();
             }
-//            if("notBuildable".equals(fieldname)) {
-//                //move to next token
-//                token = reader.peek();
-//                savedObstacles.type = reader.nextString();
-//            }
-//            if("notBuildable".equals(fieldname)) {
-//                //move to next token
-//                token = reader.peek();
-//                savedObstacles.type = reader.nextString();
-//            }
-//            if("notPassable".equals(fieldname)) {
-//                //move to next token
-//                token = reader.peek();
-//                savedObstacles.type = reader.nextString();
-//            }
+            if("notBuildable".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                savedObstacles.notBuildable = reader.nextBoolean();
+            }
+            if("notPassable".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                savedObstacles.notPassable = reader.nextBoolean();
+            }
+            if("x".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                savedObstacles.x = reader.nextInt();
+            }
+            if("y".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                savedObstacles.y = reader.nextInt();
+            }
 
         }
         reader.endObject();
