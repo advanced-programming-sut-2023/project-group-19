@@ -126,7 +126,6 @@ public class RegisterMenu extends Application {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
-
     }
     private void playLoginMusic(){
         String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();

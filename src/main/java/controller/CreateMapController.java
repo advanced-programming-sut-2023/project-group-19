@@ -17,7 +17,7 @@ public class CreateMapController {
     public Map map;
     public static int numberOfEmpires;
     public static boolean mapIsBuilt = false;
-    private static int sizeOfMap;
+    private static int sizeOfMap = Map.mapSize;
 
     public CreateMapController(Map map) {
         this.map =  map;
@@ -109,17 +109,29 @@ public class CreateMapController {
     }
 
     public String dropRock(int x, int y, String type) {
+        System.out.println("1");
         if(type.equals("r")) type = "w";
         if (!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s"))
             return "Choose direction correctly!";
-        if (!mapIsBuilt) return "You first must build a map!";
+        System.out.println("2");
+//        if (!mapIsBuilt) return "You first must build a map!";
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "Yure location is out of bounds";
+        System.out.println("3");
         if(map.notBuildable[x][y]) return "Is occupied";
+        System.out.println("4");
         Stone stone = new Stone();
         stone.stone(type);
         map.getGroundType()[x][y].clear();
         map.getGroundType()[x][y].add(GroundType.DEFAULT);
+        map.getObstacleMap()[x][y].add(stone);
         return "Successfully";
+    }
+    public void dropSeveralStone(int x1 , int x2, int y1 , int y2){
+        for(int i =  x1 ; i  <=  x2 ; i ++){
+            for(int j = y1 ; j <= y2  ; j ++){
+                dropRock(i,j,"w");
+            }
+        }
     }
     public void dropSeveralTrees(int x1 ,  int x2, int y1 , int y2){
         for(int i =  x1 ; i  <=  x2 ; i ++){
@@ -128,16 +140,33 @@ public class CreateMapController {
             }
         }
     }
+    public void dropSea(int x , int y){
+        if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return ;
+        if(map.notBuildable[x][y]) return ;
+
+        WaterSources waterSources = new WaterSources();
+        map.getGroundType()[x][y].clear();
+        map.getGroundType()[x][y].add(GroundType.DEFAULT);
+        map.getObstacleMap()[x][y].add(waterSources);
+        map.notBuildable[x][y]  = true ;
+       map.notPassable[x][y] = true ;
+    }
+    public void dropSeveralSea(int x1, int x2, int y1, int y2) {
+        for(int i =  x1 ; i  <=  x2 ; i ++){
+            for(int j = y1 ; j <= y2  ; j ++){
+                dropSea(i,j);
+            }
+        }
+    }
     public String dropTree(int x , int y , String type){
 //        if (!mapIsBuilt) return "You first must build a map!";
-//        if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "yure location is out of bounds";
+        if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "yure location is out of bounds";
 
-//        if(map.notBuildable[x][y]) return "Is occupied";
-
+/*        if(map.notBuildable[x][y]) return "Is occupied";
         if (map.getGroundType()[x][y].get(0).equals(GroundType.IRON) ||
                 map.getGroundType()[x][y].get(0).equals(GroundType.STONE_ROCK) ||
                 map.getGroundType()[x][y].get(0).equals(GroundType.STONE)
-        ) return "not good type of ground!";
+        ) return "not good type of ground!";*/
         Tree tree = new Tree();
         if (type.equals("desertTree")) {
             tree.desertTree();
@@ -152,17 +181,13 @@ public class CreateMapController {
         } else {
             return "Selected tree does not exist";
         }
-        //
         map.getObstacleMap()[x][y].add(tree);
-//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
-//        castleButton.setImageView(treeImage);
         map.notBuildable[x][y] = true;
-        //
-//        map.obstacleMap[x][y].add(tree);
-//        map.notBuildable[x][y] = true ;
         return "successfully";
     }
+
+
+
 //    public static int indexOfUser = 0 ;
 //    public String locateCatle(int x , int y) {
 //        if (!mapIsBuilt) return "You first must build a map!";

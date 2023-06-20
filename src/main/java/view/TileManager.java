@@ -21,6 +21,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -63,6 +65,7 @@ public class TileManager extends Application {
 
     //TODO : Method which calculates the Production things on a tile
     public Map map ;
+
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -140,13 +143,24 @@ public class TileManager extends Application {
         verticalButtons = 22;
         horizontalButtons = 12;
     }
+    public MediaPlayer mediaPlayer ;
+    private void playLoginMusic(){
+        String defultSong  = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
+        playLoginMusic();
+        new CreateMapMenu();
+        map = CreateMapMenu.finalMap ;
         this.stage = stage;
         tileManager = this ;
-        this.map = new Map();
-        map.CreateMap(100);
+//        treesOfMap();
         createButtonsArraylist();
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
@@ -249,28 +263,58 @@ public class TileManager extends Application {
     private void dropTree(int x, int y, int number) {
         Tree tree = new Tree();
         map.getObstacleMap()[x][y].add(tree);
-        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number + ".png").toExternalForm()));
-        castleButton.setImageView(treeImage);
+//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number + ".png").toExternalForm()));
+//        castleButton.setImageView(treeImage);
         map.notBuildable[x][y] = true;
+    }
+    private void treesOfMap(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Tree)) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
+                castleButton.setImageView(treeImage);
+            }
+        }
+    }
+    private void stonesOfMap(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Stone)) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
+                castleButton.setImageView(treeImage);
+            }
+        }
+    }
+    private void waterOfMap(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof WaterSources)) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
+                castleButton.setImageView(treeImage);
+            }
+        }
     }
 
 
     private void dropStone(int x, int y, int number) {
         Stone stone = new Stone();
         map.getObstacleMap()[x][y].add(stone);
-        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number + ".png").toExternalForm()));
-        castleButton.setImageView(treeImage);
+//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number + ".png").toExternalForm()));
+//        castleButton.setImageView(treeImage);
         map.notBuildable[x][y] = true;
     }
 
     private void dropSea(int x, int y, int number) {
         WaterSources waterSources = new WaterSources();
         map.getObstacleMap()[x][y].add(waterSources);
-        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number + ".jpg").toExternalForm()));
-        castleButton.setImageView(treeImage);
+//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
+//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number + ".jpg").toExternalForm()));
+//        castleButton.setImageView(treeImage);
         map.notBuildable[x][y] = true;
     }
 
@@ -278,12 +322,19 @@ public class TileManager extends Application {
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
 
+        if(!map.getObstacleMap()[5][22].isEmpty()) {
+            map.getObstacleMap()[5][22].set(0, null);
+        }
+        if(!map.getObstacleMap()[9][3].isEmpty()){
+            map.getObstacleMap()[9][3].set(0, null);
+        }
 
         BuildingController buildingController = new BuildingController();
         Empire sallahDin = new Empire();
         sallahDin.setUser(newUser);
         Castle castleSallah = new Castle(sallahDin);
         castleSallah.castle();
+
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
         Manage.setCurrentEmpire(sallahDin);
 
@@ -311,7 +362,11 @@ public class TileManager extends Application {
         BuildingController.currentEmpire = sallahDin;
         Manage.getAllEmpires().add(sallahDin);
         Manage.getAllEmpires().add(richard);
-        artOfTree();
+//        artOfTree();
+        treesOfMap();
+        stonesOfMap();
+        waterOfMap();
+
     }
 
     private void dropStockFunction(int x, int y, Empire empire) {
@@ -552,18 +607,20 @@ public class TileManager extends Application {
                     sickImage.setFitWidth(viewButtonSize);
                     button.setGraphic(sickImage);
                 }
+//                if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Tree){
+//                    System.out.println("hi");
+//                    button.setImageView(treeImage);
+//                }
+//                else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Stone){
+//                    button.setImageView(stoneIMage);
+//                }
+//                else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof WaterSources){
+//                    button.setImageView(seaImage);
+//                }
                 if (button.getImageView() != null) {
                     ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
                         view = fireImage ;
-                    } else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Tree){
-                        view = treeImage ;
-                    }
-                    else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Stone){
-                        view = stoneIMage ;
-                    }
-                    else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof WaterSources){
-                        view = seaImage ;
                     }
                     else {
                         view = button.getImageView();
@@ -888,15 +945,15 @@ public class TileManager extends Application {
     }
 
     private void artOfTree() {
-        dropTreeToLocation(0, 0, 12, 5);
-        dropTreeToLocation(0, 3, 8, 1);
-        dropTreeToLocation(1, 0, 10, 5);
-        dropTreeToLocation(2, 1, 8, 5);
-        dropTreeToLocation(2, 0, 4, 1);
-        dropTreeToLocation(3, 6, 7, 2);
-        dropTreeToLocation(4, 0, 1, 2);
-        dropTreeToLocation(4, 3, 4, 2);
-        dropTreeToLocation(4, 6, 6, 1);
+         dropTreeToLocation(0, 0, 12, 5);
+         dropTreeToLocation(0, 3, 8, 1);
+         dropTreeToLocation(1, 0, 10, 5);
+         dropTreeToLocation(2, 1, 8, 5);
+         dropTreeToLocation(2, 0, 4, 1);
+         dropTreeToLocation(3, 6, 7, 2);
+         dropTreeToLocation(4, 0, 1, 2);
+         dropTreeToLocation(4, 3, 4, 2);
+         dropTreeToLocation(4, 6, 6, 1);
         dropStoneLocation(3, 8, 8, 8);
         dropStoneLocation(4, 7, 7, 8);
         dropSea(3, 2, 1);
@@ -911,41 +968,41 @@ public class TileManager extends Application {
         dropTree(3, 0, 2);
         dropTree(4, 0, 2);
         dropTree(2, 0, 2);
-        dropTreeToLocation(5, 0, 6, 5);
-        dropTreeToLocation(6, 1, 3, 5);
-        dropTreeToLocation(7, 0, 2, 5);
+         dropTreeToLocation(5, 0, 6, 5);
+         dropTreeToLocation(6, 1, 3, 5);
+         dropTreeToLocation(7, 0, 2, 5);
         dropStoneLocation(0, 13, 17, 8);
         dropStoneLocation(1, 18, 19, 6);
         dropStoneLocation(2, 9, 9, 6);
         dropStoneLocation(5, 7, 7, 8);
         dropStoneLocation(6, 4, 5, 8);
         dropStoneLocation(7, 3, 4, 8);
-        dropTreeToLocation(8, 0, 2, 1);
-        dropTreeToLocation(9, 1, 2, 5);
-        dropTreeToLocation(10, 0, 1, 1);
+         dropTreeToLocation(8, 0, 2, 1);
+         dropTreeToLocation(9, 1, 2, 5);
+         dropTreeToLocation(10, 0, 1, 1);
         dropSeaoLocation(11, 0, 3, 1);
         dropStoneLocation(11, 4, 4, 6);
         dropStoneLocation(12, 0, 5, 3);
-        dropTreeToLocation(0, 18, 29, 1);
-        dropTreeToLocation(1, 20, 29, 1);
-        dropTreeToLocation(1, 22, 26, 5);
-        dropTreeToLocation(2, 19, 29, 1);
+         dropTreeToLocation(0, 18, 29, 1);
+         dropTreeToLocation(1, 20, 29, 1);
+         dropTreeToLocation(1, 22, 26, 5);
+         dropTreeToLocation(2, 19, 29, 1);
         dropTreeToLocation(2, 21, 25, 5);
         dropSeaoLocation(3, 27, 29, 1);
         dropSeaoLocation(5, 24, 25, 1);
         dropSeaoLocation(4, 27, 29, 1);
         dropSeaoLocation(5, 27, 29, 1);
-        dropTreeToLocation(3, 21, 26, 1);
-        dropTreeToLocation(4, 23, 26, 5);
+         dropTreeToLocation(3, 21, 26, 1);
+         dropTreeToLocation(4, 23, 26, 5);
         dropTree(5, 26, 1);
-        dropTreeToLocation(6, 23, 26, 5);
-        dropTreeToLocation(7, 21, 29, 1);
-        dropTreeToLocation(8, 27, 29, 5);
+         dropTreeToLocation(6, 23, 26, 5);
+         dropTreeToLocation(7, 21, 29, 1);
+         dropTreeToLocation(8, 27, 29, 5);
         dropStoneLocation(9, 21, 28, 3);
         dropStoneLocation(10, 19, 21, 1);
         dropStoneLocation(11, 18, 20, 2);
-        dropTreeToLocation(10, 22, 29, 5);
-        dropTreeToLocation(11, 21, 29, 5);
+         dropTreeToLocation(10, 22, 29, 5);
+         dropTreeToLocation(11, 21, 29, 5);
     }
 
 

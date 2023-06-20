@@ -7,11 +7,10 @@ import model.Obstacle.Obstacle;
 import java.util.ArrayList;
 
 public class Map {
-
-    public Map(){
-
-    }
+    private static ArrayList<Map> savedMaps = new ArrayList<>();
     public static int mapSize = 100;
+    public static Map finalMap ;
+
     public ArrayList<Building>[][] buildingMap;
     public ArrayList<Army>[][] troopMap;
     public ArrayList<Obstacle>[][] obstacleMap;
@@ -79,4 +78,9 @@ public class Map {
     public ArrayList<GroundType>[][] getGroundType() {
         return groundType;
     }
+
+    public static ArrayList<Map> getSavedMaps() {
+        return savedMaps;
+    }
+
 }
