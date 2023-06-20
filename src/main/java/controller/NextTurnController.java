@@ -97,7 +97,6 @@ public class NextTurnController {
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
         mediaPlayer = mediaPlayer2 ;
         mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
     }
     public void designAttackBanner(){
         playLoginMusic();
@@ -143,7 +142,6 @@ public class NextTurnController {
             }
         }
     }
-
     public void buildingFire(){
         for(int i = 0 ; i < Manage.burningEmpires.size() ; i++ ){
             if(Manage.burningEmpires.get(i).isOnFire() && Manage.burningEmpires.get(i).getFireCount() != 0){

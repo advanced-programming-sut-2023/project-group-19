@@ -8,14 +8,18 @@ import model.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JsonController {
-    static String content;
+    public static String content;
 
     public static void writeIntoFile(Object object, String fileName) {
         GsonBuilder builder = new GsonBuilder();
+//        Gson builder = new GsonBuilder()
+//                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+//                .create();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         try (FileWriter file = new FileWriter(fileName)) {

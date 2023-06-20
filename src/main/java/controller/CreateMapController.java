@@ -5,9 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.GroundType;
 import model.Map;
-import model.Obstacle.Stone;
-import model.Obstacle.Tree;
-import model.Obstacle.WaterSources;
+import model.Obstacle.*;
 import model.*;
 import model.Building.*;
 import view.Model.NewButton;
@@ -124,6 +122,9 @@ public class CreateMapController {
         map.getGroundType()[x][y].clear();
         map.getGroundType()[x][y].add(GroundType.DEFAULT);
         map.getObstacleMap()[x][y].add(stone);
+//        s =  new ObstacleName("stone","w",x,y);
+//        SavedObstacles savedObstacles = new SavedObstacles("STONE","w",x,y,true,true);
+//        map.savingObstacle.add(savedObstacles);
         return "Successfully";
     }
     public void dropSeveralStone(int x1 , int x2, int y1 , int y2){
@@ -150,6 +151,9 @@ public class CreateMapController {
         map.getObstacleMap()[x][y].add(waterSources);
         map.notBuildable[x][y]  = true ;
        map.notPassable[x][y] = true ;
+//        SavedObstacles savedObstacles = new SavedObstacles("SEA","",x,y,true,true);
+//        map.savingObstacle.add(savedObstacles);
+
     }
     public void dropSeveralSea(int x1, int x2, int y1, int y2) {
         for(int i =  x1 ; i  <=  x2 ; i ++){
@@ -181,6 +185,10 @@ public class CreateMapController {
         } else {
             return "Selected tree does not exist";
         }
+//        SavedObstacles savedObstacles = new SavedObstacles("TREE",type,x,y,true,true);
+//        map.savingObstacle.add(savedObstacles);
+
+
         map.getObstacleMap()[x][y].add(tree);
         map.notBuildable[x][y] = true;
         return "successfully";

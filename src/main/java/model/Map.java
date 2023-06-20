@@ -3,13 +3,13 @@ package model;
 import model.Building.Building;
 import model.Human.Troop.Army;
 import model.Obstacle.Obstacle;
+import model.Obstacle.SavedObstacles;
 
 import java.util.ArrayList;
 
 public class Map {
     private static ArrayList<Map> savedMaps = new ArrayList<>();
     public static int mapSize = 100;
-    public static Map finalMap ;
 
     public ArrayList<Building>[][] buildingMap;
     public ArrayList<Army>[][] troopMap;
@@ -24,6 +24,8 @@ public class Map {
     public ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
     }
+
+    public ArrayList<SavedObstacles> savingObstacle = new ArrayList<>();
 
     public void AddToBuildingMap(int x, int y, Building newBuilding) {
         buildingMap[x][y].add(newBuilding);

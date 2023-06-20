@@ -1,5 +1,6 @@
 package view;
 
+import com.google.gson.GsonBuilder;
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -12,10 +13,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Map;
-import model.Obstacle.Stone;
-import model.Obstacle.Tree;
-import model.Obstacle.WaterSources;
+import model.Obstacle.*;
 import view.Model.NewRadioButton;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
@@ -123,10 +127,68 @@ public class CreateMapMenu extends Application {
                     dropWater();
                 }
                 recovery();
+                try {
+                    testGson();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         vBox.getChildren().add(submit);
     }
+
+    private void testGson() throws IOException {
+//        Gson gson = new Gson();
+//        String jsonAsString = gson.toJson(map.obstacleMap);
+//        System.out.println(jsonAsString);
+//        JsonController.writeIntoFile(map.getObstacleMap(),"map.json");
+//        System.out.println("hii");
+//        JsonController.readDataFile("map.json");
+//        System.out.println(JsonController.content);
+//        Gson gson = new Gson();
+//        String jsonString = gson.toJson(map.obstacleMap);
+//        System.out.println(jsonString);
+
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(Obstacle.class, new ObstacleAdaptor());
+//        Gson gson = builder.create();
+//        String jsonString = gson.toJson(map.obstacleMap);
+//        System.out.println(jsonString);
+
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(Obstacle.class, new ObstacleAdaptor());
+//        builder.setPrettyPrinting();
+//        Gson gson = builder.create();
+//        Tree tree1 = new Tree();
+//
+//        String jsonString = gson.toJson(tree1);
+//        System.out.println(jsonString);
+
+//        JsonController.writeIntoFile(map.savingObstacle,"map.json");
+//        JsonController.readDataFile("map.json");
+//        System.out.println(JsonController.content);
+        ArrayList<SavedObstacles> arrayList = new ArrayList<>();
+        SavedObstacles savedObstacles =  new SavedObstacles();
+        savedObstacles.type = "s";
+        savedObstacles.name = "s";
+        SavedObstacles savedObstacles2 =  new SavedObstacles();
+        savedObstacles2.type = "s";
+        savedObstacles2.name = "s";
+        SavedObstacles savedObstacles3 =  new SavedObstacles();
+        savedObstacles3.type = "s";
+        savedObstacles3.name = "s";
+        arrayList.add(savedObstacles);
+        arrayList.add(savedObstacles2);
+        arrayList.add(savedObstacles3);
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String jsonAsString = gson.toJson(arrayList);
+        System.out.println(jsonAsString);
+
+    }
+
     private void recovery(){
         getX0.setText("");
         getX1.setText("");
