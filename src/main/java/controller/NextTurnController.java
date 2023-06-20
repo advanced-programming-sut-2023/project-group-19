@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -22,6 +24,7 @@ import model.User;
 import view.Animations.troopFights.SwordManAnimation.SwordManAnimation;
 import view.GameMenu;
 import view.Model.NewButton;
+import view.RegisterMenu;
 import view.TileManager;
 
 import java.io.IOException;
@@ -87,7 +90,17 @@ public class NextTurnController {
         designAttackBanner();
 
     }
+    public MediaPlayer mediaPlayer ;
+    private void playLoginMusic(){
+        String defultSong  = RegisterMenu.class.getResource("/Music/warScream.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
+    }
     public void designAttackBanner(){
+        playLoginMusic();
         HBox hBox = new HBox();
         hBox.setSpacing(50);
         hBox.setAlignment(Pos.CENTER);
