@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Map;
 import model.Obstacle.*;
@@ -47,14 +49,32 @@ public class CreateMapMenu extends Application {
         defaultMap = new Map();
         defaultMap.CreateMap(Map.mapSize);
         artOfTree(defaultMap);
-        Map.getSavedMaps().add(defaultMap);
+        Map.getSavedMaps().add(0,defaultMap);
         finalMap = defaultMap;
+    }
+    public static MediaPlayer mediaPlayer;
+
+    private void playCreateMapMenu(){
+        stopAllMusic();
+        String defultSong  = RegisterMenu.class.getResource("/Music/createMapMenu.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
+    }
+    private void stopAllMusic(){
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
     @Override
     public void start(Stage stage) throws Exception {
         setSettings();
         Main.stage = stage;
         this.stage = stage ;
+
         Pane pane = new Pane();
         this.pane  = pane ;
         Scene scene = new Scene(pane,500,500);
@@ -65,6 +85,7 @@ public class CreateMapMenu extends Application {
     }
 
     private void setSettings() {
+        playCreateMapMenu();
         map =  new Map();
         map.CreateMap(100);
         createMapController = new CreateMapController(map);
@@ -136,8 +157,6 @@ public class CreateMapMenu extends Application {
                     dropWater();
                 }
                 recovery();
-//                ArrayList<SavedObstacles> save = JsonController.getSavedObstacle();
-//                System.out.println(save.get(0).getName());
             }
         });
         vBox.getChildren().add(submit);

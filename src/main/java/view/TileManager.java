@@ -127,6 +127,12 @@ public class TileManager extends Application {
         verticalButtons = 30;
         horizontalButtons = 16;
     }
+    private void stopAllMusic(){
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
+    }
 
     public void zoom2() {
         verticalSize = 59;
@@ -145,6 +151,7 @@ public class TileManager extends Application {
     }
     public MediaPlayer mediaPlayer ;
     private void playLoginMusic(){
+        stopAllMusic();
         String defultSong  = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);

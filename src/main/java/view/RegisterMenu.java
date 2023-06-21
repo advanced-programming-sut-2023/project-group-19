@@ -43,8 +43,6 @@ public class RegisterMenu extends Application {
             throw new RuntimeException(e);
         }
         buildMaps();
-        System.out.println(Map.getSavedMaps().size());
-        System.out.println(Map.getSavedMaps().get(0).notBuildable[2][1]);
     }
     public static Stage stage;
     public TextField email = new TextField();
@@ -93,29 +91,29 @@ public class RegisterMenu extends Application {
     private Label headerLabel = new Label();
     public ToggleGroup toggleGroup = new ToggleGroup();
     public String captchaNumber;
-    public MediaPlayer mediaPlayer ;
+    public static MediaPlayer mediaPlayer ;
 
     public static void main(String[] args) {
         launch();
     }
+    public static int num = 1 ;
 
     @Override
     public void start(Stage stage) throws Exception {
-
         RegisterMenu.stage = stage;
 
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
         Media media = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
-        mediaPlayer.setAutoPlay(true);
+        if(num == 1)mediaPlayer.setAutoPlay(true);
         mediaView.setFitWidth(1550);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
             pane.getChildren().remove(mediaView);
             playLoginMusic();
         }));
         timeline.play();
-
+//Nn3Ee0Oo4#
         RegisterMenu.stage = stage;
         Pane pane = new Pane();
         GameImages gameImages = new GameImages();
@@ -126,12 +124,22 @@ public class RegisterMenu extends Application {
         Scene scene = new Scene(pane);
         Image image = new Image(RegisterMenu.class.getResource("/sowrd.png").toExternalForm());
         scene.setCursor(new ImageCursor(image));
-        pane.getChildren().add(mediaView);
+       if(num == 1) {
+           pane.getChildren().add(mediaView);
+           num = 0 ;
+       }
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
     }
+    private void stopAllMusic(){
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+    }
     private void playLoginMusic(){
+        stopAllMusic();
         String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);

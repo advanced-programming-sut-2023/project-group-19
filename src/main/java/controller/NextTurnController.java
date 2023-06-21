@@ -35,7 +35,7 @@ public class NextTurnController {
     public Map map;
     public static Empire currentEmpire;
     public TileManager tileManager;
-    public static int index = 1;
+    public static int index = 1 ;
     public int mapSize = Map.mapSize ;
     public AttackArmyToArmyController attackArmyToArmyController ;
 

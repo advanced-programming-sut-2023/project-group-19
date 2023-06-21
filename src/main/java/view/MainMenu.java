@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -26,9 +28,27 @@ import java.util.Scanner;
 
 public class MainMenu extends Application {
     public GameImages gameImages = new GameImages();
+    public static MediaPlayer mediaPlayer;
+    private void playMainMenu(){
+        stopAllMusic();
+        String defultSong  = RegisterMenu.class.getResource("/Music/mainMenu.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
+    }
+    private void stopAllMusic(){
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
+        playMainMenu();
+
         Main.stage = stage;
         Pane pane = new Pane();
         gameImages.loadImages();
