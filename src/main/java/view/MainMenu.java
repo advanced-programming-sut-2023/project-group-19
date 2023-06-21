@@ -14,11 +14,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Map;
+import model.Obstacle.SavedObstacles;
 import model.User;
 import view.Commands.MainMenuCommands;
 import view.ImageAndBackground.GameImages;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainMenu extends Application {
@@ -90,8 +93,6 @@ public class MainMenu extends Application {
         });
         pane.getChildren().addAll(button, button1, button2);
         stage.setScene(scene);
-        stage.show();
-        stage.setFullScreen(true);
+        stage.show();stage.setFullScreen(true);
     }
-
 }

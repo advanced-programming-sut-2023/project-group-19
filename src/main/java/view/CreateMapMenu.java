@@ -1,7 +1,5 @@
 package view;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -16,14 +14,9 @@ import javafx.stage.Stage;
 import model.Map;
 import model.Obstacle.*;
 import view.Model.NewRadioButton;
-import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
@@ -332,21 +325,18 @@ public class CreateMapMenu extends Application {
     }
 
     private static void getAllMaps() throws IOException {
-
         JsonController.readDataFile("map.json");
         String text = JsonController.content ;
         if(text == null) return;
-        Map.allSavedMaps.clear();
+        Map.allJsonMaps.clear();
         String[] arrays = text.split("\\[");
         int counter = 0  ;
         for(String array : arrays){
             counter  ++ ;
             if(counter  == 1) continue;
             JsonController.content = "[" + array ;
-//            System.out.println("[" + array );
-            System.out.println("**************************");
             ArrayList<SavedObstacles> mapSaved = JsonController.getSavedObstacle();
-            Map.allSavedMaps.add(mapSaved);
+            Map.allJsonMaps.add(mapSaved);
         }
     }
 }

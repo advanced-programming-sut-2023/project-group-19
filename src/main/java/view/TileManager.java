@@ -357,6 +357,7 @@ public class TileManager extends Application {
         castleButton.setBuilding(castleRichard);
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
+        castleButton.setImageView(castleImage2);
         dropStockFunction(9, 3, richard);
         Manage.setCurrentEmpire(sallahDin);
         BuildingController.currentEmpire = sallahDin;

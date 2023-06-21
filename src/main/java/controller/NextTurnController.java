@@ -38,7 +38,6 @@ public class NextTurnController {
     public static int index = 1;
     public int mapSize = Map.mapSize ;
     public AttackArmyToArmyController attackArmyToArmyController ;
-    //
 
     public void nextTurn(){
         System.out.println(Manage.getAllEmpires().size());

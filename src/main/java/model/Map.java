@@ -20,7 +20,7 @@ public class Map {
     public boolean[][] notPassable;
     public boolean[][] wallPassable;
     public boolean[][] wall;
-    public static ArrayList<ArrayList<SavedObstacles>> allSavedMaps =  new ArrayList<>();
+    public static ArrayList<ArrayList<SavedObstacles>> allJsonMaps =  new ArrayList<>();
 
     public ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
@@ -40,7 +40,7 @@ public class Map {
         return troopMap;
     }
     {
-        allSavedMaps.add(savingObstacle);
+        allJsonMaps.add(savingObstacle);
     }
 
     public void CreateMap(int size) {

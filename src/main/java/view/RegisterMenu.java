@@ -1,15 +1,12 @@
 package view;
 
+import controller.JsonController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,26 +20,32 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 import javafx.scene.media.Media;
 import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import controller.LoginController;
-import model.Empire;
-import model.Manage;
+import model.Map;
+import model.Obstacle.*;
 import view.ImageAndBackground.GameImages;
 import javafx.util.Duration;
 import view.Messages.RegisterMessages;
 
-import java.awt.*;
-import java.io.File;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class RegisterMenu extends Application {
+    static {
+        try {
+            getAllMaps();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        buildMaps();
+        System.out.println(Map.getSavedMaps().size());
+        System.out.println(Map.getSavedMaps().get(0).notBuildable[2][1]);
+    }
     public static Stage stage;
     public TextField email = new TextField();
 
@@ -98,6 +101,7 @@ public class RegisterMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         RegisterMenu.stage = stage;
 
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
@@ -683,4 +687,51 @@ public class RegisterMenu extends Application {
         loginMenu.start(stage);
     }
 
+    private static void getAllMaps() throws IOException {
+        JsonController.readDataFile("map.json");
+        String text = JsonController.content ;
+        if(text == null) return;
+        Map.allJsonMaps.clear();
+        String[] arrays = text.split("\\[");
+        int counter = 0  ;
+        for(String array : arrays){
+            counter  ++ ;
+            if(counter  == 1) continue;
+            JsonController.content = "[" + array ;
+            ArrayList<SavedObstacles> mapSaved = JsonController.getSavedObstacle();
+            Map.allJsonMaps.add(mapSaved);
+        }
+    }
+    private static void buildMaps(){
+//        System.out.println(Map.allSavedMaps.size());
+        //ArrayList<SavedObstacles> savedObstaclesArrayList : Map.allSavedMaps
+       int size  =  Map.allJsonMaps.size();
+        System.out.println(size);
+        for(int i = 0; i < size ; i ++){
+            ArrayList<SavedObstacles> savedObstaclesArrayList = Map.allJsonMaps.get(i);
+            Map map = new Map();
+            map.CreateMap(Map.mapSize);
+            for(SavedObstacles saveObject  : savedObstaclesArrayList){
+                int x = saveObject.x ;
+                int y = saveObject.y ;
+                switch (saveObject.name) {
+                    case "TREE":
+                        Tree tree = new Tree();
+                        map.getObstacleMap()[x][y].add(tree);
+                        break;
+                    case "SEA":
+                        WaterSources waterSources = new WaterSources();
+                        map.getObstacleMap()[x][y].add(waterSources);
+                        break;
+                    case "STONE":
+                        Stone stone = new Stone();
+                        map.getObstacleMap()[x][y].add(stone);
+                        break;
+                }
+                map.notBuildable[x][y] =  saveObject.notBuildable;
+                map.notPassable[x][y] =  saveObject.notPassable;
+            }
+            Map.getSavedMaps().add(map);
+        }
+    }
 }

@@ -272,7 +272,7 @@ public class GameController {
             case 0:
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
-                    archer.archer(x, y);
+                    archer.archer(x,y);
                     Manage.getCurrentEmpire().empireArmy.add(archer);
                     map.getTroopMap()[x][y].add(archer);
                     button.setMinSize(50, 50);
