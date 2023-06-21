@@ -127,78 +127,17 @@ public class CreateMapMenu extends Application {
                     dropWater();
                 }
                 recovery();
+                JsonController.writeIntoFile(map.savingObstacle,"map.json");
                 try {
-                    testGson();
+                    JsonController.readDataFile("map.json");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                ArrayList<SavedObstacles> save = JsonController.getSavedObstacle();
+                System.out.println(save.get(0).getName());
             }
         });
         vBox.getChildren().add(submit);
-    }
-
-    private void testGson() throws IOException {
-//        Gson gson = new Gson();
-//        String jsonAsString = gson.toJson(map.obstacleMap);
-//        System.out.println(jsonAsString);
-//        JsonController.writeIntoFile(map.getObstacleMap(),"map.json");
-//        System.out.println("hii");
-//        JsonController.readDataFile("map.json");
-//        System.out.println(JsonController.content);
-//        Gson gson = new Gson();
-//        String jsonString = gson.toJson(map.obstacleMap);
-//        System.out.println(jsonString);
-
-//        GsonBuilder builder = new GsonBuilder();
-//        builder.registerTypeAdapter(Obstacle.class, new ObstacleAdaptor());
-//        Gson gson = builder.create();
-//        String jsonString = gson.toJson(map.obstacleMap);
-//        System.out.println(jsonString);
-
-//        GsonBuilder builder = new GsonBuilder();
-//        builder.registerTypeAdapter(Obstacle.class, new ObstacleAdaptor());
-//        builder.setPrettyPrinting();
-//        Gson gson = builder.create();
-//        Tree tree1 = new Tree();
-//
-//        String jsonString = gson.toJson(tree1);
-//        System.out.println(jsonString);
-
-//        JsonController.writeIntoFile(map.savingObstacle,"map.json");
-//        JsonController.readDataFile("map.json");
-//        System.out.println(JsonController.content);
-        ArrayList<SavedObstacles> arrayList = new ArrayList<>();
-//        SavedObstacles savedObstacles =  new SavedObstacles();
-//        savedObstacles.type = "s";
-//        savedObstacles.name = "s";
-//        savedObstacles.notPassable = true ;
-//        savedObstacles.notBuildable = true ;
-//        savedObstacles.x = 3;
-//        savedObstacles.y =7 ;
-//        SavedObstacles savedObstacles2 =  new SavedObstacles();
-//        savedObstacles2.type = "s";
-//        savedObstacles2.name = "s";
-//        savedObstacles2.notPassable = true ;
-//        savedObstacles2.notBuildable = true ;
-//        savedObstacles2.x = 3;
-//        savedObstacles2.y =7 ;
-//        SavedObstacles savedObstacles3 =  new SavedObstacles();
-//        savedObstacles3.type = "s";
-//        savedObstacles3.name = "s";
-//        savedObstacles3.notPassable = true ;
-//        savedObstacles3.notBuildable = true ;
-//        savedObstacles3.x = 3;
-//        savedObstacles3.y =7 ;
-//        arrayList.add(savedObstacles);
-//        arrayList.add(savedObstacles2);
-//        arrayList.add(savedObstacles3);
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
-        String jsonAsString = gson.toJson(arrayList);
-        System.out.println(jsonAsString);
-
     }
 
     private void recovery(){
@@ -382,4 +321,65 @@ public class CreateMapMenu extends Application {
         map.notBuildable[x][y] = true;
     }
 }
+//        Gson gson = new Gson();
+//        String jsonAsString = gson.toJson(map.obstacleMap);
+//        System.out.println(jsonAsString);
+//        JsonController.writeIntoFile(map.getObstacleMap(),"map.json");
+//        System.out.println("hii");
+//        JsonController.readDataFile("map.json");
+//        System.out.println(JsonController.content);
+//        Gson gson = new Gson();
+//        String jsonString = gson.toJson(map.obstacleMap);
+//        System.out.println(jsonString);
+
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(Obstacle.class, new ObstacleAdaptor());
+//        Gson gson = builder.create();
+//        String jsonString = gson.toJson(map.obstacleMap);
+//        System.out.println(jsonString);
+
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(Obstacle.class, new ObstacleAdaptor());
+//        builder.setPrettyPrinting();
+//        Gson gson = builder.create();
+//        Tree tree1 = new Tree();
+//
+//        String jsonString = gson.toJson(tree1);
+//        System.out.println(jsonString);
+
+//        JsonController.writeIntoFile(map.savingObstacle,"map.json");
+//        JsonController.readDataFile("map.json");
+//        System.out.println(JsonController.content);
+
+
+//        SavedObstacles savedObstacles =  new SavedObstacles();
+//        savedObstacles.type = "s";
+//        savedObstacles.name = "s";
+//        savedObstacles.notPassable = true ;
+//        savedObstacles.notBuildable = true ;
+//        savedObstacles.x = 3;
+//        savedObstacles.y =7 ;
+//        SavedObstacles savedObstacles2 =  new SavedObstacles();
+//        savedObstacles2.type = "s";
+//        savedObstacles2.name = "s";
+//        savedObstacles2.notPassable = true ;
+//        savedObstacles2.notBuildable = true ;
+//        savedObstacles2.x = 3;
+//        savedObstacles2.y =7 ;
+//        SavedObstacles savedObstacles3 =  new SavedObstacles();
+//        savedObstacles3.type = "s";
+//        savedObstacles3.name = "s";
+//        savedObstacles3.notPassable = true ;
+//        savedObstacles3.notBuildable = true ;
+//        savedObstacles3.x = 3;
+//        savedObstacles3.y = 7 ;
+//        arrayList.add(savedObstacles);
+//        arrayList.add(savedObstacles2);
+//        arrayList.add(savedObstacles3);
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
+//        builder.setPrettyPrinting();
+//        Gson gson = builder.create();
+//        String jsonAsString = gson.toJson(map.savingObstacle);
+//        System.out.println(jsonAsString);
 

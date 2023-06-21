@@ -122,8 +122,11 @@ public class CreateMapController {
         map.getGroundType()[x][y].clear();
         map.getGroundType()[x][y].add(GroundType.DEFAULT);
         map.getObstacleMap()[x][y].add(stone);
+
 //        s =  new ObstacleName("stone","w",x,y);
-//        SavedObstacles savedObstacles = new SavedObstacles("STONE","w",x,y,true,true);
+        SavedObstacles savedObstacles = new SavedObstacles();
+        consGorSavedObject(savedObstacles,"STONE","",true,true,x,y);
+        map.savingObstacle.add(savedObstacles);
 //        map.savingObstacle.add(savedObstacles);
         return "Successfully";
     }
@@ -151,9 +154,18 @@ public class CreateMapController {
         map.getObstacleMap()[x][y].add(waterSources);
         map.notBuildable[x][y]  = true ;
        map.notPassable[x][y] = true ;
-//        SavedObstacles savedObstacles = new SavedObstacles("SEA","",x,y,true,true);
-//        map.savingObstacle.add(savedObstacles);
+        SavedObstacles savedObstacles = new SavedObstacles();
+        consGorSavedObject(savedObstacles,"SEA","",true,true,x,y);
+        map.savingObstacle.add(savedObstacles);
 
+    }
+    private void consGorSavedObject(SavedObstacles savedObstacles,String name  , String type , boolean notBuildable ,boolean notPassable , int x , int y){
+        savedObstacles.name =  name ;
+        savedObstacles.type  = type ;
+        savedObstacles.notBuildable =  notBuildable ;
+        savedObstacles.notPassable =  notPassable ;
+        savedObstacles.x = x ;
+        savedObstacles.y = y ;
     }
     public void dropSeveralSea(int x1, int x2, int y1, int y2) {
         for(int i =  x1 ; i  <=  x2 ; i ++){
@@ -185,7 +197,9 @@ public class CreateMapController {
         } else {
             return "Selected tree does not exist";
         }
-//        SavedObstacles savedObstacles = new SavedObstacles("TREE",type,x,y,true,true);
+        SavedObstacles savedObstacles = new SavedObstacles();
+        consGorSavedObject(savedObstacles,"TREE","",true,false,x,y);
+        map.savingObstacle.add(savedObstacles);
 //        map.savingObstacle.add(savedObstacles);
 
 

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 1
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 2
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 3
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 4
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 5
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 3,
+    "y": 1
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 3,
+    "y": 2
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 3,
+    "y": 3
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 3,
+    "y": 4
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 3,
+    "y": 5
+  }
+]
