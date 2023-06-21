@@ -10,12 +10,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.User;
+import view.ImageAndBackground.GameImages;
+import view.ImageAndBackground.TradeAndShopImages;
 
 public class ScoreBoardMenu extends Application {
     {
@@ -26,13 +31,18 @@ public class ScoreBoardMenu extends Application {
     public static Stage stage;
 
     public void start(Stage stage) throws IOException {
+        GameImages gameImages = new GameImages();
+        gameImages.loadImages();
         ScoreBoardMenu.stage = stage;
         createUser();
         ScrollPane scrollPane = new ScrollPane();
         this.scrollPane = scrollPane;
-        Scene scene = new Scene(scrollPane, 500, 500);
+        Pane pane = new Pane();
+        pane.setBackground(gameImages.getProfileBackground());
+//        pane.getChildren().add(scrollPane);
+        Scene scene = new Scene(pane);
         //
-        createTableOfUsers();
+        createTableOfUsers(pane);
         setBackButton();
         //
         stage.setScene(scene);
@@ -46,11 +56,14 @@ public class ScoreBoardMenu extends Application {
 
     }
 
-    private void createTableOfUsers() {
-        Button button = new Button("Back");
-        button.setTranslateX(0);
-        button.setTranslateY(600);
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    private void createTableOfUsers(Pane pane) {
+        Button back = new Button("Back");
+        back.setPrefSize(100, 40);
+        back.setLayoutX(20);
+        back.setLayoutY(20);
+        back.setStyle("-fx-background-color: #cba883");
+        back.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 Main main = new Main();
@@ -61,8 +74,8 @@ public class ScoreBoardMenu extends Application {
                 }
             }
         });
+        pane.getChildren().add(back);
         VBox vBox = new VBox();
-        vBox.getChildren().add(button);
         setSettingToMainVbox(vBox);
         for (User user : User.users) {
             //HBox
@@ -88,16 +101,24 @@ public class ScoreBoardMenu extends Application {
             vBox.getChildren().add(hBox);
         }
         scrollPane.setContent(vBox);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setLayoutX(580);
+        scrollPane.setLayoutY(200);
+        scrollPane.setPrefWidth(400);
+        scrollPane.setPrefHeight(400);
+        pane.getChildren().add(scrollPane);
     }
 
     private void setSettingToHighSocreLabel(Label highScore, User user) {
-        highScore.setStyle("-fx-font-size: 25");
+        highScore.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         highScore.setMaxHeight(20);
         highScore.setText("" + user.getHighScore());
+        highScore.setTranslateX(-10);
+
     }
 
     private void setSettingToUsernameLabel(Label username, User user) {
-        username.setStyle("-fx-font-size: 25");
+        username.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         username.setMaxHeight(20);
         username.setText(user.getUsername());
     }
@@ -115,21 +136,23 @@ public class ScoreBoardMenu extends Application {
         new User("s", "s", "a", "s", "w", "q", 3);
         new User("s", "s", "a", "s", "w", "q", 3);
         new User("s", "s", "a", "s", "w", "q", 3);
-
     }
 
     private void setSettingToMainVbox(VBox vBox) {
         vBox.setAlignment(Pos.CENTER);
-        vBox.setStyle("-fx-background-color: #5c5cf3");
+        vBox.setStyle("-fx-background-color: #871818");
         vBox.setSpacing(20);
-        vBox.setTranslateX(600);
-        vBox.setTranslateY(40);
+        vBox.setLayoutX(600);
+        vBox.setLayoutY(40);
+        vBox.setPrefWidth(380);
+
     }
 
     private void setSettingToRankLabel(Label label, User user) {
-        label.setStyle("-fx-font-size: 25");
+        label.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         label.setMaxHeight(20);
         label.setText("" + (User.users.indexOf(user) + 1));
+        label.setTranslateX(10);
     }
 
     private void setSettingsToImageView(ImageView imageView, User user) {
@@ -147,6 +170,6 @@ public class ScoreBoardMenu extends Application {
     private void setSettingsToHBox(HBox hBox) {
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(85);
-        hBox.setStyle("-fx-background-color: #8181de");
+        hBox.setStyle("-fx-background-color: #cba883");
     }
 }
