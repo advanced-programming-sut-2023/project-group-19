@@ -67,7 +67,7 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
         this.defencePower = 50;
         this.restOfMoves = 7;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/archer/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/archer/forwardLeft.png").toExternalForm()));
         defaultImage = imageView.getImage();
         this.imageView.setFitHeight(50);
         this.imageView.setFitWidth(50);
