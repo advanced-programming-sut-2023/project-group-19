@@ -20,9 +20,18 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
+    {
+        try {
+            getAllMaps();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public ToggleGroup mapToggleGroup = new ToggleGroup();
     public Pane pane ;
     public Stage stage ;
@@ -85,6 +94,11 @@ public class CreateMapMenu extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                try {
+                    JsonController.writeIntoFile(map.savingObstacle,"map.json");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 saveChanges();
                 MainMenu mainMenu = new MainMenu();
                 try {
@@ -127,14 +141,8 @@ public class CreateMapMenu extends Application {
                     dropWater();
                 }
                 recovery();
-                JsonController.writeIntoFile(map.savingObstacle,"map.json");
-                try {
-                    JsonController.readDataFile("map.json");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                ArrayList<SavedObstacles> save = JsonController.getSavedObstacle();
-                System.out.println(save.get(0).getName());
+//                ArrayList<SavedObstacles> save = JsonController.getSavedObstacle();
+//                System.out.println(save.get(0).getName());
             }
         });
         vBox.getChildren().add(submit);
@@ -319,6 +327,28 @@ public class CreateMapMenu extends Application {
         Stone stone = new Stone();
         map.getObstacleMap()[x][y].add(stone);
         map.notBuildable[x][y] = true;
+    }
+
+    private static void getAllMaps() throws IOException {
+
+        JsonController.readDataFile("map.json");
+        String text = JsonController.content ;
+        if(text == null) return;
+        String regex = "(?<array>\\[(.|[\\r\\n])*\\])";
+        Map.allSavedMaps.clear();
+//        System.out.println(JsonController.content);
+        Matcher matcher = Pattern.compile(regex).matcher(text);
+        while (matcher.find()){
+            System.out.println("*");
+            JsonController.content = matcher.group("array");
+            System.out.println(matcher.group("array"));
+            ArrayList<SavedObstacles> mapSaved = JsonController.getSavedObstacle();
+//            Gson gson = new Gson();
+//            String jsonAsString = gson.toJson(mapSaved);
+//            System.out.println(jsonAsString);
+            Map.allSavedMaps.add(mapSaved);
+        }
+
     }
 }
 //        Gson gson = new Gson();

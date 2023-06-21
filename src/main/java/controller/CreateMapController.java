@@ -107,16 +107,12 @@ public class CreateMapController {
     }
 
     public String dropRock(int x, int y, String type) {
-        System.out.println("1");
         if(type.equals("r")) type = "w";
         if (!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s"))
             return "Choose direction correctly!";
-        System.out.println("2");
 //        if (!mapIsBuilt) return "You first must build a map!";
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "Yure location is out of bounds";
-        System.out.println("3");
         if(map.notBuildable[x][y]) return "Is occupied";
-        System.out.println("4");
         Stone stone = new Stone();
         stone.stone(type);
         map.getGroundType()[x][y].clear();

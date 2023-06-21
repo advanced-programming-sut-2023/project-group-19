@@ -28,22 +28,6 @@
     "type": "",
     "notBuildable": true,
     "notPassable": false,
-    "x": 2,
-    "y": 4
-  },
-  {
-    "name": "TREE",
-    "type": "",
-    "notBuildable": true,
-    "notPassable": false,
-    "x": 2,
-    "y": 5
-  },
-  {
-    "name": "TREE",
-    "type": "",
-    "notBuildable": true,
-    "notPassable": false,
     "x": 3,
     "y": 1
   },
@@ -62,21 +46,39 @@
     "notPassable": false,
     "x": 3,
     "y": 3
-  },
+  }
+]
+[
   {
-    "name": "TREE",
+    "name": "SEA",
     "type": "",
     "notBuildable": true,
-    "notPassable": false,
-    "x": 3,
-    "y": 4
+    "notPassable": true,
+    "x": 2,
+    "y": 1
   },
   {
-    "name": "TREE",
+    "name": "SEA",
     "type": "",
     "notBuildable": true,
-    "notPassable": false,
+    "notPassable": true,
+    "x": 2,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
     "x": 3,
-    "y": 5
+    "y": 1
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 2
   }
 ]

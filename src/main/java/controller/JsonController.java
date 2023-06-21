@@ -17,21 +17,18 @@ import java.util.Scanner;
 public class JsonController {
     public static String content;
 
-    public static void writeIntoFile(Object object, String fileName) {
-//        GsonBuilder builder = new GsonBuilder();
-////        Gson builder = new GsonBuilder()
-////                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
-////                .create();
-//        builder.setPrettyPrinting();
-//        Gson gson = builder.create();
+    public static void writeIntoFile(Object object, String fileName) throws IOException {
+        readDataFile("map.json");
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         try (FileWriter file = new FileWriter(fileName)) {
             String jsonAsString = gson.toJson(object);
-            System.out.println(jsonAsString);
-            file.write(jsonAsString);
+            StringBuilder sb = new StringBuilder();
+            if(content != null)sb.append(content);
+            sb.append(jsonAsString);
+            file.write(sb.toString());
             file.flush();
         } catch (IOException ignored) {
             System.out.println("couldn't save into file");
@@ -63,6 +60,7 @@ public class JsonController {
         while (sc.hasNextLine())
             stringBuilder.append(sc.nextLine()).append('\n');
         content = stringBuilder.toString();
+//        System.out.println(content);
     }
 
     public static void saveAllUsersFileData() {
@@ -94,3 +92,9 @@ public class JsonController {
         return a2;
     }
 }
+//        GsonBuilder builder = new GsonBuilder();
+////        Gson builder = new GsonBuilder();
+////                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+////                .create();
+//        builder.setPrettyPrinting();
+//        Gson gson = builder.create();
