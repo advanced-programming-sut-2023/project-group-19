@@ -1,6 +1,7 @@
 package view;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import controller.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -18,6 +19,7 @@ import view.Model.NewRadioButton;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -334,21 +336,18 @@ public class CreateMapMenu extends Application {
         JsonController.readDataFile("map.json");
         String text = JsonController.content ;
         if(text == null) return;
-        String regex = "(?<array>\\[(.|[\\r\\n])*\\])";
         Map.allSavedMaps.clear();
-//        System.out.println(JsonController.content);
-        Matcher matcher = Pattern.compile(regex).matcher(text);
-        while (matcher.find()){
-            System.out.println("*");
-            JsonController.content = matcher.group("array");
-            System.out.println(matcher.group("array"));
+        String[] arrays = text.split("\\[");
+        int counter = 0  ;
+        for(String array : arrays){
+            counter  ++ ;
+            if(counter  == 1) continue;
+            JsonController.content = "[" + array ;
+//            System.out.println("[" + array );
+            System.out.println("**************************");
             ArrayList<SavedObstacles> mapSaved = JsonController.getSavedObstacle();
-//            Gson gson = new Gson();
-//            String jsonAsString = gson.toJson(mapSaved);
-//            System.out.println(jsonAsString);
             Map.allSavedMaps.add(mapSaved);
         }
-
     }
 }
 //        Gson gson = new Gson();
