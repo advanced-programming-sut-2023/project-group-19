@@ -20,6 +20,7 @@ public class Map {
     public boolean[][] notPassable;
     public boolean[][] wallPassable;
     public boolean[][] wall;
+    public static ArrayList<ArrayList<SavedObstacles>> ss =  new ArrayList<>();
 
     public ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
