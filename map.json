@@ -1,12 +1,5 @@
+[]
 [
-  {
-    "name": "TREE",
-    "type": "",
-    "notBuildable": true,
-    "notPassable": false,
-    "x": 2,
-    "y": 1
-  },
   {
     "name": "TREE",
     "type": "",
@@ -22,14 +15,6 @@
     "notPassable": false,
     "x": 2,
     "y": 3
-  },
-  {
-    "name": "TREE",
-    "type": "",
-    "notBuildable": true,
-    "notPassable": false,
-    "x": 3,
-    "y": 1
   },
   {
     "name": "TREE",
@@ -55,7 +40,7 @@
     "notBuildable": true,
     "notPassable": true,
     "x": 2,
-    "y": 1
+    "y": 2
   },
   {
     "name": "SEA",
@@ -63,10 +48,216 @@
     "notBuildable": true,
     "notPassable": true,
     "x": 2,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
     "y": 2
   },
   {
     "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 3
+  }
+]
+[]
+[]
+[
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 6,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 6,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 6,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 6,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 7,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 7,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 7,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 7,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 8,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 8,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 8,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 8,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 9,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 9,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 9,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 9,
+    "y": 5
+  }
+]
+[
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 2
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 3
+  },
+  {
+    "name": "STONE",
     "type": "",
     "notBuildable": true,
     "notPassable": true,
@@ -74,16 +265,44 @@
     "y": 1
   },
   {
-    "name": "SEA",
+    "name": "STONE",
     "type": "",
     "notBuildable": true,
     "notPassable": true,
     "x": 3,
     "y": 2
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 3
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 2
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 3
   }
 ]
-[]
-[]
-[]
-[]
 []

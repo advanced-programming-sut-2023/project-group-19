@@ -74,7 +74,7 @@ public class CreateMapController {
         return "Change is done successfully!";
     }
     public String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type){
-        if (!mapIsBuilt) return "You first must build a map!";
+//        if (!mapIsBuilt) return "You first must build a map!";
         if(x1 > x2 || y1 > y2) return "Please make sure that x and y are correctly assigned!";
         if(x1 < 0 || x2 >= sizeOfMap || y1 < 0 || y2 >= sizeOfMap) return "Yure location is out of bounds";
         GroundType groundType = GroundType.getEnumGroundType(type);
@@ -204,6 +204,8 @@ public class CreateMapController {
         return "successfully";
     }
 
+    public void dropSeveralPlain(int x1, int x2, int y1, int y2) {
+    }
 
 
 //    public static int indexOfUser = 0 ;

@@ -22,13 +22,7 @@ import java.util.ArrayList;
 
 public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
-    {
-        try {
-            getAllMaps();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     public ToggleGroup mapToggleGroup = new ToggleGroup();
     public Pane pane ;
     public Stage stage ;
@@ -38,6 +32,12 @@ public class CreateMapMenu extends Application {
     public RadioButton water;
 
     public RadioButton stone;
+
+    public RadioButton dash;
+    public RadioButton grass;
+    public RadioButton gravel;
+    public RadioButton iron;
+    public RadioButton plain;
     public TextField getX0 ;
     public TextField getX1 ;
     public TextField getY0 ;
@@ -98,7 +98,8 @@ public class CreateMapMenu extends Application {
         mainVbox.setAlignment(Pos.CENTER);
         setSettingToMainVbox(mainVbox);
         handleGetCoordinate(mainVbox);
-        handleCheckBox(mainVbox);
+        handleCheckBoxForObstacles(mainVbox);
+        handleCheckBoxForGroundType(mainVbox);
         placeSubmitButton(mainVbox);
         selectMap(mainVbox);
     }
@@ -151,15 +152,65 @@ public class CreateMapMenu extends Application {
                 if(toggleGroup.getSelectedToggle() == null) return;
                 if(toggleGroup.getSelectedToggle().equals(tree)){
                     dropTree();
-                }else if(toggleGroup.getSelectedToggle().equals(stone)){
+                } else if(toggleGroup.getSelectedToggle().equals(stone)){
                     dropStone();
                 } else if(toggleGroup.getSelectedToggle().equals(water)){
                     dropWater();
+                } else if(toggleGroup.getSelectedToggle().equals(dash)){
+                    dropDash();
+                } else if(toggleGroup.getSelectedToggle().equals(grass)){
+                    dropGrass();
+                } else if(toggleGroup.getSelectedToggle().equals(gravel)){
+                    dropGravel();
+                } else if(toggleGroup.getSelectedToggle().equals(iron)){
+                    dropIron();
+                } else if(toggleGroup.getSelectedToggle().equals(plain)){
+                    dropPlain();
                 }
                 recovery();
             }
         });
         vBox.getChildren().add(submit);
+    }
+
+    private void dropPlain() {
+        int x0  =  Integer.parseInt(getX0.getText());
+        int x1  =  Integer.parseInt(getX1.getText());
+        int y0  =  Integer.parseInt(getY0.getText());
+        int y1  =  Integer.parseInt(getY1.getText());
+        createMapController.settextureGroup(x0,x1,y0,y1,"plain");
+    }
+
+    private void dropIron() {
+        int x0  =  Integer.parseInt(getX0.getText());
+        int x1  =  Integer.parseInt(getX1.getText());
+        int y0  =  Integer.parseInt(getY0.getText());
+        int y1  =  Integer.parseInt(getY1.getText());
+        createMapController.settextureGroup(x0,x1,y0,y1,"iron");
+    }
+
+    private void dropGravel() {
+        int x0  =  Integer.parseInt(getX0.getText());
+        int x1  =  Integer.parseInt(getX1.getText());
+        int y0  =  Integer.parseInt(getY0.getText());
+        int y1  =  Integer.parseInt(getY1.getText());
+        createMapController.settextureGroup(x0,x1,y0,y1,"gravel");
+    }
+
+    private void dropGrass() {
+        int x0  =  Integer.parseInt(getX0.getText());
+        int x1  =  Integer.parseInt(getX1.getText());
+        int y0  =  Integer.parseInt(getY0.getText());
+        int y1  =  Integer.parseInt(getY1.getText());
+        createMapController.settextureGroup(x0,x1,y0,y1,"grass");
+    }
+
+    private void dropDash() {
+        int x0  =  Integer.parseInt(getX0.getText());
+        int x1  =  Integer.parseInt(getX1.getText());
+        int y0  =  Integer.parseInt(getY0.getText());
+        int y1  =  Integer.parseInt(getY1.getText());
+        createMapController.settextureGroup(x0,x1,y0,y1,"dash");
     }
 
     private void recovery(){
@@ -234,7 +285,7 @@ public class CreateMapMenu extends Application {
         vBox.setAlignment(Pos.CENTER);
         pane.getChildren().add(vBox);
     }
-    private void handleCheckBox(VBox vBox){
+    private void handleCheckBoxForObstacles(VBox vBox){
         HBox hBox = new HBox();
         hBox.setSpacing(20);
         hBox.setAlignment(Pos.CENTER);
@@ -245,6 +296,21 @@ public class CreateMapMenu extends Application {
         stone = new RadioButton("stone");
         stone.setToggleGroup(toggleGroup);
         hBox.getChildren().addAll(tree,water,stone);
+        vBox.getChildren().add(hBox);
+    }
+    private void handleCheckBoxForGroundType(VBox vBox){
+        HBox hBox = new HBox();
+        hBox.setSpacing(20);
+        hBox.setAlignment(Pos.CENTER);
+        dash = new RadioButton("dash");
+        dash.setToggleGroup(toggleGroup);
+        grass = new RadioButton("grass");
+        grass.setToggleGroup(toggleGroup);
+        gravel = new RadioButton("gravel");
+        gravel.setToggleGroup(toggleGroup);
+        iron = new RadioButton("iron");
+        iron.setToggleGroup(toggleGroup);
+        hBox.getChildren().addAll(dash,grass,gravel,iron);
         vBox.getChildren().add(hBox);
     }
 
@@ -343,21 +409,7 @@ public class CreateMapMenu extends Application {
         map.notBuildable[x][y] = true;
     }
 
-    private static void getAllMaps() throws IOException {
-        JsonController.readDataFile("map.json");
-        String text = JsonController.content ;
-        if(text == null) return;
-        Map.allJsonMaps.clear();
-        String[] arrays = text.split("\\[");
-        int counter = 0  ;
-        for(String array : arrays){
-            counter  ++ ;
-            if(counter  == 1) continue;
-            JsonController.content = "[" + array ;
-            ArrayList<SavedObstacles> mapSaved = JsonController.getSavedObstacle();
-            Map.allJsonMaps.add(mapSaved);
-        }
-    }
+
 }
 //        Gson gson = new Gson();
 //        String jsonAsString = gson.toJson(map.obstacleMap);

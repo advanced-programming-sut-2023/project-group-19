@@ -285,6 +285,33 @@ public class TileManager extends Application {
             }
         }
     }
+    private void setGroundType(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getGroundType()[i][j].isEmpty()) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView groundTypeImage = new ImageView();
+                switch (map.getGroundType()[i][j].get(0).getGroundType()){
+                    case "plain":
+                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/plain.jpg").toExternalForm()));
+                        break;
+                    case "iron":
+                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/iron.jpg").toExternalForm()));
+                        break;
+                    case "gravel":
+                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/gravel.jpg").toExternalForm()));
+                        break;
+                    case "grass":
+                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/grass.jpg").toExternalForm()));
+                        break;
+                    case "dash":
+                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/dash.jpg").toExternalForm()));
+                        break;
+                }
+                castleButton.setImageView(groundTypeImage);
+            }
+        }
+    }
     private void stonesOfMap(){
         for(int i = 0 ; i < Map.mapSize ; i ++){
             for(int j = 0 ; j < Map.mapSize ; j ++){
@@ -374,7 +401,6 @@ public class TileManager extends Application {
         treesOfMap();
         stonesOfMap();
         waterOfMap();
-
     }
 
     private void dropStockFunction(int x, int y, Empire empire) {
@@ -604,6 +630,7 @@ public class TileManager extends Application {
         createButtonsArraylist();
         for (int u = 0; u < horizontalButtons; u++) {
             for (int g = 0; g < verticalButtons; g++) {
+                bottomBarImages.getBckGroundImage(map.getGroundType()[u][g].get(0).getGroundType());
                 ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * verticalSize);
@@ -615,16 +642,6 @@ public class TileManager extends Application {
                     sickImage.setFitWidth(viewButtonSize);
                     button.setGraphic(sickImage);
                 }
-//                if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Tree){
-//                    System.out.println("hi");
-//                    button.setImageView(treeImage);
-//                }
-//                else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof Stone){
-//                    button.setImageView(stoneIMage);
-//                }
-//                else if(!map.getObstacleMap()[u][g].isEmpty() && map.getObstacleMap()[u][g].get(0) instanceof WaterSources){
-//                    button.setImageView(seaImage);
-//                }
                 if (button.getImageView() != null) {
                     ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
@@ -933,86 +950,6 @@ public class TileManager extends Application {
         error.setContentText(output);
         error.show();
     }
-
-    private void dropTreeToLocation(int x, int y1, int y2, int number) {
-        for (int i = y1; i <= y2; i++) {
-            dropTree(x, i, number);
-        }
-    }
-
-    private void dropSeaoLocation(int x, int y1, int y2, int number) {
-        for (int i = y1; i <= y2; i++) {
-            dropSea(x, i, number);
-        }
-    }
-
-    private void dropStoneLocation(int x, int y1, int y2, int number) {
-        for (int i = y1; i <= y2; i++) {
-            dropStone(x, i, number);
-        }
-    }
-
-    private void artOfTree() {
-         dropTreeToLocation(0, 0, 12, 5);
-         dropTreeToLocation(0, 3, 8, 1);
-         dropTreeToLocation(1, 0, 10, 5);
-         dropTreeToLocation(2, 1, 8, 5);
-         dropTreeToLocation(2, 0, 4, 1);
-         dropTreeToLocation(3, 6, 7, 2);
-         dropTreeToLocation(4, 0, 1, 2);
-         dropTreeToLocation(4, 3, 4, 2);
-         dropTreeToLocation(4, 6, 6, 1);
-        dropStoneLocation(3, 8, 8, 8);
-        dropStoneLocation(4, 7, 7, 8);
-        dropSea(3, 2, 1);
-        dropSea(3, 5, 1);
-        dropSea(4, 2, 1);
-        dropSea(4, 5, 1);
-        dropSea(3, 1, 1);
-        dropSea(4, 5, 1);
-        dropSea(3, 1, 1);
-        dropSea(3, 4, 1);
-        dropSea(3, 3, 1);
-        dropTree(3, 0, 2);
-        dropTree(4, 0, 2);
-        dropTree(2, 0, 2);
-         dropTreeToLocation(5, 0, 6, 5);
-         dropTreeToLocation(6, 1, 3, 5);
-         dropTreeToLocation(7, 0, 2, 5);
-        dropStoneLocation(0, 13, 17, 8);
-        dropStoneLocation(1, 18, 19, 6);
-        dropStoneLocation(2, 9, 9, 6);
-        dropStoneLocation(5, 7, 7, 8);
-        dropStoneLocation(6, 4, 5, 8);
-        dropStoneLocation(7, 3, 4, 8);
-         dropTreeToLocation(8, 0, 2, 1);
-         dropTreeToLocation(9, 1, 2, 5);
-         dropTreeToLocation(10, 0, 1, 1);
-        dropSeaoLocation(11, 0, 3, 1);
-        dropStoneLocation(11, 4, 4, 6);
-        dropStoneLocation(12, 0, 5, 3);
-         dropTreeToLocation(0, 18, 29, 1);
-         dropTreeToLocation(1, 20, 29, 1);
-         dropTreeToLocation(1, 22, 26, 5);
-         dropTreeToLocation(2, 19, 29, 1);
-        dropTreeToLocation(2, 21, 25, 5);
-        dropSeaoLocation(3, 27, 29, 1);
-        dropSeaoLocation(5, 24, 25, 1);
-        dropSeaoLocation(4, 27, 29, 1);
-        dropSeaoLocation(5, 27, 29, 1);
-         dropTreeToLocation(3, 21, 26, 1);
-         dropTreeToLocation(4, 23, 26, 5);
-        dropTree(5, 26, 1);
-         dropTreeToLocation(6, 23, 26, 5);
-         dropTreeToLocation(7, 21, 29, 1);
-         dropTreeToLocation(8, 27, 29, 5);
-        dropStoneLocation(9, 21, 28, 3);
-        dropStoneLocation(10, 19, 21, 1);
-        dropStoneLocation(11, 18, 20, 2);
-         dropTreeToLocation(10, 22, 29, 5);
-         dropTreeToLocation(11, 21, 29, 5);
-    }
-
 
     public void createMinimap(Pane pane) {
         for (int i = 0; i < horizontalButtons; i++) {
