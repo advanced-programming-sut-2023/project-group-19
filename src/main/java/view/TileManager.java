@@ -950,7 +950,6 @@ public class TileManager extends Application {
         dropTreeToLocation(11, 21, 29, 5);
     }
 
-
     public void createMinimap(Pane pane) {
         for (int i = 0; i < horizontalButtons; i++) {
             for (int j = 0; j < verticalButtons; j++) {
