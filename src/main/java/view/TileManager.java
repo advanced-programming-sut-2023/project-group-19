@@ -630,7 +630,7 @@ public class TileManager extends Application {
         createButtonsArraylist();
         for (int u = 0; u < horizontalButtons; u++) {
             for (int g = 0; g < verticalButtons; g++) {
-                bottomBarImages.getBckGroundImage(map.getGroundType()[u][g].get(0).getGroundType());
+                bottomBarImages.getBckGroundImage(map.getGroundType()[u + moveX][g + moveY].get(0).getGroundType());
                 ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * verticalSize);
