@@ -30,10 +30,57 @@ public class BottomBarImages {
 
     public Image test;
 
+    private Background dashBack  =  new Background(new BackgroundImage(new Image
+            (BottomBarImages.class.getResource("/groundType/" + "dash" + ".jpg").toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+    private Background desertBack  =  new Background(new BackgroundImage(new Image
+            (BottomBarImages.class.getResource("/groundType/" + "desert_tile" + ".jpg").toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+    private Background grassBack  =  new Background(new BackgroundImage(new Image
+            (BottomBarImages.class.getResource("/groundType/" + "grass" + ".jpg").toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+    private Background gravelBack  =  new Background(new BackgroundImage(new Image
+            (BottomBarImages.class.getResource("/groundType/" + "gravel" + ".jpg").toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+    private Background ironBack  =  new Background(new BackgroundImage(new Image
+            (BottomBarImages.class.getResource("/groundType/" + "iron" + ".jpg").toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+    private Background plainBack  =  new Background(new BackgroundImage(new Image
+            (BottomBarImages.class.getResource("/groundType/" + "plain" + ".jpg").toExternalForm()),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+
+
+    public void getBckGroundImage(String type){
+        switch (type) {
+            case "dash" :
+              background = dashBack ;
+                break;
+            case "grass" :
+                background = grassBack ;
+                break;
+            case "gravel" :
+                background = gravelBack ;
+                break;
+            case "iron" :
+                background = ironBack ;
+                break;
+            case "plain" :
+                background = plainBack ;
+                break;
+            default:
+                background = desertBack ;
+        }
+    }
+
     public void loadImages() {
-        background = new Background(new BackgroundImage(new Image
-                (TileManager.class.getResource("/image/desert_tile.jpg").toExternalForm()),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+//        background = new Background(new BackgroundImage(new Image
+//                (TileManager.class.getResource("/image/desert_tile.jpg").toExternalForm()),
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
         bottomImage = new Image(TileManager.class.getResource("/image/BottomBar/bottomPicture.png").toExternalForm());
         bottomCoverImage = new Image(TileManager.class.getResource("/image/BottomBar/bottomCover.jpg").toExternalForm());
         bottomSideCoverImage = new Image(TileManager.class.getResource("/image/BottomBar/sideCover.jpg").toExternalForm());

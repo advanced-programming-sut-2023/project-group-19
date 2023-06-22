@@ -19,6 +19,8 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -29,6 +31,7 @@ import view.ImageAndBackground.GameImages;
 import view.Messages.RegisterMessages;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -48,6 +51,7 @@ public class ProfileMenu extends Application {
     public ImageView imageView9 = new ImageView(new Image(ProfileMenu.class.getResource("/avatars/9.png").toExternalForm()));
     public Scene scene;
     public VBox vBoxOfSelectImage = new VBox();
+
 
 
     public TextField username = new TextField();
@@ -76,9 +80,28 @@ public class ProfileMenu extends Application {
     public Button selectImage = new Button("Select Image");
     public Button selectImageFromSystem = new Button("Choose");
     public Button refresh = new Button("Refresh");
+    public static MediaPlayer mediaPlayer;
+    private void playMainMenu() throws IOException {
+        stopAllMusic();
+        String defultSong  = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
+    }
+    private void stopAllMusic() throws IOException {
+        User user = new User("a","s","a","s","a","q",2);
+        User.setCurrentUser(user);
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
+        playMainMenu();
         ProfileMenu.stage = stage;
         Pane pane = new Pane();
         this.pane = pane;

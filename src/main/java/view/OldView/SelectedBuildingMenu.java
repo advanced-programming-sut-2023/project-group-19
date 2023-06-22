@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 public class SelectedBuildingMenu {
     public static int buildingXCoordinate;
+    public GameController gameController ;
     public static int buildingYCoordinate;
     public static Building selectedBuilding;
     public SelectedBuildingController selectedBuildingController = new SelectedBuildingController();
@@ -48,7 +49,7 @@ public class SelectedBuildingMenu {
     }
 
     public Pattern repair() {
-        if (!GameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
+        if (!gameController.enemyInRange(buildingXCoordinate, buildingYCoordinate)) {
             if (SelectedBuildingCommands.getMatcher(buildingName, SelectedBuildingCommands.REPAIR_SHOW_NAME) != null) {
                 return Pattern.compile(BuildingController.repairBuilding(selectedBuilding).getMessages());
             } else {

@@ -4,7 +4,9 @@ module com.example.projectgroup19 {
     requires javafx.media;
 //    requires com.google.gson;
     requires java.desktop;
-    requires gson;
+    requires com.google.gson;
+//    opens com.example.server.Models to com.google.gson;
+
 
     exports view;
     exports model;

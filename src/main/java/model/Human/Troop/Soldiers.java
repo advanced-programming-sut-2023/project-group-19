@@ -45,6 +45,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.attackRange = 3;
+        this.setState(StateOfStanding.FRONT);
         this.speed = 3;
         this.restOfMoves = 3;
         this.attackPower = 500;
@@ -59,6 +60,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
 
     public void Knight(int x, int y) {
         this.hp = 900;
+        this.setState(StateOfStanding.FRONT);
         this.maxHp = 900;
         this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.KNIGHT;
@@ -78,7 +80,8 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     }
 
     public void Swordsmen(int x, int y) {
-        this.hp = 650;
+        this.hp = 100;
+        this.setState(StateOfStanding.FRONT);
         this.maxHp = 650;
         this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.SWORDSMEN;
@@ -90,7 +93,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
         this.defencePower = 100;
         this.restOfMoves = 1;
         this.imageView = new ImageView(new Image(ArchersAndThrowers.class.getResource
-                ("/image/Units/MovePics/swordsMen/forward.png").toExternalForm()));
+                ("/image/Units/MovePics/arabianSwordMen/forward.png").toExternalForm()));
         defaultImage = imageView.getImage();
         this.imageView.setFitHeight(50);
         this.imageView.setFitWidth(50);
@@ -99,6 +102,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
 
     public void PikeMen(int x, int y) {
         this.hp = 500;
+        this.setState(StateOfStanding.FRONT);
         this.maxHp = 500;
         this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.PIKE_MEN;
@@ -120,6 +124,7 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     public void Slaves(int x, int y) {
         this.hp = 400;
         this.maxHp = 400;
+        this.setState(StateOfStanding.FRONT);
         this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.SLAVES;
         this.xCoordinate = x;
@@ -138,7 +143,8 @@ public class Soldiers extends Army implements HumanConstantFunctions {
     }
 
     public void ArabianSwordsmen(int x, int y) {
-        this.hp = 700;
+        this.hp = 100;
+        this.setState(StateOfStanding.FRONT);
         this.maxHp = 700;
         this.armyForm = Names.STANDING_ARMY.getName();
         this.names = Names.ARABIAN_SWORDSMEN;
