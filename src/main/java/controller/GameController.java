@@ -19,6 +19,7 @@ import model.Human.Names;
 import model.Human.Troop.*;
 import model.Manage;
 import model.Map;
+import view.CreateMapMenu;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.TileManager;
@@ -27,7 +28,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 
 public class GameController {
-    public Map map ;
+    public Map map = CreateMapMenu.finalMap;
     private static final int mapSize = Map.mapSize;
     public static GameController gameController;
     public ArrayList<Army> selectedUnit = new ArrayList<>();
