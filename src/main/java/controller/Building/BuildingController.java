@@ -4,6 +4,7 @@ import model.Building.*;
 import model.Empire;
 import model.Manage;
 import model.Map;
+import view.CreateMapMenu;
 import view.Messages.BuildingMessages;
 import view.OldView.SelectedBuildingMenu;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class BuildingController {
-    public Map map ;
+    public Map map = CreateMapMenu.finalMap;
     public static int size = Map.mapSize;
     public static Empire currentEmpire;
     public static Building selectedBuilding;
@@ -130,7 +131,7 @@ public class BuildingController {
                             map.notBuildable[x][y] = true;
                             map.notPassable[x][y] = true;
                             map.wallPassable[x][y] = true;
-//                            dropFirstStockpile(x, y);
+                            dropFirstStockpile(x, y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;

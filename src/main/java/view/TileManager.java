@@ -105,6 +105,7 @@ public class TileManager extends Application {
     public int zoomSize = 1;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
+    public Map map ;
     private boolean drawIsOn;
     public TileManager tileManager;
     private boolean moveIsOn;
@@ -156,9 +157,7 @@ public class TileManager extends Application {
         playLoginMusic();
         new CreateMapMenu();
         map = CreateMapMenu.finalMap ;
-//        this.stage = stage;
         tileManager = this ;
-//        treesOfMap();
         createButtonsArraylist();
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
@@ -317,9 +316,25 @@ public class TileManager extends Application {
 
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
         Manage.setCurrentEmpire(sallahDin);
+        System.out.println("enter tile manager");
+
+//        this.stage = stage;
+//        tileManager = new TileManager();
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
+//        Map.CreateMap(100);
+//        Empire empire = new Empire();
+//        Empire empire2 = new Empire();
+//        empire.setUser(newUser);
+//        empire2.setUser(newUser1);
+//        Manage.setCurrentEmpire(empire);
+//        Manage.allEmpires.add(empire);
+//        Manage.allEmpires.add(empire2);
+//        BuildingController.currentEmpire = empire;
 
 //        buildingController.dropBuilding(5, 22, "Castle");
-        dropStockFunction(5, 22, sallahDin);
+//        dropStockFunction(5, 22, sallahDin);
+
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
@@ -331,6 +346,11 @@ public class TileManager extends Application {
         Castle castleRichard = new Castle(richard);
         castleRichard.castle();
 
+        Manage.allEmpires.add(richard);
+        Manage.allEmpires.add(sallahDin);
+        Manage.setCurrentEmpire(sallahDin);
+        BuildingController.currentEmpire = Manage.getCurrentEmpire();
+
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
         Manage.setCurrentEmpire(richard);
         buildingController.dropBuilding(9, 3, "Castle");
@@ -338,7 +358,7 @@ public class TileManager extends Application {
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
         castleButton.setImageView(castleImage2);
-        dropStockFunction(9, 3, richard);
+//        dropStockFunction(9, 3, richard);
         Manage.setCurrentEmpire(sallahDin);
         BuildingController.currentEmpire = sallahDin;
         Manage.getAllEmpires().add(sallahDin);
@@ -349,18 +369,18 @@ public class TileManager extends Application {
         waterOfMap();
     }
 
-    private void dropStockFunction(int x, int y, Empire empire) {
-        Manage.setCurrentEmpire(empire);
-        BuildingController.dropFirstStockpile(x, y);
-        ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
-        NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
-        foodRecourceBtn.setImageView(foodRecource);
-
-        ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
-        NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
-        sourceStock.setImageView(stockPile);
-
-    }
+//    private void dropStockFunction(int x, int y, Empire empire) {
+//        Manage.setCurrentEmpire(empire);
+//        BuildingController.dropFirstStockpile(x, y);
+//        ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
+//        NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
+//        foodRecourceBtn.setImageView(foodRecource);
+//
+//        ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
+//        NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
+//        sourceStock.setImageView(stockPile);
+//
+//    }
 
 
     private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
