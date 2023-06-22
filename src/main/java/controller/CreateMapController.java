@@ -84,6 +84,9 @@ public class CreateMapController {
 //                if(Map.notBuildable[i][j]) return "x:  " + i + " and y: " + j + " is Is occupied";
                 map.getGroundType()[i][j].clear();
                 map.getGroundType()[i][j].add(groundType);
+                SavedObstacles savedObstacles = new SavedObstacles();
+                consGorSavedObject(savedObstacles,"GROUND_TYPE",type,false,false,i,j);
+                map.savingObstacle.add(savedObstacles);
                 if(groundType.equals(GroundType.STONE_ROCK)){
                     map.notPassable[i][j] = true ;
 //                    Map.notBuildable[i][j] = true ;

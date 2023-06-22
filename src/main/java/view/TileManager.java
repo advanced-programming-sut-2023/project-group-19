@@ -267,14 +267,6 @@ public class TileManager extends Application {
     }
 
 
-    private void dropTree(int x, int y, int number) {
-        Tree tree = new Tree();
-        map.getObstacleMap()[x][y].add(tree);
-//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number + ".png").toExternalForm()));
-//        castleButton.setImageView(treeImage);
-        map.notBuildable[x][y] = true;
-    }
     private void treesOfMap(){
         for(int i = 0 ; i < Map.mapSize ; i ++){
             for(int j = 0 ; j < Map.mapSize ; j ++){
@@ -282,33 +274,6 @@ public class TileManager extends Application {
                 NewButton castleButton = (NewButton) list.get(i * 100 + j);
                 ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
                 castleButton.setImageView(treeImage);
-            }
-        }
-    }
-    private void setGroundType(){
-        for(int i = 0 ; i < Map.mapSize ; i ++){
-            for(int j = 0 ; j < Map.mapSize ; j ++){
-                if(map.getGroundType()[i][j].isEmpty()) continue;
-                NewButton castleButton = (NewButton) list.get(i * 100 + j);
-                ImageView groundTypeImage = new ImageView();
-                switch (map.getGroundType()[i][j].get(0).getGroundType()){
-                    case "plain":
-                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/plain.jpg").toExternalForm()));
-                        break;
-                    case "iron":
-                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/iron.jpg").toExternalForm()));
-                        break;
-                    case "gravel":
-                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/gravel.jpg").toExternalForm()));
-                        break;
-                    case "grass":
-                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/grass.jpg").toExternalForm()));
-                        break;
-                    case "dash":
-                        groundTypeImage.setImage(new Image(TileManager.class.getResource("/groundType/dash.jpg").toExternalForm()));
-                        break;
-                }
-                castleButton.setImageView(groundTypeImage);
             }
         }
     }
@@ -331,25 +296,6 @@ public class TileManager extends Application {
                 castleButton.setImageView(treeImage);
             }
         }
-    }
-
-
-    private void dropStone(int x, int y, int number) {
-        Stone stone = new Stone();
-        map.getObstacleMap()[x][y].add(stone);
-//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number + ".png").toExternalForm()));
-//        castleButton.setImageView(treeImage);
-        map.notBuildable[x][y] = true;
-    }
-
-    private void dropSea(int x, int y, int number) {
-        WaterSources waterSources = new WaterSources();
-        map.getObstacleMap()[x][y].add(waterSources);
-//        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-//        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number + ".jpg").toExternalForm()));
-//        castleButton.setImageView(treeImage);
-        map.notBuildable[x][y] = true;
     }
 
     private void createMapGame() throws IOException {
@@ -619,12 +565,12 @@ public class TileManager extends Application {
         int randomY = random.nextInt(limit, limit + 10);
         return randomY;
     }
-    ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
+//    ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
     public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
-    public ImageView seaImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
-
-    public ImageView stoneIMage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
+//    public ImageView seaImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
+//
+//    public ImageView stoneIMage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();

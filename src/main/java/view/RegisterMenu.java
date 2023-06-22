@@ -26,6 +26,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import controller.LoginController;
+import model.GroundType;
 import model.Map;
 import model.Obstacle.*;
 import view.ImageAndBackground.GameImages;
@@ -711,8 +712,6 @@ public class RegisterMenu extends Application {
         }
     }
     private static void buildMaps(){
-//        System.out.println(Map.allSavedMaps.size());
-        //ArrayList<SavedObstacles> savedObstaclesArrayList : Map.allSavedMaps
        int size  =  Map.allJsonMaps.size();
         System.out.println(size);
         for(int i = 0; i < size ; i ++){
@@ -720,6 +719,7 @@ public class RegisterMenu extends Application {
             Map map = new Map();
             map.CreateMap(Map.mapSize);
             for(SavedObstacles saveObject  : savedObstaclesArrayList){
+                boolean isGroundType = false ;
                 int x = saveObject.x ;
                 int y = saveObject.y ;
                 switch (saveObject.name) {
@@ -735,9 +735,36 @@ public class RegisterMenu extends Application {
                         Stone stone = new Stone();
                         map.getObstacleMap()[x][y].add(stone);
                         break;
+                    case "GROUND_TYPE" :
+                        isGroundType = true ;
+                        switch (saveObject.type){
+                            case "dash":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.DASH);
+                                break;
+                            case "grass":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.GRASS);
+                                break;
+                            case "gravel":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.GROUND_WITH_STONE);
+                                break;
+                            case "iron":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.IRON);
+                                break;
+                            case "plain":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.PLAIN);
+                                break;
+                        }
+                        break;
                 }
-                map.notBuildable[x][y] =  saveObject.notBuildable;
-                map.notPassable[x][y] =  saveObject.notPassable;
+                if(!isGroundType) {
+                    map.notBuildable[x][y] = saveObject.notBuildable;
+                    map.notPassable[x][y] = saveObject.notPassable;
+                }
             }
             Map.getSavedMaps().add(map);
         }

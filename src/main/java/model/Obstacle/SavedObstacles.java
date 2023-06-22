@@ -3,10 +3,15 @@ package model.Obstacle;
 public class SavedObstacles {
     public String name ;
     public String type ;
+//    public String groundType ;
     public boolean notBuildable ;
     public boolean notPassable ;
     public int x ;
     public int y ;
+
+//    public String getGroundType() {
+//        return groundType;
+//    }
 
     public String getName() {
         return name;

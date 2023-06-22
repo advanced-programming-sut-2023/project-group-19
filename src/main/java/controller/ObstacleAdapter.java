@@ -27,6 +27,8 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
         writer.value(savedObstacles.isNotBuildable());
         writer.name("notPassable");
         writer.value(savedObstacles.isNotPassable());
+//        writer.name("groundType");
+//        writer.value(savedObstacles.getGroundType());
         writer.name("x");
         writer.value(savedObstacles.getX());
         writer.name("y");
@@ -60,6 +62,11 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
                 token = reader.peek();
                 savedObstacles.type = reader.nextString();
             }
+//            if("groundType".equals(fieldname)) {
+//                //move to next token
+//                token = reader.peek();
+//                savedObstacles.groundType = reader.nextString();
+//            }
             if("notBuildable".equals(fieldname)) {
                 //move to next token
                 token = reader.peek();
