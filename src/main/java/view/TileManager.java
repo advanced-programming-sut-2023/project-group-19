@@ -600,6 +600,9 @@ public class TileManager extends Application {
                 button.setLayoutY(u * horizontalSize);
                 button.setMinSize(viewButtonSize, viewButtonSize);
                 pane.getChildren().add(button);
+                if(!button.getArmy().isEmpty()){
+                    System.out.println("x: " + u + " y: " + g);
+                }
                 if (button.isSickButton()) {
                     sickImage.setFitHeight(viewButtonSize);
                     sickImage.setFitWidth(viewButtonSize);
@@ -618,6 +621,7 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                 } else {
                     for (Army army : button.getArmy()) {
+                        System.out.println("x is: " + u + " and y is: " + g);
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
                         view.setFitHeight(viewButtonSize);
