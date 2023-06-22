@@ -203,6 +203,7 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
+                    playSoundEffect("shortCut.wav");
                     if (zoomSize != 3) {
                         zoomSize++;
                         if (zoomSize == 3) {
@@ -212,6 +213,7 @@ public class TileManager extends Application {
                         }
                     }
                 } else if (keyName.equals("Subtract")) {
+                    playSoundEffect("shortCut.wav");
                     if (zoomSize != 1) {
                         zoomSize--;
                         if (zoomSize == 2) {
@@ -221,18 +223,23 @@ public class TileManager extends Application {
                         }
                     }
                 } else if (keyName.equals("F6")) {
+                    playSoundEffect("shortCut.wav");
                     NextTurnController nextTurnController = new NextTurnController();
                     nextTurnController.tileManager = tileManager;
                     nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
                     nextTurnController.nextTurn();
                 } else if (keyName.equals("F1")) {
+                    playSoundEffect("shortCut.wav");
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
+                    playSoundEffect("shortCut.wav");
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
                     dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
+                    playSoundEffect("shortCut.wav");
                     designBoxOfMoveCommand();
                 } else if (keyName.equals("C")) {
+                    playSoundEffect("shortCut.wav");
                     content = new ClipboardContent();
                     if (selectedButton.getBuilding() != null) {
                         content.putString(selectedButton.getBuilding().getName());
@@ -241,9 +248,11 @@ public class TileManager extends Application {
                     }
                     javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
                 } else if (keyName.equals("P")) {
+                    playSoundEffect("shortCut.wav");
                     clipboardData = content.getString();
                     bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
                 } else if (keyName.equals("F5")) {
+                    playSoundEffect("shortCut.wav");
                     if (selectedButtons.size() != 0) {
                         int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
                         ArrayList<Double> averageDetails;
@@ -743,6 +752,7 @@ public class TileManager extends Application {
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
                     PointerInfo a = MouseInfo.getPointerInfo();
+                    playSoundEffect("clickOnBtn.mp3");
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                     drawIsOn = false;
@@ -816,6 +826,13 @@ public class TileManager extends Application {
         newButton.setOnMouseExited(event2);
         newButton.setOnMouseEntered(event3);
         newButton.setOnMouseClicked(event7);
+    }
+
+    private void playSoundEffect(String name) {
+        String defultSong  = RegisterMenu.class.getResource("/Music/" + name).toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer2.setAutoPlay(true);
     }
 
     public void selectedBuildingBottomGraphic(NewButton newButton) throws Exception {
