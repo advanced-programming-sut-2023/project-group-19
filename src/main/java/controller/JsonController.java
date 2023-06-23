@@ -98,3 +98,6 @@ public class JsonController {
 ////                .create();
 //        builder.setPrettyPrinting();
 //        Gson gson = builder.create();
+
+//obstacle : no
+//troop :

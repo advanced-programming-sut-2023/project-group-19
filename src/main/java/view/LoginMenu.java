@@ -15,11 +15,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Manage;
 import model.User;
 import view.ImageAndBackground.GameImages;
 import view.Messages.RegisterMessages;
 
 import java.io.CharArrayReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.Optional;
 
@@ -32,6 +37,8 @@ public class LoginMenu extends Application {
     public String captchaNumber;
     public TextField captchaAnswer = new TextField();
     public static Stage stage;
+
+    public static DataOutputStream dataOutputStream ;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -221,6 +228,8 @@ public class LoginMenu extends Application {
             alert.setHeaderText("Success!");
             alert.setContentText("Login successfully!");
             alert.showAndWait();
+            //connect user to masterServer
+            //
             MainMenu mainMenu = new MainMenu();
             mainMenu.start(stage);
         } else {

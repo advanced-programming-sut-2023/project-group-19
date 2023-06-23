@@ -2,12 +2,19 @@ package model;
 
 import model.Building.Building;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
     public static ArrayList<Building> burningEmpires = new ArrayList<>();
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
+
+    public static DataInputStream masterServerDataInputStream ;
+    public static DataOutputStream masterServerDataOutputStream ;
 
     static {
         namesOfAllPossibleBuildings.add("Armoury");
@@ -19,8 +26,6 @@ public class Manage {
         namesOfAllPossibleBuildings.add("DrawBridge");
         namesOfAllPossibleBuildings.add("AppleFarm");
         namesOfAllPossibleBuildings.add("DairyProduct");
-        namesOfAllPossibleBuildings.add("OatFarm");
-        namesOfAllPossibleBuildings.add("HuntingPost");
         namesOfAllPossibleBuildings.add("WheatFarm");
         namesOfAllPossibleBuildings.add("Bakery");
         namesOfAllPossibleBuildings.add("BeerFactory");
@@ -90,5 +95,10 @@ public class Manage {
             }
         }
         return null;
+    }
+    public static void connectUserToMasterServer() throws IOException {
+        Socket socket = new Socket("localhost", 8080);
+        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
     }
 }

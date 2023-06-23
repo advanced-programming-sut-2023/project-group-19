@@ -27,6 +27,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import controller.LoginController;
 import model.GroundType;
+import model.Manage;
 import model.Map;
 import model.Obstacle.*;
 import view.ImageAndBackground.GameImages;
@@ -101,8 +102,10 @@ public class RegisterMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        //connect user to master server
+        Manage.connectUserToMasterServer();
+        //
         RegisterMenu.stage = stage;
-
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
         Media media = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
