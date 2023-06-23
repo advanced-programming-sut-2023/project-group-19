@@ -1647,6 +1647,7 @@ public class GameController {
                 }
                 Map.getTroopMap()[passingArmy.getxCoordinate()][passingArmy.getyCoordinate()].add(passingArmy);
                 sequentialTransition.play();
+
             }
             if (flag) {
                 i--;
