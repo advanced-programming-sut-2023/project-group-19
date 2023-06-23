@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class BottomBarButtons {
+    public Map map ;
 
     public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
@@ -345,10 +346,10 @@ public class BottomBarButtons {
                     BottomBarBuildings.lastButton.setBuilding(null);
                     int x = BottomBarBuildings.lastButton.getX();
                     int y = BottomBarBuildings.lastButton.getY();
-                    if (Map.buildingMap[x][y].size() != 0)
-                        Map.buildingMap[x][y].remove(0);
-                    Map.notPassable[x][y] = false;
-                    Map.notBuildable[x][y] = false;
+                    if (map.buildingMap[x][y].size() != 0)
+                        map.buildingMap[x][y].remove(0);
+                    map.notPassable[x][y] = false;
+                    map.notBuildable[x][y] = false;
                     pane.getChildren().add(BottomBarBuildings.lastButton);
                 }
             }

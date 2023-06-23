@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.Building.Building;
 import model.Manage;
 import view.GameMenu;
@@ -15,6 +17,7 @@ import view.ImageAndBackground.BuildingImages;
 import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
+import view.RegisterMenu;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
@@ -148,6 +151,7 @@ public class DropUnitDesign {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                playSoundEffect("dropUnit.mp3");
                 pane.getChildren().remove(hBox);
                 for (int i = 0; i < spinners.size(); i++) {
                     gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
@@ -157,9 +161,15 @@ public class DropUnitDesign {
             }
 
         });
-
-
         pane.getChildren().add(hBox);
+    }
+    public MediaPlayer mediaPlayer ;
+    private void playSoundEffect(String name) {
+        String defultSong  = RegisterMenu.class.getResource("/Music/" + name).toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2;
+        mediaPlayer2.setAutoPlay(true);
     }
 
     private void makeTheDefaultViewOfDrop(ArrayList<Spinner<Integer>> spinners, ArrayList<ImageView> imageViews, HBox hBox) {

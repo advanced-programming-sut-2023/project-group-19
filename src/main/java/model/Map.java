@@ -3,26 +3,32 @@ package model;
 import model.Building.Building;
 import model.Human.Troop.Army;
 import model.Obstacle.Obstacle;
+import model.Obstacle.SavedObstacles;
 
 import java.util.ArrayList;
 
 public class Map {
+    private static ArrayList<Map> savedMaps = new ArrayList<>();
     public static int mapSize = 100;
+
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
     public static ArrayList<Obstacle>[][] obstacleMap;
 
-    public static ArrayList<GroundType>[][] groundType;
+    public ArrayList<GroundType>[][] groundType;
     public static boolean[][] notBuildable;
     public static boolean[][] notPassable;
     public static boolean[][] wallPassable;
     public static boolean[][] wall;
+    public static ArrayList<ArrayList<SavedObstacles>> allJsonMaps =  new ArrayList<>();
 
     public static ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
     }
 
-    public static void AddToBuildingMap(int x, int y, Building newBuilding) {
+    public ArrayList<SavedObstacles> savingObstacle = new ArrayList<>();
+
+    public void AddToBuildingMap(int x, int y, Building newBuilding) {
         buildingMap[x][y].add(newBuilding);
     }
 
@@ -33,8 +39,11 @@ public class Map {
     public static ArrayList<Army>[][] getTroopMap() {
         return troopMap;
     }
+    {
+        allJsonMaps.add(savingObstacle);
+    }
 
-    public static void CreateMap(int size) {
+    public void CreateMap(int size) {
         Map.mapSize = size;
         buildingMap = new ArrayList[size][size];
         for (int i = 0; i < size; i++) {
@@ -72,7 +81,12 @@ public class Map {
         wall = new boolean[size][size];
     }
 
-    public static ArrayList<GroundType>[][] getGroundType() {
+    public ArrayList<GroundType>[][] getGroundType() {
         return groundType;
     }
+
+    public static ArrayList<Map> getSavedMaps() {
+        return savedMaps;
+    }
+
 }

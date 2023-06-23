@@ -45,22 +45,18 @@ public class SlaveAnimation extends Transition {
                 case BACK :
                     if (v >= 0 && v < 0.5) army.getImageView().setImage(BACK1);
                     if (v >= 0.5) army.getImageView().setImage(BACK2);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
                 case LEFT:
                     if (v >= 0 && v < 0.5) army.getImageView().setImage(LEFT1);
                     if (v >= 0.5) army.getImageView().setImage(LEFT2);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
                 case RIGHT:
                     if (v >= 0 && v < 0.5) army.getImageView().setImage(RIGHT1);
                     if (v >= 0.5) army.getImageView().setImage(RIGHT2);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
                 case FRONT:
                     if (v >= 0 && v < 0.5) army.getImageView().setImage(FRONT1);
                     if (v >= 0.5) army.getImageView().setImage(FRONT2);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
             }
         }

@@ -1,0 +1,493 @@
+[
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 1,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 1,
+    "y": 3
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 1,
+    "y": 4
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 2,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 2,
+    "y": 3
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 2,
+    "y": 4
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 3,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 3,
+    "y": 3
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "iron",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 3,
+    "y": 4
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 2
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 2
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 2
+  }
+]
+[
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "y": 6
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "y": 7
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 6
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "y": 7
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 6
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "y": 7
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 6
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 4,
+    "y": 7
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 5
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 6
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 5,
+    "y": 7
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 6,
+    "y": 1
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 6,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 6,
+    "y": 3
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 7,
+    "y": 1
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 7,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 7,
+    "y": 3
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 8,
+    "y": 1
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 8,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 8,
+    "y": 3
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 9,
+    "y": 1
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 9,
+    "y": 2
+  },
+  {
+    "name": "GROUND_TYPE",
+    "type": "dash",
+    "notBuildable": false,
+    "notPassable": false,
+    "x": 9,
+    "y": 3
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 1,
+    "y": 2
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 1
+  },
+  {
+    "name": "TREE",
+    "type": "",
+    "notBuildable": true,
+    "notPassable": false,
+    "x": 2,
+    "y": 2
+  }
+]
+[]

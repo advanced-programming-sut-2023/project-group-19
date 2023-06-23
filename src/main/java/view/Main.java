@@ -28,13 +28,13 @@ public class Main extends Application {
         Ali.setUser(newUser);
         Dorsa.setUser(newUser1);
         Manage.setCurrentEmpire(Ali);
-        Map.CreateMap(200);
+//        Map.CreateMap(200);
         Map.mapSize = 200;
         Manage.getAllEmpires().add(Dorsa);
         Manage.getAllEmpires().add(Ali);
         Shop shop = new Shop(Ali);
         ShopMenu.currentShop = shop;
-        Map.getBuildingMap()[1][2].add(shop);
+//        map.getBuildingMap()[1][2].add(shop);
         launch(args);
 //        LoginMenu.run(new Scanner(System.in));
     }

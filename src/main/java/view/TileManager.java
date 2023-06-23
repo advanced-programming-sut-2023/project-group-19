@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +21,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -50,10 +53,15 @@ import view.OldView.SelectedBuildingMenu;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
 import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class TileManager extends Application {
+    //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
+    //TODO : fix the stages fullscreen after exiting from shop menu
+    //TODO : fix the music of the game fo creating troops
+    //TODO :fix the drop building logic of stockpiles
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -102,6 +110,7 @@ public class TileManager extends Application {
     public int zoomSize = 1;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
+    public Map map ;
     private boolean drawIsOn;
     public TileManager tileManager;
     private boolean moveIsOn;
@@ -114,6 +123,12 @@ public class TileManager extends Application {
         viewButtonSize = 50;
         verticalButtons = 30;
         horizontalButtons = 16;
+    }
+    private void stopAllMusic(){
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
     }
 
     public void zoom2() {
@@ -131,25 +146,24 @@ public class TileManager extends Application {
         verticalButtons = 22;
         horizontalButtons = 12;
     }
+    public MediaPlayer mediaPlayer ;
+    private void playLoginMusic(){
+        stopAllMusic();
+        String defultSong  = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("enter tile manager");
-        this.stage = stage;
-        tileManager = new TileManager();
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
-        Map.CreateMap(100);
-        Empire empire = new Empire();
-        Empire empire2 = new Empire();
-        empire.setUser(newUser);
-        empire2.setUser(newUser1);
-        Manage.setCurrentEmpire(empire);
-        Manage.allEmpires.add(empire);
-        Manage.allEmpires.add(empire2);
-        BuildingController.currentEmpire = empire;
+        playLoginMusic();
+        new CreateMapMenu();
+        map = CreateMapMenu.finalMap ;
+        tileManager = this ;
         createButtonsArraylist();
-
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
                 NewButton newButton = new NewButton(j, i);
@@ -171,42 +185,7 @@ public class TileManager extends Application {
         gameImages.loadImages();
         unitImages = new UnitImages();
         unitImages.loadImages();
-        ArchersAndThrowers archersAndThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
-        NewButton newButton = (NewButton) list.get(2 * 100 + 1);
         createMapGame();
-        AttackArmyToArmyController attackArmyToArmyController = new AttackArmyToArmyController(this);
-        attackArmyToArmyController.battleWithEnemy();
-
-        SequentialTransition sequentialTransitionSwordMan = new SequentialTransition(attackArmyToArmyController.swordManAnimation, attackArmyToArmyController.swordManDeadAnimation);
-        sequentialTransitionSwordMan.play();
-
-        SequentialTransition sequentialTransitionSlave = new SequentialTransition(attackArmyToArmyController.slaveAnimation, attackArmyToArmyController.deadSlaveAnimation);
-        sequentialTransitionSlave.play();
-
-        SequentialTransition sequentialTransitionAssasin = new SequentialTransition(attackArmyToArmyController.asssasinAnimation, attackArmyToArmyController.deadAssasinAnimation);
-        sequentialTransitionAssasin.play();
-
-        SequentialTransition sequentialTransitionMaceMan = new SequentialTransition(attackArmyToArmyController.maceManAnimation, attackArmyToArmyController.deadMaceManAnimation);
-        sequentialTransitionMaceMan.play();
-
-        SequentialTransition sequentialTransitionMonk = new SequentialTransition(attackArmyToArmyController.monkAnimation, attackArmyToArmyController.deadMonkAnimation);
-        sequentialTransitionMonk.play();
-
-        SequentialTransition sequentialTransitionShortBow = new SequentialTransition(attackArmyToArmyController.shortBowAnimation, attackArmyToArmyController.deadShortBowAnimation);
-        sequentialTransitionShortBow.play();
-
-        SequentialTransition sequentialTransitionSlinger = new SequentialTransition(attackArmyToArmyController.slingerAnimation, attackArmyToArmyController.deadSlingerAnimation);
-        sequentialTransitionSlinger.play();
-
-        SequentialTransition sequentialTransitionArcher = new SequentialTransition(attackArmyToArmyController.archerAnimation, attackArmyToArmyController.deadArcherAnimation);
-        sequentialTransitionArcher.play();
-
-        SequentialTransition sequentialTransitionHorseRider = new SequentialTransition(attackArmyToArmyController.horseRiderAnimation, attackArmyToArmyController.deadHorseRiderAnimation);
-        sequentialTransitionHorseRider.play();
-
-        SequentialTransition sequentialTransitiongrendiar = new SequentialTransition(attackArmyToArmyController.grendiarAnimation, attackArmyToArmyController.deadGrendiarAnimation);
-        sequentialTransitiongrendiar.play();
-
         pane.requestFocus();
         pane.setFocusTraversable(false);
 
@@ -219,6 +198,7 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
+                    playSoundEffect("shortCut.wav");
                     if (zoomSize != 3) {
                         zoomSize++;
                         if (zoomSize == 3) {
@@ -228,6 +208,7 @@ public class TileManager extends Application {
                         }
                     }
                 } else if (keyName.equals("Subtract")) {
+                    playSoundEffect("shortCut.wav");
                     if (zoomSize != 1) {
                         zoomSize--;
                         if (zoomSize == 2) {
@@ -236,18 +217,24 @@ public class TileManager extends Application {
                             zoom1();
                         }
                     }
-                } else if (keyName.equals("Enter")) {
+                } else if (keyName.equals("F6")) {
+                    playSoundEffect("shortCut.wav");
                     NextTurnController nextTurnController = new NextTurnController();
                     nextTurnController.tileManager = tileManager;
+                    nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
                     nextTurnController.nextTurn();
                 } else if (keyName.equals("F1")) {
+                    playSoundEffect("shortCut.wav");
                     removeColorOfSelectedButtons();
                 } else if (keyName.equals("F3")) {
+                    playSoundEffect("shortCut.wav");
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
                     dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
+                    playSoundEffect("shortCut.wav");
                     designBoxOfMoveCommand();
                 } else if (keyName.equals("C")) {
+                    playSoundEffect("shortCut.wav");
                     content = new ClipboardContent();
                     if (selectedButton.getBuilding() != null) {
                         content.putString(selectedButton.getBuilding().getName());
@@ -256,9 +243,11 @@ public class TileManager extends Application {
                     }
                     javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
                 } else if (keyName.equals("P")) {
+                    playSoundEffect("shortCut.wav");
                     clipboardData = content.getString();
                     bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
                 } else if (keyName.equals("F5")) {
+                    playSoundEffect("shortCut.wav");
                     if (selectedButtons.size() != 0) {
                         int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
                         ArrayList<Double> averageDetails;
@@ -280,53 +269,110 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-
-    private void dropTree(int x, int y, int number) {
-        Tree tree = new Tree();
-        Map.getObstacleMap()[x][y].add(tree);
-        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + number + ".png").toExternalForm()));
-        castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true;
+    
+    private void treesOfMap(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Tree)) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
+                castleButton.setImageView(treeImage);
+            }
+        }
+    }
+    private void stonesOfMap(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Stone)) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
+                castleButton.setImageView(treeImage);
+            }
+        }
+    }
+    private void waterOfMap(){
+        for(int i = 0 ; i < Map.mapSize ; i ++){
+            for(int j = 0 ; j < Map.mapSize ; j ++){
+                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof WaterSources)) continue;
+                NewButton castleButton = (NewButton) list.get(i * 100 + j);
+                ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
+                castleButton.setImageView(treeImage);
+            }
+        }
     }
 
-    private void dropStone(int x, int y, int number) {
-        Stone stone = new Stone();
-        Map.getObstacleMap()[x][y].add(stone);
-        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + number + ".png").toExternalForm()));
-        castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true;
-    }
+    private void createMapGame() throws IOException {
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
 
-    private void dropSea(int x, int y, int number) {
-        WaterSources waterSources = new WaterSources();
-        Map.getObstacleMap()[x][y].add(waterSources);
-        NewButton castleButton = (NewButton) list.get(x * 100 + y);
-        ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + number + ".jpg").toExternalForm()));
-        castleButton.setImageView(treeImage);
-        Map.notBuildable[x][y] = true;
-    }
+        if(!map.getObstacleMap()[5][22].isEmpty()) {
+            map.getObstacleMap()[5][22].set(0, null);
+        }
+        if(!map.getObstacleMap()[9][3].isEmpty()){
+            map.getObstacleMap()[9][3].set(0, null);
+        }
 
-    private void createMapGame() {
         BuildingController buildingController = new BuildingController();
         Empire sallahDin = new Empire();
+        sallahDin.setUser(newUser);
         Castle castleSallah = new Castle(sallahDin);
+        castleSallah.castle();
+
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
-        dropStockFunction(5, 22, sallahDin);
+        Manage.setCurrentEmpire(sallahDin);
+        System.out.println("enter tile manager");
+
+//        this.stage = stage;
+//        tileManager = new TileManager();
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
+//        Map.CreateMap(100);
+//        Empire empire = new Empire();
+//        Empire empire2 = new Empire();
+//        empire.setUser(newUser);
+//        empire2.setUser(newUser1);
+//        Manage.setCurrentEmpire(empire);
+//        Manage.allEmpires.add(empire);
+//        Manage.allEmpires.add(empire2);
+//        BuildingController.currentEmpire = empire;
+
+
+
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
+
+
+
         Empire richard = new Empire();
+        richard.setUser(newUser1);
         Castle castleRichard = new Castle(richard);
+        castleRichard.castle();
+
+        Manage.allEmpires.add(richard);
+        Manage.allEmpires.add(sallahDin);
+        Manage.setCurrentEmpire(sallahDin);
+        BuildingController.currentEmpire = Manage.getCurrentEmpire();
+
+        buildingController.dropBuilding(5, 22, "Castle");
+        dropStockFunction(5, 22, sallahDin);
+
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
+        Manage.setCurrentEmpire(richard);
         buildingController.dropBuilding(9, 3, "Castle");
         castleButton.setBuilding(castleRichard);
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
+        castleButton.setImageView(castleImage2);
         dropStockFunction(9, 3, richard);
-        artOfTree();
-
+        Manage.setCurrentEmpire(sallahDin);
+        BuildingController.currentEmpire = sallahDin;
+        Manage.getAllEmpires().add(sallahDin);
+        Manage.getAllEmpires().add(richard);
+//        artOfTree();
+        treesOfMap();
+        stonesOfMap();
+        waterOfMap();
     }
 
     private void dropStockFunction(int x, int y, Empire empire) {
@@ -335,11 +381,9 @@ public class TileManager extends Application {
         ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
         NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
         foodRecourceBtn.setImageView(foodRecource);
-
         ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
         NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
         sourceStock.setImageView(stockPile);
-
     }
 
 
@@ -410,9 +454,9 @@ public class TileManager extends Application {
 
     private void dropWater(int x, int y) {
         WaterSources waterSources = new WaterSources();
-        Map.getObstacleMap()[x][y].add(waterSources);
-        Map.notBuildable[x][y] = true;
-        Map.notPassable[x][y] = true;
+        map.getObstacleMap()[x][y].add(waterSources);
+        map.notBuildable[x][y] = true;
+        map.notPassable[x][y] = true;
         ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/images/water.png").toExternalForm()));
     }
 
@@ -553,12 +597,16 @@ public class TileManager extends Application {
         createButtonsArraylist();
         for (int u = 0; u < horizontalButtons; u++) {
             for (int g = 0; g < verticalButtons; g++) {
+                bottomBarImages.getBckGroundImage(map.getGroundType()[u + moveX][g + moveY].get(0).getGroundType());
                 ((NewButton) list.get((u + moveX) * 100 + (g + moveY))).setBackground(bottomBarImages.getBackground());
                 NewButton button = (NewButton) list.get((u + moveX) * 100 + (g + moveY));
                 button.setLayoutX(g * verticalSize);
                 button.setLayoutY(u * horizontalSize);
                 button.setMinSize(viewButtonSize, viewButtonSize);
                 pane.getChildren().add(button);
+                if(!button.getArmy().isEmpty()){
+                    System.out.println("x: " + u + " y: " + g);
+                }
                 if (button.isSickButton()) {
                     sickImage.setFitHeight(viewButtonSize);
                     sickImage.setFitWidth(viewButtonSize);
@@ -567,8 +615,9 @@ public class TileManager extends Application {
                 if (button.getImageView() != null) {
                     ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
-                        view = fireImage;
-                    } else {
+                        view = fireImage ;
+                    }
+                    else {
                         view = button.getImageView();
                     }
                     view.setFitHeight(viewButtonSize);
@@ -576,6 +625,7 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                 } else {
                     for (Army army : button.getArmy()) {
+                        System.out.println("x is: " + u + " and y is: " + g);
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
                         view.setFitHeight(viewButtonSize);
@@ -630,8 +680,8 @@ public class TileManager extends Application {
         for (NewButton selectedButton : selectedButtons) {
             int x = selectedButton.getX();
             int y = selectedButton.getY();
-            if (Map.getTroopMap()[x][y].size() != 0) {
-                for (Army army : Map.getTroopMap()[x][y]) {
+            if (map.getTroopMap()[x][y].size() != 0) {
+                for (Army army : map.getTroopMap()[x][y]) {
                     if (army.getOwner().equals(Manage.getCurrentEmpire())) {
                         numberOfMySoldiers++;
                     }
@@ -680,7 +730,7 @@ public class TileManager extends Application {
                 int y = (int) b.getY() - 110;
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + Map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
+                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
                 for (int i = 0; i < cellArmyNameType.size(); i++) {
                     stringBuilder.append(cellArmyNameType.get(i) + " ");
                 }
@@ -718,6 +768,7 @@ public class TileManager extends Application {
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
                     PointerInfo a = MouseInfo.getPointerInfo();
+                    playSoundEffect("clickOnBtn.mp3");
                     secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
                     drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
                     drawIsOn = false;
@@ -758,10 +809,10 @@ public class TileManager extends Application {
                     newButton.setBuilding(null);
                     int x = newButton.getX();
                     int y = newButton.getY();
-                    if (Map.buildingMap[x][y].size() != 0)
-                        Map.buildingMap[x][y].remove(0);
-                    Map.notPassable[x][y] = false;
-                    Map.notBuildable[x][y] = false;
+                    if (map.buildingMap[x][y].size() != 0)
+                        map.buildingMap[x][y].remove(0);
+                    map.notPassable[x][y] = false;
+                    map.notBuildable[x][y] = false;
                     pane.getChildren().add(newButton);
                 } else {
                     selectedButton = newButton;
@@ -791,6 +842,13 @@ public class TileManager extends Application {
         newButton.setOnMouseExited(event2);
         newButton.setOnMouseEntered(event3);
         newButton.setOnMouseClicked(event7);
+    }
+
+    private void playSoundEffect(String name) {
+        String defultSong  = RegisterMenu.class.getResource("/Music/" + name).toString();
+        Media media = new Media(defultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer2.setAutoPlay(true);
     }
 
     public void selectedBuildingBottomGraphic(NewButton newButton) throws Exception {
@@ -872,86 +930,6 @@ public class TileManager extends Application {
         error.show();
     }
 
-    private void dropTreeToLocation(int x, int y1, int y2, int number) {
-        for (int i = y1; i <= y2; i++) {
-            dropTree(x, i, number);
-        }
-    }
-
-    private void dropSeaoLocation(int x, int y1, int y2, int number) {
-        for (int i = y1; i <= y2; i++) {
-            dropSea(x, i, number);
-        }
-    }
-
-    private void dropStoneLocation(int x, int y1, int y2, int number) {
-        for (int i = y1; i <= y2; i++) {
-            dropStone(x, i, number);
-        }
-    }
-
-    private void artOfTree() {
-        dropTreeToLocation(0, 0, 12, 5);
-        dropTreeToLocation(0, 3, 8, 1);
-        dropTreeToLocation(1, 0, 10, 5);
-        dropTreeToLocation(2, 1, 8, 5);
-        dropTreeToLocation(2, 0, 4, 1);
-        dropTreeToLocation(3, 6, 7, 2);
-        dropTreeToLocation(4, 0, 1, 2);
-        dropTreeToLocation(4, 3, 4, 2);
-        dropTreeToLocation(4, 6, 6, 1);
-        dropStoneLocation(3, 8, 8, 8);
-        dropStoneLocation(4, 7, 7, 8);
-        dropSea(3, 2, 1);
-        dropSea(3, 5, 1);
-        dropSea(4, 2, 1);
-        dropSea(4, 5, 1);
-        dropSea(3, 1, 1);
-        dropSea(4, 5, 1);
-        dropSea(3, 1, 1);
-        dropSea(3, 4, 1);
-        dropSea(3, 3, 1);
-        dropTree(3, 0, 2);
-        dropTree(4, 0, 2);
-        dropTree(2, 0, 2);
-        dropTreeToLocation(5, 0, 6, 5);
-        dropTreeToLocation(6, 1, 3, 5);
-        dropTreeToLocation(7, 0, 2, 5);
-        dropStoneLocation(0, 13, 17, 8);
-        dropStoneLocation(1, 18, 19, 6);
-        dropStoneLocation(2, 9, 9, 6);
-        dropStoneLocation(5, 7, 7, 8);
-        dropStoneLocation(6, 4, 5, 8);
-        dropStoneLocation(7, 3, 4, 8);
-        dropTreeToLocation(8, 0, 2, 1);
-        dropTreeToLocation(9, 1, 2, 5);
-        dropTreeToLocation(10, 0, 1, 1);
-        dropSeaoLocation(11, 0, 3, 1);
-        dropStoneLocation(11, 4, 4, 6);
-        dropStoneLocation(12, 0, 5, 3);
-        dropTreeToLocation(0, 18, 29, 1);
-        dropTreeToLocation(1, 20, 29, 1);
-        dropTreeToLocation(1, 22, 26, 5);
-        dropTreeToLocation(2, 19, 29, 1);
-        dropTreeToLocation(2, 21, 25, 5);
-        dropSeaoLocation(3, 27, 29, 1);
-        dropSeaoLocation(5, 24, 25, 1);
-        dropSeaoLocation(4, 27, 29, 1);
-        dropSeaoLocation(5, 27, 29, 1);
-        dropTreeToLocation(3, 21, 26, 1);
-        dropTreeToLocation(4, 23, 26, 5);
-        dropTree(5, 26, 1);
-        dropTreeToLocation(6, 23, 26, 5);
-        dropTreeToLocation(7, 21, 29, 1);
-        dropTreeToLocation(8, 27, 29, 5);
-        dropStoneLocation(9, 21, 28, 3);
-        dropStoneLocation(10, 19, 21, 1);
-        dropStoneLocation(11, 18, 20, 2);
-        dropTreeToLocation(10, 22, 29, 5);
-        dropTreeToLocation(11, 21, 29, 5);
-    }
-
-
     public void createMinimap(Pane pane) {
         for (int i = 0; i < horizontalButtons; i++) {
             for (int j = 0; j < verticalButtons; j++) {
@@ -960,17 +938,17 @@ public class TileManager extends Application {
                 test.setBackground(null);
                 int x = button.getX();
                 int y = button.getY();
-                if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Tree) {
+                if (map.obstacleMap[x][y].size() != 0 && map.obstacleMap[x][y].get(0) instanceof Tree) {
                     test.setStyle("-fx-background-color: #33ce12;");
-                } else if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof WaterSources) {
+                } else if (map.obstacleMap[x][y].size() != 0 && map.obstacleMap[x][y].get(0) instanceof WaterSources) {
                     test.setStyle("-fx-background-color: #091a5b;");
-                } else if (Map.obstacleMap[x][y].size() != 0 && Map.obstacleMap[x][y].get(0) instanceof Stone) {
+                } else if (map.obstacleMap[x][y].size() != 0 && map.obstacleMap[x][y].get(0) instanceof Stone) {
                     test.setStyle("-fx-background-color: #353333;");
-                } else if (Map.buildingMap[x][y].size() != 0 && Map.buildingMap[x][y].get(0).getName().equals("Castle")) {
+                } else if (map.buildingMap[x][y].size() != 0 && map.buildingMap[x][y].get(0).getName().equals("Castle")) {
                     test.setStyle("-fx-background-color: #ff4a00;");
-                } else if (Map.buildingMap[x][y].size() != 0) {
+                } else if (map.buildingMap[x][y].size() != 0) {
                     test.setStyle("-fx-background-color: #4d2e0a;");
-                } else if (Map.troopMap[x][y].size() != 0 && Map.troopMap[x][y].size() != 0) {
+                } else if (map.troopMap[x][y].size() != 0 && map.troopMap[x][y].size() != 0) {
                     test.setStyle("-fx-background-color: #a00101;");
                 } else {
                     test.setStyle("-fx-background-color: rgba(102,255,199,0.3);");

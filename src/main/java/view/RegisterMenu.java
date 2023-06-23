@@ -1,15 +1,12 @@
 package view;
 
+import controller.JsonController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,26 +20,31 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
 import javafx.scene.media.Media;
 import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import controller.LoginController;
-import model.Empire;
-import model.Manage;
+import model.GroundType;
+import model.Map;
+import model.Obstacle.*;
 import view.ImageAndBackground.GameImages;
 import javafx.util.Duration;
 import view.Messages.RegisterMessages;
 
-import java.awt.*;
-import java.io.File;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class RegisterMenu extends Application {
+    static {
+        try {
+            getAllMaps();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        buildMaps();
+    }
     public static Stage stage;
     public TextField email = new TextField();
 
@@ -90,10 +92,12 @@ public class RegisterMenu extends Application {
     private Label headerLabel = new Label();
     public ToggleGroup toggleGroup = new ToggleGroup();
     public String captchaNumber;
+    public static MediaPlayer mediaPlayer ;
 
     public static void main(String[] args) {
         launch();
     }
+    public static int num = 1 ;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -103,16 +107,14 @@ public class RegisterMenu extends Application {
         Media media = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
-        mediaPlayer.setAutoPlay(true);
+        if(num == 1)mediaPlayer.setAutoPlay(true);
         mediaView.setFitWidth(1550);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
             pane.getChildren().remove(mediaView);
             playLoginMusic();
         }));
         timeline.play();
-
-
-        URL url = RegisterMenu.class.getResource("/fxml/registerMenu.fxml");
+//Nn3Ee0Oo4#
         RegisterMenu.stage = stage;
         Pane pane = new Pane();
         GameImages gameImages = new GameImages();
@@ -123,19 +125,28 @@ public class RegisterMenu extends Application {
         Scene scene = new Scene(pane);
         Image image = new Image(RegisterMenu.class.getResource("/sowrd.png").toExternalForm());
         scene.setCursor(new ImageCursor(image));
-        pane.getChildren().add(mediaView);
+       if(num == 1) {
+           pane.getChildren().add(mediaView);
+           num = 0 ;
+       }
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
-
     }
-
-    private void playLoginMusic() {
-        String defultSong = getClass().getResource("/Music/register.mp3").toString();
+    private void stopAllMusic(){
+        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+    }
+    private void playLoginMusic(){
+        stopAllMusic();
+        String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
         Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//        mediaPlayer.setCycleCount(-1);
-        mediaPlayer.setAutoPlay(true);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
     }
 
     private void designRegisterMenu() {
@@ -685,4 +696,77 @@ public class RegisterMenu extends Application {
         loginMenu.start(stage);
     }
 
+    private static void getAllMaps() throws IOException {
+        JsonController.readDataFile("map.json");
+        String text = JsonController.content ;
+        if(text == null) return;
+        Map.allJsonMaps.clear();
+        String[] arrays = text.split("\\[");
+        int counter = 0  ;
+        for(String array : arrays){
+            counter  ++ ;
+            if(counter  == 1) continue;
+            JsonController.content = "[" + array ;
+            ArrayList<SavedObstacles> mapSaved = JsonController.getSavedObstacle();
+            Map.allJsonMaps.add(mapSaved);
+        }
+    }
+    private static void buildMaps(){
+       int size  =  Map.allJsonMaps.size();
+        System.out.println(size);
+        for(int i = 0; i < size ; i ++){
+            ArrayList<SavedObstacles> savedObstaclesArrayList = Map.allJsonMaps.get(i);
+            Map map = new Map();
+            map.CreateMap(Map.mapSize);
+            for(SavedObstacles saveObject  : savedObstaclesArrayList){
+                boolean isGroundType = false ;
+                int x = saveObject.x ;
+                int y = saveObject.y ;
+                switch (saveObject.name) {
+                    case "TREE":
+                        Tree tree = new Tree();
+                        map.getObstacleMap()[x][y].add(tree);
+                        break;
+                    case "SEA":
+                        WaterSources waterSources = new WaterSources();
+                        map.getObstacleMap()[x][y].add(waterSources);
+                        break;
+                    case "STONE":
+                        Stone stone = new Stone();
+                        map.getObstacleMap()[x][y].add(stone);
+                        break;
+                    case "GROUND_TYPE" :
+                        isGroundType = true ;
+                        switch (saveObject.type){
+                            case "dash":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.DASH);
+                                break;
+                            case "grass":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.GRASS);
+                                break;
+                            case "gravel":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.GROUND_WITH_STONE);
+                                break;
+                            case "iron":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.IRON);
+                                break;
+                            case "plain":
+                                map.getGroundType()[x][y].clear();
+                                map.getGroundType()[x][y].add(GroundType.PLAIN);
+                                break;
+                        }
+                        break;
+                }
+                if(!isGroundType) {
+                    map.notBuildable[x][y] = saveObject.notBuildable;
+                    map.notPassable[x][y] = saveObject.notPassable;
+                }
+            }
+            Map.getSavedMaps().add(map);
+        }
+    }
 }

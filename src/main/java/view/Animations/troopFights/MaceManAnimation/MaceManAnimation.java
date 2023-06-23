@@ -55,24 +55,20 @@ public class MaceManAnimation extends Transition {
                     if (v >= 0.25 && v < 0.5) army.getImageView().setImage(BACK2);
                     if (v >= 0.5 && v < 0.75) army.getImageView().setImage(BACK3);
                     if (v >= 0.75) army.getImageView().setImage(BACK4);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
                 case LEFT:
                     if (v >= 0 && v < 0.5) army.getImageView().setImage(LEFT1);
                     if (v >= 0.5) army.getImageView().setImage(LEFT2);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
                 case RIGHT:
                     if (v >= 0 && v < 0.5) army.getImageView().setImage(RIGHT1);
                     if (v >= 0.5) army.getImageView().setImage(RIGHT2);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
                 case FRONT:
                     if (v >= 0 && v < 0.25) army.getImageView().setImage(FRONT1);
                     if (v >= 0.25 && v < 0.5) army.getImageView().setImage(FRONT2);
                     if (v >= 0.5 && v < 0.75) army.getImageView().setImage(FRONT3);
                     if (v >= 0.75) army.getImageView().setImage(FRONT4);
-                    if(v == 1) army.getImageView().setImage(army.getDefaultImage());
                     break;
             }
         }

@@ -37,7 +37,7 @@
 <!--    <Label text="Fill register form" fx:id="label" translateX="700" translateY="170"/>-->
 <!--    <VBox alignment="CENTER" spacing="30" translateX="700" translateY="240">-->
 <!--        <TextField fx:id="username"  promptText="Username"/>-->
-<!--        <TextField fx:id="email"  promptText="Email"/>-->
+<!--        <TextField fx:id="email"  ="Email"/>-->
 <!--        <TextField fx:id="nickname" promptText="Nickname"/>-->
 <!--        <TextField fx:id="slogan"  promptText="slogan"/>-->
 <!--        <HBox spacing="20">-->

@@ -1602,7 +1602,6 @@ public class GameController {
 //        }
 //    }
     public void moveUnit(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
-
         boolean flag = false;
         List<Integer> path = null;
         setPathForUnits(xOfDestination, yOfDestination);
@@ -1633,21 +1632,15 @@ public class GameController {
                         previousButton.setImageView(null);
                         pane.getChildren().add(previousButton);
                         previousButton = newButton;
-
-
                         MoveAnimation moveAnimation = new MoveAnimation(passingArmy,goalX, goalY, pane, newButton, current, j);
-
                         sequentialTransition.getChildren().add(moveAnimation);
-
                         Map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].remove(passingArmy);
-
                     } else {
                         break;
                     }
                 }
                 Map.getTroopMap()[passingArmy.getxCoordinate()][passingArmy.getyCoordinate()].add(passingArmy);
                 sequentialTransition.play();
-
             }
             if (flag) {
                 i--;
