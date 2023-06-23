@@ -62,11 +62,6 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
                 token = reader.peek();
                 savedObstacles.type = reader.nextString();
             }
-//            if("groundType".equals(fieldname)) {
-//                //move to next token
-//                token = reader.peek();
-//                savedObstacles.groundType = reader.nextString();
-//            }
             if("notBuildable".equals(fieldname)) {
                 //move to next token
                 token = reader.peek();

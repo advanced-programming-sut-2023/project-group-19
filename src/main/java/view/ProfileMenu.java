@@ -246,7 +246,7 @@ public class ProfileMenu extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                    ChooseFileFromSystem(mouseEvent);
+//                    ChooseFileFromSystem(mouseEvent);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -553,21 +553,21 @@ public class ProfileMenu extends Application {
         }
     }
 
-    public void ChooseFileFromSystem(MouseEvent mouseEvent) {
-        final String[] text = new String[1];
-        FileChooser fil_chooser = new FileChooser();
-        File file = fil_chooser.showOpenDialog(stage);
-
-        if (file != null) {
-            text[0] = file.getAbsolutePath();
-            System.out.println(text[0]);
-            Image image = new Image(text[0]);
-            ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            User.getCurrentUser().setAvatar(imageView);
-            setAvatarImage();
-        }
-    }
+//    public void ChooseFileFromSystem(MouseEvent mouseEvent) {
+//        final String[] text = new String[1];
+//        FileChooser fil_chooser = new FileChooser();
+//        File file = fil_chooser.showOpenDialog(stage);
+//
+//        if (file != null) {
+//            text[0] = file.getAbsolutePath();
+//            System.out.println(text[0]);
+//            Image image = new Image(text[0]);
+//            ImageView imageView = new ImageView();
+//            imageView.setImage(image);
+//            User.getCurrentUser().setAvatar(imageView);
+//            setAvatarImage();
+//        }
+//    }
 
     public void hideShowSelectImage(MouseEvent mouseEvent) {
         vBoxOfSelectImage.setVisible(!vBoxOfSelectImage.isVisible());

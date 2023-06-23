@@ -1,10 +1,12 @@
 package controller;
 
+import com.google.gson.Gson;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.*;
 
 import model.User;
+import model.packets.UserPacket;
 import view.Messages.RegisterMessages;
 
 import java.io.IOException;
@@ -88,7 +90,15 @@ public class LoginController {
 
     public static void register(String username, String password, String nickname, String email, String answeroFSecQuestion
             , String slogan, String numberOfSecQuesion) throws IOException {
-        new User(username, password, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
+       User user =  new User(username, password, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
+       String userInformation = user.toJson();
+       Manage.masterServerDataOutputStream.writeUTF(userInformation);
+        System.out.println(Manage.masterServerDataInputStream.readUTF());
+        System.out.println("---i am in the register function---");
+    }
+    private void makeUserJson(){
+        UserPacket userPacket = new UserPacket();
+
     }
 
     public static RegisterMessages checkSecurityAsks(int number, String answer, String confirmAnswer) {

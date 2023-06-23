@@ -1,7 +1,12 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import controller.JsonController;
+import controller.ObstacleAdapter;
+import controller.UserAdaptor;
 import javafx.scene.image.Image;
+import model.Obstacle.SavedObstacles;
 import view.ProfileMenu;
 
 
@@ -27,6 +32,9 @@ public class User implements Comparable<User> {
     }
 
     public static ArrayList<User> loginUsers = new ArrayList<>();
+    public User(){
+
+    }
 
     static {
         randomSlogans.add("I march to death...Though I wish it was my own...");
@@ -48,18 +56,18 @@ public class User implements Comparable<User> {
     }
 
     private static User currentUser;
-    private String username;
-    private String password;
-    private String nickname;
-    private String email;
-    private String recoveryQuestion;
-    private String slogan;
-    private int recoveryQuestionNumber;
-    private int highScore;
+    public String username;
+    public String password;
+    public String nickname;
+    public String email;
+    public String recoveryQuestion;
+    public String slogan;
+    public int recoveryQuestionNumber;
+    public int highScore;
     public static ArrayList<User> users = new ArrayList<>();
-    private int rank;
+    public int rank;
 
-    private ImageView avatar = new ImageView();
+    public ImageView avatar = new ImageView();
     {
         Image image = new Image(User.class.getResource("/avatars/5.png").toExternalForm());
         avatar.setImage(image);
@@ -177,5 +185,24 @@ public class User implements Comparable<User> {
     }
     public void setAvatar(ImageView avatar){
         this.avatar = avatar ;
+    }
+    public String toJson(){
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String s = gson.toJson(this);
+        return s ;
+    }
+    public void setRecoveryQuestion(String recoveryQuestion) {
+        this.recoveryQuestion = recoveryQuestion;
+    }
+
+    public void setRecoveryQuestionNumber(int recoveryQuestionNumber) {
+        this.recoveryQuestionNumber = recoveryQuestionNumber;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }
