@@ -5,6 +5,7 @@ import model.Building.Building;
 import java.util.ArrayList;
 
 public class Manage {
+    public static ArrayList<Game> allGames = new ArrayList<>();
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
     public static ArrayList<Building> burningEmpires = new ArrayList<>();
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
@@ -87,6 +88,14 @@ public class Manage {
         for (Empire empire : allEmpires) {
             if (empire.getName().equals(nickname)) {
                 return empire;
+            }
+        }
+        return null;
+    }
+    public static Game findGameById(String gameId){
+        for (Game game : allGames) {
+            if (game.getId().equals(gameId)){
+                return game;
             }
         }
         return null;

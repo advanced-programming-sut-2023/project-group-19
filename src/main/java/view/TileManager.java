@@ -625,7 +625,6 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                 } else {
                     for (Army army : button.getArmy()) {
-                        System.out.println("x is: " + u + " and y is: " + g);
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
                         view.setFitHeight(viewButtonSize);

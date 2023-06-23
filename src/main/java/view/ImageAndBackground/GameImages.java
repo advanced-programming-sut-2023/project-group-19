@@ -9,11 +9,17 @@ public class GameImages {
     public Image next;
     public Image done;
     public Image close;
+    public Image shield0;
+    public Image shield1;
+    public Image shield2;
+    public Image shield3;
     public Background loginBackground;
     public Background registerBackground;
 
     public Background profileBackground;
     public Background mainMenuBackground;
+    public Background lobbyBackground;
+
 
 
     public void loadImages() {
@@ -29,10 +35,17 @@ public class GameImages {
         mainMenuBackground = new Background(new BackgroundImage(new Image
                 (TileManager.class.getResource("/image/MenuImages/MainMenu.jpg").toExternalForm()),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        lobbyBackground = new Background(new BackgroundImage(new Image
+                (TileManager.class.getResource("/image/MenuImages/Lobby.jpg").toExternalForm()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
 
         next = new Image(TileManager.class.getResource("/image/GameMenu/next.png").toExternalForm());
         done = new Image(TileManager.class.getResource("/image/GameMenu/done.png").toExternalForm());
         close = new Image(TileManager.class.getResource("/image/GameMenu/close.png").toExternalForm());
+        shield0 = new Image(TileManager.class.getResource("/image/LobbyImages/shield0.png").toExternalForm());
+        shield1 = new Image(TileManager.class.getResource("/image/LobbyImages/shield1.png").toExternalForm());
+        shield2 = new Image(TileManager.class.getResource("/image/LobbyImages/shield2.png").toExternalForm());
+        shield3 = new Image(TileManager.class.getResource("/image/LobbyImages/shield3.png").toExternalForm());
     }
 
 
@@ -60,5 +73,29 @@ public class GameImages {
 
     public Background getMainMenuBackground() {
         return mainMenuBackground;
+    }
+
+    public Image getClose() {
+        return close;
+    }
+
+    public Background getLobbyBackground() {
+        return lobbyBackground;
+    }
+
+    public Image getShield0() {
+        return shield0;
+    }
+
+    public Image getShield1() {
+        return shield1;
+    }
+
+    public Image getShield2() {
+        return shield2;
+    }
+
+    public Image getShield3() {
+        return shield3;
     }
 }
