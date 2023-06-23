@@ -1612,6 +1612,7 @@ public class GameController {
             path = selectedButton.getArmy().get(i).getMyPath();
             NewButton previousButton = selectedButton;
             if (path != null && path.size() > 1) {
+                Map.getTroopMap()[passingArmy.getxCoordinate()][passingArmy.getyCoordinate()].remove(passingArmy);
                 path.remove(0);
                 SequentialTransition sequentialTransition = new SequentialTransition();
                 for (int j = 0; j < path.size(); j++) {
@@ -1638,13 +1639,13 @@ public class GameController {
 
                         sequentialTransition.getChildren().add(moveAnimation);
 
-                        Map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].add(passingArmy);
-                        Map.getTroopMap()[passingArmy.getGoalXCoordinate()][passingArmy.getGoalYCoordinate()].add(passingArmy);
+                        Map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].remove(passingArmy);
 
                     } else {
                         break;
                     }
                 }
+                Map.getTroopMap()[passingArmy.getxCoordinate()][passingArmy.getyCoordinate()].add(passingArmy);
                 sequentialTransition.play();
             }
             if (flag) {

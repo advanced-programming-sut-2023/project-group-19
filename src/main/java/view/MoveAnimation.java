@@ -50,7 +50,7 @@ public class MoveAnimation extends Transition {
         }
 
         this.setCycleCount(1);
-        this.setCycleDuration(Duration.millis(2000));
+        this.setCycleDuration(Duration.millis(1000));
         this.setInterpolator(Interpolator.LINEAR);
     }
 
