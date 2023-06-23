@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class BuildingController {
-    public Map map = CreateMapMenu.finalMap;
+    public static Map map = CreateMapMenu.finalMap;
     public static int size = Map.mapSize;
     public static Empire currentEmpire;
     public static Building selectedBuilding;
@@ -43,7 +43,7 @@ public class BuildingController {
                 building.workersNeeded.get("worker") <= empire.getWorkerCount());
     }
 
-    public void dropFirstStockpile(int x, int y) {
+    public static void dropFirstStockpile(int x, int y) {
         Stockpile foodStockpile = new Stockpile(currentEmpire);
         foodStockpile.foodStockpile();
         Stockpile resourcesStockpile = new Stockpile(currentEmpire);
@@ -131,7 +131,7 @@ public class BuildingController {
                             map.notBuildable[x][y] = true;
                             map.notPassable[x][y] = true;
                             map.wallPassable[x][y] = true;
-                            dropFirstStockpile(x, y);
+//                            dropFirstStockpile(x, y);
                             return BuildingMessages.SUCCESS;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
@@ -1147,11 +1147,11 @@ public class BuildingController {
                     if (empireHasEnoughResourcesToBuildTheBuilding(stairs, currentEmpire)) {
                         if (empireHasEnoughWorkersToBuildTheBuilding(stairs, currentEmpire)) {
 //                            if (validationOfStairsLocation(x, y)) {
-                                buildingCheckout(stairs, currentEmpire);
-                                map.AddToBuildingMap(x, y, stairs);
-                                map.notBuildable[x][y] = true;
-                                map.wall[x][y] = true;
-                                return BuildingMessages.SUCCESS;
+                            buildingCheckout(stairs, currentEmpire);
+                            map.AddToBuildingMap(x, y, stairs);
+                            map.notBuildable[x][y] = true;
+                            map.wall[x][y] = true;
+                            return BuildingMessages.SUCCESS;
 //                            } else return BuildingMessages.IMPROPER_COORDINATE;
                         } else {
                             return BuildingMessages.NOT_ENOUGH_WORKERS_TO_BUILD_BUILDING;
@@ -1159,8 +1159,7 @@ public class BuildingController {
                     } else {
                         return BuildingMessages.INSUFFICIENT_RESOURCES_TO_BUILD_THE_BUILDING;
                     }
-                }
-                else {
+                } else {
                     return BuildingMessages.IMPROPER_GROUND_TYPE;
                 }
             case "Apothecary":
@@ -1189,7 +1188,7 @@ public class BuildingController {
         return BuildingMessages.INVALID_BUILDING_NAME;
     }
 
-    public BuildingMessages dropBuilding(int x , int y, String type) {
+    public BuildingMessages dropBuilding(int x, int y, String type) {
         if (checkCoordinate(x, y) == BuildingMessages.CONTINUE) {
             if (!map.notBuildable[x][y]) {
                 for (int i = 0; i < Manage.getNamesOfAllPossibleBuildings().size(); i++) {

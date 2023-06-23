@@ -12,7 +12,8 @@ import view.Model.NewButton;
 
 import javax.print.attribute.standard.PrinterName;
 
-public class MoveAnimation extends Transition {
+public class
+MoveAnimation extends Transition {
 
     private Army passingArmy;
     private NewButton newButton;
@@ -50,7 +51,7 @@ public class MoveAnimation extends Transition {
         }
 
         this.setCycleCount(1);
-        this.setCycleDuration(Duration.millis(2000));
+        this.setCycleDuration(Duration.millis(500));
         this.setInterpolator(Interpolator.LINEAR);
     }
 
@@ -59,13 +60,13 @@ public class MoveAnimation extends Transition {
         double differenceX = 0;
         double differenceY = 0;
         if (newButton.getX() > current.getX()){
-            differenceY = 0.4;
+            differenceY = 1.6;
         } else if (newButton.getX() < current.getX()){
-            differenceY = -0.4;
+            differenceY = -1.6;
         } else if (newButton.getY() > current.getY()) {
-            differenceX = 0.4;
+            differenceX = 1.6;
         } else if (newButton.getY() < current.getY()) {
-            differenceX = -0.4;
+            differenceX = -1.6;
         }
 
         if (differenceX != 0)

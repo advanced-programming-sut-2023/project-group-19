@@ -58,6 +58,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TileManager extends Application {
+    //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
+    //TODO : fix the stages fullscreen after exiting from shop menu
+    //TODO : fix the music of the game fo creating troops
+    //TODO :fix the drop building logic of stockpiles
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -265,8 +269,7 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-
-
+    
     private void treesOfMap(){
         for(int i = 0 ; i < Map.mapSize ; i ++){
             for(int j = 0 ; j < Map.mapSize ; j ++){
@@ -333,8 +336,7 @@ public class TileManager extends Application {
 //        Manage.allEmpires.add(empire2);
 //        BuildingController.currentEmpire = empire;
 
-//        buildingController.dropBuilding(5, 22, "Castle");
-//        dropStockFunction(5, 22, sallahDin);
+
 
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
@@ -352,6 +354,9 @@ public class TileManager extends Application {
         Manage.setCurrentEmpire(sallahDin);
         BuildingController.currentEmpire = Manage.getCurrentEmpire();
 
+        buildingController.dropBuilding(5, 22, "Castle");
+        dropStockFunction(5, 22, sallahDin);
+
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
         Manage.setCurrentEmpire(richard);
         buildingController.dropBuilding(9, 3, "Castle");
@@ -359,7 +364,7 @@ public class TileManager extends Application {
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
         castleButton.setImageView(castleImage2);
-//        dropStockFunction(9, 3, richard);
+        dropStockFunction(9, 3, richard);
         Manage.setCurrentEmpire(sallahDin);
         BuildingController.currentEmpire = sallahDin;
         Manage.getAllEmpires().add(sallahDin);
@@ -370,18 +375,16 @@ public class TileManager extends Application {
         waterOfMap();
     }
 
-//    private void dropStockFunction(int x, int y, Empire empire) {
-//        Manage.setCurrentEmpire(empire);
-//        BuildingController.dropFirstStockpile(x, y);
-//        ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
-//        NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
-//        foodRecourceBtn.setImageView(foodRecource);
-//
-//        ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
-//        NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
-//        sourceStock.setImageView(stockPile);
-//
-//    }
+    private void dropStockFunction(int x, int y, Empire empire) {
+        Manage.setCurrentEmpire(empire);
+        BuildingController.dropFirstStockpile(x, y);
+        ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
+        NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
+        foodRecourceBtn.setImageView(foodRecource);
+        ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
+        NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
+        sourceStock.setImageView(stockPile);
+    }
 
 
     private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
