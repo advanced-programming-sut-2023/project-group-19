@@ -126,6 +126,8 @@ public class ShopMenuController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_SHOP" + '\n');
                     stage.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);

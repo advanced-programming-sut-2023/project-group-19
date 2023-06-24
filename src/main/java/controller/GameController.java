@@ -145,6 +145,8 @@ public class GameController {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_SELECT_UNIT" + '\n');
                 int j = 0;
                 for (Text text : nameOfUnit) {
                     for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
@@ -164,9 +166,11 @@ public class GameController {
     }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
+        boolean flag = false;
         HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
         for (NewButton selectedButton : selectedButtons) {
             for (Army army : selectedButton.getArmy()) {
+                flag = true;
                 ArrayList<Army> armies = new ArrayList<>();
                 if (army.getOwner().equals(Manage.getCurrentEmpire())) {
                     if (!editInfoOfRepeatedUnitNames(listOfUnits, army)) {
@@ -175,6 +179,10 @@ public class GameController {
                     }
                 }
             }
+        }
+        if(flag){
+            TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+            TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" + '\n');
         }
         return listOfUnits;
     }

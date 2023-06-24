@@ -18,6 +18,7 @@ import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
 import view.RegisterMenu;
+import view.TileManager;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public class DropUnitDesign {
         prev.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "PREV_DROP_UNIT" + '\n');
                 if (controllerOfDropUnit > 1) {
                     if (controllerOfDropUnit == 5) {
                         for (int i = 1; i <= 6; i++) {
@@ -117,6 +120,8 @@ public class DropUnitDesign {
         next.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "NEXT_DROP_UNIT" + '\n');
                 if (controllerOfDropUnit < 5) {
                     if (controllerOfDropUnit == 4) {
                         isFive = false;
@@ -151,6 +156,8 @@ public class DropUnitDesign {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_DROP_UNIT" + '\n');
                 playSoundEffect("dropUnit.mp3");
                 pane.getChildren().remove(hBox);
                 for (int i = 0; i < spinners.size(); i++) {

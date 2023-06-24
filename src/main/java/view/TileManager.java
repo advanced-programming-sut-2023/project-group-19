@@ -5,8 +5,12 @@ import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import controller.NextTurnController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -28,6 +32,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Building.Castle;
 import model.Empire;
 import model.Human.Troop.ArchersAndThrowers;
@@ -56,6 +61,8 @@ import java.awt.datatransfer.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TileManager extends Application {
     //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
@@ -78,14 +85,18 @@ public class TileManager extends Application {
 
     public TilePane view = new TilePane();
     public Button repair;
+    public static StringBuilder gameLog = new StringBuilder();
     public ArrayList<NewButton>[][] allButtons;
     public ArrayList<NewButton> selectedButtons;
     public ArrayList<NewButton> selectedBuildingGraphic;
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
+    public String log;
     public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
+    public final static int[] seconds = {0};
+    public final static int[] minute = {0};
     public int avgProduction;
     public int moveX;
     public int moveY;
@@ -108,9 +119,10 @@ public class TileManager extends Application {
     public int verticalButtons = 30;
     public int horizontalButtons = 16;
     public int zoomSize = 1;
+    public static String time;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
-    public Map map ;
+    public Map map;
     private boolean drawIsOn;
     public TileManager tileManager;
     private boolean moveIsOn;
@@ -124,11 +136,12 @@ public class TileManager extends Application {
         verticalButtons = 30;
         horizontalButtons = 16;
     }
-    private void stopAllMusic(){
-        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-        if(CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
+
+    private void stopAllMusic() {
+        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if (CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
     }
 
     public void zoom2() {
@@ -146,23 +159,36 @@ public class TileManager extends Application {
         verticalButtons = 22;
         horizontalButtons = 12;
     }
-    public MediaPlayer mediaPlayer ;
-    private void playLoginMusic(){
+
+    public MediaPlayer mediaPlayer;
+
+    private void playLoginMusic() {
         stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
+        String defultSong = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer = mediaPlayer2;
         mediaPlayer2.setAutoPlay(true);
         mediaPlayer.setCycleCount(-1);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                seconds[0]++;
+                if (seconds[0] >= 60) {
+                    minute[0]++;
+                    seconds[0] = 0;
+                }
+            }
+        }, 0, 1000);
         playLoginMusic();
         new CreateMapMenu();
-        map = CreateMapMenu.finalMap ;
-        tileManager = this ;
+        map = CreateMapMenu.finalMap;
+        tileManager = this;
         createButtonsArraylist();
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
@@ -198,6 +224,8 @@ public class TileManager extends Application {
             public void handle(KeyEvent keyEvent) {
                 String keyName = keyEvent.getCode().getName();
                 if (keyName.equals("Add")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "ZOOM_IN" + '\n');
                     playSoundEffect("shortCut.wav");
                     if (zoomSize != 3) {
                         zoomSize++;
@@ -208,6 +236,8 @@ public class TileManager extends Application {
                         }
                     }
                 } else if (keyName.equals("Subtract")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "ZOOM_OUT" + '\n');
                     playSoundEffect("shortCut.wav");
                     if (zoomSize != 1) {
                         zoomSize--;
@@ -218,22 +248,35 @@ public class TileManager extends Application {
                         }
                     }
                 } else if (keyName.equals("F6")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "NEXT_TURN" + '\n');
                     playSoundEffect("shortCut.wav");
                     NextTurnController nextTurnController = new NextTurnController();
                     nextTurnController.tileManager = tileManager;
                     nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
                     nextTurnController.nextTurn();
                 } else if (keyName.equals("F1")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "CLEAR_SELECTED_BUTTONS" + '\n');
                     playSoundEffect("shortCut.wav");
                     removeColorOfSelectedButtons();
+                } else if (keyName.equals("F8")) {
+                    log = gameLog.toString();
+                    System.out.println(log);
                 } else if (keyName.equals("F3")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "DROP_UNIT" + '\n');
                     playSoundEffect("shortCut.wav");
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
                     dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "MOVE_UNIT" + '\n');
                     playSoundEffect("shortCut.wav");
                     designBoxOfMoveCommand();
                 } else if (keyName.equals("C")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "COPY_BUILDING" + '\n');
                     playSoundEffect("shortCut.wav");
                     content = new ClipboardContent();
                     if (selectedButton.getBuilding() != null) {
@@ -243,10 +286,14 @@ public class TileManager extends Application {
                     }
                     javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
                 } else if (keyName.equals("P")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "PASTE_BUILDING" + '\n');
                     playSoundEffect("shortCut.wav");
                     clipboardData = content.getString();
                     bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
                 } else if (keyName.equals("F5")) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "AVERAGE_DETAIL" + '\n');
                     playSoundEffect("shortCut.wav");
                     if (selectedButtons.size() != 0) {
                         int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
@@ -269,31 +316,36 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-    
-    private void treesOfMap(){
-        for(int i = 0 ; i < Map.mapSize ; i ++){
-            for(int j = 0 ; j < Map.mapSize ; j ++){
-                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Tree)) continue;
+
+    private void treesOfMap() {
+        for (int i = 0; i < Map.mapSize; i++) {
+            for (int j = 0; j < Map.mapSize; j++) {
+                if (map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Tree))
+                    continue;
                 NewButton castleButton = (NewButton) list.get(i * 100 + j);
                 ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
                 castleButton.setImageView(treeImage);
             }
         }
     }
-    private void stonesOfMap(){
-        for(int i = 0 ; i < Map.mapSize ; i ++){
-            for(int j = 0 ; j < Map.mapSize ; j ++){
-                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Stone)) continue;
+
+    private void stonesOfMap() {
+        for (int i = 0; i < Map.mapSize; i++) {
+            for (int j = 0; j < Map.mapSize; j++) {
+                if (map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof Stone))
+                    continue;
                 NewButton castleButton = (NewButton) list.get(i * 100 + j);
                 ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
                 castleButton.setImageView(treeImage);
             }
         }
     }
-    private void waterOfMap(){
-        for(int i = 0 ; i < Map.mapSize ; i ++){
-            for(int j = 0 ; j < Map.mapSize ; j ++){
-                if(map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof WaterSources)) continue;
+
+    private void waterOfMap() {
+        for (int i = 0; i < Map.mapSize; i++) {
+            for (int j = 0; j < Map.mapSize; j++) {
+                if (map.getObstacleMap()[i][j].isEmpty() || !(map.getObstacleMap()[i][j].get(0) instanceof WaterSources))
+                    continue;
                 NewButton castleButton = (NewButton) list.get(i * 100 + j);
                 ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
                 castleButton.setImageView(treeImage);
@@ -305,10 +357,10 @@ public class TileManager extends Application {
         User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
         User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
 
-        if(!map.getObstacleMap()[5][22].isEmpty()) {
+        if (!map.getObstacleMap()[5][22].isEmpty()) {
             map.getObstacleMap()[5][22].set(0, null);
         }
-        if(!map.getObstacleMap()[9][3].isEmpty()){
+        if (!map.getObstacleMap()[9][3].isEmpty()) {
             map.getObstacleMap()[9][3].set(0, null);
         }
 
@@ -337,11 +389,9 @@ public class TileManager extends Application {
 //        BuildingController.currentEmpire = empire;
 
 
-
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
-
 
 
         Empire richard = new Empire();
@@ -447,6 +497,8 @@ public class TileManager extends Application {
         close.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_AVERAGE_DETAIL" + '\n');
                 pane.getChildren().remove(hBox);
             }
         });
@@ -500,6 +552,8 @@ public class TileManager extends Application {
         close.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                gameLog.append(TileManager.time + '#' + "CLOSE_MOVE_UNIT" + '\n');
                 pane.getChildren().remove(hBox);
                 if (x.getText() != null && y.getText() != null && x.getText().matches("\\d+") && y.getText().matches("\\d+")) {
                     int xOfDestination = Integer.parseInt(x.getText());
@@ -544,6 +598,8 @@ public class TileManager extends Application {
             moveY = 0;
         }
         pane.getChildren().clear();
+        time = (minute[0] + ":" + seconds[0]);
+        gameLog.append(time + '#' + "RIGHT_CLICK" + '#' + "MOVE_MAP" + '#' + moveX + '#' + moveY + '\n');
         createViewScene(stage);
         bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
@@ -573,6 +629,8 @@ public class TileManager extends Application {
                 selectedButtons.add(newButton);
             }
         }
+        time = (minute[0] + ":" + seconds[0]);
+        gameLog.append(time + '#' + "LEFT_CLICK" + '#' + "DRAW_REC" + '#' + minY + '#' + maxY + '#' + minX + '#' + maxX + '\n');
         gameController.selectUnit(selectedButtons, pane);
     }
 
@@ -604,9 +662,6 @@ public class TileManager extends Application {
                 button.setLayoutY(u * horizontalSize);
                 button.setMinSize(viewButtonSize, viewButtonSize);
                 pane.getChildren().add(button);
-                if(!button.getArmy().isEmpty()){
-                    System.out.println("x: " + u + " y: " + g);
-                }
                 if (button.isSickButton()) {
                     sickImage.setFitHeight(viewButtonSize);
                     sickImage.setFitWidth(viewButtonSize);
@@ -615,9 +670,8 @@ public class TileManager extends Application {
                 if (button.getImageView() != null) {
                     ImageView view;
                     if (button.getBuilding() != null && button.getBuilding().onFire) {
-                        view = fireImage ;
-                    }
-                    else {
+                        view = fireImage;
+                    } else {
                         view = button.getImageView();
                     }
                     view.setFitHeight(viewButtonSize);
@@ -625,7 +679,6 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                 } else {
                     for (Army army : button.getArmy()) {
-                        System.out.println("x is: " + u + " and y is: " + g);
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
                         view.setFitHeight(viewButtonSize);
@@ -704,12 +757,6 @@ public class TileManager extends Application {
 
     private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
-        EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                newButton.setStyle("-fx-border-color: brown");
-            }
-        };
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -814,25 +861,35 @@ public class TileManager extends Application {
                     map.notPassable[x][y] = false;
                     map.notBuildable[x][y] = false;
                     pane.getChildren().add(newButton);
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "DELETE" + '#' + x + '#' + y + '\n');
                 } else {
+                    time = (minute[0] + ":" + seconds[0]);
+                    String logCommand;
                     selectedButton = newButton;
                     pane.getChildren().remove(selectedBuildingGraphic);
                     pane.getChildren().remove(selectedBuildingTextField);
                     pane.getChildren().remove(selectBackground);
+                    logCommand = time + '#' + "MOUSE_CLICK" + '#' + "NORMAL_REMOVE" + '\n';
                     if (selectedMenuActive) {
-                        if (selectedBuildingButtons.getGatehouseText() != null)
+                        logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_REMOVE" + '\n';
+                        if (selectedBuildingButtons.getGatehouseText() != null) {
+                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GATEHOUSE_REMOVE" + '\n';
                             pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
+                        }
                         pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
                         pane.getChildren().remove(selectedBuildingHP);
                         pane.getChildren().remove(repair);
                     }
                     if (newButton.getBuilding() != null) {
                         try {
+                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getBuilding().getName() +  '\n';
                             selectedBuildingBottomGraphic(newButton);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
                     }
+                    gameLog.append(logCommand);
                 }
 
             }
@@ -845,7 +902,7 @@ public class TileManager extends Application {
     }
 
     private void playSoundEffect(String name) {
-        String defultSong  = RegisterMenu.class.getResource("/Music/" + name).toString();
+        String defultSong = RegisterMenu.class.getResource("/Music/" + name).toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
         mediaPlayer2.setAutoPlay(true);
@@ -893,6 +950,8 @@ public class TileManager extends Application {
             EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "REPAIR" + newButton.getX() + '#' + newButton.getY() + '\n');
                     String output = String.valueOf(selectedBuildingMenu.repair());
                     if (!output.equals("building repaired successfully")) {
                         showError(output);
