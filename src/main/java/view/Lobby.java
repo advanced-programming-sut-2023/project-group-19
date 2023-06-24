@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -27,8 +28,7 @@ public class Lobby extends Application {
     public GameImages gameImages;
     public Pane pane;
     public VBox listOfAllGames;
-    public VBox listOfGameInfo;
-    public String id;
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -67,25 +67,29 @@ public class Lobby extends Application {
         User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User user6 = new User("af", "s", "a", "s", "w", "q", 3);
-        Game game = new Game(user1,"MyGame1");
+        User.setCurrentUser(user1);
+
+
+        Game game = new Game(user1,"MyGame1",true, 5);
         Manage.allGames.add(game);
+        game.addToAllPlayers(user1);
         game.addToAllPlayers(user2);
         game.addToAllPlayers(user3);
         game.addToAllPlayers(user4);
         game.addToAllPlayers(user5);
 
-        Game game2 = new Game(user1,"MyGame2");
+        Game game2 = new Game(user1,"MyGame2",true, 5);
         Manage.allGames.add(game2);
-        Game game3 = new Game(user1,"MyGame3");
+        Game game3 = new Game(user1,"MyGame3",true, 5);
         Manage.allGames.add(game3);
-        Game game4 = new Game(user1,"MyGame4");
+        Game game4 = new Game(user1,"MyGame4",true, 5);
         Manage.allGames.add(game4);
-        Game game5 = new Game(user1,"MyGame5");
+        Game game5 = new Game(user1,"MyGame5",true, 5);
         Manage.allGames.add(game5);
 
         VBox listOfAllGames = new VBox();
         this.listOfAllGames = listOfAllGames;
-        listOfAllGames.setPrefSize(500,250);
+        listOfAllGames.setPrefSize(400,250);
         designListOfAllGames(gameImages);
 
         ScrollPane scrollPane = new ScrollPane();
@@ -93,19 +97,20 @@ public class Lobby extends Application {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setLayoutX(300);
         scrollPane.setLayoutY(200);
-        scrollPane.setPrefWidth(510);
+        scrollPane.setPrefWidth(415);
         scrollPane.setPrefHeight(250);
         scrollPane.setStyle("-fx-background-color: #1b1073");
 
         pane.getChildren().add(back);
         pane.getChildren().add(createNewRequest);
-        pane.getChildren().add(listOfAllGames);
         pane.getChildren().add(scrollPane);
     }
 
     private void designListOfAllGames(GameImages gameImages) {
+        listOfAllGames.setStyle("-fx-background-color: #03183b");
+        listOfAllGames.setSpacing(2);
         ImageView shieldImage = null;
-        listOfAllGames.setLayoutX(300);
+        listOfAllGames.setLayoutX(100);
         listOfAllGames.setLayoutY(200);
         for (int i = 0 ; i < Manage.allGames.size() ; i++) {
             Game game = Manage.allGames.get(i);
@@ -118,10 +123,12 @@ public class Lobby extends Application {
             } else if (i % 4 == 3) {
                 shieldImage = new ImageView(gameImages.getShield3());
             }
+            game.setImageView(shieldImage);
             shieldImage.setFitWidth(50);
             shieldImage.setFitHeight(50);
             HBox gameIdHBox = new HBox();
-            id = game.getId();
+            gameIdHBox.setPrefSize(20,10);
+            String id = game.getId();
             Text gameId = new Text();
             gameId.setText("Id: "+game.getId());
             gameId.setFill(Color.WHITE);
@@ -132,6 +139,7 @@ public class Lobby extends Application {
             gameIdHBox.getChildren().add(shieldImage);
             gameIdHBox.getChildren().add(gameId);
             gameIdHBox.setSpacing(100);
+            
             gameIdHBox.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -139,27 +147,114 @@ public class Lobby extends Application {
                 }
             });
             listOfAllGames.getChildren().add(gameIdHBox);
+
         }
 
     }
     public void designVboxOfGameInfo(String gameId){
-        this.listOfGameInfo = new VBox();
+        VBox listOfGameInfo = new VBox();
+        listOfGameInfo.setSpacing(5);
         String listOfGamePlayers = "Players:\n";
         Game game = Manage.findGameById(gameId);
-        System.out.println("Size: "+game.getAllPlayers().size());
         if (game != null){
-            for (int i = 0 ; i < game.getAllPlayers().size() ; i++) {
+            ImageView imageView = new ImageView(game.getImageView().getImage());
+            imageView.setFitWidth(80);
+            imageView.setFitHeight(80);
+            imageView.setTranslateX(75);
+
+
+            Text idOfGame = new Text("Game Id: "+game.getId());
+            idOfGame.setFill(Color.WHITE);
+            idOfGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+            idOfGame.setTranslateX(17);
+            idOfGame.setTranslateY(20);
+
+            Text capacity = new Text("Game capacity: "+game.getCapacity());
+            capacity.setFill(Color.WHITE);
+            capacity.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+            capacity.setTranslateX(17);
+            capacity.setTranslateY(30);
+
+            Text admin = new Text("Admin: "+game.getGameAdmin().getNickname());
+            admin.setFill(Color.WHITE);
+            admin.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+            admin.setTranslateX(17);
+            admin.setTranslateY(40);
+
+            for (int i = 1 ; i < game.getAllPlayers().size() ; i++) {
                 User player = game.getAllPlayers().get(i);
-                listOfGamePlayers = listOfGamePlayers.concat(player.getUsername());
+                listOfGamePlayers = listOfGamePlayers.concat(player.getNickname());
                 if (i != game.getAllPlayers().size() - 1) listOfGamePlayers = listOfGamePlayers.concat(",");
+                if (i % 5 == 0) listOfGamePlayers = listOfGamePlayers.concat("\n");
             }
+
             Text players = new Text(listOfGamePlayers);
-            System.out.println(players.getText());
-            players.setTranslateX(1000);
-            players.setTranslateY(200);
+            players.setFill(Color.WHITE);
+            players.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+            players.setTranslateX(17);
+            players.setTranslateY(50);
+
+
+            listOfGameInfo.getChildren().add(imageView);
+            listOfGameInfo.getChildren().add(idOfGame);
+            listOfGameInfo.getChildren().add(capacity);
+            listOfGameInfo.getChildren().add(admin);
             listOfGameInfo.getChildren().add(players);
+            designButtonsOfChosenGame(listOfGameInfo, game);
+            listOfGameInfo.setPrefSize(230,300);
+            listOfGameInfo.setStyle("-fx-background-color: #1b1073");
+            listOfGameInfo.setLayoutX(1000);
+            listOfGameInfo.setLayoutY(200);
+
             pane.getChildren().add(listOfGameInfo);
         }
+    }
+
+    private void designButtonsOfChosenGame(VBox listOfGameInfo,Game game) {
+        //TODO : Access of other members to private and public games
+        User currentUser = User.getCurrentUser();
+
+        if (currentUser.getUsername().equals(game.getGameAdmin().getUsername())){ //Admin
+
+            Button changePrivacy = new Button();
+            if (game.isPublic()) {
+                changePrivacy.setText("Private");
+            }
+            else {
+                changePrivacy.setText("Public");
+            }
+            changePrivacy.setTranslateX(17);
+            changePrivacy.setTranslateY(70);
+            changePrivacy.setPrefSize(50, 10);
+            changePrivacy.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+
+            Button leaveGame = new Button();
+            leaveGame.setText("Leave");
+            leaveGame.setTranslateX(80);
+            leaveGame.setTranslateY(40);
+            leaveGame.setPrefSize(50, 10);
+            leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+
+
+
+            listOfGameInfo.getChildren().add(changePrivacy);
+            listOfGameInfo.getChildren().add(leaveGame);
+
+        } else if (game.isMemberOfGame(currentUser.getUsername()) != null) { //Game Member
+
+
+
+
+        } else { //Stranger
+
+
+
+
+        }
+
+
     }
 
 }

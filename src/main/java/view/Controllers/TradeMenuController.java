@@ -20,27 +20,36 @@ public class TradeMenuController {
         ImageView background = new ImageView(tradeAndShopImages.getBackground());
         Button createRequest = new Button();
         Button viewPrevRequests = new Button();
+        Button back = new Button();
         createRequest.setPrefSize(400, 300);
         viewPrevRequests.setPrefSize(400, 300);
+        back.setPrefSize(400, 300);
         createRequest.setLayoutX(250);
         createRequest.setLayoutY(250);
         viewPrevRequests.setLayoutX(850);
         viewPrevRequests.setLayoutY(250);
+        back.setLayoutX(570);
+        back.setLayoutY(400);
         createRequest.setBackground(null);
         viewPrevRequests.setBackground(null);
+        back.setBackground(null);
         ImageView createRequestView = new ImageView(tradeAndShopImages.getSendRequest());
         ImageView prevRequestView = new ImageView(tradeAndShopImages.getViewPreviousTrades());
+        ImageView backView = new ImageView(tradeAndShopImages.getBack());
         createRequestView.setFitHeight(300);
         createRequestView.setFitWidth(400);
         prevRequestView.setFitHeight(300);
         prevRequestView.setFitWidth(400);
+        backView.setFitHeight(300);
+        backView.setFitWidth(400);
         createRequest.setGraphic(createRequestView);
         viewPrevRequests.setGraphic(prevRequestView);
-        setActionOfButtons(createRequest, viewPrevRequests, stage);
-        pane.getChildren().addAll(background, createRequest, viewPrevRequests);
+        back.setGraphic(backView);
+        setActionOfButtons(createRequest, viewPrevRequests,back, stage);
+        pane.getChildren().addAll(background, back, createRequest, viewPrevRequests);
     }
 
-    public void setActionOfButtons(Button createRequest, Button viewPrevRequest, Stage stage) {
+    public void setActionOfButtons(Button createRequest, Button viewPrevRequest,Button back, Stage stage) {
         createRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -63,6 +72,13 @@ public class TradeMenuController {
                 }
             }
         });
+        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.close();
+            }
+        });
+
 
     }
 }
