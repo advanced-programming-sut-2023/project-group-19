@@ -70,7 +70,9 @@ public class ShopMenuController {
                             textInputDialog.showAndWait();
                             String result = textInputDialog.getEditor().getText();
                             System.out.println("index :" + finalIndex + " input: " + result);
-                            int num = Integer.parseInt(result);
+                            int num = 0;
+                            if(result != null)
+                                num = Integer.parseInt(result);
                             getTheSuggestion.add(finalIndex);
                             getTheSuggestion.add(num);
                             System.out.println("size of array list :" + getTheSuggestion.size());
