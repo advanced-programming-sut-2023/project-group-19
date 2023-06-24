@@ -24,6 +24,7 @@ import view.ImageAndBackground.GameImages;
 import javafx.scene.control.Button;
 import java.io.IOException;
 
+
 public class Lobby extends Application {
     public GameImages gameImages;
     public Pane pane;
@@ -223,24 +224,52 @@ public class Lobby extends Application {
             else {
                 changePrivacy.setText("Public");
             }
-            changePrivacy.setTranslateX(17);
+            changePrivacy.setTranslateX(30);
             changePrivacy.setTranslateY(70);
             changePrivacy.setPrefSize(50, 10);
             changePrivacy.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            changePrivacy.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (changePrivacy.getText().equals("Private")) changePrivacyOfGame(game, false);
+                    if (changePrivacy.getText().equals("Public")) changePrivacyOfGame(game, true);
+                }
+            });
 
             Button leaveGame = new Button();
             leaveGame.setText("Leave");
-            leaveGame.setTranslateX(80);
-            leaveGame.setTranslateY(40);
+            leaveGame.setTranslateX(100);
+            leaveGame.setTranslateY(47);
             leaveGame.setPrefSize(50, 10);
             leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            leaveGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    leaveTheGame(game);
+                }
+            });
+
+            Button close = new Button();
+            close.setText("Close");
+            close.setTranslateX(170);
+            close.setTranslateY(24);
+            close.setPrefSize(50, 10);
+            close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    closeTheInfoBox(listOfGameInfo);
+                }
+            });
 
 
 
             listOfGameInfo.getChildren().add(changePrivacy);
             listOfGameInfo.getChildren().add(leaveGame);
+            listOfGameInfo.getChildren().add(close);
 
         } else if (game.isMemberOfGame(currentUser.getUsername()) != null) { //Game Member
 
@@ -257,4 +286,19 @@ public class Lobby extends Application {
 
     }
 
+    private void changePrivacyOfGame(Game game, boolean status) {
+        //TODO : It should change the privacy settings in the server as well;
+        game.setPublic(status);
+
+    }
+
+    private void leaveTheGame(Game game) {
+        //TODO : You should remove the player from the list in the server
+        game.getAllPlayers().remove(User.getCurrentUser());
+        User.getCurrentUser().getMyGameList().remove(game);
+    }
+
+    private void closeTheInfoBox(VBox listOfGameInfo) {
+        pane.getChildren().remove(listOfGameInfo);
+    }
 }

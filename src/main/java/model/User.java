@@ -17,6 +17,7 @@ public class User implements Comparable<User> {
     private static ArrayList<String> captchas = new ArrayList<>();
     private static HashMap<Integer, String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
+    public  ArrayList<Game> myGame = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;
@@ -178,4 +179,13 @@ public class User implements Comparable<User> {
     public void setAvatar(ImageView avatar){
         this.avatar = avatar ;
     }
+
+    public ArrayList<Game> getMyGameList() {
+        return myGame;
+    }
+
+    public void addToMyGameList(Game game) {
+        myGame.add(game);
+    }
 }
+
