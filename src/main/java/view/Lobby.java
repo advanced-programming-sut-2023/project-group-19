@@ -33,34 +33,6 @@ public class Lobby extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Main.stage = stage;
-        gameImages = new GameImages();
-        gameImages.loadImages();
-        Pane pane = new Pane();
-        this.pane = pane;
-        pane.setBackground(gameImages.getLobbyBackground());
-        designLobby(gameImages);
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-        stage.setFullScreen(true);
-    }
-
-    private void designLobby(GameImages gameImages) throws IOException {
-        Button back = new Button("Back");
-        back.setLayoutX(300);
-        back.setLayoutY(70);
-        back.setPrefSize(160, 50);
-        back.setStyle("-fx-background-color: #1b1073; -fx-text-fill: #d3c4c4");
-        back.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-
-        Button createNewRequest = new Button("New Game Request");
-        createNewRequest.setLayoutX(500);
-        createNewRequest.setLayoutY(70);
-        createNewRequest.setPrefSize(160, 50);
-        createNewRequest.setStyle("-fx-background-color: #1b1073; -fx-text-fill: #d3c4c4");
-        createNewRequest.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-
 
         User user1 = new User("z", "s", "a", "s", "w", "q", 3);
         User user2 = new User("ab", "s", "a", "s", "w", "q", 3);
@@ -88,6 +60,58 @@ public class Lobby extends Application {
         Game game5 = new Game(user1,"MyGame5",true, 5);
         Manage.allGames.add(game5);
 
+
+
+
+
+        Main.stage = stage;
+        gameImages = new GameImages();
+        gameImages.loadImages();
+        Pane pane = new Pane();
+        this.pane = pane;
+        pane.setBackground(gameImages.getLobbyBackground());
+        designLobby(gameImages);
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+        stage.setFullScreen(true);
+    }
+
+    private void designLobby(GameImages gameImages) throws IOException {
+        Button back = new Button("Back");
+        back.setLayoutX(500);
+        back.setLayoutY(70);
+        back.setPrefSize(160, 50);
+        back.setStyle("-fx-background-color: #1b1073; -fx-text-fill: #d3c4c4");
+        back.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+
+        Button createNewRequest = new Button("New Game Request");
+        createNewRequest.setLayoutX(700);
+        createNewRequest.setLayoutY(70);
+        createNewRequest.setPrefSize(160, 50);
+        createNewRequest.setStyle("-fx-background-color: #1b1073; -fx-text-fill: #d3c4c4");
+        createNewRequest.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+
+        Button refresh = new Button("Refresh");
+        refresh.setLayoutX(900);
+        refresh.setLayoutY(70);
+        refresh.setPrefSize(160, 50);
+        refresh.setStyle("-fx-background-color: #1b1073; -fx-text-fill: #d3c4c4");
+        refresh.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            //TODO : Random 10 Players
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    pane.getChildren().clear();
+                    designLobby(gameImages);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
         VBox listOfAllGames = new VBox();
         this.listOfAllGames = listOfAllGames;
         listOfAllGames.setPrefSize(400,250);
@@ -104,6 +128,7 @@ public class Lobby extends Application {
 
         pane.getChildren().add(back);
         pane.getChildren().add(createNewRequest);
+        pane.getChildren().add(refresh);
         pane.getChildren().add(scrollPane);
     }
 
@@ -338,8 +363,6 @@ public class Lobby extends Application {
             listOfGameInfo.getChildren().add(close);
 
         }
-
-
     }
 
     private void changePrivacyOfGame(Game game, boolean status) {
@@ -355,6 +378,7 @@ public class Lobby extends Application {
         if (User.getCurrentUser().getUsername().equals(game.getGameAdmin().getUsername())){
             game.setGameAdmin(game.getAllPlayers().get(0));
         }
+        System.out.println("Leave works");
     }
 
     private void closeTheInfoBox(VBox listOfGameInfo) {
