@@ -68,7 +68,7 @@ public class Lobby extends Application {
         User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User user6 = new User("af", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user1);
+        User.setCurrentUser(user2);
 
 
         Game game = new Game(user1,"MyGame1",true, 5);
@@ -97,7 +97,7 @@ public class Lobby extends Application {
         scrollPane.setContent(listOfAllGames);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setLayoutX(300);
-        scrollPane.setLayoutY(200);
+        scrollPane.setLayoutY(300);
         scrollPane.setPrefWidth(415);
         scrollPane.setPrefHeight(250);
         scrollPane.setStyle("-fx-background-color: #1b1073");
@@ -205,7 +205,7 @@ public class Lobby extends Application {
             listOfGameInfo.setPrefSize(230,300);
             listOfGameInfo.setStyle("-fx-background-color: #1b1073");
             listOfGameInfo.setLayoutX(1000);
-            listOfGameInfo.setLayoutY(200);
+            listOfGameInfo.setLayoutY(300);
 
             pane.getChildren().add(listOfGameInfo);
         }
@@ -272,14 +272,70 @@ public class Lobby extends Application {
             listOfGameInfo.getChildren().add(close);
 
         } else if (game.isMemberOfGame(currentUser.getUsername()) != null) { //Game Member
+            Button leaveGame = new Button();
+            leaveGame.setText("Leave");
+            leaveGame.setTranslateX(50);
+            leaveGame.setTranslateY(60);
+            leaveGame.setPrefSize(50, 10);
+            leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            leaveGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    leaveTheGame(game);
+                }
+            });
 
+            Button close = new Button();
+            close.setText("Close");
+            close.setTranslateX(130);
+            close.setTranslateY(38);
+            close.setPrefSize(50, 10);
+            close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    closeTheInfoBox(listOfGameInfo);
+                }
+            });
 
-
+            listOfGameInfo.getChildren().add(leaveGame);
+            listOfGameInfo.getChildren().add(close);
 
         } else { //Stranger
+            Button join = new Button();
+            join.setText("Join");
+            join.setTranslateX(50);
+            join.setTranslateY(60);
+            join.setPrefSize(50, 10);
+            join.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            join.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            join.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    joinTheGame(game);
+                }
+            });
 
+            Button close = new Button();
+            close.setText("Close");
+            close.setTranslateX(130);
+            close.setTranslateY(38);
+            close.setPrefSize(50, 10);
+            close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    closeTheInfoBox(listOfGameInfo);
+                }
+            });
 
-
+            if (game.getAllPlayers().size() < game.getCapacity()){
+                listOfGameInfo.getChildren().add(join);
+            }
+            listOfGameInfo.getChildren().add(close);
 
         }
 
@@ -296,9 +352,18 @@ public class Lobby extends Application {
         //TODO : You should remove the player from the list in the server
         game.getAllPlayers().remove(User.getCurrentUser());
         User.getCurrentUser().getMyGameList().remove(game);
+        if (User.getCurrentUser().getUsername().equals(game.getGameAdmin().getUsername())){
+            game.setGameAdmin(game.getAllPlayers().get(0));
+        }
     }
 
     private void closeTheInfoBox(VBox listOfGameInfo) {
         pane.getChildren().remove(listOfGameInfo);
+    }
+
+    private void joinTheGame(Game game) {
+        //TODO : You should add the user to the list of users of game in the server
+        game.getAllPlayers().add(User.getCurrentUser());
+        User.getCurrentUser().getMyGameList().add(game);
     }
 }
