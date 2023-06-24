@@ -17,6 +17,8 @@ public class UserAdaptor extends TypeAdapter<User> {
         writer.beginObject();
         writer.name("username");
         writer.value(user.getUsername());
+        writer.name("REQUEST_TYPE");
+        writer.value(user.getREQUEST_TYPE());
         writer.name("password");
         writer.value(user.getPassword());
         writer.name("nickname");
@@ -67,6 +69,11 @@ public class UserAdaptor extends TypeAdapter<User> {
                 //move to next token
                 token = reader.peek();
                 user.nickname = (reader.nextString());
+            }
+            if("REQUEST_TYPE".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                user.REQUEST_TYPE = (reader.nextString());
             }
             if("email".equals(fieldname)) {
                 //move to next token

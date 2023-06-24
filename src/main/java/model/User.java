@@ -2,17 +2,17 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import controller.JsonController;
 import controller.ObstacleAdapter;
 import controller.UserAdaptor;
 import javafx.scene.image.Image;
 import model.Obstacle.SavedObstacles;
 import view.ProfileMenu;
-
-
 import  javafx.scene.image.ImageView;
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,6 +56,7 @@ public class User implements Comparable<User> {
     }
 
     private static User currentUser;
+    public String REQUEST_TYPE = "CREATE_USER";
     public String username;
     public String password;
     public String nickname;
@@ -68,6 +69,7 @@ public class User implements Comparable<User> {
     public int rank;
 
     public ImageView avatar = new ImageView();
+
     {
         Image image = new Image(User.class.getResource("/avatars/5.png").toExternalForm());
         avatar.setImage(image);
@@ -194,6 +196,16 @@ public class User implements Comparable<User> {
         String s = gson.toJson(this);
         return s ;
     }
+    public static void makeUsersFromJson() throws IOException {
+        String data = Manage.masterServerDataInputStream.readUTF();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+//        if (data == null) return null;
+        Type type = new TypeToken<ArrayList<User>>(){}.getType();
+        users = gson.fromJson(data,type);
+    }
     public void setRecoveryQuestion(String recoveryQuestion) {
         this.recoveryQuestion = recoveryQuestion;
     }
@@ -204,5 +216,9 @@ public class User implements Comparable<User> {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public String getREQUEST_TYPE() {
+        return REQUEST_TYPE;
     }
 }

@@ -30,6 +30,7 @@ import model.GroundType;
 import model.Manage;
 import model.Map;
 import model.Obstacle.*;
+import model.User;
 import view.ImageAndBackground.GameImages;
 import javafx.util.Duration;
 import view.Messages.RegisterMessages;
@@ -39,6 +40,12 @@ import java.util.ArrayList;
 
 public class RegisterMenu extends Application {
     static {
+        try {
+            Manage.connectUserToMasterServer();
+            User.makeUsersFromJson();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         try {
             getAllMaps();
         } catch (IOException e) {
@@ -103,7 +110,6 @@ public class RegisterMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //connect user to master server
-        Manage.connectUserToMasterServer();
         //m
         RegisterMenu.stage = stage;
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
