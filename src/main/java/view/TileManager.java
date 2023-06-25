@@ -260,9 +260,11 @@ public class TileManager extends Application {
                     gameLog.append(time + '#' + "CLEAR_SELECTED_BUTTONS" + '\n');
                     playSoundEffect("shortCut.wav");
                     removeColorOfSelectedButtons();
-                } else if (keyName.equals("F8")) {
+                }
+                //TODO : save the game log into a file with json
+                else if (keyName.equals("F8")) {
                     log = gameLog.toString();
-                    System.out.println(log);
+
                 } else if (keyName.equals("F3")) {
                     time = (minute[0] + ":" + seconds[0]);
                     gameLog.append(time + '#' + "DROP_UNIT" + '\n');
@@ -855,6 +857,8 @@ public class TileManager extends Application {
                     newButton.setBuilding(null);
                     int x = newButton.getX();
                     int y = newButton.getY();
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "REMOVE_BUILDING" + '#' + x + '#' + y + '\n');
                     if (map.buildingMap[x][y].size() != 0)
                         map.buildingMap[x][y].remove(0);
                     map.notPassable[x][y] = false;
