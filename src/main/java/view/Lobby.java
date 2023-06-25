@@ -16,11 +16,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Game;
 import model.Manage;
+import model.Message;
 import model.User;
 import view.ImageAndBackground.GameImages;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -577,6 +579,7 @@ public class Lobby extends Application {
         pane.getChildren().remove(invalidTypeOfGame);
         pane.getChildren().remove(invalidCapacity);
 
+
         emptyGameId.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
         emptyGameId.setFill(Color.rgb(255, 255, 255, 1));
         emptyGameId.setVisible(false);
@@ -611,9 +614,8 @@ public class Lobby extends Application {
             if (capacity != null && capacity.length() != 0) {
                 if (typeOfGame != null && typeOfGame.length() != 0) {
                     boolean isPublic = false;
-                    boolean validType = false;
+                    boolean validType;
                     if (typeOfGame.equalsIgnoreCase("private")) {
-                        isPublic = false;
                         validType = true;
                     } else if (typeOfGame.equalsIgnoreCase("public")) {
                         isPublic = true;

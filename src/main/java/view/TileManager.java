@@ -641,7 +641,6 @@ public class TileManager extends Application {
         }
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
         createMinimap(pane);
-
     }
 
     public void getCellData(NewButton newButton) {

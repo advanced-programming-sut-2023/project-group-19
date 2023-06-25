@@ -15,6 +15,8 @@ import model.User;
 import view.LoginMenu;
 
 import java.io.IOException;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -37,6 +39,7 @@ public class Main extends Application {
 //        map.getBuildingMap()[1][2].add(shop);
         launch(args);
 //        LoginMenu.run(new Scanner(System.in));
+
     }
 
     @Override
