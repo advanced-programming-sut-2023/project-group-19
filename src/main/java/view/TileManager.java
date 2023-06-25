@@ -59,10 +59,7 @@ import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class TileManager extends Application {
     //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
@@ -91,7 +88,23 @@ public class TileManager extends Application {
     public ArrayList<NewButton> selectedBuildingGraphic;
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
-    public String log;
+    public String log = "" +
+            "0:7#LEFT_CLICK#DRAW_REC#5#5#14#14\n" +
+            "0:7#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:9#LEFT_CLICK#DRAW_REC#5#5#10#10\n" +
+            "0:9#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:10#LEFT_CLICK#DRAW_REC#4#9#9#18\n" +
+            "0:11#LEFT_CLICK#DRAW_REC#10#10#10#10\n" +
+            "0:11#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:13#LEFT_CLICK#DRAW_REC#4#9#10#15\n" +
+            "0:14#LEFT_CLICK#DRAW_REC#4#4#17#17\n" +
+            "0:14#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:15#LEFT_CLICK#DRAW_REC#3#8#11#17\n" +
+            "0:16#LEFT_CLICK#DRAW_REC#10#10#10#10\n" +
+            "0:16#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:17#LEFT_CLICK#DRAW_REC#7#9#14#20\n" +
+            "0:18#LEFT_CLICK#DRAW_REC#7#9#23#27\n" +
+            "0:19#LEFT_CLICK#DRAW_REC#2#6#5#11";
     public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
@@ -113,6 +126,8 @@ public class TileManager extends Application {
     public ArrayList<Node> list = new ArrayList<>();
 
     public Scene scene;
+    //TODO : stay alert to fix this after fixing the function
+    public boolean playReplay = true;
     public double verticalSize = 51.2;
     public int horizontalSize = 54;
     public int viewButtonSize = 50;
@@ -128,6 +143,9 @@ public class TileManager extends Application {
     private boolean moveIsOn;
     public String clipboardData;
     public GameController gameController = new GameController();
+    public String[] lines ;
+    public String[] commandsTime;
+    public String[][] allCommandParts;
 
     public void zoom1() {
         verticalSize = 51.2;
@@ -174,6 +192,13 @@ public class TileManager extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        if(playReplay){
+            lines = log.split("\n");
+            allCommandParts = new String[lines.length][10];
+            for(int i = 0 ; i  < lines.length ; i++){
+                allCommandParts[i] = lines[i].split("#");
+            }
+        }
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -182,6 +207,9 @@ public class TileManager extends Application {
                 if (seconds[0] >= 60) {
                     minute[0]++;
                     seconds[0] = 0;
+                }
+                if(playReplay){
+                    replayGame();
                 }
             }
         }, 0, 1000);
@@ -219,97 +247,102 @@ public class TileManager extends Application {
         createMinimap(pane);
 
         scene = new Scene(pane, width - 50, height - 50);
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                String keyName = keyEvent.getCode().getName();
-                if (keyName.equals("Add")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "ZOOM_IN" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    if (zoomSize != 3) {
-                        zoomSize++;
-                        if (zoomSize == 3) {
-                            zoom3();
-                        } else if (zoomSize == 2) {
-                            zoom2();
+        if(!playReplay) {
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    String keyName = keyEvent.getCode().getName();
+                    if (keyName.equals("Add")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "ZOOM_IN" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        if (zoomSize != 3) {
+                            zoomSize++;
+                            if (zoomSize == 3) {
+                                zoom3();
+                            } else if (zoomSize == 2) {
+                                zoom2();
+                            }
+                        }
+                    } else if (keyName.equals("Subtract")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "ZOOM_OUT" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        if (zoomSize != 1) {
+                            zoomSize--;
+                            if (zoomSize == 2) {
+                                zoom2();
+                            } else if (zoomSize == 1) {
+                                zoom1();
+                            }
+                        }
+                    } else if (keyName.equals("F6")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "NEXT_TURN" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        NextTurnController nextTurnController = new NextTurnController();
+                        nextTurnController.tileManager = tileManager;
+                        nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
+                        nextTurnController.nextTurn();
+                    } else if (keyName.equals("F1")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "CLEAR_SELECTED_BUTTONS" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        removeColorOfSelectedButtons();
+                    }
+                    //TODO : save the game log into a file with json
+                    else if (keyName.equals("F8")) {
+                        log = gameLog.toString();
+                        System.out.println(log);
+                    } else if (keyName.equals("F3")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "DROP_UNIT" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        DropUnitDesign dropUnitDesign = new DropUnitDesign();
+                        dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
+                    } else if (keyName.equals("F4")) {
+                        playSoundEffect("shortCut.wav");
+                        designBoxOfMoveCommand();
+                    } else if (keyName.equals("C")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "COPY_BUILDING" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        content = new ClipboardContent();
+                        if (selectedButton.getBuilding() != null) {
+                            content.putString(selectedButton.getBuilding().getName());
+                        } else {
+                            content.putString("");
+                        }
+                        javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
+                    } else if (keyName.equals("P")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "PASTE_BUILDING" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        clipboardData = content.getString();
+                        bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
+                    } else if (keyName.equals("F5")) {
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "AVERAGE_DETAIL" + '\n');
+                        playSoundEffect("shortCut.wav");
+                        if (selectedButtons.size() != 0) {
+                            int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
+                            ArrayList<Double> averageDetails;
+                            averageDetails = countTheProductionAveragesOnTiles();
+                            designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
+                        } else {
+                            Alert alarm = new Alert(Alert.AlertType.ERROR);
+                            alarm.setTitle("Map Error!");
+                            alarm.setHeaderText("Error in Map Commands");
+                            alarm.setContentText("You didn't choose any cell!");
+                            alarm.showAndWait();
                         }
                     }
-                } else if (keyName.equals("Subtract")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "ZOOM_OUT" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    if (zoomSize != 1) {
-                        zoomSize--;
-                        if (zoomSize == 2) {
-                            zoom2();
-                        } else if (zoomSize == 1) {
-                            zoom1();
-                        }
-                    }
-                } else if (keyName.equals("F6")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "NEXT_TURN" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    NextTurnController nextTurnController = new NextTurnController();
-                    nextTurnController.tileManager = tileManager;
-                    nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
-                    nextTurnController.nextTurn();
-                } else if (keyName.equals("F1")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "CLEAR_SELECTED_BUTTONS" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    removeColorOfSelectedButtons();
                 }
-                //TODO : save the game log into a file with json
-                else if (keyName.equals("F8")) {
-                    log = gameLog.toString();
+            });
+        }
 
-                } else if (keyName.equals("F3")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "DROP_UNIT" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    DropUnitDesign dropUnitDesign = new DropUnitDesign();
-                    dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
-                } else if (keyName.equals("F4")) {
-                    playSoundEffect("shortCut.wav");
-                    designBoxOfMoveCommand();
-                } else if (keyName.equals("C")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "COPY_BUILDING" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    content = new ClipboardContent();
-                    if (selectedButton.getBuilding() != null) {
-                        content.putString(selectedButton.getBuilding().getName());
-                    } else {
-                        content.putString("");
-                    }
-                    javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
-                } else if (keyName.equals("P")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "PASTE_BUILDING" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    clipboardData = content.getString();
-                    bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
-                } else if (keyName.equals("F5")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "AVERAGE_DETAIL" + '\n');
-                    playSoundEffect("shortCut.wav");
-                    if (selectedButtons.size() != 0) {
-                        int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
-                        ArrayList<Double> averageDetails;
-                        averageDetails = countTheProductionAveragesOnTiles();
-                        designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
-                    } else {
-                        Alert alarm = new Alert(Alert.AlertType.ERROR);
-                        alarm.setTitle("Map Error!");
-                        alarm.setHeaderText("Error in Map Commands");
-                        alarm.setContentText("You didn't choose any cell!");
-                        alarm.showAndWait();
-                    }
-                }
-            }
-        });
+
+
         stage.setTitle("Tile Pane");
         stage.setScene(scene);
         stage.show();
@@ -327,6 +360,22 @@ public class TileManager extends Application {
                 castleButton.setImageView(treeImage);
             }
         }
+    }
+    public int logLineReader = 0;
+    public void replayGame(){
+        if( logLineReader < allCommandParts.length) {
+            TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+            while (time.equals(allCommandParts[logLineReader][0])) {
+                System.out.println(Arrays.toString(allCommandParts[logLineReader]));
+                logLineReader++;
+                System.out.println(logLineReader);
+                if(logLineReader == allCommandParts.length) {
+                    logLineReader--;
+                    break;
+                }
+            }
+        }
+
     }
 
     private void stonesOfMap() {
@@ -758,150 +807,152 @@ public class TileManager extends Application {
 
     private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
-        EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                showCellData.setText("");
-            }
-        };
-        EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                avgHp = 0;
-                avgDamage = 0;
-                avgSpeed = 0;
-                //TODO : The data of present army in the cell and groundType collides
-                getCellData(newButton);
-                PointerInfo a = MouseInfo.getPointerInfo();
-                Point b = a.getLocation();
-                int x = (int) b.getX();
-                int y = (int) b.getY() - 110;
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
-                        "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
-                for (int i = 0; i < cellArmyNameType.size(); i++) {
-                    stringBuilder.append(cellArmyNameType.get(i) + " ");
+        if(!playReplay) {
+            EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    showCellData.setText("");
                 }
-                showCellData.setText(stringBuilder.toString());
-                //TODO : The color of text must change
-                showCellData.setStyle("-fx-text-fill: #0a6562;");
-                showCellData.setX(x);
-                showCellData.setY(y);
-                if (showCellData != null && !pane.getChildren().contains(showCellData))
-                    pane.getChildren().add(showCellData);
-            }
-        };
-
-        EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    if (!drawIsOn) {
-                        removeColorOfSelectedButtons();
-                    }
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    firstPoint = a.getLocation();
-                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                    drawIsOn = true;
-                } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    firstPoint = a.getLocation();
-                    firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                    moveIsOn = true;
-                }
-            }
-        };
-        EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
-                    PointerInfo a = MouseInfo.getPointerInfo();
-                    playSoundEffect("clickOnBtn.mp3");
-                    secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                    drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
-                    drawIsOn = false;
-                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                    if (moveIsOn) {
-                        PointerInfo a = MouseInfo.getPointerInfo();
-                        secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
-                        mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, stage);
-                    }
-                }
-            }
-        };
-        EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                    selectedButtons.add(newButton);
+            };
+            EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    avgHp = 0;
+                    avgDamage = 0;
+                    avgSpeed = 0;
+                    //TODO : The data of present army in the cell and groundType collides
+                    getCellData(newButton);
                     PointerInfo a = MouseInfo.getPointerInfo();
                     Point b = a.getLocation();
                     int x = (int) b.getX();
-                    int y = (int) b.getY() - 50;
+                    int y = (int) b.getY() - 110;
                     StringBuilder stringBuilder = new StringBuilder();
-                    numberOfAllSoldiers();
-                    stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
-                            "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
-                } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                    //Do sth else
-                }
-            }
-        };
-        EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (deleteOn) {
-                    pane.getChildren().remove(newButton);
-                    newButton.setGraphic(null);
-                    newButton.setImageView(null);
-                    newButton.setBuilding(null);
-                    int x = newButton.getX();
-                    int y = newButton.getY();
-                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                    TileManager.gameLog.append(TileManager.time + '#' + "REMOVE_BUILDING" + '#' + x + '#' + y + '\n');
-                    if (map.buildingMap[x][y].size() != 0)
-                        map.buildingMap[x][y].remove(0);
-                    map.notPassable[x][y] = false;
-                    map.notBuildable[x][y] = false;
-                    pane.getChildren().add(newButton);
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "DELETE" + '#' + x + '#' + y + '\n');
-                } else {
-                    time = (minute[0] + ":" + seconds[0]);
-                    String logCommand;
-                    selectedButton = newButton;
-                    pane.getChildren().remove(selectedBuildingGraphic);
-                    pane.getChildren().remove(selectedBuildingTextField);
-                    pane.getChildren().remove(selectBackground);
-                    logCommand = time + '#' + "MOUSE_CLICK" + '#' + "NORMAL_REMOVE" + '\n';
-                    if (selectedMenuActive) {
-                        logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_REMOVE" + '\n';
-                        if (selectedBuildingButtons.getGatehouseText() != null) {
-                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GATEHOUSE_REMOVE" + '\n';
-                            pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
-                        }
-                        pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
-                        pane.getChildren().remove(selectedBuildingHP);
-                        pane.getChildren().remove(repair);
+                    stringBuilder.append("AVG Hp : " + avgHp + '\n' + "AVG Damage : " + avgDamage + '\n' +
+                            "AVG Speed : " + avgSpeed + '\n' + "Ground Type : " + map.getGroundType()[newButton.getY()][newButton.getX()].get(0) + '\n');
+                    for (int i = 0; i < cellArmyNameType.size(); i++) {
+                        stringBuilder.append(cellArmyNameType.get(i) + " ");
                     }
-                    if (newButton.getBuilding() != null) {
-                        try {
-                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getBuilding().getName() + '\n';
-                            selectedBuildingBottomGraphic(newButton);
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    gameLog.append(logCommand);
+                    showCellData.setText(stringBuilder.toString());
+                    //TODO : The color of text must change
+                    showCellData.setStyle("-fx-text-fill: #0a6562;");
+                    showCellData.setX(x);
+                    showCellData.setY(y);
+                    if (showCellData != null && !pane.getChildren().contains(showCellData))
+                        pane.getChildren().add(showCellData);
                 }
+            };
 
-            }
-        };
-        newButton.setOnMousePressed(event4);
-        newButton.setOnMouseReleased(event5);
-        newButton.setOnMouseExited(event2);
-        newButton.setOnMouseEntered(event3);
-        newButton.setOnMouseClicked(event7);
+            EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                        if (!drawIsOn) {
+                            removeColorOfSelectedButtons();
+                        }
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        firstPoint = a.getLocation();
+                        firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                        drawIsOn = true;
+                    } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        firstPoint = a.getLocation();
+                        firstPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                        moveIsOn = true;
+                    }
+                }
+            };
+            EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && drawIsOn) {
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        playSoundEffect("clickOnBtn.mp3");
+                        secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                        drawRec(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, allButtons);
+                        drawIsOn = false;
+                    } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                        if (moveIsOn) {
+                            PointerInfo a = MouseInfo.getPointerInfo();
+                            secondPoint.setLocation(a.getLocation().getX(), a.getLocation().getY());
+                            mouseMovement(firstPoint.x, firstPoint.y, secondPoint.x, secondPoint.y, stage);
+                        }
+                    }
+                }
+            };
+            EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                        selectedButtons.add(newButton);
+                        PointerInfo a = MouseInfo.getPointerInfo();
+                        Point b = a.getLocation();
+                        int x = (int) b.getX();
+                        int y = (int) b.getY() - 50;
+                        StringBuilder stringBuilder = new StringBuilder();
+                        numberOfAllSoldiers();
+                        stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
+                                "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
+                    } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                        //Do sth else
+                    }
+                }
+            };
+            EventHandler<MouseEvent> event7 = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (deleteOn) {
+                        pane.getChildren().remove(newButton);
+                        newButton.setGraphic(null);
+                        newButton.setImageView(null);
+                        newButton.setBuilding(null);
+                        int x = newButton.getX();
+                        int y = newButton.getY();
+                        TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                        TileManager.gameLog.append(TileManager.time + '#' + "REMOVE_BUILDING" + '#' + x + '#' + y + '\n');
+                        if (map.buildingMap[x][y].size() != 0)
+                            map.buildingMap[x][y].remove(0);
+                        map.notPassable[x][y] = false;
+                        map.notBuildable[x][y] = false;
+                        pane.getChildren().add(newButton);
+                        time = (minute[0] + ":" + seconds[0]);
+                        gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "DELETE" + '#' + x + '#' + y + '\n');
+                    } else {
+                        time = (minute[0] + ":" + seconds[0]);
+                        String logCommand;
+                        selectedButton = newButton;
+                        pane.getChildren().remove(selectedBuildingGraphic);
+                        pane.getChildren().remove(selectedBuildingTextField);
+                        pane.getChildren().remove(selectBackground);
+                        logCommand = time + '#' + "MOUSE_CLICK" + '#' + "NORMAL_REMOVE" + '\n';
+                        if (selectedMenuActive) {
+                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_REMOVE" + '\n';
+                            if (selectedBuildingButtons.getGatehouseText() != null) {
+                                logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GATEHOUSE_REMOVE" + '\n';
+                                pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
+                            }
+                            pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+                            pane.getChildren().remove(selectedBuildingHP);
+                            pane.getChildren().remove(repair);
+                        }
+                        if (newButton.getBuilding() != null) {
+                            try {
+                                logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getBuilding().getName() + '\n';
+                                selectedBuildingBottomGraphic(newButton);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        gameLog.append(logCommand);
+                    }
+
+                }
+            };
+            newButton.setOnMousePressed(event4);
+            newButton.setOnMouseReleased(event5);
+            newButton.setOnMouseExited(event2);
+            newButton.setOnMouseEntered(event3);
+            newButton.setOnMouseClicked(event7);
+        }
     }
 
     private void playSoundEffect(String name) {
