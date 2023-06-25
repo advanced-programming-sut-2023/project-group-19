@@ -123,7 +123,7 @@ public class Lobby extends Application {
         searchButton.setLayoutX(1010);
         searchButton.setLayoutY(145);
         searchButton.setPrefSize(160, 50);
-        searchButton.setBackground(new Background(new BackgroundImage(gameImages.getSearch(),BackgroundRepeat.NO_REPEAT,
+        searchButton.setBackground(new Background(new BackgroundImage(gameImages.getSearch(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -133,8 +133,8 @@ public class Lobby extends Application {
         });
 
 
-
         VBox listOfAllGames = new VBox();
+        if (pane.getChildren().contains(listOfAllGames)) pane.getChildren().remove(listOfAllGames);
         this.listOfAllGames = listOfAllGames;
         listOfAllGames.setPrefSize(400, 250);
         designListOfAllGames(gameImages);
@@ -428,47 +428,62 @@ public class Lobby extends Application {
     }
 
     private void searchForGivenGameId(String searchedGameId) {
+        pane.getChildren().remove(scrollPaneForSearchedList);
+        VBox similarResultsInSearch = new VBox();
+
         ArrayList<Game> allMatchedGames = findAllMatchingGames(searchedGameId);
-        for (Game allMatchedGame : allMatchedGames) {
-            System.out.println(allMatchedGame.getId());
-        }
         scrollPaneForMainList.setVisible(false);
         pane.getChildren().remove(listOfGameInfo);
-//        scrollPane.setVisible(false);
-//        VBox searchedGameBox = new VBox();
-//        searchedGameBox.setLayoutX(100);
-//        searchedGameBox.setLayoutY(200);
-//        searchedGameBox.setStyle("-fx-background-color: #03183b");
-//        searchedGameBox.setSpacing(2);
-//        for (Game game : allMatchedGames) {
-//            ImageView gameShieldSign = new ImageView(game.getImageView().getImage());
-//            gameShieldSign.setFitHeight(50);
-//            gameShieldSign.setFitWidth(50);
-//
-//            HBox gameIdHBox = new HBox();
-//            gameIdHBox.setPrefSize(20, 10);
-//
-//            Text gameId = new Text();
-//            gameId.setText("Id: " + game.getId());
-//            gameId.setFill(Color.WHITE);
-//            gameId.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-//            gameId.setTranslateX(-25);
-//            gameId.setTranslateY(5);
-//            gameIdHBox.setStyle("-fx-background-color: #1b1073;");
-//            gameIdHBox.getChildren().add(gameShieldSign);
-//            gameIdHBox.getChildren().add(gameId);
-//            searchedGameBox.getChildren().add(gameIdHBox);
-//            searchedGameBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent mouseEvent) {
-//                    designVboxOfGameInfo(game.getId());
-//                }
-//            });
-//        }
-//        if (allMatchedGames != null && allMatchedGames.size() != 0) {
-//            pane.getChildren().add(searchedGameBox);
-//        }
+        if (allMatchedGames != null && allMatchedGames.size() > 0) {
 
+            similarResultsInSearch.setStyle("-fx-background-color: #03183b");
+            similarResultsInSearch.setSpacing(2);
+            similarResultsInSearch.setLayoutX(100);
+            similarResultsInSearch.setLayoutY(200);
+
+            for (int i = 0; i < allMatchedGames.size(); i++) {
+                Game game = allMatchedGames.get(i);
+
+                game.getImageView().setFitWidth(50);
+                game.getImageView().setFitHeight(50);
+
+                HBox gameIdHBox = new HBox();
+                gameIdHBox.setPrefSize(70, 10);
+
+                String id = game.getId();
+                Text gameId = new Text();
+                gameId.setText("Id: " + game.getId());
+                gameId.setFill(Color.WHITE);
+                gameId.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+                gameId.setTranslateX(-25);
+                gameId.setTranslateY(5);
+
+                gameIdHBox.setStyle("-fx-background-color: #1b1073;");
+                gameIdHBox.getChildren().add(game.getImageView());
+                gameIdHBox.getChildren().add(gameId);
+                gameIdHBox.setSpacing(100);
+
+                gameIdHBox.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        designVboxOfGameInfo(id);
+                    }
+                });
+
+                similarResultsInSearch.getChildren().add(gameIdHBox);
+            }
+            scrollPaneForSearchedList.setPrefWidth(400);
+            scrollPaneForSearchedList.setContent(similarResultsInSearch);
+            scrollPaneForSearchedList.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scrollPaneForSearchedList.setLayoutX(300);
+            scrollPaneForSearchedList.setLayoutY(300);
+            scrollPaneForSearchedList.setPrefWidth(400);
+
+
+            scrollPaneForSearchedList.setStyle("-fx-background-color: #1b1073");
+            scrollPaneForSearchedList.setVisible(true);
+            pane.getChildren().add(scrollPaneForSearchedList);
+        }
     }
 
     private ArrayList<Game> findAllMatchingGames(String searchedStatement) {
