@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Game {
 
-    //TODO : Game should be closed if the number of members reach to the settled capacity
+
     public ArrayList<User> allPlayers = new ArrayList<>();
     private String id;
     private int capacity;

@@ -31,6 +31,15 @@ public class Lobby extends Application {
     public VBox listOfGameInfo;
     public ScrollPane scrollPaneForMainList = new ScrollPane();
     public ScrollPane scrollPaneForSearchedList = new ScrollPane();
+    public HBox createRequestHandler;
+    public Text emptyGameId = new Text("Game Id field is empty!");
+    public Text emptyCapacity = new Text("Capacity field is empty!");
+    public Text emptyTypeOfGame = new Text("Game's Type field is empty!");
+    public Text invalidTypeOfGame = new Text("The given game type is invalid!");
+    public Text invalidCapacity = new Text("The given capacity is invalid!");
+
+    //TODO : EventHandler for Back Button
+    //TODO : Game should be closed if the number of members reach to the settled capacity
 
 
     @Override
@@ -90,6 +99,12 @@ public class Lobby extends Application {
         createNewRequest.setPrefSize(160, 50);
         createNewRequest.setStyle("-fx-background-color: rgba(27,16,115,0.71)3; -fx-text-fill: #d3c4c4");
         createNewRequest.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        createNewRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                createNewRequestStage();
+            }
+        });
 
         Button refresh = new Button("Refresh");
         refresh.setLayoutX(900);
@@ -494,5 +509,154 @@ public class Lobby extends Application {
             }
         }
         return allMatchedGames;
+    }
+
+    private void createNewRequestStage() {
+        pane.getChildren().remove(listOfAllGames);
+        pane.getChildren().remove(listOfGameInfo);
+        pane.getChildren().remove(scrollPaneForSearchedList);
+        pane.getChildren().remove(scrollPaneForMainList);
+
+        TextField gameId = new TextField();
+        gameId.setPrefSize(260, 60);
+        gameId.setTranslateX(300);
+        gameId.setTranslateY(310);
+        gameId.setPromptText("Enter Game Id");
+        gameId.setFocusTraversable(false);
+        gameId.setStyle("-fx-background-color: rgba(85,40,140,0.71); -fx-prompt-text-fill: #ffffff;" +
+                "-fx-text-fill: #ffffff");
+
+        TextField capacity = new TextField();
+        capacity.setPrefSize(260, 60);
+        capacity.setTranslateX(620);
+        capacity.setTranslateY(310);
+        capacity.setPromptText("Enter Game's Capacity");
+        capacity.setFocusTraversable(false);
+        capacity.setStyle("-fx-background-color: rgba(85,40,140,0.71); -fx-prompt-text-fill: #ffffff;" +
+                "-fx-text-fill: #ffffff");
+
+        TextField typeOfGame = new TextField();
+        typeOfGame.setPrefSize(260, 60);
+        typeOfGame.setTranslateX(940);
+        typeOfGame.setTranslateY(310);
+        typeOfGame.setPromptText("Enter Game's Type");
+        typeOfGame.setFocusTraversable(false);
+        typeOfGame.setStyle("-fx-background-color: rgba(85,40,140,0.71); -fx-prompt-text-fill: #ffffff;" +
+                "-fx-text-fill: #ffffff");
+
+        Button createRequest = new Button("Create Request");
+        createRequest.setLayoutX(665);
+        createRequest.setLayoutY(500);
+        createRequest.setPrefSize(160, 50);
+        createRequest.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
+        createRequest.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        createRequest.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    if (createRequestLogicStuff(gameId.getText(), capacity.getText(), typeOfGame.getText())) {
+                        pane.getChildren().clear();
+                        designLobby(gameImages);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        pane.getChildren().add(gameId);
+        pane.getChildren().add(capacity);
+        pane.getChildren().add(typeOfGame);
+        pane.getChildren().add(createRequest);
+    }
+
+    private boolean createRequestLogicStuff(String gameId, String capacity, String typeOfGame) {
+        pane.getChildren().remove(emptyGameId);
+        pane.getChildren().remove(emptyCapacity);
+        pane.getChildren().remove(emptyTypeOfGame);
+        pane.getChildren().remove(invalidTypeOfGame);
+        pane.getChildren().remove(invalidCapacity);
+
+        emptyGameId.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        emptyGameId.setFill(Color.rgb(255, 255, 255, 1));
+        emptyGameId.setVisible(false);
+        emptyGameId.setTranslateX(300);
+        emptyGameId.setTranslateY(290);
+
+        emptyCapacity.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        emptyCapacity.setFill(Color.rgb(255, 255, 255, 1));
+        emptyCapacity.setVisible(false);
+        emptyCapacity.setTranslateX(630);
+        emptyCapacity.setTranslateY(290);
+
+        emptyTypeOfGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        emptyTypeOfGame.setFill(Color.rgb(255, 255, 255, 1));
+        emptyTypeOfGame.setVisible(false);
+        emptyTypeOfGame.setTranslateX(950);
+        emptyTypeOfGame.setTranslateY(290);
+
+        invalidTypeOfGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        invalidTypeOfGame.setFill(Color.rgb(255, 255, 255, 1));
+        invalidTypeOfGame.setVisible(false);
+        invalidTypeOfGame.setTranslateX(950);
+        invalidTypeOfGame.setTranslateY(290);
+
+        invalidCapacity.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+        invalidCapacity.setFill(Color.rgb(255, 255, 255, 1));
+        invalidCapacity.setVisible(false);
+        invalidCapacity.setTranslateX(630);
+        invalidCapacity.setTranslateY(290);
+
+        if (gameId != null && gameId.length() != 0) {
+            if (capacity != null && capacity.length() != 0) {
+                if (typeOfGame != null && typeOfGame.length() != 0) {
+                    boolean isPublic = false;
+                    boolean validType = false;
+                    if (typeOfGame.equalsIgnoreCase("private")) {
+                        isPublic = false;
+                        validType = true;
+                    } else if (typeOfGame.equalsIgnoreCase("public")) {
+                        isPublic = true;
+                        validType = true;
+                    } else {
+                        validType = false;
+                    }
+                    if (isNumber(capacity)) {
+                        if (validType) {
+                            Game game = new Game(User.getCurrentUser(), gameId, isPublic, Integer.parseInt(capacity));
+                            Manage.allGames.add(game);
+                            return true;
+                        } else {
+                            invalidTypeOfGame.setVisible(true);
+                            pane.getChildren().add(invalidTypeOfGame);
+                        }
+                    } else {
+                        invalidCapacity.setVisible(true);
+                        pane.getChildren().add(invalidCapacity);
+                    }
+                } else {
+                    emptyTypeOfGame.setVisible(true);
+                    pane.getChildren().add(emptyTypeOfGame);
+                    return false;
+                }
+            } else {
+                emptyCapacity.setVisible(true);
+                pane.getChildren().add(emptyCapacity);
+                return false;
+            }
+        }else {
+            emptyGameId.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
+            emptyGameId.setFill(Color.rgb(255, 255, 255, 1));
+            emptyGameId.setTranslateX(300);
+            emptyGameId.setTranslateY(290);
+            emptyGameId.setVisible(true);
+            pane.getChildren().add(emptyGameId);
+            return false;
+        }
+        return false;
+    }
+
+    public boolean isNumber(String givenString) {
+        return givenString.matches("\\d+");
     }
 }
