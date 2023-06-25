@@ -5,10 +5,6 @@ import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import controller.NextTurnController;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -16,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,10 +27,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.Building.Castle;
 import model.Empire;
-import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
@@ -55,7 +48,6 @@ import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
 import view.OldView.SelectedBuildingMenu;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
@@ -91,6 +83,7 @@ public class TileManager extends Application {
     public String log = "" +
             "0:7#LEFT_CLICK#DRAW_REC#5#5#14#14\n" +
             "0:7#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:8#CLEAR_SELECTED_BUTTONS\n" +
             "0:9#LEFT_CLICK#DRAW_REC#5#5#10#10\n" +
             "0:9#MOUSE_CLICK#NORMAL_REMOVE\n" +
             "0:10#LEFT_CLICK#DRAW_REC#4#9#9#18\n" +
@@ -143,7 +136,7 @@ public class TileManager extends Application {
     private boolean moveIsOn;
     public String clipboardData;
     public GameController gameController = new GameController();
-    public String[] lines ;
+    public String[] lines;
     public String[] commandsTime;
     public String[][] allCommandParts;
 
@@ -182,37 +175,23 @@ public class TileManager extends Application {
 
     private void playLoginMusic() {
         stopAllMusic();
-        String defultSong = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        String defultSong = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        if(playReplay){
+        if (playReplay) {
             lines = log.split("\n");
             allCommandParts = new String[lines.length][10];
-            for(int i = 0 ; i  < lines.length ; i++){
+            for (int i = 0; i < lines.length; i++) {
                 allCommandParts[i] = lines[i].split("#");
             }
         }
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                seconds[0]++;
-                if (seconds[0] >= 60) {
-                    minute[0]++;
-                    seconds[0] = 0;
-                }
-                if(playReplay){
-                    replayGame();
-                }
-            }
-        }, 0, 1000);
         playLoginMusic();
         new CreateMapMenu();
         map = CreateMapMenu.finalMap;
@@ -247,7 +226,7 @@ public class TileManager extends Application {
         createMinimap(pane);
 
         scene = new Scene(pane, width - 50, height - 50);
-        if(!playReplay) {
+        if (!playReplay) {
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
@@ -256,34 +235,17 @@ public class TileManager extends Application {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "ZOOM_IN" + '\n');
                         playSoundEffect("shortCut.wav");
-                        if (zoomSize != 3) {
-                            zoomSize++;
-                            if (zoomSize == 3) {
-                                zoom3();
-                            } else if (zoomSize == 2) {
-                                zoom2();
-                            }
-                        }
+                        zoomIn();
                     } else if (keyName.equals("Subtract")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "ZOOM_OUT" + '\n');
                         playSoundEffect("shortCut.wav");
-                        if (zoomSize != 1) {
-                            zoomSize--;
-                            if (zoomSize == 2) {
-                                zoom2();
-                            } else if (zoomSize == 1) {
-                                zoom1();
-                            }
-                        }
+                        zoomOut();
                     } else if (keyName.equals("F6")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "NEXT_TURN" + '\n');
                         playSoundEffect("shortCut.wav");
-                        NextTurnController nextTurnController = new NextTurnController();
-                        nextTurnController.tileManager = tileManager;
-                        nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
-                        nextTurnController.nextTurn();
+                        nextTurn();
                     } else if (keyName.equals("F1")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "CLEAR_SELECTED_BUTTONS" + '\n');
@@ -298,8 +260,7 @@ public class TileManager extends Application {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "DROP_UNIT" + '\n');
                         playSoundEffect("shortCut.wav");
-                        DropUnitDesign dropUnitDesign = new DropUnitDesign();
-                        dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
+                        dropUnitHbox();
                     } else if (keyName.equals("F4")) {
                         playSoundEffect("shortCut.wav");
                         designBoxOfMoveCommand();
@@ -341,6 +302,20 @@ public class TileManager extends Application {
             });
         }
 
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                seconds[0]++;
+                if (seconds[0] >= 60) {
+                    minute[0]++;
+                    seconds[0] = 0;
+                }
+                if (playReplay) {
+                    replayGame();
+                }
+            }
+        }, 0, 1000);
 
 
         stage.setTitle("Tile Pane");
@@ -348,6 +323,64 @@ public class TileManager extends Application {
         stage.show();
         stage.setFullScreen(true);
         stage.setResizable(false);
+    }
+
+    public void dropUnitHbox() {
+        DropUnitDesign dropUnitDesign = new DropUnitDesign();
+        dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
+    }
+
+    public void closeDropUnitHbox() {
+        DropUnitDesign dropUnitDesign = new DropUnitDesign();
+        pane.getChildren().remove(dropUnitDesign.gethBox());
+        dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
+    }
+
+    public void zoomIn() {
+        if (zoomSize != 3) {
+            zoomSize++;
+            if (zoomSize == 3) {
+                zoom3();
+            } else if (zoomSize == 2) {
+                zoom2();
+            }
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().clear();
+                createViewScene(stage);
+                bottomBarBuildings.setAllButtons(allButtons);
+                scene.setRoot(pane);
+            }
+        });
+    }
+
+    public void zoomOut() {
+        if (zoomSize != 1) {
+            zoomSize--;
+            if (zoomSize == 2) {
+                zoom2();
+            } else if (zoomSize == 1) {
+                zoom1();
+            }
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().clear();
+                createViewScene(stage);
+                bottomBarBuildings.setAllButtons(allButtons);
+                scene.setRoot(pane);
+            }
+        });
+    }
+
+    public void nextTurn() {
+        NextTurnController nextTurnController = new NextTurnController();
+        nextTurnController.tileManager = tileManager;
+        nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
+        nextTurnController.nextTurn();
     }
 
     private void treesOfMap() {
@@ -361,21 +394,66 @@ public class TileManager extends Application {
             }
         }
     }
+
     public int logLineReader = 0;
-    public void replayGame(){
-        if( logLineReader < allCommandParts.length) {
+
+    public void replayGame() {
+        if (logLineReader < allCommandParts.length) {
             TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
             while (time.equals(allCommandParts[logLineReader][0])) {
-                System.out.println(Arrays.toString(allCommandParts[logLineReader]));
+                handleLogCommands(allCommandParts[logLineReader]);
                 logLineReader++;
-                System.out.println(logLineReader);
-                if(logLineReader == allCommandParts.length) {
+                if (logLineReader == allCommandParts.length) {
                     logLineReader--;
                     break;
                 }
             }
         }
 
+    }
+
+    public void handleLogCommands(String[] command) {
+        switch (command[1]) {
+            case "LEFT_CLICK":
+                leftClickCommands(command);
+                break;
+            case "RIGHT_CLICK":
+                break;
+            case "ZOOM_IN":
+                zoomIn();
+                break;
+            case "ZOOM_OUT":
+                zoomOut();
+                break;
+            case "NEXT_TURN":
+                nextTurn();
+                break;
+            case "DROP_UNIT":
+                dropUnitHbox();
+                break;
+            case "CLOSE_DROP_UNIT":
+                closeDropUnitHbox();
+                break;
+            case "CLEAR_SELECTED_BUTTONS":
+                removeColorOfSelectedButtons();
+                break;
+        }
+    }
+
+    public void leftClickCommands(String[] command) {
+        switch (command[2]) {
+            case "DRAW_REC":
+                removeColorOfSelectedButtons();
+                coloringButtons(Integer.parseInt(command[3]), Integer.parseInt(command[4]),
+                        Integer.parseInt(command[5]), Integer.parseInt(command[6]));
+                break;
+            case "NORMAL_REMOVE":
+                normalRemove();
+                break;
+            case "RIGHT_CLICK":
+
+                break;
+        }
     }
 
     private void stonesOfMap() {
@@ -647,9 +725,9 @@ public class TileManager extends Application {
         if (moveY < 0) {
             moveY = 0;
         }
-        pane.getChildren().clear();
         time = (minute[0] + ":" + seconds[0]);
         gameLog.append(time + '#' + "RIGHT_CLICK" + '#' + "MOVE_MAP" + '#' + moveX + '#' + moveY + '\n');
+        pane.getChildren().clear();
         createViewScene(stage);
         bottomBarBuildings.setAllButtons(allButtons);
         scene.setRoot(pane);
@@ -672,16 +750,20 @@ public class TileManager extends Application {
             maxY = y1 / 54;
             minY = y2 / 54;
         }
-        for (int j = minY; j <= maxY; j++) {
-            for (int i = minX; i <= maxX; i++) {
+        coloringButtons(minY, maxY, minX, maxX);
+        time = (minute[0] + ":" + seconds[0]);
+        gameLog.append(time + '#' + "LEFT_CLICK" + '#' + "DRAW_REC" + '#' + minY + '#' + maxY + '#' + minX + '#' + maxX + '\n');
+        gameController.selectUnit(selectedButtons, pane);
+    }
+
+    public void coloringButtons(int y1, int y2, int x1, int x2) {
+        for (int j = y1; j <= y2; j++) {
+            for (int i = x1; i <= x2; i++) {
                 NewButton newButton = allButtons[j][i].get(0);
                 newButton.setStyle("-fx-border-color: rgba(4,17,104,0.78)");
                 selectedButtons.add(newButton);
             }
         }
-        time = (minute[0] + ":" + seconds[0]);
-        gameLog.append(time + '#' + "LEFT_CLICK" + '#' + "DRAW_REC" + '#' + minY + '#' + maxY + '#' + minX + '#' + maxX + '\n');
-        gameController.selectUnit(selectedButtons, pane);
     }
 
     private int getRandomX(NewButton newButton) {
@@ -807,7 +889,7 @@ public class TileManager extends Application {
 
     private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
-        if(!playReplay) {
+        if (!playReplay) {
             EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -892,8 +974,6 @@ public class TileManager extends Application {
                         numberOfAllSoldiers();
                         stringBuilder.append("Soldier Num: " + numberOfMySoldiers + "\n" + "Min Production: " + leastProduction +
                                 "\nMax Production: " + mostProduction + "\nAVG Production: " + avgProduction);
-                    } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                        //Do sth else
                     }
                 }
             };
@@ -920,9 +1000,7 @@ public class TileManager extends Application {
                         time = (minute[0] + ":" + seconds[0]);
                         String logCommand;
                         selectedButton = newButton;
-                        pane.getChildren().remove(selectedBuildingGraphic);
-                        pane.getChildren().remove(selectedBuildingTextField);
-                        pane.getChildren().remove(selectBackground);
+                        normalRemove();
                         logCommand = time + '#' + "MOUSE_CLICK" + '#' + "NORMAL_REMOVE" + '\n';
                         if (selectedMenuActive) {
                             logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_REMOVE" + '\n';
@@ -953,6 +1031,12 @@ public class TileManager extends Application {
             newButton.setOnMouseEntered(event3);
             newButton.setOnMouseClicked(event7);
         }
+    }
+
+    public void normalRemove() {
+        pane.getChildren().remove(selectedBuildingGraphic);
+        pane.getChildren().remove(selectedBuildingTextField);
+        pane.getChildren().remove(selectBackground);
     }
 
     private void playSoundEffect(String name) {
