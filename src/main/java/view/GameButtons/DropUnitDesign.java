@@ -157,9 +157,7 @@ public class DropUnitDesign {
                     gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
                             , i, spinners.get(i).getValue(), selectedButtons.get(0));
                 }
-
             }
-
         });
         pane.getChildren().add(hBox);
     }

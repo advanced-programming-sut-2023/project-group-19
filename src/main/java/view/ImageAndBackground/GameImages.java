@@ -13,6 +13,7 @@ public class GameImages {
     public Image shield1;
     public Image shield2;
     public Image shield3;
+    public Image search;
     public Background loginBackground;
     public Background registerBackground;
 
@@ -46,6 +47,7 @@ public class GameImages {
         shield1 = new Image(TileManager.class.getResource("/image/LobbyImages/shield1.png").toExternalForm());
         shield2 = new Image(TileManager.class.getResource("/image/LobbyImages/shield2.png").toExternalForm());
         shield3 = new Image(TileManager.class.getResource("/image/LobbyImages/shield3.png").toExternalForm());
+        search = new Image(TileManager.class.getResource("/image/LobbyImages/search.png").toExternalForm());
     }
 
 
@@ -97,5 +99,9 @@ public class GameImages {
 
     public Image getShield3() {
         return shield3;
+    }
+
+    public Image getSearch() {
+        return search;
     }
 }
