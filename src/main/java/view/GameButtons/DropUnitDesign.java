@@ -156,14 +156,16 @@ public class DropUnitDesign {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_DROP_UNIT" + '\n');
+
                 playSoundEffect("dropUnit.mp3");
                 pane.getChildren().remove(hBox);
                 for (int i = 0; i < spinners.size(); i++) {
-                    gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
-                            , i, spinners.get(i).getValue(), selectedButtons.get(0));
+                    if(spinners.get(i).getValue() != 0)
+                        gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
+                                , i, spinners.get(i).getValue(), selectedButtons.get(0));
                 }
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_DROP_UNIT" + '\n');
 
             }
 

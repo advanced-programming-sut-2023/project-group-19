@@ -1054,6 +1054,7 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
                 PointerInfo a = MouseInfo.getPointerInfo();
                 Point b = a.getLocation();
                 int x = (int) ((int) b.getX() / 51);

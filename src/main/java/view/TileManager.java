@@ -270,8 +270,6 @@ public class TileManager extends Application {
                     DropUnitDesign dropUnitDesign = new DropUnitDesign();
                     dropUnitDesign.designHBoxForDropUnit(pane, gameController, selectedButtons);
                 } else if (keyName.equals("F4")) {
-                    time = (minute[0] + ":" + seconds[0]);
-                    gameLog.append(time + '#' + "MOVE_UNIT" + '\n');
                     playSoundEffect("shortCut.wav");
                     designBoxOfMoveCommand();
                 } else if (keyName.equals("C")) {
@@ -548,7 +546,6 @@ public class TileManager extends Application {
         hBox.getChildren().add(y);
         hBox.getChildren().add(close);
         pane.getChildren().add(hBox);
-
         close.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -558,6 +555,8 @@ public class TileManager extends Application {
                 if (x.getText() != null && y.getText() != null && x.getText().matches("\\d+") && y.getText().matches("\\d+")) {
                     int xOfDestination = Integer.parseInt(x.getText());
                     int yOfDestination = Integer.parseInt(y.getText());
+                    time = (minute[0] + ":" + seconds[0]);
+                    gameLog.append(time + '#' + "MOVE_UNIT" + '#' + xOfDestination + '#' + yOfDestination + '\n');
                     gameController.moveUnit(xOfDestination, yOfDestination, selectedButton, pane, list);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -883,7 +882,7 @@ public class TileManager extends Application {
                     }
                     if (newButton.getBuilding() != null) {
                         try {
-                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getBuilding().getName() +  '\n';
+                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getBuilding().getName() + '\n';
                             selectedBuildingBottomGraphic(newButton);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
