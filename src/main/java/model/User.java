@@ -22,19 +22,17 @@ public class User implements Comparable<User> {
     private static ArrayList<String> captchas = new ArrayList<>();
     private static HashMap<Integer, String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
-
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;
     }
-
     public static ArrayList<String> getRandomSlogans() {
         return randomSlogans;
     }
-
     public static ArrayList<User> loginUsers = new ArrayList<>();
     public User(){
 
     }
+
 
     static {
         randomSlogans.add("I march to death...Though I wish it was my own...");
@@ -67,6 +65,8 @@ public class User implements Comparable<User> {
     public int highScore;
     public static ArrayList<User> users = new ArrayList<>();
     public int rank;
+
+    public ArrayList<Chat> chats = new ArrayList<>();
 
     public ImageView avatar = new ImageView();
 
@@ -196,6 +196,14 @@ public class User implements Comparable<User> {
         String s = gson.toJson(this);
         return s ;
     }
+    public static String convertUserToJson(User user){
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String s = gson.toJson(user);
+        return s ;
+    }
     public static void makeUsersFromJson() throws IOException {
         String data = Manage.masterServerDataInputStream.readUTF();
         GsonBuilder builder = new GsonBuilder();
@@ -220,5 +228,13 @@ public class User implements Comparable<User> {
 
     public String getREQUEST_TYPE() {
         return REQUEST_TYPE;
+    }
+
+    public ArrayList<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(ArrayList<Chat> chats) {
+        this.chats = chats;
     }
 }

@@ -1,6 +1,7 @@
 package view;
 
 import controller.LoginController;
+import controller.SendInformationToMasterServer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,6 +30,7 @@ import java.net.URL;
 import java.util.Optional;
 
 public class LoginMenu extends Application {
+    //TODO : ArrayList of users have to change when a user is register !
     public Pane pane;
     public TextField username = new TextField();
     public PasswordField password = new PasswordField();
@@ -152,8 +154,6 @@ public class LoginMenu extends Application {
         });
         pane.getChildren().add(back);
     }
-
-
     public void forgotPassword(MouseEvent mouseEvent) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("LoginMenu Error!");
@@ -226,6 +226,9 @@ public class LoginMenu extends Application {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("LoginMenu Information");
             alert.setHeaderText("Success!");
+            User user =  User.getUserByName(username.getText());
+            User.setCurrentUser(user);
+            SendInformationToMasterServer.sendCurrentUser(user);
             alert.setContentText("Login successfully!");
             alert.showAndWait();
             //connect user to masterServer

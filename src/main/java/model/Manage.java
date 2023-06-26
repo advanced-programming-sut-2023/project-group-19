@@ -13,8 +13,8 @@ public class Manage {
     public static ArrayList<Building> burningEmpires = new ArrayList<>();
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
 
-    public static DataInputStream masterServerDataInputStream ;
-    public static DataOutputStream masterServerDataOutputStream ;
+    public static DataInputStream masterServerDataInputStream;
+    public static DataOutputStream masterServerDataOutputStream;
 
     static {
         namesOfAllPossibleBuildings.add("Armoury");
@@ -96,9 +96,15 @@ public class Manage {
         }
         return null;
     }
+
     public static void connectUserToMasterServer() throws IOException {
         Socket socket = new Socket("localhost", 8080);
         masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+    }
+    public static void connectUserToGlobalChat() throws IOException {
+        Socket socket = new Socket("localhost", 6000);
+        Chat chat = new Chat(socket, "Global","PUBLIC");
+        User.getCurrentUser().getChats().add(chat);
     }
 }

@@ -1,5 +1,8 @@
 package view;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import controller.UserAdaptor;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -21,22 +24,29 @@ public class Main extends Application {
     public static Stage stage;
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-//        Map.CreateMap(200);
-        Map.mapSize = 200;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
-        Shop shop = new Shop(Ali);
-        ShopMenu.currentShop = shop;
-//        map.getBuildingMap()[1][2].add(shop);
-        launch(args);
-//        LoginMenu.run(new Scanner(System.in));
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+//        Empire Ali = new Empire();
+//        Empire Dorsa = new Empire();
+//        Ali.setUser(newUser);
+//        Dorsa.setUser(newUser1);
+//        Manage.setCurrentEmpire(Ali);
+////        Map.CreateMap(200);
+//        Map.mapSize = 200;
+//        Manage.getAllEmpires().add(Dorsa);
+//        Manage.getAllEmpires().add(Ali);
+//        Shop shop = new Shop(Ali);
+//        ShopMenu.currentShop = shop;
+////        map.getBuildingMap()[1][2].add(shop);
+//        launch(args);
+////        LoginMenu.run(new Scanner(System.in));
+        User user = new User("a","a","c","w","Q","r",2);
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String s = gson.toJson(user);
+        System.out.println(s);
     }
 
     @Override

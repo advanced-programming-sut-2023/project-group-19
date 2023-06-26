@@ -1,15 +1,22 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.Chat;
 import model.Obstacle.SavedObstacles;
 import model.User;
+import model.adaaptors.ChatAdaptor;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class UserAdaptor extends TypeAdapter<User> {
     @Override
@@ -25,6 +32,8 @@ public class UserAdaptor extends TypeAdapter<User> {
         writer.value(user.getNickname());
         writer.name("email");
         writer.value(user.getEmail());
+//        writer.name("chats");
+//        writer.value(returnChatsObject(user.getChats()));
         writer.name("recoveryQuestion");
         writer.value(user.getRecoveryQuestion());
         writer.name("slogan");
@@ -38,6 +47,14 @@ public class UserAdaptor extends TypeAdapter<User> {
         writer.name("avatar");
         writer.value(user.getAvatar().getImage().getUrl());
         writer.endObject();
+    }
+    public String returnChatsObject(ArrayList<Chat> chats){
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Chat.class, new ChatAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        Type type = new TypeToken<ArrayList<Chat>>(){}.getType();
+        return gson.toJson(chats,type);
     }
 
     @Override

@@ -23,11 +23,13 @@ public class JsonController {
         builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
+        String jsonAsString = gson.toJson(object);
+        SendInformationToMasterServer.sendMapToServer(jsonAsString);
         try (FileWriter file = new FileWriter(fileName)) {
-            String jsonAsString = gson.toJson(object);
             StringBuilder sb = new StringBuilder();
             if(content != null)sb.append(content);
             sb.append(jsonAsString);
+
             file.write(sb.toString());
             file.flush();
         } catch (IOException ignored) {
