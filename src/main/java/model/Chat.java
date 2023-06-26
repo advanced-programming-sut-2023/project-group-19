@@ -1,32 +1,32 @@
 package model;
 
-import model.Human.Troop.Army;
-
-import java.util.ArrayList;
+import java.net.Socket;
 
 public class Chat {
-    private ArrayList<User> chatMembers;
-    private ArrayList<Message> messages;
-    private ChatType chatType;
+    private String name ;
+    private Socket socket ;
+    private String type ;
 
-    public Chat(ArrayList<User> chatMembers, ChatType chatType) {
-        this.chatMembers = chatMembers;
-        this.chatType = chatType;
+    public Chat(Socket socket ,String name,String type) {
+        this.type = type ;
+        this.name = name;
+        this.socket = socket;
+        User.getCurrentUser().getChats().add(this);
     }
 
-    public ArrayList<User> getChatMembers() {
-        return chatMembers;
+    public String getName() {
+        return name;
     }
 
-    public void addToChatMembers(User newChatMember) {
-        chatMembers.add(newChatMember);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public ChatType getChatType() {
-        return chatType;
+    public Socket getSocket() {
+        return socket;
     }
 
-    public void setChatType(ChatType chatType) {
-        this.chatType = chatType;
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 }

@@ -14,6 +14,9 @@ public class GameImages {
     public Image shield2;
     public Image shield3;
     public Image search;
+    public Image privateChat;
+    public Image groupChat;
+    public Image globalChat;
     public Background loginBackground;
     public Background registerBackground;
 
@@ -48,6 +51,9 @@ public class GameImages {
         shield2 = new Image(TileManager.class.getResource("/image/LobbyImages/shield2.png").toExternalForm());
         shield3 = new Image(TileManager.class.getResource("/image/LobbyImages/shield3.png").toExternalForm());
         search = new Image(TileManager.class.getResource("/image/LobbyImages/search.png").toExternalForm());
+        privateChat = new Image(TileManager.class.getResource("/image/LobbyImages/privateChat.png").toExternalForm());
+        groupChat = new Image(TileManager.class.getResource("/image/LobbyImages/groupChat.png").toExternalForm());
+        globalChat = new Image(TileManager.class.getResource("/image/LobbyImages/globalChat.png").toExternalForm());
     }
 
 
@@ -103,5 +109,17 @@ public class GameImages {
 
     public Image getSearch() {
         return search;
+    }
+
+    public Image getPrivateChat() {
+        return privateChat;
+    }
+
+    public Image getGroupChat() {
+        return groupChat;
+    }
+
+    public Image getGlobalChat() {
+        return globalChat;
     }
 }

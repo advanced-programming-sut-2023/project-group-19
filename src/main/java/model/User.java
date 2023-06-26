@@ -8,6 +8,7 @@ import view.ProfileMenu;
 import  javafx.scene.image.ImageView;
 import java.awt.*;
 import java.io.IOException;
+import java.net.CookieStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class User implements Comparable<User> {
     private static ArrayList<String> randomSlogans = new ArrayList<>();
     public  ArrayList<Game> myGame = new ArrayList<>();
     public ArrayList<User> myFriends = new ArrayList<>();
+    public ArrayList<Chat> myChats = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;
@@ -196,5 +198,10 @@ public class User implements Comparable<User> {
     public void addToMyFriends(User newFriend) {
         myFriends.add(newFriend);
     }
+
+    public ArrayList<Chat> getChats() {
+        return myChats;
+    }
+
 }
 

@@ -14,15 +14,15 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Chat;
 import model.Game;
 import model.Manage;
-import model.Message;
+
 import model.User;
 import view.ImageAndBackground.GameImages;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -33,7 +33,7 @@ public class Lobby extends Application {
     public VBox listOfGameInfo;
     public ScrollPane scrollPaneForMainList = new ScrollPane();
     public ScrollPane scrollPaneForSearchedList = new ScrollPane();
-    public HBox createRequestHandler;
+    public ScrollPane scrollPaneForChat = new ScrollPane();
     public Text emptyGameId = new Text("Game Id field is empty!");
     public Text emptyCapacity = new Text("Capacity field is empty!");
     public Text emptyTypeOfGame = new Text("Game's Type field is empty!");
@@ -89,14 +89,14 @@ public class Lobby extends Application {
     private void designLobby(GameImages gameImages) throws IOException {
 
         Button back = new Button("Back");
-        back.setLayoutX(500);
+        back.setLayoutX(350);
         back.setLayoutY(70);
         back.setPrefSize(160, 50);
         back.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
         back.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
 
         Button createNewRequest = new Button("New Game Request");
-        createNewRequest.setLayoutX(700);
+        createNewRequest.setLayoutX(550);
         createNewRequest.setLayoutY(70);
         createNewRequest.setPrefSize(160, 50);
         createNewRequest.setStyle("-fx-background-color: rgba(27,16,115,0.71)3; -fx-text-fill: #d3c4c4");
@@ -108,8 +108,21 @@ public class Lobby extends Application {
             }
         });
 
+        Button chat = new Button("Chat");
+        chat.setLayoutX(750);
+        chat.setLayoutY(70);
+        chat.setPrefSize(160, 50);
+        chat.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
+        chat.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        chat.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                pane.getChildren().clear();
+                designChat(gameImages);
+            }
+        });
         Button refresh = new Button("Refresh");
-        refresh.setLayoutX(900);
+        refresh.setLayoutX(950);
         refresh.setLayoutY(70);
         refresh.setPrefSize(160, 50);
         refresh.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
@@ -126,6 +139,7 @@ public class Lobby extends Application {
                 }
             }
         });
+
 
         TextField search = new TextField();
         search.setPromptText("Search Game Id");
@@ -168,6 +182,7 @@ public class Lobby extends Application {
 
         pane.getChildren().add(back);
         pane.getChildren().add(createNewRequest);
+        pane.getChildren().add(chat);
         pane.getChildren().add(refresh);
         pane.getChildren().add(search);
         pane.getChildren().add(searchButton);
@@ -514,6 +529,7 @@ public class Lobby extends Application {
     }
 
     private void createNewRequestStage() {
+
         pane.getChildren().remove(listOfAllGames);
         pane.getChildren().remove(listOfGameInfo);
         pane.getChildren().remove(scrollPaneForSearchedList);
@@ -660,5 +676,128 @@ public class Lobby extends Application {
 
     public boolean isNumber(String givenString) {
         return givenString.matches("\\d+");
+    }
+
+    private void designChat(GameImages gameImages) {
+
+        Button refresh = new Button("Refresh");
+        refresh.setLayoutX(1050);
+        refresh.setLayoutY(70);
+        refresh.setPrefSize(160, 50);
+        refresh.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
+        refresh.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        refresh.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                pane.getChildren().clear();
+                designChat(gameImages);
+            }
+        });
+
+        Button lobby = new Button("Lobby");
+        lobby.setLayoutX(350);
+        lobby.setLayoutY(70);
+        lobby.setPrefSize(160, 50);
+        lobby.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
+        lobby.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        lobby.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    pane.getChildren().clear();
+                    designLobby(gameImages);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
+
+
+        TextField search = new TextField();
+        search.setPromptText("Search player's Id");
+        search.setPrefSize(280, 30);
+        search.setTranslateX(300);
+        search.setTranslateY(160);
+        search.setFocusTraversable(false);
+        search.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-prompt-text-fill: white;" +
+                "-fx-text-fill: white;");
+
+        Button searchButton = new Button();
+        searchButton.setLayoutX(590);
+        searchButton.setLayoutY(157);
+        searchButton.setPrefSize(30,30);
+        searchButton.setBackground(new Background(new BackgroundImage(gameImages.getSearch(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                searchForGivenUserId(search.getText());
+            }
+        });
+
+        Button privateChatList = new Button();
+        privateChatList.setLayoutX(300);
+        privateChatList.setLayoutY(200);
+        privateChatList.setPrefSize(80, 80);
+        privateChatList.setBackground(new Background(new BackgroundImage(gameImages.getPrivateChat(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        privateChatList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("'This is pv");
+            }
+        });
+
+        Button groupChatList = new Button();
+        groupChatList.setLayoutX(400);
+        groupChatList.setLayoutY(200);
+        groupChatList.setPrefSize(80,80);
+        groupChatList.setBackground(new Background(new BackgroundImage(gameImages.getGroupChat(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        groupChatList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("This is gp");
+            }
+        });
+
+        Button globalChat = new Button();
+        globalChat.setLayoutX(500);
+        globalChat.setLayoutY(200);
+        globalChat.setPrefSize(80,80);
+        globalChat.setBackground(new Background(new BackgroundImage(gameImages.getGlobalChat(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        globalChat.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("This is global");
+            }
+        });
+
+        designScrollPaneOfAllChats();
+
+
+        pane.getChildren().add(lobby);
+        pane.getChildren().add(refresh);
+        pane.getChildren().add(search);
+        pane.getChildren().add(searchButton);
+        pane.getChildren().add(privateChatList);
+        pane.getChildren().add(groupChatList);
+        pane.getChildren().add(globalChat);
+
+
+    }
+
+    private void searchForGivenUserId(String text) {
+    }
+
+    private void designScrollPaneOfAllChats() {
+        VBox chatList = new VBox();
+        for (Chat chat : User.getCurrentUser().getChats()) {
+
+        }
+        
     }
 }
