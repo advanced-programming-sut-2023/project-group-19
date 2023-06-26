@@ -1,10 +1,14 @@
 package view;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import controller.AttackArmyToArmyController;
 import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
 import controller.NextTurnController;
+import controller.ObstacleAdapter;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -32,6 +36,7 @@ import model.Empire;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
+import model.Obstacle.SavedObstacles;
 import model.Obstacle.Stone;
 import model.Obstacle.Tree;
 import model.Obstacle.WaterSources;
@@ -50,7 +55,8 @@ import view.OldView.SelectedBuildingMenu;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class TileManager extends Application {
@@ -81,32 +87,8 @@ public class TileManager extends Application {
     public ArrayList<NewButton> selectedBuildingGraphic;
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
-    public String log = "" +
-            "0:3#DROP_UNIT_GAME#5#14#0#6#5#14\n" +
-            "0:3#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
-            "0:4#SELECT_UNIT#archer#4#5#14\n" +
-//            "0:4#AVERAGE_DETAIL\n" +
-//            "0:5#CLOSE_AVERAGE_DETAIL\n" +
-            "0:5#MOVE_UNIT#8#16\n" +
-            "0:16#MOUSE_CLICK#DELETE_BUTTON\n" +
-            "0:16#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
-            "0:16#DROP_BUILDING#WoodCutter#5#16\n" +
-            "0:17#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
-            "0:18#CLEAR_SELECTED_BUTTONS\n" +
-            "0:19#MOUSE_CLICK#UNDO_BUTTON\n" +
-            "0:19#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
-            "0:20#MOUSE_CLICK#DRAW_REC#4#9#9#18\n";
-    //            "0:11#MOUSE_CLICK#DRAW_REC#10#10#10#10\n" +
-//            "0:11#MOUSE_CLICK#NORMAL_REMOVE\n" +
-//            "0:13#MOUSE_CLICK#DRAW_REC#4#9#10#15\n" +
-//            "0:14#MOUSE_CLICK#DRAW_REC#4#4#17#17\n" +
-//            "0:14#MOUSE_CLICK#NORMAL_REMOVE\n" +
-//            "0:15#MOUSE_CLICK#DRAW_REC#3#8#11#17\n" +
-//            "0:16#MOUSE_CLICK#DRAW_REC#10#10#10#10\n" +
-//            "0:16#MOUSE_CLICK#NORMAL_REMOVE\n" +
-//            "0:17#MOUSE_CLICK#DRAW_REC#7#9#14#20\n" +
-//            "0:18#MOUSE_CLICK#DRAW_REC#7#9#23#27\n" +
-//            "0:19#MOUSE_CLICK#DRAW_REC#2#6#5#11";
+    public String log ;
+
     public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
@@ -129,7 +111,7 @@ public class TileManager extends Application {
 
     public Scene scene;
     //TODO : stay alert to fix this after fixing the function
-    public boolean playReplay = true;
+    public boolean playReplay = false;
     public double verticalSize = 51.2;
     public int horizontalSize = 54;
     public int viewButtonSize = 50;
@@ -182,6 +164,8 @@ public class TileManager extends Application {
 
     public MediaPlayer mediaPlayer;
 
+
+
     private void playLoginMusic() {
         stopAllMusic();
 //        String defultSong = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
@@ -191,9 +175,36 @@ public class TileManager extends Application {
 //        mediaPlayer2.setAutoPlay(true);
 //        mediaPlayer.setCycleCount(-1);
     }
+    private void writeIntoJson(String log){
+        try (FileWriter file = new FileWriter("log.json")) {
+            String jsonAsString = log ;
+            StringBuilder sb = new StringBuilder();
+            sb.append(log);
+            file.write(sb.toString());
+            file.flush();
+        } catch (IOException ignored) {
+            System.out.println("couldn't save into file");
+        }
+    }
+    private void readFromJson() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("log.json"));
+        if (br.readLine() == null) {
+            content = null;
+            return;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        File file = new File("log.json");
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine())
+            stringBuilder.append(sc.nextLine()).append('\n');
+        log = stringBuilder.toString();
+        playReplay = log != null ;
+    }
+
 
     @Override
     public void start(Stage stage) throws Exception {
+        readFromJson();
         if (playReplay) {
             lines = log.split("\n");
             allCommandParts = new String[lines.length - 1][10];
@@ -264,7 +275,7 @@ public class TileManager extends Application {
                     //TODO : save the game log into a file with json
                     else if (keyName.equals("F8")) {
                         log = gameLog.toString();
-                        System.out.println(log);
+                        writeIntoJson(log);
                     } else if (keyName.equals("F3")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "DROP_UNIT" + '\n');
@@ -294,6 +305,11 @@ public class TileManager extends Application {
             });
         }
 
+        stage.setTitle("Tile Pane");
+        stage.setScene(scene);
+        stage.show();
+        stage.setFullScreen(true);
+        stage.setResizable(false);
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -313,12 +329,6 @@ public class TileManager extends Application {
             }
         }, 0, 1000);
 
-
-        stage.setTitle("Tile Pane");
-        stage.setScene(scene);
-        stage.show();
-        stage.setFullScreen(true);
-        stage.setResizable(false);
     }
 
     public String copyContent;
@@ -498,9 +508,17 @@ public class TileManager extends Application {
                 replayCopy();
                 break;
             case "MOVE_UNIT":
-                System.out.println(selectedButton.getX() + "    " + selectedButton.getY());
+                gameController.replayMove(Integer.parseInt(command[2]), Integer.parseInt(command[3]), selectedButton, pane, list);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        pane.getChildren().clear();
+                        createViewScene(stage);
+                        bottomBarBuildings.setAllButtons(allButtons);
+                        scene.setRoot(pane);
+                    }
+                });
                 System.out.println(selectedButton.getArmy().size());
-                gameController.moveUnit(Integer.parseInt(command[2]), Integer.parseInt(command[3]), selectedButton, pane, list);
                 break;
             case "PASTE_BUILDING":
                 replayPaste();

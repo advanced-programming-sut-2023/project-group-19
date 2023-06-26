@@ -43,12 +43,6 @@ MoveAnimation extends Transition {
         this.dy = goalY - currentY;
         this.newButton = newButton;
         this.current = current;
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
         pane.getChildren().remove(passingArmy.getImageView());
         pane.getChildren().add(pane.getChildren().size(), passingArmy.getImageView());
         if (j == 0) {

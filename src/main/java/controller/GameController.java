@@ -180,8 +180,10 @@ public class GameController {
         for(int i = 0 ;  i < newButton.getArmy().size(); i++){
             if(counter == Integer.parseInt(command[3]))
                 break;
-            if(newButton.getArmy().get(i).getNames().getName().equals(command[2]))
+            if(newButton.getArmy().get(i).getNames().getName().equals(command[2])) {
                 selectedUnit.add(newButton.getArmy().get(i));
+                counter++;
+            }
         }
     }
 
@@ -1694,37 +1696,25 @@ public class GameController {
 //        }
 //    }
     public void moveUnit(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
-        System.out.println("ENTERED MOVE");
         boolean flag = false;
         List<Integer> path = null;
         setPathForUnits(xOfDestination, yOfDestination);
         ArrayList<Army> selectedArmy = new ArrayList<>(selectedButton.getArmy());
         for (int i = 0; i < selectedButton.getArmy().size(); i++) {
-            System.out.println(200);
             Army passingArmy = selectedButton.getArmy().get(i);
             path = selectedButton.getArmy().get(i).getMyPath();
             NewButton previousButton = selectedButton;
-            System.out.println(path);
             if (path != null && path.size() > 1) {
-                System.out.println(300);
                 Map.getTroopMap()[passingArmy.getxCoordinate()][passingArmy.getyCoordinate()].remove(passingArmy);
                 path.remove(0);
                 SequentialTransition sequentialTransition = new SequentialTransition();
                 for (int j = 0; j < path.size(); j++) {
-                    System.out.println(400);
                     flag = true;
                     if (passingArmy.restOfMoves != 0) {
-                        System.out.println(500);
                         int goalX = path.get(j) / PathFindingController.size;
                         int goalY = path.get(j) % PathFindingController.size;
                         NewButton current = (NewButton) list.get(passingArmy.getCurrentX() * 100 + passingArmy.getCurrentY());
                         NewButton newButton = (NewButton) list.get(goalX * 100 + goalY);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });
                         pane.getChildren().remove(previousButton.getArmy().get(i).getImageView());
                         pane.getChildren().remove(previousButton);
                         passingArmy.setxCoordinate(goalX);
@@ -1757,5 +1747,18 @@ public class GameController {
             }
         }
         selectedUnit.clear();
+    }
+    public void replayMove(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list){
+        NewButton newButton = (NewButton) list.get(xOfDestination * 100 + yOfDestination);
+        for(int i = 0 ; i < selectedUnit.size() ; i++  ){
+            selectedButton.getArmy().remove(selectedUnit.get(i));
+            newButton.getArmy().add(selectedUnit.get(i));
+            selectedUnit.get(i).setxCoordinate(xOfDestination);
+            selectedUnit.get(i).setyCoordinate(yOfDestination);
+            Map.getTroopMap()[xOfDestination][yOfDestination].add(selectedUnit.get(i));
+            Map.getTroopMap()[selectedButton.getX()][selectedButton.getY()].remove(selectedUnit.get(i));
+        }
+        selectedUnit.clear();
+
     }
 }
