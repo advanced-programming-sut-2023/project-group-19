@@ -2306,7 +2306,6 @@ public class BottomBarBuildings {
             y = (int) b.getY() / 54;
         }
         NewButton newbutton = allButtons[y][x].get(0);
-        System.out.println(x + y);
         String output;
         switch (buildingName) {
             case "Armoury":
@@ -3269,5 +3268,6 @@ public class BottomBarBuildings {
                 }
                 break;
         }
+        BottomBarBuildings.lastButton = newbutton;
     }
 }

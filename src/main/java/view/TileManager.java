@@ -65,6 +65,7 @@ public class TileManager extends Application {
     public int avgSpeed;
     public boolean selectedMenuActive;
     public BottomBarImages bottomBarImages;
+    public HBox avgDetailHBox;
     public BuildingImages buildingImages;
     public BottomBarBuildings bottomBarBuildings;
     public BottomBarButtons bottomBarButtons;
@@ -81,27 +82,29 @@ public class TileManager extends Application {
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
     public String log = "" +
-            "0:4#LEFT_CLICK#DRAW_REC#5#5#14#14\n" +
-            "0:4#DROP_BUILDING#Barracks#5#14\n" +
-            "0:5#COPY_BUILDING\n" +
-            "0:5#LEFT_CLICK#DRAW_REC#5#5#10#10\n" +
-            "0:5#PASTE_BUILDING\n" +
+            "0:3#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
+//            "0:4#AVERAGE_DETAIL\n" +
+//            "0:5#CLOSE_AVERAGE_DETAIL\n" +
+            "0:5#DROP_BUILDING#Barracks#5#14\n" +
+            "0:6#MOUSE_CLICK#DELETE_BUTTON\n" +
+            "0:6#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
             "0:6#DROP_BUILDING#WoodCutter#5#16\n" +
-            "0:7#MOUSE_CLICK#NORMAL_REMOVE\n" +
+            "0:7#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
             "0:8#CLEAR_SELECTED_BUTTONS\n" +
-            "0:9#MOUSE_CLICK#NORMAL_REMOVE\n" +
-            "0:10#LEFT_CLICK#DRAW_REC#4#9#9#18\n" +
-            "0:11#LEFT_CLICK#DRAW_REC#10#10#10#10\n" +
-            "0:11#MOUSE_CLICK#NORMAL_REMOVE\n" +
-            "0:13#LEFT_CLICK#DRAW_REC#4#9#10#15\n" +
-            "0:14#LEFT_CLICK#DRAW_REC#4#4#17#17\n" +
-            "0:14#MOUSE_CLICK#NORMAL_REMOVE\n" +
-            "0:15#LEFT_CLICK#DRAW_REC#3#8#11#17\n" +
-            "0:16#LEFT_CLICK#DRAW_REC#10#10#10#10\n" +
-            "0:16#MOUSE_CLICK#NORMAL_REMOVE\n" +
-            "0:17#LEFT_CLICK#DRAW_REC#7#9#14#20\n" +
-            "0:18#LEFT_CLICK#DRAW_REC#7#9#23#27\n" +
-            "0:19#LEFT_CLICK#DRAW_REC#2#6#5#11";
+            "0:9#MOUSE_CLICK#UNDO_BUTTON\n" +
+            "0:9#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
+            "0:10#MOUSE_CLICK#DRAW_REC#4#9#9#18\n";
+    //            "0:11#MOUSE_CLICK#DRAW_REC#10#10#10#10\n" +
+//            "0:11#MOUSE_CLICK#NORMAL_REMOVE\n" +
+//            "0:13#MOUSE_CLICK#DRAW_REC#4#9#10#15\n" +
+//            "0:14#MOUSE_CLICK#DRAW_REC#4#4#17#17\n" +
+//            "0:14#MOUSE_CLICK#NORMAL_REMOVE\n" +
+//            "0:15#MOUSE_CLICK#DRAW_REC#3#8#11#17\n" +
+//            "0:16#MOUSE_CLICK#DRAW_REC#10#10#10#10\n" +
+//            "0:16#MOUSE_CLICK#NORMAL_REMOVE\n" +
+//            "0:17#MOUSE_CLICK#DRAW_REC#7#9#14#20\n" +
+//            "0:18#MOUSE_CLICK#DRAW_REC#7#9#23#27\n" +
+//            "0:19#MOUSE_CLICK#DRAW_REC#2#6#5#11";
     public ImageView selectBackground;
     public Pane pane = new Pane();
     public int avgHp;
@@ -282,18 +285,8 @@ public class TileManager extends Application {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "AVERAGE_DETAIL" + '\n');
                         playSoundEffect("shortCut.wav");
-                        if (selectedButtons.size() != 0) {
-                            int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
-                            ArrayList<Double> averageDetails;
-                            averageDetails = countTheProductionAveragesOnTiles();
-                            designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
-                        } else {
-                            Alert alarm = new Alert(Alert.AlertType.ERROR);
-                            alarm.setTitle("Map Error!");
-                            alarm.setHeaderText("Error in Map Commands");
-                            alarm.setContentText("You didn't choose any cell!");
-                            alarm.showAndWait();
-                        }
+                        avgDetail();
+
                     }
                 }
             });
@@ -309,7 +302,11 @@ public class TileManager extends Application {
                     seconds[0] = 0;
                 }
                 if (playReplay) {
-                    replayGame();
+                    try {
+                        replayGame();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }, 0, 1000);
@@ -323,6 +320,35 @@ public class TileManager extends Application {
     }
 
     public String copyContent;
+
+    public void avgDetail() {
+        if (selectedButtons.size() != 0) {
+            int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
+            ArrayList<Double> averageDetails;
+            averageDetails = countTheProductionAveragesOnTiles();
+            designHBoxOfAverageDetails(totalNumberOfTroops, averageDetails);
+        } else {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    Alert alarm = new Alert(Alert.AlertType.ERROR);
+                    alarm.setTitle("Map Error!");
+                    alarm.setHeaderText("Error in Map Commands");
+                    alarm.setContentText("You didn't choose any cell!");
+                    alarm.showAndWait();
+                }
+            });
+        }
+    }
+
+    public void closeAvgDetail() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().remove(avgDetailHBox);
+            }
+        });
+    }
 
     public void copy() {
         content = new ClipboardContent();
@@ -425,7 +451,7 @@ public class TileManager extends Application {
 
     public int logLineReader = 0;
 
-    public void replayGame() {
+    public void replayGame() throws Exception {
         if (logLineReader < allCommandParts.length) {
             TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
             while (time.equals(allCommandParts[logLineReader][0])) {
@@ -440,10 +466,11 @@ public class TileManager extends Application {
 
     }
 
-    public void handleLogCommands(String[] command) {
+    public void handleLogCommands(String[] command) throws Exception {
+        System.out.println(Arrays.toString(command));
         switch (command[1]) {
-            case "LEFT_CLICK":
-                leftClickCommands(command);
+            case "MOUSE_CLICK":
+                mouseClickCommands(command);
                 break;
             case "RIGHT_CLICK":
                 break;
@@ -471,6 +498,15 @@ public class TileManager extends Application {
             case "PASTE_BUILDING":
                 replayPaste();
                 break;
+            case "AVERAGE_DETAIL":
+                avgDetail();
+                break;
+            case "CLOSE_AVERAGE_DETAIL":
+                closeAvgDetail();
+                break;
+            case "UNDO_BUTTON":
+                BottomBarButtons.undo(pane, map);
+                break;
             case "DROP_BUILDING":
                 BottomBarBuildings.replayGame = true;
                 BottomBarBuildings.x = Integer.parseInt(command[4]);
@@ -489,7 +525,42 @@ public class TileManager extends Application {
         }
     }
 
-    public void leftClickCommands(String[] command) {
+    public void delete(NewButton newButton) {
+        System.out.println(newButton.getX() + "   " + newButton.getY());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().remove(newButton);
+                newButton.setGraphic(null);
+                newButton.setImageView(null);
+                newButton.setBuilding(null);
+            }
+        });
+        int x = newButton.getX();
+        int y = newButton.getY();
+        if (map.buildingMap[x][y].size() != 0)
+            map.buildingMap[x][y].remove(0);
+        map.notPassable[x][y] = false;
+        map.notBuildable[x][y] = false;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(newButton);
+            }
+        });
+        time = (minute[0] + ":" + seconds[0]);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().clear();
+                createViewScene(stage);
+                bottomBarBuildings.setAllButtons(allButtons);
+                scene.setRoot(pane);
+            }
+        });
+    }
+
+    public void mouseClickCommands(String[] command) throws Exception {
         switch (command[2]) {
             case "DRAW_REC":
                 removeColorOfSelectedButtons();
@@ -499,7 +570,23 @@ public class TileManager extends Application {
                 NewButton newButton = allButtons[Integer.parseInt(command[3])][Integer.parseInt(command[5])].get(0);
                 normalRemove(newButton);
                 break;
-            case "RIGHT_CLICK":
+            case "NORMAL_REMOVE":
+                System.out.println(command.length);
+                NewButton newButton1 = allButtons[Integer.parseInt(command[3])][Integer.parseInt(command[4])].get(0);
+                normalRemove(newButton1);
+                break;
+            case "DELETE_BUTTON":
+                delete(selectedButton);
+                break;
+            case "SELECTED_REMOVE":
+                selectedRemove();
+                break;
+            case "SELECTED_GRAPHIC":
+                NewButton newButton2 = allButtons[Integer.parseInt(command[3])][Integer.parseInt(command[4])].get(0);
+                selectedBuildingBottomGraphic(newButton2);
+                break;
+            case "REPAIR":
+                repair(selectedBuildingMenu);
                 break;
         }
     }
@@ -594,7 +681,6 @@ public class TileManager extends Application {
         BuildingController.currentEmpire = sallahDin;
         Manage.getAllEmpires().add(sallahDin);
         Manage.getAllEmpires().add(richard);
-//        artOfTree();
         treesOfMap();
         stonesOfMap();
         waterOfMap();
@@ -613,14 +699,14 @@ public class TileManager extends Application {
 
 
     private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
-        HBox hBox = new HBox();
+        avgDetailHBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
                 getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        hBox.setBackground(new Background(map));
-        hBox.setPrefSize(800, 300);
-        hBox.setLayoutX(350);
-        hBox.setLayoutY(150);
+        avgDetailHBox.setBackground(new Background(map));
+        avgDetailHBox.setPrefSize(800, 300);
+        avgDetailHBox.setLayoutX(350);
+        avgDetailHBox.setLayoutY(150);
         Text header = new Text();
         header.setText("Information");
         header.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 30));
@@ -642,7 +728,7 @@ public class TileManager extends Application {
         closeIconImage.setFitHeight(40);
         closeIconImage.setFitWidth(40);
         close.setGraphic(closeIconImage);
-        hBox.getChildren().add(close);
+        avgDetailHBox.getChildren().add(close);
         close.setTranslateX(380);
         close.setTranslateY(115);
         close.setMinSize(40, 40);
@@ -666,15 +752,20 @@ public class TileManager extends Application {
         buildingMidAverage.setTranslateY(85);
         buildingMaxAverage.setTranslateX(150);
         buildingMaxAverage.setTranslateY(100);
-        hBox.getChildren().add(vBox);
-        pane.getChildren().add(hBox);
+        avgDetailHBox.getChildren().add(vBox);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(avgDetailHBox);
+            }
+        });
 
         close.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                 TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_AVERAGE_DETAIL" + '\n');
-                pane.getChildren().remove(hBox);
+                pane.getChildren().remove(avgDetailHBox);
             }
         });
     }
@@ -800,7 +891,7 @@ public class TileManager extends Application {
         }
         coloringButtons(minY, maxY, minX, maxX);
         time = (minute[0] + ":" + seconds[0]);
-        gameLog.append(time + '#' + "LEFT_CLICK" + '#' + "DRAW_REC" + '#' + minY + '#' + maxY + '#' + minX + '#' + maxX + '\n');
+        gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "DRAW_REC" + '#' + minY + '#' + maxY + '#' + minX + '#' + maxX + '\n');
         gameController.selectUnit(selectedButtons, pane);
     }
 
@@ -1036,39 +1127,30 @@ public class TileManager extends Application {
                         newButton.setBuilding(null);
                         int x = newButton.getX();
                         int y = newButton.getY();
-                        TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                        TileManager.gameLog.append(TileManager.time + '#' + "REMOVE_BUILDING" + '#' + x + '#' + y + '\n');
                         if (map.buildingMap[x][y].size() != 0)
                             map.buildingMap[x][y].remove(0);
                         map.notPassable[x][y] = false;
                         map.notBuildable[x][y] = false;
                         pane.getChildren().add(newButton);
-                        time = (minute[0] + ":" + seconds[0]);
-                        gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "DELETE" + '#' + x + '#' + y + '\n');
                     } else {
                         time = (minute[0] + ":" + seconds[0]);
-                        String logCommand;
                         normalRemove(newButton);
-                        logCommand = time + '#' + "MOUSE_CLICK" + '#' + "NORMAL_REMOVE" + '\n';
+                        gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "NORMAL_REMOVE" + '#' + newButton.getX() + '#' + newButton.getY() + '\n');
                         if (selectedMenuActive) {
-                            logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_REMOVE" + '\n';
+                            gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_REMOVE" + '#' + newButton.getX() + '#' + newButton.getY() + '\n');
                             if (selectedBuildingButtons.getGatehouseText() != null) {
-                                logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GATEHOUSE_REMOVE" + '\n';
                                 pane.getChildren().remove(selectedBuildingButtons.getGatehouseText());
                             }
-                            pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
-                            pane.getChildren().remove(selectedBuildingHP);
-                            pane.getChildren().remove(repair);
+                            selectedRemove();
                         }
                         if (newButton.getBuilding() != null) {
                             try {
-                                logCommand = time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getBuilding().getName() + '\n';
+                                gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "SELECTED_GRAPHIC" + '#' + newButton.getX() + '#' + newButton.getY() + '\n');
                                 selectedBuildingBottomGraphic(newButton);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
                         }
-                        gameLog.append(logCommand);
                     }
 
                 }
@@ -1079,6 +1161,12 @@ public class TileManager extends Application {
             newButton.setOnMouseEntered(event3);
             newButton.setOnMouseClicked(event7);
         }
+    }
+
+    public void selectedRemove() {
+        pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+        pane.getChildren().remove(selectedBuildingHP);
+        pane.getChildren().remove(repair);
     }
 
     public void normalRemove(NewButton newButton) {
@@ -1106,9 +1194,11 @@ public class TileManager extends Application {
         selectBuildingLogic(newButton);
     }
 
+    public SelectedBuildingMenu selectedBuildingMenu;
+
     public void selectBuildingLogic(NewButton newButton) throws Exception {
         SelectedBuildingMenu.selectedBuilding = newButton.getBuilding();
-        SelectedBuildingMenu selectedBuildingMenu = new SelectedBuildingMenu();
+        selectedBuildingMenu = new SelectedBuildingMenu();
         SelectedBuildingController.selectedBuilding = newButton.getBuilding();
         String buildingName = newButton.getBuilding().getName();
         setSelectedBuildingProperGraphic(newButton, buildingName, selectedBuildingMenu, unitImages);
@@ -1139,10 +1229,7 @@ public class TileManager extends Application {
                 public void handle(MouseEvent mouseEvent) {
                     time = (minute[0] + ":" + seconds[0]);
                     gameLog.append(time + '#' + "MOUSE_CLICK" + '#' + "REPAIR" + newButton.getX() + '#' + newButton.getY() + '\n');
-                    String output = String.valueOf(selectedBuildingMenu.repair());
-                    if (!output.equals("building repaired successfully")) {
-                        showError(output);
-                    }
+                    repair(selectedBuildingMenu);
                 }
             };
             repair.setOnMouseClicked(event);
@@ -1174,6 +1261,13 @@ public class TileManager extends Application {
         error.setTitle("DROP BUILDING FAILED");
         error.setContentText(output);
         error.show();
+    }
+
+    public void repair(SelectedBuildingMenu selectedBuildingMenu) {
+        String output = String.valueOf(selectedBuildingMenu.repair());
+        if (!output.equals("building repaired successfully")) {
+            showError(output);
+        }
     }
 
     public void createMinimap(Pane pane) {

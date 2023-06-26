@@ -1,5 +1,6 @@
 package view.GameButtons;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -349,11 +350,7 @@ public class BottomBarButtons {
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                 TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "DELETE_BUTTON" +  '\n');
-                if (TileManager.deleteOn) {
-                    TileManager.deleteOn = false;
-                } else {
-                    TileManager.deleteOn = true;
-                }
+                delete();
             }
         });
         undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -361,20 +358,41 @@ public class BottomBarButtons {
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                 TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "UNDO_BUTTON" +  '\n');
-                if (BottomBarBuildings.lastButton != null) {
+                undo(pane , map);
+            }
+        });
+    }
+    public static void delete(){
+        if (TileManager.deleteOn) {
+            TileManager.deleteOn = false;
+        } else {
+            TileManager.deleteOn = true;
+        }
+    }
+    public static void undo(Pane pane , Map map){
+        if (BottomBarBuildings.lastButton != null) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
                     pane.getChildren().remove(BottomBarBuildings.lastButton);
                     BottomBarBuildings.lastButton.setGraphic(null);
                     BottomBarBuildings.lastButton.setImageView(null);
                     BottomBarBuildings.lastButton.setBuilding(null);
-                    int x = BottomBarBuildings.lastButton.getX();
-                    int y = BottomBarBuildings.lastButton.getY();
-                    if (map.buildingMap[x][y].size() != 0)
-                        map.buildingMap[x][y].remove(0);
-                    map.notPassable[x][y] = false;
-                    map.notBuildable[x][y] = false;
+                }
+            });
+            int x = BottomBarBuildings.lastButton.getX();
+            int y = BottomBarBuildings.lastButton.getY();
+            if (map.buildingMap[x][y].size() != 0)
+                map.buildingMap[x][y].remove(0);
+            map.notPassable[x][y] = false;
+            map.notBuildable[x][y] = false;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
                     pane.getChildren().add(BottomBarBuildings.lastButton);
                 }
-            }
-        });
+            });
+
+        }
     }
 }
