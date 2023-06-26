@@ -151,8 +151,9 @@ public class GameController {
                         if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
-
                             }
+                            //number --> spinners.get(j)
+                            //type ---> text.getText()
                             j++;
                         }
                     }

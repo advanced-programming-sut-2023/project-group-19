@@ -1,16 +1,17 @@
 package model;
 
 import java.net.Socket;
+import java.security.PublicKey;
 
 public class Chat {
     private String name ;
     private Socket socket ;
     private String type ;
 
-    public Chat(Socket socket ,String name,String type) {
+    public Chat(String name,String type) {
         this.type = type ;
         this.name = name;
-        this.socket = socket;
+//        this.socket = socket;
         User.getCurrentUser().getChats().add(this);
     }
 

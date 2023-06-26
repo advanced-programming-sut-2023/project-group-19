@@ -5,10 +5,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -23,6 +26,7 @@ import view.ImageAndBackground.GameImages;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 
@@ -31,9 +35,13 @@ public class Lobby extends Application {
     public Pane pane;
     public VBox listOfAllGames;
     public VBox listOfGameInfo;
+    public VBox chatBox;
     public ScrollPane scrollPaneForMainList = new ScrollPane();
     public ScrollPane scrollPaneForSearchedList = new ScrollPane();
-    public ScrollPane scrollPaneForChat = new ScrollPane();
+    public ScrollPane scrollPaneForChatList = new ScrollPane();
+    public ScrollPane scrollPaneForChatBox = new ScrollPane();
+    public Button send = new Button();
+    public TextField chatTextField = new TextField();
     public Text emptyGameId = new Text("Game Id field is empty!");
     public Text emptyCapacity = new Text("Capacity field is empty!");
     public Text emptyTypeOfGame = new Text("Game's Type field is empty!");
@@ -72,6 +80,18 @@ public class Lobby extends Application {
         Game game5 = new Game(user1, "MyGame5", true, 5);
         Manage.allGames.add(game5);
 
+//
+//        Socket socket = new Socket("localhost",1234);
+//        Socket socket1 = new Socket("localhost",6000);
+//        Socket socket2 = new Socket("localhost",7000);
+
+        Chat chat = new Chat(user1.getUsername(), "PRIVATE");
+        Chat chat1 = new Chat(user3.getUsername(), "PRIVATE");
+        Chat chat2 = new Chat(user4.getUsername(), "PRIVATE");
+        Chat chat23 = new Chat(user4.getUsername(), "PUBLIC");
+        Chat chat24 = new Chat(user4.getUsername(), "PUBLIC");
+        Chat chat25 = new Chat(user4.getUsername(), "PRIVATE");
+
 
         Main.stage = stage;
         gameImages = new GameImages();
@@ -87,6 +107,7 @@ public class Lobby extends Application {
     }
 
     private void designLobby(GameImages gameImages) throws IOException {
+        //Get data from server
 
         Button back = new Button("Back");
         back.setLayoutX(350);
@@ -662,7 +683,7 @@ public class Lobby extends Application {
                 pane.getChildren().add(emptyCapacity);
                 return false;
             }
-        }else {
+        } else {
             emptyGameId.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
             emptyGameId.setFill(Color.rgb(255, 255, 255, 1));
             emptyGameId.setTranslateX(300);
@@ -713,8 +734,6 @@ public class Lobby extends Application {
         });
 
 
-
-
         TextField search = new TextField();
         search.setPromptText("Search player's Id");
         search.setPrefSize(280, 30);
@@ -727,13 +746,14 @@ public class Lobby extends Application {
         Button searchButton = new Button();
         searchButton.setLayoutX(590);
         searchButton.setLayoutY(157);
-        searchButton.setPrefSize(30,30);
+        searchButton.setPrefSize(30, 30);
         searchButton.setBackground(new Background(new BackgroundImage(gameImages.getSearch(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                searchForGivenUserId(search.getText());
+                //TODO : We should find out from the server whether the given username exists or not
+
             }
         });
 
@@ -746,33 +766,36 @@ public class Lobby extends Application {
         privateChatList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("'This is pv");
+                //Todo: here we should get all the private chats from server
+                showAllPrivateChats();
             }
         });
 
         Button groupChatList = new Button();
         groupChatList.setLayoutX(400);
         groupChatList.setLayoutY(200);
-        groupChatList.setPrefSize(80,80);
+        groupChatList.setPrefSize(80, 80);
         groupChatList.setBackground(new Background(new BackgroundImage(gameImages.getGroupChat(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         groupChatList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("This is gp");
+                //Todo: here we should get all the groups from server
+                showAllGroupChats();
             }
         });
 
         Button globalChat = new Button();
         globalChat.setLayoutX(500);
         globalChat.setLayoutY(200);
-        globalChat.setPrefSize(80,80);
+        globalChat.setPrefSize(80, 80);
         globalChat.setBackground(new Background(new BackgroundImage(gameImages.getGlobalChat(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         globalChat.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("This is global");
+                //Todo: here we should get global chat from server
+                showGlobalChat();
             }
         });
 
@@ -790,14 +813,124 @@ public class Lobby extends Application {
 
     }
 
-    private void searchForGivenUserId(String text) {
+    private User searchForGivenUserId(String text) {
+        for (User user : Manage.allUsers) {
+            if (user.getUsername().equals(text)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     private void designScrollPaneOfAllChats() {
         VBox chatList = new VBox();
-        for (Chat chat : User.getCurrentUser().getChats()) {
+        chatList.setStyle("-fx-background-color: #4b187e");
+        chatList.setSpacing(0.5);
+        if (!User.getCurrentUser().getChats().isEmpty()) {
+            for (Chat chat : User.getCurrentUser().getChats()) {
+                User receiver = searchForGivenUserId(chat.getName());
+                Circle clip = new Circle(25, 25, 25);
+                Image profile = receiver.getAvatar().getImage();
+                clip.setFill(new ImagePattern(profile));
+                clip.setStroke(Color.rgb(75,24,126));
+                HBox chatBox = new HBox();
+                chatBox.setPrefSize(284.1, 10);
+                chatBox.setSpacing(70);
 
+                Text chatName = new Text();
+                chatName.setText(receiver.getUsername());
+                chatName.setFill(Color.WHITE);
+                chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+                chatName.setTranslateX(-50);
+                chatName.setTranslateY(10);
+
+                chatBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);");
+                chatBox.getChildren().add(clip);
+                chatBox.getChildren().add(chatName);
+                chatBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        openChat(chat);
+                    }
+                });
+                chatList.getChildren().add(chatBox);
+            }
+            scrollPaneForChatList.setPrefWidth(300);
+            scrollPaneForChatList.setContent(chatList);
+            scrollPaneForChatList.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scrollPaneForChatList.setLayoutX(300);
+            scrollPaneForChatList.setLayoutY(300);
+
+            scrollPaneForChatList.setStyle("-fx-background-color: #1b1073");
+            scrollPaneForChatList.setVisible(true);
+            pane.getChildren().add(scrollPaneForChatList);
         }
+    }
+
+    private void openChat(Chat chat) {
+        pane.getChildren().remove(chatBox);
+        pane.getChildren().remove(send);
+        pane.getChildren().remove(chatTextField);
+        pane.getChildren().remove(scrollPaneForChatBox);
         
+        chatBox = new VBox();
+        chatBox.setStyle("-fx-background-color: #4b187e");
+        chatBox.setSpacing(0.5);
+
+
+        chatTextField.setPromptText("Send Message");
+        chatTextField.setPrefSize(280, 30);
+        chatTextField.setTranslateX(860);
+        chatTextField.setTranslateY(640);
+        chatTextField.setFocusTraversable(false);
+        chatTextField.setStyle("-fx-background-color: rgba(89,29,180,0.71); -fx-prompt-text-fill: white;" +
+                "-fx-text-fill: white;");
+
+
+        send.setLayoutX(1160);
+        send.setLayoutY(617);
+        send.setPrefSize(80, 80);
+        send.setBackground(new Background(new BackgroundImage(gameImages.getSend(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        send.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //TODO :Here we should send the message to the chat server in order to deliver it to the reciever
+            }
+        });
+
+        //TODO :Here we should get all the messages from chat server and then loop through it
+
+        scrollPaneForChatBox.setPrefWidth(300);
+        scrollPaneForChatBox.setContent(chatBox);
+        scrollPaneForChatBox.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneForChatBox.setLayoutX(850);
+        scrollPaneForChatBox.setLayoutY(300);
+
+        scrollPaneForChatBox.setStyle("-fx-background-color: #1b1073");
+        scrollPaneForChatBox.setVisible(true);
+        pane.getChildren().add(chatTextField);
+        pane.getChildren().add(send);
+        pane.getChildren().add(scrollPaneForChatBox);
+    }
+
+    public void showAllPrivateChats(){
+        removeRemainedStuff();
+
+    }
+    public void showAllGroupChats(){
+        removeRemainedStuff();
+
+    }
+    public void showGlobalChat(){
+        removeRemainedStuff();
+
+    }
+
+    public void removeRemainedStuff(){
+        pane.getChildren().remove(scrollPaneForChatList);
+        pane.getChildren().remove(scrollPaneForChatBox);
+        pane.getChildren().remove(send);
+        pane.getChildren().remove(chatTextField);
     }
 }

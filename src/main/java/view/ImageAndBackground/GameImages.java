@@ -17,6 +17,10 @@ public class GameImages {
     public Image privateChat;
     public Image groupChat;
     public Image globalChat;
+    public Image send;
+    public Image like;
+    public Image dislike;
+    public Image heart;
     public Background loginBackground;
     public Background registerBackground;
 
@@ -54,6 +58,10 @@ public class GameImages {
         privateChat = new Image(TileManager.class.getResource("/image/LobbyImages/privateChat.png").toExternalForm());
         groupChat = new Image(TileManager.class.getResource("/image/LobbyImages/groupChat.png").toExternalForm());
         globalChat = new Image(TileManager.class.getResource("/image/LobbyImages/globalChat.png").toExternalForm());
+        send = new Image(TileManager.class.getResource("/image/LobbyImages/send.png").toExternalForm());
+        like = new Image(TileManager.class.getResource("/image/LobbyImages/like.png").toExternalForm());
+        dislike = new Image(TileManager.class.getResource("/image/LobbyImages/dislike.png").toExternalForm());
+        heart = new Image(TileManager.class.getResource("/image/LobbyImages/heart.png").toExternalForm());
     }
 
 
@@ -121,5 +129,21 @@ public class GameImages {
 
     public Image getGlobalChat() {
         return globalChat;
+    }
+
+    public Image getSend() {
+        return send;
+    }
+
+    public Image getLike() {
+        return like;
+    }
+
+    public Image getDislike() {
+        return dislike;
+    }
+
+    public Image getHeart() {
+        return heart;
     }
 }
