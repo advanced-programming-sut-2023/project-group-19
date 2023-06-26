@@ -88,8 +88,6 @@ public class DropUnitDesign {
         prev.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "PREV_DROP_UNIT" + '\n');
                 if (controllerOfDropUnit > 1) {
                     if (controllerOfDropUnit == 5) {
                         for (int i = 1; i <= 6; i++) {
@@ -123,8 +121,6 @@ public class DropUnitDesign {
         next.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "NEXT_DROP_UNIT" + '\n');
                 if (controllerOfDropUnit < 5) {
                     if (controllerOfDropUnit == 4) {
                         isFive = false;
@@ -156,10 +152,10 @@ public class DropUnitDesign {
                 }
             }
         });
-        if(closeDropUnit){
+        if (closeDropUnit) {
             pane.getChildren().remove(hBox);
             for (int i = 0; i < spinners.size(); i++) {
-                if(spinners.get(i).getValue() != 0)
+                if (spinners.get(i).getValue() != 0)
                     gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
                             , i, spinners.get(i).getValue(), selectedButtons.get(0));
             }
@@ -168,20 +164,16 @@ public class DropUnitDesign {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
                 playSoundEffect("dropUnit.mp3");
-//                closeDropUnit(pane , hBox , spinners , gameController , selectedButtons);
                 pane.getChildren().remove(hBox);
                 for (int i = 0; i < spinners.size(); i++) {
-                    if(spinners.get(i).getValue() != 0)
+                    if (spinners.get(i).getValue() != 0)
                         gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
                                 , i, spinners.get(i).getValue(), selectedButtons.get(0));
                 }
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                 TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_DROP_UNIT" + '\n');
-
             }
-
         });
         Platform.runLater(new Runnable() {
             @Override
@@ -191,9 +183,11 @@ public class DropUnitDesign {
         });
 
     }
-    public MediaPlayer mediaPlayer ;
+
+    public MediaPlayer mediaPlayer;
+
     private void playSoundEffect(String name) {
-        String defultSong  = RegisterMenu.class.getResource("/Music/" + name).toString();
+        String defultSong = RegisterMenu.class.getResource("/Music/" + name).toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
         mediaPlayer = mediaPlayer2;

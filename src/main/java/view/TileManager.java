@@ -82,18 +82,20 @@ public class TileManager extends Application {
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
     public String log = "" +
+            "0:3#DROP_UNIT_GAME#5#14#0#6#5#14\n" +
             "0:3#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
+            "0:4#SELECT_UNIT#archer#4#5#14\n" +
 //            "0:4#AVERAGE_DETAIL\n" +
 //            "0:5#CLOSE_AVERAGE_DETAIL\n" +
-            "0:5#DROP_BUILDING#Barracks#5#14\n" +
-            "0:6#MOUSE_CLICK#DELETE_BUTTON\n" +
-            "0:6#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
-            "0:6#DROP_BUILDING#WoodCutter#5#16\n" +
-            "0:7#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
-            "0:8#CLEAR_SELECTED_BUTTONS\n" +
-            "0:9#MOUSE_CLICK#UNDO_BUTTON\n" +
-            "0:9#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
-            "0:10#MOUSE_CLICK#DRAW_REC#4#9#9#18\n";
+            "0:5#MOVE_UNIT#8#16\n" +
+            "0:16#MOUSE_CLICK#DELETE_BUTTON\n" +
+            "0:16#MOUSE_CLICK#DRAW_REC#5#5#14#14\n" +
+            "0:16#DROP_BUILDING#WoodCutter#5#16\n" +
+            "0:17#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
+            "0:18#CLEAR_SELECTED_BUTTONS\n" +
+            "0:19#MOUSE_CLICK#UNDO_BUTTON\n" +
+            "0:19#MOUSE_CLICK#NORMAL_REMOVE#5#14\n" +
+            "0:20#MOUSE_CLICK#DRAW_REC#4#9#9#18\n";
     //            "0:11#MOUSE_CLICK#DRAW_REC#10#10#10#10\n" +
 //            "0:11#MOUSE_CLICK#NORMAL_REMOVE\n" +
 //            "0:13#MOUSE_CLICK#DRAW_REC#4#9#10#15\n" +
@@ -495,6 +497,11 @@ public class TileManager extends Application {
             case "COPY_BUILDING":
                 replayCopy();
                 break;
+            case "MOVE_UNIT":
+                System.out.println(selectedButton.getX() + "    " + selectedButton.getY());
+                System.out.println(selectedButton.getArmy().size());
+                gameController.moveUnit(Integer.parseInt(command[2]), Integer.parseInt(command[3]), selectedButton, pane, list);
+                break;
             case "PASTE_BUILDING":
                 replayPaste();
                 break;
@@ -504,8 +511,25 @@ public class TileManager extends Application {
             case "CLOSE_AVERAGE_DETAIL":
                 closeAvgDetail();
                 break;
+            case "SELECT_UNIT":
+                selectUnit(command);
+                break;
             case "UNDO_BUTTON":
                 BottomBarButtons.undo(pane, map);
+                break;
+            case "DROP_UNIT_GAME":
+                NewButton newButton3 = allButtons[Integer.parseInt(command[6])][Integer.parseInt(command[7])].get(0);
+                gameController.dropUnits(Integer.parseInt(command[2]), Integer.parseInt(command[3]), Integer.parseInt(command[4])
+                        , Integer.parseInt(command[5]), newButton3);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        pane.getChildren().clear();
+                        createViewScene(stage);
+                        bottomBarBuildings.setAllButtons(allButtons);
+                        scene.setRoot(pane);
+                    }
+                });
                 break;
             case "DROP_BUILDING":
                 BottomBarBuildings.replayGame = true;
@@ -523,6 +547,19 @@ public class TileManager extends Application {
                     }
                 });
         }
+    }
+
+    public void selectUnit(String[] command) {
+        gameController.selectUnitForLog(command , allButtons);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().clear();
+                createViewScene(stage);
+                bottomBarBuildings.setAllButtons(allButtons);
+                scene.setRoot(pane);
+            }
+        });
     }
 
     public void delete(NewButton newButton) {
@@ -650,25 +687,19 @@ public class TileManager extends Application {
 //        Manage.allEmpires.add(empire2);
 //        BuildingController.currentEmpire = empire;
 
-
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
-
-
         Empire richard = new Empire();
         richard.setUser(newUser1);
         Castle castleRichard = new Castle(richard);
         castleRichard.castle();
-
         Manage.allEmpires.add(richard);
         Manage.allEmpires.add(sallahDin);
         Manage.setCurrentEmpire(sallahDin);
         BuildingController.currentEmpire = Manage.getCurrentEmpire();
-
         buildingController.dropBuilding(5, 22, "Castle");
         dropStockFunction(5, 22, sallahDin);
-
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
         Manage.setCurrentEmpire(richard);
         buildingController.dropBuilding(9, 3, "Castle");
