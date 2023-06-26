@@ -160,9 +160,11 @@ public class GameController {
                     }
                 }
                 pane.getChildren().remove(box);
+                selectedButtons.clear();
                 index = 0;
             }
         });
+
     }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {

@@ -41,10 +41,15 @@ public class BottomBarBuildings {
     public static int y;
 
     public void showError(String output) {
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setTitle("DROP BUILDING FAILED");
-        error.setContentText(output);
-        error.show();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("DROP BUILDING FAILED");
+                error.setContentText(output);
+                error.show();
+            }
+        });
     }
 
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
@@ -2300,7 +2305,8 @@ public class BottomBarBuildings {
             x = (int) ((int) b.getX() / 51);
             y = (int) b.getY() / 54;
         }
-        NewButton newbutton = allButtons[y][x].get(0);;
+        NewButton newbutton = allButtons[y][x].get(0);
+        System.out.println(x + y);
         String output;
         switch (buildingName) {
             case "Armoury":
