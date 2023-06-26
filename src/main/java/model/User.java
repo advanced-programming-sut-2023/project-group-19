@@ -18,6 +18,7 @@ public class User implements Comparable<User> {
     private static HashMap<Integer, String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
     public  ArrayList<Game> myGame = new ArrayList<>();
+    public ArrayList<User> myFriends = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;
@@ -186,6 +187,14 @@ public class User implements Comparable<User> {
 
     public void addToMyGameList(Game game) {
         myGame.add(game);
+    }
+
+    public ArrayList<User> getMyFriends() {
+        return myFriends;
+    }
+
+    public void addToMyFriends(User newFriend) {
+        myFriends.add(newFriend);
     }
 }
 

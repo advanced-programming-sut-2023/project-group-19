@@ -7,6 +7,7 @@ import java.time.LocalTime;
 public class Message {
     public String sender;
     public String content;
+    public String reaction;
     public boolean seen;
     public String sentTime;
     public ImageView avatar;
@@ -53,5 +54,13 @@ public class Message {
 
     public void setAvatar(ImageView avatar) {
         this.avatar = avatar;
+    }
+
+    public String getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
     }
 }

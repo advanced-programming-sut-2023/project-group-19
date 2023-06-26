@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Chat {
     private ArrayList<User> chatMembers;
+    private ArrayList<Message> messages;
     private ChatType chatType;
 
     public Chat(ArrayList<User> chatMembers, ChatType chatType) {
