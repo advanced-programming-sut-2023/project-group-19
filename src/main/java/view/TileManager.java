@@ -81,10 +81,14 @@ public class TileManager extends Application {
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
     public String log = "" +
-            "0:7#LEFT_CLICK#DRAW_REC#5#5#14#14\n" +
+            "0:4#DROP_BUILDING#Barracks#5#14\n" +
+            "0:4#LEFT_CLICK#DRAW_REC#5#5#14#14\n" +
+            "0:5#COPY_BUILDING\n" +
+            "0:5#LEFT_CLICK#DRAW_REC#5#5#10#10\n" +
+            "0:5#PASTE_BUILDING\n" +
+            "0:6#DROP_BUILDING#WoodCutter#5#16\n" +
             "0:7#MOUSE_CLICK#NORMAL_REMOVE\n" +
             "0:8#CLEAR_SELECTED_BUTTONS\n" +
-            "0:9#LEFT_CLICK#DRAW_REC#5#5#10#10\n" +
             "0:9#MOUSE_CLICK#NORMAL_REMOVE\n" +
             "0:10#LEFT_CLICK#DRAW_REC#4#9#9#18\n" +
             "0:11#LEFT_CLICK#DRAW_REC#10#10#10#10\n" +
@@ -269,18 +273,12 @@ public class TileManager extends Application {
                         gameLog.append(time + '#' + "COPY_BUILDING" + '\n');
                         playSoundEffect("shortCut.wav");
                         content = new ClipboardContent();
-                        if (selectedButton.getBuilding() != null) {
-                            content.putString(selectedButton.getBuilding().getName());
-                        } else {
-                            content.putString("");
-                        }
-                        javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
+                        copy();
                     } else if (keyName.equals("P")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "PASTE_BUILDING" + '\n');
                         playSoundEffect("shortCut.wav");
-                        clipboardData = content.getString();
-                        bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
+                        paste();
                     } else if (keyName.equals("F5")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "AVERAGE_DETAIL" + '\n');
@@ -323,6 +321,19 @@ public class TileManager extends Application {
         stage.show();
         stage.setFullScreen(true);
         stage.setResizable(false);
+    }
+    public void copy(){
+        System.out.println(selectedButton.getX());
+        if (selectedButton.getBuilding() != null) {
+            content.putString(selectedButton.getBuilding().getName());
+        } else {
+            content.putString("");
+        }
+        javafx.scene.input.Clipboard.getSystemClipboard().setContent(content);
+    }
+    public void paste(){
+        clipboardData = content.getString();
+        bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, clipboardData, buildingImages);
     }
 
     public void dropUnitHbox() {
@@ -437,6 +448,27 @@ public class TileManager extends Application {
             case "CLEAR_SELECTED_BUTTONS":
                 removeColorOfSelectedButtons();
                 break;
+            case "COPY_BUILDING" :
+                copy();
+                break;
+            case "PASTE_BUILDING" :
+                paste();
+                break;
+            case "DROP_BUILDING" :
+                BottomBarBuildings.replayGame = true;
+                BottomBarBuildings.x = Integer.parseInt(command[4]);
+                BottomBarBuildings.y = Integer.parseInt(command[3]);
+                bottomBarBuildings.allButtons = allButtons;
+                bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane , command[2] , buildingImages);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        pane.getChildren().clear();
+                        createViewScene(stage);
+                        bottomBarBuildings.setAllButtons(allButtons);
+                        scene.setRoot(pane);
+                    }
+                });
         }
     }
 
@@ -446,6 +478,7 @@ public class TileManager extends Application {
                 removeColorOfSelectedButtons();
                 coloringButtons(Integer.parseInt(command[3]), Integer.parseInt(command[4]),
                         Integer.parseInt(command[5]), Integer.parseInt(command[6]));
+                System.out.println(selectedButton.getX());
                 break;
             case "NORMAL_REMOVE":
                 normalRemove();
@@ -764,6 +797,7 @@ public class TileManager extends Application {
                 selectedButtons.add(newButton);
             }
         }
+
     }
 
     private int getRandomX(NewButton newButton) {
