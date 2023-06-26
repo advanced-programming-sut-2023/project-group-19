@@ -92,13 +92,14 @@ public class Message {
         Message message = gson.fromJson(data,type);
         return message;
     }
-    public static String convertMessageToJson(Message message){
+    public static String convertMessageToJson(Message message) {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Message.class, new MessageAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         String jsonAsString = gson.toJson(message);
         return jsonAsString;
+    }
     public String getReaction() {
         return reaction;
     }

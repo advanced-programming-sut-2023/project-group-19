@@ -242,7 +242,7 @@ public class User implements Comparable<User> {
     public void setChats(ArrayList<Chat> chats) {
         this.chats = chats;
     }
-}
+
 
     public ArrayList<Game> getMyGameList() {
         return myGame;
@@ -259,10 +259,5 @@ public class User implements Comparable<User> {
     public void addToMyFriends(User newFriend) {
         myFriends.add(newFriend);
     }
-
-    public ArrayList<Chat> getChats() {
-        return myChats;
-    }
-
 }
 

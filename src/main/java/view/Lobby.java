@@ -80,19 +80,6 @@ public class Lobby extends Application {
         Game game5 = new Game(user1, "MyGame5", true, 5);
         Manage.allGames.add(game5);
 
-//
-//        Socket socket = new Socket("localhost",1234);
-//        Socket socket1 = new Socket("localhost",6000);
-//        Socket socket2 = new Socket("localhost",7000);
-
-        Chat chat = new Chat(user1.getUsername(), "PRIVATE");
-        Chat chat1 = new Chat(user3.getUsername(), "PRIVATE");
-        Chat chat2 = new Chat(user4.getUsername(), "PRIVATE");
-        Chat chat23 = new Chat(user4.getUsername(), "PUBLIC");
-        Chat chat24 = new Chat(user4.getUsername(), "PUBLIC");
-        Chat chat25 = new Chat(user4.getUsername(), "PRIVATE");
-
-
         Main.stage = stage;
         gameImages = new GameImages();
         gameImages.loadImages();
@@ -160,7 +147,6 @@ public class Lobby extends Application {
                 }
             }
         });
-
 
         TextField search = new TextField();
         search.setPromptText("Search Game Id");
