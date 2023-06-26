@@ -50,6 +50,7 @@ import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
 import view.OldView.SelectedBuildingMenu;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
@@ -57,15 +58,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TileManager extends Application {
-    //TODO : Dear TeamMates please pay attention that you should set
-    // the coordinates of your node first then you can set imageView for it.
-
-    //TODO : Check that selected unit would be empty or not in GameController if it was full
-    // show an error that user should make a decision for them
-
-    //TODO : Method which calculates the Production things on a tile
-    public Map map ;
-
+    //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
+    //TODO : fix the stages fullscreen after exiting from shop menu
+    //TODO : fix the music of the game fo creating troops
+    //TODO :fix the drop building logic of stockpiles
     public ArrayList<String> cellArmyNameType = new ArrayList<>();
     public Text showCellData = new Text();
     public int avgDamage;
@@ -114,6 +110,7 @@ public class TileManager extends Application {
     public int zoomSize = 1;
     Point firstPoint = new Point();
     Point secondPoint = new Point();
+    public Map map ;
     private boolean drawIsOn;
     public TileManager tileManager;
     private boolean moveIsOn;
@@ -165,9 +162,7 @@ public class TileManager extends Application {
         playLoginMusic();
         new CreateMapMenu();
         map = CreateMapMenu.finalMap ;
-        this.stage = stage;
         tileManager = this ;
-//        treesOfMap();
         createButtonsArraylist();
         for (int j = 0; j < 103; j++) {
             for (int i = 0; i < 100; i++) {
@@ -274,8 +269,7 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-
-
+    
     private void treesOfMap(){
         for(int i = 0 ; i < Map.mapSize ; i ++){
             for(int j = 0 ; j < Map.mapSize ; j ++){
@@ -326,9 +320,24 @@ public class TileManager extends Application {
 
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
         Manage.setCurrentEmpire(sallahDin);
+        System.out.println("enter tile manager");
 
-//        buildingController.dropBuilding(5, 22, "Castle");
-        dropStockFunction(5, 22, sallahDin);
+//        this.stage = stage;
+//        tileManager = new TileManager();
+//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+//        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
+//        Map.CreateMap(100);
+//        Empire empire = new Empire();
+//        Empire empire2 = new Empire();
+//        empire.setUser(newUser);
+//        empire2.setUser(newUser1);
+//        Manage.setCurrentEmpire(empire);
+//        Manage.allEmpires.add(empire);
+//        Manage.allEmpires.add(empire2);
+//        BuildingController.currentEmpire = empire;
+
+
+
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
@@ -340,9 +349,17 @@ public class TileManager extends Application {
         Castle castleRichard = new Castle(richard);
         castleRichard.castle();
 
+        Manage.allEmpires.add(richard);
+        Manage.allEmpires.add(sallahDin);
+        Manage.setCurrentEmpire(sallahDin);
+        BuildingController.currentEmpire = Manage.getCurrentEmpire();
+
+        buildingController.dropBuilding(5, 22, "Castle");
+        dropStockFunction(5, 22, sallahDin);
+
         NewButton castleButton = (NewButton) list.get(9 * 100 + 3);
         Manage.setCurrentEmpire(richard);
-//        buildingController.dropBuilding(9, 3, "Castle");
+        buildingController.dropBuilding(9, 3, "Castle");
         castleButton.setBuilding(castleRichard);
         ImageView castleImage2 = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButton.setImageView(castleImage2);
@@ -360,15 +377,13 @@ public class TileManager extends Application {
 
     private void dropStockFunction(int x, int y, Empire empire) {
         Manage.setCurrentEmpire(empire);
-//        BuildingController.dropFirstStockpile(x, y);
+        BuildingController.dropFirstStockpile(x, y);
         ImageView foodRecource = new ImageView(new Image(TileManager.class.getResource("/image/foodRecource.png").toExternalForm()));
         NewButton foodRecourceBtn = (NewButton) list.get((x - 1) * 100 + y);
         foodRecourceBtn.setImageView(foodRecource);
-
         ImageView stockPile = new ImageView(new Image(TileManager.class.getResource("/image/stock.gif").toExternalForm()));
         NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
         sourceStock.setImageView(stockPile);
-
     }
 
 
@@ -574,12 +589,9 @@ public class TileManager extends Application {
         int randomY = random.nextInt(limit, limit + 10);
         return randomY;
     }
-//    ImageView treeImage = new ImageView(new Image(TileManager.class.getResource("/image/tree/" + 1 + ".png").toExternalForm()));
+
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
     public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
-//    public ImageView seaImage = new ImageView(new Image(TileManager.class.getResource("/image/SeaImages/" + 1 + ".jpg").toExternalForm()));
-//
-//    public ImageView stoneIMage = new ImageView(new Image(TileManager.class.getResource("/image/Stone/" + 1 + ".png").toExternalForm()));
 
     public void createViewScene(Stage stage) {
         createButtonsArraylist();
@@ -613,7 +625,6 @@ public class TileManager extends Application {
                     button.setGraphic(view);
                 } else {
                     for (Army army : button.getArmy()) {
-                        System.out.println("x is: " + u + " and y is: " + g);
                         ImageView view = army.getImageView();
                         view.setImage(view.getImage());
                         view.setFitHeight(viewButtonSize);
@@ -630,7 +641,6 @@ public class TileManager extends Application {
         }
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
         createMinimap(pane);
-
     }
 
     public void getCellData(NewButton newButton) {

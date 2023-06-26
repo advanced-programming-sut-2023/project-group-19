@@ -1,8 +1,5 @@
 package view;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import controller.UserAdaptor;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,35 +15,31 @@ import model.User;
 import view.LoginMenu;
 
 import java.io.IOException;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main extends Application {
     public static Stage stage;
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-//        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-//        Empire Ali = new Empire();
-//        Empire Dorsa = new Empire();
-//        Ali.setUser(newUser);
-//        Dorsa.setUser(newUser1);
-//        Manage.setCurrentEmpire(Ali);
-////        Map.CreateMap(200);
-//        Map.mapSize = 200;
-//        Manage.getAllEmpires().add(Dorsa);
-//        Manage.getAllEmpires().add(Ali);
-//        Shop shop = new Shop(Ali);
-//        ShopMenu.currentShop = shop;
-////        map.getBuildingMap()[1][2].add(shop);
-//        launch(args);
-////        LoginMenu.run(new Scanner(System.in));
-        User user = new User("a","a","c","w","Q","r",2);
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(User.class, new UserAdaptor());
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
-        String s = gson.toJson(user);
-        System.out.println(s);
+        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
+        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
+        Empire Ali = new Empire();
+        Empire Dorsa = new Empire();
+        Ali.setUser(newUser);
+        Dorsa.setUser(newUser1);
+        Manage.setCurrentEmpire(Ali);
+//        Map.CreateMap(200);
+        Map.mapSize = 200;
+        Manage.getAllEmpires().add(Dorsa);
+        Manage.getAllEmpires().add(Ali);
+        Shop shop = new Shop(Ali);
+        ShopMenu.currentShop = shop;
+//        map.getBuildingMap()[1][2].add(shop);
+        launch(args);
+//        LoginMenu.run(new Scanner(System.in));
+
     }
 
     @Override
@@ -64,10 +57,9 @@ public class Main extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                ShopMenu shopMenu = new ShopMenu();
-                //LoginMenu loginMenu = new LoginMenu();
+                LoginMenu loginMenu = new LoginMenu();
                 try {
-                    shopMenu.start(stage);
+                    loginMenu.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

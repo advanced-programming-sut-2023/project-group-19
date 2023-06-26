@@ -27,12 +27,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainMenu extends Application {
+    //TODO : Don't forget to connect TileManager to the Lobby
     public GameImages gameImages = new GameImages();
     public static MediaPlayer mediaPlayer;
     private void playMainMenu(){
         stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/mainMenu.mp3").toString();
-        Media media = new Media(defultSong);
+        String defaultSong  = RegisterMenu.class.getResource("/Music/mainMenu.mp3").toString();
+        Media media = new Media(defaultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
         mediaPlayer = mediaPlayer2 ;
         mediaPlayer2.setAutoPlay(true);
@@ -93,7 +94,7 @@ public class MainMenu extends Application {
         });
 
         Button button2 = new Button();
-        button2.setText("GameMenu");
+        button2.setText("Lobby");
         button2.setLayoutX(700);
         button2.setLayoutY(450);
         button2.setPrefSize(200, 70);
@@ -103,9 +104,9 @@ public class MainMenu extends Application {
         button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager tileManager = new TileManager();
+                Lobby lobby = new Lobby();
                 try {
-                    tileManager.start(stage);
+                    lobby.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

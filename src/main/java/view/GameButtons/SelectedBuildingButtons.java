@@ -37,12 +37,10 @@ public class SelectedBuildingButtons {
 
     public void shop(Pane pane) throws Exception {
         Stage stage = new Stage();
-        System.out.println(5);
         ShopMenu shopMenu = new ShopMenu();
         Shop shop = new Shop(Manage.getCurrentEmpire());
         shop.shop();
         shopMenu.currentShop = shop;
-
         shopMenu.start(stage);
         stage.setFullScreen(true);
     }

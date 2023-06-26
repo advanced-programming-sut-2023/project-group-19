@@ -11,18 +11,18 @@ public class Map {
     private static ArrayList<Map> savedMaps = new ArrayList<>();
     public static int mapSize = 100;
 
-    public ArrayList<Building>[][] buildingMap;
-    public ArrayList<Army>[][] troopMap;
-    public ArrayList<Obstacle>[][] obstacleMap;
+    public static ArrayList<Building>[][] buildingMap;
+    public static ArrayList<Army>[][] troopMap;
+    public static ArrayList<Obstacle>[][] obstacleMap;
 
     public ArrayList<GroundType>[][] groundType;
-    public boolean[][] notBuildable;
-    public boolean[][] notPassable;
-    public boolean[][] wallPassable;
-    public boolean[][] wall;
+    public static boolean[][] notBuildable;
+    public static boolean[][] notPassable;
+    public static boolean[][] wallPassable;
+    public static boolean[][] wall;
     public static ArrayList<ArrayList<SavedObstacles>> allJsonMaps =  new ArrayList<>();
 
-    public ArrayList<Building>[][] getBuildingMap() {
+    public static ArrayList<Building>[][] getBuildingMap() {
         return buildingMap;
     }
 
@@ -32,11 +32,11 @@ public class Map {
         buildingMap[x][y].add(newBuilding);
     }
 
-    public ArrayList<Obstacle>[][] getObstacleMap() {
+    public static ArrayList<Obstacle>[][] getObstacleMap() {
         return obstacleMap;
     }
 
-    public ArrayList<Army>[][] getTroopMap() {
+    public static ArrayList<Army>[][] getTroopMap() {
         return troopMap;
     }
     {

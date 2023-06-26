@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Message {
     public String sender;
     public String content;
+    public String reaction;
     public String sentTime;
     public ImageView avatar;
     public boolean seen;
@@ -98,5 +99,11 @@ public class Message {
         Gson gson = builder.create();
         String jsonAsString = gson.toJson(message);
         return jsonAsString;
+    public String getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
     }
 }
