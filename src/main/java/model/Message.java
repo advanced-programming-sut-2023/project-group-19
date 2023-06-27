@@ -77,8 +77,11 @@ public class Message {
         builder.registerTypeAdapter(Message.class, new MessageAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
+        System.out.println(1);
         if (data.equals("")) return null;
+        System.out.println("2");
         Type type = new TypeToken<ArrayList<Message>>(){}.getType();
+        System.out.println("3");
         ArrayList<Message> a2 = gson.fromJson(data,type);
         return a2;
     }
