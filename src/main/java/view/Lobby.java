@@ -23,6 +23,9 @@ import model.User;
 import view.ImageAndBackground.GameImages;
 import view.Model.NewHBox;
 
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -30,6 +33,8 @@ import java.util.ArrayList;
 
 public class Lobby extends Application {
     public GameImages gameImages;
+    public static Socket socket  ;
+
     public Pane pane;
     public VBox listOfAllGames;
     public VBox listOfGameInfo;
@@ -56,6 +61,9 @@ public class Lobby extends Application {
 
     //TODO : EventHandler for Back Button
     //TODO : Game should be closed if the number of members reach to the settled capacity
+
+    static {
+    }
 
 
     @Override
@@ -132,7 +140,11 @@ public class Lobby extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 pane.getChildren().clear();
-                designChat(gameImages);
+                try {
+                    designChat(gameImages);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         Button refresh = new Button("Refresh");
@@ -203,7 +215,6 @@ public class Lobby extends Application {
     }
 
     private void designListOfAllGames(GameImages gameImages) {
-
         listOfAllGames.setStyle("-fx-background-color: #03183b");
         listOfAllGames.setSpacing(2);
         listOfAllGames.setLayoutX(100);
@@ -691,7 +702,7 @@ public class Lobby extends Application {
         return givenString.matches("\\d+");
     }
 
-    private void designChat(GameImages gameImages) {
+    private void designChat(GameImages gameImages) throws IOException {
 
         Button refresh = new Button("Refresh");
         refresh.setLayoutX(1050);
@@ -703,7 +714,11 @@ public class Lobby extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 pane.getChildren().clear();
-                designChat(gameImages);
+                try {
+                    designChat(gameImages);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -794,10 +809,33 @@ public class Lobby extends Application {
         globalChat.setPrefSize(80, 80);
         globalChat.setBackground(new Background(new BackgroundImage(gameImages.getGlobalChat(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+        socket = new Socket("localhost",8090);
         globalChat.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //Todo: here we should get global chat from server
+                try {
+                    Socket socket =  new Socket("localhost",6220);
+                    ChatMethods chatMethods =  new ChatMethods(socket);
+                    chatMethods.enterToChat();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+//                try {
+//                    socket = new Socket("localhost",8052);
+//                    Thread.sleep(1000);
+//                    Socket socket = new Socket("localhost",6010);
+//                    DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+//                    DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+//                    dataOutputStream.writeUTF("ENTER_CHAT");
+//                    System.out.println(dataInputStream.readUTF());
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+
                 showGlobalChat();
             }
         });
@@ -930,7 +968,6 @@ public class Lobby extends Application {
 
     public void showGlobalChat() {
         removeRemainedStuff();
-
     }
 
     public void removeRemainedStuff() {

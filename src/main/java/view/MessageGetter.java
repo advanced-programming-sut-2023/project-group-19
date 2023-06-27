@@ -28,7 +28,8 @@ public class MessageGetter extends Thread{
     }
     public void getMessage() throws IOException {
         String data = dataInputStream.readUTF();
+        System.out.println(data);
         Message message = Message.getMessageFromJson(data);
-        //Do something
+        System.out.println(message.content);
     }
 }

@@ -2,6 +2,7 @@ package view;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.scene.image.ImageView;
 import model.Chat;
 import model.Manage;
 import model.Message;
@@ -23,6 +24,7 @@ public class ChatMethods {
     public void refreshChats() throws IOException {
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         String data =  Manage.masterServerDataInputStream.readUTF();
+        if(data.equals("null")) return;
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
         //do someThing
         for(Chat chat : chats){
@@ -66,15 +68,17 @@ public class ChatMethods {
     }
     public void enterToChat() throws IOException {
         //TODO : the socket of chat must be given
+        System.out.println("ENTER TO CHAT");
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
+        System.out.println(data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
-        if (messages == null) {
-            //
-        }else{
-            //
+        System.out.println("messages.size()");
+        for(Message message : messages){
+            System.out.println(message.content);
         }
         getMessagesFromServer(dataInputStream);
+        System.out.println("END ENTER TO CHAT");
     }
     public void getMessagesFromServer(DataInputStream dataInputStream) throws IOException {
         messageGetter = new MessageGetter(dataInputStream);
@@ -85,10 +89,9 @@ public class ChatMethods {
         MessageGetter.interrupted();
     }
     public void sendMessage(String text) throws IOException {
-        Message message = new Message(User.getCurrentUser().getUsername(),text,false,User.getCurrentUser().getAvatar());
+        Message message = new Message("ali",text,false,new ImageView());
         String data = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF("RECEIVE_MESSAGE");
         dataOutputStream.writeUTF(data);
     }
-
 }
