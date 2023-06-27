@@ -36,7 +36,6 @@ import model.Empire;
 import model.Human.Troop.Army;
 import model.Manage;
 import model.Map;
-import model.Obstacle.SavedObstacles;
 import model.Obstacle.Stone;
 import model.Obstacle.Tree;
 import model.Obstacle.WaterSources;
@@ -108,7 +107,6 @@ public class TileManager extends Application {
     public Clipboard cb;
     public NewButton selectedButton;
     public ArrayList<Node> list = new ArrayList<>();
-
     public Scene scene;
     //TODO : stay alert to fix this after fixing the function
     public boolean playReplay = false;
@@ -117,6 +115,7 @@ public class TileManager extends Application {
     public int viewButtonSize = 50;
     public int verticalButtons = 30;
     public int horizontalButtons = 16;
+    public Timer timer;
     public int zoomSize = 1;
     public static String time;
     Point firstPoint = new Point();
@@ -202,7 +201,6 @@ public class TileManager extends Application {
         playReplay = log != null;
     }
 
-
     @Override
     public void start(Stage stage) throws Exception {
         readFromJson();
@@ -226,8 +224,10 @@ public class TileManager extends Application {
                 newButton.setFocusTraversable(false);
                 newButton.setText(String.valueOf(j * 100 + i));
                 list.add(newButton);
+
             }
         }
+
         width = 1530;
         height = 800;
 
@@ -245,6 +245,8 @@ public class TileManager extends Application {
 
         createViewScene(stage);
         createMinimap(pane);
+        timer = new Timer();
+        gameTimer(timer);
 
         scene = new Scene(pane, width - 50, height - 50);
         if (!playReplay) {
@@ -305,13 +307,44 @@ public class TileManager extends Application {
                 }
             });
         }
-
+        else {
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    String keyName = keyEvent.getCode().getName();
+                    if (keyName.equals("Add")) {
+                        timer.cancel();
+                        replaySpeed--;
+                        if(replaySpeed < 1){
+                            replaySpeed = 1;
+                        }
+                        timer = new Timer();
+                        gameTimer(timer);
+                    } else if (keyName.equals("Subtract")) {
+                        timer.cancel();
+                        replaySpeed++;
+                        if(replaySpeed > 4){
+                            replaySpeed =4;
+                        }
+                        Timer timer = new Timer();
+                        gameTimer(timer);
+                    }
+                }
+            });
+        }
         stage.setTitle("Tile Pane");
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);
         stage.setResizable(false);
-        Timer timer = new Timer();
+    }
+    public void bringReplayToSetTime(){
+
+    }
+
+    public int changeSecond;
+    public int changedMinute;
+    public void gameTimer(Timer timer){
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -328,12 +361,10 @@ public class TileManager extends Application {
                     }
                 }
             }
-        }, 0, 200);
-
+        }, 0, 500L * replaySpeed);
     }
-
+    public int replaySpeed = 2;
     public String copyContent;
-
     public void avgDetail() {
         if (selectedButtons.size() != 0) {
             int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
@@ -461,9 +492,7 @@ public class TileManager extends Application {
             }
         }
     }
-
     public int logLineReader = 0;
-
     public void replayGame() throws Exception {
         if (logLineReader < allCommandParts.length) {
             TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
@@ -476,11 +505,9 @@ public class TileManager extends Application {
                 }
             }
         }
-
     }
 
     public void handleLogCommands(String[] command) throws Exception {
-        System.out.println(Arrays.toString(command));
         switch (command[1]) {
             case "MOUSE_CLICK":
                 mouseClickCommands(command);
@@ -510,15 +537,6 @@ public class TileManager extends Application {
                 break;
             case "MOVE_UNIT":
                 gameController.replayMove(Integer.parseInt(command[2]), Integer.parseInt(command[3]), selectedButton, pane, list);
-//                Platform.runLater(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        pane.getChildren().clear();
-//                        createViewScene(stage);
-//                        bottomBarBuildings.setAllButtons(allButtons);
-//                        scene.setRoot(pane);
-//                    }
-//                });
                 break;
             case "PASTE_BUILDING":
                 replayPaste();
@@ -595,8 +613,6 @@ public class TileManager extends Application {
     }
 
     public void delete(NewButton newButton) {
-        System.out.println("ENTERED DELETE");
-        System.out.println(newButton.getX() + "   "+ newButton.getY());
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -606,7 +622,7 @@ public class TileManager extends Application {
                 newButton.setBuilding(null);
             }
         });
-        int x = newButton.getX()-1;
+        int x = newButton.getX() - 1;
         int y = newButton.getY() - 1;
         if (map.buildingMap[x][y].size() != 0)
             map.buildingMap[x][y].remove(0);
@@ -641,7 +657,6 @@ public class TileManager extends Application {
                 normalRemove(newButton);
                 break;
             case "NORMAL_REMOVE":
-                System.out.println(command[3] + "   " + command[4]);
                 NewButton newButton1 = allButtons[Integer.parseInt(command[3])][Integer.parseInt(command[4])].get(0);
                 normalRemove(newButton1);
                 break;
@@ -658,7 +673,6 @@ public class TileManager extends Application {
             case "REPAIR":
                 repair(selectedBuildingMenu);
                 break;
-
         }
     }
 
@@ -706,20 +720,6 @@ public class TileManager extends Application {
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
         Manage.setCurrentEmpire(sallahDin);
 
-//        this.stage = stage;
-//        tileManager = new TileManager();
-//        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-//        User newUser1 = new User("user7", "aa", "dorsa", "a", "1", "1", 1);
-//        Map.CreateMap(100);
-//        Empire empire = new Empire();
-//        Empire empire2 = new Empire();
-//        empire.setUser(newUser);
-//        empire2.setUser(newUser1);
-//        Manage.setCurrentEmpire(empire);
-//        Manage.allEmpires.add(empire);
-//        Manage.allEmpires.add(empire2);
-//        BuildingController.currentEmpire = empire;
-
         castleButtonSllah.setBuilding(castleSallah);
         ImageView castleImage = new ImageView(new Image(TileManager.class.getResource("/image/BuildingImages/castle.png").toExternalForm()));
         castleButtonSllah.setImageView(castleImage);
@@ -760,7 +760,6 @@ public class TileManager extends Application {
         NewButton sourceStock = (NewButton) list.get((x + 1) * 100 + y);
         sourceStock.setImageView(stockPile);
     }
-
 
     private void designHBoxOfAverageDetails(int totalNumberOfTroops, ArrayList<Double> averageDetails) {
         avgDetailHBox = new HBox();
@@ -899,7 +898,6 @@ public class TileManager extends Application {
                 }
             }
         });
-
     }
 
     private void setButtonsOfMenus(Pane pane, BottomBarImages bottomBarImages, BuildingImages buildingImages) {
@@ -943,7 +941,6 @@ public class TileManager extends Application {
                 scene.setRoot(pane);
             }
         });
-
     }
 
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
@@ -977,7 +974,6 @@ public class TileManager extends Application {
                 selectedButtons.add(newButton);
             }
         }
-
     }
 
     private int getRandomX(NewButton newButton) {
@@ -1041,7 +1037,6 @@ public class TileManager extends Application {
         }
         setButtonsOfMenus(pane, bottomBarImages, buildingImages);
         createMinimap(pane);
-
     }
 
     public void getCellData(NewButton newButton) {
