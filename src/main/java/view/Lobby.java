@@ -1,10 +1,11 @@
 package view;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,10 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import model.Chat;
 import model.Game;
@@ -23,10 +21,10 @@ import model.Manage;
 
 import model.User;
 import view.ImageAndBackground.GameImages;
-import javafx.scene.control.Button;
+import view.Model.NewHBox;
 
 import java.io.IOException;
-import java.security.PublicKey;
+import java.net.Socket;
 import java.util.ArrayList;
 
 
@@ -36,10 +34,13 @@ public class Lobby extends Application {
     public VBox listOfAllGames;
     public VBox listOfGameInfo;
     public VBox chatBox;
+    public VBox chatRoomForm;
     public ScrollPane scrollPaneForMainList = new ScrollPane();
     public ScrollPane scrollPaneForSearchedList = new ScrollPane();
     public ScrollPane scrollPaneForChatList = new ScrollPane();
     public ScrollPane scrollPaneForChatBox = new ScrollPane();
+    public ScrollPane scrollPaneForChatCheckBox;
+
     public Button send = new Button();
     public TextField chatTextField = new TextField();
     public Text emptyGameId = new Text("Game Id field is empty!");
@@ -47,6 +48,11 @@ public class Lobby extends Application {
     public Text emptyTypeOfGame = new Text("Game's Type field is empty!");
     public Text invalidTypeOfGame = new Text("The given game type is invalid!");
     public Text invalidCapacity = new Text("The given capacity is invalid!");
+    public TextField search = new TextField();
+    public Button searchButton = new Button();
+    public TextField searchBarForUsers = new TextField();
+    public Button searchButtonForUsers = new Button();
+    public ArrayList<NewHBox> chosenMembersForRoom = new ArrayList<>();
 
     //TODO : EventHandler for Back Button
     //TODO : Game should be closed if the number of members reach to the settled capacity
@@ -252,7 +258,7 @@ public class Lobby extends Application {
     }
 
     public void designVboxOfGameInfo(String gameId) {
-        if (pane.getChildren().contains(listOfGameInfo)) pane.getChildren().remove(listOfGameInfo);
+        pane.getChildren().remove(listOfGameInfo);
         this.listOfGameInfo = new VBox();
         listOfGameInfo.setSpacing(5);
         String listOfGamePlayers = "Players:\n";
@@ -719,8 +725,19 @@ public class Lobby extends Application {
             }
         });
 
+        Button createRoom = new Button("Create Room");
+        createRoom.setLayoutX(750);
+        createRoom.setLayoutY(70);
+        createRoom.setPrefSize(160, 50);
+        createRoom.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
+        createRoom.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        createRoom.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                createChatRoom();
+            }
+        });
 
-        TextField search = new TextField();
         search.setPromptText("Search player's Id");
         search.setPrefSize(280, 30);
         search.setTranslateX(300);
@@ -729,7 +746,6 @@ public class Lobby extends Application {
         search.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-prompt-text-fill: white;" +
                 "-fx-text-fill: white;");
 
-        Button searchButton = new Button();
         searchButton.setLayoutX(590);
         searchButton.setLayoutY(157);
         searchButton.setPrefSize(30, 30);
@@ -739,6 +755,7 @@ public class Lobby extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO : We should find out from the server whether the given username exists or not
+                ArrayList<String> searchResult = findAllMatchingChats(search.getText());
 
             }
         });
@@ -789,6 +806,7 @@ public class Lobby extends Application {
 
 
         pane.getChildren().add(lobby);
+        pane.getChildren().add(createRoom);
         pane.getChildren().add(refresh);
         pane.getChildren().add(search);
         pane.getChildren().add(searchButton);
@@ -818,7 +836,7 @@ public class Lobby extends Application {
                 Circle clip = new Circle(25, 25, 25);
                 Image profile = receiver.getAvatar().getImage();
                 clip.setFill(new ImagePattern(profile));
-                clip.setStroke(Color.rgb(75,24,126));
+                clip.setStroke(Color.rgb(75, 24, 126));
                 HBox chatBox = new HBox();
                 chatBox.setPrefSize(284.1, 10);
                 chatBox.setSpacing(70);
@@ -858,7 +876,7 @@ public class Lobby extends Application {
         pane.getChildren().remove(send);
         pane.getChildren().remove(chatTextField);
         pane.getChildren().remove(scrollPaneForChatBox);
-        
+
         chatBox = new VBox();
         chatBox.setStyle("-fx-background-color: #4b187e");
         chatBox.setSpacing(0.5);
@@ -900,23 +918,175 @@ public class Lobby extends Application {
         pane.getChildren().add(scrollPaneForChatBox);
     }
 
-    public void showAllPrivateChats(){
-        removeRemainedStuff();
-
-    }
-    public void showAllGroupChats(){
-        removeRemainedStuff();
-
-    }
-    public void showGlobalChat(){
+    public void showAllPrivateChats() {
         removeRemainedStuff();
 
     }
 
-    public void removeRemainedStuff(){
+    public void showAllGroupChats() {
+        removeRemainedStuff();
+
+    }
+
+    public void showGlobalChat() {
+        removeRemainedStuff();
+
+    }
+
+    public void removeRemainedStuff() {
         pane.getChildren().remove(scrollPaneForChatList);
         pane.getChildren().remove(scrollPaneForChatBox);
         pane.getChildren().remove(send);
         pane.getChildren().remove(chatTextField);
+    }
+
+    private void createChatRoom() {
+        removeRemainedStuff();
+        pane.getChildren().remove(search);
+        pane.getChildren().remove(searchButton);
+
+        searchBarForUsers.setPromptText("Search player's Id");
+        searchBarForUsers.setPrefSize(280, 30);
+        searchBarForUsers.setTranslateX(300);
+        searchBarForUsers.setTranslateY(160);
+        searchBarForUsers.setFocusTraversable(false);
+        searchBarForUsers.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-prompt-text-fill: white;" +
+                "-fx-text-fill: white;");
+
+        searchButtonForUsers.setLayoutX(590);
+        searchButtonForUsers.setLayoutY(157);
+        searchButtonForUsers.setPrefSize(30, 30);
+        searchButtonForUsers.setBackground(new Background(new BackgroundImage(gameImages.getSearch(), BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        searchButtonForUsers.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //TODO : We should find out from the server whether the given username exists or not
+                ArrayList<String> searchResult = findAllMatchingChats(search.getText());
+                try {
+                    if (searchResult != null && searchResult.size() != 0) {
+                        designChatRoomCheckBox(searchResult);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
+
+        designChatRoomFillBox();
+
+        pane.getChildren().add(searchBarForUsers);
+        pane.getChildren().add(searchButtonForUsers);
+
+
+    }
+
+    private void designChatRoomCheckBox(ArrayList<String> searchResult) throws IOException {
+        chatRoomForm = new VBox();
+        chatRoomForm.setSpacing(2);
+        scrollPaneForChatCheckBox = new ScrollPane();
+        for (String result : searchResult) {
+            System.out.println(result);
+//            Socket socket = new Socket("localhost", 8080);
+            NewHBox newHBox = new NewHBox(8080, result);
+            newHBox.setPrefSize(284.1, 40);
+            newHBox.setSpacing(70);
+            newHBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);");
+            newHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    //TODO :Here we can get the port and socket and pass it to the server
+                    //  If we choose a box we add it to the group
+
+                }
+            });
+
+
+            Text chatName = new Text();
+            chatName.setText(result);
+            chatName.setFill(Color.WHITE);
+            chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+            chatName.setTranslateX(10);
+            chatName.setTranslateY(1);
+
+            newHBox.getChildren().add(chatName);
+            chatRoomForm.setStyle("-fx-background-color: rgba(80,11,143,0.71);");
+            chatRoomForm.getChildren().add(newHBox);
+
+        }
+
+
+        scrollPaneForChatCheckBox.setPrefWidth(300);
+        scrollPaneForChatCheckBox.setContent(chatRoomForm);
+        scrollPaneForChatCheckBox.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneForChatCheckBox.setLayoutX(300);
+        scrollPaneForChatCheckBox.setLayoutY(300);
+
+        scrollPaneForChatCheckBox.setStyle("-fx-background-color: #1b1073");
+        scrollPaneForChatCheckBox.setVisible(true);
+        pane.getChildren().add(scrollPaneForChatCheckBox);
+
+    }
+
+    private void designChatRoomFillBox() {
+        chatRoomForm = new VBox();
+        chatRoomForm.setSpacing(5);
+        chatRoomForm.setStyle("-fx-background-color: rgba(80,11,143,0.55);-fx-background-radius: 30px");
+        chatRoomForm.setLayoutX(870);
+        chatRoomForm.setLayoutY(230);
+
+        Label header = new Label();
+        header.setText("Complete the Chat Room Information!");
+        header.setStyle("-fx-text-fill: #ffffff; -fx-alignment: center; " +
+                "-fx-background-radius: 30px; -fx-background-color: rgba(27,16,115,0.71)");
+        header.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 17));
+        header.setLayoutX(870);
+        header.setLayoutY(180);
+        header.setPrefSize(300,35);
+        header.setContentDisplay(ContentDisplay.CENTER);
+
+
+        TextField chatName = new TextField();
+        chatName.setPromptText("Enter Group's Name:");
+        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 12));
+        chatName.setTranslateX(45);
+        chatName.setTranslateY(30);
+        chatName.setFocusTraversable(false);
+        chatName.setStyle("-fx-background-color: rgba(80,11,143,0.6); -fx-prompt-text-fill: white;" +
+                "-fx-text-fill: white;-fx-background-radius: 30px;");
+        chatName.setPrefSize(200,20);
+        chatName.setMaxSize(200,20);
+        chatName.setMinSize(200,20);
+
+        Button create = new Button("Create Chat");
+        create.setTranslateX(100);
+        create.setTranslateY(70);
+        create.setPrefSize(80, 10);
+        create.setStyle("-fx-background-color: rgba(80,11,143,0.6); -fx-text-fill: #ffffff; -fx-background-radius: 30px");
+        create.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //Todo: here we should send the information of new Group to the server
+
+            }
+        });
+
+
+        chatRoomForm.getChildren().add(chatName);
+        chatRoomForm.getChildren().add(create);
+        chatRoomForm.setPrefSize(300,150);
+        pane.getChildren().add(chatRoomForm);
+        pane.getChildren().add(header);
+
+    }
+
+    private ArrayList<String> findAllMatchingChats(String text) {
+        ArrayList<String> str = new ArrayList<>();
+        str.add("HI");
+        str.add("Hello");
+        str.add("Doreece");
+        str.add("Blah Blah Blah");
+        return str;
     }
 }
