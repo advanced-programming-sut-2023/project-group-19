@@ -151,22 +151,28 @@ public class GameController {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_SELECT_UNIT" + '\n');
                 int j = 0;
+                String name = null;
+                int x = 0;
+                int y = 0;
+                int count = 0;
                 for (Text text : nameOfUnit) {
                     for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
                         if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
+                            name = army.getKey().get(0).getNames().getName();
+                            x = army.getKey().get(0).getxCoordinate();
+                            y = army.getKey().get(0).getyCoordinate();
+                            count = spinners.get(0).getValue();
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
-                                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                                TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" +
-                                        '#' + army.getKey().get(i).getNames().getName() + '#' + spinners.get(j).getValue() + '#'+
-                                        army.getKey().get(i).getxCoordinate() + '#' + army.getKey().get(i).getyCoordinate() + '\n');
                             }
                             j++;
                         }
                     }
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" +
+                            '#' + name + '#' + count + '#' +
+                            x + '#' + y + '\n');
                 }
                 pane.getChildren().remove(box);
                 selectedButtons.clear();
@@ -174,25 +180,26 @@ public class GameController {
             }
         });
     }
-    public void selectUnitForLog(String[] command , ArrayList<NewButton>[][] allButtons ){
+
+    public void selectUnitForLog(String[] command, ArrayList<NewButton>[][] allButtons) {
         int counter = 0;
-        NewButton newButton = allButtons[Integer.parseInt(command[4])][Integer.parseInt(command[5])].get(0);
-        for(int i = 0 ;  i < newButton.getArmy().size(); i++){
-            if(counter == Integer.parseInt(command[3]))
-                break;
-            if(newButton.getArmy().get(i).getNames().getName().equals(command[2])) {
-                selectedUnit.add(newButton.getArmy().get(i));
-                counter++;
+        if (command.length > 2) {
+            NewButton newButton = allButtons[Integer.parseInt(command[4])][Integer.parseInt(command[5])].get(0);
+            for (int i = 0; i < newButton.getArmy().size(); i++) {
+                if (counter == Integer.parseInt(command[3]))
+                    break;
+                if (newButton.getArmy().get(i).getNames().getName().equals(command[2])) {
+                    selectedUnit.add(newButton.getArmy().get(i));
+                    counter++;
+                }
             }
         }
     }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
-        boolean flag = false;
         HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
         for (NewButton selectedButton : selectedButtons) {
             for (Army army : selectedButton.getArmy()) {
-                flag = true;
                 ArrayList<Army> armies = new ArrayList<>();
                 if (army.getOwner().equals(Manage.getCurrentEmpire())) {
                     if (!editInfoOfRepeatedUnitNames(listOfUnits, army)) {
@@ -201,10 +208,6 @@ public class GameController {
                     }
                 }
             }
-        }
-        if (flag) {
-            TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-            TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" + '\n');
         }
         return listOfUnits;
     }
@@ -1748,17 +1751,24 @@ public class GameController {
         }
         selectedUnit.clear();
     }
-    public void replayMove(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list){
+
+    public void replayMove(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
+        System.out.println("ENTERED MOVE");
         NewButton newButton = (NewButton) list.get(xOfDestination * 100 + yOfDestination);
-        for(int i = 0 ; i < selectedUnit.size() ; i++  ){
+        for (int i = 0; i < selectedUnit.size(); i++) {
             selectedButton.getArmy().remove(selectedUnit.get(i));
             newButton.getArmy().add(selectedUnit.get(i));
             selectedUnit.get(i).setxCoordinate(xOfDestination);
             selectedUnit.get(i).setyCoordinate(yOfDestination);
+            selectedButton.getArmy().remove(selectedUnit.get(i));
             Map.getTroopMap()[xOfDestination][yOfDestination].add(selectedUnit.get(i));
             Map.getTroopMap()[selectedButton.getX()][selectedButton.getY()].remove(selectedUnit.get(i));
         }
+        System.out.println("new button : " + newButton.getArmy().size());
+        for (int j = 0; j < newButton.getArmy().size(); j++) {
+            System.out.println(newButton.getArmy().get(j));
+        }
+        System.out.println("selected button : " + selectedButton.getArmy().size());
         selectedUnit.clear();
-
     }
 }

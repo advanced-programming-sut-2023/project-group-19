@@ -1,5 +1,6 @@
 package view.GameButtons;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -55,7 +56,13 @@ public class SelectedBuildingButtons {
         archerButton.setLayoutY(730);
         archerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(archerButton);
-        pane.getChildren().add(archerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(archerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -79,7 +86,13 @@ public class SelectedBuildingButtons {
         spearManButton.setLayoutY(730);
         spearManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(spearManButton);
-        pane.getChildren().add(spearManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(spearManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -103,7 +116,13 @@ public class SelectedBuildingButtons {
         maceManButton.setLayoutY(730);
         maceManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(maceManButton);
-        pane.getChildren().add(maceManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(maceManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -127,7 +146,13 @@ public class SelectedBuildingButtons {
         crossbowManButton.setLayoutY(730);
         crossbowManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(crossbowManButton);
-        pane.getChildren().add(crossbowManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(crossbowManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -151,7 +176,13 @@ public class SelectedBuildingButtons {
         pikeManButton.setLayoutY(730);
         pikeManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(pikeManButton);
-        pane.getChildren().add(pikeManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(pikeManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -175,7 +206,13 @@ public class SelectedBuildingButtons {
         swordManButton.setLayoutY(730);
         swordManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(swordManButton);
-        pane.getChildren().add(swordManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(swordManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -198,7 +235,13 @@ public class SelectedBuildingButtons {
         knightButton.setLayoutY(730);
         knightButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(knightButton);
-        pane.getChildren().add(knightButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(knightButton);
+            }
+        });
+
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -224,7 +267,12 @@ public class SelectedBuildingButtons {
         arabianBowButton.setLayoutY(730);
         arabianBowButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(arabianBowButton);
-        pane.getChildren().add(arabianBowButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(arabianBowButton);
+            }
+        });
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -248,7 +296,13 @@ public class SelectedBuildingButtons {
         slaveButton.setLayoutY(730);
         slaveButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(slaveButton);
-        pane.getChildren().add(slaveButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(slaveButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -272,7 +326,13 @@ public class SelectedBuildingButtons {
         slingerButton.setLayoutY(730);
         slingerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(slingerButton);
-        pane.getChildren().add(slingerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(slingerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -296,7 +356,13 @@ public class SelectedBuildingButtons {
         assassinButton.setLayoutY(730);
         assassinButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(assassinButton);
-        pane.getChildren().add(assassinButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(assassinButton);
+            }
+        });
+
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -320,7 +386,13 @@ public class SelectedBuildingButtons {
         horseArcherButton.setLayoutY(730);
         horseArcherButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(horseArcherButton);
-        pane.getChildren().add(horseArcherButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(horseArcherButton);
+            }
+        });
+
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -344,7 +416,13 @@ public class SelectedBuildingButtons {
         arabianSwordManButton.setLayoutY(730);
         arabianSwordManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(arabianSwordManButton);
-        pane.getChildren().add(arabianSwordManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(arabianSwordManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -368,7 +446,13 @@ public class SelectedBuildingButtons {
         fireThrowerButton.setLayoutY(730);
         fireThrowerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(fireThrowerButton);
-        pane.getChildren().add(fireThrowerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(fireThrowerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -394,7 +478,13 @@ public class SelectedBuildingButtons {
         catapultButton.setLayoutY(730);
         catapultButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(catapultButton);
-        pane.getChildren().add(catapultButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(catapultButton);
+            }
+        });
+
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -418,7 +508,13 @@ public class SelectedBuildingButtons {
         trebuchetButton.setLayoutY(730);
         trebuchetButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(trebuchetButton);
-        pane.getChildren().add(trebuchetButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(trebuchetButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -442,7 +538,13 @@ public class SelectedBuildingButtons {
         siegeTowerButton.setLayoutY(730);
         siegeTowerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(siegeTowerButton);
-        pane.getChildren().add(siegeTowerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(siegeTowerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -466,7 +568,13 @@ public class SelectedBuildingButtons {
         batteringRamButton.setLayoutY(730);
         batteringRamButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(batteringRamButton);
-        pane.getChildren().add(batteringRamButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(batteringRamButton);
+            }
+        });
+
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -490,7 +598,13 @@ public class SelectedBuildingButtons {
         portableShieldButton.setLayoutY(730);
         portableShieldButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(portableShieldButton);
-        pane.getChildren().add(portableShieldButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(portableShieldButton);
+            }
+        });
+
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -514,7 +628,12 @@ public class SelectedBuildingButtons {
         fireBallistaButton.setLayoutY(730);
         fireBallistaButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(fireBallistaButton);
-        pane.getChildren().add(fireBallistaButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(fireBallistaButton);
+            }
+        });
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -540,7 +659,13 @@ public class SelectedBuildingButtons {
         engineerButton.setLayoutY(730);
         engineerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(engineerButton);
-        pane.getChildren().add(engineerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(engineerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -564,7 +689,13 @@ public class SelectedBuildingButtons {
         ladderManButton.setLayoutY(730);
         ladderManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(ladderManButton);
-        pane.getChildren().add(ladderManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(ladderManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -588,7 +719,13 @@ public class SelectedBuildingButtons {
         tunnelerButton.setLayoutY(730);
         tunnelerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(tunnelerButton);
-        pane.getChildren().add(tunnelerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(tunnelerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -614,7 +751,13 @@ public class SelectedBuildingButtons {
         blackMonkButton.setLayoutY(730);
         blackMonkButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(blackMonkButton);
-        pane.getChildren().add(blackMonkButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(blackMonkButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -665,8 +808,14 @@ public class SelectedBuildingButtons {
             }
         };
         submit.setOnMouseClicked(event1);
-        pane.getChildren().add(submit);
-        pane.getChildren().add(gatehouseText);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(submit);
+                pane.getChildren().add(gatehouseText);
+            }
+        });
+
     }
 
     public void drawBridge(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
@@ -677,7 +826,13 @@ public class SelectedBuildingButtons {
         open.setLayoutY(730);
         open.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(open);
-        pane.getChildren().add(open);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(open);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -696,7 +851,13 @@ public class SelectedBuildingButtons {
         close.setLayoutY(730);
         close.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(close);
-        pane.getChildren().add(close);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(close);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

@@ -87,7 +87,7 @@ public class TileManager extends Application {
     public ArrayList<NewButton> selectedBuildingGraphic;
     public Text selectedBuildingTextField;
     public Text selectedBuildingHP;
-    public String log ;
+    public String log;
 
     public ImageView selectBackground;
     public Pane pane = new Pane();
@@ -165,7 +165,6 @@ public class TileManager extends Application {
     public MediaPlayer mediaPlayer;
 
 
-
     private void playLoginMusic() {
         stopAllMusic();
 //        String defultSong = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
@@ -175,9 +174,10 @@ public class TileManager extends Application {
 //        mediaPlayer2.setAutoPlay(true);
 //        mediaPlayer.setCycleCount(-1);
     }
-    private void writeIntoJson(String log){
+
+    private void writeIntoJson(String log) {
         try (FileWriter file = new FileWriter("log.json")) {
-            String jsonAsString = log ;
+            String jsonAsString = log;
             StringBuilder sb = new StringBuilder();
             sb.append(log);
             file.write(sb.toString());
@@ -186,6 +186,7 @@ public class TileManager extends Application {
             System.out.println("couldn't save into file");
         }
     }
+
     private void readFromJson() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("log.json"));
         if (br.readLine() == null) {
@@ -198,7 +199,7 @@ public class TileManager extends Application {
         while (sc.hasNextLine())
             stringBuilder.append(sc.nextLine()).append('\n');
         log = stringBuilder.toString();
-        playReplay = log != null ;
+        playReplay = log != null;
     }
 
 
@@ -327,7 +328,7 @@ public class TileManager extends Application {
                     }
                 }
             }
-        }, 0, 1000);
+        }, 0, 200);
 
     }
 
@@ -509,16 +510,15 @@ public class TileManager extends Application {
                 break;
             case "MOVE_UNIT":
                 gameController.replayMove(Integer.parseInt(command[2]), Integer.parseInt(command[3]), selectedButton, pane, list);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        pane.getChildren().clear();
-                        createViewScene(stage);
-                        bottomBarBuildings.setAllButtons(allButtons);
-                        scene.setRoot(pane);
-                    }
-                });
-                System.out.println(selectedButton.getArmy().size());
+//                Platform.runLater(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        pane.getChildren().clear();
+//                        createViewScene(stage);
+//                        bottomBarBuildings.setAllButtons(allButtons);
+//                        scene.setRoot(pane);
+//                    }
+//                });
                 break;
             case "PASTE_BUILDING":
                 replayPaste();
@@ -534,6 +534,20 @@ public class TileManager extends Application {
                 break;
             case "UNDO_BUTTON":
                 BottomBarButtons.undo(pane, map);
+                break;
+            case "MOVE_MAP":
+                moveX = Integer.parseInt(command[2]);
+                moveY = Integer.parseInt(command[3]);
+                moveMap(moveX, moveY);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        pane.getChildren().clear();
+                        createViewScene(stage);
+                        bottomBarBuildings.setAllButtons(allButtons);
+                        scene.setRoot(pane);
+                    }
+                });
                 break;
             case "DROP_UNIT_GAME":
                 NewButton newButton3 = allButtons[Integer.parseInt(command[6])][Integer.parseInt(command[7])].get(0);
@@ -551,8 +565,8 @@ public class TileManager extends Application {
                 break;
             case "DROP_BUILDING":
                 BottomBarBuildings.replayGame = true;
-                BottomBarBuildings.x = Integer.parseInt(command[4]);
-                BottomBarBuildings.y = Integer.parseInt(command[3]);
+                BottomBarBuildings.x = Integer.parseInt(command[3]);
+                BottomBarBuildings.y = Integer.parseInt(command[4]);
                 bottomBarBuildings.allButtons = allButtons;
                 bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, command[2], buildingImages);
                 Platform.runLater(new Runnable() {
@@ -568,7 +582,7 @@ public class TileManager extends Application {
     }
 
     public void selectUnit(String[] command) {
-        gameController.selectUnitForLog(command , allButtons);
+        gameController.selectUnitForLog(command, allButtons);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -581,7 +595,8 @@ public class TileManager extends Application {
     }
 
     public void delete(NewButton newButton) {
-        System.out.println(newButton.getX() + "   " + newButton.getY());
+        System.out.println("ENTERED DELETE");
+        System.out.println(newButton.getX() + "   "+ newButton.getY());
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -591,8 +606,8 @@ public class TileManager extends Application {
                 newButton.setBuilding(null);
             }
         });
-        int x = newButton.getX();
-        int y = newButton.getY();
+        int x = newButton.getX()-1;
+        int y = newButton.getY() - 1;
         if (map.buildingMap[x][y].size() != 0)
             map.buildingMap[x][y].remove(0);
         map.notPassable[x][y] = false;
@@ -626,7 +641,7 @@ public class TileManager extends Application {
                 normalRemove(newButton);
                 break;
             case "NORMAL_REMOVE":
-                System.out.println(command.length);
+                System.out.println(command[3] + "   " + command[4]);
                 NewButton newButton1 = allButtons[Integer.parseInt(command[3])][Integer.parseInt(command[4])].get(0);
                 normalRemove(newButton1);
                 break;
@@ -643,6 +658,7 @@ public class TileManager extends Application {
             case "REPAIR":
                 repair(selectedBuildingMenu);
                 break;
+
         }
     }
 
@@ -689,7 +705,6 @@ public class TileManager extends Application {
 
         NewButton castleButtonSllah = (NewButton) list.get(5 * 100 + 22);
         Manage.setCurrentEmpire(sallahDin);
-        System.out.println("enter tile manager");
 
 //        this.stage = stage;
 //        tileManager = new TileManager();
@@ -901,24 +916,34 @@ public class TileManager extends Application {
         int minY = y1 / 54;
         moveX += minY - maxY;
         moveY += minX - maxX;
+        moveMap(moveX, moveY);
+    }
+
+    public void moveMap(int moveX, int moveY) {
         if (moveY + 30 > 100) {
-            moveY = 70;
+            this.moveY = 70;
         }
         if (moveX + 16 > 103) {
-            moveX = 87;
+            this.moveX = 87;
         }
         if (moveX < 0) {
-            moveX = 0;
+            this.moveX = 0;
         }
         if (moveY < 0) {
-            moveY = 0;
+            this.moveY = 0;
         }
         time = (minute[0] + ":" + seconds[0]);
-        gameLog.append(time + '#' + "RIGHT_CLICK" + '#' + "MOVE_MAP" + '#' + moveX + '#' + moveY + '\n');
-        pane.getChildren().clear();
-        createViewScene(stage);
-        bottomBarBuildings.setAllButtons(allButtons);
-        scene.setRoot(pane);
+        gameLog.append(time + '#' + "MOVE_MAP" + '#' + this.moveX + '#' + this.moveY + '\n');
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().clear();
+                createViewScene(stage);
+                bottomBarBuildings.setAllButtons(allButtons);
+                scene.setRoot(pane);
+            }
+        });
+
     }
 
     private void drawRec(int x1, int y1, int x2, int y2, ArrayList<NewButton>[][] allButtons) {
@@ -972,7 +997,7 @@ public class TileManager extends Application {
     public ImageView fireImage = new ImageView(new Image(TileManager.class.getResource("/image/burning.gif").toExternalForm()));
     public ImageView sickImage = new ImageView(new Image(NextTurnController.class.getResource("/image/badSmell.gif").toExternalForm()));
 
-    public void createViewScene(Stage stage) {
+    public synchronized void createViewScene(Stage stage) {
         createButtonsArraylist();
         for (int u = 0; u < horizontalButtons; u++) {
             for (int g = 0; g < verticalButtons; g++) {
@@ -1213,16 +1238,27 @@ public class TileManager extends Application {
     }
 
     public void selectedRemove() {
-        pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
-        pane.getChildren().remove(selectedBuildingHP);
-        pane.getChildren().remove(repair);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().remove(selectedBuildingButtons.selectedBuildingsAddedButtons);
+                pane.getChildren().remove(selectedBuildingHP);
+                pane.getChildren().remove(repair);
+            }
+        });
+
     }
 
     public void normalRemove(NewButton newButton) {
         selectedButton = newButton;
-        pane.getChildren().remove(selectedBuildingGraphic);
-        pane.getChildren().remove(selectedBuildingTextField);
-        pane.getChildren().remove(selectBackground);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().remove(selectedBuildingGraphic);
+                pane.getChildren().remove(selectedBuildingTextField);
+                pane.getChildren().remove(selectBackground);
+            }
+        });
     }
 
     private void playSoundEffect(String name) {
@@ -1239,7 +1275,12 @@ public class TileManager extends Application {
         selectBackground.setFitHeight(200);
         selectBackground.setLayoutX(100);
         selectBackground.setLayoutY(675);
-        pane.getChildren().add(selectBackground);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(selectBackground);
+            }
+        });
         selectBuildingLogic(newButton);
     }
 
@@ -1282,10 +1323,21 @@ public class TileManager extends Application {
                 }
             };
             repair.setOnMouseClicked(event);
-            pane.getChildren().add(selectedBuildingHP);
-            pane.getChildren().add(repair);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    pane.getChildren().add(selectedBuildingHP);
+                    pane.getChildren().add(repair);
+                }
+            });
+
         }
-        pane.getChildren().add(selectedBuildingTextField);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(selectedBuildingTextField);
+            }
+        });
         if (buildingName.equals("Barracks")) {
             selectedBuildingButtons.barracks(pane, selectedBuildingMenu, unitImages);
         } else if (buildingName.equals("Shop")) {
