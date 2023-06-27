@@ -20,6 +20,7 @@ public class ChatMethods {
 
     public void refreshChats() throws IOException {
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
+        Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
         String data =  Manage.masterServerDataInputStream.readUTF();
         if(data.equals("null")) return;
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
@@ -57,11 +58,11 @@ public class ChatMethods {
     public void addNewGroupChat(String name) throws IOException, InterruptedException {
         Manage.masterServerDataOutputStream.writeUTF("ADD_GROUP_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(name);
+        Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
         String data = Manage.masterServerDataInputStream.readUTF();
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
         new Chat(socket,name,"GROUP");
-
     }
     public ArrayList<Message> enterToChat() throws IOException {
         //TODO : the socket of chat must be given

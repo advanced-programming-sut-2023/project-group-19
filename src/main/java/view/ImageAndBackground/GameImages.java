@@ -21,6 +21,9 @@ public class GameImages {
     public Image like;
     public Image dislike;
     public Image heart;
+    public Image reload;
+    public Image lobby;
+    public Image createRoom;
     public Background loginBackground;
     public Background registerBackground;
 
@@ -62,6 +65,9 @@ public class GameImages {
         like = new Image(TileManager.class.getResource("/image/LobbyImages/like.png").toExternalForm());
         dislike = new Image(TileManager.class.getResource("/image/LobbyImages/dislike.png").toExternalForm());
         heart = new Image(TileManager.class.getResource("/image/LobbyImages/heart.png").toExternalForm());
+        reload = new Image(TileManager.class.getResource("/image/LobbyImages/reload.png").toExternalForm());
+        lobby = new Image(TileManager.class.getResource("/image/LobbyImages/lobby.png").toExternalForm());
+        createRoom = new Image(TileManager.class.getResource("/image/LobbyImages/comment.png").toExternalForm());
     }
 
 
@@ -145,5 +151,17 @@ public class GameImages {
 
     public Image getHeart() {
         return heart;
+    }
+
+    public Image getReload() {
+        return reload;
+    }
+
+    public Image getLobby() {
+        return lobby;
+    }
+
+    public Image getCreateRoom() {
+        return createRoom;
     }
 }
