@@ -1,0 +1,30 @@
+user login -u user1 -p aaAA@@11
+logout
+user login -u user2 -p aaAA@@11
+enter map menu
+create map -s 200
+settexture -x1 0 -y1 0 -x2 11 -y2 1 -t grass
+settexture -x1 2 -y1 2 -x2 4 -y2 3 -t stone
+settexture -x1 0 -y1 15 -x2 11 -y2 16 -t grass
+settexture -x1 2 -y1 11 -x2 2 -y2 13 -t stone
+settexture -x1 2 -y1 11 -x2 3 -y2 13 -t stone
+settexture -x1 16 -y1 0 -x2 17 -y2 2 -t iron
+settexture -x1 16 -y1 11 -x2 17 -y2 13 -t iron
+settexture -x 9 -y 5 -t plain
+settexture -x 2 -y 5 -t petrol
+settexture -x 2 -y 8 -t shallowWater
+droprock -x 4 -y 14 -d w
+droprock -x 7 -y 14 -d w
+droprock -x 1 -y 7 -d w
+droptree -x 5 -y 5 -t desertTree
+droptree -x 10 -y 3 -t desertTree
+droptree -x 12 -y 8 -t desertTree
+locate castle -x 8 -y 9
+locate castle -x 5 -y 6
+exit
+enter game menu
+dropunit -x 49 -y 49 -t Knight -c 2
+Next Turn
+dropunit -x 40 -y 40 -t ArabianSwordsmen -c 1
+select unit -x 40 -y 40
+attack -e 49 49
