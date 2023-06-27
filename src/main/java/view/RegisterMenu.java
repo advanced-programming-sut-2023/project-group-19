@@ -27,8 +27,10 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import controller.LoginController;
 import model.GroundType;
+import model.Manage;
 import model.Map;
 import model.Obstacle.*;
+import model.User;
 import view.ImageAndBackground.GameImages;
 import javafx.util.Duration;
 import view.Messages.RegisterMessages;
@@ -38,6 +40,12 @@ import java.util.ArrayList;
 
 public class RegisterMenu extends Application {
     static {
+        try {
+            Manage.connectUserToMasterServer();
+            User.makeUsersFromJson();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         try {
             getAllMaps();
         } catch (IOException e) {
@@ -101,19 +109,20 @@ public class RegisterMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        //connect user to master server
+        //m
         RegisterMenu.stage = stage;
-
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
         Media media = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
         if(num == 1)mediaPlayer.setAutoPlay(true);
         mediaView.setFitWidth(1550);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
-            pane.getChildren().remove(mediaView);
-            playLoginMusic();
-        }));
-        timeline.play();
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
+//            pane.getChildren().remove(mediaView);
+//            playLoginMusic();
+//        }));
+//        timeline.play();
 //Nn3Ee0Oo4#
         RegisterMenu.stage = stage;
         Pane pane = new Pane();
@@ -125,10 +134,10 @@ public class RegisterMenu extends Application {
         Scene scene = new Scene(pane);
         Image image = new Image(RegisterMenu.class.getResource("/sowrd.png").toExternalForm());
         scene.setCursor(new ImageCursor(image));
-       if(num == 1) {
-           pane.getChildren().add(mediaView);
-           num = 0 ;
-       }
+//       if(num == 1) {
+//           pane.getChildren().add(mediaView);
+//           num = 0 ;
+//       }
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
@@ -591,6 +600,7 @@ public class RegisterMenu extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Register");
         alert.setContentText("Successfully Registered!");
+
         alert.showAndWait();
         RegisterMenu login = new RegisterMenu();
         login.start(stage);

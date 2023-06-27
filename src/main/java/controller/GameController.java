@@ -166,6 +166,8 @@ public class GameController {
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
                             }
+                            //number --> spinners.get(j)
+                            //type ---> text.getText()
                             j++;
                         }
                     }
@@ -1620,84 +1622,6 @@ public class GameController {
         return x >= 0 && y >= 0 && x <= Map.mapSize && y <= Map.mapSize;
     }
 
-    //        public void moveUnit(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
-//        boolean flag = false;
-//        List<Integer> path = null;
-//        setPathForUnits(xOfDestination, yOfDestination);
-//        ArrayList<Army> selectedArmy = new ArrayList<>(selectedButton.getArmy());
-//        for (int i = 0; i < selectedButton.getArmy().size(); i++) {
-//            Army passingArmy = selectedButton.getArmy().get(i);
-//            path = selectedButton.getArmy().get(i).getMyPath();
-//
-//            NewButton previousButton = selectedButton;
-//            if (path != null && path.size() > 1) {
-//                path.remove(0);
-//                SequentialTransition sequentialTransition = new SequentialTransition();
-//                ParallelTransition parallelTransition = new ParallelTransition();
-//                for (int j = 0; j < path.size(); j++) {
-//                    flag = true;
-//                    if (passingArmy.restOfMoves != 0) {
-//                        int goalX = path.get(j) / PathFindingController.size;
-//                        int goalY = path.get(j) % PathFindingController.size;
-//                        NewButton current = (NewButton) list.get(passingArmy.getCurrentX() * 100 + passingArmy.getCurrentY());
-//                        NewButton newButton = (NewButton) list.get(goalX * 100 + goalY);
-//                        pane.getChildren().remove(previousButton.getArmy().get(i).getImageView());
-//                        pane.getChildren().remove(previousButton);
-//                        passingArmy.setxCoordinate(goalX);
-//                        passingArmy.setyCoordinate(goalY);
-//                        passingArmy.restOfMoves--;
-//                        newButton.getArmy().add(passingArmy);
-//                        previousButton.getArmy().remove(passingArmy);
-//                        previousButton.setGraphic(null);
-//                        previousButton.setImageView(null);
-//                        pane.getChildren().add(previousButton);
-//                        previousButton = newButton;
-//
-//                        TranslateTransition transition = new TranslateTransition();
-//                        transition.setNode(passingArmy.getImageView());
-//
-//                        passingArmy.getImageView().setLayoutX(current.getLayoutX());
-//                        passingArmy.getImageView().setLayoutY(current.getLayoutY());
-//
-//                        transition.setFromX(current.getLayoutX());
-//                        transition.setFromY(current.getLayoutY());
-//                        transition.setToX(newButton.getLayoutX());
-//                        transition.setToY(newButton.getLayoutY());
-//                        transition.setDuration(Duration.seconds(0.5));
-//                        transition.setCycleCount(1);
-//                        transition.setInterpolator(Interpolator.LINEAR);
-//
-////                        MoveAnimation moveAnimation = new MoveAnimation(passingArmy,goalX,goalY,pane);
-//
-////                        parallelTransition.getChildren().add(transition);
-////                        parallelTransition.getChildren().add(moveAnimation);
-//                        sequentialTransition.getChildren().add(transition);
-////                        sequentialTransition.getChildren().add(moveAnimation);
-//
-//                        pane.getChildren().remove(passingArmy.getImageView());
-//                        pane.getChildren().add(pane.getChildren().size(), passingArmy.getImageView());
-//
-//                        passingArmy.getImageView().setLayoutX(passingArmy.getGoalXCoordinate() * 51.2);
-//                        passingArmy.getImageView().setLayoutY(passingArmy.getGoalYCoordinate() * 54);
-//
-////                        Map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].add(passingArmy);
-//                        Map.getTroopMap()[passingArmy.getGoalXCoordinate()][passingArmy.getGoalYCoordinate()].add(passingArmy);
-//
-//                    } else {
-//                        break;
-//                    }
-//                }
-//                sequentialTransition.play();
-//            }
-//            if (flag) {
-//                i--;
-//                flag = false;
-//            }
-//        }
-//        for (int u = 0; u < selectedArmy.size(); u++) {
-//            selectedArmy.get(u).getMyPath().clear();
-//        }
-//    }
     public void moveUnit(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
         boolean flag = false;
         List<Integer> path = null;

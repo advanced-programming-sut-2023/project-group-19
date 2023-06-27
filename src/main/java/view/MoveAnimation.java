@@ -13,8 +13,7 @@ import view.Model.NewButton;
 
 import javax.print.attribute.standard.PrinterName;
 
-public class
-MoveAnimation extends Transition {
+public class MoveAnimation extends Transition {
 
     private Army passingArmy;
     private NewButton newButton;

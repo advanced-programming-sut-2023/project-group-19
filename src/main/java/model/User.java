@@ -1,13 +1,19 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import controller.JsonController;
+import controller.ObstacleAdapter;
+import controller.UserAdaptor;
 import javafx.scene.image.Image;
+import model.Obstacle.SavedObstacles;
 import view.ProfileMenu;
-
-
 import  javafx.scene.image.ImageView;
 import java.awt.*;
 import java.io.IOException;
+import java.net.CookieStore;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,16 +23,21 @@ public class User implements Comparable<User> {
     private static ArrayList<String> captchas = new ArrayList<>();
     private static HashMap<Integer, String> securityQuestions = new HashMap<>();
     private static ArrayList<String> randomSlogans = new ArrayList<>();
+    public  ArrayList<Game> myGame = new ArrayList<>();
+    public ArrayList<User> myFriends = new ArrayList<>();
+    public ArrayList<Chat> myChats = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;
     }
-
     public static ArrayList<String> getRandomSlogans() {
         return randomSlogans;
     }
-
     public static ArrayList<User> loginUsers = new ArrayList<>();
+    public User(){
+
+    }
+
 
     static {
         randomSlogans.add("I march to death...Though I wish it was my own...");
@@ -48,18 +59,22 @@ public class User implements Comparable<User> {
     }
 
     private static User currentUser;
-    private String username;
-    private String password;
-    private String nickname;
-    private String email;
-    private String recoveryQuestion;
-    private String slogan;
-    private int recoveryQuestionNumber;
-    private int highScore;
+    public String REQUEST_TYPE = "CREATE_USER";
+    public String username;
+    public String password;
+    public String nickname;
+    public String email;
+    public String recoveryQuestion;
+    public String slogan;
+    public int recoveryQuestionNumber;
+    public int highScore;
     public static ArrayList<User> users = new ArrayList<>();
-    private int rank;
+    public int rank;
 
-    private ImageView avatar = new ImageView();
+    public ArrayList<Chat> chats = new ArrayList<>();
+
+    public ImageView avatar = new ImageView();
+
     {
         Image image = new Image(User.class.getResource("/avatars/5.png").toExternalForm());
         avatar.setImage(image);
@@ -178,4 +193,71 @@ public class User implements Comparable<User> {
     public void setAvatar(ImageView avatar){
         this.avatar = avatar ;
     }
+    public String toJson(){
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String s = gson.toJson(this);
+        return s ;
+    }
+    public static String convertUserToJson(User user){
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String s = gson.toJson(user);
+        return s ;
+    }
+    public static void makeUsersFromJson() throws IOException {
+        String data = Manage.masterServerDataInputStream.readUTF();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+//        if (data == null) return null;
+        Type type = new TypeToken<ArrayList<User>>(){}.getType();
+        users = gson.fromJson(data,type);
+    }
+    public void setRecoveryQuestion(String recoveryQuestion) {
+        this.recoveryQuestion = recoveryQuestion;
+    }
+
+    public void setRecoveryQuestionNumber(int recoveryQuestionNumber) {
+        this.recoveryQuestionNumber = recoveryQuestionNumber;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getREQUEST_TYPE() {
+        return REQUEST_TYPE;
+    }
+
+    public ArrayList<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(ArrayList<Chat> chats) {
+        this.chats = chats;
+    }
+
+
+    public ArrayList<Game> getMyGameList() {
+        return myGame;
+    }
+
+    public void addToMyGameList(Game game) {
+        myGame.add(game);
+    }
+
+    public ArrayList<User> getMyFriends() {
+        return myFriends;
+    }
+
+    public void addToMyFriends(User newFriend) {
+        myFriends.add(newFriend);
+    }
 }
+

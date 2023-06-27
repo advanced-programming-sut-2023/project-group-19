@@ -116,7 +116,7 @@ public class TradeController {
             vBox.setPrefSize(385, 80);
             Text sender = new Text();
             sender.setText(number + ".Sender: " + request.getSender().getName());
-            sender.setStyle("-fx-text-fill: #cba883;");
+            sender.setFill(Color.rgb(203,168,131));
             sender.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             Text id = new Text();
             id.setText("Id: " + request.getId());

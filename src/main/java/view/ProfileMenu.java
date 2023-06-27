@@ -6,10 +6,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -21,9 +18,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.User;
@@ -53,7 +52,6 @@ public class ProfileMenu extends Application {
     public VBox vBoxOfSelectImage = new VBox();
 
 
-
     public TextField username = new TextField();
     public TextField email = new TextField();
     public Label headerLabel = new Label();
@@ -80,23 +78,32 @@ public class ProfileMenu extends Application {
     public Button selectImage = new Button("Select Image");
     public Button selectImageFromSystem = new Button("Choose");
     public Button refresh = new Button("Refresh");
+    public Button friendShip = new Button("FriendShip");
     public static MediaPlayer mediaPlayer;
+
+    public ScrollPane friendShipScrollPane = new ScrollPane();
+
     private void playMainMenu() throws IOException {
         stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
+        String defultSong = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer = mediaPlayer2;
         mediaPlayer2.setAutoPlay(true);
         mediaPlayer.setCycleCount(-1);
     }
+
     private void stopAllMusic() throws IOException {
-        User user = new User("a","s","a","s","a","q",2);
+        User user = new User("Doreece", "s", "a", "s", "a", "q", 2);
+        User user2 = new User("Armin", "s", "a", "s", "w", "q", 3);
+        User user3 = new User("Arian", "s", "a", "s", "w", "q", 3);
+        User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User.setCurrentUser(user);
-        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
 
     @Override
@@ -246,7 +253,7 @@ public class ProfileMenu extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                    ChooseFileFromSystem(mouseEvent);
+//                    ChooseFileFromSystem(mouseEvent);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -287,6 +294,25 @@ public class ProfileMenu extends Application {
         refresh.setVisible(false);
         designVboxOfErrors();
 
+        friendShip.setStyle("-fx-background-color: #cba883");
+        friendShip.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        friendShip.setFocusTraversable(false);
+        friendShip.setLayoutX(1200);
+        friendShip.setLayoutY(170);
+        friendShip.setPrefSize(140, 40);
+
+        friendShip.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    designVBoxOfFriendShip();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
         pane.getChildren().add(headerLabel);
         pane.getChildren().add(backButton);
         pane.getChildren().add(username);
@@ -304,6 +330,7 @@ public class ProfileMenu extends Application {
         pane.getChildren().add(passwordBox);
         pane.getChildren().add(refresh);
         pane.getChildren().add(vBoxErrorHandling);
+        pane.getChildren().add(friendShip);
     }
 
     private void designVboxOfChangePassword() {
@@ -553,21 +580,21 @@ public class ProfileMenu extends Application {
         }
     }
 
-    public void ChooseFileFromSystem(MouseEvent mouseEvent) {
-        final String[] text = new String[1];
-        FileChooser fil_chooser = new FileChooser();
-        File file = fil_chooser.showOpenDialog(stage);
-
-        if (file != null) {
-            text[0] = file.getAbsolutePath();
-            System.out.println(text[0]);
-            Image image = new Image(text[0]);
-            ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            User.getCurrentUser().setAvatar(imageView);
-            setAvatarImage();
-        }
-    }
+//    public void ChooseFileFromSystem(MouseEvent mouseEvent) {
+//        final String[] text = new String[1];
+//        FileChooser fil_chooser = new FileChooser();
+//        File file = fil_chooser.showOpenDialog(stage);
+//
+//        if (file != null) {
+//            text[0] = file.getAbsolutePath();
+//            System.out.println(text[0]);
+//            Image image = new Image(text[0]);
+//            ImageView imageView = new ImageView();
+//            imageView.setImage(image);
+//            User.getCurrentUser().setAvatar(imageView);
+//            setAvatarImage();
+//        }
+//    }
 
     public void hideShowSelectImage(MouseEvent mouseEvent) {
         vBoxOfSelectImage.setVisible(!vBoxOfSelectImage.isVisible());
@@ -694,5 +721,102 @@ public class ProfileMenu extends Application {
         }
         passwordBox.setVisible(!passwordBox.isVisible());
         refresh.setVisible(passwordBox.isVisible());
+    }
+
+    private void designVBoxOfFriendShip() {
+        pane.getChildren().remove(friendShipScrollPane);
+        VBox friendShipBox = new VBox();
+        friendShipBox.setStyle("-fx-background-color: #a00909");
+        friendShipBox.setSpacing(10);
+        if (User.users.size() > 1) {
+            for (User user : User.users) {
+                if (!user.getUsername().equals(User.getCurrentUser().getUsername())) {
+                    HBox friendBox = new HBox();
+                    friendBox.setPrefSize(285, 30);
+
+
+                    Text userName = new Text();
+                    userName.setText("Id: " + user.getUsername());
+                    userName.setFill(Color.BLACK);
+                    userName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+                    userName.setTranslateX(40);
+                    userName.setTranslateY(5);
+                    userName.prefWidth(30);
+                    userName.prefHeight(10);
+
+                    ImageView avatar = user.getAvatar();
+                    avatar.setFitWidth(50);
+                    avatar.setFitHeight(50);
+                    avatar.setTranslateX(15);
+                    avatar.setLayoutY(5);
+
+
+                    Button following = new Button();
+                    if (findFriends(user)) following.setText("Following");
+                    else following.setText("Follow");
+                    following.setPrefSize(70, 8);
+                    following.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
+                    following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+                    following.setTranslateX(100);
+                    following.setTranslateY(30);
+                    following.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            sendFriendShipRequest(user, following);
+                        }
+                    });
+
+
+                    friendBox.setStyle("-fx-background-color: #cba883;");
+                    friendBox.getChildren().add(avatar);
+                    friendBox.getChildren().add(following);
+                    friendBox.getChildren().add(userName);
+                    friendShipBox.getChildren().add(friendBox);
+                }
+
+            }
+            Button close = new Button("Close");
+            close.setStyle("-fx-background-color: #cba883");
+            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+            close.setLayoutX(1000);
+            close.setLayoutY(550);
+            close.setPrefSize(100, 30);
+            close.setFocusTraversable(false);
+            close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    try {
+                        pane.getChildren().remove(friendShipScrollPane);
+                        pane.getChildren().remove(close);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            friendShipScrollPane.setPrefWidth(300);
+            friendShipScrollPane.setContent(friendShipBox);
+            friendShipScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            friendShipScrollPane.setLayoutX(900);
+            friendShipScrollPane.setLayoutY(300);
+
+            friendShipScrollPane.setStyle("-fx-background-color: #cba883");
+            friendShipScrollPane.setVisible(true);
+            pane.getChildren().add(friendShipScrollPane);
+            pane.getChildren().add(close);
+        }
+    }
+
+    private void sendFriendShipRequest(User user, Button followButton) {
+        followButton.setText("Requested");
+        //Todo: Send request to server
+    }
+
+    public boolean findFriends(User user){
+        for (User myFriend : User.getCurrentUser().myFriends) {
+            if (myFriend.getUsername().equals(user.getUsername())){
+                return true;
+            }
+        }
+        return false;
     }
 }
