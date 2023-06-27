@@ -1,18 +1,15 @@
 package view;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.ImageView;
 import model.Chat;
 import model.Manage;
 import model.Message;
 import model.User;
 
-import javax.print.DocFlavor;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -66,25 +63,19 @@ public class ChatMethods {
         new Chat(socket,name,"GROUP");
 
     }
-    public void enterToChat() throws IOException {
+    public ArrayList<Message> enterToChat() throws IOException {
         //TODO : the socket of chat must be given
-        System.out.println("ENTER TO CHAT");
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
-        System.out.println(data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
-        System.out.println("messages.size()");
-        for(Message message : messages){
-            System.out.println(message.content);
-        }
         getMessagesFromServer(dataInputStream);
-        System.out.println("END ENTER TO CHAT");
+        return messages;
     }
     public void getMessagesFromServer(DataInputStream dataInputStream) throws IOException {
         messageGetter = new MessageGetter(dataInputStream);
         messageGetter.start();
     }
-    public void exitFromChat() throws IOException {
+    public void exitFromChat() throws IOException { //left
         dataOutputStream.writeUTF("EXIT_CHAT");
         MessageGetter.interrupted();
     }
@@ -93,5 +84,24 @@ public class ChatMethods {
         String data = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF("RECEIVE_MESSAGE");
         dataOutputStream.writeUTF(data);
+    }
+
+    public void editMessage(Message newMessage, Message oldMessage) throws IOException {
+        String ancientOne = Message.convertMessageToJson(oldMessage);
+        String newOne = Message.convertMessageToJson(newMessage);
+        dataOutputStream.writeUTF("EDIT_MESSAGE");
+        dataOutputStream.writeUTF(ancientOne);
+        dataOutputStream.writeUTF(newOne);
+    }
+    public ArrayList<Message> getAllMessages() throws IOException {
+        dataOutputStream.writeUTF("GET_ALL_MESSAGES");
+        String data = dataInputStream.readUTF();
+        ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
+        return messages;
+    }
+    public void deleteJustForMe(Message message) throws IOException {
+        dataOutputStream.writeUTF("DELETE_JUST_FOR_ME");
+        String removedMessage = Message.convertMessageToJson(message);
+        dataOutputStream.writeUTF(removedMessage);
     }
 }

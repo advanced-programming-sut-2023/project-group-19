@@ -5,8 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import controller.ObstacleAdapter;
 import javafx.scene.image.ImageView;
-import model.Obstacle.SavedObstacles;
+
 import model.adaaptors.MessageAdaptor;
+import view.Lobby;
 import view.MessageGetter;
 
 import java.lang.reflect.Type;
@@ -31,7 +32,7 @@ public class Message {
         this.avatar = avatar;
         LocalTime localTime = LocalTime.now();
         String[] list = localTime.toString().split(":");
-        this.sentTime = list[0]+":"+list[1];
+        this.sentTime = list[0]+":"+list[1]+"."+list[2];
     }
 
     public String getSender() {
@@ -77,11 +78,8 @@ public class Message {
         builder.registerTypeAdapter(Message.class, new MessageAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        System.out.println(1);
         if (data.equals("")) return null;
-        System.out.println("2");
         Type type = new TypeToken<ArrayList<Message>>(){}.getType();
-        System.out.println("3");
         ArrayList<Message> a2 = gson.fromJson(data,type);
         return a2;
     }
