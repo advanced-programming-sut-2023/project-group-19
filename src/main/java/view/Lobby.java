@@ -20,6 +20,8 @@ import view.ImageAndBackground.GameImages;
 import view.Model.NewHBox;
 
 import java.awt.event.MouseEvent;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ import java.util.regex.Pattern;
 
 
 public class Lobby extends Application {
+    boolean isPrivateChatPressed = false;
+    boolean isGroupChatPressed = false;
     public GameImages gameImages;
     public static Socket socket;
 
@@ -115,6 +119,7 @@ public class Lobby extends Application {
         back.setPrefSize(160, 50);
         back.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
         back.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        //TODO : EventHandler
 
         Button createNewRequest = new Button("New Game Request");
         createNewRequest.setLayoutX(550);
@@ -138,6 +143,7 @@ public class Lobby extends Application {
                 throw new RuntimeException(e);
             }
         });
+
         Button refresh = new Button("Refresh");
         refresh.setLayoutX(950);
         refresh.setLayoutY(70);
@@ -198,6 +204,7 @@ public class Lobby extends Application {
     }
 
     private void designListOfAllGames(GameImages gameImages) {
+
         listOfAllGames.setStyle("-fx-background-color: #03183b");
         listOfAllGames.setSpacing(2);
         listOfAllGames.setLayoutX(100);
@@ -254,7 +261,6 @@ public class Lobby extends Application {
         Game game = Manage.findGameById(gameId);
 
         if (game != null) {
-
             ImageView imageView = new ImageView(game.getImageView().getImage());
             imageView.setFitWidth(80);
             imageView.setFitHeight(80);
@@ -322,7 +328,7 @@ public class Lobby extends Application {
             }
             changePrivacy.setTranslateX(30);
             changePrivacy.setTranslateY(70);
-            changePrivacy.setPrefSize(50, 10);
+            changePrivacy.setPrefSize(30, 10);
             changePrivacy.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             changePrivacy.setOnMouseClicked(mouseEvent -> {
@@ -332,26 +338,36 @@ public class Lobby extends Application {
 
             Button leaveGame = new Button();
             leaveGame.setText("Leave");
-            leaveGame.setTranslateX(100);
+            leaveGame.setTranslateX(70);
             leaveGame.setTranslateY(47);
-            leaveGame.setPrefSize(50, 10);
+            leaveGame.setPrefSize(30, 10);
             leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             leaveGame.setOnMouseClicked(mouseEvent -> leaveTheGame(game));
 
             Button close = new Button();
             close.setText("Close");
-            close.setTranslateX(170);
+            close.setTranslateX(110);
             close.setTranslateY(24);
-            close.setPrefSize(50, 10);
+            close.setPrefSize(30, 10);
             close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             close.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
+
+            Button startGame = new Button();
+            startGame.setText("Close");
+            startGame.setTranslateX(150);
+            startGame.setTranslateY(24);
+            startGame.setPrefSize(30, 10);
+            startGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            startGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            startGame.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
 
 
             listOfGameInfo.getChildren().add(changePrivacy);
             listOfGameInfo.getChildren().add(leaveGame);
             listOfGameInfo.getChildren().add(close);
+            listOfGameInfo.getChildren().add(startGame);
 
         } else if (game.isMemberOfGame(currentUser.getUsername()) != null) { //Game Member
             Button leaveGame = new Button();
@@ -667,13 +683,30 @@ public class Lobby extends Application {
         searchButton.setBackground(new Background(new BackgroundImage(gameImages.getSearch(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         searchButton.setOnMouseClicked(mouseEvent -> {
-            //TODO : We should find out from the server whether the given username exists or not
-            ArrayList<String> searchResult = findAllMatchingChats(search.getText());
+            if (isPrivateChatPressed) {
+                try {
+                    System.out.println("entered try catch");
+                    isPrivateChatPressed = false;
+                    Chat privateChat = ChatMethods.addNewPrivateChat(search.getText());
+                    showPrivateChatBox(privateChat);
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (isGroupChatPressed) {
+                try {
+                    System.out.println("Entered try catch");
+                    isGroupChatPressed = false;
+                    Chat privateChat = ChatMethods.addNewGroupChat(search.getText());
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
         });
         pane.getChildren().add(search);
         pane.getChildren().add(searchButton);
     }
+
 
     private void designHeaderOfChatMenu() {
         chatMenuHeader = new HBox();
@@ -729,17 +762,19 @@ public class Lobby extends Application {
         createRoom.setPrefSize(50, 50);
         createRoom.setBackground(new Background(new BackgroundImage(gameImages.getCreateRoom(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        createRoom.setOnMouseClicked(mouseEvent -> createChatRoom());
+        createRoom.setOnMouseClicked(mouseEvent ->{
+            createChatRoom();
+                });
 
-        Button privateChatList = new Button();
-        privateChatList.setLayoutX(25);
-        privateChatList.setLayoutY(370);
-        privateChatList.setPrefSize(50, 50);
-        privateChatList.setBackground(new Background(new BackgroundImage(gameImages.getPrivateChat(), BackgroundRepeat.NO_REPEAT,
+        Button makePrivateChat = new Button();
+        makePrivateChat.setLayoutX(25);
+        makePrivateChat.setLayoutY(370);
+        makePrivateChat.setPrefSize(50, 50);
+        makePrivateChat.setBackground(new Background(new BackgroundImage(gameImages.getPrivateChat(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        privateChatList.setOnMouseClicked(mouseEvent -> {
-            //Todo: here we should get all the private chats from server
-            showAllPrivateChats();
+        makePrivateChat.setOnMouseClicked(mouseEvent -> {
+            isPrivateChatPressed = true;
+
         });
 
         Button groupChatList = new Button();
@@ -776,7 +811,7 @@ public class Lobby extends Application {
         pane.getChildren().add(lobby);
         pane.getChildren().add(createRoom);
         pane.getChildren().add(refresh);
-        pane.getChildren().add(privateChatList);
+        pane.getChildren().add(makePrivateChat);
         pane.getChildren().add(groupChatList);
         pane.getChildren().add(globalChat);
     }
@@ -794,18 +829,31 @@ public class Lobby extends Application {
         return null;
     }
 
-    private void designScrollPaneOfAllChats() {
-        Socket socket1 = new Socket();
+    private void designScrollPaneOfAllChats() throws IOException {
+        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        Manage.masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        Manage.masterServerDataOutputStream.writeUTF("GET_CHATS");
+        String allChats = Manage.masterServerDataInputStream.readUTF();
+        ArrayList<Chat> myChats = Chat.convertChatsToJsonForm(allChats);
+        System.out.println(myChats.size());
+        User.getCurrentUser().setChats(myChats);
+        setChatList();
+    }
+
+    private void setChatList(){
         VBox chatList = new VBox();
-        chatList.setStyle("-fx-background-color: #4b187e");
+        chatList.setStyle("-fx-background-color: #4b187e; " +
+                "-fx-background-radius: 10px;");
         chatList.setSpacing(0.5);
         if (!User.getCurrentUser().getChats().isEmpty()) {
             for (Chat chat : User.getCurrentUser().getChats()) {
-                User receiver = searchForGivenUserId(chat.getName());
+
+                User receiver = searchForGivenUserId(chat.getName());//TODO : Do we need to take it directly from server?
                 Circle clip = new Circle(25, 25, 25);
                 Image profile = receiver.getAvatar().getImage();
                 clip.setFill(new ImagePattern(profile));
-                clip.setStroke(Color.rgb(75, 24, 126));
+                clip.setStroke(Color.rgb(26, 11, 136));
+
                 HBox chatBox = new HBox();
                 chatBox.setPrefSize(284.1, 10);
                 chatBox.setSpacing(70);
@@ -817,7 +865,8 @@ public class Lobby extends Application {
                 chatName.setTranslateX(-50);
                 chatName.setTranslateY(10);
 
-                chatBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);");
+                chatBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);" +
+                        "-fx-background-radius: 10px;");
                 chatBox.getChildren().add(clip);
                 chatBox.getChildren().add(chatName);
                 chatBox.setOnMouseClicked(mouseEvent -> openChat(chat));
@@ -879,8 +928,23 @@ public class Lobby extends Application {
         pane.getChildren().add(scrollPaneForChatBox);
     }
 
-    public void showAllPrivateChats() {
-        removeRemainedStuff();
+
+    private void showPrivateChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
+        NewHBox pvBox = new NewHBox(privateChat.getSocket().getPort(),privateChat.getName());
+        pvBox.setLayoutX(110);
+        pvBox.setLayoutY(200);
+        pvBox.setSpacing(50);
+        User receiver =  User.getUserByName(privateChat.getName());
+        Circle clip = new Circle(25, 25, 25);
+        Image profile = receiver.getAvatar().getImage();
+        clip.setFill(new ImagePattern(profile));
+        clip.setStroke(Color.rgb(26, 11, 136));
+        Text chatName = new Text(receiver.getUsername());
+        chatName.setFill(Color.WHITE);
+        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        pvBox.getChildren().add(clip);
+        pvBox.getChildren().add(chatName);
+        pane.getChildren().add(pvBox);
 
     }
 

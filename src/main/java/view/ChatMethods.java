@@ -46,23 +46,23 @@ public class ChatMethods {
         dataOutputStream.writeUTF(name);
     }
 
-    public void addNewPrivateChat(String username) throws IOException, InterruptedException {
+    public static Chat addNewPrivateChat(String username) throws IOException, InterruptedException {
         Manage.masterServerDataOutputStream.writeUTF("ADD_PRIVATE_CHAT");
         String data = Manage.masterServerDataInputStream.readUTF();
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().username);
         Manage.masterServerDataOutputStream.writeUTF(username);
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
-        new Chat(socket,username,"PRIVATE");
+        return new Chat(socket,username,"PRIVATE");
     }
-    public void addNewGroupChat(String name) throws IOException, InterruptedException {
+    public static Chat addNewGroupChat(String name) throws IOException, InterruptedException {
         Manage.masterServerDataOutputStream.writeUTF("ADD_GROUP_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(name);
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
         String data = Manage.masterServerDataInputStream.readUTF();
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
-        new Chat(socket,name,"GROUP");
+        return new Chat(socket,name,"GROUP");
     }
     public ArrayList<Message> enterToChat() throws IOException {
         //TODO : the socket of chat must be given
