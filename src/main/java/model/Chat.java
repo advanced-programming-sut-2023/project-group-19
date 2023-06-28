@@ -42,6 +42,14 @@ public class Chat {
         this.socket = socket;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public static ArrayList<Chat> convertChatsToJsonForm(String data){
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Chat.class, new ChatAdaptor());
@@ -49,7 +57,9 @@ public class Chat {
         Gson gson = builder.create();
         if (data == null) return null;
         Type type = new TypeToken<ArrayList<Chat>>(){}.getType();
+        System.out.println("1");
         ArrayList<Chat> a2 = gson.fromJson(data,type);
+        System.out.println("2");
         return a2;
     }
 }

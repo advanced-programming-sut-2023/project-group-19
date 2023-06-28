@@ -6,7 +6,10 @@ import model.Chat;
 import model.Manage;
 import model.Message;
 import model.User;
+import org.w3c.dom.CDATASection;
 
+import javax.print.attribute.standard.MediaName;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,16 +21,16 @@ public class ChatMethods {
     public DataInputStream dataInputStream ;
     public DataOutputStream dataOutputStream ;
 
-    public void refreshChats() throws IOException {
+    public static void refreshChats() throws IOException {
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
         String data =  Manage.masterServerDataInputStream.readUTF();
+        System.out.println("Data: "+data);
         if(data.equals("null")) return;
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
-        //do someThing
         for(Chat chat : chats){
+            System.out.println(chat.getSocket().getPort());
             User.getCurrentUser().getChats().add(chat);
-            //do someThing
         }
     }
     //TODO : به ازای هر چت که روی ان کلیک شد یک ابچمت از این کلاس اسخنه شود
@@ -46,11 +49,14 @@ public class ChatMethods {
         dataOutputStream.writeUTF(name);
     }
 
-    public static Chat addNewPrivateChat(String username) throws IOException, InterruptedException {
-        Manage.masterServerDataOutputStream.writeUTF("ADD_PRIVATE_CHAT");
-        String data = Manage.masterServerDataInputStream.readUTF();
-        Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().username);
-        Manage.masterServerDataOutputStream.writeUTF(username);
+    public synchronized static Chat addNewPrivateChat(String username) throws IOException, InterruptedException {
+        Socket socket1 = new Socket("localhost", 8080);
+        DataInputStream dataInputStream1 = new DataInputStream(socket1.getInputStream());
+        DataOutputStream dataOutputStream1 = new DataOutputStream(socket1.getOutputStream());
+        dataOutputStream1.writeUTF("ADD_PRIVATE_CHAT");
+        String data = dataInputStream1.readUTF();
+        dataOutputStream1.writeUTF(User.getCurrentUser().username);
+        dataOutputStream1.writeUTF(username);
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
         return new Chat(socket,username,"PRIVATE");
@@ -60,6 +66,7 @@ public class ChatMethods {
         Manage.masterServerDataOutputStream.writeUTF(name);
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
         String data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println("GroupChat: "+data);
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
         return new Chat(socket,name,"GROUP");
@@ -68,6 +75,7 @@ public class ChatMethods {
         //TODO : the socket of chat must be given
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
+        System.out.println("Enter chat data is: "+data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
         getMessagesFromServer(dataInputStream);
         return messages;
