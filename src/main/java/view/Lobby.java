@@ -64,16 +64,25 @@ public class Lobby extends Application {
     public static ArrayList<Message> messages = new ArrayList<>();
     public static ArrayList<Text> texts = new ArrayList<>();
     public static ChatMethods chatMethods;
+    public ArrayList<Game> allGameRequests = new ArrayList<>();
+    public DataInputStream masterServerDataInputStream;
+    public DataOutputStream masterServerDataOutputStream;
 
     //TODO : EventHandler for Back Button
     //TODO : Game should be closed if the number of members reach to the settled capacity
 
     public VBox cornerVBox = new VBox();
-
+    public User user1;
     @Override
     public void start(Stage stage) throws Exception {
 
-        User user1 = new User("z", "s", "a", "s", "w", "q", 3);
+        Socket socket1 = new Socket("localhost" , 8080);
+        masterServerDataOutputStream = new DataOutputStream(socket1.getOutputStream());
+        masterServerDataInputStream = new DataInputStream(socket1.getInputStream());
+        user1 = new User("z", "s", "a", "s", "w", "q", 3);
+
+
+
         User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
         User user3 = new User("ac", "s", "a", "s", "w", "q", 3);
         User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
@@ -82,7 +91,7 @@ public class Lobby extends Application {
 
 
         Game game = new Game(user2, "MyGame1", true, 5);
-        Manage.allGames.add(game);
+        allGameRequests.add(game);
         game.addToAllPlayers(user1);
         game.addToAllPlayers(user2);
         game.addToAllPlayers(user3);
@@ -90,13 +99,13 @@ public class Lobby extends Application {
         game.addToAllPlayers(user5);
 
         Game game2 = new Game(user1, "MyGame2", true, 5);
-        Manage.allGames.add(game2);
+        allGameRequests.add(game2);
         Game game3 = new Game(user1, "MyGame3", true, 5);
-        Manage.allGames.add(game3);
+        allGameRequests.add(game3);
         Game game4 = new Game(user1, "MyGame4", true, 5);
-        Manage.allGames.add(game4);
+        allGameRequests.add(game4);
         Game game5 = new Game(user1, "MyGame5", true, 5);
-        Manage.allGames.add(game5);
+        allGameRequests.add(game5);
 
         Main.stage = stage;
         gameImages = new GameImages();
@@ -153,6 +162,7 @@ public class Lobby extends Application {
         //TODO : Random 10 Players
         refresh.setOnMouseClicked(mouseEvent -> {
             try {
+                refreshLobby();
                 pane.getChildren().clear();
                 designLobby(gameImages);
             } catch (IOException e) {
@@ -202,6 +212,25 @@ public class Lobby extends Application {
         pane.getChildren().add(searchButton);
         pane.getChildren().add(scrollPaneForMainList);
     }
+    public void refreshLobby() throws IOException {
+        allGameRequests.clear();
+        masterServerDataOutputStream.writeUTF("REFRESH_LOBBY");
+        String input= masterServerDataInputStream.readUTF();
+        String[] split = input.split("\n");
+        for(int j = 0 ; j < split.length ; j++){
+            String[] game = split[j].split("#");
+            User user = User.getUserByName(game[0]);
+            if(game[2].equals("public")) {
+                Game game2 = new Game(user , game[0] , true , Integer.parseInt(game[1]));
+                allGameRequests.add(game2);
+            }
+            else {
+                Game game1 = new Game(user , game[0] , false , Integer.parseInt(game[1]));
+                allGameRequests.add(game1);
+            }
+        }
+
+    }
 
     private void designListOfAllGames(GameImages gameImages) {
 
@@ -212,8 +241,8 @@ public class Lobby extends Application {
 
         ImageView shieldImage = null;
 
-        for (int i = 0; i < Manage.allGames.size(); i++) {
-            Game game = Manage.allGames.get(i);
+        for (int i = 0; i < allGameRequests.size(); i++) {
+            Game game = allGameRequests.get(i);
 
             if (i % 4 == 0) {
                 shieldImage = new ImageView(gameImages.getShield0());
@@ -499,7 +528,7 @@ public class Lobby extends Application {
 
     private ArrayList<Game> findAllMatchingGames(String searchedStatement) {
         ArrayList<Game> allMatchedGames = new ArrayList<>();
-        for (Game game : Manage.allGames) {
+        for (Game game : allGameRequests) {
             if (game.getId().contains(searchedStatement)) {
                 allMatchedGames.add(game);
             }
@@ -550,6 +579,9 @@ public class Lobby extends Application {
         createRequest.setOnMouseClicked(mouseEvent -> {
             try {
                 if (createRequestLogicStuff(gameId.getText(), capacity.getText(), typeOfGame.getText())) {
+                    masterServerDataOutputStream.writeUTF("ADD_NEW_GAME_REQUEST");
+                    //TODO : replace username with this User.getCurrentUser()
+                    masterServerDataOutputStream.writeUTF( user1.getUsername()+ "#" + gameId.getText()  + "#" +  capacity.getText() + "#" + typeOfGame.getText());
                     pane.getChildren().clear();
                     designLobby(gameImages);
                 }
@@ -618,7 +650,7 @@ public class Lobby extends Application {
                     if (isNumber(capacity)) {
                         if (validType) {
                             Game game = new Game(User.getCurrentUser(), gameId, isPublic, Integer.parseInt(capacity));
-                            Manage.allGames.add(game);
+                            allGameRequests.add(game);
                             return true;
                         } else {
                             invalidTypeOfGame.setVisible(true);
