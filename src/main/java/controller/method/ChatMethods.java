@@ -1,18 +1,15 @@
-package view;
+package controller.method;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.ImageView;
 import model.Chat;
 import model.Manage;
 import model.Message;
 import model.User;
 
-import javax.print.DocFlavor;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -73,7 +70,6 @@ public class ChatMethods {
         String data = dataInputStream.readUTF();
         System.out.println(data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
-        System.out.println("messages.size()");
         for(Message message : messages){
             System.out.println(message.content);
         }

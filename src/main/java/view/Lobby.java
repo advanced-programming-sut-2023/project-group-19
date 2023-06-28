@@ -1,5 +1,6 @@
 package view;
 
+import controller.method.ChatMethods;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -25,12 +26,8 @@ import model.User;
 import view.ImageAndBackground.GameImages;
 import javafx.scene.control.Button;
 
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 
@@ -806,20 +803,6 @@ public class Lobby extends Application {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-//                try {
-//                    socket = new Socket("localhost",8052);
-//                    Thread.sleep(1000);
-//                    Socket socket = new Socket("localhost",6010);
-//                    DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-//                    DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-//                    dataOutputStream.writeUTF("ENTER_CHAT");
-//                    System.out.println(dataInputStream.readUTF());
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-
                 showGlobalChat();
             }
         });

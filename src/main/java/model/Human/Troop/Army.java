@@ -14,7 +14,7 @@ public class Army extends Human {
         super(government);
         this.empire = government;
     }
-    private StateOfStanding  state ;
+    public StateOfStanding  state ;
 
     public StateOfStanding getState() {
         return state;
@@ -32,25 +32,35 @@ public class Army extends Human {
         ;
     }
 
-
     public boolean isIntFight = false;
     public boolean hasMovedForDefensiveState = false;
-    private ArchersAndThrowers archerAttacker = null;
-    protected int pastXcordinate;
-    protected int pastYcordinate;
+    public int pastXcordinate;
+    public int pastYcordinate;
 
-    public ArchersAndThrowers getArcherAttacker() {
-        return archerAttacker;
-    }
+    public Empire empire;
 
-    public void setArcherAttacker(ArchersAndThrowers archerAttacker) {
-        this.archerAttacker = archerAttacker;
-    }
-
-    protected Empire empire;
-    protected Army enemy;
     public ImageView imageView;
-    protected Image defaultImage ;
+    public Image defaultImage ;
+    public String armyForm;
+    public int hp;
+    public int maxHp;
+    public int speed;
+    public int defencePower;
+    public int attackPower;
+    public int attackRange;
+    public int startXCoordinate;
+    public int startYCoordinate;
+    public int xCoordinate;
+    public int yCoordinate;
+    public int goalXCoordinate;
+    public int goalYCoordinate;
+    public int finalXCoordinate;
+    public int finalYCoordinate;
+    public List<Integer> myPath;
+    public int restOfMoves;
+    public Names typeOfArmy;
+    public String direction;
+
 
     public Image getDefaultImage() {
         return defaultImage;
@@ -58,14 +68,6 @@ public class Army extends Human {
 
     public boolean isIntFight() {
         return isIntFight;
-    }
-
-    public Army getEnemy() {
-        return enemy;
-    }
-
-    public void setEnemy(Army enemy) {
-        this.enemy = enemy;
     }
 
     public Empire getEmpire() {
@@ -82,25 +84,6 @@ public class Army extends Human {
         return names;
     }
 
-    protected String armyForm;
-    protected int hp;
-    protected int maxHp;
-    protected int speed;
-    protected int defencePower;
-    protected int attackPower;
-    protected int attackRange;
-    public int startXCoordinate;
-    public int startYCoordinate;
-    public int xCoordinate;
-    public int yCoordinate;
-    public int goalXCoordinate;
-    public int goalYCoordinate;
-    public int finalXCoordinate;
-    public int finalYCoordinate;
-    public List<Integer> myPath;
-    public int restOfMoves;
-    public Names typeOfArmy;
-    public String direction;
 
 
     public int getPastXcordinate() {

@@ -10,7 +10,9 @@ import java.util.ArrayList;
 public class Map {
     private static ArrayList<Map> savedMaps = new ArrayList<>();
     public static int mapSize = 100;
-
+    public String name ;
+    public static ArrayList<Map> maps = new ArrayList<>();
+    public int numberOfPlayers ;
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
     public static ArrayList<Obstacle>[][] obstacleMap;
@@ -79,6 +81,17 @@ public class Map {
         notBuildable = new boolean[size][size];
         wallPassable = new boolean[size][size];
         wall = new boolean[size][size];
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static Map getMapWithName(String name){
+        for(Map map : getSavedMaps()){
+            if(map.getName().equals(name)) return map ;
+        }
+        return null ;
     }
 
     public ArrayList<GroundType>[][] getGroundType() {

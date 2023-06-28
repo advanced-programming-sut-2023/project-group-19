@@ -3,11 +3,8 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import controller.ObstacleAdapter;
 import javafx.scene.image.ImageView;
-import model.Obstacle.SavedObstacles;
 import model.adaaptors.MessageAdaptor;
-import view.MessageGetter;
 
 import java.lang.reflect.Type;
 import java.time.LocalTime;
@@ -77,11 +74,8 @@ public class Message {
         builder.registerTypeAdapter(Message.class, new MessageAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        System.out.println(1);
         if (data.equals("")) return null;
-        System.out.println("2");
         Type type = new TypeToken<ArrayList<Message>>(){}.getType();
-        System.out.println("3");
         ArrayList<Message> a2 = gson.fromJson(data,type);
         return a2;
     }

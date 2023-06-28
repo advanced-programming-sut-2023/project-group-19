@@ -1,4 +1,4 @@
-package view;
+package controller.method;
 
 import model.Message;
 
@@ -28,8 +28,6 @@ public class MessageGetter extends Thread{
     }
     public void getMessage() throws IOException {
         String data = dataInputStream.readUTF();
-        System.out.println(data);
         Message message = Message.getMessageFromJson(data);
-        System.out.println(message.content);
     }
 }

@@ -327,7 +327,6 @@ public class AttackArmyToArmyController {
                     isInAttack = true ;
                     System.out.println("hihihihhi");
                     enemy.setHp(newHitPoint);
-                    enemy.setArcherAttacker((ArchersAndThrowers) army);
                     setArcherDirection(army,enemy);
                     setAnimationToFight(army);
                     return true;

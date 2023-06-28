@@ -42,6 +42,10 @@ public class Chat {
         this.socket = socket;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public static ArrayList<Chat> convertChatsToJsonForm(String data){
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Chat.class, new ChatAdaptor());

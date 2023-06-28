@@ -23,22 +23,6 @@ public class Main extends Application {
     public static Stage stage;
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        User newUser = new User("user6", "aa", "ali", "a", "1", "1", 1);
-        User newUser1 = new User("user6", "aa", "dorsa", "a", "1", "1", 1);
-        Empire Ali = new Empire();
-        Empire Dorsa = new Empire();
-        Ali.setUser(newUser);
-        Dorsa.setUser(newUser1);
-        Manage.setCurrentEmpire(Ali);
-//        Map.CreateMap(200);
-        Map.mapSize = 200;
-        Manage.getAllEmpires().add(Dorsa);
-        Manage.getAllEmpires().add(Ali);
-        Shop shop = new Shop(Ali);
-        ShopMenu.currentShop = shop;
-//        map.getBuildingMap()[1][2].add(shop);
-        launch(args);
-//        LoginMenu.run(new Scanner(System.in));
 
     }
 
