@@ -2,12 +2,14 @@ package view;
 
 import javafx.application.Application;
 import javafx.css.Match;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -19,12 +21,12 @@ import model.*;
 import view.ImageAndBackground.GameImages;
 import view.Model.NewHBox;
 
-import java.awt.event.MouseEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,22 +75,26 @@ public class Lobby extends Application {
 
     public VBox cornerVBox = new VBox();
     public User user1;
+
     @Override
     public void start(Stage stage) throws Exception {
 
-        Socket socket1 = new Socket("localhost" , 8080);
+        Socket socket1 = new Socket("localhost", 8080);
         masterServerDataOutputStream = new DataOutputStream(socket1.getOutputStream());
         masterServerDataInputStream = new DataInputStream(socket1.getInputStream());
         user1 = new User("z", "s", "a", "s", "w", "q", 3);
-
-
 
         User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
         User user3 = new User("ac", "s", "a", "s", "w", "q", 3);
         User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user2);
+        User.users.add(user2);
+        User.users.add(user3);
+        User.users.add(user4);
+        User.users.add(user5);
+        User.users.add(user1);
 
+        User.setCurrentUser(user1);
 
         Game game = new Game(user2, "MyGame1", true, 5);
         allGameRequests.add(game);
@@ -189,7 +195,7 @@ public class Lobby extends Application {
 
 
         VBox listOfAllGames = new VBox();
-        if (pane.getChildren().contains(listOfAllGames)) pane.getChildren().remove(listOfAllGames);
+        pane.getChildren().remove(listOfAllGames);
         this.listOfAllGames = listOfAllGames;
         listOfAllGames.setPrefSize(400, 250);
         designListOfAllGames(gameImages);
@@ -212,24 +218,32 @@ public class Lobby extends Application {
         pane.getChildren().add(searchButton);
         pane.getChildren().add(scrollPaneForMainList);
     }
+
     public void refreshLobby() throws IOException {
         allGameRequests.clear();
         masterServerDataOutputStream.writeUTF("REFRESH_LOBBY");
-        String input= masterServerDataInputStream.readUTF();
+        String input = masterServerDataInputStream.readUTF();
         String[] split = input.split("\n");
-        for(int j = 0 ; j < split.length ; j++){
+        for (int j = 0; j < split.length; j += 2) {
             String[] game = split[j].split("#");
             User user = User.getUserByName(game[0]);
-            if(game[2].equals("public")) {
-                Game game2 = new Game(user , game[0] , true , Integer.parseInt(game[1]));
-                allGameRequests.add(game2);
-            }
-            else {
-                Game game1 = new Game(user , game[0] , false , Integer.parseInt(game[1]));
-                allGameRequests.add(game1);
+            if (game[3].equals("public")) {
+                Game game2 = new Game(user, game[1], true, Integer.parseInt(game[2]));
+                addMembers(split, j, game2);
+            } else {
+                Game game1 = new Game(user, game[1], false, Integer.parseInt(game[2]));
+                addMembers(split, j, game1);
             }
         }
+    }
 
+    private void addMembers(String[] split, int j, Game game1) {
+        String[] members = split[j + 1].split("#");
+        for (int g = 0; g < members.length; g++) {
+            User user2 = User.getUserByName(members[g]);
+            game1.allPlayers.add(user2);
+        }
+        allGameRequests.add(game1);
     }
 
     private void designListOfAllGames(GameImages gameImages) {
@@ -240,9 +254,22 @@ public class Lobby extends Application {
         listOfAllGames.setLayoutY(200);
 
         ImageView shieldImage = null;
+        ArrayList<Game> controlledView = new ArrayList<>();
+        for (Game allGameRequest : allGameRequests) {
+            if (allGameRequest.isPublic()) {
+                controlledView.add(allGameRequest);
+            } else {
+                if (allGameRequest.getGameAdmin().getUsername().equals(User.getCurrentUser().getUsername())) {
+                    controlledView.add(allGameRequest);
+                }
+            }
+        }
+        while (controlledView.size() > 10) {
+            controlledView.remove(controlledView.size() - 1);
+        }
 
-        for (int i = 0; i < allGameRequests.size(); i++) {
-            Game game = allGameRequests.get(i);
+        for (int i = 0; i < controlledView.size(); i++) {
+            Game game = controlledView.get(i);
 
             if (i % 4 == 0) {
                 shieldImage = new ImageView(gameImages.getShield0());
@@ -274,12 +301,25 @@ public class Lobby extends Application {
             gameIdHBox.getChildren().add(gameId);
             gameIdHBox.setSpacing(100);
 
-            gameIdHBox.onMouseClickedProperty().set(mouseEvent -> designVboxOfGameInfo(id));
-
+            gameIdHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    designVboxOfGameInfo(id);
+                }
+            });
             listOfAllGames.getChildren().add(gameIdHBox);
 
         }
 
+    }
+
+    public Game findGameById(String gameId) {
+        for (int h = 0; h < allGameRequests.size(); h++) {
+            if (allGameRequests.get(h).getId().equals(gameId)) {
+                return allGameRequests.get(h);
+            }
+        }
+        return null;
     }
 
     public void designVboxOfGameInfo(String gameId) {
@@ -287,7 +327,8 @@ public class Lobby extends Application {
         this.listOfGameInfo = new VBox();
         listOfGameInfo.setSpacing(5);
         String listOfGamePlayers = "Players:\n";
-        Game game = Manage.findGameById(gameId);
+
+        Game game = findGameById(gameId);
 
         if (game != null) {
             ImageView imageView = new ImageView(game.getImageView().getImage());
@@ -307,7 +348,7 @@ public class Lobby extends Application {
             capacity.setTranslateX(17);
             capacity.setTranslateY(30);
 
-            Text admin = new Text("Admin: " + game.getGameAdmin().getNickname());
+            Text admin = new Text("Admin: " + game.getGameAdmin().getUsername());
             admin.setFill(Color.WHITE);
             admin.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
             admin.setTranslateX(17);
@@ -315,7 +356,7 @@ public class Lobby extends Application {
 
             for (int i = 1; i < game.getAllPlayers().size(); i++) {
                 User player = game.getAllPlayers().get(i);
-                listOfGamePlayers = listOfGamePlayers.concat(player.getNickname());
+                listOfGamePlayers = listOfGamePlayers.concat(player.getUsername());
                 if (i != game.getAllPlayers().size() - 1) listOfGamePlayers = listOfGamePlayers.concat(",");
                 if (i % 5 == 0) listOfGamePlayers = listOfGamePlayers.concat("\n");
             }
@@ -355,41 +396,59 @@ public class Lobby extends Application {
             } else {
                 changePrivacy.setText("Public");
             }
-            changePrivacy.setTranslateX(30);
+            changePrivacy.setTranslateX(10);
             changePrivacy.setTranslateY(70);
-            changePrivacy.setPrefSize(70, 10);
+            changePrivacy.setPrefSize(50, 10);
             changePrivacy.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
-            changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
             changePrivacy.setOnMouseClicked(mouseEvent -> {
-                if (changePrivacy.getText().equals("Private")) changePrivacyOfGame(game, false);
-                if (changePrivacy.getText().equals("Public")) changePrivacyOfGame(game, true);
+                if (changePrivacy.getText().equals("Private")) {
+                    try {
+                        changePrivacyOfGame(game, false);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (changePrivacy.getText().equals("Public")) {
+                    try {
+                        changePrivacyOfGame(game, true);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             });
 
             Button leaveGame = new Button();
             leaveGame.setText("Leave");
             leaveGame.setTranslateX(70);
             leaveGame.setTranslateY(47);
-            leaveGame.setPrefSize(70, 10);
+            leaveGame.setPrefSize(50, 10);
             leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
-            leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
-            leaveGame.setOnMouseClicked(mouseEvent -> leaveTheGame(game));
+            leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
+            leaveGame.setOnMouseClicked(mouseEvent -> {
+                try {
+                    leaveTheGame(game);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             Button close = new Button();
             close.setText("Close");
-            close.setTranslateX(110);
+            close.setTranslateX(140);
             close.setTranslateY(24);
-            close.setPrefSize(70, 10);
+            close.setPrefSize(50, 10);
             close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
-            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
             close.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
 
             Button startGame = new Button();
             startGame.setText("Start");
-            startGame.setTranslateX(150);
+            startGame.setTranslateX(130);
             startGame.setTranslateY(24);
-            startGame.setPrefSize(70, 10);
+            startGame.setPrefSize(50, 10);
             startGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
-            startGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+            startGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
             startGame.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
 
 
@@ -406,7 +465,13 @@ public class Lobby extends Application {
             leaveGame.setPrefSize(50, 10);
             leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
-            leaveGame.setOnMouseClicked(mouseEvent -> leaveTheGame(game));
+            leaveGame.setOnMouseClicked(mouseEvent -> {
+                try {
+                    leaveTheGame(game);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             Button close = new Button();
             close.setText("Close");
@@ -428,7 +493,13 @@ public class Lobby extends Application {
             join.setPrefSize(50, 10);
             join.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             join.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
-            join.setOnMouseClicked(mouseEvent -> joinTheGame(game));
+            join.setOnMouseClicked(mouseEvent -> {
+                try {
+                    joinTheGame(game);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             Button close = new Button();
             close.setText("Close");
@@ -447,29 +518,45 @@ public class Lobby extends Application {
         }
     }
 
-    private void changePrivacyOfGame(Game game, boolean status) {
-        //TODO : It should change the privacy settings in the server as well;
-        game.setPublic(status);
+    private void changePrivacyOfGame(Game game, boolean status) throws IOException {
+        masterServerDataOutputStream.writeUTF("PRIVATE_PUBLIC");
+        if (status) {
+            masterServerDataOutputStream.writeUTF(game.getId() + '#' + "public");
+        } else {
+            masterServerDataOutputStream.writeUTF(game.getId() + '#' + "private");
+        }
+        refreshLobby();
+        pane.getChildren().clear();
+        designLobby(gameImages);
 
     }
 
-    private void leaveTheGame(Game game) {
-        //TODO : You should remove the player from the list in the server
-        game.getAllPlayers().remove(User.getCurrentUser());
-        User.getCurrentUser().getMyGameList().remove(game);
-        if (User.getCurrentUser().getUsername().equals(game.getGameAdmin().getUsername())) {
-            game.setGameAdmin(game.getAllPlayers().get(0));
-        }
+    public synchronized void leaveTheGame(Game game) throws IOException {
+        masterServerDataOutputStream.writeUTF("LEAVE-GAME");
+        masterServerDataOutputStream.writeUTF(game.getId() + '#' + User.getCurrentUser().getUsername());
+        refreshLobby();
+        pane.getChildren().clear();
+        designLobby(gameImages);
     }
 
     private void closeTheInfoBox(VBox listOfGameInfo) {
         pane.getChildren().remove(listOfGameInfo);
     }
 
-    private void joinTheGame(Game game) {
-        //TODO : You should add the user to the list of users of game in the server
-        game.getAllPlayers().add(User.getCurrentUser());
-        User.getCurrentUser().getMyGameList().add(game);
+
+    private synchronized void joinTheGame(Game game) throws IOException {
+        addToGameRequest(game);
+//        game.getAllPlayers().add(User.getCurrentUser());
+//        User.getCurrentUser().getMyGameList().add(game);
+    }
+
+    public void addToGameRequest(Game game) throws IOException {
+        masterServerDataOutputStream.writeUTF("JOIN-GAME");
+        masterServerDataOutputStream.writeUTF(game.getId() + '#' + User.getCurrentUser().getUsername());
+        refreshLobby();
+        pane.getChildren().clear();
+        designLobby(gameImages);
+
     }
 
     private void searchForGivenGameId(String searchedGameId) {
@@ -581,7 +668,7 @@ public class Lobby extends Application {
                 if (createRequestLogicStuff(gameId.getText(), capacity.getText(), typeOfGame.getText())) {
                     masterServerDataOutputStream.writeUTF("ADD_NEW_GAME_REQUEST");
                     //TODO : replace username with this User.getCurrentUser()
-                    masterServerDataOutputStream.writeUTF( user1.getUsername()+ "#" + gameId.getText()  + "#" +  capacity.getText() + "#" + typeOfGame.getText());
+                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() + "#" + gameId.getText() + "#" + capacity.getText() + "#" + typeOfGame.getText());
                     pane.getChildren().clear();
                     designLobby(gameImages);
                 }
@@ -794,9 +881,9 @@ public class Lobby extends Application {
         createRoom.setPrefSize(50, 50);
         createRoom.setBackground(new Background(new BackgroundImage(gameImages.getCreateRoom(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        createRoom.setOnMouseClicked(mouseEvent ->{
+        createRoom.setOnMouseClicked(mouseEvent -> {
             createChatRoom();
-                });
+        });
 
         Button makePrivateChat = new Button();
         makePrivateChat.setLayoutX(25);
@@ -848,7 +935,7 @@ public class Lobby extends Application {
         pane.getChildren().add(globalChat);
     }
 
-    private void searchBoxOfChatMenu(){
+    private void searchBoxOfChatMenu() {
 
     }
 
@@ -872,7 +959,7 @@ public class Lobby extends Application {
         setChatList();
     }
 
-    private void setChatList(){
+    private void setChatList() {
         VBox chatList = new VBox();
         chatList.setStyle("-fx-background-color: #4b187e; " +
                 "-fx-background-radius: 10px;");
@@ -962,11 +1049,11 @@ public class Lobby extends Application {
 
 
     private void showPrivateChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
-        NewHBox pvBox = new NewHBox(privateChat.getSocket().getPort(),privateChat.getName());
+        NewHBox pvBox = new NewHBox(privateChat.getSocket().getPort(), privateChat.getName());
         pvBox.setLayoutX(110);
         pvBox.setLayoutY(200);
         pvBox.setSpacing(50);
-        User receiver =  User.getUserByName(privateChat.getName());
+        User receiver = User.getUserByName(privateChat.getName());
         Circle clip = new Circle(25, 25, 25);
         Image profile = receiver.getAvatar().getImage();
         clip.setFill(new ImagePattern(profile));
