@@ -81,7 +81,7 @@ public class Lobby extends Application {
         User.setCurrentUser(user2);
 
 
-        Game game = new Game(user1, "MyGame1", true, 5);
+        Game game = new Game(user2, "MyGame1", true, 5);
         Manage.allGames.add(game);
         game.addToAllPlayers(user1);
         game.addToAllPlayers(user2);
@@ -328,7 +328,7 @@ public class Lobby extends Application {
             }
             changePrivacy.setTranslateX(30);
             changePrivacy.setTranslateY(70);
-            changePrivacy.setPrefSize(30, 10);
+            changePrivacy.setPrefSize(70, 10);
             changePrivacy.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             changePrivacy.setOnMouseClicked(mouseEvent -> {
@@ -340,7 +340,7 @@ public class Lobby extends Application {
             leaveGame.setText("Leave");
             leaveGame.setTranslateX(70);
             leaveGame.setTranslateY(47);
-            leaveGame.setPrefSize(30, 10);
+            leaveGame.setPrefSize(70, 10);
             leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             leaveGame.setOnMouseClicked(mouseEvent -> leaveTheGame(game));
@@ -349,16 +349,16 @@ public class Lobby extends Application {
             close.setText("Close");
             close.setTranslateX(110);
             close.setTranslateY(24);
-            close.setPrefSize(30, 10);
+            close.setPrefSize(70, 10);
             close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             close.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
 
             Button startGame = new Button();
-            startGame.setText("Close");
+            startGame.setText("Start");
             startGame.setTranslateX(150);
             startGame.setTranslateY(24);
-            startGame.setPrefSize(30, 10);
+            startGame.setPrefSize(70, 10);
             startGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             startGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
             startGame.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
