@@ -8,6 +8,7 @@ public class MasterServer {
     //Armin : my Teammates,please pay attention that port of master server is: 8080
     public static int gamePort = 7000 ;
     public static int chatPort = 6000 ;
+    public static int globalChatPort = 8000 ;
 
 
     public MasterServer(int port) {

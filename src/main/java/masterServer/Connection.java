@@ -17,14 +17,18 @@ import chatServer.Message;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import gameServer.GameConnection;
+import gameServer.GameRequest;
 import gameServer.GameServer;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Connection extends Thread {
 
     private ArrayList<Map> maps = new ArrayList<>();
     public static HashMap<Integer, GameServer> allGames = new HashMap<>();
+    public static ArrayList<GameRequest> allGameRequests = new ArrayList<>();
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
 
@@ -34,7 +38,6 @@ public class Connection extends Thread {
     public static HashMap<Socket, ArrayList<Chat>> chatsMustBeAddedToChatListOfClients = new HashMap<>();
 
     static {
-        System.out.println("**");
         ChatServer chatServer = new ChatServer(MasterServer.chatPort);
         chatServer.start();
         allChats.put(chatServer.port, chatServer);
@@ -52,7 +55,11 @@ public class Connection extends Thread {
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
         //sendUsersArrayListToUsers
+<<<<<<< HEAD
 //        dataOutputStream.writeUTF(User.makeGsonFromUser());
+=======
+//        dataOutputStream.writeUTF(User.makeGsonFromUser());makeGsonFromUser;
+>>>>>>> origin/Network
         //
     }
 
@@ -74,7 +81,7 @@ public class Connection extends Thread {
 //                handleNewGame(request);
                 break;
             case "JOIN_GAME":
-//                handleJoinGame(request);
+//                handlJoinGame(request);
                 break;
             case "CREATE_USER":
                 createUser();
@@ -99,6 +106,20 @@ public class Connection extends Thread {
                 break;
             case "SEARCH_USER":
                 findUserFromUsername();
+            case "ADD_NEW_GAME_REQUEST":
+                addNewGameRequest();
+                break;
+            case "REFRESH_LOBBY":
+                refreshLobby();
+                break;
+            case "JOIN-GAME":
+                addToGame();
+                break;
+            case "LEAVE-GAME":
+                leaveGame();
+                break;
+            case "PRIVATE_PUBLIC":
+                privatePublicDecide();
                 break;
         }
     }
@@ -107,6 +128,68 @@ public class Connection extends Thread {
         String username = dataInputStream.readUTF();
         String data = Chat.convertFromJsonToArrayListMessages(usersSavedChats.get(username));
         dataOutputStream.writeUTF(data);
+    }
+    public void privatePublicDecide() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        GameRequest gameRequest = findGameRequest(split[0]);
+        gameRequest.gameRequestType = split[1];
+    }
+
+    public void leaveGame() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        GameRequest gameRequest = findGameRequest(split[0]);
+        if (gameRequest.getAdminUsername().equals(split[1])) {
+            if (gameRequest.allMembersUserName.size() == 1) {
+                allGameRequests.remove(gameRequest);
+            } else {
+                gameRequest.setAdminUsername(gameRequest.allMembersUserName.get(1));
+                gameRequest.allMembersUserName.remove(split[1]);
+            }
+        } else {
+            gameRequest.allMembersUserName.remove(split[1]);
+        }
+    }
+
+    public void addToGame() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        GameRequest gameRequest = findGameRequest(split[0]);
+        if (gameRequest.capacity >= gameRequest.allMembersUserName.size())
+            gameRequest.allMembersUserName.add(split[1]);
+    }
+
+    public GameRequest findGameRequest(String gameId) {
+        for (int h = 0; h < allGameRequests.size(); h++) {
+            if (allGameRequests.get(h).getId().equals(gameId)) {
+                return allGameRequests.get(h);
+            }
+        }
+        return null;
+    }
+
+    public void refreshLobby() throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < allGameRequests.size(); i++) {
+            stringBuilder.append(allGameRequests.get(i).getAdminUsername() + '#' + allGameRequests.get(i).getId() + '#' + allGameRequests.get(i).getCapacity()
+                    + '#' + allGameRequests.get(i).getGameRequestType() + '\n');
+            for (int u = 0; u < allGameRequests.get(i).allMembersUserName.size(); u++) {
+                stringBuilder.append(allGameRequests.get(i).allMembersUserName.get(u) + '#');
+            }
+            stringBuilder.append('\n');
+        }
+        String output = stringBuilder.toString();
+        dataOutputStream.writeUTF(output);
+    }
+
+    public void addNewGameRequest() throws IOException {
+        String request = dataInputStream.readUTF();
+        String[] command = request.split("#");
+        GameRequest gameRequest = new GameRequest(command[1], Integer.parseInt(command[2]), command[3]);
+        gameRequest.adminUsername = command[0];
+        gameRequest.allMembersUserName.add(command[0]);
+        allGameRequests.add(gameRequest);
     }
 
     private void addNewGroupChat() throws IOException {
