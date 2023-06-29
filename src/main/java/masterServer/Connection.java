@@ -54,13 +54,6 @@ public class Connection extends Thread {
         this.socket = socket;
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        //sendUsersArrayListToUsers
-<<<<<<< HEAD
-//        dataOutputStream.writeUTF(User.makeGsonFromUser());
-=======
-//        dataOutputStream.writeUTF(User.makeGsonFromUser());makeGsonFromUser;
->>>>>>> origin/Network
-        //
     }
 
     @Override
