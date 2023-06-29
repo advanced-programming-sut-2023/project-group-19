@@ -149,12 +149,12 @@ public class TileManager extends Application {
     public MediaPlayer mediaPlayer ;
     private void playLoginMusic(){
         stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        String defultSong  = RegisterMenu.class.getResource("/Music/gameMenu.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2 ;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
 
     @Override

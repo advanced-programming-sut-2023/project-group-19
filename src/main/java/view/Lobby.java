@@ -3,9 +3,14 @@ package view;
 import javafx.application.Application;
 import javafx.css.Match;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -15,12 +20,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.*;
 
 import view.ImageAndBackground.GameImages;
 import view.Model.NewHBox;
 
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -62,6 +69,7 @@ public class Lobby extends Application {
     public Text invalidTypeOfGame = new Text("The given game type is invalid!");
     public Text invalidCapacity = new Text("The given capacity is invalid!");
     public Text typeOfChatMenu = new Text("Chats");
+    public static Text showMessageData = new Text();
     public TextField search = new TextField();
     public Button searchButton = new Button();
     public Button exit = new Button();
@@ -72,6 +80,9 @@ public class Lobby extends Application {
     public ArrayList<String> usersToBeAddedToGroup = new ArrayList<>();
     public static ArrayList<Text> texts = new ArrayList<>();
     public static ChatMethods chatMethods;
+    public Label headerForChat;
+    public VBox createGroupBox;
+    public AnchorPane chatPane;
 
     //TODO : EventHandler for Back Button
 
@@ -80,20 +91,21 @@ public class Lobby extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        User user1 = new User("reza", "s", "a", "s", "w", "q", 3);
+        User user1 = new User("mamad", "s", "a", "s", "w", "q", 3);
         User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
         User user3 = new User("ffffff", "s", "a", "s", "w", "q", 3);
         User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user3);
+        User.setCurrentUser(user1);
 
-        String data = User.convertUserToJson(user3);
+        String data = User.convertUserToJson(user1);
         Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         Manage.masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
         Manage.masterServerDataOutputStream.writeUTF("LOGIN_USER");
         Manage.masterServerDataOutputStream.writeUTF(data);
         System.out.println(Manage.masterServerDataInputStream.readUTF() + User.getCurrentUser().getUsername());
-        User.users.add(user3);
+        User.users.add(user1);
+        User.users.add(user2);
 
         Game game = new Game(user2, "MyGame1", true, 5);
         Manage.allGames.add(game);
@@ -667,6 +679,7 @@ public class Lobby extends Application {
 
     private void designChat(GameImages gameImages) throws IOException {
         pane.setBackground(null);
+        pane.setStyle("-fx-background-color: rgb(25,55,109)");
         cornerVBox.setStyle("-fx-background-color: #1384ee");
         cornerVBox.setPrefWidth(100);
         cornerVBox.setPrefHeight(870);
@@ -818,12 +831,31 @@ public class Lobby extends Application {
             }
         });
 
+        Circle clip = new Circle(25, 25, 25);
+        Image profile = User.getCurrentUser().getAvatar().getImage();
+        clip.setFill(new ImagePattern(profile));
+        clip.setStroke(Color.rgb(26, 11, 136));
+        clip.setLayoutX(25);
+        clip.setLayoutY(690);
+
+        Text me = new Text();
+        me.setText(User.getCurrentUser().getUsername());
+        me.setFill(Color.rgb(26, 11, 136));
+        me.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        me.setLayoutX(25);
+        me.setLayoutY(750);
+
+
+
         pane.getChildren().add(lobby);
         pane.getChildren().add(createRoom);
         pane.getChildren().add(refresh);
         pane.getChildren().add(makePrivateChat);
         pane.getChildren().add(groupChatList);
         pane.getChildren().add(globalChat);
+        pane.getChildren().add(clip);
+        pane.getChildren().add(me);
+
     }
 
     private void searchBoxOfChatMenu() {
@@ -893,21 +925,30 @@ public class Lobby extends Application {
         }
     }
 
-    private void openChat(ArrayList<Message> messages, Chat currentChat) {
+    private void openChat(ArrayList<Message> myMessages, Chat currentChat) {
         pane.getChildren().remove(chatTextField);
         pane.getChildren().remove(send);
         removeRemainedStuff();
+
+        chatPane = new AnchorPane();
+        chatPane.setPrefSize(916,750);
+        chatPane.setMaxSize(916,750);
+        chatPane.setMinSize(916,750);
+
         chatBox = new VBox();
         chatBox.setSpacing(15);
+        chatBox.setStyle("-fx-background-radius: 20px; -fx-border-radius: 20px");
+        chatBox.setPrefSize(916,750);
+        chatBox.setMaxSize(916,750);
+        chatBox.setMinSize(916,750);
 
         exit = new Button("exit");
         exit.setLayoutX(1160);
         exit.setLayoutY(200);
         exit.setPrefSize(80, 80);
-        exit.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
+        exit.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4; -fx-background-radius: 10px");
         exit.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
         exit.setOnMouseClicked(mouseEvent -> {
-            //TODO :Here we should send the message to the chat server in order to deliver it to the receiver
             try {
                 pane.getChildren().remove(scrollPaneForChatBox);
                 pane.getChildren().remove(chatTextField);
@@ -919,66 +960,32 @@ public class Lobby extends Application {
             }
         });
 
-        for (Message message : messages) {
-            HBox messageBox = new HBox();
-            messageBox.setSpacing(70);
-            messageBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);-fx-background-radius: 20px");
-            messageBox.setOnMouseClicked(mouseEvent -> {
-                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) { //---> Edit
-                    System.out.println("Clicked");
-                    try {
-                        Message message1 = new Message(message.getSender(), "", message.isSeen(), message.getAvatar());
-                        chatMethods.editMessage(message1, message);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) { // delete just for me
-                    try {
-                        Message message1 = new Message(message.getSender(), "HI", message.isSeen(), message.getAvatar());
-                        chatMethods.deleteJustForMe(message1);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+        setStyleToMessages(myMessages);
 
-            Text content = new Text(message.getContent());
-            texts.add(content);
-            content.setFill(Color.WHITE);
-            content.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
-            content.setTranslateX(10);
-            content.setTranslateY(1);
-            TextFlow textFlow = new TextFlow(content);
-            textFlow.setStyle("-fx-background-radius: 20px; -fx-background-color: rgba(86,46,155,0.74)");
-            messageBox.getChildren().add(textFlow);
-            if (!message.getSender().equals("ali")) {
-                textFlow.setTextAlignment(TextAlignment.RIGHT);
-            } else textFlow.setTextAlignment(TextAlignment.LEFT);
-            chatBox.getChildren().add(messageBox);
-        }
-
-
-        chatBox.setStyle("-fx-background-color: rgba(80,11,143,0.71);");
-        scrollPaneForChatBox.setPrefWidth(300);
+        chatPane.setStyle("-fx-background-color: #1384ee; -fx-border-color: #1384ee;" +
+                " -fx-opacity: 60;");
+        scrollPaneForChatBox.setPrefSize(910,750);
+        scrollPaneForChatBox.setMaxSize(910,750);
+        scrollPaneForChatBox.setMinSize(910,750);
         scrollPaneForChatBox.setContent(chatBox);
         scrollPaneForChatBox.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPaneForChatBox.setLayoutX(850);
-        scrollPaneForChatBox.setLayoutY(300);
-        scrollPaneForChatBox.setStyle("-fx-background-color: #1b1073");
+        scrollPaneForChatBox.setStyle("-fx-background: rgba(19,132,238,0.81); -fx-border-color: rgba(19,132,238,0.81);" +
+                "-fx-progress-color: rgba(19,132,238,0.81); ");
         scrollPaneForChatBox.setVisible(true);
-        scrollPaneForChatBox.heightProperty().addListener((observableValue, number, t1) -> scrollPaneForChatBox.setVvalue((Double) t1));
+        scrollPaneForChatBox.heightProperty().addListener((observableValue, number, t1) ->
+                scrollPaneForChatBox.setVvalue((Double) t1));
 
 
         chatTextField.setPromptText("Send Message");
-        chatTextField.setPrefSize(280, 30);
-        chatTextField.setTranslateX(860);
-        chatTextField.setTranslateY(640);
+        chatTextField.setPrefSize(850, 30);
+        chatTextField.setLayoutX(620);
+        chatTextField.setLayoutY(780);
         chatTextField.setFocusTraversable(false);
-        chatTextField.setStyle("-fx-background-color: rgba(89,29,180,0.71); -fx-prompt-text-fill: white;" +
-                "-fx-text-fill: white;");
+        chatTextField.setStyle("-fx-background-color: rgba(19,132,238,0.81); -fx-prompt-text-fill: white;" +
+                "-fx-text-fill: white; -fx-background-radius: 20px; -fx-border-radius: 20px");
 
-        send.setLayoutX(1160);
-        send.setLayoutY(617);
+        send.setLayoutX(1460);
+        send.setLayoutY(750);
         send.setPrefSize(80, 80);
         send.setBackground(new Background(new BackgroundImage(gameImages.getSend(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
@@ -991,49 +998,62 @@ public class Lobby extends Application {
                 throw new RuntimeException(e);
             }
         });
+        chatPane.getChildren().add(scrollPaneForChatBox);
+        chatPane.setLayoutX(620);
+        chatPane.setLayoutY(10);
 
-        pane.getChildren().add(scrollPaneForChatBox);
+        pane.getChildren().add(chatPane);
         pane.getChildren().add(chatTextField);
         pane.getChildren().add(send);
-        pane.getChildren().add(exit);
-
+//        pane.getChildren().add(exit);
 
     }
 
 
     private NewHBox showPrivateChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
-        System.out.println("Enter design");
-        NewHBox pvBox = new NewHBox(privateChat, privateChat.getName());
-        pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(19,132,238,0.6)");
-        pvBox.setLayoutX(62);
-        pvBox.setLayoutY(200);
-        pvBox.setSpacing(50);
-        pvBox.setPrefSize(500, 120);
         User receiver = User.getUserByName(privateChat.getName());
-        Circle clip = new Circle(50, 50, 50);
-        Image profile = receiver.getAvatar().getImage();
-        clip.setFill(new ImagePattern(profile));
-        clip.setStroke(Color.rgb(19,132,238,0.5));
-        clip.setTranslateX(10);
-        clip.setTranslateY(10);
-        Text chatName = new Text(receiver.getUsername());
-        chatName.setFill(Color.WHITE);
-        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
-        chatName.setTranslateX(40);
-        chatName.setTranslateY(30);
-        pvBox.getChildren().add(clip);
-        pvBox.setTranslateX(50);
-        pvBox.setTranslateY(10);
-        pvBox.getChildren().add(chatName);
-        pane.getChildren().add(pvBox);
-        if (privateChat.getType().equals("PV")) {
-            setEventHandlerForChatBox(pvBox);
+        NewHBox pvBox = null;
+        if ( receiver != null) {
+            System.out.println("Enter design");
+            pvBox = new NewHBox(privateChat, privateChat.getName());
+            pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(19,132,238,0.6)");
+            pvBox.setLayoutX(62);
+            pvBox.setLayoutY(200);
+            pvBox.setSpacing(50);
+            pvBox.setPrefSize(500, 120);
+
+            Circle clip = new Circle(50, 50, 50);
+            Image profile = receiver.getAvatar().getImage();
+            clip.setFill(new ImagePattern(profile));
+            clip.setStroke(Color.rgb(19, 132, 238, 0.5));
+            clip.setTranslateX(10);
+            clip.setTranslateY(10);
+            Text chatName = new Text(receiver.getUsername());
+            chatName.setFill(Color.WHITE);
+            chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
+            chatName.setTranslateX(40);
+            chatName.setTranslateY(30);
+            pvBox.getChildren().add(clip);
+            pvBox.setTranslateX(50);
+            pvBox.setTranslateY(10);
+            pvBox.getChildren().add(chatName);
+            pane.getChildren().add(pvBox);
+            System.out.println("Type: " + privateChat.getType());
+            if (privateChat.getType().equals("PRIVATE")) {
+                System.out.println("Pv");
+                setEventHandlerForChatBox(pvBox);
+            }
         }
         return pvBox;
     }
 
     private NewHBox showGroupChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
         System.out.println("Enter design");
+        pane.getChildren().remove(searchButtonForUsers);
+        pane.getChildren().remove(searchBarForUsers);
+        pane.getChildren().remove(scrollPaneForChatCheckBox);
+        pane.getChildren().remove(createGroupBox);
+        pane.getChildren().remove(headerForChat);
         NewHBox pvBox = new NewHBox(privateChat, privateChat.getName());
         pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(42,115,250,0.71)");
         pvBox.setLayoutX(62);
@@ -1043,7 +1063,9 @@ public class Lobby extends Application {
 
         Text chatName = new Text(privateChat.getName());
         chatName.setFill(Color.WHITE);
-        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
+        chatName.setTranslateX(50);
+        chatName.setTranslateY(15);
         pvBox.setTranslateX(50);
         pvBox.setTranslateY(10);
         pvBox.getChildren().add(chatName);
@@ -1273,21 +1295,21 @@ public class Lobby extends Application {
     private void designChatRoomFillBox() {
         pane.getChildren().remove(search);
         pane.getChildren().remove(searchButton);
-        chatRoomForm = new VBox();
-        chatRoomForm.setSpacing(5);
-        chatRoomForm.setStyle("-fx-background-color: rgba(19,132,238,0.6);-fx-background-radius: 30px");
-        chatRoomForm.setLayoutX(110);
-        chatRoomForm.setLayoutY(260);
+        createGroupBox = new VBox();
+        createGroupBox.setSpacing(5);
+        createGroupBox.setStyle("-fx-background-color: rgba(19,132,238,0.6);-fx-background-radius: 30px");
+        createGroupBox.setLayoutX(110);
+        createGroupBox.setLayoutY(260);
 
-        Label header = new Label();
-        header.setText("Complete the Chat Room Information!");
-        header.setStyle("-fx-text-fill: #ffffff; -fx-alignment: center; " +
+        headerForChat = new Label();
+        headerForChat.setText("Complete the Chat Room Information!");
+        headerForChat.setStyle("-fx-text-fill: #ffffff; -fx-alignment: center; " +
                 "-fx-background-radius: 30px; -fx-background-color: rgba(19,132,238,0.6)");
-        header.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 17));
-        header.setLayoutX(110);
-        header.setLayoutY(220);
-        header.setPrefSize(500, 35);
-        header.setContentDisplay(ContentDisplay.CENTER);
+        headerForChat.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 17));
+        headerForChat.setLayoutX(110);
+        headerForChat.setLayoutY(220);
+        headerForChat.setPrefSize(500, 35);
+        headerForChat.setContentDisplay(ContentDisplay.CENTER);
 
 
         TextField chatName = new TextField();
@@ -1313,8 +1335,6 @@ public class Lobby extends Application {
                 ChatMethods chatMethods1 = new ChatMethods(newGroup.getSocket());
                 chatMethods1.addUsersToGroup(usersToBeAddedToGroup, newGroup.getName());
                 usersToBeAddedToGroup.clear();
-                pane.getChildren().remove(chatRoomForm);
-                pane.getChildren().remove(header);
                 NewHBox newHBox = showGroupChatBox(newGroup);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -1324,11 +1344,11 @@ public class Lobby extends Application {
 
         });
 
-        chatRoomForm.getChildren().add(chatName);
-        chatRoomForm.getChildren().add(create);
-        chatRoomForm.setPrefSize(500, 200);
-        pane.getChildren().add(chatRoomForm);
-        pane.getChildren().add(header);
+        createGroupBox.getChildren().add(chatName);
+        createGroupBox.getChildren().add(create);
+        createGroupBox.setPrefSize(500, 200);
+        pane.getChildren().add(createGroupBox);
+        pane.getChildren().add(headerForChat);
     }
 
     private ArrayList<User> findAllMatchingChats(String text) {
@@ -1342,42 +1362,46 @@ public class Lobby extends Application {
     }
 
     public synchronized static void addNewMessageToChat(Message message) {
+        ArrayList<Message> myMessages = new ArrayList<>();
+        myMessages.add(message);
+        setStyleToMessages(myMessages);
         System.out.println("Message : " + message.getContent());
-        if (message != null) {
-            HBox messageBox = new HBox();
-            messageBox.setPrefSize(50, 20);
-            messageBox.setSpacing(70);
-            messageBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);");
-            messageBox.setOnMouseClicked(mouseEvent -> {
-                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) { //---> Edit
-                    System.out.println("Clicked");
-                    try {
-                        Message message1 = new Message(message.getSender(), "", message.isSeen(), message.getAvatar());
-                        chatMethods.editMessage(message1, message);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) { // delete just for me
-                    try {
-                        Message message1 = new Message(message.getSender(), "HI", message.isSeen(), message.getAvatar());
-                        chatMethods.deleteJustForMe(message1);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-            Text content = new Text(message.getContent());
-            content.setFill(Color.WHITE);
-            content.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
-            content.setTranslateX(10);
-            content.setTranslateY(1);
-            TextFlow textFlow = new TextFlow(content);
-            textFlow.setStyle("-fx-background-radius: 20px; -fx-background-color: rgba(86,46,155,0.74)");
-            texts.add(content);
-            messageBox.getChildren().add(textFlow);
-            messageBox.setAlignment(Pos.BOTTOM_LEFT);
-            chatBox.getChildren().add(messageBox);
-        }
+
+//        if (message != null) {
+//            HBox messageBox = new HBox();
+//            messageBox.setPrefSize(50, 20);
+//            messageBox.setSpacing(70);
+//            messageBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);");
+//            messageBox.setOnMouseClicked(mouseEvent -> {
+//                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) { //---> Edit
+//                    System.out.println("Clicked");
+//                    try {
+//                        Message message1 = new Message(message.getSender(), "", message.isSeen(), message.getAvatar());
+//                        chatMethods.editMessage(message1, message);
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) { // delete just for me
+//                    try {
+//                        Message message1 = new Message(message.getSender(), "HI", message.isSeen(), message.getAvatar());
+//                        chatMethods.deleteJustForMe(message1);
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//            });
+//            Text content = new Text(message.getContent());
+//            content.setFill(Color.WHITE);
+//            content.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+//            content.setTranslateX(10);
+//            content.setTranslateY(1);
+//            TextFlow textFlow = new TextFlow(content);
+//            textFlow.setStyle("-fx-background-radius: 20px; -fx-background-color: rgba(86,46,155,0.74)");
+//            texts.add(content);
+//            messageBox.getChildren().add(textFlow);
+//            messageBox.setAlignment(Pos.BOTTOM_LEFT);
+//            chatBox.getChildren().add(messageBox);
+//        }
     }
 
     public synchronized static void editMessage(Message message) throws IOException {
@@ -1413,6 +1437,84 @@ public class Lobby extends Application {
                     break;
                 }
             }
+        }
+    }
+
+    public static void setStyleToMessages (ArrayList<Message> myMessages){
+        for (Message myMessage : myMessages) {
+            HBox messageBox = new HBox();
+            messageBox.setPadding(new Insets(5,5,5,10));
+            messageBox.setOnMouseClicked(mouseEvent -> {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) { //---> Edit
+                    System.out.println("Clicked");
+                    try {
+                        Message message1 = new Message(myMessage.getSender(), "", myMessage.isSeen(), myMessage.getAvatar());
+                        chatMethods.editMessage(message1, myMessage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) { // delete just for me
+                    try {
+                        Message message1 = new Message(myMessage.getSender(), "HI", myMessage.isSeen(), myMessage.getAvatar());
+                        chatMethods.deleteJustForMe(message1);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            messageBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    //todo: hover location
+                    String status;
+                    String[] time = myMessage.getSentTime().split("\\.");
+                    if (myMessage.isSeen()) status = "Seen";
+                    else status = "Haven't seen";
+                    PointerInfo a = MouseInfo.getPointerInfo();
+                    Point b = a.getLocation();
+                    int x = (int) b.getX();
+                    int y = (int) b.getY();
+                    System.out.println("X: " + x + " Y: " + y);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append("Time: ").append(time[0]).append("\nStatus: ").append(status);
+                    showMessageData.setText(stringBuilder.toString());
+                    showMessageData.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
+                    if (myMessage.getSender().equals(User.getCurrentUser().getUsername())) {
+                        showMessageData.setTranslateX(700);
+                        showMessageData.setTranslateY(y-70);
+                    }else {
+                        showMessageData.setTranslateX(300);
+                        showMessageData.setTranslateY(y-70);
+                    }
+
+                    if (showMessageData != null)
+                        chatBox.getChildren().add(showMessageData);
+                }
+            });
+            messageBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    chatBox.getChildren().remove(showMessageData);
+                }
+            });
+
+            Text content = new Text(myMessage.getContent());
+            texts.add(content);
+            content.setFill(Color.WHITE);
+            content.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+            TextFlow textFlow = new TextFlow(content);
+            textFlow.setStyle("-fx-background-radius: 20px; -fx-background-color: #1b1073;" +
+                    "-fx-text-fill: #ffffff;");
+            textFlow.setPadding(new Insets(5,10,5,10));
+
+            messageBox.getChildren().add(textFlow);
+            if (myMessage.getSender().equals(User.getCurrentUser().getUsername())) {
+                textFlow.setTextAlignment(TextAlignment.LEFT);
+                messageBox.setAlignment(Pos.CENTER_RIGHT);
+            } else {
+                messageBox.setAlignment(Pos.CENTER_LEFT);
+            }
+            chatBox.getChildren().add(messageBox);
         }
     }
 

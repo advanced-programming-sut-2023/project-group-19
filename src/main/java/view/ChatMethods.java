@@ -89,7 +89,7 @@ public class ChatMethods {
         MessageGetter.interrupted();
     }
     public void sendMessage(String text) throws IOException {
-        Message message = new Message("ali",text,false,new ImageView());
+        Message message = new Message(User.getCurrentUser().getUsername(),text,false,new ImageView());
         String data = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF("RECEIVE_MESSAGE");
         dataOutputStream.writeUTF(data);
