@@ -16,4 +16,6 @@ module com.example.projectgroup19 {
     opens controller to javafx.fxml;
     exports view.OldView;
     opens view.OldView to javafx.fxml;
+    exports controller.method;
+    opens controller.method to javafx.fxml;
 }

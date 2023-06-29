@@ -1,5 +1,6 @@
 package view;
 
+import controller.method.ChatMethods;
 import javafx.application.Application;
 import javafx.css.Match;
 import javafx.event.EventHandler;

@@ -1,6 +1,7 @@
 package view;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.ImageView;
 import model.Chat;
 import model.Manage;
@@ -13,6 +14,7 @@ import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 

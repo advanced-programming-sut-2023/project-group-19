@@ -1,6 +1,7 @@
 package view;
 
 import controller.JsonController;
+import controller.method.MapMethod;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -39,20 +40,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RegisterMenu extends Application {
-//    static {
+    static {
+        try {
+            Manage.connectUserToMasterServer();
+            User.makeUsersFromJson();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            getAllMaps();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        buildMaps();
 //        try {
-//            Manage.connectUserToMasterServer();
-//            User.makeUsersFromJson();
+//            MapMethod.addNewMapToServer(Map.getSavedMaps().get(4));
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-//        try {
-//            getAllMaps();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        buildMaps();
-//    }
+        try {
+            MapMethod.getMapsFromServer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static Stage stage;
     public TextField email = new TextField();
 
