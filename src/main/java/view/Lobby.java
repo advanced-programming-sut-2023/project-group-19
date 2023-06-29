@@ -99,9 +99,8 @@ public class Lobby extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Socket socket1 = new Socket("localhost", 8080);
-        masterServerDataOutputStream = new DataOutputStream(socket1.getOutputStream());
-        masterServerDataInputStream = new DataInputStream(socket1.getInputStream());
+        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         user1 = new User("z", "s", "a", "s", "w", "q", 3);
 
         User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
@@ -946,7 +945,7 @@ public class Lobby extends Application {
                 Socket socket = new Socket("localhost", 6000);
                 chatMethods = new ChatMethods(socket);
                 messages = chatMethods.enterToChat();
-                showGlobalChat(messages, chatMethods);
+                openChat(messages);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -1046,7 +1045,11 @@ public class Lobby extends Application {
         }
     }
 
-    private void openChat(ArrayList<Message> myMessages, Chat currentChat) {
+    private void openChat(ArrayList<Message> myMessages) {
+        pane.getChildren().remove(chatPane);
+        pane.getChildren().remove(chatBox);
+        pane.getChildren().remove(exit);
+        pane.getChildren().remove(scrollPaneForChatBox);
         pane.getChildren().remove(chatTextField);
         pane.getChildren().remove(send);
         removeRemainedStuff();
@@ -1209,7 +1212,7 @@ public class Lobby extends Application {
                     chatMethods = chatMethods1;
                     messages.clear();
                     messages = chatMethods1.enterToChat();
-                    openChat(messages, chatHBox.getChat());
+                    openChat(messages);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -1222,110 +1225,6 @@ public class Lobby extends Application {
 
     }
 
-    public void showGlobalChat(ArrayList<Message> messages, ChatMethods chatMethods) {
-        pane.getChildren().remove(chatTextField);
-        pane.getChildren().remove(send);
-        removeRemainedStuff();
-        chatBox = new VBox();
-        chatBox.setSpacing(15);
-
-        exit = new Button("exit");
-        exit.setLayoutX(1160);
-        exit.setLayoutY(200);
-        exit.setPrefSize(80, 80);
-        exit.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
-        exit.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-        exit.setOnMouseClicked(mouseEvent -> {
-            //TODO :Here we should send the message to the chat server in order to deliver it to the receiver
-            try {
-                pane.getChildren().remove(scrollPaneForChatBox);
-                pane.getChildren().remove(chatTextField);
-                pane.getChildren().remove(send);
-                chatMethods.exitFromChat();
-                pane.getChildren().remove(exit);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        for (Message message : messages) {
-            HBox messageBox = new HBox();
-            messageBox.setSpacing(70);
-            messageBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);-fx-background-radius: 20px");
-            messageBox.setOnMouseClicked(mouseEvent -> {
-                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) { //---> Edit
-                    System.out.println("Clicked");
-                    try {
-                        Message message1 = new Message(message.getSender(), "", message.isSeen(), message.getAvatar());
-                        chatMethods.editMessage(message1, message);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) { // delete just for me
-                    try {
-                        Message message1 = new Message(message.getSender(), "HI", message.isSeen(), message.getAvatar());
-                        chatMethods.deleteJustForMe(message1);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-
-            Text content = new Text(message.getContent());
-            texts.add(content);
-            content.setFill(Color.WHITE);
-            content.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
-            content.setTranslateX(10);
-            content.setTranslateY(1);
-            TextFlow textFlow = new TextFlow(content);
-            textFlow.setStyle("-fx-background-radius: 20px; -fx-background-color: rgba(86,46,155,0.74)");
-            messageBox.getChildren().add(textFlow);
-            if (!message.getSender().equals("ali")) {
-                textFlow.setTextAlignment(TextAlignment.RIGHT);
-            } else textFlow.setTextAlignment(TextAlignment.LEFT);
-            chatBox.getChildren().add(messageBox);
-        }
-
-
-        chatBox.setStyle("-fx-background-color: rgba(80,11,143,0.71);");
-        scrollPaneForChatBox.setPrefWidth(300);
-        scrollPaneForChatBox.setContent(chatBox);
-        scrollPaneForChatBox.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPaneForChatBox.setLayoutX(850);
-        scrollPaneForChatBox.setLayoutY(300);
-        scrollPaneForChatBox.setStyle("-fx-background-color: #1b1073");
-        scrollPaneForChatBox.setVisible(true);
-        scrollPaneForChatBox.heightProperty().addListener((observableValue, number, t1) -> scrollPaneForChatBox.setVvalue((Double) t1));
-
-
-        chatTextField.setPromptText("Send Message");
-        chatTextField.setPrefSize(280, 30);
-        chatTextField.setTranslateX(860);
-        chatTextField.setTranslateY(640);
-        chatTextField.setFocusTraversable(false);
-        chatTextField.setStyle("-fx-background-color: rgba(89,29,180,0.71); -fx-prompt-text-fill: white;" +
-                "-fx-text-fill: white;");
-
-        send.setLayoutX(1160);
-        send.setLayoutY(617);
-        send.setPrefSize(80, 80);
-        send.setBackground(new Background(new BackgroundImage(gameImages.getSend(), BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        send.setOnMouseClicked(mouseEvent -> {
-            try {
-                chatMethods.sendMessage(chatTextField.getText());
-                chatTextField.setText("");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        pane.getChildren().add(scrollPaneForChatBox);
-        pane.getChildren().add(chatTextField);
-        pane.getChildren().add(send);
-        pane.getChildren().add(exit);
-    }
-
 
     public void removeRemainedStuff() {
         pane.getChildren().remove(scrollPaneForChatList);
@@ -1336,6 +1235,8 @@ public class Lobby extends Application {
 
     private void createChatRoom() {
         removeRemainedStuff();
+        chatPane.getChildren().clear();
+        pane.getChildren().remove(chatPane);
         searchBarForUsers.setPromptText("Search player's Id");
         searchBarForUsers.setPrefSize(460, 30);
         searchBarForUsers.setLayoutX(110);
