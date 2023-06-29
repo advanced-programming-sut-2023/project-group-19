@@ -1,0 +1,92 @@
+[
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "nameOfMap": "q",
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "nameOfMap": "q",
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "nameOfMap": "q",
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "q",
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "q",
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "q",
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "q",
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "q",
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "q",
+    "y": 4
+  }
+]

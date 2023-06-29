@@ -151,7 +151,6 @@ public class MapMethod {
             }
         }
         Map.getSavedMaps().add(map);
-        System.out.println(map.getName());
         return true ;
     }
 }

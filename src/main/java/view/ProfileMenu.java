@@ -108,6 +108,7 @@ public class ProfileMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        User.makeUsersFromJson();
         playMainMenu();
         ProfileMenu.stage = stage;
         Pane pane = new Pane();

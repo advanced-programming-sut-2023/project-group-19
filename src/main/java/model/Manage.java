@@ -107,9 +107,10 @@ public class Manage {
     }
 
     public static void connectUserToMasterServer() throws IOException {
-        Socket socket = new Socket("localhost", 8095);
+        Socket socket = new Socket("localhost", 8096);
         masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        System.out.println("into connect user to the master server!!!!!!!!!!!!!!");
     }
     public static void connectUserToGlobalChat() throws IOException {
         Socket socket = new Socket("localhost", 6000);

@@ -13,11 +13,13 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.Map;
+import model.User;
 import view.ImageAndBackground.TradeAndShopImages;
 
 public class ShowTradesMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        User.makeUsersFromJson();
         Main.stage = stage;
         Pane pane = new Pane();
         pane.setPrefSize(1000, 900);

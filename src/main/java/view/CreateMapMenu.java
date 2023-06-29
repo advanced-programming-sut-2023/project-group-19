@@ -15,6 +15,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Map;
 import model.Obstacle.*;
+import model.User;
 import view.Model.NewRadioButton;
 
 import java.io.IOException;
@@ -48,11 +49,15 @@ public class CreateMapMenu extends Application {
     public CreateMapController createMapController ;
 
     static {
+        System.out.println("before default map: " + Map.getSavedMaps().size());
         defaultMap = new Map();
+        defaultMap.name  =  "default";
         defaultMap.CreateMap(Map.mapSize);
         artOfTree(defaultMap);
         Map.getSavedMaps().add(0,defaultMap);
         finalMap = defaultMap;
+        System.out.println("after default map: " + Map.getSavedMaps().size());
+
     }
     public static MediaPlayer mediaPlayer;
 
@@ -73,6 +78,7 @@ public class CreateMapMenu extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
+//        User.makeUsersFromJson();
         setSettings();
         Main.stage = stage;
         this.stage = stage ;
@@ -87,11 +93,15 @@ public class CreateMapMenu extends Application {
     }
 
     private void setSettings() {
+        System.out.println("before new map: " + Map.getSavedMaps().size());
         playCreateMapMenu();
         map =  new Map();
+        map.name = "##$$##";
+        Map.getSavedMaps().add(map);
         map.CreateMap(100);
         createMapController = new CreateMapController(map);
-        Map.getSavedMaps().add(map);
+        System.out.println("after new map: " + Map.getSavedMaps().size());
+
     }
 
     private void handleDesign() {
@@ -160,9 +170,14 @@ public class CreateMapMenu extends Application {
 
     private void placeSubmitButton(VBox vBox){
         Button submit = new Button("submit");
+        System.out.println("into place button: " + Map.getSavedMaps().size());
+
         submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent mouseEvent) {
+                System.out.println("into place button: " + Map.getSavedMaps().size());
+
                 String name = inputNameOfMap.getText();
                 if(name.equals("")){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -170,22 +185,22 @@ public class CreateMapMenu extends Application {
                     alert.showAndWait();
                     return;
                 }
+                System.out.println("into place button: " + Map.getSavedMaps().size());
                 if(Map.getMapWithName(name) != null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Your name is repeated!");
                     alert.showAndWait();
                     return;
                 }
+                map.name = name ;
                 if(checkSelectedToggle()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("You can't edit default map!");
                     alert.showAndWait();
                     return;
                 }
-                map.name = name ;
                 dropCastleToMap();
                 if(toggleGroup.getSelectedToggle() == null) return;
-                Map.getSavedMaps().add(map);
                 if(toggleGroup.getSelectedToggle().equals(tree)){
                     dropTree();
                 } else if(toggleGroup.getSelectedToggle().equals(stone)){
@@ -205,6 +220,7 @@ public class CreateMapMenu extends Application {
                 }
                 recovery();
             }
+
         });
         vBox.getChildren().add(submit);
     }

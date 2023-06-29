@@ -34,6 +34,7 @@ public class ScoreBoardMenu extends Application {
     public ScrollPane friendShipScrollPane = new ScrollPane();
 
     public void start(Stage stage) throws IOException {
+        User.makeUsersFromJson();
         GameImages gameImages = new GameImages();
         gameImages.loadImages();
         ScoreBoardMenu.stage = stage;

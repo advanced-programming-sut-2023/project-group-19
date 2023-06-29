@@ -60,6 +60,7 @@ public class Lobby extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        User.makeUsersFromJson();
 
         User user1 = new User("z", "s", "a", "s", "w", "q", 3);
         User user2 = new User("ab", "s", "a", "s", "w", "q", 3);
