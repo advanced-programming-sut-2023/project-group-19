@@ -94,7 +94,7 @@ public class Lobby extends Application {
         User.users.add(user5);
         User.users.add(user1);
 
-        User.setCurrentUser(user1);
+        User.setCurrentUser(user2);
 
         Game game = new Game(user2, "MyGame1", true, 5);
         allGameRequests.add(game);
@@ -165,7 +165,6 @@ public class Lobby extends Application {
         refresh.setPrefSize(160, 50);
         refresh.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4");
         refresh.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-        //TODO : Random 10 Players
         refresh.setOnMouseClicked(mouseEvent -> {
             try {
                 refreshLobby();

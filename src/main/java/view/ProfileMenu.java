@@ -85,12 +85,12 @@ public class ProfileMenu extends Application {
 
     private void playMainMenu() throws IOException {
         stopAllMusic();
-        String defultSong = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        String defultSong = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
 
     private void stopAllMusic() throws IOException {

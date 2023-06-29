@@ -39,20 +39,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RegisterMenu extends Application {
-    static {
-        try {
-            Manage.connectUserToMasterServer();
-            User.makeUsersFromJson();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            getAllMaps();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        buildMaps();
-    }
+//    static {
+//        try {
+//            Manage.connectUserToMasterServer();
+//            User.makeUsersFromJson();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            getAllMaps();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        buildMaps();
+//    }
     public static Stage stage;
     public TextField email = new TextField();
 
