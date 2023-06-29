@@ -11,7 +11,6 @@ public class Map {
     private static ArrayList<Map> savedMaps = new ArrayList<>();
     public static int mapSize = 100;
     public String name ;
-    public static ArrayList<Map> maps = new ArrayList<>();
     public int numberOfPlayers ;
     public static ArrayList<Building>[][] buildingMap;
     public static ArrayList<Army>[][] troopMap;
@@ -88,6 +87,7 @@ public class Map {
     }
 
     public static Map getMapWithName(String name){
+        System.out.println(savedMaps.size());
         for(Map map : getSavedMaps()){
             if(map.getName().equals(name)) return map ;
         }

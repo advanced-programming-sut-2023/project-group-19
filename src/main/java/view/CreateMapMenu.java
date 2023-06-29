@@ -374,6 +374,7 @@ public class CreateMapMenu extends Application {
         }
     }
     private static void artOfTree(Map map) {
+        map.name = "default";
         dropTreeToLocation(0, 0, 12, 5,map);
         dropTreeToLocation(0, 3, 8, 1,map);
         dropTreeToLocation(1, 0, 10, 5,map);

@@ -34,6 +34,7 @@ public class MapMethod {
         for(int i = 0 ; i < num ; i ++){
             String data = Manage.masterServerDataInputStream.readUTF();
             ArrayList<SavedObstacles> savedObstacles = convertJsonToArrayList(data);
+            makeMapFromSaveObstacle(savedObstacles);
             if(Map.getMapWithName(savedObstacles.get(0).getNameOfMap()) != null) {
                 //TODO : here add a graphic for the maps that you have
             }else {
@@ -150,6 +151,7 @@ public class MapMethod {
             }
         }
         Map.getSavedMaps().add(map);
+        System.out.println(map.getName());
         return true ;
     }
 }
