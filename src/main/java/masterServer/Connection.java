@@ -76,7 +76,7 @@ public class Connection extends Thread {
             case "JOIN_GAME":
 //                handlJoinGame(request);
                 break;
-            case "CREATE_USER":
+            case  "CREATE_USER":
                 createUser();
                 break;
             case "LOGIN_USER":
@@ -113,6 +113,11 @@ public class Connection extends Thread {
                 break;
             case "PRIVATE_PUBLIC":
                 privatePublicDecide();
+            case "ADD_NEW_MAP_TO_SERVER":
+                addNewMap();
+                break;
+            case "GET_SAVED_MAPS":
+                sendArrayListOfSavedMapsToClient();
                 break;
         }
     }
@@ -251,6 +256,23 @@ public class Connection extends Thread {
         }
     }
 
+    private void addNewMap() throws IOException {
+        String data = dataInputStream.readUTF();
+        System.out.println(data);
+        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
+        Map.arrayListArrayListOfObject.add(savedObstacles);
+        Map map = Map.buildMap(savedObstacles);
+        Map.getSavedMaps().add(map);
+    }
+
+    private void sendArrayListOfSavedMapsToClient() throws IOException {
+        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
+        for(ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject){
+            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
+            dataOutputStream.writeUTF(data);
+        }
+    }
+
     private void addChatToUsersList(String ownerName, Chat chat){
         if (usersSavedChats.get(ownerName) == null) {
             usersSavedChats.put(ownerName, new ArrayList<>());
@@ -263,11 +285,6 @@ public class Connection extends Thread {
         usersSavedChats.get(ownerName).addAll(chats);
     }
 
-    private void addNewMap() throws IOException {
-        String data = dataInputStream.readUTF();
-        Map map = Map.convertJsonObstacleToObject(data);
-        Map.getSavedMaps().add(map);
-    }
 
     private void addUserToOnlineUsers() throws IOException {
         String data = dataInputStream.readUTF();
@@ -286,20 +303,6 @@ public class Connection extends Thread {
         usersSavedChats.put(user.getUsername(), new ArrayList<>());
     }
 
-    private void handleJoinGame(MasterRequest request) throws IOException {
-        if (allGames.get(request.portOfJoinToGame).lock) return;
-        Socket socket = new Socket("localhost", request.portOfJoinToGame);
-        User sender = User.getUserByName(request.usernameOfSender);
-        allGames.get(request.portOfJoinToGame).players.add(sender);
-        //port
-    }
-
-    private void handleNewGame(MasterRequest request) {
-        GameServer gameServer = new GameServer(MasterServer.gamePort, request.playerNumber);
-        gameServer.start();
-        allGames.put(MasterServer.gamePort, gameServer);
-        MasterServer.gamePort++;
-    }
 
     private void findUserFromUsername() throws IOException {
         String username = dataInputStream.readUTF();

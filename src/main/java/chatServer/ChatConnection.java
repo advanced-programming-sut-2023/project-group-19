@@ -37,6 +37,7 @@ public class ChatConnection extends Thread{
     }
     private void handleCommand() throws IOException {
         String typeOfRequest = dataInputStream.readUTF();
+        System.out.println("data out put stream" + typeOfRequest);
         switch (typeOfRequest){
             case "EXIT_CHAT":
                 exitChat();

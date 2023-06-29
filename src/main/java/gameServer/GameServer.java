@@ -16,21 +16,20 @@ public class GameServer extends Thread{
     public GameServer(int port,int numberOfPlayers) {
         this.port =  port ;
         this.numberOfPlayers  = numberOfPlayers ;
-        System.out.println("Starting Broker service...");
+        System.out.println("Starting Game Server...");
     }
-    public ArrayList<User> players =  new ArrayList<>();
+    public ArrayList<Socket> socketOfPlayers =  new ArrayList<>();
 
     @Override
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true){
-                //The code that placed in the below is a blocking code
                 Socket socket = serverSocket.accept();
-                numberOfPlayers ++ ;
-                Connection connection = new Connection(socket);
-                connection.start();
-                if(numberOfPlayers == players.size()) lock = true ;
+                socketOfPlayers.add(socket);
+                GameConnection gameConnection = new GameConnection(socket,this);
+                gameConnection.start();
+
             }
         } catch (IOException e) {
             //TODO: try to reconnect...
