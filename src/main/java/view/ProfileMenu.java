@@ -79,6 +79,7 @@ public class ProfileMenu extends Application {
     public Button selectImageFromSystem = new Button("Choose");
     public Button refresh = new Button("Refresh");
     public Button friendShip = new Button("FriendShip");
+    public Button invitations = new Button("Invitations");
     public static MediaPlayer mediaPlayer;
 
     public ScrollPane friendShipScrollPane = new ScrollPane();
@@ -312,6 +313,24 @@ public class ProfileMenu extends Application {
             }
         });
 
+        invitations.setStyle("-fx-background-color: #cba883");
+        invitations.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        invitations.setFocusTraversable(false);
+        invitations.setLayoutX(1200);
+        invitations.setLayoutY(215);
+        invitations.setPrefSize(140, 40);
+
+        invitations.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    designVBoxOfInvitations();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
 
         pane.getChildren().add(headerLabel);
         pane.getChildren().add(backButton);
@@ -331,6 +350,8 @@ public class ProfileMenu extends Application {
         pane.getChildren().add(refresh);
         pane.getChildren().add(vBoxErrorHandling);
         pane.getChildren().add(friendShip);
+        pane.getChildren().add(invitations);
+
     }
 
     private void designVboxOfChangePassword() {
@@ -805,6 +826,90 @@ public class ProfileMenu extends Application {
             pane.getChildren().add(close);
         }
     }
+
+
+    private void designVBoxOfInvitations() {
+        pane.getChildren().remove(friendShipScrollPane);
+        VBox friendShipBox = new VBox();
+        friendShipBox.setStyle("-fx-background-color: #a00909");
+        friendShipBox.setSpacing(10);
+        if (User.users.size() > 1) {
+            for (User user : User.users) {
+                if (!user.getUsername().equals(User.getCurrentUser().getUsername())) {
+                    HBox friendBox = new HBox();
+                    friendBox.setPrefSize(285, 30);
+
+                    Text userName = new Text();
+                    userName.setText("Id: " + user.getUsername());
+                    userName.setFill(Color.BLACK);
+                    userName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+                    userName.setTranslateX(40);
+                    userName.setTranslateY(5);
+                    userName.prefWidth(30);
+                    userName.prefHeight(10);
+
+                    ImageView avatar = user.getAvatar();
+                    avatar.setFitWidth(50);
+                    avatar.setFitHeight(50);
+                    avatar.setTranslateX(15);
+                    avatar.setLayoutY(5);
+
+                    //TODO: Here you should change the text of button and the method which is called
+                    //  in the eventHandler
+                    Button following = new Button();
+                    if (findFriends(user)) following.setText("Following");
+                    else following.setText("Follow");
+                    following.setPrefSize(70, 8);
+                    following.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
+                    following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+                    following.setTranslateX(100);
+                    following.setTranslateY(30);
+                    following.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            sendFriendShipRequest(user, following);
+                        }
+                    });
+
+                    friendBox.setStyle("-fx-background-color: #cba883;");
+                    friendBox.getChildren().add(avatar);
+                    friendBox.getChildren().add(following);
+                    friendBox.getChildren().add(userName);
+                    friendShipBox.getChildren().add(friendBox);
+                }
+
+            }
+            Button close = new Button("Close");
+            close.setStyle("-fx-background-color: #cba883");
+            close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+            close.setLayoutX(1000);
+            close.setLayoutY(550);
+            close.setPrefSize(100, 30);
+            close.setFocusTraversable(false);
+            close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    try {
+                        pane.getChildren().remove(friendShipScrollPane);
+                        pane.getChildren().remove(close);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            friendShipScrollPane.setPrefWidth(300);
+            friendShipScrollPane.setContent(friendShipBox);
+            friendShipScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            friendShipScrollPane.setLayoutX(900);
+            friendShipScrollPane.setLayoutY(300);
+
+            friendShipScrollPane.setStyle("-fx-background-color: #cba883");
+            friendShipScrollPane.setVisible(true);
+            pane.getChildren().add(friendShipScrollPane);
+            pane.getChildren().add(close);
+        }
+    }
+
 
     private void sendFriendShipRequest(User user, Button followButton) {
         followButton.setText("Requested");

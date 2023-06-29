@@ -1,26 +1,17 @@
 package view.Model;
 
 import javafx.scene.layout.HBox;
+import model.Chat;
 
 import java.net.Socket;
 
 public class NewHBox extends HBox {
-    private int port;
+    private Chat chat;
     private String name;
-    private Socket socket;
 
-    public NewHBox(int port,String name) {
-        this.port = port;
-
+    public NewHBox(Chat chat, String name) {
+        this.chat = chat;
         this.name = name;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
     }
 
     public String getName() {
@@ -31,11 +22,11 @@ public class NewHBox extends HBox {
         this.name = name;
     }
 
-    public Socket getSocket() {
-        return socket;
+    public Chat getChat() {
+        return chat;
     }
 
-    public void setSocket(Socket socket) {
-        this.socket = socket;
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }

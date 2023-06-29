@@ -12,14 +12,14 @@ import java.net.Socket;
 public class ChatAdaptor extends TypeAdapter<Chat> {
     @Override
     public void write(JsonWriter writer, Chat chat) throws IOException {
-//        writer.beginObject();
-//        writer.name("name");
-//        writer.value(chat.getName());
-//        writer.name("port");
-//        writer.value(chat.getSocket());
-//        writer.name("type");
-//        writer.value(chat.getType());
-//        writer.endObject();
+        writer.beginObject();
+        writer.name("name");
+        writer.value(chat.getName());
+        writer.name("port");
+        writer.value(chat.getSocket().getPort());
+        writer.name("type");
+        writer.value(chat.getType());
+        writer.endObject();
     }
 
     @Override
