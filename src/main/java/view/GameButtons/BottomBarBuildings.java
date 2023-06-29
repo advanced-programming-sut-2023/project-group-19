@@ -1,6 +1,7 @@
 package view.GameButtons;
 
 import controller.Building.BuildingController;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -35,13 +36,20 @@ public class BottomBarBuildings {
     public ArrayList<NewButton>[][] allButtons;
     public Building building;
     public static NewButton lastButton;
-    public Army troop;
+    public static boolean replayGame;
+    public static int x;
+    public static int y;
 
     public void showError(String output) {
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setTitle("DROP BUILDING FAILED");
-        error.setContentText(output);
-        error.show();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("DROP BUILDING FAILED");
+                error.setContentText(output);
+                error.show();
+            }
+        });
     }
 
     public void createCastleButtons(Pane pane, BuildingImages buildingImages) {
@@ -69,6 +77,9 @@ public class BottomBarBuildings {
                 building = stair;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Stair" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(wallStairImage);
                     newbutton.setBuilding(stair);
@@ -105,6 +116,9 @@ public class BottomBarBuildings {
                 building = lowWall;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "SmallWall" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(lowWallImage);
                     newbutton.setBuilding(lowWall);
@@ -141,6 +155,9 @@ public class BottomBarBuildings {
                 building = bigWall;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "BigWall" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stoneWallImage);
                     newbutton.setBuilding(bigWall);
@@ -176,6 +193,9 @@ public class BottomBarBuildings {
                 building = bigWall;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "BigWall" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(crenulatedWallImage);
                     newbutton.setBuilding(bigWall);
@@ -212,6 +232,9 @@ public class BottomBarBuildings {
                 building = barracks;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Barracks" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(barracksImage);
                     newbutton.setBuilding(barracks);
@@ -248,6 +271,9 @@ public class BottomBarBuildings {
                 building = mercenary;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Mercenary" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(mercenaryImage);
                     newbutton.setBuilding(mercenary);
@@ -284,6 +310,9 @@ public class BottomBarBuildings {
                 building = armoury;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Armoury" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(armoryImage);
                     newbutton.setBuilding(armoury);
@@ -403,6 +432,9 @@ public class BottomBarBuildings {
                 building = stoneGateWay;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "SmallStoneGatehouse" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(smallGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
@@ -439,6 +471,9 @@ public class BottomBarBuildings {
                 building = stoneGateWay;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "BigStoneGatehouse" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(bigGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
@@ -475,6 +510,9 @@ public class BottomBarBuildings {
                 building = drawBridge;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "DrawBridge" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(drawBridgeImage);
                     newbutton.setBuilding(drawBridge);
@@ -511,6 +549,9 @@ public class BottomBarBuildings {
                 building = cagedWarDogs;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "CagedWarDogs" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(cagedDogsImage);
                     newbutton.setBuilding(cagedWarDogs);
@@ -547,6 +588,9 @@ public class BottomBarBuildings {
                 building = pitchDitch;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "PitchDitch" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(pitchDitchImage);
                     newbutton.setBuilding(pitchDitch);
@@ -583,6 +627,9 @@ public class BottomBarBuildings {
                 building = killingPit;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "KillingPit" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(killingPitImage);
                     newbutton.setBuilding(killingPit);
@@ -642,6 +689,9 @@ public class BottomBarBuildings {
                 building = tower;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "LookoutTower" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(lookoutTowerImage);
                     newbutton.setBuilding(tower);
@@ -678,6 +728,9 @@ public class BottomBarBuildings {
                 building = tower;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "PerimeterTower" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(premierTowerImage);
                     newbutton.setBuilding(tower);
@@ -714,6 +767,9 @@ public class BottomBarBuildings {
                 building = tower;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "DefendTower" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(defenceTowerImage);
                     newbutton.setBuilding(tower);
@@ -750,6 +806,9 @@ public class BottomBarBuildings {
                 building = tower;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "SquareTower" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(squareTowerImage);
                     newbutton.setBuilding(tower);
@@ -786,6 +845,9 @@ public class BottomBarBuildings {
                 building = tower;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "RoundTower" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(roundTowerImage);
                     newbutton.setBuilding(tower);
@@ -844,6 +906,9 @@ public class BottomBarBuildings {
                 building = engineer;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "EngineerGuild" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(engineersGuildImage);
                     newbutton.setBuilding(engineer);
@@ -954,6 +1019,9 @@ public class BottomBarBuildings {
                 building = stable;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Stable" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stableImage);
                     newbutton.setBuilding(stable);
@@ -990,6 +1058,9 @@ public class BottomBarBuildings {
                 building = prepareLaboursAndFighters;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "TunnelerGuild" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(tunnelersGuildImage);
                     newbutton.setBuilding(prepareLaboursAndFighters);
@@ -1026,6 +1097,9 @@ public class BottomBarBuildings {
                 building = oilSmelter;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "OilSmelter" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(oilSmelterImage);
                     newbutton.setBuilding(oilSmelter);
@@ -1054,6 +1128,7 @@ public class BottomBarBuildings {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
                 PointerInfo a = MouseInfo.getPointerInfo();
                 Point b = a.getLocation();
                 int x = (int) ((int) b.getX() / 51);
@@ -1064,6 +1139,9 @@ public class BottomBarBuildings {
                 building = stockpile;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "ResourcesStockpile" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stockpileImage);
                     newbutton.setBuilding(stockpile);
@@ -1101,6 +1179,9 @@ public class BottomBarBuildings {
                 building = industry;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "WoodCutter" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(woodCutterImage);
                     newbutton.setBuilding(industry);
@@ -1137,6 +1218,9 @@ public class BottomBarBuildings {
                 building = industry;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Quarry" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(quarryImage);
                     newbutton.setBuilding(industry);
@@ -1173,6 +1257,9 @@ public class BottomBarBuildings {
                 building = industry;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "OxTether" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(oxTetherImage);
                     newbutton.setBuilding(industry);
@@ -1209,6 +1296,9 @@ public class BottomBarBuildings {
                 building = industry;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "IronDig" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(ironMineImage);
                     newbutton.setBuilding(industry);
@@ -1246,6 +1336,9 @@ public class BottomBarBuildings {
                 building = industry;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "PitchRig" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(pitchRigImage);
                     newbutton.setBuilding(industry);
@@ -1282,6 +1375,9 @@ public class BottomBarBuildings {
                 building = shop;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Shop" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(marketImage);
                     newbutton.setBuilding(shop);
@@ -1327,6 +1423,9 @@ public class BottomBarBuildings {
                 building = goods;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "DiaryProduct" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(dairyFarmImage);
                     newbutton.setBuilding(goods);
@@ -1370,6 +1469,9 @@ public class BottomBarBuildings {
                 building = goods;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "AppleFarm" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(appleFarmImage);
                     newbutton.setBuilding(goods);
@@ -1413,6 +1515,9 @@ public class BottomBarBuildings {
                 building = goods;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "WheatFarm" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(wheatFarmImage);
                     newbutton.setBuilding(goods);
@@ -1456,6 +1561,9 @@ public class BottomBarBuildings {
                 building = goods;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "OatFarm" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(hopsFarmImage);
                     newbutton.setBuilding(goods);
@@ -1494,6 +1602,9 @@ public class BottomBarBuildings {
                 building = house;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "House" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(hovelImage);
                     newbutton.setBuilding(house);
@@ -1530,6 +1641,9 @@ public class BottomBarBuildings {
                 building = church;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "SmallChurch" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(smallChurchImage);
                     newbutton.setBuilding(church);
@@ -1566,6 +1680,9 @@ public class BottomBarBuildings {
                 building = church;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "BigChurch" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(bigChurchImage);
                     newbutton.setBuilding(church);
@@ -1602,6 +1719,9 @@ public class BottomBarBuildings {
                 building = apothecary;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Apothecary" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(apothecaryImage);
                     newbutton.setBuilding(apothecary);
@@ -1638,6 +1758,9 @@ public class BottomBarBuildings {
                 building = fearControl;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "TortureChamber" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(tortureBuildingImage);
                     newbutton.setBuilding(fearControl);
@@ -1674,6 +1797,9 @@ public class BottomBarBuildings {
                 building = fearControl;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Garden" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(gardenImage);
                     newbutton.setBuilding(fearControl);
@@ -1720,6 +1846,9 @@ public class BottomBarBuildings {
                 building = weapon;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Fletcher" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(fletcherImage);
                     newbutton.setBuilding(weapon);
@@ -1763,6 +1892,9 @@ public class BottomBarBuildings {
                 building = weapon;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "PoleTurner" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(poleTurnerImage);
                     newbutton.setBuilding(weapon);
@@ -1806,6 +1938,9 @@ public class BottomBarBuildings {
                 building = weapon;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "BlackSmith" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(blacksmithImage);
                     newbutton.setBuilding(weapon);
@@ -1868,6 +2003,9 @@ public class BottomBarBuildings {
                 building = weapon;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Armourer" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(armourerImage);
                     newbutton.setBuilding(weapon);
@@ -1904,6 +2042,9 @@ public class BottomBarBuildings {
                 building = siegeTent;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "SiegeTent" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(siegeTentImage);
                     newbutton.setBuilding(siegeTent);
@@ -1942,6 +2083,9 @@ public class BottomBarBuildings {
                 building = stockpile;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "FoodStockpile" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(granaryImage);
                     newbutton.setBuilding(stockpile);
@@ -1985,6 +2129,9 @@ public class BottomBarBuildings {
                 building = goods;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Bakery" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(bakeryImage);
                     newbutton.setBuilding(goods);
@@ -2028,6 +2175,9 @@ public class BottomBarBuildings {
                 building = goods;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "BearFactory" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(breweryImage);
                     newbutton.setBuilding(goods);
@@ -2071,6 +2221,9 @@ public class BottomBarBuildings {
                 building = industry;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Mill" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(millImage);
                     newbutton.setBuilding(industry);
@@ -2114,6 +2267,9 @@ public class BottomBarBuildings {
                 building = inn;
                 String output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
+                            '#' + "Inn" + '#' + x + '#' + y + '\n');
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(innImage);
                     newbutton.setBuilding(inn);
@@ -2143,11 +2299,12 @@ public class BottomBarBuildings {
     }
 
     public void fuckingSuperHardcodeCreateBuilding(Pane pane, String buildingName, BuildingImages buildingImages) {
-        PointerInfo a = MouseInfo.getPointerInfo();
-        Point b = a.getLocation();
-        int x = (int) ((int) b.getX() / 51);
-        int y = (int) b.getY() / 54;
-        System.out.println("x " + x + " y " + y);
+        if(!replayGame) {
+            PointerInfo a = MouseInfo.getPointerInfo();
+            Point b = a.getLocation();
+            x = (int) ((int) b.getX() / 51);
+            y = (int) b.getY() / 54;
+        }
         NewButton newbutton = allButtons[y][x].get(0);
         String output;
         switch (buildingName) {
@@ -2158,10 +2315,15 @@ public class BottomBarBuildings {
                 building = armoury;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(armoryImage);
-                    newbutton.setBuilding(armoury);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(armoryImage);
+                            newbutton.setBuilding(armoury);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2173,10 +2335,16 @@ public class BottomBarBuildings {
                 building = barracks;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(barracksImage);
-                    newbutton.setBuilding(barracks);
-                    pane.getChildren().add(newbutton);
+                    NewButton finalNewbutton = newbutton;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            finalNewbutton.setImageView(barracksImage);
+                            finalNewbutton.setBuilding(barracks);
+                            pane.getChildren().add(finalNewbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2188,10 +2356,15 @@ public class BottomBarBuildings {
                 building = cagedWarDogs;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(cagedDogsImage);
-                    newbutton.setBuilding(cagedWarDogs);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(cagedDogsImage);
+                            newbutton.setBuilding(cagedWarDogs);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2202,10 +2375,15 @@ public class BottomBarBuildings {
                 building = church;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(smallChurchImage);
-                    newbutton.setBuilding(church);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(smallChurchImage);
+                            newbutton.setBuilding(church);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2217,10 +2395,15 @@ public class BottomBarBuildings {
                 building = church2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(bigChurchImage);
-                    newbutton.setBuilding(church2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(bigChurchImage);
+                            newbutton.setBuilding(church2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2232,10 +2415,15 @@ public class BottomBarBuildings {
                 building = drawBridge;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(drawBridgeImage);
-                    newbutton.setBuilding(drawBridge);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(drawBridgeImage);
+                            newbutton.setBuilding(drawBridge);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2247,10 +2435,15 @@ public class BottomBarBuildings {
                 building = goods2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(appleFarmImage);
-                    newbutton.setBuilding(goods2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(appleFarmImage);
+                            newbutton.setBuilding(goods2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2277,10 +2470,15 @@ public class BottomBarBuildings {
                 building = goods5;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(hopsFarmImage);
-                    newbutton.setBuilding(goods5);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(hopsFarmImage);
+                            newbutton.setBuilding(goods5);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2294,10 +2492,15 @@ public class BottomBarBuildings {
                 building = goods1;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(wheatFarmImage);
-                    newbutton.setBuilding(goods1);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(wheatFarmImage);
+                            newbutton.setBuilding(goods1);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2309,10 +2512,15 @@ public class BottomBarBuildings {
                 building = goods6;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(bakeryImage);
-                    newbutton.setBuilding(goods6);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(bakeryImage);
+                            newbutton.setBuilding(goods6);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2324,10 +2532,15 @@ public class BottomBarBuildings {
                 building = goods7;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(breweryImage);
-                    newbutton.setBuilding(goods7);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(breweryImage);
+                            newbutton.setBuilding(goods7);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2339,10 +2552,15 @@ public class BottomBarBuildings {
                 building = house;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(hovelImage);
-                    newbutton.setBuilding(house);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(hovelImage);
+                            newbutton.setBuilding(house);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2354,10 +2572,15 @@ public class BottomBarBuildings {
                 building = industry6;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(millImage);
-                    newbutton.setBuilding(industry6);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(millImage);
+                            newbutton.setBuilding(industry6);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2369,10 +2592,15 @@ public class BottomBarBuildings {
                 building = industry3;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(ironMineImage);
-                    newbutton.setBuilding(industry3);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(ironMineImage);
+                            newbutton.setBuilding(industry3);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2384,10 +2612,15 @@ public class BottomBarBuildings {
                 building = industry2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(oxTetherImage);
-                    newbutton.setBuilding(industry2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(oxTetherImage);
+                            newbutton.setBuilding(industry2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2399,10 +2632,15 @@ public class BottomBarBuildings {
                 building = oilSmelter;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(oilSmelterImage);
-                    newbutton.setBuilding(oilSmelter);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(oilSmelterImage);
+                            newbutton.setBuilding(oilSmelter);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2414,10 +2652,15 @@ public class BottomBarBuildings {
                 building = industry1;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(quarryImage);
-                    newbutton.setBuilding(industry1);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(quarryImage);
+                            newbutton.setBuilding(industry1);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2429,10 +2672,15 @@ public class BottomBarBuildings {
                 building = industry;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(woodCutterImage);
-                    newbutton.setBuilding(industry);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(woodCutterImage);
+                            newbutton.setBuilding(industry);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2444,10 +2692,15 @@ public class BottomBarBuildings {
                 building = inn;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(innImage);
-                    newbutton.setBuilding(inn);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(innImage);
+                            newbutton.setBuilding(inn);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2460,10 +2713,15 @@ public class BottomBarBuildings {
                 building = killingPit;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(killingPitImage);
-                    newbutton.setBuilding(killingPit);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(killingPitImage);
+                            newbutton.setBuilding(killingPit);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2474,10 +2732,15 @@ public class BottomBarBuildings {
                 building = shop;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(marketImage);
-                    newbutton.setBuilding(shop);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(marketImage);
+                            newbutton.setBuilding(shop);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2489,10 +2752,15 @@ public class BottomBarBuildings {
                 building = industry4;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(pitchRigImage);
-                    newbutton.setBuilding(industry4);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(pitchRigImage);
+                            newbutton.setBuilding(industry4);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2504,10 +2772,15 @@ public class BottomBarBuildings {
                 building = pitchDitch;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(pitchDitchImage);
-                    newbutton.setBuilding(pitchDitch);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(pitchDitchImage);
+                            newbutton.setBuilding(pitchDitch);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2518,10 +2791,15 @@ public class BottomBarBuildings {
                 building = mercenary;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(mercenaryImage);
-                    newbutton.setBuilding(mercenary);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(mercenaryImage);
+                            newbutton.setBuilding(mercenary);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2533,10 +2811,15 @@ public class BottomBarBuildings {
                 building = engineer;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(engineersGuildImage);
-                    newbutton.setBuilding(engineer);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(engineersGuildImage);
+                            newbutton.setBuilding(engineer);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2548,10 +2831,15 @@ public class BottomBarBuildings {
                 building = prepareLaboursAndFighters;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(tunnelersGuildImage);
-                    newbutton.setBuilding(prepareLaboursAndFighters);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(tunnelersGuildImage);
+                            newbutton.setBuilding(prepareLaboursAndFighters);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2563,10 +2851,15 @@ public class BottomBarBuildings {
                 building = shop2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(marketImage2);
-                    newbutton.setBuilding(shop2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(marketImage2);
+                            newbutton.setBuilding(shop2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2578,10 +2871,15 @@ public class BottomBarBuildings {
                 building = siegeTent;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(siegeTentImage);
-                    newbutton.setBuilding(siegeTent);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(siegeTentImage);
+                            newbutton.setBuilding(siegeTent);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2593,10 +2891,15 @@ public class BottomBarBuildings {
                 building = stable;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(stableImage);
-                    newbutton.setBuilding(stable);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(stableImage);
+                            newbutton.setBuilding(stable);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2608,10 +2911,15 @@ public class BottomBarBuildings {
                 building = resourceStockpile;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(stockpileImage);
-                    newbutton.setBuilding(resourceStockpile);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(stockpileImage);
+                            newbutton.setBuilding(resourceStockpile);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2623,10 +2931,15 @@ public class BottomBarBuildings {
                 building = stockpile2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(granaryImage);
-                    newbutton.setBuilding(stockpile2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(granaryImage);
+                            newbutton.setBuilding(stockpile2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2637,10 +2950,15 @@ public class BottomBarBuildings {
                 building = stoneGateWay;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(smallGatehouseImage);
-                    newbutton.setBuilding(stoneGateWay);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(smallGatehouseImage);
+                            newbutton.setBuilding(stoneGateWay);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2652,10 +2970,15 @@ public class BottomBarBuildings {
                 building = stoneGateWayBig;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(bigGatehouseImage);
-                    newbutton.setBuilding(stoneGateWayBig);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(bigGatehouseImage);
+                            newbutton.setBuilding(stoneGateWayBig);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2667,10 +2990,15 @@ public class BottomBarBuildings {
                 building = tower;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(lookoutTowerImage);
-                    newbutton.setBuilding(tower);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(lookoutTowerImage);
+                            newbutton.setBuilding(tower);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2682,10 +3010,15 @@ public class BottomBarBuildings {
                 building = tower2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(premierTowerImage);
-                    newbutton.setBuilding(tower2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(premierTowerImage);
+                            newbutton.setBuilding(tower2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2697,10 +3030,15 @@ public class BottomBarBuildings {
                 building = tower3;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(defenceTowerImage);
-                    newbutton.setBuilding(tower3);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(defenceTowerImage);
+                            newbutton.setBuilding(tower3);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2712,10 +3050,15 @@ public class BottomBarBuildings {
                 building = tower4;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(squareTowerImage);
-                    newbutton.setBuilding(tower4);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(squareTowerImage);
+                            newbutton.setBuilding(tower4);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2727,10 +3070,15 @@ public class BottomBarBuildings {
                 building = tower5;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(roundTowerImage);
-                    newbutton.setBuilding(tower5);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(roundTowerImage);
+                            newbutton.setBuilding(tower5);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2744,10 +3092,15 @@ public class BottomBarBuildings {
                 building = bigWall;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(stoneWallImage);
-                    newbutton.setBuilding(bigWall);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(stoneWallImage);
+                            newbutton.setBuilding(bigWall);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2759,10 +3112,15 @@ public class BottomBarBuildings {
                 building = lowWall;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(lowWallImage);
-                    newbutton.setBuilding(lowWall);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(lowWallImage);
+                            newbutton.setBuilding(lowWall);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2774,10 +3132,15 @@ public class BottomBarBuildings {
                 building = stair;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(wallStairImage);
-                    newbutton.setBuilding(stair);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(wallStairImage);
+                            newbutton.setBuilding(stair);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2791,10 +3154,15 @@ public class BottomBarBuildings {
                 building = weapon4;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(armourerImage);
-                    newbutton.setBuilding(weapon4);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(armourerImage);
+                            newbutton.setBuilding(weapon4);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2806,10 +3174,15 @@ public class BottomBarBuildings {
                 building = weapon3;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(blacksmithImage);
-                    newbutton.setBuilding(weapon3);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(blacksmithImage);
+                            newbutton.setBuilding(weapon3);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2821,10 +3194,15 @@ public class BottomBarBuildings {
                 building = weapon;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(fletcherImage);
-                    newbutton.setBuilding(weapon);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(fletcherImage);
+                            newbutton.setBuilding(weapon);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2836,10 +3214,15 @@ public class BottomBarBuildings {
                 building = weapon1;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(poleTurnerImage);
-                    newbutton.setBuilding(weapon1);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(poleTurnerImage);
+                            newbutton.setBuilding(weapon1);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2851,10 +3234,15 @@ public class BottomBarBuildings {
                 building = fearControl2;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(gardenImage);
-                    newbutton.setBuilding(fearControl2);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(gardenImage);
+                            newbutton.setBuilding(fearControl2);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
@@ -2866,14 +3254,20 @@ public class BottomBarBuildings {
                 building = fearControl;
                 output = buildingController.dropBuilding(y, x, building.getName()).getMessages();
                 if (output.equals("building created successfully")) {
-                    pane.getChildren().remove(allButtons[y][x].get(0));
-                    newbutton.setImageView(tortureBuildingImage);
-                    newbutton.setBuilding(fearControl);
-                    pane.getChildren().add(newbutton);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            pane.getChildren().remove(allButtons[y][x].get(0));
+                            newbutton.setImageView(tortureBuildingImage);
+                            newbutton.setBuilding(fearControl);
+                            pane.getChildren().add(newbutton);
+                        }
+                    });
                 } else {
                     showError(output);
                 }
                 break;
         }
+        BottomBarBuildings.lastButton = newbutton;
     }
 }

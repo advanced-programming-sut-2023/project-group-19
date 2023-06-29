@@ -1,5 +1,6 @@
 package view.GameButtons;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class BottomBarButtons {
-    public Map map ;
+    public Map map;
 
     public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
@@ -215,6 +216,8 @@ public class BottomBarButtons {
         dataButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "DATA_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 EmpireButtons empireButtons = new EmpireButtons();
                 EmpireMenu empireMenu = new EmpireMenu();
@@ -225,6 +228,8 @@ public class BottomBarButtons {
         castleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "CASTLE_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createCastleButtons(pane, buildingImages);
             }
@@ -233,6 +238,8 @@ public class BottomBarButtons {
         foodButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "FOOD_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createFarmButtons(pane, buildingImages);
             }
@@ -241,6 +248,8 @@ public class BottomBarButtons {
         hammerButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "HAMMER_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createIndustryButtons(pane, buildingImages);
             }
@@ -249,6 +258,8 @@ public class BottomBarButtons {
         homeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "HOME_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createTownButtons(pane, buildingImages);
             }
@@ -257,6 +268,8 @@ public class BottomBarButtons {
         shieldButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SHIELD_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createWeaponsButtons(pane, buildingImages);
             }
@@ -265,6 +278,8 @@ public class BottomBarButtons {
         sickleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SICKLE_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createFoodButtons(pane, buildingImages);
             }
@@ -272,6 +287,8 @@ public class BottomBarButtons {
         gameOptionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "GAME_OPTION_BUTTON" + '\n');
                 Pane pane1 = new Pane();
                 Button button = new Button();
                 Button button1 = new Button();
@@ -298,6 +315,8 @@ public class BottomBarButtons {
         informationButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "INFORMATION_BUTTON" + '\n');
                 Pane pane1 = new Pane();
                 Text text = new Text();
                 Text text2 = new Text();
@@ -329,30 +348,54 @@ public class BottomBarButtons {
         deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (TileManager.deleteOn) {
-                    TileManager.deleteOn = false;
-                } else {
-                    TileManager.deleteOn = true;
-                }
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "MOUSE_CLICK" + '#' + "DELETE_BUTTON" + '\n');
+                delete();
             }
         });
         undoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (BottomBarBuildings.lastButton != null) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "UNDO_BUTTON" + '\n');
+                undo(pane, map);
+            }
+        });
+    }
+
+    public static void delete() {
+        if (TileManager.deleteOn) {
+            TileManager.deleteOn = false;
+        } else {
+            TileManager.deleteOn = true;
+        }
+    }
+
+    public static void undo(Pane pane, Map map) {
+        if (BottomBarBuildings.lastButton != null) {
+            System.out.println("ENTERED");
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
                     pane.getChildren().remove(BottomBarBuildings.lastButton);
                     BottomBarBuildings.lastButton.setGraphic(null);
                     BottomBarBuildings.lastButton.setImageView(null);
                     BottomBarBuildings.lastButton.setBuilding(null);
-                    int x = BottomBarBuildings.lastButton.getX();
-                    int y = BottomBarBuildings.lastButton.getY();
-                    if (map.buildingMap[x][y].size() != 0)
-                        map.buildingMap[x][y].remove(0);
-                    map.notPassable[x][y] = false;
-                    map.notBuildable[x][y] = false;
+                }
+            });
+            int x = BottomBarBuildings.lastButton.getX();
+            int y = BottomBarBuildings.lastButton.getY();
+            if (map.buildingMap[x][y].size() != 0)
+                map.buildingMap[x][y].remove(0);
+            map.notPassable[x][y] = false;
+            map.notBuildable[x][y] = false;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
                     pane.getChildren().add(BottomBarBuildings.lastButton);
                 }
-            }
-        });
+            });
+
+        }
     }
 }

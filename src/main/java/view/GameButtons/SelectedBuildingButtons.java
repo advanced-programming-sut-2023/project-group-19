@@ -1,5 +1,6 @@
 package view.GameButtons;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import model.Manage;
 import view.ImageAndBackground.UnitImages;
 import view.OldView.SelectedBuildingMenu;
 import view.ShopMenu;
+import view.TileManager;
 
 import java.util.ArrayList;
 
@@ -54,13 +56,23 @@ public class SelectedBuildingButtons {
         archerButton.setLayoutY(730);
         archerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(archerButton);
-        pane.getChildren().add(archerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(archerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("archer", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "archer" + '\n');
                 }
             }
         };
@@ -74,13 +86,23 @@ public class SelectedBuildingButtons {
         spearManButton.setLayoutY(730);
         spearManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(spearManButton);
-        pane.getChildren().add(spearManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(spearManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("spearMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "spearMan" + '\n');
                 }
             }
         };
@@ -94,13 +116,23 @@ public class SelectedBuildingButtons {
         maceManButton.setLayoutY(730);
         maceManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(maceManButton);
-        pane.getChildren().add(maceManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(maceManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("maceMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "maceMan" + '\n');
                 }
             }
         };
@@ -114,13 +146,23 @@ public class SelectedBuildingButtons {
         crossbowManButton.setLayoutY(730);
         crossbowManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(crossbowManButton);
-        pane.getChildren().add(crossbowManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(crossbowManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("crossbowMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "crossbowMan" + '\n');
                 }
             }
         };
@@ -134,13 +176,23 @@ public class SelectedBuildingButtons {
         pikeManButton.setLayoutY(730);
         pikeManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(pikeManButton);
-        pane.getChildren().add(pikeManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(pikeManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("pikeMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "pikeMan" + '\n');
                 }
             }
         };
@@ -154,13 +206,23 @@ public class SelectedBuildingButtons {
         swordManButton.setLayoutY(730);
         swordManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(swordManButton);
-        pane.getChildren().add(swordManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(swordManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("swordMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "swordMan" + '\n');
                 }
             }
         };
@@ -173,13 +235,23 @@ public class SelectedBuildingButtons {
         knightButton.setLayoutY(730);
         knightButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(knightButton);
-        pane.getChildren().add(knightButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(knightButton);
+            }
+        });
+
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("knight", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "knight" + '\n');
                 }
             }
         };
@@ -195,13 +267,22 @@ public class SelectedBuildingButtons {
         arabianBowButton.setLayoutY(730);
         arabianBowButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(arabianBowButton);
-        pane.getChildren().add(arabianBowButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(arabianBowButton);
+            }
+        });
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("arabianBow", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "arabianBow" + '\n');
                 }
             }
         };
@@ -215,13 +296,23 @@ public class SelectedBuildingButtons {
         slaveButton.setLayoutY(730);
         slaveButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(slaveButton);
-        pane.getChildren().add(slaveButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(slaveButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("slave", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "slave" + '\n');
                 }
             }
         };
@@ -235,13 +326,23 @@ public class SelectedBuildingButtons {
         slingerButton.setLayoutY(730);
         slingerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(slingerButton);
-        pane.getChildren().add(slingerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(slingerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("slinger", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "slinger" + '\n');
                 }
             }
         };
@@ -255,13 +356,23 @@ public class SelectedBuildingButtons {
         assassinButton.setLayoutY(730);
         assassinButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(assassinButton);
-        pane.getChildren().add(assassinButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(assassinButton);
+            }
+        });
+
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("assassin", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "assassin" + '\n');
                 }
             }
         };
@@ -275,13 +386,23 @@ public class SelectedBuildingButtons {
         horseArcherButton.setLayoutY(730);
         horseArcherButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(horseArcherButton);
-        pane.getChildren().add(horseArcherButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(horseArcherButton);
+            }
+        });
+
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("horseArcher", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "horseArcher" + '\n');
                 }
             }
         };
@@ -295,13 +416,23 @@ public class SelectedBuildingButtons {
         arabianSwordManButton.setLayoutY(730);
         arabianSwordManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(arabianSwordManButton);
-        pane.getChildren().add(arabianSwordManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(arabianSwordManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("arabianSwordMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "arabianSwordMan" + '\n');
                 }
             }
         };
@@ -315,13 +446,23 @@ public class SelectedBuildingButtons {
         fireThrowerButton.setLayoutY(730);
         fireThrowerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(fireThrowerButton);
-        pane.getChildren().add(fireThrowerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(fireThrowerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event6 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("fireThrower", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "fireThrower" + '\n');
                 }
             }
         };
@@ -337,13 +478,23 @@ public class SelectedBuildingButtons {
         catapultButton.setLayoutY(730);
         catapultButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(catapultButton);
-        pane.getChildren().add(catapultButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(catapultButton);
+            }
+        });
+
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("catapult", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "catapult" + '\n');
                 }
             }
         };
@@ -357,13 +508,23 @@ public class SelectedBuildingButtons {
         trebuchetButton.setLayoutY(730);
         trebuchetButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(trebuchetButton);
-        pane.getChildren().add(trebuchetButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(trebuchetButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("trebuchet", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "trebuchet" + '\n');
                 }
             }
         };
@@ -377,13 +538,23 @@ public class SelectedBuildingButtons {
         siegeTowerButton.setLayoutY(730);
         siegeTowerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(siegeTowerButton);
-        pane.getChildren().add(siegeTowerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(siegeTowerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("siegeTower", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "siegeTower" + '\n');
                 }
             }
         };
@@ -397,13 +568,23 @@ public class SelectedBuildingButtons {
         batteringRamButton.setLayoutY(730);
         batteringRamButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(batteringRamButton);
-        pane.getChildren().add(batteringRamButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(batteringRamButton);
+            }
+        });
+
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("batteringRam", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "batteringRam" + '\n');
                 }
             }
         };
@@ -417,13 +598,23 @@ public class SelectedBuildingButtons {
         portableShieldButton.setLayoutY(730);
         portableShieldButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(portableShieldButton);
-        pane.getChildren().add(portableShieldButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(portableShieldButton);
+            }
+        });
+
         EventHandler<MouseEvent> event4 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("portableShield", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "portableShield" + '\n');
                 }
             }
         };
@@ -437,13 +628,22 @@ public class SelectedBuildingButtons {
         fireBallistaButton.setLayoutY(730);
         fireBallistaButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(fireBallistaButton);
-        pane.getChildren().add(fireBallistaButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(fireBallistaButton);
+            }
+        });
         EventHandler<MouseEvent> event5 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("fireBallista", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "fireBallista" + '\n');
                 }
             }
         };
@@ -459,13 +659,23 @@ public class SelectedBuildingButtons {
         engineerButton.setLayoutY(730);
         engineerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(engineerButton);
-        pane.getChildren().add(engineerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(engineerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("engineer", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "EngineerGuild" + '#' + "engineer" + '\n');
                 }
             }
         };
@@ -479,13 +689,23 @@ public class SelectedBuildingButtons {
         ladderManButton.setLayoutY(730);
         ladderManButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(ladderManButton);
-        pane.getChildren().add(ladderManButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(ladderManButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("ladderMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "EngineerGuild" + '#' + "ladderMan" + '\n');
                 }
             }
         };
@@ -499,13 +719,23 @@ public class SelectedBuildingButtons {
         tunnelerButton.setLayoutY(730);
         tunnelerButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(tunnelerButton);
-        pane.getChildren().add(tunnelerButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(tunnelerButton);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("tunneler", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "EngineerGuild" + '#' + "tunneler" + '\n');
                 }
             }
         };
@@ -521,13 +751,23 @@ public class SelectedBuildingButtons {
         blackMonkButton.setLayoutY(730);
         blackMonkButton.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(blackMonkButton);
-        pane.getChildren().add(blackMonkButton);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(blackMonkButton);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("blackMonk", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "BigChurch" + '#' + "blackMonk" + '\n');
                 }
             }
         };
@@ -557,6 +797,9 @@ public class SelectedBuildingButtons {
                     String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
                     if (!output.equals("tax rate changed successfully")) {
                         showError(output);
+                    } else {
+                        TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                        TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SET_TAX_RATE" + '#' + taxRate + '\n');
                     }
                 } else {
                     showError("only use number in this field");
@@ -565,8 +808,14 @@ public class SelectedBuildingButtons {
             }
         };
         submit.setOnMouseClicked(event1);
-        pane.getChildren().add(submit);
-        pane.getChildren().add(gatehouseText);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(submit);
+                pane.getChildren().add(gatehouseText);
+            }
+        });
+
     }
 
     public void drawBridge(Pane pane, SelectedBuildingMenu selectedBuildingMenu, UnitImages unitImages) {
@@ -577,7 +826,13 @@ public class SelectedBuildingButtons {
         open.setLayoutY(730);
         open.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(open);
-        pane.getChildren().add(open);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(open);
+            }
+        });
+
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -596,7 +851,13 @@ public class SelectedBuildingButtons {
         close.setLayoutY(730);
         close.setMinSize(100, 100);
         selectedBuildingsAddedButtons.add(close);
-        pane.getChildren().add(close);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(close);
+            }
+        });
+
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
