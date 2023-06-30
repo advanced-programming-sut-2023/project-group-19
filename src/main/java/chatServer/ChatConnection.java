@@ -28,24 +28,21 @@ public class ChatConnection extends Thread {
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
     }
-
     @Override
     public void run() {
         try {
-            while (true) handleCommand();
+            while(true) handleCommand();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     private void handleCommand() throws IOException {
         String typeOfRequest = dataInputStream.readUTF();
-        System.out.println("data out put stream: " + typeOfRequest);
-        switch (typeOfRequest) {
+        switch (typeOfRequest){
             case "EXIT_CHAT":
                 exitChat();
                 break;
-            case "RECEIVE_MESSAGE":
+            case "RECEIVE_MESSAGE" :
                 receiveMessage();
                 break;
             case "ENTER_CHAT":
@@ -99,7 +96,6 @@ public class ChatConnection extends Thread {
         chatServer.inChatUsers.add(socket);
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
-
     private void receiveMessage() throws IOException {
         String data = dataInputStream.readUTF();
         Message message = Message.convertFromJsonToMessage(data);
@@ -123,7 +119,6 @@ public class ChatConnection extends Thread {
             dataOutputStream.writeUTF(data);
         }
     }
-
     private void editMessage() throws IOException {
         boolean flag = false;
         String renewMessage;
@@ -147,7 +142,6 @@ public class ChatConnection extends Thread {
             }
         }
     }
-
     private void getAllMessages() throws IOException {
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }

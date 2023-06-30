@@ -28,7 +28,6 @@ public class Map {
     public ArrayList<SavedObstacles> savingObstacle = new ArrayList<>();
     public static ArrayList<ArrayList<SavedObstacles>> arrayListArrayListOfObject = new ArrayList<>();
 
-
     public void AddToBuildingMap(int x, int y, Building newBuilding) {
         buildingMap[x][y].add(newBuilding);
     }
@@ -87,23 +86,14 @@ public class Map {
         return savedMaps;
     }
 
-    public static ArrayList<SavedObstacles> convertJsonObstacleToObject(String data){
+    public static ArrayList<SavedObstacles> convertJsonObstacleToObject(String data) {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         Type type = new TypeToken<ArrayList<SavedObstacles>>(){}.getType();
-        ArrayList<SavedObstacles> a2 = gson.fromJson(data,type);
-        return a2 ;
-    }
-
-    public static String convertArrayLIstOfMapIntoJsonForm(ArrayList<SavedObstacles> data){
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
-        builder.setPrettyPrinting();
-        Gson gson = builder.create();
-        String a2 = gson.toJson(data);
-        return a2 ;
+        ArrayList<SavedObstacles> a2 = gson.fromJson(data, type);
+        return a2;
     }
     public static Map buildMap(ArrayList<SavedObstacles> arrayList){
         Map map = new Map();
@@ -157,6 +147,16 @@ public class Map {
             }
         }
         return map;
+    }
+
+
+    public static String convertArrayLIstOfMapIntoJsonForm(ArrayList<SavedObstacles> data){
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(SavedObstacles.class, new ObstacleAdapter());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String a2 = gson.toJson(data);
+        return a2 ;
     }
 
 }
