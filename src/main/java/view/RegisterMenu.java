@@ -65,11 +65,11 @@ public class RegisterMenu extends Application {
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-        try {
-            MapMethod.getMapsFromServer();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            MapMethod.getMapsFromServer();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
     public static Stage stage;
     public TextField email = new TextField();
