@@ -52,7 +52,7 @@ public class Lobby extends Application {
 
     static {
         try {
-            socket = new Socket("localhost", 8080);
+            socket = new Socket("localhost", 8888);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -19,8 +19,9 @@ import java.util.ArrayList;
 
 public class MapMethod {
 
-    public static void addNewMapToServer(Map map) throws IOException {
+    public static void addNewMapToServer(String name) throws IOException {
         //please controll that name musy not be default
+        Map map =  Map.getMapWithName(name);
         Manage.masterServerDataOutputStream.writeUTF("ADD_NEW_MAP_TO_SERVER");
         int index =  Map.getSavedMaps().indexOf(map);
         ArrayList<SavedObstacles> savedObstacles = Map.allJsonMaps.get(index);
