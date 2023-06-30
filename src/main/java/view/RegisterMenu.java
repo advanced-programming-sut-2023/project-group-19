@@ -124,6 +124,8 @@ public class RegisterMenu extends Application {
         launch();
     }
     public static int num = 1 ;
+    // dorsa : Ee7Gg7Uu2#
+    // ali : Ff2Vv0Rr3#
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -132,10 +134,10 @@ public class RegisterMenu extends Application {
         RegisterMenu.stage = stage;
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
         Media media = new Media(path);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mediaView = new MediaView(mediaPlayer);
-        if(num == 1)mediaPlayer.setAutoPlay(true);
-        mediaView.setFitWidth(1550);
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        MediaView mediaView = new MediaView(mediaPlayer);
+//        if(num == 1)mediaPlayer.setAutoPlay(true);
+//        mediaView.setFitWidth(1550);
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
 //            pane.getChildren().remove(mediaView);
 //            playLoginMusic();
@@ -167,13 +169,13 @@ public class RegisterMenu extends Application {
         if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
     private void playLoginMusic(){
-        stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        stopAllMusic();
+//        String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2 ;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
 
     private void designRegisterMenu() {

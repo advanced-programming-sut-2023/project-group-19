@@ -50,13 +50,13 @@ public class Lobby extends Application {
     public static Socket socket;
     public static NewHBox pvBox = null;
 
-    static {
-        try {
-            socket = new Socket("localhost", 8888);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    static {
+//        try {
+//            socket = new Socket("localhost", 8888);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public static Pane pane = new Pane();
     public VBox listOfAllGames;
@@ -113,10 +113,10 @@ public class Lobby extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //
-        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-        Manage.masterServerDataOutputStream = masterServerDataOutputStream;
-        Manage.masterServerDataInputStream = masterServerDataInputStream;
+//        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+//        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+//        Manage.masterServerDataOutputStream = masterServerDataOutputStream;
+//        Manage.masterServerDataInputStream = masterServerDataInputStream;
         System.out.println("HIIIIIIIII");
         user1 = new User("dorsa", "s", "a", "s", "w", "q", 3);
 
@@ -130,7 +130,7 @@ public class Lobby extends Application {
         User.users.add(user5);
         User.users.add(user1);
 
-        User.setCurrentUser(user1);
+//        User.setCurrentUser(user2);
 
         String data = User.convertUserToJson(user2);
 //        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
@@ -1038,10 +1038,10 @@ public class Lobby extends Application {
         if (!User.getCurrentUser().getChats().isEmpty()) {
             for (Chat chat : User.getCurrentUser().getChats()) {
                 User receiver = searchForGivenUserId(chat.getName());//TODO : Do we need to take it directly from server?
-                Circle clip = new Circle(25, 25, 25);
-                Image profile = receiver.getAvatar().getImage();
-                clip.setFill(new ImagePattern(profile));
-                clip.setStroke(Color.rgb(26, 11, 136));
+//                Circle clip = new Circle(25, 25, 25);
+//                Image profile = receiver.getAvatar().getImage();
+//                clip.setFill(new ImagePattern(profile));
+//                clip.setStroke(Color.rgb(26, 11, 136));
 
                 NewHBox chatBox = new NewHBox(chat, chat.getName());
                 chatBox.setPrefSize(284.1, 10);
@@ -1056,7 +1056,7 @@ public class Lobby extends Application {
 
                 chatBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);" +
                         "-fx-background-radius: 10px;");
-                chatBox.getChildren().add(clip);
+//                chatBox.getChildren().add(clip);
                 chatBox.getChildren().add(chatName);
                 setEventHandlerForChatBox(chatBox);
                 chatList.getChildren().add(chatBox);

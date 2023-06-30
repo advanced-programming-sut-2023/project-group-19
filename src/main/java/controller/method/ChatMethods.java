@@ -57,13 +57,10 @@ public class ChatMethods {
     }
 
     public synchronized static Chat addNewPrivateChat(String username) throws IOException, InterruptedException {
-        Socket socket1 = new Socket("localhost", 8080);
-        DataInputStream dataInputStream1 = new DataInputStream(socket1.getInputStream());
-        DataOutputStream dataOutputStream1 = new DataOutputStream(socket1.getOutputStream());
-        dataOutputStream1.writeUTF("ADD_PRIVATE_CHAT");
-        String data = dataInputStream1.readUTF();
-        dataOutputStream1.writeUTF(User.getCurrentUser().username);
-        dataOutputStream1.writeUTF(username);
+        Manage.masterServerDataOutputStream.writeUTF("ADD_PRIVATE_CHAT");
+        String data = Manage.masterServerDataInputStream.readUTF();
+        Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().username);
+        Manage.masterServerDataOutputStream.writeUTF(username);
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
         return new Chat(socket,username,"PRIVATE");
