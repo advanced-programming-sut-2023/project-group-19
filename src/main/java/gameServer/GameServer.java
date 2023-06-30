@@ -17,7 +17,7 @@ public class GameServer extends Thread{
         System.out.println("Starting Broker service...");
 
     }
-    public ArrayList<User> players =  new ArrayList<>();
+
 
     @Override
     public void run() {
