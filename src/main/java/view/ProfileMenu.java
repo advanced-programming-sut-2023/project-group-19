@@ -85,21 +85,15 @@ public class ProfileMenu extends Application {
 
     private void playMainMenu() throws IOException {
         stopAllMusic();
-        String defultSong = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        String defultSong = RegisterMenu.class.getResource("/Music/profileMenu.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
 
     private void stopAllMusic() throws IOException {
-        User user = new User("Doreece", "s", "a", "s", "a", "q", 2);
-        User user2 = new User("Armin", "s", "a", "s", "w", "q", 3);
-        User user3 = new User("Arian", "s", "a", "s", "w", "q", 3);
-        User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
-        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user);
         if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
         if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
         if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
@@ -122,6 +116,7 @@ public class ProfileMenu extends Application {
         stage.setFullScreen(true);
         stage.show();
     }
+
 
     private void designProfileMenu() {
         Button backButton = new Button("Back");

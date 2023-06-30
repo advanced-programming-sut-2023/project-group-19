@@ -132,6 +132,7 @@ public class LoginController {
         if (!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         User.setCurrentUser(user);
         User.loginUsers.add(user);
+
         return RegisterMessages.SUCCESS;
     }
 

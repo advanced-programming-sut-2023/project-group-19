@@ -41,13 +41,16 @@ import java.util.ArrayList;
 
 public class RegisterMenu extends Application {
     static {
+        try {
+            Manage.connectUserToMasterServer();
+            User.makeUsersFromJson();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Xx6OoBUu3#
+        //Qq8JjEe8#
 //        try {
-//            Manage.connectUserToMasterServer();
-//            User.makeUsersFromJson();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
+        //Rr8Rr9Qq8#
 //            getAllMaps();
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);

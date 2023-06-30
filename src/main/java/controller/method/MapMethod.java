@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MapMethod {
 
     public static void addNewMapToServer(Map map) throws IOException {
+        //please controll that name musy not be default
         Manage.masterServerDataOutputStream.writeUTF("ADD_NEW_MAP_TO_SERVER");
         int index =  Map.getSavedMaps().indexOf(map);
         ArrayList<SavedObstacles> savedObstacles = Map.allJsonMaps.get(index);
@@ -27,22 +28,17 @@ public class MapMethod {
         Manage.masterServerDataOutputStream.writeUTF(data);
     }
 
-    public static void getMapsFromServer() throws IOException {
+    public static ArrayList<ArrayList<SavedObstacles>> getMapsFromServer() throws IOException {
+        ArrayList<ArrayList<SavedObstacles>> savedObstaclesWhole = new ArrayList<>();
         Manage.masterServerDataOutputStream.writeUTF("GET_SAVED_MAPS");
         String number = Manage.masterServerDataInputStream.readUTF();
         int num = Integer.parseInt(number);
         for(int i = 0 ; i < num ; i ++){
             String data = Manage.masterServerDataInputStream.readUTF();
             ArrayList<SavedObstacles> savedObstacles = convertJsonToArrayList(data);
-            makeMapFromSaveObstacle(savedObstacles);
-            if(Map.getMapWithName(savedObstacles.get(0).getNameOfMap()) != null) {
-                //TODO : here add a graphic for the maps that you have
-            }else {
-                //TODO : and here add a graph that you dont have
-            }
-            //TODO : in this situation save every savedObstacle into a button(or everything you need)
-
+            savedObstaclesWhole.add(savedObstacles);
         }
+        return savedObstaclesWhole ;
     }
     private static String convertArrayListsOfSavedObstacleIntoJsonForm(ArrayList<SavedObstacles> savedObstacles){
         GsonBuilder builder = new GsonBuilder();

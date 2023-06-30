@@ -1,8 +1,16 @@
 package view;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import controller.UserAdaptor;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -20,21 +28,53 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import model.Manage;
 import model.User;
 import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.TradeAndShopImages;
 
 public class ScoreBoardMenu extends Application {
     {
-        Collections.sort(User.users);
     }
 
     public ScrollPane scrollPane;
     public static Stage stage;
     public ScrollPane friendShipScrollPane = new ScrollPane();
+    private ArrayList<User> usersScoreBoard ;
+    private Timeline timeline ;
+    private void getUsersFromServerToCompleteScoreBoard() throws IOException {
+        timeline = new Timeline(new KeyFrame(new Duration(10000),actionEvent -> {
+            try {
+                newScoreBoard();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
+        timeline.play();
+    }
+
+    private void newScoreBoard() throws IOException {
+        ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();
+        scoreBoardMenu.start(stage);
+    }
+    public void f() throws IOException {
+        Manage.masterServerDataOutputStream.writeUTF("GET_USER_FOR_SCOREBOARD");
+        String data = Manage.masterServerDataInputStream.readUTF();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(User.class, new UserAdaptor());
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        if (data.equals("")) return;
+        Type type = new TypeToken<ArrayList<User>>(){}.getType();
+        usersScoreBoard = gson.fromJson(data,type);
+        Collections.sort(usersScoreBoard);
+    }
+
 
     public void start(Stage stage) throws IOException {
-        User.makeUsersFromJson();
+        getUsersFromServerToCompleteScoreBoard();
+        f();
         GameImages gameImages = new GameImages();
         gameImages.loadImages();
         ScoreBoardMenu.stage = stage;
@@ -71,9 +111,9 @@ public class ScoreBoardMenu extends Application {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                Main main = new Main();
+                MainMenu mainMenu =  new MainMenu();
                 try {
-                    main.start(stage);
+                    mainMenu.start(stage);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -82,7 +122,7 @@ public class ScoreBoardMenu extends Application {
         pane.getChildren().add(back);
         VBox vBox = new VBox();
         setSettingToMainVbox(vBox);
-        for (User user : User.users) {
+        for (User user : usersScoreBoard) {
             //HBox
             HBox hBox = new HBox();
             setSettingsToHBox(hBox);
@@ -116,7 +156,7 @@ public class ScoreBoardMenu extends Application {
     }
 
     private void setSettingToHighSocreLabel(Label highScore, User user) {
-        highScore.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        highScore.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
         highScore.setMaxHeight(20);
         highScore.setText("" + user.getHighScore());
         highScore.setTranslateX(-10);
@@ -124,7 +164,7 @@ public class ScoreBoardMenu extends Application {
     }
 
     private void setSettingToUsernameLabel(Label username, User user) {
-        username.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        username.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
         username.setMaxHeight(20);
         username.setText(user.getUsername());
     }
@@ -150,7 +190,7 @@ public class ScoreBoardMenu extends Application {
     }
 
     private void setSettingToRankLabel(Label label, User user) {
-        label.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+        label.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
         label.setMaxHeight(20);
         label.setText("" + (User.users.indexOf(user) + 1));
         label.setTranslateX(10);
