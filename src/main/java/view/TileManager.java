@@ -187,18 +187,18 @@ public class TileManager extends Application {
     }
 
     private void readFromJson() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("log.json"));
-        if (br.readLine() == null) {
-            content = null;
-            return;
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        File file = new File("log.json");
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine())
-            stringBuilder.append(sc.nextLine()).append('\n');
-        log = stringBuilder.toString();
-        playReplay = log != null;
+//        BufferedReader br = new BufferedReader(new FileReader("log.json"));
+//        if (br.readLine() == null) {
+//            content = null;
+//            return;
+//        }
+//        StringBuilder stringBuilder = new StringBuilder();
+//        File file = new File("log.json");
+//        Scanner sc = new Scanner(file);
+//        while (sc.hasNextLine())
+//            stringBuilder.append(sc.nextLine()).append('\n');
+//        log = stringBuilder.toString();
+//        playReplay = log != null;
     }
 
     @Override
