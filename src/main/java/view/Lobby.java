@@ -1699,6 +1699,7 @@ public class Lobby extends Application {
         });
     }
 
+
     public static void removeChatStuff(){
         pane.getChildren().remove(edit);
         pane.getChildren().remove(deleteforMe);
