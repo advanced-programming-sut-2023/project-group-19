@@ -4,6 +4,7 @@ import controller.method.MapMethod;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -17,10 +18,15 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Manage;
+import model.Map;
 import model.Obstacle.SavedObstacles;
 import view.ImageAndBackground.GameImages;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.security.PublicKey;
 import java.util.ArrayList;
 
@@ -37,6 +43,10 @@ public class SelectMapMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        RegisterMenu registerMenu = new RegisterMenu();
+        Socket socket = new Socket("localhost",8888);
+        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        Manage.masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
         mapMethod = new MapMethod();
         GameImages gameImages = new GameImages();
         gameImages.loadImages();
@@ -58,10 +68,11 @@ public class SelectMapMenu extends Application {
         ArrayList<ArrayList<SavedObstacles>> arrayList = MapMethod.getMapsFromServer();
         vBox = new VBox();
         scrollPane = new ScrollPane();
-        vBox.setStyle("-fx-background-color: #871818;-fx-opacity: 0.4;-fx-background-radius: 10px");
+        vBox.setStyle("-fx-background-radius: 10px");
         vBox.setSpacing(2);
 
         for (ArrayList<SavedObstacles> savedObstacles : arrayList) {
+
             ImageView imageView = null;
             if (i % 3 ==0) imageView = new ImageView(gameImages.getMap1());
             else if (i % 3 ==1) {
@@ -70,18 +81,49 @@ public class SelectMapMenu extends Application {
                 imageView = new ImageView(gameImages.getMap3());
             }
             i++;
-            imageView.setStyle("-fx-background-radius: 10px;");
             imageView.setFitHeight(230);
             imageView.setFitWidth(580);
-            imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    MapMethod.makeMapFromSaveObstacle(savedObstacles);
-                }
-            });
+            Text text = new Text();
+
+            if(Map.getMapWithName(savedObstacles.get(0).getNameOfMap()) != null){
+                text.setText("My map");
+                text.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+                imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Download Map From Server");
+                        alert.setContentText("You can not download the map you own!");
+                        alert.showAndWait();
+                        MapMethod.makeMapFromSaveObstacle(savedObstacles);
+                    }
+                });
+                // darim
+            }else{
+                imageView.setStyle("-fx-background-radius: 10px;");
+                imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Download Map From Server");
+                        alert.setContentText("The chosen map is downloaded");
+                        alert.showAndWait();
+                        MapMethod.makeMapFromSaveObstacle(savedObstacles);
+                    }
+                });
+                // nadarim
+            }
+
+
             vBox.getChildren().add(imageView);
+            if(!text.getText().equals("")) {
+                text.setTranslateY(-25);
+                vBox.getChildren().add(text);
+            }
+
         }
         scrollPane.setPrefWidth(600);
+        scrollPane.setPrefHeight(400);
         scrollPane.setContent(vBox);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setLayoutX(500);
