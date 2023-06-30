@@ -3,6 +3,7 @@ package view;
 import controller.method.ChatMethods;
 import controller.method.MapMethod;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.css.Match;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -32,6 +33,7 @@ import view.Model.NewHBox;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
+import java.util.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -90,8 +92,72 @@ public class Lobby extends Application {
     public static ArrayList<Text> texts = new ArrayList<>();
     public static ChatMethods chatMethods;
     public ArrayList<Game> allGameRequests = new ArrayList<>();
-    public DataInputStream masterServerDataInputStream;
-    public DataOutputStream masterServerDataOutputStream;
+    public static DataInputStream masterServerDataInputStream;
+    public static DataOutputStream masterServerDataOutputStream;
+    public static User user1;
+    public static User user2;
+    public static User user3;
+    public static User user4;
+    public static User user5;
+    static {
+        try {
+            user1 = new User("z", "s", "a", "s", "w", "q", 3);
+            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
+            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+            User.setCurrentUser(user2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            socket = new Socket("localhost", 8080);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    masterServerDataOutputStream.writeUTF("START_GAME");
+                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
+                    String input = masterServerDataInputStream.readUTF();
+                    if(input.equals("start")){
+                        timer.cancel();
+                        TileManager tileManager = new TileManager();
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Stage stage1 = new Stage();
+                                try {
+                                    tileManager.start(stage1);
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        });
+
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, 0, 1000);
+
+    }
     public Label headerForChat;
     public VBox createGroupBox;
     public AnchorPane chatPane;
@@ -107,7 +173,6 @@ public class Lobby extends Application {
     //TODO : EventHandler for Back Button
 
     public VBox cornerVBox = new VBox();
-    public User user1;
     public Stage stage;
 
     @Override
@@ -130,6 +195,7 @@ public class Lobby extends Application {
         User.users.add(user5);
         User.users.add(user1);
 
+        String data = User.convertUserToJson(user1);
         User.setCurrentUser(user1);
 
         String data = User.convertUserToJson(user2);
@@ -287,19 +353,24 @@ public class Lobby extends Application {
     public void refreshLobby() throws IOException {
         allGameRequests.clear();
         masterServerDataOutputStream.writeUTF("REFRESH_LOBBY");
-        String input = masterServerDataInputStream.readUTF();
+        String input = null;
+        while (input == null)
+            input = masterServerDataInputStream.readUTF();
         String[] split = input.split("\n");
         for (int j = 0; j < split.length; j += 2) {
             String[] game = split[j].split("#");
             User user = User.getUserByName(game[0]);
-            if (game[3].equals("public")) {
-                Game game2 = new Game(user, game[1], true, Integer.parseInt(game[2]));
-                addMembers(split, j, game2);
-            } else {
-                Game game1 = new Game(user, game[1], false, Integer.parseInt(game[2]));
-                addMembers(split, j, game1);
+            if(game.length > 2) {
+                if (game[3].equals("public")) {
+                    Game game2 = new Game(user, game[1], true, Integer.parseInt(game[2]));
+                    addMembers(split, j, game2);
+                } else {
+                    Game game1 = new Game(user, game[1], false, Integer.parseInt(game[2]));
+                    addMembers(split, j, game1);
+                }
             }
         }
+
     }
 
     private void addMembers(String[] split, int j, Game game1) {
@@ -515,7 +586,7 @@ public class Lobby extends Application {
             startGame.setPrefSize(50, 10);
             startGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             startGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
-            startGame.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
+            startGame.setOnMouseClicked(mouseEvent -> startGame());
 
             listOfGameInfo.getChildren().add(changePrivacy);
             listOfGameInfo.getChildren().add(leaveGame);
@@ -605,6 +676,20 @@ public class Lobby extends Application {
 
     private void closeTheInfoBox(VBox listOfGameInfo) {
         pane.getChildren().remove(listOfGameInfo);
+    }
+    public void startGame(){
+        TileManager tileManager = new TileManager();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage stage1 = new Stage();
+                try {
+                    tileManager.start(stage1);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
 
