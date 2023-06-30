@@ -71,7 +71,7 @@ public class ScoreBoardMenu extends Application {
         Collections.sort(usersScoreBoard);
     }
 
-
+//
     public void start(Stage stage) throws IOException {
         getUsersFromServerToCompleteScoreBoard();
         f();
@@ -111,6 +111,7 @@ public class ScoreBoardMenu extends Application {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                timeline.stop();
                 MainMenu mainMenu =  new MainMenu();
                 try {
                     mainMenu.start(stage);
