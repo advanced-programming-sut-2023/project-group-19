@@ -432,6 +432,8 @@ public class Lobby extends Application {
             listOfGameInfo.getChildren().add(admin);
             listOfGameInfo.getChildren().add(players);
 
+
+
             designButtonsOfChosenGame(listOfGameInfo, game);
 
             listOfGameInfo.setPrefSize(230, 300);
