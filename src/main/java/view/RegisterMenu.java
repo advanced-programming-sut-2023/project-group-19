@@ -53,13 +53,13 @@ public class RegisterMenu extends Application {
         // IiRr5Tt7#
         //Xx6OoBUu3#
         //Qq8JjEe8#
-//        try {
+        try {
         //Rr8Rr9Qq8#
-//            getAllMaps();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        buildMaps();
+            getAllMaps();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        buildMaps();
 //        try {
 //            MapMethod.addNewMapToServer(Map.getSavedMaps().get(4));
 //        } catch (IOException e) {

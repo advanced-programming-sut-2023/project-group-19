@@ -71,10 +71,10 @@ public class CreateMapMenu extends Application {
         mediaPlayer.setCycleCount(-1);
     }
     private void stopAllMusic(){
-        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+//        if(ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+//        if(MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//        if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
     @Override
     public void start(Stage stage) throws Exception {

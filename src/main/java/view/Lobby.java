@@ -60,32 +60,32 @@ public class Lobby extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        User.makeUsersFromJson();
-
-        User user1 = new User("z", "s", "a", "s", "w", "q", 3);
-        User user2 = new User("ab", "s", "a", "s", "w", "q", 3);
-        User user3 = new User("ac", "s", "a", "s", "w", "q", 3);
-        User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
-        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user2);
-
-
-        Game game = new Game(user1, "MyGame1", true, 5);
-        Manage.allGames.add(game);
-        game.addToAllPlayers(user1);
-        game.addToAllPlayers(user2);
-        game.addToAllPlayers(user3);
-        game.addToAllPlayers(user4);
-        game.addToAllPlayers(user5);
-
-        Game game2 = new Game(user1, "MyGame2", true, 5);
-        Manage.allGames.add(game2);
-        Game game3 = new Game(user1, "MyGame3", true, 5);
-        Manage.allGames.add(game3);
-        Game game4 = new Game(user1, "MyGame4", true, 5);
-        Manage.allGames.add(game4);
-        Game game5 = new Game(user1, "MyGame5", true, 5);
-        Manage.allGames.add(game5);
+//        User.makeUsersFromJson();
+//
+//        User user1 = new User("z", "s", "a", "s", "w", "q", 3);
+//        User user2 = new User("ab", "s", "a", "s", "w", "q", 3);
+//        User user3 = new User("ac", "s", "a", "s", "w", "q", 3);
+//        User user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+//        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+//        User.setCurrentUser(user2);
+//
+//
+//        Game game = new Game(user1, "MyGame1", true, 5);
+//        Manage.allGames.add(game);
+//        game.addToAllPlayers(user1);
+//        game.addToAllPlayers(user2);
+//        game.addToAllPlayers(user3);
+//        game.addToAllPlayers(user4);
+//        game.addToAllPlayers(user5);
+//
+//        Game game2 = new Game(user1, "MyGame2", true, 5);
+//        Manage.allGames.add(game2);
+//        Game game3 = new Game(user1, "MyGame3", true, 5);
+//        Manage.allGames.add(game3);
+//        Game game4 = new Game(user1, "MyGame4", true, 5);
+//        Manage.allGames.add(game4);
+//        Game game5 = new Game(user1, "MyGame5", true, 5);
+//        Manage.allGames.add(game5);
 
         Main.stage = stage;
         gameImages = new GameImages();
