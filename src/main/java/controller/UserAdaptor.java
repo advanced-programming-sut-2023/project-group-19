@@ -32,8 +32,8 @@ public class UserAdaptor extends TypeAdapter<User> {
         writer.value(user.getNickname());
         writer.name("email");
         writer.value(user.getEmail());
-//        writer.name("chats");
-//        writer.value(returnChatsObject(user.getChats()));
+        writer.name("chats");
+        writer.value(returnChatsObject(user.getChats()));
         writer.name("recoveryQuestion");
         writer.value(user.getRecoveryQuestion());
         writer.name("slogan");

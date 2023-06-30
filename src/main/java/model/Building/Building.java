@@ -5,7 +5,7 @@ import model.Empire;
 import java.util.HashMap;
 
 public abstract class Building implements BuildingConstantFunctions {
-    private Empire owner;
+    public Empire owner;
     public String requiredGroundType;
     public int fireCount = 3;
     public boolean onFire;

@@ -1,18 +1,21 @@
-package view;
+package controller.method;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.ImageView;
 import model.Chat;
 import model.Manage;
 import model.Message;
 import model.User;
 import org.w3c.dom.CDATASection;
+import view.MessageGetter;
 
 import javax.print.attribute.standard.MediaName;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -112,5 +115,11 @@ public class ChatMethods {
         dataOutputStream.writeUTF("DELETE_JUST_FOR_ME");
         String removedMessage = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF(removedMessage);
+    }
+
+    public void sendReaction(Message myMessage) throws IOException {
+        String message = Message.convertMessageToJson(myMessage);
+        dataOutputStream.writeUTF("REACTION");
+        dataOutputStream.writeUTF(message);
     }
 }

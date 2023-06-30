@@ -18,7 +18,6 @@ import model.Obstacle.*;
 import view.Model.NewRadioButton;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
@@ -26,6 +25,7 @@ public class CreateMapMenu extends Application {
     public ToggleGroup mapToggleGroup = new ToggleGroup();
     public Pane pane ;
     public Stage stage ;
+    public TextField empireCounter ;
 
     public Map map  ;
     public RadioButton tree;
@@ -44,7 +44,9 @@ public class CreateMapMenu extends Application {
     public TextField getY1 ;
     public static Map defaultMap ;
     public static Map finalMap ;
+    public TextField inputNameOfMap;
     public CreateMapController createMapController ;
+
     static {
         defaultMap = new Map();
         defaultMap.CreateMap(Map.mapSize);
@@ -56,12 +58,12 @@ public class CreateMapMenu extends Application {
 
     private void playCreateMapMenu(){
         stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/createMapMenu.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        String defultSong  = RegisterMenu.class.getResource("/Music/createMapMenu.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2 ;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
     private void stopAllMusic(){
         if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
@@ -87,6 +89,7 @@ public class CreateMapMenu extends Application {
     private void setSettings() {
         playCreateMapMenu();
         map =  new Map();
+        map.name = "##$$##";
         map.CreateMap(100);
         createMapController = new CreateMapController(map);
         Map.getSavedMaps().add(map);
@@ -94,6 +97,8 @@ public class CreateMapMenu extends Application {
 
     private void handleDesign() {
         placeBackButton();
+        handlePlaceInputName();
+        handleEmpireCounter();
         VBox mainVbox = new VBox();
         mainVbox.setAlignment(Pos.CENTER);
         setSettingToMainVbox(mainVbox);
@@ -102,6 +107,22 @@ public class CreateMapMenu extends Application {
         handleCheckBoxForGroundType(mainVbox);
         placeSubmitButton(mainVbox);
         selectMap(mainVbox);
+    }
+    private void handleEmpireCounter() {
+        empireCounter = new TextField();
+        empireCounter.setText("2");
+        empireCounter.setPromptText("Number of empires");
+        empireCounter.setLayoutX(700);
+        empireCounter.setLayoutY(200);
+        pane.getChildren().add(empireCounter);
+    }
+
+    private void handlePlaceInputName() {
+        inputNameOfMap = new TextField();
+        inputNameOfMap.setPromptText("name of map");
+        inputNameOfMap.setLayoutX(700);
+        inputNameOfMap.setLayoutY(150);
+        pane.getChildren().add(inputNameOfMap);
     }
 
     private void placeBackButton() {
@@ -143,13 +164,29 @@ public class CreateMapMenu extends Application {
         submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                String name = inputNameOfMap.getText();
+                if(name.equals("")){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Please enter name of your map");
+                    alert.showAndWait();
+                    return;
+                }
+                if(Map.getMapWithName(name) != null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Your name is repeated!");
+                    alert.showAndWait();
+                    return;
+                }
                 if(checkSelectedToggle()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("You can't edit default map!");
                     alert.showAndWait();
                     return;
                 }
+                map.name = name ;
+                dropCastleToMap();
                 if(toggleGroup.getSelectedToggle() == null) return;
+                Map.getSavedMaps().add(map);
                 if(toggleGroup.getSelectedToggle().equals(tree)){
                     dropTree();
                 } else if(toggleGroup.getSelectedToggle().equals(stone)){
@@ -173,12 +210,18 @@ public class CreateMapMenu extends Application {
         vBox.getChildren().add(submit);
     }
 
+    private void dropCastleToMap() {
+        int count = Integer.parseInt(empireCounter.getText());
+        map.numberOfPlayers = count ;
+        createMapController.numberOfEmpires = count ;
+    }
+
     private void dropPlain() {
         int x0  =  Integer.parseInt(getX0.getText());
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.settextureGroup(x0,x1,y0,y1,"plain");
+        createMapController.settextureGroup(x0,x1,y0,y1,"plain",inputNameOfMap.getText());
     }
 
     private void dropIron() {
@@ -186,7 +229,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.settextureGroup(x0,x1,y0,y1,"iron");
+        createMapController.settextureGroup(x0,x1,y0,y1,"iron",inputNameOfMap.getText());
     }
 
     private void dropGravel() {
@@ -194,7 +237,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.settextureGroup(x0,x1,y0,y1,"gravel");
+        createMapController.settextureGroup(x0,x1,y0,y1,"gravel",inputNameOfMap.getText());
     }
 
     private void dropGrass() {
@@ -202,7 +245,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.settextureGroup(x0,x1,y0,y1,"grass");
+        createMapController.settextureGroup(x0,x1,y0,y1,"grass",inputNameOfMap.getText());
     }
 
     private void dropDash() {
@@ -210,7 +253,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.settextureGroup(x0,x1,y0,y1,"dash");
+        createMapController.settextureGroup(x0,x1,y0,y1,"dash",inputNameOfMap.getText());
     }
 
     private void recovery(){
@@ -240,7 +283,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.dropSeveralSea(x0,x1,y0,y1);
+        createMapController.dropSeveralSea(x0,x1,y0,y1,inputNameOfMap.getText());
     }
 
     private void dropStone() {
@@ -248,7 +291,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.dropSeveralStone(x0,x1,y0,y1);
+        createMapController.dropSeveralStone(x0,x1,y0,y1,inputNameOfMap.getText());
     }
 
     private void dropTree(){
@@ -256,7 +299,7 @@ public class CreateMapMenu extends Application {
         int x1  =  Integer.parseInt(getX1.getText());
         int y0  =  Integer.parseInt(getY0.getText());
         int y1  =  Integer.parseInt(getY1.getText());
-        createMapController.dropSeveralTrees(x0,x1,y0,y1);
+        createMapController.dropSeveralTrees(x0,x1,y0,y1, "TREE",inputNameOfMap.getText());
     }
     private void handleGetCoordinate(VBox vBox) {
         placeTextFields(vBox);
@@ -332,6 +375,7 @@ public class CreateMapMenu extends Application {
         }
     }
     private static void artOfTree(Map map) {
+        map.name = "default";
         dropTreeToLocation(0, 0, 12, 5,map);
         dropTreeToLocation(0, 3, 8, 1,map);
         dropTreeToLocation(1, 0, 10, 5,map);

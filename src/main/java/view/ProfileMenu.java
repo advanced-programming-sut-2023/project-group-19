@@ -112,7 +112,7 @@ public class ProfileMenu extends Application {
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User user6 = new User("test1", "s", "a", "s", "w", "q", 3);
         User user7 = new User("test2", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user3);
+        User.setCurrentUser(user2);
 //        user.myFriends.add(user2);
 //        user.myFriends.add(user3);
 
