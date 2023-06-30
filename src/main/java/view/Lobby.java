@@ -1540,6 +1540,7 @@ public class Lobby extends Application {
             if (myMessage.getReaction() != null && myMessage.getReaction().length() != 0){
                 imageView = new ImageView(new Image(TileManager.class.getResource
                         (myMessage.getReaction()).toExternalForm()));
+                messageBox.getChildren().add(imageView);
             }
 
             Text content = new Text(myMessage.getContent());
@@ -1551,7 +1552,6 @@ public class Lobby extends Application {
                     "-fx-text-fill: #ffffff;");
             textFlow.setPadding(new Insets(5,10,5,10));
 
-            messageBox.getChildren().add(imageView);
             messageBox.getChildren().add(textFlow);
             if (myMessage.getSender().equals(User.getCurrentUser().getUsername())) {
                 textFlow.setTextAlignment(TextAlignment.LEFT);
