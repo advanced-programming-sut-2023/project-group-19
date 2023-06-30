@@ -35,7 +35,10 @@ public class MapMethod {
         int num = Integer.parseInt(number);
         for(int i = 0 ; i < num ; i ++){
             String data = Manage.masterServerDataInputStream.readUTF();
+            System.out.println(data);
             ArrayList<SavedObstacles> savedObstacles = convertJsonToArrayList(data);
+            if(savedObstacles.isEmpty())continue;
+            System.out.println(savedObstacles.get(0).nameOfMap);
             savedObstaclesWhole.add(savedObstacles);
         }
         return savedObstaclesWhole ;

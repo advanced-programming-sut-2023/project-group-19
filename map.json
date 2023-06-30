@@ -183,3 +183,137 @@
   }
 ]
 []
+[
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "nameOfMap": "trees of life",
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "nameOfMap": "trees of life",
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 1,
+    "nameOfMap": "trees of life",
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "trees of life",
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "trees of life",
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "trees of life",
+    "y": 4
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "trees of life",
+    "y": 2
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "trees of life",
+    "y": 3
+  },
+  {
+    "name": "SEA",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "trees of life",
+    "y": 4
+  }
+]
+[
+  {
+    "name": "STONE",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "trees of nlifde",
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 2,
+    "nameOfMap": "trees of nlifde",
+    "y": 2
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "trees of nlifde",
+    "y": 1
+  },
+  {
+    "name": "STONE",
+    "type": "",
+    "numberOfPlayers": 2,
+    "notBuildable": true,
+    "notPassable": true,
+    "x": 3,
+    "nameOfMap": "trees of nlifde",
+    "y": 2
+  }
+]

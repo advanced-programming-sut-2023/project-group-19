@@ -61,15 +61,15 @@ public class RegisterMenu extends Application {
         }
         buildMaps();
 //        try {
-//            MapMethod.addNewMapToServer(Map.getSavedMaps().get(4));
+//            MapMethod.addNewMapToServer(Map.getSavedMaps().get(1));
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-//        try {
-//            MapMethod.getMapsFromServer();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            MapMethod.getMapsFromServer();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     public static Stage stage;
     public TextField email = new TextField();
@@ -739,14 +739,18 @@ public class RegisterMenu extends Application {
             Map.allJsonMaps.add(mapSaved);
         }
     }
+    // Hh0Jj4Ii3#
+    // sam
     private static void buildMaps(){
        int size  =  Map.allJsonMaps.size();
         System.out.println(size);
         for(int i = 0; i < size ; i ++){
             ArrayList<SavedObstacles> savedObstaclesArrayList = Map.allJsonMaps.get(i);
+            if (savedObstaclesArrayList.isEmpty()) continue;
             Map map = new Map();
             map.CreateMap(Map.mapSize);
             for(SavedObstacles saveObject  : savedObstaclesArrayList){
+                map.name = saveObject.nameOfMap ;
                 boolean isGroundType = false ;
                 int x = saveObject.x ;
                 int y = saveObject.y ;

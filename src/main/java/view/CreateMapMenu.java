@@ -22,7 +22,6 @@ import java.io.IOException;
 
 public class CreateMapMenu extends Application {
     public ToggleGroup toggleGroup = new ToggleGroup();
-
     public ToggleGroup mapToggleGroup = new ToggleGroup();
     public Pane pane ;
     public Stage stage ;
@@ -173,7 +172,6 @@ public class CreateMapMenu extends Application {
         System.out.println("into place button: " + Map.getSavedMaps().size());
 
         submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("into place button: " + Map.getSavedMaps().size());
