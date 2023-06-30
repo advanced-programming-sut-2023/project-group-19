@@ -14,35 +14,38 @@ import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ChatConnection extends Thread{
+public class ChatConnection extends Thread {
     public Socket socket;
-    public DataInputStream dataInputStream ;
+    public DataInputStream dataInputStream;
     public ChatServer chatServer;
-    public DataOutputStream dataOutputStream ;
-    public ChatConnection(Socket socket,ChatServer chatServer) throws IOException {
+    public DataOutputStream dataOutputStream;
+
+    public ChatConnection(Socket socket, ChatServer chatServer) throws IOException {
         System.out.println("New connection form: chat connection" + socket.getInetAddress() + ":" + socket.getPort());
-        this.chatServer = chatServer ;
+        this.chatServer = chatServer;
         chatServer.allSockets.add(socket);
         this.socket = socket;
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
     }
+
     @Override
     public void run() {
         try {
-            while(true) handleCommand();
+            while (true) handleCommand();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     private void handleCommand() throws IOException {
         String typeOfRequest = dataInputStream.readUTF();
         System.out.println("data out put stream" + typeOfRequest);
-        switch (typeOfRequest){
+        switch (typeOfRequest) {
             case "EXIT_CHAT":
                 exitChat();
                 break;
-            case "RECEIVE_MESSAGE" :
+            case "RECEIVE_MESSAGE":
                 receiveMessage();
                 break;
             case "ENTER_CHAT":
@@ -60,6 +63,9 @@ public class ChatConnection extends Thread{
             case "DELETE_JUST_FOR_ME":
                 deleteJustForMe();
                 break;
+            case "REACTION":
+                setReaction();
+                break;
         }
     }
 
@@ -67,11 +73,12 @@ public class ChatConnection extends Thread{
         String data = dataInputStream.readUTF();
         String groupName = dataInputStream.readUTF();
         Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<String>>(){}.getType();
-        ArrayList<String> users = gson.fromJson(data,type);
-        for(String username : users) {
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ArrayList<String> users = gson.fromJson(data, type);
+        for (String username : users) {
             Socket socket = Connection.allSockets.get(username);
-            Chat chat =  new Chat(groupName,chatServer.port,"GROUP");
+            Chat chat = new Chat(groupName, chatServer.port, "GROUP");
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         }
@@ -81,17 +88,18 @@ public class ChatConnection extends Thread{
         chatServer.inChatUsers.remove(socket);
     }
 
-    private Socket findChatSocketFromPort(int port){
-        for(Socket socket : chatServer.allSockets){
-            if(socket.getPort() ==  port) return socket ;
+    private Socket findChatSocketFromPort(int port) {
+        for (Socket socket : chatServer.allSockets) {
+            if (socket.getPort() == port) return socket;
         }
-        return null ;
+        return null;
     }
 
     private void showMessages() throws IOException {
         chatServer.inChatUsers.add(socket);
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
+
     private void receiveMessage() throws IOException {
         String data = dataInputStream.readUTF();
         Message message = Message.convertFromJsonToMessage(data);
@@ -100,12 +108,13 @@ public class ChatConnection extends Thread{
     }
 
     private void sendMessageToWholeSockets(String data) throws IOException {
-        for(Socket socket : chatServer.inChatUsers){
-            System.out.println("Inside loop---> "+data);
+        for (Socket socket : chatServer.inChatUsers) {
+            System.out.println("Inside loop---> " + data);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(data);
         }
     }
+
     private void editMessage() throws IOException {
         boolean flag = false;
         String renewMessage;
@@ -113,21 +122,22 @@ public class ChatConnection extends Thread{
         String newMessage = dataInputStream.readUTF();
         Message ancientOne = Message.convertFromJsonToMessage(oldMessage);
         Message newOne = Message.convertFromJsonToMessage(newMessage);
-        for (int i = 0 ; i < chatServer.allMessages.size() ; i++){
+        for (int i = 0; i < chatServer.allMessages.size(); i++) {
             Message message = chatServer.allMessages.get(i);
             if (message.getContent().equals(ancientOne.getContent())
-                    && message.getSender().equals(ancientOne.getSender())){
+                    && message.getSender().equals(ancientOne.getSender())) {
                 chatServer.allMessages.remove(message);
                 if (message.getContent().length() != 0) {
                     chatServer.allMessages.add(i, newOne);
                 }
-                newOne.setContent("#"+i+"#"+newOne.getContent());
+                newOne.setContent("#" + i + "#" + newOne.getContent());
                 renewMessage = Message.convertFromJsonToMessageToString(newOne);
                 sendMessageToWholeSockets(renewMessage);
                 break;
             }
         }
     }
+
     private void getAllMessages() throws IOException {
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
@@ -138,7 +148,7 @@ public class ChatConnection extends Thread{
         String chosenMessage = dataInputStream.readUTF();
         Message toBeDeleted = Message.convertFromJsonToMessage(chosenMessage);
 
-        for (int i = 0 ; i < chatServer.allMessages.size() ; i++){
+        for (int i = 0; i < chatServer.allMessages.size(); i++) {
             Message message = chatServer.allMessages.get(i);
             if (message.getContent().equals(toBeDeleted.getContent())
                     && message.getSender().equals(toBeDeleted.getSender())) {
@@ -146,12 +156,31 @@ public class ChatConnection extends Thread{
                 if (message.getContent().length() != 0) {
                     chatServer.allMessages.add(i, toBeDeleted);
                 }
-                toBeDeleted.setContent("#"+toBeDeleted.getSender()+"#"+toBeDeleted.getContent());
+                toBeDeleted.setContent("#" + toBeDeleted.getSender() + "#" + toBeDeleted.getContent());
                 finalMessageToDelete = Message.convertFromJsonToMessageToString(toBeDeleted);
                 flag = true;
                 break;
             }
         }
         if (flag) sendMessageToWholeSockets(finalMessageToDelete);
+    }
+
+    private void setReaction() throws IOException {
+        String renewMessage;
+        String myMessage = dataInputStream.readUTF();
+        Message reactedMessage = Message.convertFromJsonToMessage(myMessage);
+        System.out.println("@Message is : " + reactedMessage.getReaction());
+        for (int i = 0; i < chatServer.allMessages.size(); i++) {
+            Message message = chatServer.allMessages.get(i);
+            if (message.getContent().equals(reactedMessage.getContent())
+                    && message.getSender().equals(reactedMessage.getSender())) {
+                chatServer.allMessages.remove(message);
+                chatServer.allMessages.add(i, reactedMessage);
+                reactedMessage.setContent("#" + i + "#reacted#" + reactedMessage.getContent());
+                renewMessage = Message.convertFromJsonToMessageToString(reactedMessage);
+                sendMessageToWholeSockets(renewMessage);
+                break;
+            }
+        }
     }
 }
