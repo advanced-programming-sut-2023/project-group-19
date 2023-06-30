@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.scene.image.ImageView;
+
 import model.adaaptors.MessageAdaptor;
+import view.Lobby;
 
 import java.lang.reflect.Type;
 import java.time.LocalTime;
@@ -28,7 +30,7 @@ public class Message {
         this.avatar = avatar;
         LocalTime localTime = LocalTime.now();
         String[] list = localTime.toString().split(":");
-        this.sentTime = list[0]+":"+list[1];
+        this.sentTime = list[0]+":"+list[1]+"."+list[2];
     }
 
     public String getSender() {

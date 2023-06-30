@@ -21,12 +21,21 @@ public class GameImages {
     public Image like;
     public Image dislike;
     public Image heart;
+    public Image reload;
+    public Image lobby;
+    public Image createRoom;
+
+    public Image map1;
+    public Image map2;
+    public Image map3;
+
     public Background loginBackground;
     public Background registerBackground;
 
     public Background profileBackground;
     public Background mainMenuBackground;
     public Background lobbyBackground;
+
 
 
 
@@ -62,6 +71,12 @@ public class GameImages {
         like = new Image(TileManager.class.getResource("/image/LobbyImages/like.png").toExternalForm());
         dislike = new Image(TileManager.class.getResource("/image/LobbyImages/dislike.png").toExternalForm());
         heart = new Image(TileManager.class.getResource("/image/LobbyImages/heart.png").toExternalForm());
+        reload = new Image(TileManager.class.getResource("/image/LobbyImages/reload.png").toExternalForm());
+        lobby = new Image(TileManager.class.getResource("/image/LobbyImages/lobby.png").toExternalForm());
+        createRoom = new Image(TileManager.class.getResource("/image/LobbyImages/comment.png").toExternalForm());
+        map1 = new Image(TileManager.class.getResource("/image/LobbyImages/map1.jpg").toExternalForm());
+        map2 = new Image(TileManager.class.getResource("/image/LobbyImages/map2.jpg").toExternalForm());
+        map3 = new Image(TileManager.class.getResource("/image/LobbyImages/map3.jpg").toExternalForm());
     }
 
 
@@ -145,5 +160,29 @@ public class GameImages {
 
     public Image getHeart() {
         return heart;
+    }
+
+    public Image getReload() {
+        return reload;
+    }
+
+    public Image getLobby() {
+        return lobby;
+    }
+
+    public Image getCreateRoom() {
+        return createRoom;
+    }
+
+    public Image getMap1() {
+        return map1;
+    }
+
+    public Image getMap2() {
+        return map2;
+    }
+
+    public Image getMap3() {
+        return map3;
     }
 }

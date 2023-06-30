@@ -62,12 +62,12 @@ public class CreateMapMenu extends Application {
 
     private void playCreateMapMenu(){
         stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/createMapMenu.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        String defultSong  = RegisterMenu.class.getResource("/Music/createMapMenu.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2 ;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
     private void stopAllMusic(){
 //        if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();

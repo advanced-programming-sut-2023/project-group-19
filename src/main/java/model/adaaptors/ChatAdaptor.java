@@ -15,7 +15,7 @@ public class ChatAdaptor extends TypeAdapter<Chat> {
         writer.beginObject();
         writer.name("name");
         writer.value(chat.getName());
-        writer.name("socket");
+        writer.name("port");
         writer.value(chat.getSocket().getPort());
         writer.name("type");
         writer.value(chat.getType());

@@ -1,12 +1,16 @@
 package controller.method;
 
+import javafx.application.Platform;
 import model.Message;
+import model.User;
+import view.Lobby;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 
 public class MessageGetter extends Thread{
     public DataInputStream dataInputStream ;
+    public Message newMessage;
     public MessageGetter(DataInputStream dataInputStream){
         this.dataInputStream  = dataInputStream ;
     }
@@ -15,7 +19,30 @@ public class MessageGetter extends Thread{
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Thread.sleep(500);
-                getMessage();
+                Message message = getMessage();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        String content = message.getContent();
+                        if (content.matches("#\\d+#.*")){
+                            try {
+                                Lobby.editMessage(message);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }else if (content.matches("#\\S+#.+")){
+                            try {
+                                Lobby.deleteMessageJustForMe(message);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }else{
+                            System.out.println("You've reached addMessage");
+                            Lobby.addNewMessageToChat(message);
+                        }
+                    }
+                });
+
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Thread was interrupted with reason : " + e.getMessage());
@@ -26,8 +53,10 @@ public class MessageGetter extends Thread{
         System.out.println(Thread.currentThread().getName() + " Stopped");
         return;
     }
-    public void getMessage() throws IOException {
+    public Message getMessage() throws IOException {
         String data = dataInputStream.readUTF();
         Message message = Message.getMessageFromJson(data);
+        System.out.println("Message is : "+message.getContent());
+        return message;
     }
 }

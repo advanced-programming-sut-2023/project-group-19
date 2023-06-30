@@ -174,25 +174,26 @@ public class GameController {
             }
         });
     }
-    public void selectUnitForLog(String[] command , ArrayList<NewButton>[][] allButtons ){
+
+    public void selectUnitForLog(String[] command, ArrayList<NewButton>[][] allButtons) {
         int counter = 0;
-        NewButton newButton = allButtons[Integer.parseInt(command[4])][Integer.parseInt(command[5])].get(0);
-        for(int i = 0 ;  i < newButton.getArmy().size(); i++){
-            if(counter == Integer.parseInt(command[3]))
-                break;
-            if(newButton.getArmy().get(i).getNames().getName().equals(command[2])) {
-                selectedUnit.add(newButton.getArmy().get(i));
-                counter++;
+        if (command.length > 2) {
+            NewButton newButton = allButtons[Integer.parseInt(command[4])][Integer.parseInt(command[5])].get(0);
+            for (int i = 0; i < newButton.getArmy().size(); i++) {
+                if (counter == Integer.parseInt(command[3]))
+                    break;
+                if (newButton.getArmy().get(i).getNames().getName().equals(command[2])) {
+                    selectedUnit.add(newButton.getArmy().get(i));
+                    counter++;
+                }
             }
         }
     }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
-        boolean flag = false;
         HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
         for (NewButton selectedButton : selectedButtons) {
             for (Army army : selectedButton.getArmy()) {
-                flag = true;
                 ArrayList<Army> armies = new ArrayList<>();
                 if (army.getOwner().equals(Manage.getCurrentEmpire())) {
                     if (!editInfoOfRepeatedUnitNames(listOfUnits, army)) {
@@ -201,10 +202,6 @@ public class GameController {
                     }
                 }
             }
-        }
-        if (flag) {
-            TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-            TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" + '\n');
         }
         return listOfUnits;
     }

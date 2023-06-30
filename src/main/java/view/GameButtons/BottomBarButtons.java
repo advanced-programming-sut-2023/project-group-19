@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class BottomBarButtons {
-    public Map map ;
+    public Map map;
 
     public void createButtons(Pane pane, BottomBarImages bottomBarImages, BottomBarBuildings bottomBarBuildings, BuildingImages buildingImages) {
         ImageView imageView = new ImageView(bottomBarImages.getBottomImage());
@@ -217,7 +217,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "DATA_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "DATA_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 EmpireButtons empireButtons = new EmpireButtons();
                 EmpireMenu empireMenu = new EmpireMenu();
@@ -229,7 +229,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "CASTLE_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "CASTLE_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createCastleButtons(pane, buildingImages);
             }
@@ -239,7 +239,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "FOOD_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "FOOD_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createFarmButtons(pane, buildingImages);
             }
@@ -249,7 +249,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "HAMMER_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "HAMMER_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createIndustryButtons(pane, buildingImages);
             }
@@ -259,7 +259,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "HOME_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "HOME_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createTownButtons(pane, buildingImages);
             }
@@ -269,7 +269,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SHIELD_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SHIELD_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createWeaponsButtons(pane, buildingImages);
             }
@@ -279,7 +279,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SICKLE_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SICKLE_BUTTON" + '\n');
                 bottomBarBuildings.clearPane(pane);
                 bottomBarBuildings.createFoodButtons(pane, buildingImages);
             }
@@ -288,7 +288,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "GAME_OPTION_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "GAME_OPTION_BUTTON" + '\n');
                 Pane pane1 = new Pane();
                 Button button = new Button();
                 Button button1 = new Button();
@@ -316,7 +316,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "INFORMATION_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "INFORMATION_BUTTON" + '\n');
                 Pane pane1 = new Pane();
                 Text text = new Text();
                 Text text2 = new Text();
@@ -349,7 +349,7 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "DELETE_BUTTON" +  '\n');
+                TileManager.gameLog.append(TileManager.time + '#' + "MOUSE_CLICK" + '#' + "DELETE_BUTTON" + '\n');
                 delete();
             }
         });
@@ -357,20 +357,23 @@ public class BottomBarButtons {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "UNDO_BUTTON" +  '\n');
-                undo(pane , map);
+                TileManager.gameLog.append(TileManager.time + '#' + "UNDO_BUTTON" + '\n');
+                undo(pane, map);
             }
         });
     }
-    public static void delete(){
+
+    public static void delete() {
         if (TileManager.deleteOn) {
             TileManager.deleteOn = false;
         } else {
             TileManager.deleteOn = true;
         }
     }
-    public static void undo(Pane pane , Map map){
+
+    public static void undo(Pane pane, Map map) {
         if (BottomBarBuildings.lastButton != null) {
+            System.out.println("ENTERED");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
