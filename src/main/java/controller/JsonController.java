@@ -24,7 +24,8 @@ public class JsonController {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         String jsonAsString = gson.toJson(object);
-        SendInformationToMasterServer.sendMapToServer(jsonAsString);
+        System.out.println(jsonAsString);
+//        SendInformationToMasterServer.sendMapToServer(jsonAsString);
         try (FileWriter file = new FileWriter(fileName)) {
             StringBuilder sb = new StringBuilder();
             if(content != null)sb.append(content);

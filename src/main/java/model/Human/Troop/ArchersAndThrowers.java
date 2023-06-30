@@ -13,8 +13,6 @@ public class ArchersAndThrowers extends Army implements HumanConstantFunctions {
     }
     public Image defaultImage;
 
-    public int height;
-
     public void setNames(Names names) {
         this.names = names;
     }

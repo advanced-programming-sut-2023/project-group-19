@@ -12,8 +12,8 @@ import view.Model.NewButton;
 import view.TileManager;
 
 public class CreateMapController {
+    public int numberOfEmpires ;
     public Map map;
-    public static int numberOfEmpires;
     public static boolean mapIsBuilt = false;
     private static int sizeOfMap = Map.mapSize;
 
@@ -25,22 +25,22 @@ public class CreateMapController {
         return sizeOfMap;
     }
 
-    public void recovery() {
-        for (int i = 0; i < sizeOfMap; i++) {
-            for (int j = 0; j < sizeOfMap; j++) {
-                numberOfEmpires = 0 ;
-                map.getBuildingMap()[i][j].clear();
-                map.getTroopMap()[i][j].clear();
-                map.getObstacleMap()[i][j].clear();
-                map.getGroundType()[i][j].clear();
-//                map.notBuildable[i][j] = false ;
-                map.notPassable[i][j] = false ;
-                User.loginUsers.clear();
-                User.loginUsers.add(User.getCurrentUser());
-                mapIsBuilt = false;
-            }
-        }
-    }
+//    public void recovery() {
+//        for (int i = 0; i < sizeOfMap; i++) {
+//            for (int j = 0; j < sizeOfMap; j++) {
+//                numberOfEmpires = 0 ;
+//                map.getBuildingMap()[i][j].clear();
+//                map.getTroopMap()[i][j].clear();
+//                map.getObstacleMap()[i][j].clear();
+//                map.getGroundType()[i][j].clear();
+////                map.notBuildable[i][j] = false ;
+//                map.notPassable[i][j] = false ;
+//                User.loginUsers.clear();
+//                User.loginUsers.add(User.getCurrentUser());
+//                mapIsBuilt = false;
+//            }
+//        }
+//    }
 
     public String CreateMap(int size) {
         mapIsBuilt = true;
@@ -72,7 +72,7 @@ public class CreateMapController {
         map.getGroundType()[x][y].add(groundType);
         return "Change is done successfully!";
     }
-    public String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type){
+    public String settextureGroup(int x1 , int x2 , int y1 , int y2 , String type,String nameOfMap){
 //        if (!mapIsBuilt) return "You first must build a map!";
         if(x1 > x2 || y1 > y2) return "Please make sure that x and y are correctly assigned!";
         if(x1 < 0 || x2 >= sizeOfMap || y1 < 0 || y2 >= sizeOfMap) return "Yure location is out of bounds";
@@ -84,7 +84,7 @@ public class CreateMapController {
                 map.getGroundType()[i][j].clear();
                 map.getGroundType()[i][j].add(groundType);
                 SavedObstacles savedObstacles = new SavedObstacles();
-                consGorSavedObject(savedObstacles,"GROUND_TYPE",type,false,false,i,j);
+                consGorSavedObject(savedObstacles,"GROUND_TYPE",type,false,false,i,j,nameOfMap);
                 map.savingObstacle.add(savedObstacles);
                 if(groundType.equals(GroundType.STONE_ROCK)){
                     map.notPassable[i][j] = true ;
@@ -108,7 +108,7 @@ public class CreateMapController {
         return "Clear successfully";
     }
 
-    public String dropRock(int x, int y, String type) {
+    public String dropRock(int x, int y, String type,String nameOfMap) {
         if(type.equals("r")) type = "w";
         if (!type.equals("n") && !type.equals("e") && !type.equals("w") && !type.equals("s"))
             return "Choose direction correctly!";
@@ -123,26 +123,26 @@ public class CreateMapController {
 
 //        s =  new ObstacleName("stone","w",x,y);
         SavedObstacles savedObstacles = new SavedObstacles();
-        consGorSavedObject(savedObstacles,"STONE","",true,true,x,y);
+        consGorSavedObject(savedObstacles,"STONE","",true,true,x,y,nameOfMap);
         map.savingObstacle.add(savedObstacles);
 //        map.savingObstacle.add(savedObstacles);
         return "Successfully";
     }
-    public void dropSeveralStone(int x1 , int x2, int y1 , int y2){
+    public void dropSeveralStone(int x1 , int x2, int y1 , int y2,String nameOfMap){
         for(int i =  x1 ; i  <=  x2 ; i ++){
             for(int j = y1 ; j <= y2  ; j ++){
-                dropRock(i,j,"w");
+                dropRock(i,j,"w",nameOfMap);
             }
         }
     }
-    public void dropSeveralTrees(int x1 ,  int x2, int y1 , int y2){
+    public void dropSeveralTrees(int x1 ,  int x2, int y1 , int y2,String name,String nameOfMap){
         for(int i =  x1 ; i  <=  x2 ; i ++){
             for(int j = y1 ; j <= y2  ; j ++){
-                dropTree(i,j,"desertTree");
+                dropTree(i,j,"desertTree",nameOfMap,nameOfMap);
             }
         }
     }
-    public void dropSea(int x , int y){
+    public void dropSea(int x , int y,String nameOfMap){
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return ;
         if(map.notBuildable[x][y]) return ;
 
@@ -153,26 +153,31 @@ public class CreateMapController {
         map.notBuildable[x][y]  = true ;
        map.notPassable[x][y] = true ;
         SavedObstacles savedObstacles = new SavedObstacles();
-        consGorSavedObject(savedObstacles,"SEA","",true,true,x,y);
+        consGorSavedObject(savedObstacles,"SEA","",true,true,x,y,nameOfMap);
         map.savingObstacle.add(savedObstacles);
 
     }
-    private void consGorSavedObject(SavedObstacles savedObstacles,String name  , String type , boolean notBuildable ,boolean notPassable , int x , int y){
-        savedObstacles.name =  name ;
+    private void consGorSavedObject(SavedObstacles savedObstacles,String name  ,
+                                    String type , boolean notBuildable ,boolean notPassable
+            , int x , int y,String nameOfMap){
+        savedObstacles.name = name ;
         savedObstacles.type  = type ;
         savedObstacles.notBuildable =  notBuildable ;
         savedObstacles.notPassable =  notPassable ;
         savedObstacles.x = x ;
         savedObstacles.y = y ;
+        savedObstacles.nameOfMap = nameOfMap ;
+        savedObstacles.numberOfPlayers =  numberOfEmpires ;
+
     }
-    public void dropSeveralSea(int x1, int x2, int y1, int y2) {
+    public void dropSeveralSea(int x1, int x2, int y1, int y2,String nameOfMap) {
         for(int i =  x1 ; i  <=  x2 ; i ++){
             for(int j = y1 ; j <= y2  ; j ++){
-                dropSea(i,j);
+                dropSea(i,j,nameOfMap);
             }
         }
     }
-    public String dropTree(int x , int y , String type){
+    public String dropTree(int x , int y , String type,String name,String nameOfMap){
 //        if (!mapIsBuilt) return "You first must build a map!";
         if(x < 0 || x >= sizeOfMap || y < 0 || y >= sizeOfMap) return "yure location is out of bounds";
 
@@ -196,7 +201,7 @@ public class CreateMapController {
             return "Selected tree does not exist";
         }
         SavedObstacles savedObstacles = new SavedObstacles();
-        consGorSavedObject(savedObstacles,"TREE","",true,false,x,y);
+        consGorSavedObject(savedObstacles,"TREE","",true,false,x,y,nameOfMap);
         map.savingObstacle.add(savedObstacles);
 //        map.savingObstacle.add(savedObstacles);
 

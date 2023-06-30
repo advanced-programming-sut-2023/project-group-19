@@ -294,17 +294,17 @@ public class GameController {
         return GameMenuMessages.SUCCESS;
     }
 
-    public void setStateArmy() {
-        selectedUnit.clear();
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
-                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
-                continue;
-            selectedUnit.add(army);
-            findEnemyInRange(army, army.getArmyForm());
-            selectedUnit.clear();
-        }
-    }
+//    public void setStateArmy() {
+//        selectedUnit.clear();
+//        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+//            if (isArcher(army) || army.getArmyForm().equals(Names.STANDING_ARMY.getName())
+//                    || army.isIntFight || (army.myPath != null && !army.hasMovedForDefensiveState))
+//                continue;
+//            selectedUnit.add(army);
+//            findEnemyInRange(army, army.getArmyForm());
+//            selectedUnit.clear();
+//        }
+//    }
 
 
     public void dropUnits(int x, int y, int typeOfUnit, int count, NewButton button) {
@@ -678,26 +678,26 @@ public class GameController {
         return true;
     }
 
-    private static void findEnemyInRange(Army army, String State) {
-        int x = army.xCoordinate;
-        int y = army.yCoordinate;
-        int x1, x2, y1, y2;
-        for (int i = 1; i <= army.getAttackRange(); i++) {
-            x1 = x - i;
-            x2 = x + i;
-            y1 = y - i;
-            y2 = y + i;
-            if (x1 <= 0) x1 = 0;
-            if (x2 >= mapSize) x2 = mapSize - 1;
-            if (y1 <= 0) y1 = 0;
-            if (y2 >= mapSize) y2 = mapSize - 1;
-            if (State.equals(Names.OFFENSIVE.getName())) {
-                if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army, i)) return;
-            } else {
-                if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
-            }
-        }
-    }
+//    private static void findEnemyInRange(Army army, String State) {
+//        int x = army.xCoordinate;
+//        int y = army.yCoordinate;
+//        int x1, x2, y1, y2;
+//        for (int i = 1; i <= army.getAttackRange(); i++) {
+//            x1 = x - i;
+//            x2 = x + i;
+//            y1 = y - i;
+//            y2 = y + i;
+//            if (x1 <= 0) x1 = 0;
+//            if (x2 >= mapSize) x2 = mapSize - 1;
+//            if (y1 <= 0) y1 = 0;
+//            if (y2 >= mapSize) y2 = mapSize - 1;
+//            if (State.equals(Names.OFFENSIVE.getName())) {
+//                if (moveUnitToEnemyLocationAngry(x, y, x1, x2, y1, y2, army, i)) return;
+//            } else {
+//                if (moveUnitToEnemyLocationDefensive(x, y, x1, x2, y1, y2, army, i)) return;
+//            }
+//        }
+//    }
 
     private static boolean isSameGridIntoRange(int x, int y, Army army, int chosenX, int chosenY) {
         int x1 = x - army.getAttackRange();
@@ -711,86 +711,86 @@ public class GameController {
         return chosenX >= x1 && chosenX <= x2 && chosenY >= y1 && chosenY <= y2;
     }
 
-    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        for (Army enemy : Map.getTroopMap()[x][y]) {
-            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
-        }
-        for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
-                if (i == x && j == y) continue;
-                for (Army enemy : Map.getTroopMap()[i][j]) {
-                    if (army.getPastXcordinate() == army.getCurrentX() && army.getPastYcordinate() == army.getCurrentY()) {
-                        army.hasMovedForDefensiveState = false;
-                    }
-                    if (!army.getEmpire().equals(enemy.getEmpire())) {
-                        if (!army.hasMovedForDefensiveState) {
-                            army.setPastXcordinate(x);
-                            army.setPastYcordinate(y);
-                            //gameController.moveUnit(i, j);
-                            //army.hasMovedForDefensiveState = true;
-                            return true;
-                        }
-                        if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
-                            //gameController.moveUnit(i, j);
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
-            //gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    private static boolean moveUnitToEnemyLocationDefensive(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
+//        for (Army enemy : Map.getTroopMap()[x][y]) {
+//            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
+//        }
+//        for (int i = x1; i <= x2; i++) {
+//            for (int j = y1; j <= y2; j++) {
+//                if (i == x && j == y) continue;
+//                for (Army enemy : Map.getTroopMap()[i][j]) {
+//                    if (army.getPastXcordinate() == army.getCurrentX() && army.getPastYcordinate() == army.getCurrentY()) {
+//                        army.hasMovedForDefensiveState = false;
+//                    }
+//                    if (!army.getEmpire().equals(enemy.getEmpire())) {
+//                        if (!army.hasMovedForDefensiveState) {
+//                            army.setPastXcordinate(x);
+//                            army.setPastYcordinate(y);
+//                            //gameController.moveUnit(i, j);
+//                            //army.hasMovedForDefensiveState = true;
+//                            return true;
+//                        }
+//                        if (isSameGridIntoRange(army.getPastXcordinate(), army.getPastYcordinate(), army, i, j)) {
+//                            //gameController.moveUnit(i, j);
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if (range == army.getAttackRange() && army.hasMovedForDefensiveState) {
+//            //gameController.moveUnit(army.getPastXcordinate(), army.getPastYcordinate());
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
-    public void setEnemyToTarget() {
-        selectedUnit.clear();
-        for (Army army : Manage.getCurrentEmpire().empireArmy) {
-            checkIfTargetIsAlive(army);
-            if (army.getEnemy() == null) continue;
-            selectedUnit.add(army);
-            //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
-            selectedUnit.clear();
-        }
-    }
+//    public void setEnemyToTarget() {
+//        selectedUnit.clear();
+//        for (Army army : Manage.getCurrentEmpire().empireArmy) {
+//            checkIfTargetIsAlive(army);
+//            if (army.getEnemy() == null) continue;
+//            selectedUnit.add(army);
+//            //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+//            selectedUnit.clear();
+//        }
+//    }
 
-    private static void checkIfTargetIsAlive(Army army) {
-        if (army.getEnemy() == null) return;
-        Empire empire = army.getEnemy().getOwner();
-        for (Army army1 : empire.empireArmy) {
-            if (army1.equals(army.getEnemy())) {
-                return;
-            }
-        }
-        army.setEnemy(null);
-    }
+//    private static void checkIfTargetIsAlive(Army army) {
+//        if (army.getEnemy() == null) return;
+//        Empire empire = army.getEnemy().getOwner();
+//        for (Army army1 : empire.empireArmy) {
+//            if (army1.equals(army.getEnemy())) {
+//                return;
+//            }
+//        }
+//        army.setEnemy(null);
+//    }
 
-    private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
-        for (Army enemy : Map.getTroopMap()[x][y]) {
-            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
-        }
-        for (int i = x1; i <= x2; i++) {
-            for (int j = y1; j <= y2; j++) {
-                for (Army enemy : Map.getTroopMap()[i][j]) {
-                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
-                    army.setEnemy(enemy);
-                    //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
-                    return true;
-                }
-            }
-        }
-        if (range == army.getAttackRange()) {
-            Army enemy;
-            if ((enemy = army.getArcherAttacker()) != null) {
-                army.setEnemy(enemy);
-                //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
-            }
-        }
-        return false;
-    }
+//    private static boolean moveUnitToEnemyLocationAngry(int x, int y, int x1, int x2, int y1, int y2, Army army, int range) {
+//        for (Army enemy : Map.getTroopMap()[x][y]) {
+//            if (!enemy.getEmpire().equals(army.getEmpire())) return true;
+//        }
+//        for (int i = x1; i <= x2; i++) {
+//            for (int j = y1; j <= y2; j++) {
+//                for (Army enemy : Map.getTroopMap()[i][j]) {
+//                    if (enemy.getEmpire().equals(army.getEmpire()) || enemy.getHp() <= 0) continue;
+//                    army.setEnemy(enemy);
+//                    //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+//                    return true;
+//                }
+//            }
+//        }
+//        if (range == army.getAttackRange()) {
+//            Army enemy;
+//            if ((enemy = army.getArcherAttacker()) != null) {
+//                army.setEnemy(enemy);
+//                //gameController.moveUnit(army.getEnemy().xCoordinate, army.getEnemy().yCoordinate);
+//            }
+//        }
+//        return false;
+//    }
 
 
     public boolean setPathForUnits(int xCoordinate, int yCoordinate) {
