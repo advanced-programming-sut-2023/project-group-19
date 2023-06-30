@@ -6,6 +6,9 @@ public class SavedObstacles {
 //    public String groundType ;
     public boolean notBuildable ;
     public boolean notPassable ;
+    public int numberOfPlayers ;
+    public String nameOfMap ;
+
     public int x ;
     public int y ;
 
@@ -37,6 +40,11 @@ public class SavedObstacles {
         return type;
     }
 
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
 
-
+    public String getNameOfMap() {
+        return nameOfMap;
+    }
 }

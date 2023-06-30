@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import chatServer.Chat;
@@ -34,6 +35,8 @@ public class Connection extends Thread {
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
     private static  HashMap<Socket,String> onlineUsersHashMap = new HashMap<>();
+
+    public static HashMap<String,String> lastSeenOfUsers = new HashMap<>();
 
     public static HashMap<Socket,String> addUsersThatMustBeAddedToGame = new HashMap<>();
 
@@ -67,10 +70,17 @@ public class Connection extends Thread {
             } catch (IOException e) {
                 System.out.println("Connection " + socket.getInetAddress() + ":" + socket.getPort() + " lost!");
                 String username =  onlineUsersHashMap.get(socket);
+                String time = getTimeNow();
+                lastSeenOfUsers.put(username,time);
                 User.onlineUsers.remove(username);
                 break;
             }
         }
+    }
+    private String getTimeNow(){
+        LocalTime localTime = LocalTime.now();
+        String[] list = localTime.toString().split(":");
+        return list[0]+":"+list[1];
     }
 
     private void handleCommand() throws IOException {
@@ -260,16 +270,19 @@ public class Connection extends Thread {
         builder.setPrettyPrinting();
         Gson gson = builder.create();
         ArrayList<User> editedUsers = new ArrayList<>();
-        System.out.println(User.users.size());
         for(User user : User.users){
             if(isOnline(user.getUsername())) user.username = "Online - " + user.getUsername();
-            else user.username = "Offline - " + user.getUsername();
+            else {
+                String time = lastSeenOfUsers.get(user.getUsername()) ;
+                if(time == null) time = "";
+                user.username =  time + " Offline - " + user.getUsername();
+            }
             editedUsers.add(user);
         }
         String test = gson.toJson(editedUsers);
         dataOutputStream.writeUTF(test);
         for(User user :  User.users){
-            user.username = user.username.replaceAll("((Online - )|(Offline - ))","");
+            user.username = user.username.replaceAll("((Online - )|(Offline - )/((\\d+:\\d+) Offline - ))","");
         }
     }
     public void privatePublicDecide() throws IOException {
@@ -370,17 +383,14 @@ public class Connection extends Thread {
     public void addNewPrivateChat() throws IOException {
         dataOutputStream.writeUTF(Integer.toString(MasterServer.chatPort));
         String ownerName = dataInputStream.readUTF();
-        System.out.println("Owner Name: "+ownerName);
         String username = dataInputStream.readUTF();
-        System.out.println("username : "+username);
         ChatServer chatServer = new ChatServer(MasterServer.chatPort);
         int port = chatServer.port;
         chatServer.start();
         allChats.put(MasterServer.chatPort, chatServer);
-        System.out.println("All chats: " + allChats.size());
-        for (java.util.Map.Entry<Integer, ChatServer> map : allChats.entrySet()){
-            System.out.println(map.getValue().getName()+" "+map.getKey());
-        }
+//        for (java.util.Map.Entry<Integer, ChatServer> map : allChats.entrySet()){
+//            System.out.println(map.getValue().getName()+" "+map.getKey());
+//        }
         Chat chat = new Chat(username, MasterServer.chatPort, "PV");
         addChatToUsersList(ownerName,chat);
         MasterServer.chatPort++;
@@ -404,6 +414,7 @@ public class Connection extends Thread {
         String data = dataInputStream.readUTF();
         System.out.println(data);
         ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
+//        System.out.println(savedObstacles.get(0).na);
         Map.arrayListArrayListOfObject.add(savedObstacles);
         Map map = Map.buildMap(savedObstacles);
         Map.getSavedMaps().add(map);
@@ -413,6 +424,7 @@ public class Connection extends Thread {
         dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
         for(ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject){
             String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
+            System.out.println(data);
             dataOutputStream.writeUTF(data);
         }
     }
@@ -442,11 +454,7 @@ public class Connection extends Thread {
 
     private void createUser() throws IOException {
         String data = dataInputStream.readUTF();
-        System.out.println(data);
         User user = User.createUserFromGson(data);
-        System.out.println("--");
-        System.out.println("into createUser connection" + user.getUsername());
-        System.out.println("--");
         allSockets.put(user.getUsername(), socket);
         usersSavedChats.put(user.getUsername(), new ArrayList<>());
     }
