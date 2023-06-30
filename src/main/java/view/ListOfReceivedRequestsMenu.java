@@ -21,6 +21,7 @@ import view.OldView.TradeMenu;
 public class ListOfReceivedRequestsMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        User.makeUsersFromJson();
         TradeAndShopImages tradeAndShopImages = new TradeAndShopImages();
         tradeAndShopImages.loadImages();
         TradeController tradeController = new TradeController();

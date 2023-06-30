@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class MapMethod {
 
-    public static void addNewMapToServer(String name) throws IOException {
-        Map map = Map.getMapWithName(name);
+    public static void addNewMapToServer(Map map) throws IOException {
+        //please controll that name musy not be default
         Manage.masterServerDataOutputStream.writeUTF("ADD_NEW_MAP_TO_SERVER");
         int index =  Map.getSavedMaps().indexOf(map);
         ArrayList<SavedObstacles> savedObstacles = Map.allJsonMaps.get(index);
@@ -29,17 +29,19 @@ public class MapMethod {
     }
 
     public static ArrayList<ArrayList<SavedObstacles>> getMapsFromServer() throws IOException {
-        ArrayList<ArrayList<SavedObstacles>> arrayList= new ArrayList<ArrayList<SavedObstacles>>();
+        ArrayList<ArrayList<SavedObstacles>> savedObstaclesWhole = new ArrayList<>();
         Manage.masterServerDataOutputStream.writeUTF("GET_SAVED_MAPS");
         String number = Manage.masterServerDataInputStream.readUTF();
         int num = Integer.parseInt(number);
         for(int i = 0 ; i < num ; i ++){
             String data = Manage.masterServerDataInputStream.readUTF();
+            System.out.println(data);
             ArrayList<SavedObstacles> savedObstacles = convertJsonToArrayList(data);
-            arrayList.add(savedObstacles);
-            makeMapFromSaveObstacle(savedObstacles);
+            if(savedObstacles.isEmpty())continue;
+            System.out.println(savedObstacles.get(0).nameOfMap);
+            savedObstaclesWhole.add(savedObstacles);
         }
-        return arrayList;
+        return savedObstaclesWhole ;
     }
     private static String convertArrayListsOfSavedObstacleIntoJsonForm(ArrayList<SavedObstacles> savedObstacles){
         GsonBuilder builder = new GsonBuilder();
@@ -148,7 +150,6 @@ public class MapMethod {
             }
         }
         Map.getSavedMaps().add(map);
-        System.out.println(map.getName());
         return true ;
     }
 }

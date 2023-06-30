@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.Building.Shop;
 
+import model.User;
 import view.Controllers.ShopMenuController;
 import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.TradeAndShopImages;
@@ -19,6 +20,7 @@ public class ShopMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        User.makeUsersFromJson();
         ShopController shopController = new ShopController();
         TradeAndShopImages shopImages = new TradeAndShopImages();
         shopImages.loadImages();

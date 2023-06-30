@@ -29,14 +29,19 @@ public class ProfileController {
         return user.getPassword().equals(oldPassword);
     }
 
-    public static void editProfile(String username, String email, String nickname, String slogan,String password) {
-        System.out.println("nick name in controller: " + nickname);
+    public static void editProfile(String username, String email, String nickname, String slogan,String password) throws IOException {
         User user = User.getCurrentUser();
         user.setSlogan(slogan);
         user.setUsername(username);
         user.setEmail(email);
         user.setNickname(nickname);
         user.setPassword(password);
+//        String data =  User.convertUserToJson(user);
+//        String index = Integer.toString(User.users.indexOf(user));
+//        System.out.println(index);
+//        Manage.masterServerDataOutputStream.writeUTF("EDIT_USER");
+//        Manage.masterServerDataOutputStream.writeUTF(data);
+//        Manage.masterServerDataOutputStream.writeUTF(index);
     }
 
     public void changeSlogan(String text){

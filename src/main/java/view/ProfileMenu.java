@@ -121,9 +121,7 @@ public class ProfileMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        socket = new Socket("localhost", 8080);
-        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        User.makeUsersFromJson();
         playMainMenu();
         ProfileMenu.stage = stage;
         Pane pane = new Pane();
@@ -137,6 +135,7 @@ public class ProfileMenu extends Application {
         stage.setFullScreen(true);
         stage.show();
     }
+
 
     private void designProfileMenu() {
         Button backButton = new Button("Back");

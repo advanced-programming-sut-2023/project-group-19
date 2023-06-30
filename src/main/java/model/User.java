@@ -59,7 +59,6 @@ public class User implements Comparable<User> {
     }
 
     private static User currentUser;
-    public String REQUEST_TYPE = "CREATE_USER";
     public String username;
     public String password;
     public String nickname;
@@ -210,12 +209,13 @@ public class User implements Comparable<User> {
         return s ;
     }
     public static void makeUsersFromJson() throws IOException {
+        Manage.masterServerDataOutputStream.writeUTF("SEND_LIST_OF_USERS");
         String data = Manage.masterServerDataInputStream.readUTF();
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(User.class, new UserAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-//        if (data == null) return null;
+        if (data.equals("")) return;
         Type type = new TypeToken<ArrayList<User>>(){}.getType();
         users = gson.fromJson(data,type);
     }
@@ -229,10 +229,6 @@ public class User implements Comparable<User> {
 
     public void setRank(int rank) {
         this.rank = rank;
-    }
-
-    public String getREQUEST_TYPE() {
-        return REQUEST_TYPE;
     }
 
     public ArrayList<Chat> getChats() {
