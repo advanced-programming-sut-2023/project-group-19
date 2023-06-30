@@ -10,7 +10,6 @@ public class GameConnection extends Thread{
     private GameServer gameServer;
     final DataInputStream dataInputStream;
     final DataOutputStream dataOutputStream;
-    GameServer gameServer ;
 
     public GameConnection(Socket socket,GameServer gameServer) throws IOException {
         System.out.println("New connection form: " + socket.getInetAddress() + ":" + socket.getPort());
@@ -29,7 +28,6 @@ public class GameConnection extends Thread{
     }
     private void handleCommand() throws IOException {
         String data = dataInputStream.readUTF();
-        //every command you got send it to whole active sockets
         for(Socket socket : gameServer.socketOfPlayers){
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(data);

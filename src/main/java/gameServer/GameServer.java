@@ -16,10 +16,8 @@ public class GameServer extends Thread{
         this.port =  port ;
         System.out.println("Starting Broker service...");
 
-        this.numberOfPlayers  = numberOfPlayers ;
-        System.out.println("Starting Game Server...");
     }
-    public ArrayList<Socket> socketOfPlayers =  new ArrayList<>();
+
 
     @Override
     public void run() {
