@@ -31,6 +31,7 @@ public class Connection extends Thread {
     private ArrayList<Map> maps = new ArrayList<>();
     public static HashMap<Integer, GameServer> allGames = new HashMap<>();
     public static ArrayList<GameRequest> allGameRequests = new ArrayList<>();
+    // all game req -- > arrayList : all members --> arrayList :
     public static ArrayList<UsersFriend> allFriendshipRequests = new ArrayList<>();
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
@@ -148,6 +149,7 @@ public class Connection extends Thread {
 
         }
     }
+
     private void startGame() throws IOException {
         String idOfGameRequest = dataInputStream.readUTF();
         ArrayList<String> players ;
@@ -158,6 +160,7 @@ public class Connection extends Thread {
             break;
         }
     }
+
 
     private void editUser() throws IOException {
         String data = dataInputStream.readUTF();
