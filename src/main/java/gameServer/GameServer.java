@@ -9,16 +9,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class GameServer extends Thread{
-    private int numberOfPlayers ;
-    //when the game is played please on the lock
-    public boolean lock ;
     private int port ;
-    public GameServer(int port,int numberOfPlayers) {
-        this.port =  port ;
-        this.numberOfPlayers  = numberOfPlayers ;
-        System.out.println("Starting Game Server...");
-    }
     public ArrayList<Socket> socketOfPlayers =  new ArrayList<>();
+
+    public GameServer(int port) {
+        this.port =  port ;
+        System.out.println("Starting Broker service...");
+
+    }
+
 
     @Override
     public void run() {

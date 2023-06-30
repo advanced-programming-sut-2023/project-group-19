@@ -33,4 +33,6 @@ public class GameConnection extends Thread{
             dataOutputStream.writeUTF(data);
         }
     }
+
+
 }

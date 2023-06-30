@@ -4,10 +4,10 @@ import basicGameModel.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.Socket;
-import java.security.Key;
 import java.util.ArrayList;
 
 import chatServer.Chat;
@@ -23,14 +23,18 @@ import gameServer.GameServer;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Connection extends Thread {
 
     private ArrayList<Map> maps = new ArrayList<>();
     public static HashMap<Integer, GameServer> allGames = new HashMap<>();
     public static ArrayList<GameRequest> allGameRequests = new ArrayList<>();
+    public static ArrayList<UsersFriend> allFriendshipRequests = new ArrayList<>();
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
+
+    public static HashMap<Socket,String> addUsersThatMustBeAddedToGame = new HashMap<>();
 
     // key : port of server
     // value : chat server
@@ -44,16 +48,28 @@ public class Connection extends Thread {
         MasterServer.chatPort++;
     }
 
+//    {
+//        GameRequest gameRequest = new GameRequest("1",2,"No");
+//        GameRequest gameRequest2 = new GameRequest("2",2,"No");
+//        GameRequest gameRequest3 = new GameRequest("3",2,"No");
+//        allGameRequests.add(gameRequest);
+//        allGameRequests.add(gameRequest2);
+//        allGameRequests.add(gameRequest3);
+//    }
+
 
     public Socket socket;
     final DataInputStream dataInputStream;
     final DataOutputStream dataOutputStream;
 
     public Connection(Socket socket) throws IOException {
-        System.out.println("New connection from connection: " + socket.getInetAddress() + ":" + socket.getPort());
+        System.out.println("New connection form connection: " + socket.getInetAddress() + ":" + socket.getPort());
         this.socket = socket;
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
+        //sendUsersArrayListToUsers
+//        dataOutputStream.writeUTF(User.makeGsonFromUser());makeGsonFromUser;
+        //
     }
 
     @Override
@@ -70,13 +86,7 @@ public class Connection extends Thread {
     private void handleCommand() throws IOException {
         String requestType = dataInputStream.readUTF();
         switch (requestType) {
-            case "NEW_GAME":
-//                handleNewGame(request);
-                break;
-            case "JOIN_GAME":
-//                handlJoinGame(request);
-                break;
-            case  "CREATE_USER":
+            case "CREATE_USER":
                 createUser();
                 break;
             case "LOGIN_USER":
@@ -94,11 +104,6 @@ public class Connection extends Thread {
             case "ADD_GROUP_CHAT":
                 addNewGroupChat();
                 break;
-            case "GET_CHATS":
-                getAllChats();
-                break;
-            case "SEARCH_USER":
-                findUserFromUsername();
             case "ADD_NEW_GAME_REQUEST":
                 addNewGameRequest();
                 break;
@@ -119,13 +124,93 @@ public class Connection extends Thread {
             case "GET_SAVED_MAPS":
                 sendArrayListOfSavedMapsToClient();
                 break;
+            case "START_GAME":
+                startGame();
+                break;
+            case "START_GAME_REQUEST":
+                getRequestStartGameFromUser();
+                break;
+            case "ASK_FRIENDSHIP":
+                askFriend();
+                break;
+            case "ACCEPT_FRIENDSHIP" :
+                acceptFriend();
+                break;
+            case "GET_FRIENDSHIP_REQUESTS" :
+                getFriendShipRequest();
+                break;
+
         }
     }
+    private void startGame() throws IOException {
+        String idOfGameRequest = dataInputStream.readUTF();
+        ArrayList<String> players ;
+        for(GameRequest gameRequest : allGameRequests){
+            if(!gameRequest.id.equals(idOfGameRequest)) continue;
+            players = gameRequest.allMembersUserName ;
+            sendStartGameRequestToAllPlayersIntoGame(players);
+            break;
+        }
+    }
+    public void getFriendShipRequest() throws IOException {
+        String input = dataInputStream.readUTF();
+        UsersFriend usersFriend = null;
+        for(int u = 0 ;  u < allFriendshipRequests.size() ; u++){
+            if(allFriendshipRequests.get(u).userName.equals(input)){
+                usersFriend = allFriendshipRequests.get(u);
+                break;
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        if(usersFriend != null) {
+            for (int j = 0; j < usersFriend.friendRequest.size(); j++) {
+                stringBuilder.append(usersFriend.friendRequest.get(j) + '#');
+            }
+        }
+        dataOutputStream.writeUTF(stringBuilder.toString());
+    }
+    public void askFriend() throws IOException {
+        String input = dataInputStream.readUTF();
+        System.out.println(input);
+        String[] split = input.split("#");
+        boolean available = false;
+        for(int i = 0 ;  i < allFriendshipRequests.size() ; i++){
+            if(allFriendshipRequests.get(i).getUserName().equals(split[1])){
+                if(!allFriendshipRequests.get(i).friendRequest.contains(split[0]))
+                    allFriendshipRequests.get(i).friendRequest.add(split[0]);
+                available = true;
+                break;
+            }
+        }
+        if(!available) {
+            UsersFriend usersFriend = new UsersFriend(split[1]);
+            allFriendshipRequests.add(usersFriend);
+            usersFriend.friendRequest.add(split[0]);
+        }
+    }
+    public void acceptFriend() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        for(int i = 0 ;  i < allFriendshipRequests.size() ; i++){
+            if(allFriendshipRequests.get(i).getUserName().equals(split[0])){
+                allFriendshipRequests.get(i).friendRequest.remove(split[1]);
+            }
+        }
+    }
+    private void getRequestStartGameFromUser() throws IOException {
+        String portOfGame = addUsersThatMustBeAddedToGame.get(socket);
+        if(portOfGame == null) dataOutputStream.writeUTF("null");
+        else dataOutputStream.writeUTF(portOfGame);
+    }
 
-    private void getAllChats() throws IOException {
-        String username = dataInputStream.readUTF();
-        String data = Chat.convertFromJsonToArrayListMessages(usersSavedChats.get(username));
-        dataOutputStream.writeUTF(data);
+    private void sendStartGameRequestToAllPlayersIntoGame(ArrayList<String> players) throws IOException {
+        GameServer gameServer = new GameServer(MasterServer.gamePort);
+        gameServer.start();
+        for(String username : players){
+            Socket socket = Connection.allSockets.get(username);
+            addUsersThatMustBeAddedToGame.put(socket,Integer.toString(MasterServer.gamePort));
+        }
+        MasterServer.gamePort ++ ;
     }
     public void privatePublicDecide() throws IOException {
         String input = dataInputStream.readUTF();
@@ -170,7 +255,8 @@ public class Connection extends Thread {
     public void refreshLobby() throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < allGameRequests.size(); i++) {
-            stringBuilder.append(allGameRequests.get(i).getAdminUsername() + '#' + allGameRequests.get(i).getId() + '#' + allGameRequests.get(i).getCapacity()
+            stringBuilder.append(allGameRequests.get(i).getAdminUsername() + '#'
+                    + allGameRequests.get(i).getId() + '#' + allGameRequests.get(i).getCapacity()
                     + '#' + allGameRequests.get(i).getGameRequestType() + '\n');
             for (int u = 0; u < allGameRequests.get(i).allMembersUserName.size(); u++) {
                 stringBuilder.append(allGameRequests.get(i).allMembersUserName.get(u) + '#');
@@ -197,21 +283,17 @@ public class Connection extends Thread {
         ChatServer chatServer = new ChatServer(MasterServer.chatPort);
         chatServer.start();
         allChats.put(MasterServer.chatPort, chatServer);
-        Chat chat = new Chat(name, chatServer.port,    "GROUP");
-        addChatToUsersList(owner,chat);
-//        Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
-//        chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
+        Chat chat = new Chat(name, MasterServer.chatPort, "GROUP");
+        addChatToUsersList(owner, chat);
         MasterServer.chatPort++;
     }
 
     private void refreshChat() throws IOException {
         String owner = dataInputStream.readUTF();
         ArrayList<Chat> chats = chatsMustBeAddedToChatListOfClients.get(socket);
-        if (chats != null)
-            addChatToUsersArrayList(owner,chats);
+        addChatToUsersArrayList(owner, chats);
         String data = Chat.convertFromJsonToArrayListMessages(chats);
         dataOutputStream.writeUTF(data);
-        chatsMustBeAddedToChatListOfClients.get(socket).clear();
     }
 
     public void addGlobalChat() throws IOException {
@@ -226,34 +308,21 @@ public class Connection extends Thread {
     public void addNewPrivateChat() throws IOException {
         dataOutputStream.writeUTF(Integer.toString(MasterServer.chatPort));
         String ownerName = dataInputStream.readUTF();
-        System.out.println("Owner Name: "+ownerName);
         String username = dataInputStream.readUTF();
-        System.out.println("username : "+username);
         ChatServer chatServer = new ChatServer(MasterServer.chatPort);
-        int port = chatServer.port;
         chatServer.start();
         allChats.put(MasterServer.chatPort, chatServer);
-        System.out.println("All chats: "+allChats.size());
-        for (java.util.Map.Entry<Integer, ChatServer> map : allChats.entrySet()){
-            System.out.println(map.getValue().getName()+" "+map.getKey());
-        }
         Chat chat = new Chat(username, MasterServer.chatPort, "PV");
-        addChatToUsersList(ownerName,chat);
+        addChatToUsersList(ownerName, chat);
         MasterServer.chatPort++;
-        addSecondUserChat(username, ownerName,port);
+        addSecondUserChat(username, ownerName);
     }
 
-    private void addSecondUserChat(String username, String ownerName, int port) {
+    private void addSecondUserChat(String username, String ownerName) {
         Socket socket = allSockets.get(username);
-        if (chatsMustBeAddedToChatListOfClients.size() != 0){
-            System.out.println(" > 0");
-        }
         chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
-        Chat chat = new Chat(ownerName, port, "PV");
+        Chat chat = new Chat(ownerName, socket.getPort(), "PV");
         chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
-        if (chatsMustBeAddedToChatListOfClients.size() != 0){
-            System.out.println("ADDED Successfully");
-        }
     }
 
     private void addNewMap() throws IOException {
@@ -280,8 +349,10 @@ public class Connection extends Thread {
         usersSavedChats.get(ownerName).add(chat);
     }
 
-    private void addChatToUsersArrayList(String ownerName, ArrayList<Chat> chats){
-        usersSavedChats.computeIfAbsent(ownerName, k -> new ArrayList<>());
+    private void addChatToUsersArrayList(String ownerName, ArrayList<Chat> chats) {
+        if (usersSavedChats.get(ownerName) == null) {
+            usersSavedChats.put(ownerName, new ArrayList<>());
+        }
         usersSavedChats.get(ownerName).addAll(chats);
     }
 
@@ -291,8 +362,6 @@ public class Connection extends Thread {
         User user = User.makeUserFromGson(data);
         User.onlineUsers.add(user);
         dataOutputStream.writeUTF("login successfully");
-        //below line is added for chat test
-        allSockets.put(user.getUsername(), socket);
     }
 
     private void createUser() throws IOException {
@@ -315,8 +384,3 @@ public class Connection extends Thread {
         }
     }
 }
-
-// master server
-// game server = new Socket(dataOutputstream.readUTF(),loccolhost)
-// chat server = new Socket(dataOutputstream.readUTF(),loccolhost)
-// json --> data in

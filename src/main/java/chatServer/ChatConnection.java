@@ -120,6 +120,8 @@ public class ChatConnection extends Thread {
         String renewMessage;
         String oldMessage = dataInputStream.readUTF();
         String newMessage = dataInputStream.readUTF();
+//        System.out.println("Old: "+oldMessage);
+//        System.out.println("New: "+newMessage);
         Message ancientOne = Message.convertFromJsonToMessage(oldMessage);
         Message newOne = Message.convertFromJsonToMessage(newMessage);
         for (int i = 0; i < chatServer.allMessages.size(); i++) {
