@@ -13,9 +13,8 @@ import java.util.Collections;
 public class User implements Comparable<User> {
     public static ArrayList<User> users = new ArrayList<>();
 
-    public static ArrayList<User> onlineUsers = new ArrayList<>();
+    public static ArrayList<String> onlineUsers = new ArrayList<>();
     public String username;
-    public String REQUEST_TYPE = "CREATE_USER";
     public String password;
     public String nickname;
     public String email;
@@ -161,10 +160,8 @@ public class User implements Comparable<User> {
         builder.registerTypeAdapter(User.class, new UserAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        return gson.toJson(users);
-    }
-    public synchronized String getREQUEST_TYPE() {
-        return REQUEST_TYPE;
+        String test = gson.toJson(users);
+        return test ;
     }
     //    public ImageView getAvatar(){
 //        return avatar ;

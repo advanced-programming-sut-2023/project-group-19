@@ -25,10 +25,6 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
         writer.value(savedObstacles.getX());
         writer.name("y");
         writer.value(savedObstacles.getY());
-        writer.name("numberOfPlayers");
-        writer.value(savedObstacles.getNumberOfPlayers());
-        writer.name("nameOfMap");
-        writer.value(savedObstacles.getNameOfMap());
         writer.endObject();
     }
 
@@ -77,16 +73,6 @@ public class ObstacleAdapter extends TypeAdapter<SavedObstacles> {
                 //move to next token
                 token = reader.peek();
                 savedObstacles.y = reader.nextInt();
-            }
-            if ("numberOfPlayers".equals(fieldname)) {
-                //move to next token
-                token = reader.peek();
-                savedObstacles.name = reader.nextString();
-            }
-            if("nameOfMap".equals(fieldname)) {
-                //move to next token
-                token = reader.peek();
-                savedObstacles.nameOfMap = reader.nextString();
             }
 
         }
