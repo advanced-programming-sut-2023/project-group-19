@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -90,8 +91,14 @@ public class GameController {
         }
 
         if (nameOfUnit.size() > 0 && images.size() > 0 && spinners.size() > 0) {
-            box.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next, back, done);
-            pane.getChildren().add(box);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    box.getChildren().addAll(nameOfUnit.get(0), images.get(0), spinners.get(0), next, back, done);
+                    pane.getChildren().add(box);
+                }
+            });
+
         }
 
         next.setTranslateX(51);
@@ -111,7 +118,6 @@ public class GameController {
         backButton.setFitHeight(30);
         back.setGraphic(backButton);
         back.setBackground(null);
-
 
         done.setTranslateX(103);
         done.setTranslateY(101);
@@ -145,29 +151,48 @@ public class GameController {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_SELECT_UNIT" + '\n');
                 int j = 0;
                 for (Text text : nameOfUnit) {
                     for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
                         if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
+                                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                                TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" +
+                                        '#' + army.getKey().get(i).getNames().getName() + '#' + spinners.get(j).getValue() + '#'+
+                                        army.getKey().get(i).getxCoordinate() + '#' + army.getKey().get(i).getyCoordinate() + '\n');
                             }
-                            //number --> spinners.get(j)
-                            //type ---> text.getText()
                             j++;
                         }
                     }
                 }
                 pane.getChildren().remove(box);
+                selectedButtons.clear();
                 index = 0;
             }
         });
     }
+    public void selectUnitForLog(String[] command , ArrayList<NewButton>[][] allButtons ){
+        int counter = 0;
+        NewButton newButton = allButtons[Integer.parseInt(command[4])][Integer.parseInt(command[5])].get(0);
+        for(int i = 0 ;  i < newButton.getArmy().size(); i++){
+            if(counter == Integer.parseInt(command[3]))
+                break;
+            if(newButton.getArmy().get(i).getNames().getName().equals(command[2])) {
+                selectedUnit.add(newButton.getArmy().get(i));
+                counter++;
+            }
+        }
+    }
 
     public HashMap<ArrayList<Army>, Integer> typeOfAvailableUnits(ArrayList<NewButton> selectedButtons) {
+        boolean flag = false;
         HashMap<ArrayList<Army>, Integer> listOfUnits = new HashMap<>();
         for (NewButton selectedButton : selectedButtons) {
             for (Army army : selectedButton.getArmy()) {
+                flag = true;
                 ArrayList<Army> armies = new ArrayList<>();
                 if (army.getOwner().equals(Manage.getCurrentEmpire())) {
                     if (!editInfoOfRepeatedUnitNames(listOfUnits, army)) {
@@ -176,6 +201,10 @@ public class GameController {
                     }
                 }
             }
+        }
+        if (flag) {
+            TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+            TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" + '\n');
         }
         return listOfUnits;
     }
@@ -276,6 +305,9 @@ public class GameController {
     public void dropUnits(int x, int y, int typeOfUnit, int count, NewButton button) {
         switch (typeOfUnit) {
             case 0:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 0 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     archer.archer(x, y);
@@ -288,6 +320,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getEuropeArcherCount() - count);
                 break;
             case 1:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 1 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     crossBowMan.Crossbowmen(x, y);
@@ -300,6 +335,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getCrossbowManCount() - count);
                 break;
             case 2:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 2 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
                     spearMen.SpearMen(x, y);
@@ -312,6 +350,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getSpearManCount() - count);
                 break;
             case 3:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 3 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
                     pikeMen.PikeMen(x, y);
@@ -324,6 +365,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getPikeManCount() - count);
                 break;
             case 4:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 4 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
                     maceMen.MaceMen(x, y);
@@ -336,6 +380,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getMaceManCount() - count);
                 break;
             case 5:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 5 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Soldiers swordsMen = new Soldiers(Manage.getCurrentEmpire());
                     swordsMen.Swordsmen(x, y);
@@ -348,6 +395,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getSwordManCount() - count);
                 break;
             case 6:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 6 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
                     knight.Knight(x, y);
@@ -361,6 +411,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getKnightCount() - count);
                 break;
             case 7:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 7 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
                     tunneler.Tunneler(x, y);
@@ -373,6 +426,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getTunnelerCount() - count);
                 break;
             case 8:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 8 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
                     ladderMen.LadderMen(x, y);
@@ -385,6 +441,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getLadderManCount() - count);
                 break;
             case 9:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 9 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
                     blackMonk.BlackMonk(x, y);
@@ -397,6 +456,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getBlackMonkCount() - count);
                 break;
             case 10:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 10 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     archerBow.ArcherBow(x, y);
@@ -409,6 +471,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getArabianBowCount() - count);
                 break;
             case 11:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 11 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Soldiers slaves = new Soldiers(Manage.getCurrentEmpire());
                     slaves.Slaves(x, y);
@@ -421,6 +486,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getSlaveCount() - count);
                 break;
             case 12:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 12 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     slingers.Slingers(x, y);
@@ -433,6 +501,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getSlingerCount() - count);
                 break;
             case 13:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 13 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Climbers assassins = new Climbers(Manage.getCurrentEmpire());
                     assassins.Assassins(x, y);
@@ -445,6 +516,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getAssassinCount() - count);
                 break;
             case 14:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 14 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     horseArcher.HorseArchers(x, y);
@@ -457,6 +531,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getHorseArcherCount() - count);
                 break;
             case 15:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 15 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
                     arabSwordMen.ArabianSwordsmen(x, y);
@@ -469,6 +546,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
                 break;
             case 16:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 16 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers fireThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     fireThrowers.FireThrowers(x, y);
@@ -479,9 +559,11 @@ public class GameController {
                 }
                 Manage.getCurrentEmpire().setFireThrowerCount
                         (Manage.getCurrentEmpire().getFireThrowerCount() - count);
-
                 break;
             case 17:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 17 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     catapult.catapult(x, y);
@@ -493,8 +575,10 @@ public class GameController {
                 Manage.getCurrentEmpire().setCatapultCount
                         (Manage.getCurrentEmpire().getCatapultCount() - count);
                 break;
-
             case 18:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 18 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     trebuchet.trebuchet(x, y);
@@ -506,8 +590,10 @@ public class GameController {
                 Manage.getCurrentEmpire().setTrebuchetCount
                         (Manage.getCurrentEmpire().getTrebuchetCount() - count);
                 break;
-
             case 19:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 19 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     siegeTower.siegeTower(x, y);
@@ -520,6 +606,9 @@ public class GameController {
                         (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
                 break;
             case 20:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 20 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     fireBallista.fireBallista(x, y);
@@ -530,9 +619,11 @@ public class GameController {
                 }
                 Manage.getCurrentEmpire().setFireBalistaCount
                         (Manage.getCurrentEmpire().getFireBalistaCount() - count);
-
                 break;
             case 21:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 21 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     batteringRam.batteringRam(x, y);
@@ -543,9 +634,11 @@ public class GameController {
                 }
                 Manage.getCurrentEmpire().setBatteringRamCount
                         (Manage.getCurrentEmpire().getBatteringRamCount() - count);
-
                 break;
             case 22:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 22 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
                 for (int i = 0; i < count; i++) {
                     ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
                     portableShield.portableShield(x, y);
@@ -1555,7 +1648,7 @@ public class GameController {
                         previousButton.setImageView(null);
                         pane.getChildren().add(previousButton);
                         previousButton = newButton;
-                        MoveAnimation moveAnimation = new MoveAnimation(passingArmy,goalX, goalY, pane, newButton, current, j);
+                        MoveAnimation moveAnimation = new MoveAnimation(passingArmy, goalX, goalY, pane, newButton, current, j);
                         sequentialTransition.getChildren().add(moveAnimation);
                         Map.getTroopMap()[passingArmy.getCurrentX()][passingArmy.getCurrentY()].remove(passingArmy);
                     } else {
@@ -1575,5 +1668,19 @@ public class GameController {
                 selectedArmy.get(u).getMyPath().clear();
             }
         }
+        selectedUnit.clear();
+    }
+    public void replayMove(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list){
+        NewButton newButton = (NewButton) list.get(xOfDestination * 100 + yOfDestination);
+        for(int i = 0 ; i < selectedUnit.size() ; i++  ){
+            selectedButton.getArmy().remove(selectedUnit.get(i));
+            newButton.getArmy().add(selectedUnit.get(i));
+            selectedUnit.get(i).setxCoordinate(xOfDestination);
+            selectedUnit.get(i).setyCoordinate(yOfDestination);
+            Map.getTroopMap()[xOfDestination][yOfDestination].add(selectedUnit.get(i));
+            Map.getTroopMap()[selectedButton.getX()][selectedButton.getY()].remove(selectedUnit.get(i));
+        }
+        selectedUnit.clear();
+
     }
 }

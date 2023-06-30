@@ -1,6 +1,7 @@
 package view.GameButtons;
 
 import controller.GameController;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
@@ -18,6 +19,7 @@ import view.ImageAndBackground.GameImages;
 import view.ImageAndBackground.UnitImages;
 import view.Model.NewButton;
 import view.RegisterMenu;
+import view.TileManager;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
@@ -26,14 +28,16 @@ public class DropUnitDesign {
     public UnitImages unitImages = new UnitImages();
     public BuildingImages buildingImages = new BuildingImages();
     public GameImages gameImages = new GameImages();
+    public static boolean closeDropUnit = false;
     public int controllerOfDropUnit = 1;
+    public HBox hBox;
     public boolean isFive = true;
 
     public void designHBoxForDropUnit(Pane pane, GameController gameController, ArrayList<NewButton> selectedButtons) {
         unitImages.loadImages();
         buildingImages.loadImage();
         gameImages.loadImages();
-        HBox hBox = new HBox();
+        hBox = new HBox();
         BackgroundImage map = new BackgroundImage(new Image(GameController.class.
                 getResource("/image/GameMenu/map.jpg").toExternalForm()), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -148,22 +152,42 @@ public class DropUnitDesign {
                 }
             }
         });
+        if (closeDropUnit) {
+            pane.getChildren().remove(hBox);
+            for (int i = 0; i < spinners.size(); i++) {
+                if (spinners.get(i).getValue() != 0)
+                    gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
+                            , i, spinners.get(i).getValue(), selectedButtons.get(0));
+            }
+            closeDropUnit = false;
+        }
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 playSoundEffect("dropUnit.mp3");
                 pane.getChildren().remove(hBox);
                 for (int i = 0; i < spinners.size(); i++) {
-                    gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
-                            , i, spinners.get(i).getValue(), selectedButtons.get(0));
+                    if (spinners.get(i).getValue() != 0)
+                        gameController.dropUnits(selectedButtons.get(0).getX(), selectedButtons.get(0).getY()
+                                , i, spinners.get(i).getValue(), selectedButtons.get(0));
                 }
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_DROP_UNIT" + '\n');
             }
         });
-        pane.getChildren().add(hBox);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                pane.getChildren().add(hBox);
+            }
+        });
+
     }
-    public MediaPlayer mediaPlayer ;
+
+    public MediaPlayer mediaPlayer;
+
     private void playSoundEffect(String name) {
-        String defultSong  = RegisterMenu.class.getResource("/Music/" + name).toString();
+        String defultSong = RegisterMenu.class.getResource("/Music/" + name).toString();
         Media media = new Media(defultSong);
         MediaPlayer mediaPlayer2 = new MediaPlayer(media);
         mediaPlayer = mediaPlayer2;
@@ -177,6 +201,10 @@ public class DropUnitDesign {
         for (int j = 0; j < 5; j++) {
             hBox.getChildren().add(spinners.get(j));
         }
+    }
+
+    public HBox gethBox() {
+        return hBox;
     }
 
     private ArrayList<Spinner<Integer>> createSpinnersForUnits() {

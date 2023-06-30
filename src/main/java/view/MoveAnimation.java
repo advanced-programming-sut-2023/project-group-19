@@ -3,6 +3,7 @@ package view;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.Human.Troop.Army;
@@ -41,7 +42,6 @@ public class MoveAnimation extends Transition {
         this.dy = goalY - currentY;
         this.newButton = newButton;
         this.current = current;
-
         pane.getChildren().remove(passingArmy.getImageView());
         pane.getChildren().add(pane.getChildren().size(), passingArmy.getImageView());
         if (j == 0) {

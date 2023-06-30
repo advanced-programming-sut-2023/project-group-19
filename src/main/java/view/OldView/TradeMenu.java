@@ -9,6 +9,7 @@ import view.Commands.TradeMenuCommands;
 import view.Controllers.TradeMenuController;
 import view.Main;
 import view.Messages.TradeMenuMessages;
+import view.TileManager;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -17,6 +18,8 @@ import java.util.regex.Matcher;
 public class TradeMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+        TileManager.gameLog.append(TileManager.time + '#' + "TRADE_MENU" + '\n');
         TradeMenuController tradeController = new TradeMenuController();
         Main.stage = stage;
         Pane pane = new Pane();

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import view.ImageAndBackground.TradeAndShopImages;
 import view.SendRequestMenu;
 import view.ShowTradesMenu;
+import view.TileManager;
 
 public class TradeMenuController {
 
@@ -75,6 +76,8 @@ public class TradeMenuController {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_TRADE_MENU" + '\n');
                 stage.close();
             }
         });

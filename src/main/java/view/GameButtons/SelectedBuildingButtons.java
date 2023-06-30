@@ -13,6 +13,7 @@ import model.Manage;
 import view.ImageAndBackground.UnitImages;
 import view.OldView.SelectedBuildingMenu;
 import view.ShopMenu;
+import view.TileManager;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("archer", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "archer" + '\n');
                 }
             }
         };
@@ -81,6 +86,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("spearMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "spearMan" + '\n');
                 }
             }
         };
@@ -101,6 +110,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("maceMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "maceMan" + '\n');
                 }
             }
         };
@@ -121,6 +134,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("crossbowMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "crossbowMan" + '\n');
                 }
             }
         };
@@ -141,6 +158,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("pikeMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "pikeMan" + '\n');
                 }
             }
         };
@@ -161,6 +182,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("swordMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "swordMan" + '\n');
                 }
             }
         };
@@ -180,6 +205,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("knight", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Barracks" + '#' + "knight" + '\n');
                 }
             }
         };
@@ -202,6 +231,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("arabianBow", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "arabianBow" + '\n');
                 }
             }
         };
@@ -222,6 +255,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("slave", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "slave" + '\n');
                 }
             }
         };
@@ -242,6 +279,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("slinger", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "slinger" + '\n');
                 }
             }
         };
@@ -262,6 +303,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("assassin", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "assassin" + '\n');
                 }
             }
         };
@@ -282,6 +327,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("horseArcher", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "horseArcher" + '\n');
                 }
             }
         };
@@ -302,6 +351,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("arabianSwordMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "arabianSwordMan" + '\n');
                 }
             }
         };
@@ -322,6 +375,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("fireThrower", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "Mercenary" + '#' + "fireThrower" + '\n');
                 }
             }
         };
@@ -344,6 +401,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("catapult", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "catapult" + '\n');
                 }
             }
         };
@@ -364,6 +425,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("trebuchet", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "trebuchet" + '\n');
                 }
             }
         };
@@ -384,6 +449,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("siegeTower", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "siegeTower" + '\n');
                 }
             }
         };
@@ -404,6 +473,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("batteringRam", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "batteringRam" + '\n');
                 }
             }
         };
@@ -424,6 +497,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("portableShield", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "portableShield" + '\n');
                 }
             }
         };
@@ -444,6 +521,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("fireBallista", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "SiegeTent" + '#' + "fireBallista" + '\n');
                 }
             }
         };
@@ -466,6 +547,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("engineer", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "EngineerGuild" + '#' + "engineer" + '\n');
                 }
             }
         };
@@ -486,6 +571,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("ladderMan", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "EngineerGuild" + '#' + "ladderMan" + '\n');
                 }
             }
         };
@@ -506,6 +595,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("tunneler", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "EngineerGuild" + '#' + "tunneler" + '\n');
                 }
             }
         };
@@ -528,6 +621,10 @@ public class SelectedBuildingButtons {
                 String output = String.valueOf(selectedBuildingMenu.createUnit("blackMonk", 1));
                 if (!output.equals("troop created successfully")) {
                     showError(output);
+                } else {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' +
+                            "CREATE_UNIT" + '#' + "BigChurch" + '#' + "blackMonk" + '\n');
                 }
             }
         };
@@ -557,6 +654,9 @@ public class SelectedBuildingButtons {
                     String output = String.valueOf(selectedBuildingMenu.setTax(Integer.parseInt(taxRate)));
                     if (!output.equals("tax rate changed successfully")) {
                         showError(output);
+                    } else {
+                        TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                        TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SET_TAX_RATE" + '#' + taxRate + '\n');
                     }
                 } else {
                     showError("only use number in this field");

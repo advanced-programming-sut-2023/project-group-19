@@ -70,7 +70,9 @@ public class ShopMenuController {
                             textInputDialog.showAndWait();
                             String result = textInputDialog.getEditor().getText();
                             System.out.println("index :" + finalIndex + " input: " + result);
-                            int num = Integer.parseInt(result);
+                            int num = 0;
+                            if(result != null)
+                                num = Integer.parseInt(result);
                             getTheSuggestion.add(finalIndex);
                             getTheSuggestion.add(num);
                             System.out.println("size of array list :" + getTheSuggestion.size());
@@ -126,6 +128,8 @@ public class ShopMenuController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_SHOP" + '\n');
                     stage.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);

@@ -14,6 +14,7 @@ import model.Manage;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.OldView.EmpireMenu;
+import view.TileManager;
 
 
 import java.util.ArrayList;
@@ -70,6 +71,8 @@ public class EmpireButtons {
         popularityButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "POPULARITY_BUTTON" +  '\n');
                 clearPane(pane);
                 showPopularityFactors(pane, buildingImages, empireMenu);
             }
@@ -78,6 +81,8 @@ public class EmpireButtons {
         setRateButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SET_RATE_BUTTON" +  '\n');
                 clearPane(pane);
                 setRateMenu(pane, buildingImages, empireMenu);
             }
@@ -175,6 +180,8 @@ public class EmpireButtons {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "RETURN_BUTTON" +  '\n');
                 clearPane(pane);
                 createButtons(pane, testbottomBarImages, buildingImages, empireMenu);
             }
@@ -197,6 +204,8 @@ public class EmpireButtons {
         EventHandler<MouseEvent> event = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "RETURN_BUTTON" +  '\n');
                 clearPane(pane);
                 createButtons(pane, testbottomBarImages, buildingImages, empireMenu);
             }
@@ -220,6 +229,8 @@ public class EmpireButtons {
         EventHandler<MouseEvent> event1 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SUBMIT_FOOD_RATE_BUTTON" +  '\n');
                 String Rate = foodRate.getText();
                 if (Rate.matches("[-0-9]+")) {
                     String output = String.valueOf(empireMenu.setFoodRate(Integer.parseInt(Rate)));
@@ -254,6 +265,8 @@ public class EmpireButtons {
         EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "SUBMIT_TAX_RATE_BUTTON" +  '\n');
                 String Rate = taxRate.getText();
                 if (Rate.matches("[-0-9]+")) {
                     String output = String.valueOf(empireMenu.setTaxRate(Integer.parseInt(Rate)));
@@ -306,6 +319,8 @@ public class EmpireButtons {
         EventHandler<MouseEvent> event3 = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "LEFT_CLICK" + '#' + "RATE_BUTTON" +  '\n');
                 int Rate = rate;
                 String output = String.valueOf(empireMenu.setFearRate(Rate));
                 if (!output.equals("successful")) {
