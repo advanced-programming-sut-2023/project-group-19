@@ -40,7 +40,7 @@ public class ChatConnection extends Thread {
 
     private void handleCommand() throws IOException {
         String typeOfRequest = dataInputStream.readUTF();
-        System.out.println("data out put stream" + typeOfRequest);
+        System.out.println("data out put stream: " + typeOfRequest);
         switch (typeOfRequest) {
             case "EXIT_CHAT":
                 exitChat();
@@ -104,7 +104,16 @@ public class ChatConnection extends Thread {
         String data = dataInputStream.readUTF();
         Message message = Message.convertFromJsonToMessage(data);
         chatServer.allMessages.add(message);
+        setSeenType();
         sendMessageToWholeSockets(data);
+    }
+
+    private void setSeenType(){
+        if (chatServer.inChatUsers.size() > 1) {
+            for (Message allMessage : chatServer.allMessages) {
+                allMessage.setSeen(true);
+            }
+        }
     }
 
     private void sendMessageToWholeSockets(String data) throws IOException {
@@ -120,8 +129,6 @@ public class ChatConnection extends Thread {
         String renewMessage;
         String oldMessage = dataInputStream.readUTF();
         String newMessage = dataInputStream.readUTF();
-//        System.out.println("Old: "+oldMessage);
-//        System.out.println("New: "+newMessage);
         Message ancientOne = Message.convertFromJsonToMessage(oldMessage);
         Message newOne = Message.convertFromJsonToMessage(newMessage);
         for (int i = 0; i < chatServer.allMessages.size(); i++) {
@@ -129,11 +136,12 @@ public class ChatConnection extends Thread {
             if (message.getContent().equals(ancientOne.getContent())
                     && message.getSender().equals(ancientOne.getSender())) {
                 chatServer.allMessages.remove(message);
-                if (message.getContent().length() != 0) {
+                if (!newOne.getContent().equals("")) {
                     chatServer.allMessages.add(i, newOne);
                 }
-                newOne.setContent("#" + i + "#" + newOne.getContent());
-                renewMessage = Message.convertFromJsonToMessageToString(newOne);
+                Message updatedOne = new Message(newOne.getSender(),newOne.getContent(),newOne.isSeen(),newOne.getAvatar());
+                updatedOne.setContent("#" + i + "#" + newOne.getContent());
+                renewMessage = Message.convertFromJsonToMessageToString(updatedOne);
                 sendMessageToWholeSockets(renewMessage);
                 break;
             }
@@ -149,9 +157,10 @@ public class ChatConnection extends Thread {
         String finalMessageToDelete = "";
         String chosenMessage = dataInputStream.readUTF();
         Message toBeDeleted = Message.convertFromJsonToMessage(chosenMessage);
-
+        System.out.println("Message to delete: "+toBeDeleted.getContent());
         for (int i = 0; i < chatServer.allMessages.size(); i++) {
             Message message = chatServer.allMessages.get(i);
+            System.out.println("Message of Loop: "+message.getContent());
             if (message.getContent().equals(toBeDeleted.getContent())
                     && message.getSender().equals(toBeDeleted.getSender())) {
                 chatServer.allMessages.remove(toBeDeleted);
@@ -159,6 +168,7 @@ public class ChatConnection extends Thread {
                     chatServer.allMessages.add(i, toBeDeleted);
                 }
                 toBeDeleted.setContent("#" + toBeDeleted.getSender() + "#" + toBeDeleted.getContent());
+                System.out.println("Content is : "+toBeDeleted.getContent());
                 finalMessageToDelete = Message.convertFromJsonToMessageToString(toBeDeleted);
                 flag = true;
                 break;
@@ -171,7 +181,6 @@ public class ChatConnection extends Thread {
         String renewMessage;
         String myMessage = dataInputStream.readUTF();
         Message reactedMessage = Message.convertFromJsonToMessage(myMessage);
-        System.out.println("@Message is : " + reactedMessage.getReaction());
         for (int i = 0; i < chatServer.allMessages.size(); i++) {
             Message message = chatServer.allMessages.get(i);
             if (message.getContent().equals(reactedMessage.getContent())

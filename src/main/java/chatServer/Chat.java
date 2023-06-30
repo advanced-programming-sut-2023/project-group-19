@@ -24,8 +24,12 @@ public class Chat {
         builder.registerTypeAdapter(Chat.class, new ChatAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();
+        System.out.println("1");
         Type type = new TypeToken<ArrayList<Chat>>(){}.getType();
-        return gson.toJson(chats,type);
+        System.out.println("2");
+        String text = gson.toJson(chats,type);
+        System.out.println("Text: "+text);
+        return text;
     }
 
     public String getName() {

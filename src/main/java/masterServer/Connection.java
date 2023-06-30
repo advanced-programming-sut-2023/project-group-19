@@ -34,7 +34,7 @@ public class Connection extends Thread {
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
 
-    public static HashMap<Socket,String> addUsersThatMustBeAddedToGame = new HashMap<>();
+    public static HashMap<Socket, String> addUsersThatMustBeAddedToGame = new HashMap<>();
 
     // key : port of server
     // value : chat server
@@ -133,85 +133,91 @@ public class Connection extends Thread {
             case "ASK_FRIENDSHIP":
                 askFriend();
                 break;
-            case "ACCEPT_FRIENDSHIP" :
+            case "ACCEPT_FRIENDSHIP":
                 acceptFriend();
                 break;
-            case "GET_FRIENDSHIP_REQUESTS" :
+            case "GET_FRIENDSHIP_REQUESTS":
                 getFriendShipRequest();
                 break;
 
         }
     }
+
     private void startGame() throws IOException {
         String idOfGameRequest = dataInputStream.readUTF();
-        ArrayList<String> players ;
-        for(GameRequest gameRequest : allGameRequests){
-            if(!gameRequest.id.equals(idOfGameRequest)) continue;
-            players = gameRequest.allMembersUserName ;
+        ArrayList<String> players;
+        for (GameRequest gameRequest : allGameRequests) {
+            if (!gameRequest.id.equals(idOfGameRequest)) continue;
+            players = gameRequest.allMembersUserName;
             sendStartGameRequestToAllPlayersIntoGame(players);
             break;
         }
     }
+
     public void getFriendShipRequest() throws IOException {
         String input = dataInputStream.readUTF();
         UsersFriend usersFriend = null;
-        for(int u = 0 ;  u < allFriendshipRequests.size() ; u++){
-            if(allFriendshipRequests.get(u).userName.equals(input)){
+        for (int u = 0; u < allFriendshipRequests.size(); u++) {
+            if (allFriendshipRequests.get(u).userName.equals(input)) {
                 usersFriend = allFriendshipRequests.get(u);
                 break;
             }
         }
         StringBuilder stringBuilder = new StringBuilder();
-        if(usersFriend != null) {
+        if (usersFriend != null) {
             for (int j = 0; j < usersFriend.friendRequest.size(); j++) {
                 stringBuilder.append(usersFriend.friendRequest.get(j) + '#');
             }
         }
         dataOutputStream.writeUTF(stringBuilder.toString());
     }
+
     public void askFriend() throws IOException {
         String input = dataInputStream.readUTF();
         System.out.println(input);
         String[] split = input.split("#");
         boolean available = false;
-        for(int i = 0 ;  i < allFriendshipRequests.size() ; i++){
-            if(allFriendshipRequests.get(i).getUserName().equals(split[1])){
-                if(!allFriendshipRequests.get(i).friendRequest.contains(split[0]))
+        for (int i = 0; i < allFriendshipRequests.size(); i++) {
+            if (allFriendshipRequests.get(i).getUserName().equals(split[1])) {
+                if (!allFriendshipRequests.get(i).friendRequest.contains(split[0]))
                     allFriendshipRequests.get(i).friendRequest.add(split[0]);
                 available = true;
                 break;
             }
         }
-        if(!available) {
+        if (!available) {
             UsersFriend usersFriend = new UsersFriend(split[1]);
             allFriendshipRequests.add(usersFriend);
             usersFriend.friendRequest.add(split[0]);
         }
     }
+
     public void acceptFriend() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
-        for(int i = 0 ;  i < allFriendshipRequests.size() ; i++){
-            if(allFriendshipRequests.get(i).getUserName().equals(split[0])){
+        for (int i = 0; i < allFriendshipRequests.size(); i++) {
+            if (allFriendshipRequests.get(i).getUserName().equals(split[0])) {
                 allFriendshipRequests.get(i).friendRequest.remove(split[1]);
             }
         }
     }
+
     private void getRequestStartGameFromUser() throws IOException {
         String portOfGame = addUsersThatMustBeAddedToGame.get(socket);
-        if(portOfGame == null) dataOutputStream.writeUTF("null");
+        if (portOfGame == null) dataOutputStream.writeUTF("null");
         else dataOutputStream.writeUTF(portOfGame);
     }
 
     private void sendStartGameRequestToAllPlayersIntoGame(ArrayList<String> players) throws IOException {
         GameServer gameServer = new GameServer(MasterServer.gamePort);
         gameServer.start();
-        for(String username : players){
+        for (String username : players) {
             Socket socket = Connection.allSockets.get(username);
-            addUsersThatMustBeAddedToGame.put(socket,Integer.toString(MasterServer.gamePort));
+            addUsersThatMustBeAddedToGame.put(socket, Integer.toString(MasterServer.gamePort));
         }
-        MasterServer.gamePort ++ ;
+        MasterServer.gamePort++;
     }
+
     public void privatePublicDecide() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
@@ -289,10 +295,15 @@ public class Connection extends Thread {
     }
 
     private void refreshChat() throws IOException {
+        System.out.println("Entered refresh chat");
         String owner = dataInputStream.readUTF();
+        System.out.println("Owner: " + owner);
         ArrayList<Chat> chats = chatsMustBeAddedToChatListOfClients.get(socket);
-        addChatToUsersArrayList(owner, chats);
+        System.out.println(chats);
+//        dataOutputStream.writeUTF(String.valueOf(chats != null && chats.size() != 0));
+//        addChatToUsersArrayList(owner, chats);
         String data = Chat.convertFromJsonToArrayListMessages(chats);
+        System.out.println("data: "+data);
         dataOutputStream.writeUTF(data);
     }
 
@@ -306,43 +317,47 @@ public class Connection extends Thread {
     }
 
     public void addNewPrivateChat() throws IOException {
+        System.out.println("Entered addNewPrivateChat");
         dataOutputStream.writeUTF(Integer.toString(MasterServer.chatPort));
         String ownerName = dataInputStream.readUTF();
         String username = dataInputStream.readUTF();
         ChatServer chatServer = new ChatServer(MasterServer.chatPort);
         chatServer.start();
+        int port = MasterServer.chatPort;
         allChats.put(MasterServer.chatPort, chatServer);
         Chat chat = new Chat(username, MasterServer.chatPort, "PV");
         addChatToUsersList(ownerName, chat);
         MasterServer.chatPort++;
-        addSecondUserChat(username, ownerName);
+        addSecondUserChat(username, ownerName, port);
     }
 
-    private void addSecondUserChat(String username, String ownerName) {
+    private void addSecondUserChat(String username, String ownerName, int port) {
         Socket socket = allSockets.get(username);
+        System.out.println("Socket: "+socket);
         chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
-        Chat chat = new Chat(ownerName, socket.getPort(), "PV");
+        Chat chat = new Chat(ownerName, port, "PV");
         chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
+        System.out.println("Size is: " + chatsMustBeAddedToChatListOfClients.size());
     }
 
     private void addNewMap() throws IOException {
-        String data = dataInputStream.readUTF();
-        System.out.println(data);
-        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
-        Map.arrayListArrayListOfObject.add(savedObstacles);
-        Map map = Map.buildMap(savedObstacles);
-        Map.getSavedMaps().add(map);
+//        String data = dataInputStream.readUTF();
+//        System.out.println(data);
+//        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
+//        Map.arrayListArrayListOfObject.add(savedObstacles);
+//        Map map = Map.buildMap(savedObstacles);
+//        Map.getSavedMaps().add(map);
     }
 
     private void sendArrayListOfSavedMapsToClient() throws IOException {
         dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
-        for(ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject){
+        for (ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject) {
             String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
             dataOutputStream.writeUTF(data);
         }
     }
 
-    private void addChatToUsersList(String ownerName, Chat chat){
+    private void addChatToUsersList(String ownerName, Chat chat) {
         if (usersSavedChats.get(ownerName) == null) {
             usersSavedChats.put(ownerName, new ArrayList<>());
         }
@@ -361,6 +376,7 @@ public class Connection extends Thread {
         String data = dataInputStream.readUTF();
         User user = User.makeUserFromGson(data);
         User.onlineUsers.add(user);
+        allSockets.put(user.getUsername(), socket); //TODO: This line must be deleted.
         dataOutputStream.writeUTF("login successfully");
     }
 
@@ -376,7 +392,7 @@ public class Connection extends Thread {
     private void findUserFromUsername() throws IOException {
         String username = dataInputStream.readUTF();
         for (User user : User.users) {
-            if (user.getUsername().equals(username)){
+            if (user.getUsername().equals(username)) {
                 String data = User.makeGsonFromUser(); //we need to make User to String
                 dataOutputStream.writeUTF(data);
                 break;
