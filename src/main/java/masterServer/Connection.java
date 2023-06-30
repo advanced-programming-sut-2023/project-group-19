@@ -157,34 +157,41 @@ public class Connection extends Thread {
         User userOrgUser = User.users.get(Integer.parseInt(index));
         makeConstantUser(userOrgUser ,user);
     }
+
+    private void makeConstantUser(User userOrgUser, User user) {
+        userOrgUser.username = user.username ;
+        userOrgUser.password = user.password;
+        userOrgUser.avatar = user.avatar;
+        userOrgUser.email =  user.email ;
+        userOrgUser.highScore = user.highScore ;
+        userOrgUser.nickname = user.nickname;
+        userOrgUser.slogan = user.slogan ;
+        userOrgUser.recoveryQuestion = user.recoveryQuestion;
+        userOrgUser.recoveryQuestionNumber = user.recoveryQuestionNumber ;
+        userOrgUser.rank = user.rank ;
+    }
+
+
+
+
     public void getFriendShipRequest() throws IOException {
         String input = dataInputStream.readUTF();
         UsersFriend usersFriend = null;
-        for(int u = 0 ;  u < allFriendshipRequests.size() ; u++){
-            if(allFriendshipRequests.get(u).userName.equals(input)){
+        for (int u = 0; u < allFriendshipRequests.size(); u++) {
+            if (allFriendshipRequests.get(u).userName.equals(input)) {
                 usersFriend = allFriendshipRequests.get(u);
                 break;
             }
             StringBuilder stringBuilder = new StringBuilder();
-            if(usersFriend != null) {
+            if (usersFriend != null) {
                 for (int j = 0; j < usersFriend.friendRequest.size(); j++) {
                     stringBuilder.append(usersFriend.friendRequest.get(j) + '#');
                 }
             }
             dataOutputStream.writeUTF(stringBuilder.toString());
         }
-    private void makeConstantUser(User orgUser , User copy){
-        orgUser.username = copy.username ;
-        orgUser.password = copy.password;
-        orgUser.avatar = copy.avatar;
-        orgUser.email =  copy.email ;
-        orgUser.highScore = copy.highScore ;
-        orgUser.nickname = copy.nickname;
-        orgUser.slogan = copy.slogan ;
-        orgUser.recoveryQuestion = copy.recoveryQuestion;
-        orgUser.recoveryQuestionNumber = copy.recoveryQuestionNumber ;
-        orgUser.rank = copy.rank ;
     }
+
         public void askFriend() throws IOException {
             String input = dataInputStream.readUTF();
             System.out.println(input);
@@ -370,7 +377,7 @@ public class Connection extends Thread {
         int port = chatServer.port;
         chatServer.start();
         allChats.put(MasterServer.chatPort, chatServer);
-        System.out.println("All chats: "+allChats.size());
+        System.out.println("All chats: " + allChats.size());
         for (java.util.Map.Entry<Integer, ChatServer> map : allChats.entrySet()){
             System.out.println(map.getValue().getName()+" "+map.getKey());
         }
@@ -380,7 +387,7 @@ public class Connection extends Thread {
         addSecondUserChat(username, ownerName,port);
     }
 
-    private void addSecondUserChat(String username, String ownerName) {
+    private void addSecondUserChat(String username, String ownerName,int port) {
         Socket socket = allSockets.get(username);
         if (chatsMustBeAddedToChatListOfClients.size() != 0){
             System.out.println(" > 0");
