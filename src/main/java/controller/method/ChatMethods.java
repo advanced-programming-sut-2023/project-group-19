@@ -8,7 +8,7 @@ import model.Manage;
 import model.Message;
 import model.User;
 import org.w3c.dom.CDATASection;
-import view.MessageGetter;
+
 
 import javax.print.attribute.standard.MediaName;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
@@ -25,11 +25,15 @@ public class ChatMethods {
     public DataOutputStream dataOutputStream ;
 
     public static void refreshChats() throws IOException {
+        String data;
+        System.out.println("Started refresh chats");
+        if (Manage.masterServerDataInputStream == null) System.out.println("It's nulllllll");
+        else System.out.println("Nott nullll");
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
-        String data =  Manage.masterServerDataInputStream.readUTF();
-        System.out.println("Data: "+data);
-        if(data.equals("null")) return;
+//        String bool =  Manage.masterServerDataInputStream.readUTF();
+        data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println("Output data:\n"+data);
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
         for(Chat chat : chats){
             System.out.println(chat.getSocket().getPort());
@@ -75,10 +79,8 @@ public class ChatMethods {
         return new Chat(socket,name,"GROUP");
     }
     public ArrayList<Message> enterToChat() throws IOException {
-        //TODO : the socket of chat must be given
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
-        System.out.println("Enter chat data is: "+data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
         getMessagesFromServer(dataInputStream);
         return messages;
