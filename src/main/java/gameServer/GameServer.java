@@ -9,14 +9,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class GameServer extends Thread{
-    private int numberOfPlayers ;
-    //when the game is played please on the lock
-    public boolean lock ;
     private int port ;
-    public GameServer(int port,int numberOfPlayers) {
+    public ArrayList<Socket> socketOfPlayers =  new ArrayList<>();
+
+    public GameServer(int port) {
         this.port =  port ;
-        this.numberOfPlayers  = numberOfPlayers ;
         System.out.println("Starting Broker service...");
+
     }
     public ArrayList<User> players =  new ArrayList<>();
 
@@ -25,12 +24,10 @@ public class GameServer extends Thread{
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true){
-                //The code that placed in the below is a blocking code
                 Socket socket = serverSocket.accept();
-                numberOfPlayers ++ ;
-                Connection connection = new Connection(socket);
-                connection.start();
-                if(numberOfPlayers == players.size()) lock = true ;
+                socketOfPlayers.add(socket);
+                GameConnection gameConnection = new GameConnection(socket,this);
+                gameConnection.start();
             }
         } catch (IOException e) {
             //TODO: try to reconnect...

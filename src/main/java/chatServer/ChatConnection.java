@@ -70,7 +70,7 @@ public class ChatConnection extends Thread{
         ArrayList<String> users = gson.fromJson(data,type);
         for(String username : users) {
             Socket socket = Connection.allSockets.get(username);
-            Chat chat =  new Chat(groupName,chatServer.port,"GROUP");
+            Chat chat =  new Chat(groupName,socket.getPort(),"GROUP");
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         }
@@ -110,6 +110,8 @@ public class ChatConnection extends Thread{
         String renewMessage;
         String oldMessage = dataInputStream.readUTF();
         String newMessage = dataInputStream.readUTF();
+//        System.out.println("Old: "+oldMessage);
+//        System.out.println("New: "+newMessage);
         Message ancientOne = Message.convertFromJsonToMessage(oldMessage);
         Message newOne = Message.convertFromJsonToMessage(newMessage);
         for (int i = 0 ; i < chatServer.allMessages.size() ; i++){
