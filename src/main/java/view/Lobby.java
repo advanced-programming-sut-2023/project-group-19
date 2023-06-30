@@ -1567,7 +1567,7 @@ public class Lobby extends Application {
         String content = chatTextField.getText();
         pane.getChildren().remove(chatTextField);
         pane.getChildren().remove(send);
-        edit = new Button("Back");
+        edit = new Button("Edit");
         edit.setLayoutX(620);
         edit.setLayoutY(780);
         edit.setPrefSize(150, 50);
