@@ -85,6 +85,7 @@ public class Connection extends Thread {
 
     private void handleCommand() throws IOException {
         String requestType = dataInputStream.readUTF();
+        System.out.println("Type of Req: "+requestType);
         switch (requestType) {
             case "CREATE_USER":
                 createUser();
@@ -232,6 +233,7 @@ public class Connection extends Thread {
                 allFriendshipRequests.get(i).friendRequest.remove(split[1]);
             }
         }
+    }
 
     private void sendListOfUsers() throws IOException {
         System.out.println("send list of users 1");
