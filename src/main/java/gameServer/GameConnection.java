@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class GameConnection extends Thread{
-    Socket socket;
+    private Socket socket;
+    private GameServer gameServer;
     final DataInputStream dataInputStream;
     final DataOutputStream dataOutputStream;
     GameServer gameServer ;
@@ -20,7 +21,11 @@ public class GameConnection extends Thread{
     }
     @Override
     public void run() {
-        super.run();
+        try {
+            handleCommand();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     private void handleCommand() throws IOException {
         String data = dataInputStream.readUTF();

@@ -16,8 +16,10 @@ public class GameServer extends Thread{
         this.port =  port ;
         System.out.println("Starting Broker service...");
 
+        this.numberOfPlayers  = numberOfPlayers ;
+        System.out.println("Starting Game Server...");
     }
-    public ArrayList<User> players =  new ArrayList<>();
+    public ArrayList<Socket> socketOfPlayers =  new ArrayList<>();
 
     @Override
     public void run() {
@@ -28,6 +30,7 @@ public class GameServer extends Thread{
                 socketOfPlayers.add(socket);
                 GameConnection gameConnection = new GameConnection(socket,this);
                 gameConnection.start();
+
             }
         } catch (IOException e) {
             //TODO: try to reconnect...
