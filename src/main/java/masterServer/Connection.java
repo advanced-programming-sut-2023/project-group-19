@@ -8,8 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.*;
 
+import basicGameModel.Map;
 import chatServer.Chat;
 import chatServer.ChatConnection;
 import chatServer.ChatServer;
@@ -21,10 +22,6 @@ import gameServer.GameConnection;
 import gameServer.GameRequest;
 import gameServer.GameServer;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
-
 public class Connection extends Thread {
 
     private ArrayList<Map> maps = new ArrayList<>();
@@ -34,7 +31,7 @@ public class Connection extends Thread {
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
 
-    public static HashMap<Socket,String> addUsersThatMustBeAddedToGame = new HashMap<>();
+    public static HashMap<Socket, String> addUsersThatMustBeAddedToGame = new HashMap<>();
 
     // key : port of server
     // value : chat server
@@ -46,6 +43,25 @@ public class Connection extends Thread {
         chatServer.start();
         allChats.put(chatServer.port, chatServer);
         MasterServer.chatPort++;
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                for(int i = 0 ; i < allGameRequests.size() ; i++){
+//                    if(size[i] < allGameRequests.get(i).getAllMembersUserName().size()){
+//                        second[i] = 0;
+//                        size[i] = allGameRequests.get(i).getAllMembersUserName().size();
+//                    }
+//                    if(second[i] > 10){
+//                        allGameRequests.remove(i);
+//                        if(i != 0)
+//                            i--;
+//                    }
+//                    second[i]++;
+//                }
+//            }
+//        }, 0, 1000);
+
     }
 
 //    {
@@ -83,8 +99,9 @@ public class Connection extends Thread {
         }
     }
 
-    private void handleCommand() throws IOException {
+    private synchronized void handleCommand() throws IOException {
         String requestType = dataInputStream.readUTF();
+
         switch (requestType) {
             case "CREATE_USER":
                 createUser();
@@ -93,7 +110,7 @@ public class Connection extends Thread {
                 addUserToOnlineUsers();
                 break;
             case "ADD_MAP":
-                addNewMap();
+//                addNewMap();
                 break;
             case "REFRESH_CHAT":
                 refreshChat();
@@ -119,13 +136,16 @@ public class Connection extends Thread {
             case "PRIVATE_PUBLIC":
                 privatePublicDecide();
             case "ADD_NEW_MAP_TO_SERVER":
-                addNewMap();
+//                addNewMap();
                 break;
             case "GET_SAVED_MAPS":
-                sendArrayListOfSavedMapsToClient();
+//                sendArrayListOfSavedMapsToClient();
                 break;
             case "START_GAME":
                 startGame();
+                break;
+            case "ADMIN_START_GAME":
+
                 break;
             case "START_GAME_REQUEST":
                 getRequestStartGameFromUser();
@@ -133,85 +153,94 @@ public class Connection extends Thread {
             case "ASK_FRIENDSHIP":
                 askFriend();
                 break;
-            case "ACCEPT_FRIENDSHIP" :
+            case "ACCEPT_FRIENDSHIP":
                 acceptFriend();
                 break;
-            case "GET_FRIENDSHIP_REQUESTS" :
+            case "GET_FRIENDSHIP_REQUESTS":
                 getFriendShipRequest();
                 break;
 
         }
     }
-    private void startGame() throws IOException {
-        String idOfGameRequest = dataInputStream.readUTF();
-        ArrayList<String> players ;
-        for(GameRequest gameRequest : allGameRequests){
-            if(!gameRequest.id.equals(idOfGameRequest)) continue;
-            players = gameRequest.allMembersUserName ;
-            sendStartGameRequestToAllPlayersIntoGame(players);
-            break;
+    public void startGame() throws IOException {
+        String input = dataInputStream.readUTF();
+        for (int i = 0; i < allGameRequests.size(); i++) {
+            if (allGameRequests.get(i).startGame) {
+                for (int j = 0; j < allGameRequests.get(i).allMembersUserName.size(); j++) {
+                    if (allGameRequests.get(i).allMembersUserName.get(j).equals(input)) {
+                        dataOutputStream.writeUTF("start");
+                        return;
+                    }
+                }
+            }
         }
+        dataOutputStream.writeUTF("stop");
     }
+
     public void getFriendShipRequest() throws IOException {
         String input = dataInputStream.readUTF();
         UsersFriend usersFriend = null;
-        for(int u = 0 ;  u < allFriendshipRequests.size() ; u++){
-            if(allFriendshipRequests.get(u).userName.equals(input)){
+        for (int u = 0; u < allFriendshipRequests.size(); u++) {
+            if (allFriendshipRequests.get(u).userName.equals(input)) {
                 usersFriend = allFriendshipRequests.get(u);
                 break;
             }
         }
         StringBuilder stringBuilder = new StringBuilder();
-        if(usersFriend != null) {
+        if (usersFriend != null) {
             for (int j = 0; j < usersFriend.friendRequest.size(); j++) {
                 stringBuilder.append(usersFriend.friendRequest.get(j) + '#');
             }
         }
         dataOutputStream.writeUTF(stringBuilder.toString());
     }
+
     public void askFriend() throws IOException {
         String input = dataInputStream.readUTF();
-        System.out.println(input);
+
         String[] split = input.split("#");
         boolean available = false;
-        for(int i = 0 ;  i < allFriendshipRequests.size() ; i++){
-            if(allFriendshipRequests.get(i).getUserName().equals(split[1])){
-                if(!allFriendshipRequests.get(i).friendRequest.contains(split[0]))
+        for (int i = 0; i < allFriendshipRequests.size(); i++) {
+            if (allFriendshipRequests.get(i).getUserName().equals(split[1])) {
+                if (!allFriendshipRequests.get(i).friendRequest.contains(split[0]))
                     allFriendshipRequests.get(i).friendRequest.add(split[0]);
                 available = true;
                 break;
             }
         }
-        if(!available) {
+        if (!available) {
             UsersFriend usersFriend = new UsersFriend(split[1]);
             allFriendshipRequests.add(usersFriend);
             usersFriend.friendRequest.add(split[0]);
         }
     }
+
     public void acceptFriend() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
-        for(int i = 0 ;  i < allFriendshipRequests.size() ; i++){
-            if(allFriendshipRequests.get(i).getUserName().equals(split[0])){
+        for (int i = 0; i < allFriendshipRequests.size(); i++) {
+            if (allFriendshipRequests.get(i).getUserName().equals(split[0])) {
                 allFriendshipRequests.get(i).friendRequest.remove(split[1]);
             }
         }
     }
+
     private void getRequestStartGameFromUser() throws IOException {
         String portOfGame = addUsersThatMustBeAddedToGame.get(socket);
-        if(portOfGame == null) dataOutputStream.writeUTF("null");
+        if (portOfGame == null) dataOutputStream.writeUTF("null");
         else dataOutputStream.writeUTF(portOfGame);
     }
 
     private void sendStartGameRequestToAllPlayersIntoGame(ArrayList<String> players) throws IOException {
         GameServer gameServer = new GameServer(MasterServer.gamePort);
         gameServer.start();
-        for(String username : players){
+        for (String username : players) {
             Socket socket = Connection.allSockets.get(username);
-            addUsersThatMustBeAddedToGame.put(socket,Integer.toString(MasterServer.gamePort));
+            addUsersThatMustBeAddedToGame.put(socket, Integer.toString(MasterServer.gamePort));
         }
-        MasterServer.gamePort ++ ;
+        MasterServer.gamePort++;
     }
+
     public void privatePublicDecide() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
@@ -241,6 +270,9 @@ public class Connection extends Thread {
         GameRequest gameRequest = findGameRequest(split[0]);
         if (gameRequest.capacity >= gameRequest.allMembersUserName.size())
             gameRequest.allMembersUserName.add(split[1]);
+        if(gameRequest.capacity ==gameRequest.allMembersUserName.size() ){
+            gameRequest.startGame = true;
+        }
     }
 
     public GameRequest findGameRequest(String gameId) {
@@ -265,7 +297,12 @@ public class Connection extends Thread {
         }
         String output = stringBuilder.toString();
         dataOutputStream.writeUTF(output);
+        dataOutputStream.writeUTF(output);
+        dataOutputStream.writeUTF(output);
     }
+
+    public static int[] second = new int[100];
+    public static int[] size = new int[100];
 
     public void addNewGameRequest() throws IOException {
         String request = dataInputStream.readUTF();
@@ -274,6 +311,8 @@ public class Connection extends Thread {
         gameRequest.adminUsername = command[0];
         gameRequest.allMembersUserName.add(command[0]);
         allGameRequests.add(gameRequest);
+        size[allGameRequests.size()-1] = 1;
+        second[allGameRequests.size()-1] = 0;
     }
 
     private void addNewGroupChat() throws IOException {
@@ -325,24 +364,24 @@ public class Connection extends Thread {
         chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
     }
 
-    private void addNewMap() throws IOException {
-        String data = dataInputStream.readUTF();
-        System.out.println(data);
-        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
-        Map.arrayListArrayListOfObject.add(savedObstacles);
-        Map map = Map.buildMap(savedObstacles);
-        Map.getSavedMaps().add(map);
-    }
+//    private void addNewMap() throws IOException {
+//        String data = dataInputStream.readUTF();
+//        System.out.println(data);
+//        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
+//        Map.arrayListArrayListOfObject.add(savedObstacles);
+//        Map map = Map.buildMap(savedObstacles);
+//        Map.getSavedMaps().add(map);
+//    }
+//
+//    private void sendArrayListOfSavedMapsToClient() throws IOException {
+//        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
+//        for (ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject) {
+//            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
+//            dataOutputStream.writeUTF(data);
+//        }
+//    }
 
-    private void sendArrayListOfSavedMapsToClient() throws IOException {
-        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
-        for(ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject){
-            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
-            dataOutputStream.writeUTF(data);
-        }
-    }
-
-    private void addChatToUsersList(String ownerName, Chat chat){
+    private void addChatToUsersList(String ownerName, Chat chat) {
         if (usersSavedChats.get(ownerName) == null) {
             usersSavedChats.put(ownerName, new ArrayList<>());
         }
@@ -376,7 +415,7 @@ public class Connection extends Thread {
     private void findUserFromUsername() throws IOException {
         String username = dataInputStream.readUTF();
         for (User user : User.users) {
-            if (user.getUsername().equals(username)){
+            if (user.getUsername().equals(username)) {
                 String data = User.makeGsonFromUser(); //we need to make User to String
                 dataOutputStream.writeUTF(data);
                 break;

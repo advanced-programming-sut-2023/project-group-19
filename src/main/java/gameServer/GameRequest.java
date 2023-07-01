@@ -8,11 +8,20 @@ public class GameRequest {
     public String adminUsername;
     public String gameRequestType;
     public ArrayList<String> allMembersUserName = new ArrayList<>();
+    public boolean startGame = false;
 
     public GameRequest(String id, int capacity, String type) {
         this.id = id;
         this.capacity = capacity;
         this.gameRequestType = type;
+    }
+
+    public boolean isStartGame() {
+        return startGame;
+    }
+
+    public void setStartGame(boolean startGame) {
+        this.startGame = startGame;
     }
 
     public String getAdminUsername() {
