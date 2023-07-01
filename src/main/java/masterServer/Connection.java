@@ -242,7 +242,6 @@ public class Connection extends Thread {
         }
 
     private void sendListOfUsers() throws IOException {
-        System.out.println(User.makeGsonFromUser());
         dataOutputStream.writeUTF(User.makeGsonFromUser());
     }
         private void getRequestStartGameFromUser() throws IOException {
@@ -377,6 +376,7 @@ public class Connection extends Thread {
         String data = Chat.convertFromJsonToArrayListMessages(chats);
         dataOutputStream.writeUTF(data);
         System.out.println("Json of chats into refresh is : \n" + data);
+        if(chats == null) return;
         chatsMustBeAddedToChatListOfClients.get(socket).clear();
     }
 
@@ -409,7 +409,6 @@ public class Connection extends Thread {
 
     private void addSecondUserChat(String username, String ownerName,int port) {
         Socket socket = allSockets.get(username);
-        System.out.println("socket into add second user is: " +  socket);
 //        if (chatsMustBeAddedToChatListOfClients.size() != 0){
 //            System.out.println(" > 0");
 //        }
@@ -418,7 +417,7 @@ public class Connection extends Thread {
         saveChatToHashMap(username,chat);
         chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         if (chatsMustBeAddedToChatListOfClients.size() != 0){
-            System.out.println("ADDED Successfully");
+//            System.out.println("ADDED Successfully");
         }
     }
     private void saveChatToHashMap(String username ,  Chat chat){
@@ -472,8 +471,8 @@ public class Connection extends Thread {
     private void createUser() throws IOException {
         String data = dataInputStream.readUTF();
         User user = User.createUserFromGson(data);
-        System.out.println("name of socket is : " + socket);
-        System.out.println("size of hashmap sockets:  " + allSockets.size());
+//        System.out.println("name of socket is : " + socket);
+//        System.out.println("size of hashmap sockets:  " + allSockets.size());
 //        usersSavedChats.put(user.getUsername(), new ArrayList<>());
     }
 

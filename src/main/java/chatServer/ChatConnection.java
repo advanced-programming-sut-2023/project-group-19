@@ -70,6 +70,7 @@ public class ChatConnection extends Thread{
         ArrayList<String> users = gson.fromJson(data,type);
         for(String username : users) {
             Socket socket = Connection.allSockets.get(username);
+            System.out.println(socket);
             Chat chat =  new Chat(groupName,chatServer.port,"GROUP");
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
@@ -89,6 +90,8 @@ public class ChatConnection extends Thread{
 
     private void showMessages() throws IOException {
         chatServer.inChatUsers.add(socket);
+        System.out.println(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
+        dataOutputStream.writeUTF("####");
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
     private void receiveMessage() throws IOException {
