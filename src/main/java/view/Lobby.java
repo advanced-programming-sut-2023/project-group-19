@@ -106,7 +106,7 @@ public class Lobby extends Application {
             user3 = new User("ac", "s", "a", "s", "w", "q", 3);
             user4 = new User("ad", "s", "a", "s", "w", "q", 3);
             user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-            User.setCurrentUser(user2);
+            User.setCurrentUser(user1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
