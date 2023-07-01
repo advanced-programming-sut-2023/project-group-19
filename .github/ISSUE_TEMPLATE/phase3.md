@@ -173,7 +173,7 @@ assignees: Arman17Babaei
 </details>
 
 <details>
-  <summary>احراز هویت</summary>
+  <summary>چت</summary>
 
   <div dir="ltr" align='right'>
 
