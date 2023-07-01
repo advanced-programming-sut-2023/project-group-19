@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class GameConnection extends Thread{
-    private Socket socket;
-    private GameServer gameServer;
+    Socket socket;
     final DataInputStream dataInputStream;
     final DataOutputStream dataOutputStream;
+    GameServer gameServer ;
 
 
     public GameConnection(Socket socket,GameServer gameServer) throws IOException {
@@ -21,14 +21,11 @@ public class GameConnection extends Thread{
     }
     @Override
     public void run() {
-        try {
-            handleCommand();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        super.run();
     }
     private void handleCommand() throws IOException {
         String data = dataInputStream.readUTF();
+        //every command you got send it to whole active sockets
         for(Socket socket : gameServer.socketOfPlayers){
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(data);

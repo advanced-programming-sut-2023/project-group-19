@@ -20,6 +20,8 @@ public class MessageAdaptor extends TypeAdapter<Message> {
         writer.value(message.getSentTime());
         writer.name("avatar");
         writer.value(message.getAvatar());
+        writer.name("reaction");
+        writer.value(message.getReaction());
         writer.name("seen");
         writer.value(message.isSeen());
         writer.endObject();
@@ -49,6 +51,11 @@ public class MessageAdaptor extends TypeAdapter<Message> {
                 //move to next token
                 token = reader.peek();
                 message.content =(reader.nextString());
+            }
+            if("reaction".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                message.reaction =(reader.nextString());
             }
             if("sentTime".equals(fieldname)) {
                 //move to next token

@@ -28,7 +28,6 @@ public class GameServer extends Thread{
                 socketOfPlayers.add(socket);
                 GameConnection gameConnection = new GameConnection(socket,this);
                 gameConnection.start();
-
             }
         } catch (IOException e) {
             //TODO: try to reconnect...
