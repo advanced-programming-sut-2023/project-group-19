@@ -1,4 +1,4 @@
-package gameServer;
+package masterServer;
 
 import java.util.ArrayList;
 

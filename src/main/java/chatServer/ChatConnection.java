@@ -28,6 +28,7 @@ public class ChatConnection extends Thread {
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
     }
+
     @Override
     public void run() {
         try {
@@ -76,6 +77,7 @@ public class ChatConnection extends Thread {
         for (String username : users) {
             Socket socket = Connection.allSockets.get(username);
             Chat chat = new Chat(groupName, chatServer.port, "GROUP");
+            Connection.saveChatToHashMap(username,chat);
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         }
@@ -94,6 +96,8 @@ public class ChatConnection extends Thread {
 
     private void showMessages() throws IOException {
         chatServer.inChatUsers.add(socket);
+        System.out.println(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
+        dataOutputStream.writeUTF("####");
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
     private void receiveMessage() throws IOException {
@@ -119,11 +123,14 @@ public class ChatConnection extends Thread {
             dataOutputStream.writeUTF(data);
         }
     }
+
     private void editMessage() throws IOException {
         boolean flag = false;
         String renewMessage;
         String oldMessage = dataInputStream.readUTF();
         String newMessage = dataInputStream.readUTF();
+//        System.out.println("Old: "+oldMessage);
+//        System.out.println("New: "+newMessage);
         Message ancientOne = Message.convertFromJsonToMessage(oldMessage);
         Message newOne = Message.convertFromJsonToMessage(newMessage);
         for (int i = 0; i < chatServer.allMessages.size(); i++) {

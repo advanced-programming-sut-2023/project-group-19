@@ -11,6 +11,7 @@ public class GameConnection extends Thread{
     final DataOutputStream dataOutputStream;
     GameServer gameServer ;
 
+
     public GameConnection(Socket socket,GameServer gameServer) throws IOException {
         System.out.println("New connection form: " + socket.getInetAddress() + ":" + socket.getPort());
         this.socket = socket;
