@@ -1500,7 +1500,7 @@ public class Lobby extends Application {
 
     private ArrayList<User> findAllMatchingChats(String text) {
         ArrayList<User> users = new ArrayList<>();
-        for (User user : Manage.allUsers) {
+        for (User user : User.users) {
             if (user.getUsername().contains(text)) {
                 users.add(user);
             }
