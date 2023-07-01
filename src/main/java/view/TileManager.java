@@ -192,6 +192,7 @@ public class TileManager extends Application {
                                 }
                             });
                         }
+
                         // move unit :
                         //    moveUnit + # + passingArmy.getxCoordinate() + '#' +passingArmy.getyCoordinate() + '#' +
                         //    passingArmy.getNames().getName() + '#' +xOfDestination + '#' + yOfDestination
