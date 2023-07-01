@@ -8,7 +8,7 @@ import model.Manage;
 import model.Message;
 import model.User;
 import org.w3c.dom.CDATASection;
-
+import view.MessageGetter;
 
 import javax.print.attribute.standard.MediaName;
 import javax.swing.plaf.synth.SynthOptionPaneUI;

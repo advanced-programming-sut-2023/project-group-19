@@ -89,7 +89,6 @@ public class Map {
     public static Map getMapWithName(String name){
         System.out.println(savedMaps.size());
         for(Map map : getSavedMaps()){
-            System.out.println(map.name);
             if(map.getName().equals(name)) return map ;
         }
         return null ;

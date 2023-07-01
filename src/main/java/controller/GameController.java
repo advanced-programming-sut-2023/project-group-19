@@ -15,19 +15,17 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import model.*;
 import model.Building.*;
-import model.Empire;
-import model.GroundType;
 import model.Human.Names;
 import model.Human.Troop.*;
-import model.Manage;
-import model.Map;
 import view.ImageAndBackground.MoveAnimationPics;
 import view.Messages.GameMenuMessages;
 import view.Model.NewButton;
 import view.MoveAnimation;
 import view.TileManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -151,22 +149,30 @@ public class GameController {
         done.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                TileManager.gameLog.append(TileManager.time + '#' + "CLOSE_SELECT_UNIT" + '\n');
                 int j = 0;
+                String name = null;
+                int x = 0;
+                int y = 0;
+                int count = 0;
                 for (Text text : nameOfUnit) {
                     for (java.util.Map.Entry<ArrayList<Army>, Integer> army : listOfUnits.entrySet()) {
                         if (army.getKey().get(0).getNames().getName().equals(text.getText())) {
+                            name = army.getKey().get(0).getNames().getName();
+                            x = army.getKey().get(0).getxCoordinate();
+                            y = army.getKey().get(0).getyCoordinate();
+                            count = spinners.get(0).getValue();
                             for (int i = 0; i < spinners.get(j).getValue(); i++) {
                                 selectedUnit.add(army.getKey().get(i));
-                                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
-                                TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" +
-                                        '#' + army.getKey().get(i).getNames().getName() + '#' + spinners.get(j).getValue() + '#'+
-                                        army.getKey().get(i).getxCoordinate() + '#' + army.getKey().get(i).getyCoordinate() + '\n');
                             }
+                            //number --> spinners.get(j)
+                            //type ---> text.getText()
                             j++;
                         }
                     }
+                    TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                    TileManager.gameLog.append(TileManager.time + '#' + "SELECT_UNIT" +
+                            '#' + name + '#' + count + '#' +
+                            x + '#' + y + '\n');
                 }
                 pane.getChildren().remove(box);
                 selectedButtons.clear();
@@ -300,6 +306,540 @@ public class GameController {
 
 
     public void dropUnits(int x, int y, int typeOfUnit, int count, NewButton button) {
+        switch (typeOfUnit) {
+            case 0:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 0 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 0 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers archer = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    archer.archer(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(archer);
+                    Map.getTroopMap()[x][y].add(archer);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(archer);
+                }
+                Manage.getCurrentEmpire().setEuropeArcherCount
+                        (Manage.getCurrentEmpire().getEuropeArcherCount() - count);
+                break;
+            case 1:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 1 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 1 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers crossBowMan = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    crossBowMan.Crossbowmen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(crossBowMan);
+                    Map.getTroopMap()[x][y].add(crossBowMan);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(crossBowMan);
+                }
+                Manage.getCurrentEmpire().setCrossbowManCount
+                        (Manage.getCurrentEmpire().getCrossbowManCount() - count);
+                break;
+            case 2:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 2 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 2 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Climbers spearMen = new Climbers(Manage.getCurrentEmpire());
+                    spearMen.SpearMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(spearMen);
+                    Map.getTroopMap()[x][y].add(spearMen);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(spearMen);
+                }
+                Manage.getCurrentEmpire().setSpearManCount
+                        (Manage.getCurrentEmpire().getSpearManCount() - count);
+                break;
+            case 3:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 3 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 3 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Soldiers pikeMen = new Soldiers(Manage.getCurrentEmpire());
+                    pikeMen.PikeMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(pikeMen);
+                    Map.getTroopMap()[x][y].add(pikeMen);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(pikeMen);
+                }
+                Manage.getCurrentEmpire().setPikeManCount
+                        (Manage.getCurrentEmpire().getPikeManCount() - count);
+                break;
+            case 4:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 4 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 4 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Climbers maceMen = new Climbers(Manage.getCurrentEmpire());
+                    maceMen.MaceMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(maceMen);
+                    Map.getTroopMap()[x][y].add(maceMen);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(maceMen);
+                }
+                Manage.getCurrentEmpire().setMaceManCount
+                        (Manage.getCurrentEmpire().getMaceManCount() - count);
+                break;
+            case 5:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 5 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 5 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Soldiers swordsMen = new Soldiers(Manage.getCurrentEmpire());
+                    swordsMen.Swordsmen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(swordsMen);
+                    Map.getTroopMap()[x][y].add(swordsMen);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(swordsMen);
+                }
+                Manage.getCurrentEmpire().setSwordManCount
+                        (Manage.getCurrentEmpire().getSwordManCount() - count);
+                break;
+            case 6:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 6 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 6 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Soldiers knight = new Soldiers(Manage.getCurrentEmpire());
+                    knight.Knight(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(knight);
+                    Map.getTroopMap()[x][y].add(knight);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(knight);
+
+                }
+                Manage.getCurrentEmpire().setKnightCount
+                        (Manage.getCurrentEmpire().getKnightCount() - count);
+                break;
+            case 7:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 7 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 7 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Tunneler tunneler = new Tunneler(Manage.getCurrentEmpire());
+                    tunneler.Tunneler(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(tunneler);
+                    Map.getTroopMap()[x][y].add(tunneler);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(tunneler);
+                }
+                Manage.getCurrentEmpire().setTunnelerCount
+                        (Manage.getCurrentEmpire().getTunnelerCount() - count);
+                break;
+            case 8:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 8 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 8 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Climbers ladderMen = new Climbers(Manage.getCurrentEmpire());
+                    ladderMen.LadderMen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(ladderMen);
+                    Map.getTroopMap()[x][y].add(ladderMen);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(ladderMen);
+                }
+                Manage.getCurrentEmpire().setLadderManCount
+                        (Manage.getCurrentEmpire().getLadderManCount() - count);
+                break;
+            case 9:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 9 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 9 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Soldiers blackMonk = new Soldiers(Manage.getCurrentEmpire());
+                    blackMonk.BlackMonk(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(blackMonk);
+                    Map.getTroopMap()[x][y].add(blackMonk);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(blackMonk);
+                }
+                Manage.getCurrentEmpire().setBlackMonkCount
+                        (Manage.getCurrentEmpire().getBlackMonkCount() - count);
+                break;
+            case 10:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 10 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 10 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers archerBow = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    archerBow.ArcherBow(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(archerBow);
+                    Map.getTroopMap()[x][y].add(archerBow);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(archerBow);
+                }
+                Manage.getCurrentEmpire().setArabianBowCount
+                        (Manage.getCurrentEmpire().getArabianBowCount() - count);
+                break;
+            case 11:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 11 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 11 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Soldiers slaves = new Soldiers(Manage.getCurrentEmpire());
+                    slaves.Slaves(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(slaves);
+                    Map.getTroopMap()[x][y].add(slaves);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(slaves);
+                }
+                Manage.getCurrentEmpire().setSlaveCount
+                        (Manage.getCurrentEmpire().getSlaveCount() - count);
+                break;
+            case 12:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 12 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 12 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers slingers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    slingers.Slingers(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(slingers);
+                    Map.getTroopMap()[x][y].add(slingers);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(slingers);
+                }
+                Manage.getCurrentEmpire().setSlingerCount
+                        (Manage.getCurrentEmpire().getSlingerCount() - count);
+                break;
+            case 13:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 13 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 13 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Climbers assassins = new Climbers(Manage.getCurrentEmpire());
+                    assassins.Assassins(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(assassins);
+                    Map.getTroopMap()[x][y].add(assassins);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(assassins);
+                }
+                Manage.getCurrentEmpire().setAssassinCount
+                        (Manage.getCurrentEmpire().getAssassinCount() - count);
+                break;
+            case 14:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 14 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 14 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers horseArcher = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    horseArcher.HorseArchers(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(horseArcher);
+                    Map.getTroopMap()[x][y].add(horseArcher);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(horseArcher);
+                }
+                Manage.getCurrentEmpire().setHorseArcherCount
+                        (Manage.getCurrentEmpire().getHorseArcherCount() - count);
+                break;
+            case 15:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 15 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 15 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    Soldiers arabSwordMen = new Soldiers(Manage.getCurrentEmpire());
+                    arabSwordMen.ArabianSwordsmen(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(arabSwordMen);
+                    Map.getTroopMap()[x][y].add(arabSwordMen);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(arabSwordMen);
+                }
+                Manage.getCurrentEmpire().setArabianSwordManCount
+                        (Manage.getCurrentEmpire().getArabianSwordManCount() - count);
+                break;
+            case 16:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 16 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 16 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers fireThrowers = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    fireThrowers.FireThrowers(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(fireThrowers);
+                    Map.getTroopMap()[x][y].add(fireThrowers);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(fireThrowers);
+                }
+                Manage.getCurrentEmpire().setFireThrowerCount
+                        (Manage.getCurrentEmpire().getFireThrowerCount() - count);
+                break;
+            case 17:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 17 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 17 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers catapult = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    catapult.catapult(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(catapult);
+                    Map.getTroopMap()[x][y].add(catapult);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(catapult);
+                }
+                Manage.getCurrentEmpire().setCatapultCount
+                        (Manage.getCurrentEmpire().getCatapultCount() - count);
+                break;
+            case 18:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 18 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 18 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers trebuchet = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    trebuchet.trebuchet(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(trebuchet);
+                    Map.getTroopMap()[x][y].add(trebuchet);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(trebuchet);
+                }
+                Manage.getCurrentEmpire().setTrebuchetCount
+                        (Manage.getCurrentEmpire().getTrebuchetCount() - count);
+                break;
+            case 19:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 19 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 19 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers siegeTower = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    siegeTower.siegeTower(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(siegeTower);
+                    Map.getTroopMap()[x][y].add(siegeTower);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(siegeTower);
+                }
+                Manage.getCurrentEmpire().setSiegeTowerCount
+                        (Manage.getCurrentEmpire().getSiegeTowerCount() - count);
+                break;
+            case 20:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 20 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 20 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers fireBallista = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    fireBallista.fireBallista(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(fireBallista);
+                    Map.getTroopMap()[x][y].add(fireBallista);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(fireBallista);
+                }
+                Manage.getCurrentEmpire().setFireBalistaCount
+                        (Manage.getCurrentEmpire().getFireBalistaCount() - count);
+                break;
+            case 21:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 21 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 21 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers batteringRam = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    batteringRam.batteringRam(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(batteringRam);
+                    Map.getTroopMap()[x][y].add(batteringRam);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(batteringRam);
+                }
+                Manage.getCurrentEmpire().setBatteringRamCount
+                        (Manage.getCurrentEmpire().getBatteringRamCount() - count);
+                break;
+            case 22:
+                TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
+                TileManager.gameLog.append(TileManager.time + '#' + "DROP_UNIT_GAME" + '#' +
+                        x + '#' + y + '#' + 22 + '#' + count + '#' + button.getX() + '#' + button.getY() + '\n');
+                try {
+                    TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    TileManager.masterServerDataOutputStream.writeUTF("DROP_UNIT");
+                    TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() +"#" + x + "#"
+                            + y + "#" + 22 + "#" + count + "#" + button.getX() + "#" + button.getY());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                for (int i = 0; i < count; i++) {
+                    ArchersAndThrowers portableShield = new ArchersAndThrowers(Manage.getCurrentEmpire());
+                    portableShield.portableShield(x, y);
+                    Manage.getCurrentEmpire().empireArmy.add(portableShield);
+                    Map.getTroopMap()[x][y].add(portableShield);
+                    button.setMinSize(50, 50);
+                    button.getArmy().add(portableShield);
+                }
+                Manage.getCurrentEmpire().setPortableShieldCount
+                        (Manage.getCurrentEmpire().getPortableShieldCount() - count);
+                break;
+        }
+    }
+    public void dropUnitsForNetwork(int x, int y, int typeOfUnit, int count, NewButton button) {
         switch (typeOfUnit) {
             case 0:
                 TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
@@ -1614,7 +2154,7 @@ public class GameController {
         return x >= 0 && y >= 0 && x <= Map.mapSize && y <= Map.mapSize;
     }
 
-    public void moveUnit(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
+    public void moveUnit(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) throws IOException {
         boolean flag = false;
         List<Integer> path = null;
         setPathForUnits(xOfDestination, yOfDestination);
@@ -1626,6 +2166,12 @@ public class GameController {
             if (path != null && path.size() > 1) {
                 Map.getTroopMap()[passingArmy.getxCoordinate()][passingArmy.getyCoordinate()].remove(passingArmy);
                 path.remove(0);
+                TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                TileManager.masterServerDataOutputStream.writeUTF("MOVE_UNIT");
+                TileManager.masterServerDataOutputStream.writeUTF(  User.getCurrentUser().getUsername() + "#"+ passingArmy.getxCoordinate() + "#" +
+                        passingArmy.getyCoordinate() + "#" + passingArmy.getNames().getName() + "#" +
+                        xOfDestination + "#" + yOfDestination);
+
                 SequentialTransition sequentialTransition = new SequentialTransition();
                 for (int j = 0; j < path.size(); j++) {
                     flag = true;
@@ -1667,17 +2213,24 @@ public class GameController {
         }
         selectedUnit.clear();
     }
-    public void replayMove(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list){
+
+    public void replayMove(int xOfDestination, int yOfDestination, NewButton selectedButton, Pane pane, ArrayList<Node> list) {
+        System.out.println("ENTERED MOVE");
         NewButton newButton = (NewButton) list.get(xOfDestination * 100 + yOfDestination);
-        for(int i = 0 ; i < selectedUnit.size() ; i++  ){
+        for (int i = 0; i < selectedUnit.size(); i++) {
             selectedButton.getArmy().remove(selectedUnit.get(i));
             newButton.getArmy().add(selectedUnit.get(i));
             selectedUnit.get(i).setxCoordinate(xOfDestination);
             selectedUnit.get(i).setyCoordinate(yOfDestination);
+            selectedButton.getArmy().remove(selectedUnit.get(i));
             Map.getTroopMap()[xOfDestination][yOfDestination].add(selectedUnit.get(i));
             Map.getTroopMap()[selectedButton.getX()][selectedButton.getY()].remove(selectedUnit.get(i));
         }
+        System.out.println("new button : " + newButton.getArmy().size());
+        for (int j = 0; j < newButton.getArmy().size(); j++) {
+            System.out.println(newButton.getArmy().get(j));
+        }
+        System.out.println("selected button : " + selectedButton.getArmy().size());
         selectedUnit.clear();
-
     }
 }

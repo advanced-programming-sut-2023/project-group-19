@@ -44,7 +44,6 @@ public class LoginMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        User.makeUsersFromJson();
         LoginMenu.stage = stage;
         User user = new User("armin", "123", "jeneral", "email.com", "mamad", "khas", 2);
         Pane pane = new Pane();

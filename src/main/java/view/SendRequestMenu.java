@@ -4,13 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.User;
 import view.Controllers.SendRequestController;
 
 public class SendRequestMenu extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        User.makeUsersFromJson();
         SendRequestController sendRequestController = new SendRequestController();
         Main.stage = stage;
         Pane pane = new Pane();

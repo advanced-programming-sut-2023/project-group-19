@@ -175,7 +175,6 @@ public class Lobby extends Application {
 
     public VBox cornerVBox = new VBox();
     public Stage stage;
-
     @Override
     public void start(Stage stage) throws Exception {
 //
@@ -196,7 +195,6 @@ public class Lobby extends Application {
 //        User.users.add(user5);
 //        User.users.add(user1);
 
-//        User.setCurrentUser(user2);
 
 //        String data = User.convertUserToJson(user2);
 //        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
@@ -534,7 +532,7 @@ public class Lobby extends Application {
                 changePrivacy.setText("Public");
             }
             changePrivacy.setTranslateX(10);
-            changePrivacy.setTranslateY(70);
+            changePrivacy.setTranslateY(62);
             changePrivacy.setPrefSize(50, 10);
             changePrivacy.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             changePrivacy.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
@@ -558,7 +556,7 @@ public class Lobby extends Application {
             Button leaveGame = new Button();
             leaveGame.setText("Leave");
             leaveGame.setTranslateX(70);
-            leaveGame.setTranslateY(47);
+            leaveGame.setTranslateY(42);
             leaveGame.setPrefSize(50, 10);
             leaveGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             leaveGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
@@ -572,26 +570,49 @@ public class Lobby extends Application {
 
             Button close = new Button();
             close.setText("Close");
-            close.setTranslateX(140);
-            close.setTranslateY(24);
+            close.setTranslateX(138);
+            close.setTranslateY(22);
             close.setPrefSize(50, 10);
             close.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             close.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
-            close.setOnMouseClicked(mouseEvent -> closeTheInfoBox(listOfGameInfo));
+            close.setOnMouseClicked(mouseEvent -> {
+                closeTheInfoBox(listOfGameInfo);
+            });
 
             Button startGame = new Button();
             startGame.setText("Start");
-            startGame.setTranslateX(130);
-            startGame.setTranslateY(24);
+            startGame.setTranslateX(10);
+            startGame.setTranslateY(25);
             startGame.setPrefSize(50, 10);
             startGame.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
             startGame.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
-            startGame.setOnMouseClicked(mouseEvent -> startGame());
+            startGame.setOnMouseClicked(mouseEvent -> {
+                startGame();
+            });
+
+            Button rooms = new Button();
+            rooms.setText("Room");
+            rooms.setTranslateX(70);
+            rooms.setTranslateY(5);
+            rooms.setPrefSize(50, 10);
+            rooms.setStyle("-fx-background-color: #55288c; -fx-text-fill: #d3c4c4");
+            rooms.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
+            rooms.setOnMouseClicked(mouseEvent -> {
+                try {
+                    pane.getChildren().clear();
+                    designChat(gameImages);
+//                    openChat();
+                    //ArminsMethod
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             listOfGameInfo.getChildren().add(changePrivacy);
             listOfGameInfo.getChildren().add(leaveGame);
             listOfGameInfo.getChildren().add(close);
             listOfGameInfo.getChildren().add(startGame);
+            listOfGameInfo.getChildren().add(rooms);
 
         } else if (game.isMemberOfGame(currentUser.getUsername()) != null) { //Game Member
             Button leaveGame = new Button();
@@ -816,8 +837,8 @@ public class Lobby extends Application {
             try {
                 if (createRequestLogicStuff(gameId.getText(), capacity.getText(), typeOfGame.getText())) {
                     masterServerDataOutputStream.writeUTF("ADD_NEW_GAME_REQUEST");
-                    //TODO : replace username with this User.getCurrentUser()
-                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() + "#" + gameId.getText() + "#" + capacity.getText() + "#" + typeOfGame.getText());
+                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                            + "#" + gameId.getText() + "#" + capacity.getText() + "#" + typeOfGame.getText());
                     pane.getChildren().clear();
                     designLobby(gameImages);
                 }
@@ -933,7 +954,6 @@ public class Lobby extends Application {
         designButtonsOfChatMenu();
         designHeaderOfChatMenu();
         designSearchBarOfChatMenu();
-        designScrollPaneOfAllChats();
 
     }
 
@@ -1089,7 +1109,6 @@ public class Lobby extends Application {
         pane.getChildren().add(refresh);
         pane.getChildren().add(makePrivateChat);
         pane.getChildren().add(globalChat);
-        pane.getChildren().add(showAllChats);
         pane.getChildren().add(clip);
         pane.getChildren().add(me);
 
@@ -1105,16 +1124,6 @@ public class Lobby extends Application {
         return null;
     }
 
-    private void designScrollPaneOfAllChats() throws IOException {
-//        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-//        Manage.masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-//        Manage.masterServerDataOutputStream.writeUTF("GET_CHATS");
-//        String allChats = Manage.masterServerDataInputStream.readUTF();
-//        ArrayList<Chat> myChats = Chat.convertChatsToJsonForm(allChats);
-//        System.out.println(myChats.size());
-//        User.getCurrentUser().setChats(myChats);
-//        setChatList();
-    }
 
     private void setChatList() {
         VBox chatList = new VBox();
@@ -1200,7 +1209,6 @@ public class Lobby extends Application {
                 throw new RuntimeException(e);
             }
         });
-
 
         setStyleToMessages(myMessages);
 

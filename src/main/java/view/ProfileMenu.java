@@ -9,7 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,18 +25,21 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.Game;
 import model.User;
 import view.ImageAndBackground.GameImages;
 import view.Messages.RegisterMessages;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class ProfileMenu extends Application {
+    public Socket socket;
     public Pane pane;
     public static Stage stage;
     public ImageView draggedAvatarImage = new ImageView();
@@ -69,7 +75,6 @@ public class ProfileMenu extends Application {
     public TextField oldPassword = new TextField();
     public TextField retypeNewPassword = new TextField();
     public TextField newPassword = new TextField();
-    public TextField searchBar = new TextField();
     public Label oldPasswordError = new Label();
     public Label newPasswordError = new Label();
     public Label confirmPasswordError = new Label();
@@ -84,7 +89,7 @@ public class ProfileMenu extends Application {
     public Button friendShip = new Button("FriendShip");
     public Button invitations = new Button("Invitations");
     public static MediaPlayer mediaPlayer;
-    public DataInputStream masterServerDataInputStream ;
+    public DataInputStream masterServerDataInputStream;
     public DataOutputStream masterServerDataOutputStream;
 
     public ScrollPane friendShipScrollPane = new ScrollPane();
@@ -100,11 +105,6 @@ public class ProfileMenu extends Application {
     }
 
     private void stopAllMusic() throws IOException {
-        Socket socket = new Socket("localhost" , 8888);
-        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-
-
         User user = new User("Doreece", "s", "a", "s", "a", "q", 2);
         User user2 = new User("Armin", "s", "a", "s", "w", "q", 3);
         User user3 = new User("Arian", "s", "a", "s", "w", "q", 3);
@@ -112,20 +112,22 @@ public class ProfileMenu extends Application {
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User user6 = new User("test1", "s", "a", "s", "w", "q", 3);
         User user7 = new User("test2", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user3);
+        User.setCurrentUser(user2);
 //        user.myFriends.add(user2);
 //        user.myFriends.add(user3);
 
-//
-//        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-//        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-//        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-//        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+
+        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-//        User.makeUsersFromJson();
+        socket = new Socket("localhost", 8080);
+        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         playMainMenu();
         ProfileMenu.stage = stage;
         Pane pane = new Pane();
@@ -139,7 +141,6 @@ public class ProfileMenu extends Application {
         stage.setFullScreen(true);
         stage.show();
     }
-
 
     private void designProfileMenu() {
         Button backButton = new Button("Back");
@@ -360,7 +361,7 @@ public class ProfileMenu extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
-                    getFriendShipRequest(button);//TODO: Here we have a bug
+                    getFriendShipRequest(button);
                     System.out.println("request sent");
                     designVBoxOfInvitations();
                 } catch (Exception e) {
@@ -783,7 +784,6 @@ public class ProfileMenu extends Application {
         refresh.setVisible(passwordBox.isVisible());
     }
     private void designVBoxOfAllPlayers() {
-        pane.getChildren().remove(searchBar);
         pane.getChildren().remove(friendShipScrollPane);
         VBox friendShipBox = new VBox();
         friendShipBox.setStyle("-fx-background-color: #a00909");
@@ -830,7 +830,6 @@ public class ProfileMenu extends Application {
                         }
                     });
 
-
                     friendBox.setStyle("-fx-background-color: #cba883;");
                     friendBox.getChildren().add(avatar);
                     friendBox.getChildren().add(following);
@@ -853,111 +852,25 @@ public class ProfileMenu extends Application {
                     try {
                         pane.getChildren().remove(friendShipScrollPane);
                         pane.getChildren().remove(close);
-                        pane.getChildren().remove(searchBar);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 }
             });
-
-
-            searchBar.setPromptText("Search Game Id");
-            searchBar.setPrefSize(300, 30);
-            searchBar.setTranslateX(900);
-            searchBar.setTranslateY(350);
-            searchBar.setFocusTraversable(false);
-            searchBar.setStyle("-fx-background-color: rgb(203,168,131); -fx-prompt-text-fill: white;" +
-                    "-fx-text-fill: white;");
-            searchBar.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent keyEvent) {
-                    String keyName = keyEvent.getCode().getName();
-                    if (keyName.equals("Enter")){
-                        User user  = searchLogicForAllPlayers(searchBar.getText());
-                        friendShipBox.getChildren().clear();
-                        if (user != null){
-                            VBox newBox = setStyleForOneBox(user,friendShipBox);
-                            friendShipScrollPane.setContent(newBox);
-                        }
-                    }
-                }
-            });
-
-
             friendShipScrollPane.setPrefWidth(300);
             friendShipScrollPane.setContent(friendShipBox);
             friendShipScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             friendShipScrollPane.setLayoutX(900);
-            friendShipScrollPane.setLayoutY(400);
+            friendShipScrollPane.setLayoutY(300);
 
             friendShipScrollPane.setStyle("-fx-background-color: #cba883");
             friendShipScrollPane.setVisible(true);
             pane.getChildren().add(friendShipScrollPane);
             pane.getChildren().add(close);
-            pane.getChildren().add(searchBar);
         }
-    }
-
-    private User searchLogicForAllPlayers(String text) {
-        for (User user : User.users) {
-            if (user.getUsername().equals(text)){
-                return user;
-            }
-        }
-        return null;
-
-    }
-
-    private VBox setStyleForOneBox(User user,VBox friendShipBox){
-        HBox friendBox = new HBox();
-        friendBox.setPrefSize(285, 30);
-
-        Text userName = new Text();
-        userName.setText("Id: " + user.getUsername());
-        userName.setFill(Color.BLACK);
-        userName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-        userName.setTranslateX(40);
-        userName.setTranslateY(5);
-        userName.prefWidth(30);
-        userName.prefHeight(10);
-
-        ImageView avatar = user.getAvatar();
-        avatar.setFitWidth(50);
-        avatar.setFitHeight(50);
-        avatar.setTranslateX(15);
-        avatar.setLayoutY(5);
-
-
-        Button following = new Button();
-        if (findFriends(user)) following.setText("Following");
-        else following.setText("Follow");
-        following.setPrefSize(70, 8);
-        following.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
-        following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
-        following.setTranslateX(100);
-        following.setTranslateY(30);
-        following.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                try {
-                    if(user != null)
-                        sendFriendShipRequest(user, following);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        friendBox.setStyle("-fx-background-color: #cba883;");
-        friendBox.getChildren().add(avatar);
-        friendBox.getChildren().add(following);
-        friendBox.getChildren().add(userName);
-        friendShipBox.getChildren().add(friendBox);
-        return friendShipBox;
     }
 
     private void designVBoxOfFriendShip() {
-        pane.getChildren().remove(searchBar);
         pane.getChildren().remove(friendShipScrollPane);
         VBox friendShipBox = new VBox();
         friendShipBox.setStyle("-fx-background-color: #a00909");
@@ -1023,7 +936,7 @@ public class ProfileMenu extends Application {
             friendShipScrollPane.setContent(friendShipBox);
             friendShipScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             friendShipScrollPane.setLayoutX(900);
-            friendShipScrollPane.setLayoutY(400);
+            friendShipScrollPane.setLayoutY(300);
 
             friendShipScrollPane.setStyle("-fx-background-color: #cba883");
             friendShipScrollPane.setVisible(true);
@@ -1034,18 +947,16 @@ public class ProfileMenu extends Application {
 
 
     private void designVBoxOfInvitations() {
-        pane.getChildren().remove(searchBar);
         pane.getChildren().remove(friendShipScrollPane);
         VBox friendShipBox = new VBox();
         friendShipBox.setStyle("-fx-background-color: #a00909");
-        friendShipBox.setSpacing(7);
+        friendShipBox.setSpacing(10);
         System.out.println(allInvitations.size());
         if(allInvitations.size() != 0) {
             for (User user : allInvitations) {
                 if (!user.getUsername().equals(User.getCurrentUser().getUsername())) {
                     HBox friendBox = new HBox();
-
-                    friendBox.setPrefSize(285, 50);
+                    friendBox.setPrefSize(285, 30);
 
                     Text userName = new Text();
                     userName.setText("Id: " + user.getUsername());
@@ -1067,9 +978,9 @@ public class ProfileMenu extends Application {
                     Button following = new Button();
                     if (findFriends(user)) following.setText("Following");
                     else following.setText("Follow");
-                    following.setPrefSize(50, 8);
+                    following.setPrefSize(70, 8);
                     following.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
-                    following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
+                    following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
                     following.setTranslateX(100);
                     following.setTranslateY(30);
                     following.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1083,24 +994,8 @@ public class ProfileMenu extends Application {
                         }
                     });
 
-                    Button reject = new Button();
-                    reject.setText("Reject");
-                    reject.setPrefSize(50, 8);
-                    reject.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
-                    reject.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
-                    reject.setTranslateX(70);
-                    reject.setTranslateY(30);
-                    reject.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                                //TODO: Here goes the logic of Reject
-
-                        }
-                    });
-
                     friendBox.setStyle("-fx-background-color: #cba883;");
                     friendBox.getChildren().add(avatar);
-                    friendBox.getChildren().add(reject);
                     friendBox.getChildren().add(following);
                     friendBox.getChildren().add(userName);
                     friendShipBox.getChildren().add(friendBox);
@@ -1129,7 +1024,7 @@ public class ProfileMenu extends Application {
             friendShipScrollPane.setContent(friendShipBox);
             friendShipScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             friendShipScrollPane.setLayoutX(900);
-            friendShipScrollPane.setLayoutY(400);
+            friendShipScrollPane.setLayoutY(300);
 
             friendShipScrollPane.setStyle("-fx-background-color: #cba883");
             friendShipScrollPane.setVisible(true);

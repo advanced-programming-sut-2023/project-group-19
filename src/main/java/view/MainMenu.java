@@ -32,12 +32,12 @@ public class MainMenu extends Application {
     public static MediaPlayer mediaPlayer;
     private void playMainMenu(){
         stopAllMusic();
-//        String defaultSong  = RegisterMenu.class.getResource("/Music/mainMenu.mp3").toString();
-//        Media media = new Media(defaultSong);
-//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-//        mediaPlayer = mediaPlayer2 ;
-//        mediaPlayer2.setAutoPlay(true);
-//        mediaPlayer.setCycleCount(-1);
+        String defaultSong  = RegisterMenu.class.getResource("/Music/mainMenu.mp3").toString();
+        Media media = new Media(defaultSong);
+        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer = mediaPlayer2 ;
+        mediaPlayer2.setAutoPlay(true);
+        mediaPlayer.setCycleCount(-1);
     }
     private void stopAllMusic(){
         if(RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
@@ -48,7 +48,6 @@ public class MainMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        User.makeUsersFromJson();
         playMainMenu();
 
         Main.stage = stage;
@@ -113,26 +112,7 @@ public class MainMenu extends Application {
                 }
             }
         });
-        Button button3 = new Button();
-        button3.setText("Scoreboard");
-        button3.setLayoutX(700);
-        button3.setLayoutY(550);
-        button3.setPrefSize(200, 70);
-        button3.setStyle("-fx-background-color: #cba883");
-        button3.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 20));
-
-        button3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                ScoreBoardMenu scoreBoardMenu = new ScoreBoardMenu();;
-                try {
-                    scoreBoardMenu.start(stage);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-        pane.getChildren().addAll(button, button1, button2,button3);
+        pane.getChildren().addAll(button, button1, button2);
         stage.setScene(scene);
         stage.show();stage.setFullScreen(true);
     }

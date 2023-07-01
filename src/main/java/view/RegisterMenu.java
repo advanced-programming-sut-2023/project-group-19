@@ -41,12 +41,6 @@ import java.util.ArrayList;
 // ahmad Hh8Yy3Oo1#
 //Vv8Mm6Qq1*
 
-//ali Kk7Mm9Cc5#
-//dorsa Ll3Bb4Kk3#
-
-//dorsa Ff4Hh9Vv1#
-//amir Kk1Mm5Mm0#
-
 
 public class RegisterMenu extends Application {
     static {
@@ -129,8 +123,6 @@ public class RegisterMenu extends Application {
         launch();
     }
     public static int num = 1 ;
-    // dorsa : Ee7Gg7Uu2#
-    // ali : Ff2Vv0Rr3#
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -746,8 +738,6 @@ public class RegisterMenu extends Application {
             Map.allJsonMaps.add(mapSaved);
         }
     }
-    // Hh0Jj4Ii3#
-    // sam
     private static void buildMaps(){
        int size  =  Map.allJsonMaps.size();
         System.out.println(size);
