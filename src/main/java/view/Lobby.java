@@ -1134,7 +1134,7 @@ public class Lobby extends Application {
                 chatBox.setSpacing(70);
 
                 Text chatName = new Text();
-                chatName.setText(receiver.getUsername());
+                chatName.setText(chat.getName());
                 chatName.setFill(Color.WHITE);
                 chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
                 chatName.setTranslateX(-50);
@@ -1486,11 +1486,14 @@ public class Lobby extends Application {
         createGroupBox.setPrefSize(500, 200);
         pane.getChildren().add(createGroupBox);
         pane.getChildren().add(headerForChat);
+
+        //TODO : socket get port
+        //
     }
 
     private ArrayList<User> findAllMatchingChats(String text) {
         ArrayList<User> users = new ArrayList<>();
-        for (User user : Manage.allUsers) {
+        for (User user : User.users) {
             if (user.getUsername().contains(text)) {
                 users.add(user);
             }

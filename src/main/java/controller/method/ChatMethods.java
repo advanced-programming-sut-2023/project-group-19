@@ -27,8 +27,6 @@ public class ChatMethods {
     public static void refreshChats() throws IOException {
         String data;
         System.out.println("Started refresh chats");
-        if (Manage.masterServerDataInputStream == null) System.out.println("It's nulllllll");
-        else System.out.println("Nott nullll");
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
         data = Manage.masterServerDataInputStream.readUTF();
