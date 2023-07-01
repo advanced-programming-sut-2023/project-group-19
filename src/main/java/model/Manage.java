@@ -73,6 +73,9 @@ public class Manage {
     private static Empire currentEmpire;
     public static ArrayList<User> allUsers = new ArrayList<>();
 
+    public Manage() throws IOException {
+    }
+
     public static Empire getCurrentEmpire() {
         return currentEmpire;
     }
@@ -108,7 +111,7 @@ public class Manage {
 
     public static void connectUserToMasterServer() throws IOException {
         System.out.println("**");
-        Socket socket = new Socket("localhost", 8585);
+        Socket socket = new Socket("localhost", 8888);
         System.out.println("**");
         masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());

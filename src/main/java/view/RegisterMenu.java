@@ -49,7 +49,7 @@ public class RegisterMenu extends Application {
     static {
         try {
             Manage.connectUserToMasterServer();
-            User.makeUsersFromJson();
+//            User.makeUsersFromJson();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

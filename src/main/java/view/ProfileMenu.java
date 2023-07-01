@@ -34,7 +34,6 @@ import java.util.Arrays;
 
 
 public class ProfileMenu extends Application {
-    public Socket socket;
     public Pane pane;
     public static Stage stage;
     public ImageView draggedAvatarImage = new ImageView();
@@ -85,7 +84,7 @@ public class ProfileMenu extends Application {
     public Button friendShip = new Button("FriendShip");
     public Button invitations = new Button("Invitations");
     public static MediaPlayer mediaPlayer;
-    public DataInputStream masterServerDataInputStream;
+    public DataInputStream masterServerDataInputStream ;
     public DataOutputStream masterServerDataOutputStream;
 
     public ScrollPane friendShipScrollPane = new ScrollPane();
@@ -101,6 +100,11 @@ public class ProfileMenu extends Application {
     }
 
     private void stopAllMusic() throws IOException {
+        Socket socket = new Socket("localhost" , 8888);
+        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+
+
         User user = new User("Doreece", "s", "a", "s", "a", "q", 2);
         User user2 = new User("Armin", "s", "a", "s", "w", "q", 3);
         User user3 = new User("Arian", "s", "a", "s", "w", "q", 3);
@@ -112,16 +116,16 @@ public class ProfileMenu extends Application {
 //        user.myFriends.add(user2);
 //        user.myFriends.add(user3);
 
-
-        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//
+//        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+//        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+//        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        User.makeUsersFromJson();
+//        User.makeUsersFromJson();
         playMainMenu();
         ProfileMenu.stage = stage;
         Pane pane = new Pane();
@@ -1034,13 +1038,14 @@ public class ProfileMenu extends Application {
         pane.getChildren().remove(friendShipScrollPane);
         VBox friendShipBox = new VBox();
         friendShipBox.setStyle("-fx-background-color: #a00909");
-        friendShipBox.setSpacing(10);
+        friendShipBox.setSpacing(7);
         System.out.println(allInvitations.size());
         if(allInvitations.size() != 0) {
             for (User user : allInvitations) {
                 if (!user.getUsername().equals(User.getCurrentUser().getUsername())) {
                     HBox friendBox = new HBox();
-                    friendBox.setPrefSize(285, 30);
+
+                    friendBox.setPrefSize(285, 50);
 
                     Text userName = new Text();
                     userName.setText("Id: " + user.getUsername());
@@ -1062,9 +1067,9 @@ public class ProfileMenu extends Application {
                     Button following = new Button();
                     if (findFriends(user)) following.setText("Following");
                     else following.setText("Follow");
-                    following.setPrefSize(70, 8);
+                    following.setPrefSize(50, 8);
                     following.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
-                    following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+                    following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
                     following.setTranslateX(100);
                     following.setTranslateY(30);
                     following.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -1080,10 +1085,10 @@ public class ProfileMenu extends Application {
 
                     Button reject = new Button();
                     reject.setText("Reject");
-                    reject.setPrefSize(70, 8);
+                    reject.setPrefSize(50, 8);
                     reject.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
-                    reject.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
-                    reject.setTranslateX(170);
+                    reject.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
+                    reject.setTranslateX(70);
                     reject.setTranslateY(30);
                     reject.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
@@ -1095,8 +1100,8 @@ public class ProfileMenu extends Application {
 
                     friendBox.setStyle("-fx-background-color: #cba883;");
                     friendBox.getChildren().add(avatar);
-                    friendBox.getChildren().add(following);
                     friendBox.getChildren().add(reject);
+                    friendBox.getChildren().add(following);
                     friendBox.getChildren().add(userName);
                     friendShipBox.getChildren().add(friendBox);
                 }
