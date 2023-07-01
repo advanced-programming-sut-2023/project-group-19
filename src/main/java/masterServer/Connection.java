@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.*;
 
+import basicGameModel.Map;
 import chatServer.Chat;
 import chatServer.ChatConnection;
 import chatServer.ChatServer;
