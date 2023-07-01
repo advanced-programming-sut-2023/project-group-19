@@ -10,7 +10,11 @@ import java.lang.reflect.Type;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.*;
 
+import basicGameModel.Map;
 import chatServer.Chat;
 import chatServer.ChatConnection;
 import chatServer.ChatServer;
@@ -20,17 +24,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import gameServer.GameConnection;
 import gameServer.GameRequest;
+import chatServer.ChatServer;
 import gameServer.GameServer;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class Connection extends Thread {
 
     private ArrayList<Map> maps = new ArrayList<>();
     public static ArrayList<GameRequest> allGameRequests = new ArrayList<>();
     public static ArrayList<UsersFriend> allFriendshipRequests = new ArrayList<>();
+    public static ArrayList<GameCommands> allGameCommands = new ArrayList<>();
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
     private static  HashMap<Socket,String> onlineUsersHashMap = new HashMap<>();
@@ -78,7 +80,7 @@ public class Connection extends Thread {
         return list[0]+":"+list[1];
     }
 
-    private void handleCommand() throws IOException {
+    private synchronized void handleCommand() throws IOException {
         String requestType = dataInputStream.readUTF();
         switch (requestType) {
             case "CREATE_USER":
@@ -91,7 +93,7 @@ public class Connection extends Thread {
                 addUserToOnlineUsers();
                 break;
             case "ADD_MAP":
-                addNewMap();
+//                addNewMap();
                 break;
             case "REFRESH_CHAT":
                 refreshChat();
@@ -118,13 +120,16 @@ public class Connection extends Thread {
                 privatePublicDecide();
                 break;
             case "ADD_NEW_MAP_TO_SERVER":
-                addNewMap();
+//                addNewMap();
                 break;
             case "GET_SAVED_MAPS":
-                sendArrayListOfSavedMapsToClient();
+//                sendArrayListOfSavedMapsToClient();
                 break;
             case "START_GAME":
                 startGame();
+                break;
+            case "ADMIN_START_GAME":
+
                 break;
             case "START_GAME_REQUEST":
                 getRequestStartGameFromUser();
@@ -147,8 +152,12 @@ public class Connection extends Thread {
             case "MAKE_CHAT_GROUP_FOR_TEAM":
                 makeChatGroupForTeam();
                 break;
+            case "GAME_COMMANDS":
+                gameCommands();
+                break;
         }
     }
+
 
     private void makeChatGroupForTeam() throws IOException {
         ChatServer chatServer = new ChatServer(MasterServer.chatPort);
@@ -178,6 +187,7 @@ public class Connection extends Thread {
             sendStartGameRequestToAllPlayersIntoGame(players);
             break;
         }
+        dataOutputStream.writeUTF("stop");
     }
 
     private void editUser() throws IOException {
@@ -201,6 +211,96 @@ public class Connection extends Thread {
         userOrgUser.rank = user.rank ;
     }
 
+
+
+    public void gameCommands() throws IOException {
+        String command = dataInputStream.readUTF();
+        switch (command) {
+            case "GAME_BEGIN":
+                gameBegin();
+                break;
+            case "DROP_BUILDING":
+                dropBuilding();
+                break;
+            case "DROP_UNIT":
+                dropUnit();
+                break;
+            case "MOVE_UNIT":
+                moveUnit();
+                break;
+            case "GET_MY_COMMANDS":
+                getMyCommands();
+                break;
+        }
+    }
+    public void getMyCommands() throws IOException {
+        String input = dataInputStream.readUTF();
+        for(int i = 0 ; i < allGameCommands.size() ; i++){
+            if(allGameCommands.get(i).getUserName().equals(input)){
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int h = 0 ; h < allGameCommands.get(i).getCommandsToDo().size() ; h++){
+                    stringBuilder.append(allGameCommands.get(i).getCommandsToDo().get(h) + '\n');
+                }
+                dataOutputStream.writeUTF(stringBuilder.toString());
+                allGameCommands.get(i).commandsToDo.clear();
+                return;
+            }
+        }
+        dataOutputStream.writeUTF("chert");
+    }
+    public void gameBegin() throws IOException {
+        String input = dataInputStream.readUTF();
+        GameCommands gameCommands = new GameCommands(input);
+        allGameCommands.add(gameCommands);
+    }
+
+    public void dropBuilding() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DROP_BUILDING" + '#');
+        for (int h = 1; h < split.length; h++) {
+            stringBuilder.append(split[h] + '#');
+        }
+        for(int f = 0 ; f < allGameCommands.size() ; f++){
+            if(!allGameCommands.get(f).getUserName().equals(split[0])){
+                allGameCommands.get(f).commandsToDo.add(stringBuilder.toString());
+            }
+        }
+    }
+
+    public void dropUnit() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DROP_UNIT" + '#');
+        for (int h = 1; h < split.length; h++) {
+            stringBuilder.append(split[h] + '#');
+        }
+        for(int f = 0 ; f < allGameCommands.size() ; f++){
+            if(!allGameCommands.get(f).getUserName().equals(split[0])){
+                allGameCommands.get(f).commandsToDo.add(stringBuilder.toString());
+            }
+        }
+    }
+    // move unit :
+//    moveUnit + # + passingArmy.getxCoordinate() + '#' +passingArmy.getyCoordinate() + '#' +
+//    passingArmy.getNames().getName() + '#' +xOfDestination + '#' + yOfDestination
+    public void moveUnit() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("MOVE_UNIT" + '#');
+        for (int h = 1; h < split.length; h++) {
+            stringBuilder.append(split[h] + '#');
+        }
+        for(int f = 0 ; f < allGameCommands.size() ; f++){
+            if(!allGameCommands.get(f).getUserName().equals(split[0])){
+                allGameCommands.get(f).commandsToDo.add(stringBuilder.toString());
+            }
+        }
+    }
+
     public void getFriendShipRequest() throws IOException {
         String input = dataInputStream.readUTF();
         UsersFriend usersFriend = null;
@@ -221,7 +321,7 @@ public class Connection extends Thread {
 
     public void askFriend() throws IOException {
         String input = dataInputStream.readUTF();
-        System.out.println(input);
+
         String[] split = input.split("#");
         boolean available = false;
         for (int i = 0; i < allFriendshipRequests.size(); i++) {
@@ -238,6 +338,7 @@ public class Connection extends Thread {
             usersFriend.friendRequest.add(split[0]);
         }
     }
+
 
     public void acceptFriend() throws IOException {
         String input = dataInputStream.readUTF();
@@ -329,6 +430,9 @@ public class Connection extends Thread {
         GameRequest gameRequest = findGameRequest(split[0]);
         if (gameRequest.capacity >= gameRequest.allMembersUserName.size())
             gameRequest.allMembersUserName.add(split[1]);
+        if(gameRequest.capacity ==gameRequest.allMembersUserName.size() ){
+            gameRequest.startGame = true;
+        }
     }
 
     public GameRequest findGameRequest(String gameId) {
@@ -355,6 +459,9 @@ public class Connection extends Thread {
         dataOutputStream.writeUTF(output);
     }
 
+    public static int[] second = new int[100];
+    public static int[] size = new int[100];
+
     public void addNewGameRequest() throws IOException {
         String request = dataInputStream.readUTF();
         String[] command = request.split("#");
@@ -362,6 +469,8 @@ public class Connection extends Thread {
         gameRequest.adminUsername = command[0];
         gameRequest.allMembersUserName.add(command[0]);
         allGameRequests.add(gameRequest);
+        size[allGameRequests.size()-1] = 1;
+        second[allGameRequests.size()-1] = 0;
     }
 
     private void addNewGroupChat() throws IOException {
@@ -414,16 +523,11 @@ public class Connection extends Thread {
 
     private void addSecondUserChat(String username, String ownerName, int port) {
         Socket socket = allSockets.get(username);
-//        if (chatsMustBeAddedToChatListOfClients.size() != 0){
-//            System.out.println(" > 0");
-//        }
+        System.out.println("Socket: "+socket);
         chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
         Chat chat = new Chat(ownerName, port, "PV");
         saveChatToHashMap(username,chat);
         chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
-        if (chatsMustBeAddedToChatListOfClients.size() != 0){
-//            System.out.println("ADDED Successfully");
-        }
     }
     public static void saveChatToHashMap(String username ,  Chat chat){
         usersSavedChats.computeIfAbsent(username, k -> new ArrayList<>());

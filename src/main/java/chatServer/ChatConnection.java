@@ -28,6 +28,7 @@ public class ChatConnection extends Thread {
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
     }
+
     @Override
     public void run() {
         try {
@@ -122,11 +123,14 @@ public class ChatConnection extends Thread {
             dataOutputStream.writeUTF(data);
         }
     }
+
     private void editMessage() throws IOException {
         boolean flag = false;
         String renewMessage;
         String oldMessage = dataInputStream.readUTF();
         String newMessage = dataInputStream.readUTF();
+//        System.out.println("Old: "+oldMessage);
+//        System.out.println("New: "+newMessage);
         Message ancientOne = Message.convertFromJsonToMessage(oldMessage);
         Message newOne = Message.convertFromJsonToMessage(newMessage);
         for (int i = 0; i < chatServer.allMessages.size(); i++) {
