@@ -76,6 +76,7 @@ public class ChatConnection extends Thread {
         for (String username : users) {
             Socket socket = Connection.allSockets.get(username);
             Chat chat = new Chat(groupName, chatServer.port, "GROUP");
+            Connection.saveChatToHashMap(username,chat);
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         }

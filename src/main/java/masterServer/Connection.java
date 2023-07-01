@@ -37,9 +37,6 @@ public class Connection extends Thread {
     public static HashMap<String,String> lastSeenOfUsers = new HashMap<>();
 
     public static HashMap<Socket, String> addUsersThatMustBeAddedToGame = new HashMap<>();
-
-    // key : port of server
-    // value : chat server
     public static HashMap<String, Socket> allSockets = new HashMap<>();
     public static HashMap<Socket, ArrayList<Chat>> chatsMustBeAddedToChatListOfClients = new HashMap<>();
 
@@ -164,6 +161,7 @@ public class Connection extends Thread {
     private void sendSavedChatsToClient() throws IOException {
         String usernameOfClient = dataInputStream.readUTF();
         ArrayList<Chat> chats = usersSavedChats.get(usernameOfClient);
+        System.out.println(chats == null);
         String outPut;
         if (chats != null) {
             outPut = Chat.convertFromJsonToArrayListMessages(chats);
@@ -427,7 +425,7 @@ public class Connection extends Thread {
 //            System.out.println("ADDED Successfully");
         }
     }
-    private void saveChatToHashMap(String username ,  Chat chat){
+    public static void saveChatToHashMap(String username ,  Chat chat){
         usersSavedChats.computeIfAbsent(username, k -> new ArrayList<>());
         usersSavedChats.get(username).add(chat);
     }
