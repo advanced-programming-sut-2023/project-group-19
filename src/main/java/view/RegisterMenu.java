@@ -50,11 +50,10 @@ public class RegisterMenu extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // IiRr5Tt7#
-        //Xx6OoBUu3#
-        //Qq8JjEe8#
+        // armin Hh3Ll2Dd7#
+        // ali Cc0Ll0Kk3#
         try {
-        //Rr8Rr9Qq8#
+
             getAllMaps();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -124,8 +123,6 @@ public class RegisterMenu extends Application {
         launch();
     }
     public static int num = 1 ;
-    // dorsa : Ee7Gg7Uu2#
-    // ali : Ff2Vv0Rr3#
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -741,8 +738,6 @@ public class RegisterMenu extends Application {
             Map.allJsonMaps.add(mapSaved);
         }
     }
-    // Hh0Jj4Ii3#
-    // sam
     private static void buildMaps(){
        int size  =  Map.allJsonMaps.size();
         System.out.println(size);

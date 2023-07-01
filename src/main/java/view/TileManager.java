@@ -56,7 +56,10 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.net.Socket;
 import java.util.*;
+
+import static view.Lobby.user1;
 
 public class TileManager extends Application {
     //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
@@ -124,11 +127,168 @@ public class TileManager extends Application {
     private boolean drawIsOn;
     public TileManager tileManager;
     private boolean moveIsOn;
+    public boolean MyStream = false;
     public String clipboardData;
     public GameController gameController = new GameController();
     public String[] lines;
     public String[] commandsTime;
+    public static Socket socket;
+    public static DataInputStream masterServerDataInputStream;
+    public static DataOutputStream masterServerDataOutputStream;
     public String[][] allCommandParts;
+
+    {
+        User user1;
+        User user2;
+        try {
+            socket = new Socket("localhost", 8080);
+            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+            user1 = new User("Arian", "s", "a", "s", "w", "q", 3);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        User.setCurrentUser(user2);
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                    masterServerDataOutputStream.writeUTF("GET_MY_COMMANDS");
+                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
+                    String input = masterServerDataInputStream.readUTF();
+                    String[] lines = input.split("\n");
+                    for (int y = 0; y < lines.length; y++) {
+                        String[] split = lines[y].split("#");
+                        if (split[0].equals("DROP_BUILDING")) {
+                            BottomBarBuildings.x = Integer.parseInt(split[2]);
+                            BottomBarBuildings.y = Integer.parseInt(split[3]);
+                            bottomBarBuildings.allButtons = allButtons;
+                            bottomBarBuildings.fuckingSuperHardcodeCreateBuilding(pane, split[1], buildingImages);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pane.getChildren().clear();
+                                    createViewScene(stage);
+                                    bottomBarBuildings.setAllButtons(allButtons);
+                                    scene.setRoot(pane);
+                                }
+                            });
+                        } else if (split[0].equals("DROP_UNIT")) {
+                            NewButton newButton3 = allButtons[Integer.parseInt(split[5])][Integer.parseInt(split[6])].get(0);
+                            gameController.dropUnitsForNetwork(Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3])
+                                    , Integer.parseInt(split[4]), newButton3);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pane.getChildren().clear();
+                                    createViewScene(stage);
+                                    bottomBarBuildings.setAllButtons(allButtons);
+                                    scene.setRoot(pane);
+                                }
+                            });
+                        }
+
+                        // move unit :
+                        //    moveUnit + # + passingArmy.getxCoordinate() + '#' +passingArmy.getyCoordinate() + '#' +
+                        //    passingArmy.getNames().getName() + '#' +xOfDestination + '#' + yOfDestination
+                        else if (split[0].equals("MOVE_UNIT")) {
+                            removeUnitFromButton(Integer.parseInt(split[1]), Integer.parseInt(split[2]), split[3]);
+                            int unitCode = unitsNameCode(split[3]);
+                            //int x, int y, int typeOfUnit, int count, NewButton button
+                            NewButton newButton3 = allButtons[Integer.parseInt(split[4])][Integer.parseInt(split[5])].get(0);
+                            gameController.dropUnitsForNetwork(Integer.parseInt(split[4]), Integer.parseInt(split[5]), unitCode
+                                    , 1, newButton3);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pane.getChildren().clear();
+                                    createViewScene(stage);
+                                    bottomBarBuildings.setAllButtons(allButtons);
+                                    scene.setRoot(pane);
+                                }
+                            });
+
+
+                        }
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, 0, 1000);
+
+    }
+
+    public int unitsNameCode(String type) {
+        switch (type) {
+            case "archer":
+                return 0;
+            case "crossBowMen":
+                return 1;
+            case "spearMen":
+                return 2;
+            case "pikeMen":
+                return 3;
+            case "maceMen":
+                return 4;
+            case "swordsMen":
+                return 5;
+            case "knight":
+                return 6;
+            case "tunneler":
+                return 7;
+            case "ladderMen":
+                return 8;
+            case "blackMonk":
+                return 9;
+            case "archerBow":
+                return 10;
+            case "slaves":
+                return 11;
+            case "slingers":
+                return 12;
+            case "assassin":
+                return 13;
+            case "horseArcher":
+                return 14;
+            case "arabSwordMen":
+                return 15;
+            case "fireThrowers":
+                return 16;
+            case "catapult":
+                return 17;
+            case "trebuchet":
+                return 18;
+            case "siegeTower":
+                return 19;
+            case "fireBallista":
+                return 20;
+            case "batteringRam":
+                return 21;
+            case "portableShield":
+                return 22;
+
+        }
+        return -1;
+    }
+
+    public void removeUnitFromButton(int x, int y, String type) {
+        NewButton newButton = allButtons[x][y].get(0);
+        for (int i = 0; i < newButton.getArmy().size(); i++) {
+            if (newButton.getArmy().get(i).getNames().getName().equals(type)) {
+                newButton.getArmy().remove(i);
+                return;
+            }
+        }
+    }
+
 
     public void zoom1() {
         verticalSize = 51.2;
@@ -187,22 +347,33 @@ public class TileManager extends Application {
     }
 
     private void readFromJson() throws IOException {
-//        BufferedReader br = new BufferedReader(new FileReader("log.json"));
-//        if (br.readLine() == null) {
-//            content = null;
-//            return;
-//        }
-//        StringBuilder stringBuilder = new StringBuilder();
-//        File file = new File("log.json");
-//        Scanner sc = new Scanner(file);
-//        while (sc.hasNextLine())
-//            stringBuilder.append(sc.nextLine()).append('\n');
-//        log = stringBuilder.toString();
-//        playReplay = log != null;
+        BufferedReader br = new BufferedReader(new FileReader("log.json"));
+        if (br.readLine() == null) {
+            content = null;
+            return;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        File file = new File("log.json");
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine())
+            stringBuilder.append(sc.nextLine()).append('\n');
+        log = stringBuilder.toString();
+        playReplay = log != null;
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+
+//        MyStream = true;
+
+        try {
+            masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+            masterServerDataOutputStream.writeUTF("GAME_BEGIN");
+            masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         readFromJson();
         if (playReplay) {
             lines = log.split("\n");
@@ -249,7 +420,7 @@ public class TileManager extends Application {
         gameTimer(timer);
 
         scene = new Scene(pane, width - 50, height - 50);
-        if (!playReplay) {
+        if (!playReplay && !MyStream) {
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
@@ -306,16 +477,15 @@ public class TileManager extends Application {
                     }
                 }
             });
-        }
-        else {
-            scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+        } else {
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
                     String keyName = keyEvent.getCode().getName();
                     if (keyName.equals("Add")) {
                         timer.cancel();
                         replaySpeed--;
-                        if(replaySpeed < 1){
+                        if (replaySpeed < 1) {
                             replaySpeed = 1;
                         }
                         timer = new Timer();
@@ -323,8 +493,8 @@ public class TileManager extends Application {
                     } else if (keyName.equals("Subtract")) {
                         timer.cancel();
                         replaySpeed++;
-                        if(replaySpeed > 4){
-                            replaySpeed =4;
+                        if (replaySpeed > 4) {
+                            replaySpeed = 4;
                         }
                         Timer timer = new Timer();
                         gameTimer(timer);
@@ -338,13 +508,15 @@ public class TileManager extends Application {
         stage.setFullScreen(true);
         stage.setResizable(false);
     }
-    public void bringReplayToSetTime(){
+
+    public void bringReplayToSetTime() {
 
     }
 
     public int changeSecond;
     public int changedMinute;
-    public void gameTimer(Timer timer){
+
+    public void gameTimer(Timer timer) {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -363,8 +535,10 @@ public class TileManager extends Application {
             }
         }, 0, 500L * replaySpeed);
     }
+
     public int replaySpeed = 2;
     public String copyContent;
+
     public void avgDetail() {
         if (selectedButtons.size() != 0) {
             int totalNumberOfTroops = totalNumberOfSoldiersInTiles();
@@ -492,7 +666,9 @@ public class TileManager extends Application {
             }
         }
     }
+
     public int logLineReader = 0;
+
     public void replayGame() throws Exception {
         if (logLineReader < allCommandParts.length) {
             TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
@@ -888,7 +1064,11 @@ public class TileManager extends Application {
                     int yOfDestination = Integer.parseInt(y.getText());
                     time = (minute[0] + ":" + seconds[0]);
                     gameLog.append(time + '#' + "MOVE_UNIT" + '#' + xOfDestination + '#' + yOfDestination + '\n');
-                    gameController.moveUnit(xOfDestination, yOfDestination, selectedButton, pane, list);
+                    try {
+                        gameController.moveUnit(xOfDestination, yOfDestination, selectedButton, pane, list);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Game Error!");
@@ -1098,7 +1278,7 @@ public class TileManager extends Application {
 
     private void applyingMouseEventForButton(NewButton newButton, Stage stage) {
         selectedButtons = new ArrayList<>();
-        if (!playReplay) {
+        if (!playReplay && !MyStream) {
             EventHandler<MouseEvent> event2 = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {

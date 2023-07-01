@@ -1,9 +1,7 @@
-package controller.method;
+package view;
 
 import javafx.application.Platform;
 import model.Message;
-import model.User;
-import view.Lobby;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -11,33 +9,37 @@ import java.io.IOException;
 public class MessageGetter extends Thread{
     public DataInputStream dataInputStream ;
     public Message newMessage;
+
+    MessageGetter messageGetter = this ;
     public MessageGetter(DataInputStream dataInputStream){
         this.dataInputStream  = dataInputStream ;
     }
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!isInterrupted()) {
             try {
                 Thread.sleep(500);
                 Message message = getMessage();
+                System.out.println("Thread : "+message.getContent());
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         String content = message.getContent();
                         if (content.matches("#\\d+#.*")){
                             try {
+                                System.out.println("Trying tryCatch");
                                 Lobby.editMessage(message);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                         }else if (content.matches("#\\S+#.+")){
+                            System.out.println("Entered the condition of JustForMe");
                             try {
                                 Lobby.deleteMessageJustForMe(message);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                         }else{
-                            System.out.println("You've reached addMessage");
                             Lobby.addNewMessageToChat(message);
                         }
                     }
@@ -55,8 +57,11 @@ public class MessageGetter extends Thread{
     }
     public Message getMessage() throws IOException {
         String data = dataInputStream.readUTF();
+        if(data.equals("####")) return null ;
+        System.out.println("into message getter : " + data);
         Message message = Message.getMessageFromJson(data);
         System.out.println("Message is : "+message.getContent());
         return message;
     }
+
 }

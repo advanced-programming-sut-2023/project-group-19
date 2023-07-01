@@ -13,22 +13,9 @@ public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
     public static ArrayList<Building> burningEmpires = new ArrayList<>();
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
-    public static Socket socket;
+
     public static DataInputStream masterServerDataInputStream;
     public static DataOutputStream masterServerDataOutputStream;
-
-    static {
-//        try {
-//            socket = new Socket("localhost" , 8888);
-//            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-//            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-    }
-
-
 
     static {
         namesOfAllPossibleBuildings.add("Armoury");

@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 
 import model.adaaptors.MessageAdaptor;
 import view.Lobby;
+import view.MessageGetter;
 
 import java.lang.reflect.Type;
 import java.time.LocalTime;
@@ -83,6 +84,7 @@ public class Message {
     }
     public static Message getMessageFromJson(String data){
         GsonBuilder builder = new GsonBuilder();
+        System.out.println("into messageClass: " + data);
         builder.registerTypeAdapter(Message.class, new MessageAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();

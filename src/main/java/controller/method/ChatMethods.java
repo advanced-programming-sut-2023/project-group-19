@@ -8,7 +8,7 @@ import model.Manage;
 import model.Message;
 import model.User;
 import org.w3c.dom.CDATASection;
-
+import view.MessageGetter;
 
 import javax.print.attribute.standard.MediaName;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
@@ -27,13 +27,23 @@ public class ChatMethods {
     public static void refreshChats() throws IOException {
         String data;
         System.out.println("Started refresh chats");
-        if (Manage.masterServerDataInputStream == null) System.out.println("It's nulllllll");
-        else System.out.println("Nott nullll");
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
-//        String bool =  Manage.masterServerDataInputStream.readUTF();
         data = Manage.masterServerDataInputStream.readUTF();
         System.out.println("Output data:\n"+data);
+        ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        if (chats == null) return;
+        for(Chat chat : chats){
+            System.out.println(chat.getSocket().getPort());
+            User.getCurrentUser().getChats().add(chat);
+        }
+    }
+    public static void getChatsFromServer() throws IOException {
+        String username = User.getCurrentUser().getUsername();
+        Manage.masterServerDataOutputStream.writeUTF("SEND_SAVED_CHATS_TO_CLIENT");
+        Manage.masterServerDataOutputStream.writeUTF(username);
+        String data = Manage.masterServerDataInputStream.readUTF();
+        if(data.equals("null")) return;
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
         for(Chat chat : chats){
             System.out.println(chat.getSocket().getPort());
@@ -78,6 +88,8 @@ public class ChatMethods {
     public ArrayList<Message> enterToChat() throws IOException {
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
+        if(data.equals("####")) data = dataInputStream.readUTF();
+        System.out.println("into get chat : " + data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
         getMessagesFromServer(dataInputStream);
         return messages;
@@ -87,8 +99,8 @@ public class ChatMethods {
         messageGetter.start();
     }
     public void exitFromChat() throws IOException { //left
-        dataOutputStream.writeUTF("EXIT_CHAT");
         messageGetter.interrupt();
+        dataOutputStream.writeUTF("EXIT_CHAT");
     }
     public void sendMessage(String text) throws IOException {
         Message message = new Message(User.getCurrentUser().getUsername(),text,false,new ImageView());
@@ -115,10 +127,32 @@ public class ChatMethods {
         String removedMessage = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF(removedMessage);
     }
+    //TODO : here please call this function
+    public static Chat createChatServer(String name) throws IOException {
+        Manage.masterServerDataOutputStream.writeUTF("MAKE_CHAT_GROUP_FOR_TEAM");
+        String port = Manage.masterServerDataInputStream.readUTF();
+        Socket socket = new Socket("localhost",Integer.parseInt(port));
+        Chat chat = new Chat(socket,name,"GROUP");
+        return chat ;
+    }
 
     public void sendReaction(Message myMessage) throws IOException {
         String message = Message.convertMessageToJson(myMessage);
         dataOutputStream.writeUTF("REACTION");
         dataOutputStream.writeUTF(message);
     }
+    public static void getAllChatsOfUsers(User user) throws IOException {
+        System.out.println("mm");
+        Manage.masterServerDataOutputStream.writeUTF("SEND_SAVED_CHATS_TO_CLIENT");
+        Manage.masterServerDataOutputStream.writeUTF(user.username);
+        System.out.println(1);
+        String data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println(2);
+        System.out.println("into get chats from client" + data);
+        if(data.equals("null")) return;
+        ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        user.chats.addAll(chats);
+    }
+
+
 }
