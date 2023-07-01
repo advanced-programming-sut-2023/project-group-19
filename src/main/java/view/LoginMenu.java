@@ -124,7 +124,6 @@ public class LoginMenu extends Application {
             }
         });
 
-
         pane.getChildren().add(username);
         pane.getChildren().add(password);
         pane.getChildren().add(forgot);

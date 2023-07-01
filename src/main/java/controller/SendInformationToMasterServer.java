@@ -1,5 +1,6 @@
 package controller;
 
+import controller.method.ChatMethods;
 import model.Manage;
 import model.User;
 
@@ -11,6 +12,7 @@ public class SendInformationToMasterServer {
         Manage.masterServerDataOutputStream.writeUTF("LOGIN_USER");
         Manage.masterServerDataOutputStream.writeUTF(data);
         System.out.println(Manage.masterServerDataInputStream.readUTF());
+        ChatMethods.getAllChatsOfUsers(user);
     }
     public static void sendMapToServer(String map) throws IOException {
         Manage.masterServerDataOutputStream.writeUTF("ADD_MAP");

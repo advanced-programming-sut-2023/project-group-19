@@ -141,6 +141,18 @@ public class ChatMethods {
         dataOutputStream.writeUTF("REACTION");
         dataOutputStream.writeUTF(message);
     }
+    public static void getAllChatsOfUsers(User user) throws IOException {
+        System.out.println("mm");
+        Manage.masterServerDataOutputStream.writeUTF("SEND_SAVED_CHATS_TO_CLIENT");
+        Manage.masterServerDataOutputStream.writeUTF(user.username);
+        System.out.println(1);
+        String data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println(2);
+        System.out.println("into get chats from client" + data);
+        if(data.equals("null")) return;
+        ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        user.chats.addAll(chats);
+    }
 
 
 }
