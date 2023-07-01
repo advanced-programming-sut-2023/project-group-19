@@ -112,15 +112,15 @@ public class ProfileMenu extends Application {
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User user6 = new User("test1", "s", "a", "s", "w", "q", 3);
         User user7 = new User("test2", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user2);
+        User.setCurrentUser(user);
 //        user.myFriends.add(user2);
 //        user.myFriends.add(user3);
 
-
-        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//
+//        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+//        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+//        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//        if (CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
 
     @Override
@@ -1044,6 +1044,7 @@ public class ProfileMenu extends Application {
             for (User user : allInvitations) {
                 if (!user.getUsername().equals(User.getCurrentUser().getUsername())) {
                     HBox friendBox = new HBox();
+
                     friendBox.setPrefSize(285, 50);
 
                     Text userName = new Text();
