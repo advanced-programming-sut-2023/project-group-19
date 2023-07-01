@@ -117,22 +117,22 @@ public class Lobby extends Application {
 //        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
 //        Manage.masterServerDataOutputStream = masterServerDataOutputStream;
 //        Manage.masterServerDataInputStream = masterServerDataInputStream;
-        System.out.println("HIIIIIIIII");
-        user1 = new User("dorsa", "s", "a", "s", "w", "q", 3);
-
-        User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
-        User user3 = new User("qqqqq", "s", "a", "s", "w", "q", 3);
-        User user4 = new User("Boom", "s", "a", "s", "w", "q", 3);
-        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-        User.users.add(user2);
-        User.users.add(user3);
-        User.users.add(user4);
-        User.users.add(user5);
-        User.users.add(user1);
+//        System.out.println("HIIIIIIIII");
+//        user1 = new User("dorsa", "s", "a", "s", "w", "q", 3);
+//
+//        User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+//        User user3 = new User("qqqqq", "s", "a", "s", "w", "q", 3);
+//        User user4 = new User("Boom", "s", "a", "s", "w", "q", 3);
+//        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+//        User.users.add(user2);
+//        User.users.add(user3);
+//        User.users.add(user4);
+//        User.users.add(user5);
+//        User.users.add(user1);
 
 //        User.setCurrentUser(user2);
 
-        String data = User.convertUserToJson(user2);
+//        String data = User.convertUserToJson(user2);
 //        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
 //        Manage.masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
 //        Manage.masterServerDataOutputStream.writeUTF("LOGIN_USER");
@@ -140,16 +140,16 @@ public class Lobby extends Application {
 //        String a = Manage.masterServerDataInputStream.readUTF();
 //        System.out.println("A: "+a);
 //        System.out.println(Manage.masterServerDataInputStream.readUTF() + User.getCurrentUser().getUsername());
-        User.users.add(user1);
-        User.users.add(user2);
-
-        Game game = new Game(user2, "MyGame1", true, 5);
-        allGameRequests.add(game);
-        game.addToAllPlayers(user1);
-        game.addToAllPlayers(user2);
-        game.addToAllPlayers(user3);
-        game.addToAllPlayers(user4);
-        game.addToAllPlayers(user5);
+//        User.users.add(user1);
+//        User.users.add(user2);
+//
+//        Game game = new Game(user2, "MyGame1", true, 5);
+//        allGameRequests.add(game);
+//        game.addToAllPlayers(user1);
+//        game.addToAllPlayers(user2);
+//        game.addToAllPlayers(user3);
+//        game.addToAllPlayers(user4);
+//        game.addToAllPlayers(user5);
 
         Game game2 = new Game(user1, "MyGame2", true, 5);
         allGameRequests.add(game2);
@@ -1565,10 +1565,10 @@ public class Lobby extends Application {
             if (myMessage.getSender().equals(User.getCurrentUser().getUsername())) {
                 messageBox.setAlignment(Pos.CENTER_RIGHT);
                 messageBox.getChildren().add(textFlow);
-                messageBox.getChildren().add(imageView1);
+                if(imageView1 != null) messageBox.getChildren().add(imageView1);
             } else {
                 messageBox.setAlignment(Pos.CENTER_LEFT);
-                messageBox.getChildren().add(imageView1);
+                if(imageView1 != null) messageBox.getChildren().add(imageView1);
                 messageBox.getChildren().add(textFlow);
             }
             chatBox.getChildren().add(messageBox);

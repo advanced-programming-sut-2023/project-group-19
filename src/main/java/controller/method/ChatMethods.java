@@ -40,6 +40,18 @@ public class ChatMethods {
             User.getCurrentUser().getChats().add(chat);
         }
     }
+    public static void getChatsFromServer() throws IOException {
+        String username = User.getCurrentUser().getUsername();
+        Manage.masterServerDataOutputStream.writeUTF("SEND_SAVED_CHATS_TO_CLIENT");
+        Manage.masterServerDataOutputStream.writeUTF(username);
+        String data = Manage.masterServerDataInputStream.readUTF();
+        if(data.equals("null")) return;
+        ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        for(Chat chat : chats){
+            System.out.println(chat.getSocket().getPort());
+            User.getCurrentUser().getChats().add(chat);
+        }
+    }
     //TODO : به ازای هر چت که روی ان کلیک شد یک ابچمت از این کلاس اسخنه شود
 
     public ChatMethods(Socket socket) throws IOException {

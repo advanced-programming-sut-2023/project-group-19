@@ -41,6 +41,9 @@ import java.util.ArrayList;
 // ahmad Hh8Yy3Oo1#
 //Vv8Mm6Qq1*
 
+//ali Xx1Ii9Jj3#
+//dorsa Ll3Bb4Kk3#
+
 
 public class RegisterMenu extends Application {
     static {
@@ -50,11 +53,10 @@ public class RegisterMenu extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // IiRr5Tt7#
-        //Xx6OoBUu3#
-        //Qq8JjEe8#
+        // armin Hh3Ll2Dd7#
+        // ali Cc0Ll0Kk3#
         try {
-        //Rr8Rr9Qq8#
+
             getAllMaps();
         } catch (IOException e) {
             throw new RuntimeException(e);
