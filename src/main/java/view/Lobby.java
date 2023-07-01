@@ -603,6 +603,7 @@ public class Lobby extends Application {
                 try {
                     pane.getChildren().clear();
                     designChat(gameImages);
+//                    openChat();
                     //ArminsMethod
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -1144,7 +1145,7 @@ public class Lobby extends Application {
                 chatBox.setSpacing(70);
 
                 Text chatName = new Text();
-                chatName.setText(receiver.getUsername());
+                chatName.setText(chat.getName());
                 chatName.setFill(Color.WHITE);
                 chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
                 chatName.setTranslateX(-50);
