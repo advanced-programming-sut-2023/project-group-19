@@ -70,7 +70,7 @@ public class ChatConnection extends Thread{
         ArrayList<String> users = gson.fromJson(data,type);
         for(String username : users) {
             Socket socket = Connection.allSockets.get(username);
-            Chat chat =  new Chat(groupName,socket.getPort(),"GROUP");
+            Chat chat =  new Chat(groupName,chatServer.port,"GROUP");
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         }
@@ -100,7 +100,6 @@ public class ChatConnection extends Thread{
 
     private void sendMessageToWholeSockets(String data) throws IOException {
         for(Socket socket : chatServer.inChatUsers){
-            System.out.println("Inside loop---> "+data);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(data);
         }
