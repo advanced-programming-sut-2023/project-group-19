@@ -25,10 +25,24 @@ public class ChatMethods {
     public DataOutputStream dataOutputStream ;
 
     public static void refreshChats() throws IOException {
+        String data;
+        System.out.println("Started refresh chats");
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
-        String data =  Manage.masterServerDataInputStream.readUTF();
-        System.out.println("Data: "+data);
+        data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println("Output data:\n"+data);
+        ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        if (chats == null) return;
+        for(Chat chat : chats){
+            System.out.println(chat.getSocket().getPort());
+            User.getCurrentUser().getChats().add(chat);
+        }
+    }
+    public static void getChatsFromServer() throws IOException {
+        String username = User.getCurrentUser().getUsername();
+        Manage.masterServerDataOutputStream.writeUTF("SEND_SAVED_CHATS_TO_CLIENT");
+        Manage.masterServerDataOutputStream.writeUTF(username);
+        String data = Manage.masterServerDataInputStream.readUTF();
         if(data.equals("null")) return;
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
         for(Chat chat : chats){
@@ -53,13 +67,10 @@ public class ChatMethods {
     }
 
     public synchronized static Chat addNewPrivateChat(String username) throws IOException, InterruptedException {
-        Socket socket1 = new Socket("localhost", 8080);
-        DataInputStream dataInputStream1 = new DataInputStream(socket1.getInputStream());
-        DataOutputStream dataOutputStream1 = new DataOutputStream(socket1.getOutputStream());
-        dataOutputStream1.writeUTF("ADD_PRIVATE_CHAT");
-        String data = dataInputStream1.readUTF();
-        dataOutputStream1.writeUTF(User.getCurrentUser().username);
-        dataOutputStream1.writeUTF(username);
+        Manage.masterServerDataOutputStream.writeUTF("ADD_PRIVATE_CHAT");
+        String data = Manage.masterServerDataInputStream.readUTF();
+        Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().username);
+        Manage.masterServerDataOutputStream.writeUTF(username);
         Thread.sleep(500);
         Socket socket = new Socket("localhost",Integer.parseInt(data));
         return new Chat(socket,username,"PRIVATE");
@@ -75,10 +86,10 @@ public class ChatMethods {
         return new Chat(socket,name,"GROUP");
     }
     public ArrayList<Message> enterToChat() throws IOException {
-        //TODO : the socket of chat must be given
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
-        System.out.println("Enter chat data is: "+data);
+        if(data.equals("####")) data = dataInputStream.readUTF();
+        System.out.println("into get chat : " + data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
         getMessagesFromServer(dataInputStream);
         return messages;
@@ -88,8 +99,8 @@ public class ChatMethods {
         messageGetter.start();
     }
     public void exitFromChat() throws IOException { //left
+        messageGetter.interrupt();
         dataOutputStream.writeUTF("EXIT_CHAT");
-        MessageGetter.interrupted();
     }
     public void sendMessage(String text) throws IOException {
         Message message = new Message(User.getCurrentUser().getUsername(),text,false,new ImageView());
@@ -116,10 +127,32 @@ public class ChatMethods {
         String removedMessage = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF(removedMessage);
     }
+    //TODO : here please call this function
+    public static Chat createChatServer(String name) throws IOException {
+        Manage.masterServerDataOutputStream.writeUTF("MAKE_CHAT_GROUP_FOR_TEAM");
+        String port = Manage.masterServerDataInputStream.readUTF();
+        Socket socket = new Socket("localhost",Integer.parseInt(port));
+        Chat chat = new Chat(socket,name,"GROUP");
+        return chat ;
+    }
 
     public void sendReaction(Message myMessage) throws IOException {
         String message = Message.convertMessageToJson(myMessage);
         dataOutputStream.writeUTF("REACTION");
         dataOutputStream.writeUTF(message);
     }
+    public static void getAllChatsOfUsers(User user) throws IOException {
+        System.out.println("mm");
+        Manage.masterServerDataOutputStream.writeUTF("SEND_SAVED_CHATS_TO_CLIENT");
+        Manage.masterServerDataOutputStream.writeUTF(user.username);
+        System.out.println(1);
+        String data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println(2);
+        System.out.println("into get chats from client" + data);
+        if(data.equals("null")) return;
+        ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        user.chats.addAll(chats);
+    }
+
+
 }

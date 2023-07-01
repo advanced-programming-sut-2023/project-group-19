@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -94,37 +95,37 @@ public class Lobby extends Application {
     public ArrayList<Game> allGameRequests = new ArrayList<>();
     public static DataInputStream masterServerDataInputStream;
     public static DataOutputStream masterServerDataOutputStream;
-    public static User user1;
-    public static User user2;
-    public static User user3;
-    public static User user4;
-    public static User user5;
+//    public static User user1;
+//    public static User user2;
+//    public static User user3;
+//    public static User user4;
+//    public static User user5;
     static {
-        try {
-            user1 = new User("z", "s", "a", "s", "w", "q", 3);
-            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
-            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
-            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
-            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-            User.setCurrentUser(user1);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            socket = new Socket("localhost", 8081);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            user1 = new User("z", "s", "a", "s", "w", "q", 3);
+//            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+//            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
+//            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+//            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+//            User.setCurrentUser(user2);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            socket = new Socket("localhost", 8080);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -177,18 +178,22 @@ public class Lobby extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //
-        System.out.println("HIIIIIIIII");
-        user1 = new User("dorsa", "s", "a", "s", "w", "q", 3);
-
-        User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
-        User user3 = new User("qqqqq", "s", "a", "s", "w", "q", 3);
-        User user4 = new User("Boom", "s", "a", "s", "w", "q", 3);
-        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-        User.users.add(user2);
-        User.users.add(user3);
-        User.users.add(user4);
-        User.users.add(user5);
-        User.users.add(user1);
+//        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+//        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+//        Manage.masterServerDataOutputStream = masterServerDataOutputStream;
+//        Manage.masterServerDataInputStream = masterServerDataInputStream;
+//        System.out.println("HIIIIIIIII");
+//        user1 = new User("dorsa", "s", "a", "s", "w", "q", 3);
+//
+//        User user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+//        User user3 = new User("qqqqq", "s", "a", "s", "w", "q", 3);
+//        User user4 = new User("Boom", "s", "a", "s", "w", "q", 3);
+//        User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+//        User.users.add(user2);
+//        User.users.add(user3);
+//        User.users.add(user4);
+//        User.users.add(user5);
+//        User.users.add(user1);
 
 
 //        String data = User.convertUserToJson(user2);
@@ -199,25 +204,25 @@ public class Lobby extends Application {
 //        String a = Manage.masterServerDataInputStream.readUTF();
 //        System.out.println("A: "+a);
 //        System.out.println(Manage.masterServerDataInputStream.readUTF() + User.getCurrentUser().getUsername());
-        User.users.add(user1);
-        User.users.add(user2);
+//        User.users.add(user1);
+//        User.users.add(user2);
+//
+//        Game game = new Game(user2, "MyGame1", true, 5);
+//        allGameRequests.add(game);
+//        game.addToAllPlayers(user1);
+//        game.addToAllPlayers(user2);
+//        game.addToAllPlayers(user3);
+//        game.addToAllPlayers(user4);
+//        game.addToAllPlayers(user5);
 
-        Game game = new Game(user2, "MyGame1", true, 5);
-        allGameRequests.add(game);
-        game.addToAllPlayers(user1);
-        game.addToAllPlayers(user2);
-        game.addToAllPlayers(user3);
-        game.addToAllPlayers(user4);
-        game.addToAllPlayers(user5);
-
-        Game game2 = new Game(user1, "MyGame2", true, 5);
-        allGameRequests.add(game2);
-        Game game3 = new Game(user1, "MyGame3", true, 5);
-        allGameRequests.add(game3);
-        Game game4 = new Game(user1, "MyGame4", true, 5);
-        allGameRequests.add(game4);
-        Game game5 = new Game(user1, "MyGame5", true, 5);
-        allGameRequests.add(game5);
+//        Game game2 = new Game(user1, "MyGame2", true, 5);
+//        allGameRequests.add(game2);
+//        Game game3 = new Game(user1, "MyGame3", true, 5);
+//        allGameRequests.add(game3);
+//        Game game4 = new Game(user1, "MyGame4", true, 5);
+//        allGameRequests.add(game4);
+//        Game game5 = new Game(user1, "MyGame5", true, 5);
+//        allGameRequests.add(game5);
         this.stage = stage;
         Main.stage = stage;
         gameImages = new GameImages();
@@ -1020,7 +1025,7 @@ public class Lobby extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         refresh.setOnMouseClicked(mouseEvent -> {
             try {
-                User.getCurrentUser().getChats().clear();
+//                User.getCurrentUser().getChats().clear();
                 ChatMethods.refreshChats();
                 setChatList();
             } catch (IOException e) {
@@ -1656,10 +1661,10 @@ public class Lobby extends Application {
             if (myMessage.getSender().equals(User.getCurrentUser().getUsername())) {
                 messageBox.setAlignment(Pos.CENTER_RIGHT);
                 messageBox.getChildren().add(textFlow);
-                messageBox.getChildren().add(imageView1);
+                if(imageView1 != null) messageBox.getChildren().add(imageView1);
             } else {
                 messageBox.setAlignment(Pos.CENTER_LEFT);
-                messageBox.getChildren().add(imageView1);
+                if(imageView1 != null) messageBox.getChildren().add(imageView1);
                 messageBox.getChildren().add(textFlow);
             }
             chatBox.getChildren().add(messageBox);

@@ -25,7 +25,6 @@ public class User implements Comparable<User> {
     private static ArrayList<String> randomSlogans = new ArrayList<>();
     public  ArrayList<Game> myGame = new ArrayList<>();
     public ArrayList<User> myFriends = new ArrayList<>();
-    public ArrayList<Chat> myChats = new ArrayList<>();
 
     public static HashMap<Integer, String> getSecurityQuestions() {
         return securityQuestions;

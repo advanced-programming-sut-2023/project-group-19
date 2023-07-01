@@ -84,6 +84,7 @@ public class Message {
     }
     public static Message getMessageFromJson(String data){
         GsonBuilder builder = new GsonBuilder();
+        System.out.println("into messageClass: " + data);
         builder.registerTypeAdapter(Message.class, new MessageAdaptor());
         builder.setPrettyPrinting();
         Gson gson = builder.create();

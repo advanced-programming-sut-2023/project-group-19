@@ -59,7 +59,7 @@ import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.*;
 
-import static view.Lobby.user1;
+//import static view.Lobby.user1;
 
 public class TileManager extends Application {
     //TODO : create a loading screen  for the game for about 9 seconds before the game starts and then we play the game
