@@ -88,7 +88,7 @@ public class ChatMethods {
     }
     public void exitFromChat() throws IOException { //left
         dataOutputStream.writeUTF("EXIT_CHAT");
-        MessageGetter.interrupted();
+        messageGetter.interrupt();
     }
     public void sendMessage(String text) throws IOException {
         Message message = new Message(User.getCurrentUser().getUsername(),text,false,new ImageView());
