@@ -24,12 +24,16 @@ public class UserAdaptor extends TypeAdapter<User> {
         writer.beginObject();
         writer.name("username");
         writer.value(user.getUsername());
+        writer.name("REQUEST_TYPE");
+        writer.value(user.getREQUEST_TYPE());
         writer.name("password");
         writer.value(user.getPassword());
         writer.name("nickname");
         writer.value(user.getNickname());
         writer.name("email");
         writer.value(user.getEmail());
+        writer.name("chats");
+        writer.value(returnChatsObject(user.getChats()));
         writer.name("recoveryQuestion");
         writer.value(user.getRecoveryQuestion());
         writer.name("slogan");
@@ -44,7 +48,6 @@ public class UserAdaptor extends TypeAdapter<User> {
         writer.value(user.getAvatar().getImage().getUrl());
         writer.endObject();
     }
-
     public String returnChatsObject(ArrayList<Chat> chats){
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Chat.class, new ChatAdaptor());
@@ -83,6 +86,11 @@ public class UserAdaptor extends TypeAdapter<User> {
                 //move to next token
                 token = reader.peek();
                 user.nickname = (reader.nextString());
+            }
+            if("REQUEST_TYPE".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                user.REQUEST_TYPE = (reader.nextString());
             }
             if("email".equals(fieldname)) {
                 //move to next token

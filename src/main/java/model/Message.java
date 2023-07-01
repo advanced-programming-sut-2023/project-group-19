@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 
 import model.adaaptors.MessageAdaptor;
 import view.Lobby;
+import view.MessageGetter;
 
 import java.lang.reflect.Type;
 import java.time.LocalTime;

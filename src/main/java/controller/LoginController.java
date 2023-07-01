@@ -92,11 +92,9 @@ public class LoginController {
             , String slogan, String numberOfSecQuesion) throws IOException {
        User user =  new User(username, password, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
        String userInformation = user.toJson();
-        System.out.println("into login " + 1);
        Manage.masterServerDataOutputStream.writeUTF("CREATE_USER");
-        System.out.println("into login " + 2);
        Manage.masterServerDataOutputStream.writeUTF(userInformation);
-        System.out.println("into login " + 3);
+        System.out.println(Manage.masterServerDataInputStream.readUTF());
         System.out.println("---i am in the register function---");
     }
     private void makeUserJson(){
@@ -132,7 +130,6 @@ public class LoginController {
         if (!user.getPassword().equals(getHashCode(password))) return RegisterMessages.NOT_SIMILAR_PASSWORD;
         User.setCurrentUser(user);
         User.loginUsers.add(user);
-
         return RegisterMessages.SUCCESS;
     }
 

@@ -16,12 +16,14 @@ import model.Building.*;
 import model.Human.Troop.ArchersAndThrowers;
 import model.Human.Troop.Army;
 import model.Manage;
+import model.User;
 import view.ImageAndBackground.BottomBarImages;
 import view.ImageAndBackground.BuildingImages;
 import view.Model.NewButton;
 import view.TileManager;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static view.Main.stage;
@@ -79,7 +81,15 @@ public class BottomBarBuildings {
                 if (output.equals("building created successfully")) {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
-                            '#' + "Stair" + '#' + x + '#' + y + '\n');
+                            '#' + "Stair" + '#' + x + '#' + y );
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Stair" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(wallStairImage);
                     newbutton.setBuilding(stair);
@@ -119,6 +129,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "SmallWall" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "SmallWall" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(lowWallImage);
                     newbutton.setBuilding(lowWall);
@@ -158,6 +176,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "BigWall" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "BigWall" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stoneWallImage);
                     newbutton.setBuilding(bigWall);
@@ -196,6 +222,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "BigWall" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "BigWall" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(crenulatedWallImage);
                     newbutton.setBuilding(bigWall);
@@ -235,6 +269,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Barracks" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Barracks" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(barracksImage);
                     newbutton.setBuilding(barracks);
@@ -274,6 +316,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Mercenary" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Mercenary" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(mercenaryImage);
                     newbutton.setBuilding(mercenary);
@@ -313,6 +363,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Armoury" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Armoury" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(armoryImage);
                     newbutton.setBuilding(armoury);
@@ -435,6 +493,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "SmallStoneGatehouse" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "SmallStoneGatehouse" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(smallGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
@@ -474,6 +540,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "BigStoneGatehouse" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "igStoneGatehouse" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(bigGatehouseImage);
                     newbutton.setBuilding(stoneGateWay);
@@ -513,6 +587,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "DrawBridge" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "DrawBridge" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(drawBridgeImage);
                     newbutton.setBuilding(drawBridge);
@@ -552,6 +634,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "CagedWarDogs" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "CagedWarDogs" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(cagedDogsImage);
                     newbutton.setBuilding(cagedWarDogs);
@@ -591,6 +681,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "PitchDitch" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "PitchDitch" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(pitchDitchImage);
                     newbutton.setBuilding(pitchDitch);
@@ -630,6 +728,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "KillingPit" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "KillingPit" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(killingPitImage);
                     newbutton.setBuilding(killingPit);
@@ -692,6 +798,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "LookoutTower" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "LookoutTower" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(lookoutTowerImage);
                     newbutton.setBuilding(tower);
@@ -731,6 +845,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "PerimeterTower" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "PerimeterTower" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(premierTowerImage);
                     newbutton.setBuilding(tower);
@@ -770,6 +892,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "DefendTower" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "DefendTower" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(defenceTowerImage);
                     newbutton.setBuilding(tower);
@@ -809,6 +939,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "SquareTower" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "SquareTower" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(squareTowerImage);
                     newbutton.setBuilding(tower);
@@ -848,6 +986,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "RoundTower" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "RoundTower" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(roundTowerImage);
                     newbutton.setBuilding(tower);
@@ -909,6 +1055,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "EngineerGuild" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "EngineerGuild" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(engineersGuildImage);
                     newbutton.setBuilding(engineer);
@@ -1022,6 +1176,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Stable" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Stable" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stableImage);
                     newbutton.setBuilding(stable);
@@ -1061,6 +1223,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "TunnelerGuild" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "TunnelerGuild" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(tunnelersGuildImage);
                     newbutton.setBuilding(prepareLaboursAndFighters);
@@ -1100,6 +1270,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "OilSmelter" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "OilSmelter" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(oilSmelterImage);
                     newbutton.setBuilding(oilSmelter);
@@ -1142,6 +1320,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "ResourcesStockpile" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "ResourceStockpile" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(stockpileImage);
                     newbutton.setBuilding(stockpile);
@@ -1182,6 +1368,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "WoodCutter" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "WoodCutter" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(woodCutterImage);
                     newbutton.setBuilding(industry);
@@ -1221,6 +1415,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Quarry" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Quarry" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(quarryImage);
                     newbutton.setBuilding(industry);
@@ -1260,6 +1462,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "OxTether" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "OxTether" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(oxTetherImage);
                     newbutton.setBuilding(industry);
@@ -1299,6 +1509,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "IronDig" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "IronDig" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(ironMineImage);
                     newbutton.setBuilding(industry);
@@ -1339,6 +1557,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "PitchRig" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "PitchRig" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(pitchRigImage);
                     newbutton.setBuilding(industry);
@@ -1378,6 +1604,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Shop" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Shop" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(marketImage);
                     newbutton.setBuilding(shop);
@@ -1426,6 +1660,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "DiaryProduct" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "DairyProduct" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(dairyFarmImage);
                     newbutton.setBuilding(goods);
@@ -1472,6 +1714,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "AppleFarm" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "AppleFarm" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(appleFarmImage);
                     newbutton.setBuilding(goods);
@@ -1518,6 +1768,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "WheatFarm" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "WheatFarm" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(wheatFarmImage);
                     newbutton.setBuilding(goods);
@@ -1564,6 +1822,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "OatFarm" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "OatFarm" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(hopsFarmImage);
                     newbutton.setBuilding(goods);
@@ -1605,6 +1871,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "House" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "House" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(hovelImage);
                     newbutton.setBuilding(house);
@@ -1644,6 +1918,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "SmallChurch" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "SmallChurch" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(smallChurchImage);
                     newbutton.setBuilding(church);
@@ -1683,6 +1965,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "BigChurch" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "BigChurch" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(bigChurchImage);
                     newbutton.setBuilding(church);
@@ -1722,6 +2012,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Apothecary" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Apothecary" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(apothecaryImage);
                     newbutton.setBuilding(apothecary);
@@ -1761,6 +2059,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "TortureChamber" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "TortureChamber" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(tortureBuildingImage);
                     newbutton.setBuilding(fearControl);
@@ -1800,6 +2106,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Garden" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Garden" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(gardenImage);
                     newbutton.setBuilding(fearControl);
@@ -1849,6 +2163,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Fletcher" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Fletcher" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(fletcherImage);
                     newbutton.setBuilding(weapon);
@@ -1895,6 +2217,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "PoleTurner" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "PoleTurner" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(poleTurnerImage);
                     newbutton.setBuilding(weapon);
@@ -1941,6 +2271,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "BlackSmith" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Blacksmith" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(blacksmithImage);
                     newbutton.setBuilding(weapon);
@@ -2006,6 +2344,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Armourer" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Armourer" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(armourerImage);
                     newbutton.setBuilding(weapon);
@@ -2045,6 +2391,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "SiegeTent" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "SiegeTent" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(siegeTentImage);
                     newbutton.setBuilding(siegeTent);
@@ -2086,6 +2440,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "FoodStockpile" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "FoodStockpile" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(granaryImage);
                     newbutton.setBuilding(stockpile);
@@ -2132,6 +2494,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Bakery" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Bakery" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(bakeryImage);
                     newbutton.setBuilding(goods);
@@ -2178,6 +2548,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "BearFactory" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "BearFactory" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(breweryImage);
                     newbutton.setBuilding(goods);
@@ -2224,6 +2602,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Mill" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Mill" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(millImage);
                     newbutton.setBuilding(industry);
@@ -2270,6 +2656,14 @@ public class BottomBarBuildings {
                     TileManager.time = (TileManager.minute[0] + ":" + TileManager.seconds[0]);
                     TileManager.gameLog.append(TileManager.time + '#' + "DROP_BUILDING" +
                             '#' + "Inn" + '#' + x + '#' + y + '\n');
+                    try {
+                        TileManager.masterServerDataOutputStream.writeUTF("GAME_COMMANDS");
+                        TileManager.masterServerDataOutputStream.writeUTF("DROP_BUILDING");
+                        TileManager.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername()
+                                + '#' + "Inn" + '#' + x + '#' + y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     pane.getChildren().remove(allButtons[y][x].get(0));
                     newbutton.setImageView(innImage);
                     newbutton.setBuilding(inn);

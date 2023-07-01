@@ -1,9 +1,7 @@
-package controller.method;
+package view;
 
 import javafx.application.Platform;
 import model.Message;
-import model.User;
-import view.Lobby;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -20,24 +18,26 @@ public class MessageGetter extends Thread{
             try {
                 Thread.sleep(500);
                 Message message = getMessage();
+                System.out.println("Thread : "+message.getContent());
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         String content = message.getContent();
                         if (content.matches("#\\d+#.*")){
                             try {
+                                System.out.println("Trying tryCatch");
                                 Lobby.editMessage(message);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                         }else if (content.matches("#\\S+#.+")){
+                            System.out.println("Entered the condition of JustForMe");
                             try {
                                 Lobby.deleteMessageJustForMe(message);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                         }else{
-                            System.out.println("You've reached addMessage");
                             Lobby.addNewMessageToChat(message);
                         }
                     }
