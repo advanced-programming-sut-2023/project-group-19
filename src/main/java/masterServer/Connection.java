@@ -129,7 +129,7 @@ public class Connection extends Thread {
                 startGame();
                 break;
             case "ADMIN_START_GAME":
-
+                adminGameStart();
                 break;
             case "START_GAME_REQUEST":
                 getRequestStartGameFromUser();
@@ -178,14 +178,17 @@ public class Connection extends Thread {
         dataOutputStream.writeUTF(outPut);
     }
 
-    private void startGame() throws IOException {
-        String idOfGameRequest = dataInputStream.readUTF();
-        ArrayList<String> players;
-        for (GameRequest gameRequest : allGameRequests) {
-            if (!gameRequest.id.equals(idOfGameRequest)) continue;
-            players = gameRequest.allMembersUserName;
-            sendStartGameRequestToAllPlayersIntoGame(players);
-            break;
+    public void startGame() throws IOException {
+        String input = dataInputStream.readUTF();
+        for (int i = 0; i < allGameRequests.size(); i++) {
+            if (allGameRequests.get(i).startGame) {
+                for (int j = 0; j < allGameRequests.get(i).allMembersUserName.size(); j++) {
+                    if (allGameRequests.get(i).allMembersUserName.get(j).equals(input)) {
+                        dataOutputStream.writeUTF("start");
+                        return;
+                    }
+                }
+            }
         }
         dataOutputStream.writeUTF("stop");
     }
@@ -421,6 +424,14 @@ public class Connection extends Thread {
             }
         } else {
             gameRequest.allMembersUserName.remove(split[1]);
+        }
+    }
+    public void adminGameStart() throws IOException {
+        String input = dataInputStream.readUTF();
+        for (GameRequest allGameRequest : allGameRequests) {
+            if (allGameRequest.adminUsername.equals(input)) {
+                allGameRequest.startGame = true;
+            }
         }
     }
 
