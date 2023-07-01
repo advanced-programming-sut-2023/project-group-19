@@ -25,7 +25,7 @@ public class MessageAdaptor extends TypeAdapter<Message> {
         writer.name("sentTime");
         writer.value(message.getSentTime());
         writer.name("avatar");
-        writer.value(message.getAvatar().getImage().getUrl());
+        writer.value("ah");
         writer.name("seen");
         writer.value(false);
         writer.endObject();
@@ -69,7 +69,7 @@ public class MessageAdaptor extends TypeAdapter<Message> {
                 //move to next token
                 token = reader.peek();
                 String url = reader.nextString();
-                message.avatar = new ImageView(new Image(url));
+                message.avatar = null;
             }
             if("seen".equals(fieldname)) {
                 //move to next token

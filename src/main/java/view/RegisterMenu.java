@@ -38,6 +38,9 @@ import view.Messages.RegisterMessages;
 
 import java.io.IOException;
 import java.util.ArrayList;
+// ahmad Hh8Yy3Oo1#
+//Vv8Mm6Qq1*
+
 
 public class RegisterMenu extends Application {
     static {
@@ -50,23 +53,23 @@ public class RegisterMenu extends Application {
         // IiRr5Tt7#
         //Xx6OoBUu3#
         //Qq8JjEe8#
+        try {
+        //Rr8Rr9Qq8#
+            getAllMaps();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        buildMaps();
 //        try {
-//        //Rr8Rr9Qq8#
-//            getAllMaps();
+//            MapMethod.addNewMapToServer(Map.getSavedMaps().get(1));
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
-//        buildMaps();
-        try {
-            MapMethod.addNewMapToServer(Map.getSavedMaps().get(1).getName());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            MapMethod.getMapsFromServer();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            MapMethod.getMapsFromServer();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
     public static Stage stage;
     public TextField email = new TextField();
@@ -121,6 +124,8 @@ public class RegisterMenu extends Application {
         launch();
     }
     public static int num = 1 ;
+    // dorsa : Ee7Gg7Uu2#
+    // ali : Ff2Vv0Rr3#
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -129,10 +134,10 @@ public class RegisterMenu extends Application {
         RegisterMenu.stage = stage;
         String path = RegisterMenu.class.getResource("/Intro.mp4").toExternalForm();
         Media media = new Media(path);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mediaView = new MediaView(mediaPlayer);
-        if(num == 1)mediaPlayer.setAutoPlay(true);
-        mediaView.setFitWidth(1550);
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        MediaView mediaView = new MediaView(mediaPlayer);
+//        if(num == 1)mediaPlayer.setAutoPlay(true);
+//        mediaView.setFitWidth(1550);
 //        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(36.5), actionEvent -> {
 //            pane.getChildren().remove(mediaView);
 //            playLoginMusic();
@@ -164,13 +169,13 @@ public class RegisterMenu extends Application {
         if(CreateMapMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
     }
     private void playLoginMusic(){
-        stopAllMusic();
-        String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
-        Media media = new Media(defultSong);
-        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
-        mediaPlayer = mediaPlayer2 ;
-        mediaPlayer2.setAutoPlay(true);
-        mediaPlayer.setCycleCount(-1);
+//        stopAllMusic();
+//        String defultSong  = RegisterMenu.class.getResource("/Music/register.mp3").toString();
+//        Media media = new Media(defultSong);
+//        MediaPlayer mediaPlayer2 = new MediaPlayer(media);
+//        mediaPlayer = mediaPlayer2 ;
+//        mediaPlayer2.setAutoPlay(true);
+//        mediaPlayer.setCycleCount(-1);
     }
 
     private void designRegisterMenu() {
@@ -736,6 +741,8 @@ public class RegisterMenu extends Application {
             Map.allJsonMaps.add(mapSaved);
         }
     }
+    // Hh0Jj4Ii3#
+    // sam
     private static void buildMaps(){
        int size  =  Map.allJsonMaps.size();
         System.out.println(size);

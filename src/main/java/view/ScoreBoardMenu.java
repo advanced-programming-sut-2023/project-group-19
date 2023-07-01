@@ -44,7 +44,7 @@ public class ScoreBoardMenu extends Application {
     private ArrayList<User> usersScoreBoard ;
     private Timeline timeline ;
     private void getUsersFromServerToCompleteScoreBoard() throws IOException {
-        timeline = new Timeline(new KeyFrame(new Duration(10000),actionEvent -> {
+        timeline = new Timeline(new KeyFrame(new Duration(20000),actionEvent -> {
             try {
                 newScoreBoard();
             } catch (IOException e) {
