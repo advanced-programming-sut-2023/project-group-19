@@ -98,7 +98,7 @@ public class Connection extends Thread {
                 addUserToOnlineUsers();
                 break;
             case "ADD_MAP":
-                addNewMap();
+//                addNewMap();
                 break;
             case "REFRESH_CHAT":
                 refreshChat();
@@ -123,11 +123,12 @@ public class Connection extends Thread {
                 break;
             case "PRIVATE_PUBLIC":
                 privatePublicDecide();
+                break;
             case "ADD_NEW_MAP_TO_SERVER":
-                addNewMap();
+//                addNewMap();
                 break;
             case "GET_SAVED_MAPS":
-                sendArrayListOfSavedMapsToClient();
+//                sendArrayListOfSavedMapsToClient();
                 break;
             case "START_GAME":
                 startGame();
@@ -149,6 +150,7 @@ public class Connection extends Thread {
                 break;
             case "GET_USER_FOR_SCOREBOARD":
                 getUsersForScoreBoard();
+                break;
             case "GAME_COMMANDS":
                 gameCommands();
                 break;
@@ -519,24 +521,24 @@ public class Connection extends Thread {
         System.out.println("Size is: " + chatsMustBeAddedToChatListOfClients.size());
     }
 
-    private void addNewMap() throws IOException {
-        String data = dataInputStream.readUTF();
-        System.out.println(data);
-        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
-//        System.out.println(savedObstacles.get(0).na);
-        Map.arrayListArrayListOfObject.add(savedObstacles);
-        Map map = Map.buildMap(savedObstacles);
-        Map.getSavedMaps().add(map);
-    }
+//    private void addNewMap() throws IOException {
+//        String data = dataInputStream.readUTF();
+//        System.out.println(data);
+//        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
+////        System.out.println(savedObstacles.get(0).na);
+//        Map.arrayListArrayListOfObject.add(savedObstacles);
+//        Map map = Map.buildMap(savedObstacles);
+//        Map.getSavedMaps().add(map);
+//    }
 
-    private void sendArrayListOfSavedMapsToClient() throws IOException {
-        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
-        for (ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject) {
-            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
-            System.out.println(data);
-            dataOutputStream.writeUTF(data);
-        }
-    }
+//    private void sendArrayListOfSavedMapsToClient() throws IOException {
+//        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
+//        for (ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject) {
+//            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
+//            System.out.println(data);
+//            dataOutputStream.writeUTF(data);
+//        }
+//    }
 
     private void addChatToUsersList(String ownerName, Chat chat) {
         if (usersSavedChats.get(ownerName) == null) {
