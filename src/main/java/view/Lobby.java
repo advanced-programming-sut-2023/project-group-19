@@ -197,7 +197,7 @@ public class Lobby extends Application {
 
 //        User.setCurrentUser(user2);
 
-        String data = User.convertUserToJson(user2);
+//        String data = User.convertUserToJson(user2);
 //        Manage.masterServerDataInputStream = new DataInputStream(socket.getInputStream());
 //        Manage.masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
 //        Manage.masterServerDataOutputStream.writeUTF("LOGIN_USER");

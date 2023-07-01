@@ -13,9 +13,22 @@ public class Manage {
     public static ArrayList<Empire> allEmpires = new ArrayList<>();
     public static ArrayList<Building> burningEmpires = new ArrayList<>();
     public final static ArrayList<String> namesOfAllPossibleBuildings = new ArrayList<>();
-
+    public static Socket socket;
     public static DataInputStream masterServerDataInputStream;
     public static DataOutputStream masterServerDataOutputStream;
+
+    static {
+//        try {
+//            socket = new Socket("localhost" , 8888);
+//            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+//            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+    }
+
+
 
     static {
         namesOfAllPossibleBuildings.add("Armoury");
@@ -73,6 +86,9 @@ public class Manage {
     private static Empire currentEmpire;
     public static ArrayList<User> allUsers = new ArrayList<>();
 
+    public Manage() throws IOException {
+    }
+
     public static Empire getCurrentEmpire() {
         return currentEmpire;
     }
@@ -107,9 +123,7 @@ public class Manage {
     }
 
     public static void connectUserToMasterServer() throws IOException {
-        System.out.println("**");
         Socket socket = new Socket("localhost", 8888);
-        System.out.println("**");
         masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
         System.out.println("into connect user to the master server!!!!!!!!!!!!!!");
