@@ -141,7 +141,7 @@ public class TileManager extends Application {
         User user1;
         User user2;
         try {
-            socket = new Socket("localhost", 8081);
+            socket = new Socket("localhost", 8080);
             masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
             masterServerDataInputStream = new DataInputStream(socket.getInputStream());
             user2 = new User("ali", "s", "a", "s", "w", "q", 3);
