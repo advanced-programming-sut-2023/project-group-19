@@ -95,37 +95,37 @@ public class Lobby extends Application {
     public ArrayList<Game> allGameRequests = new ArrayList<>();
     public static DataInputStream masterServerDataInputStream;
     public static DataOutputStream masterServerDataOutputStream;
-//    public static User user1;
-//    public static User user2;
-//    public static User user3;
-//    public static User user4;
-//    public static User user5;
+    public static User user1;
+    public static User user2;
+    public static User user3;
+    public static User user4;
+    public static User user5;
     static {
-//        try {
-//            user1 = new User("z", "s", "a", "s", "w", "q", 3);
-//            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
-//            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
-//            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
-//            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-//            User.setCurrentUser(user2);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            socket = new Socket("localhost", 8080);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            user1 = new User("z", "s", "a", "s", "w", "q", 3);
+            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
+            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+            User.setCurrentUser(user2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            socket = new Socket("localhost", 8081);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -135,6 +135,7 @@ public class Lobby extends Application {
                     masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
                     String input = masterServerDataInputStream.readUTF();
                     if(input.equals("start")){
+                        System.out.println("started correctly");
                         timer.cancel();
                         TileManager tileManager = new TileManager();
                         Platform.runLater(new Runnable() {
@@ -178,8 +179,8 @@ public class Lobby extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //
-//        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-//        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
 //        Manage.masterServerDataOutputStream = masterServerDataOutputStream;
 //        Manage.masterServerDataInputStream = masterServerDataInputStream;
 //        System.out.println("HIIIIIIIII");
@@ -699,14 +700,13 @@ public class Lobby extends Application {
         pane.getChildren().remove(listOfGameInfo);
     }
     public void startGame(){
-        TileManager tileManager = new TileManager();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Stage stage1 = new Stage();
                 try {
-                    tileManager.start(stage1);
-                } catch (Exception e) {
+                    masterServerDataOutputStream.writeUTF("ADMIN_START_GAME");
+                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }

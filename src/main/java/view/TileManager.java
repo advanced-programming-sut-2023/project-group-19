@@ -7,6 +7,7 @@ import controller.AttackArmyToArmyController;
 import controller.Building.BuildingController;
 import controller.Building.SelectedBuildingController;
 import controller.GameController;
+//import controller.NextTurnController;
 import controller.NextTurnController;
 import controller.ObstacleAdapter;
 import javafx.application.Application;
@@ -141,7 +142,7 @@ public class TileManager extends Application {
         User user1;
         User user2;
         try {
-            socket = new Socket("localhost", 8080);
+            socket = new Socket("localhost", 8081);
             masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
             masterServerDataInputStream = new DataInputStream(socket.getInputStream());
             user2 = new User("ali", "s", "a", "s", "w", "q", 3);
@@ -150,7 +151,7 @@ public class TileManager extends Application {
             throw new RuntimeException(e);
         }
 
-        User.setCurrentUser(user2);
+        User.setCurrentUser(user1);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -192,7 +193,6 @@ public class TileManager extends Application {
                                 }
                             });
                         }
-
                         // move unit :
                         //    moveUnit + # + passingArmy.getxCoordinate() + '#' +passingArmy.getyCoordinate() + '#' +
                         //    passingArmy.getNames().getName() + '#' +xOfDestination + '#' + yOfDestination
@@ -299,10 +299,10 @@ public class TileManager extends Application {
     }
 
     private void stopAllMusic() {
-        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
-        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
-        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
-        if (CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
+//        if (RegisterMenu.mediaPlayer != null) RegisterMenu.mediaPlayer.stop();
+//        if (ProfileMenu.mediaPlayer != null) ProfileMenu.mediaPlayer.stop();
+//        if (MainMenu.mediaPlayer != null) MainMenu.mediaPlayer.stop();
+//        if (CreateMapMenu.mediaPlayer != null) CreateMapMenu.mediaPlayer.stop();
     }
 
     public void zoom2() {
@@ -439,7 +439,7 @@ public class TileManager extends Application {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "NEXT_TURN" + '\n');
                         playSoundEffect("shortCut.wav");
-                        nextTurn();
+//                        nextTurn();
                     } else if (keyName.equals("F1")) {
                         time = (minute[0] + ":" + seconds[0]);
                         gameLog.append(time + '#' + "CLEAR_SELECTED_BUTTONS" + '\n');
@@ -648,12 +648,12 @@ public class TileManager extends Application {
         });
     }
 
-    public void nextTurn() {
-        NextTurnController nextTurnController = new NextTurnController();
-        nextTurnController.tileManager = tileManager;
-        nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
-        nextTurnController.nextTurn();
-    }
+//    public void nextTurn() {
+//        NextTurnController nextTurnController = new NextTurnController();
+//        nextTurnController.tileManager = tileManager;
+//        nextTurnController.attackArmyToArmyController = new AttackArmyToArmyController(tileManager);
+//        nextTurnController.nextTurn();
+//    }
 
     private void treesOfMap() {
         for (int i = 0; i < Map.mapSize; i++) {
@@ -697,7 +697,7 @@ public class TileManager extends Application {
                 zoomOut();
                 break;
             case "NEXT_TURN":
-                nextTurn();
+//                nextTurn();
                 break;
             case "DROP_UNIT":
                 dropUnitHbox();

@@ -8,7 +8,6 @@ import controller.ObstacleAdapter;
 import controller.UserAdaptor;
 import javafx.scene.image.Image;
 import model.Obstacle.SavedObstacles;
-import view.ProfileMenu;
 import  javafx.scene.image.ImageView;
 import java.awt.*;
 import java.io.IOException;
@@ -208,7 +207,7 @@ public class User implements Comparable<User> {
         String s = gson.toJson(user);
         return s ;
     }
-    public static void makeUsersFromJson() throws IOException {
+    public static void makeUsersFromJson() throws IOException {;
         String data = Manage.masterServerDataInputStream.readUTF();
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(User.class, new UserAdaptor());
