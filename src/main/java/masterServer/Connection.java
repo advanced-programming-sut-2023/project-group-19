@@ -415,22 +415,22 @@ public class Connection extends Thread {
     }
 
     private void addNewMap() throws IOException {
-        String data = dataInputStream.readUTF();
-        System.out.println(data);
-        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
-//        System.out.println(savedObstacles.get(0).na);
-        Map.arrayListArrayListOfObject.add(savedObstacles);
-        Map map = Map.buildMap(savedObstacles);
-        Map.getSavedMaps().add(map);
+//        String data = dataInputStream.readUTF();
+//        System.out.println(data);
+//        ArrayList<SavedObstacles> savedObstacles = Map.convertJsonObstacleToObject(data);
+////        System.out.println(savedObstacles.get(0).na);
+//        Map.arrayListArrayListOfObject.add(savedObstacles);
+//        Map map = Map.buildMap(savedObstacles);
+//        Map.getSavedMaps().add(map);
     }
 
     private void sendArrayListOfSavedMapsToClient() throws IOException {
-        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
-        for (ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject) {
-            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
-            System.out.println(data);
-            dataOutputStream.writeUTF(data);
-        }
+//        dataOutputStream.writeUTF(Integer.toString(Map.arrayListArrayListOfObject.size()));
+//        for (ArrayList<SavedObstacles> arrayList : Map.arrayListArrayListOfObject) {
+//            String data = Map.convertArrayLIstOfMapIntoJsonForm(arrayList);
+//            System.out.println(data);
+//            dataOutputStream.writeUTF(data);
+//        }
     }
 
     private void addChatToUsersList(String ownerName, Chat chat) {
