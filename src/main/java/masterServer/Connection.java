@@ -442,8 +442,6 @@ public class Connection extends Thread {
         }
         String output = stringBuilder.toString();
         dataOutputStream.writeUTF(output);
-        dataOutputStream.writeUTF(output);
-        dataOutputStream.writeUTF(output);
     }
 
     public static int[] second = new int[100];
