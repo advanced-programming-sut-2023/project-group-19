@@ -119,6 +119,7 @@ public class Connection extends Thread {
                 break;
             case "PRIVATE_PUBLIC":
                 privatePublicDecide();
+                break;
             case "ADD_NEW_MAP_TO_SERVER":
                 addNewMap();
                 break;
@@ -181,7 +182,6 @@ public class Connection extends Thread {
         }
     }
 
-
     private void editUser() throws IOException {
         String data = dataInputStream.readUTF();
         String index = dataInputStream.readUTF();
@@ -202,9 +202,6 @@ public class Connection extends Thread {
         userOrgUser.recoveryQuestionNumber = user.recoveryQuestionNumber ;
         userOrgUser.rank = user.rank ;
     }
-
-
-
 
     public void getFriendShipRequest() throws IOException {
         String input = dataInputStream.readUTF();
