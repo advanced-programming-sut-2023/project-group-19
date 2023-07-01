@@ -127,10 +127,20 @@ public class ChatMethods {
         String removedMessage = Message.convertMessageToJson(message);
         dataOutputStream.writeUTF(removedMessage);
     }
+    //TODO : here please call this function
+    public static Chat createChatServer(String name) throws IOException {
+        Manage.masterServerDataOutputStream.writeUTF("MAKE_CHAT_GROUP_FOR_TEAM");
+        String port = Manage.masterServerDataInputStream.readUTF();
+        Socket socket = new Socket("localhost",Integer.parseInt(port));
+        Chat chat = new Chat(socket,name,"GROUP");
+        return chat ;
+    }
 
     public void sendReaction(Message myMessage) throws IOException {
         String message = Message.convertMessageToJson(myMessage);
         dataOutputStream.writeUTF("REACTION");
         dataOutputStream.writeUTF(message);
     }
+
+
 }
