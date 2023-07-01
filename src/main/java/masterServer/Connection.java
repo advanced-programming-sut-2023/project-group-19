@@ -10,6 +10,8 @@ import java.lang.reflect.Type;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.*;
 
 import basicGameModel.Map;
@@ -22,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import gameServer.GameConnection;
 import gameServer.GameRequest;
+import chatServer.ChatServer;
 import gameServer.GameServer;
 
 public class Connection extends Thread {
@@ -30,6 +33,7 @@ public class Connection extends Thread {
     public static HashMap<Integer, GameServer> allGames = new HashMap<>();
     public static ArrayList<GameRequest> allGameRequests = new ArrayList<>();
     public static ArrayList<UsersFriend> allFriendshipRequests = new ArrayList<>();
+    public static ArrayList<GameCommands> allGameCommands = new ArrayList<>();
     public static HashMap<Integer, ChatServer> allChats = new HashMap<>();
     public static HashMap<String, ArrayList<Chat>> usersSavedChats = new HashMap<>();
     private static  HashMap<Socket,String> onlineUsersHashMap = new HashMap<>();
@@ -145,6 +149,8 @@ public class Connection extends Thread {
                 break;
             case "GET_USER_FOR_SCOREBOARD":
                 getUsersForScoreBoard();
+            case "GAME_COMMANDS":
+                gameCommands();
                 break;
 
         }
@@ -187,6 +193,93 @@ public class Connection extends Thread {
 
 
 
+    public void gameCommands() throws IOException {
+        String command = dataInputStream.readUTF();
+        switch (command) {
+            case "GAME_BEGIN":
+                gameBegin();
+                break;
+            case "DROP_BUILDING":
+                dropBuilding();
+                break;
+            case "DROP_UNIT":
+                dropUnit();
+                break;
+            case "MOVE_UNIT":
+                moveUnit();
+                break;
+            case "GET_MY_COMMANDS":
+                getMyCommands();
+                break;
+        }
+    }
+    public void getMyCommands() throws IOException {
+        String input = dataInputStream.readUTF();
+        for(int i = 0 ; i < allGameCommands.size() ; i++){
+            if(allGameCommands.get(i).getUserName().equals(input)){
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int h = 0 ; h < allGameCommands.get(i).getCommandsToDo().size() ; h++){
+                    stringBuilder.append(allGameCommands.get(i).getCommandsToDo().get(h) + '\n');
+                }
+                dataOutputStream.writeUTF(stringBuilder.toString());
+                allGameCommands.get(i).commandsToDo.clear();
+                return;
+            }
+        }
+        dataOutputStream.writeUTF("chert");
+    }
+    public void gameBegin() throws IOException {
+        String input = dataInputStream.readUTF();
+        GameCommands gameCommands = new GameCommands(input);
+        allGameCommands.add(gameCommands);
+    }
+
+    public void dropBuilding() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DROP_BUILDING" + '#');
+        for (int h = 1; h < split.length; h++) {
+            stringBuilder.append(split[h] + '#');
+        }
+        for(int f = 0 ; f < allGameCommands.size() ; f++){
+            if(!allGameCommands.get(f).getUserName().equals(split[0])){
+                allGameCommands.get(f).commandsToDo.add(stringBuilder.toString());
+            }
+        }
+    }
+
+    public void dropUnit() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DROP_UNIT" + '#');
+        for (int h = 1; h < split.length; h++) {
+            stringBuilder.append(split[h] + '#');
+        }
+        for(int f = 0 ; f < allGameCommands.size() ; f++){
+            if(!allGameCommands.get(f).getUserName().equals(split[0])){
+                allGameCommands.get(f).commandsToDo.add(stringBuilder.toString());
+            }
+        }
+    }
+    // move unit :
+//    moveUnit + # + passingArmy.getxCoordinate() + '#' +passingArmy.getyCoordinate() + '#' +
+//    passingArmy.getNames().getName() + '#' +xOfDestination + '#' + yOfDestination
+    public void moveUnit() throws IOException {
+        String input = dataInputStream.readUTF();
+        String[] split = input.split("#");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("MOVE_UNIT" + '#');
+        for (int h = 1; h < split.length; h++) {
+            stringBuilder.append(split[h] + '#');
+        }
+        for(int f = 0 ; f < allGameCommands.size() ; f++){
+            if(!allGameCommands.get(f).getUserName().equals(split[0])){
+                allGameCommands.get(f).commandsToDo.add(stringBuilder.toString());
+            }
+        }
+    }
 
     public void getFriendShipRequest() throws IOException {
         String input = dataInputStream.readUTF();
