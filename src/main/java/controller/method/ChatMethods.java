@@ -91,7 +91,6 @@ public class ChatMethods {
         if(data.equals("####")) data = dataInputStream.readUTF();
         System.out.println("into get chat : " + data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
-        System.out.println(messages.get(0).content);
         getMessagesFromServer(dataInputStream);
         return messages;
     }
