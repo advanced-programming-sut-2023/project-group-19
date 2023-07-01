@@ -85,6 +85,7 @@ public class Lobby extends Application {
     public Button searchButton = new Button();
     public Button exit = new Button();
     public TextField searchBarForUsers = new TextField();
+    public Button showAllChats = new Button();
     public Button searchButtonForUsers = new Button();
     public ArrayList<NewHBox> chosenMembersForRoom = new ArrayList<>();
     public static ArrayList<Message> messages = new ArrayList<>();
@@ -956,6 +957,7 @@ public class Lobby extends Application {
                     System.out.println("entered try catch");
                     isPrivateChatPressed = false;
                     Chat privateChat = ChatMethods.addNewPrivateChat(search.getText());
+                    User.getCurrentUser().getChats().add(privateChat);
                     NewHBox newHBox = showPrivateChatBox(privateChat);
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
@@ -964,7 +966,8 @@ public class Lobby extends Application {
                 try {
                     System.out.println("Entered try catch");
                     isGroupChatPressed = false;
-                    Chat privateChat = ChatMethods.addNewGroupChat(search.getText());
+                    Chat groupChat = ChatMethods.addNewGroupChat(search.getText());
+                    User.getCurrentUser().getChats().add(groupChat);
                 } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -1065,6 +1068,7 @@ public class Lobby extends Application {
             }
         });
 
+
         Circle clip = new Circle(25, 25, 25);
         Image profile = User.getCurrentUser().getAvatar().getImage();
         clip.setFill(new ImagePattern(profile));
@@ -1085,17 +1089,15 @@ public class Lobby extends Application {
         pane.getChildren().add(refresh);
         pane.getChildren().add(makePrivateChat);
         pane.getChildren().add(globalChat);
+        pane.getChildren().add(showAllChats);
         pane.getChildren().add(clip);
         pane.getChildren().add(me);
 
     }
 
-    private void searchBoxOfChatMenu() {
-
-    }
 
     private User searchForGivenUserId(String text) {
-        for (User user : Manage.allUsers) {
+        for (User user : User.users) {
             if (user.getUsername().equals(text)) {
                 return user;
             }
@@ -1118,7 +1120,7 @@ public class Lobby extends Application {
         VBox chatList = new VBox();
         chatList.setStyle("-fx-background-color: #4b187e; " +
                 "-fx-background-radius: 10px;");
-        chatList.setSpacing(0.5);
+        chatList.setSpacing(1);
         if (!User.getCurrentUser().getChats().isEmpty()) {
             for (Chat chat : User.getCurrentUser().getChats()) {
                 User receiver = searchForGivenUserId(chat.getName());//TODO : Do we need to take it directly from server?
@@ -1146,10 +1148,11 @@ public class Lobby extends Application {
                 chatList.getChildren().add(chatBox);
             }
             scrollPaneForChatList.setPrefWidth(300);
+            scrollPaneForChatList.setPrefHeight(300);
             scrollPaneForChatList.setContent(chatList);
             scrollPaneForChatList.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-            scrollPaneForChatList.setLayoutX(300);
-            scrollPaneForChatList.setLayoutY(300);
+            scrollPaneForChatList.setLayoutX(110);
+            scrollPaneForChatList.setLayoutY(480);
 
             scrollPaneForChatList.setStyle("-fx-background-color: #1b1073");
             scrollPaneForChatList.setVisible(true);
@@ -1197,6 +1200,7 @@ public class Lobby extends Application {
                 throw new RuntimeException(e);
             }
         });
+
 
         setStyleToMessages(myMessages);
 
