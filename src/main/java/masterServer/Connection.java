@@ -146,8 +146,20 @@ public class Connection extends Thread {
             case "SEND_SAVED_CHATS_TO_CLIENT":
                 sendSavedChatsToClient();
                 break;
+            case "MAKE_CHAT_GROUP_FOR_TEAM":
+                makeChatGroupForTeam();
+                break;
         }
     }
+
+    private void makeChatGroupForTeam() throws IOException {
+        ChatServer chatServer = new ChatServer(MasterServer.chatPort);
+        chatServer.start();
+        allChats.put(MasterServer.chatPort, chatServer);
+        dataOutputStream.writeUTF(Integer.toString(MasterServer.chatPort));
+        MasterServer.chatPort++;
+    }
+
     private void sendSavedChatsToClient() throws IOException {
         String usernameOfClient = dataInputStream.readUTF();
         ArrayList<Chat> chats = usersSavedChats.get(usernameOfClient);
