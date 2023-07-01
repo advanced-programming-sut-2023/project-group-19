@@ -12,6 +12,18 @@ import java.util.Collections;
 
 public class User implements Comparable<User> {
     public static ArrayList<User> users = new ArrayList<>();
+    static {
+        User user = null;
+        User user2 = null;
+        try {
+            user = new User("ali","1","d","s","f","q",1);
+            user2 = new User("mamad","1","d","s","f","q",1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        users.add(user);
+        users.add(user2);
+    }
 
     public static ArrayList<String> onlineUsers = new ArrayList<>();
     public String username;

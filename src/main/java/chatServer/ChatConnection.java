@@ -77,6 +77,7 @@ public class ChatConnection extends Thread {
         for (String username : users) {
             Socket socket = Connection.allSockets.get(username);
             Chat chat = new Chat(groupName, chatServer.port, "GROUP");
+            Connection.saveChatToHashMap(username,chat);
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
         }
@@ -95,6 +96,8 @@ public class ChatConnection extends Thread {
 
     private void showMessages() throws IOException {
         chatServer.inChatUsers.add(socket);
+        System.out.println(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
+        dataOutputStream.writeUTF("####");
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
     private void receiveMessage() throws IOException {
