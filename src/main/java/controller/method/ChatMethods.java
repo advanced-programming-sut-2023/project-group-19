@@ -31,10 +31,10 @@ public class ChatMethods {
         else System.out.println("Nott nullll");
         Manage.masterServerDataOutputStream.writeUTF("REFRESH_CHAT");
         Manage.masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
-//        String bool =  Manage.masterServerDataInputStream.readUTF();
         data = Manage.masterServerDataInputStream.readUTF();
         System.out.println("Output data:\n"+data);
         ArrayList<Chat> chats = Chat.convertChatsToJsonForm(data);
+        if (chats == null) return;
         for(Chat chat : chats){
             System.out.println(chat.getSocket().getPort());
             User.getCurrentUser().getChats().add(chat);
@@ -90,7 +90,10 @@ public class ChatMethods {
     public ArrayList<Message> enterToChat() throws IOException {
         dataOutputStream.writeUTF("ENTER_CHAT");
         String data = dataInputStream.readUTF();
+        if(data.equals("####")) data = dataInputStream.readUTF();
+        System.out.println("into get chat : " + data);
         ArrayList<Message> messages = Message.getWholeMessagesFromJson(data);
+        System.out.println(messages.get(0).content);
         getMessagesFromServer(dataInputStream);
         return messages;
     }
@@ -99,8 +102,8 @@ public class ChatMethods {
         messageGetter.start();
     }
     public void exitFromChat() throws IOException { //left
+        messageGetter.interrupt();
         dataOutputStream.writeUTF("EXIT_CHAT");
-        MessageGetter.interrupted();
     }
     public void sendMessage(String text) throws IOException {
         Message message = new Message(User.getCurrentUser().getUsername(),text,false,new ImageView());

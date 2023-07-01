@@ -11,12 +11,14 @@ import java.io.IOException;
 public class MessageGetter extends Thread{
     public DataInputStream dataInputStream ;
     public Message newMessage;
+
+    MessageGetter messageGetter = this ;
     public MessageGetter(DataInputStream dataInputStream){
         this.dataInputStream  = dataInputStream ;
     }
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!isInterrupted()) {
             try {
                 Thread.sleep(500);
                 Message message = getMessage();
@@ -55,8 +57,11 @@ public class MessageGetter extends Thread{
     }
     public Message getMessage() throws IOException {
         String data = dataInputStream.readUTF();
+        if(data.equals("####")) return null ;
+        System.out.println("into message getter : " + data);
         Message message = Message.getMessageFromJson(data);
         System.out.println("Message is : "+message.getContent());
         return message;
     }
+
 }

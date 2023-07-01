@@ -95,37 +95,37 @@ public class Lobby extends Application {
     public ArrayList<Game> allGameRequests = new ArrayList<>();
     public static DataInputStream masterServerDataInputStream;
     public static DataOutputStream masterServerDataOutputStream;
-    public static User user1;
-    public static User user2;
-    public static User user3;
-    public static User user4;
-    public static User user5;
+//    public static User user1;
+//    public static User user2;
+//    public static User user3;
+//    public static User user4;
+//    public static User user5;
     static {
-        try {
-            user1 = new User("z", "s", "a", "s", "w", "q", 3);
-            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
-            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
-            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
-            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-            User.setCurrentUser(user2);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            socket = new Socket("localhost", 8080);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            user1 = new User("z", "s", "a", "s", "w", "q", 3);
+//            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+//            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
+//            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+//            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+//            User.setCurrentUser(user2);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            socket = new Socket("localhost", 8080);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -217,14 +217,14 @@ public class Lobby extends Application {
 //        game.addToAllPlayers(user4);
 //        game.addToAllPlayers(user5);
 
-        Game game2 = new Game(user1, "MyGame2", true, 5);
-        allGameRequests.add(game2);
-        Game game3 = new Game(user1, "MyGame3", true, 5);
-        allGameRequests.add(game3);
-        Game game4 = new Game(user1, "MyGame4", true, 5);
-        allGameRequests.add(game4);
-        Game game5 = new Game(user1, "MyGame5", true, 5);
-        allGameRequests.add(game5);
+//        Game game2 = new Game(user1, "MyGame2", true, 5);
+//        allGameRequests.add(game2);
+//        Game game3 = new Game(user1, "MyGame3", true, 5);
+//        allGameRequests.add(game3);
+//        Game game4 = new Game(user1, "MyGame4", true, 5);
+//        allGameRequests.add(game4);
+//        Game game5 = new Game(user1, "MyGame5", true, 5);
+//        allGameRequests.add(game5);
         this.stage = stage;
         Main.stage = stage;
         gameImages = new GameImages();
@@ -1005,8 +1005,8 @@ public class Lobby extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         refresh.setOnMouseClicked(mouseEvent -> {
             try {
-                User.getCurrentUser().getChats().clear();
-                chatMethods.refreshChats();
+//                User.getCurrentUser().getChats().clear();
+                ChatMethods.refreshChats();
                 setChatList();
             } catch (IOException e) {
                 throw new RuntimeException(e);
