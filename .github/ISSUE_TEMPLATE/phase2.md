@@ -44,7 +44,7 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر اول
 
-  **آرین اکبری **
+  **آرین اکبری**
 <details>
   <summary>Map Of Game</summary>
 
@@ -149,7 +149,7 @@ assignees: Arman17Babaei
 
 ## تسک‌های نفر سوم
 
-  **آرمین محمودی نژاد **
+  **آرمین محمودی نژاد**
 <details>
   <summary>Units fight graphic</summary>
 
