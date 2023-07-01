@@ -112,7 +112,7 @@ public class ProfileMenu extends Application {
         User user5 = new User("ae", "s", "a", "s", "w", "q", 3);
         User user6 = new User("test1", "s", "a", "s", "w", "q", 3);
         User user7 = new User("test2", "s", "a", "s", "w", "q", 3);
-        User.setCurrentUser(user);
+        User.setCurrentUser(user2);
 //        user.myFriends.add(user2);
 //        user.myFriends.add(user3);
 
@@ -1044,9 +1044,7 @@ public class ProfileMenu extends Application {
             for (User user : allInvitations) {
                 if (!user.getUsername().equals(User.getCurrentUser().getUsername())) {
                     HBox friendBox = new HBox();
-                    VBox vBox = new VBox();
-
-                    friendBox.setPrefSize(285, 30);
+                    friendBox.setPrefSize(285, 50);
 
                     Text userName = new Text();
                     userName.setText("Id: " + user.getUsername());
@@ -1066,8 +1064,7 @@ public class ProfileMenu extends Application {
                     //TODO: Here you should change the text of button and the method which is called
                     //  in the eventHandler
                     Button following = new Button();
-                    if (findFriends(user)) following.setText("Following");
-                    else following.setText("Follow");
+                    following.setText("Follow");
                     following.setPrefSize(50, 8);
                     following.setStyle("-fx-background-color: #a00909; -fx-text-fill: #cba883");
                     following.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 8));
@@ -1077,6 +1074,7 @@ public class ProfileMenu extends Application {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             try {
+                                following.setText("Following");
                                 acceptFriendShipRequest(user, following);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
@@ -1094,18 +1092,19 @@ public class ProfileMenu extends Application {
                     reject.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                                //TODO: Here goes the logic of Reject
-
+                            try {
+                                refuseFriendShipRequest(user, following);
+                                reject.setText("Rejected");
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     });
 
                     friendBox.setStyle("-fx-background-color: #cba883;");
                     friendBox.getChildren().add(avatar);
-                    vBox.getChildren().add(userName);
-                    vBox.getChildren().add(following);
-                    vBox.getChildren().add(reject);
-                    friendBox.getChildren().add(following);
                     friendBox.getChildren().add(reject);
+                    friendBox.getChildren().add(following);
                     friendBox.getChildren().add(userName);
                     friendShipBox.getChildren().add(friendBox);
                 }
@@ -1153,6 +1152,11 @@ public class ProfileMenu extends Application {
         followButton.setText("Requested");
         masterServerDataOutputStream.writeUTF("ACCEPT_FRIENDSHIP");
         User.getCurrentUser().myFriends.add(user);
+        masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() + '#' + user.getUsername());
+    }
+    private void refuseFriendShipRequest(User user, Button followButton) throws IOException {
+        followButton.setText("Requested");
+        masterServerDataOutputStream.writeUTF("ACCEPT_FRIENDSHIP");
         masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() + '#' + user.getUsername());
     }
 
