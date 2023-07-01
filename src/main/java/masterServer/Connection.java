@@ -226,6 +226,7 @@ public class Connection extends Thread {
         }
     }
 
+
     public void acceptFriend() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
