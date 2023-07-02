@@ -221,6 +221,7 @@ public class Connection extends Thread {
     public void getMessages() throws IOException {
         String input = dataInputStream.readUTF();
         String [] split = input.split("#");
+        System.out.println("SPlit1: "+split[1]);
         for (int i = 0; i < allGameChats.size(); i++) {
             if (allGameChats.get(i).getChatId().equals(split[1])) {
                 System.out.println("arian ridi");
@@ -234,6 +235,7 @@ public class Connection extends Thread {
                     stringBuilder.append(message.getSender() + '#' + message.getContent() + '#' + message.seen + '#'
                             + message.getAvatar() + '#' + message.getSentTime() + '#' + message.getMessageKey() + '\n');
                 }
+                System.out.println("StingBuild: "+ stringBuilder);
                 dataOutputStream.writeUTF(stringBuilder.toString());
                 return;
             }
@@ -275,6 +277,7 @@ public class Connection extends Thread {
     public void editMessage() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
+        System.out.println("Input is: "+input);
         for (int i = 0; i < allGameChats.size(); i++) {
             if (allGameChats.get(i).getChatId().equals(split[0])) {
                 for (int j = 0; j < allGameChats.get(i).getChatMessages().size(); j++) {
