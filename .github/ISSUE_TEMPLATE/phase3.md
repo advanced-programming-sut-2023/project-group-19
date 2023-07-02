@@ -57,6 +57,17 @@ assignees: Arman17Babaei
 </details>
 
 <details>
+  <summary>چت</summary>
+
+  <div dir="ltr" align='right'>
+
+  1. [ ] شروع نشده
+  2. [ ] در حال انجام
+  3. [x] تمام شده
+  </div>
+</details>
+
+<details>
   <summary>دوستی</summary>
 
   <div dir="ltr" align='right'>
