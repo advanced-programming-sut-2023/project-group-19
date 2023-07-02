@@ -1,11 +1,11 @@
-package chatServer;
+package masterServer;
 
 
+import chatServer.MessageAdaptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import javax.swing.text.html.ImageView;
 import java.lang.reflect.Type;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ public class Message {
     public boolean seen;
     public String sentTime;
     public String avatar;
+    public String messageKey;
     public Message(){
 
     }
@@ -29,6 +30,26 @@ public class Message {
         LocalTime localTime = LocalTime.now();
         String[] list = localTime.toString().split(":");
         this.sentTime = list[0]+":"+list[1];
+    }
+
+    public String getMessageKey() {
+        return messageKey;
+    }
+
+    public void setMessageKey(String messageKey) {
+        this.messageKey = messageKey;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
+    }
+
+    public void setSentTime(String sentTime) {
+        this.sentTime = sentTime;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getSender() {

@@ -1,5 +1,7 @@
 package chatServer;
 
+import masterServer.Message;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,7 +13,7 @@ public class ChatServer extends Thread{
     public ArrayList<Message> allMessages =  new ArrayList<>();
     public ArrayList<Socket> allSockets = new ArrayList<>();
     public ArrayList<Socket> inChatUsers = new ArrayList<>();
-    public HashMap<String,Chat> saveUserChats;
+    public HashMap<String, Chat2> saveUserChats;
     public ChatServer(int port) {
 //        Message message = new Message("mamad","salam",true,"ddfscrd");
 //        allMessages.add(message);

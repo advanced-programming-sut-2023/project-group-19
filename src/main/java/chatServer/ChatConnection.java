@@ -1,11 +1,9 @@
 package chatServer;
 
-import basicGameModel.User;
 import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import masterServer.Connection;
-import masterServer.MasterServer;
+import masterServer.Message;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -76,7 +74,7 @@ public class ChatConnection extends Thread {
         ArrayList<String> users = gson.fromJson(data, type);
         for (String username : users) {
             Socket socket = Connection.allSockets.get(username);
-            Chat chat = new Chat(groupName, chatServer.port, "GROUP");
+            Chat2 chat = new Chat2(groupName, chatServer.port, "GROUP");
             Connection.saveChatToHashMap(username,chat);
             Connection.chatsMustBeAddedToChatListOfClients.computeIfAbsent(socket, k -> new ArrayList<>());
             Connection.chatsMustBeAddedToChatListOfClients.get(socket).add(chat);
@@ -96,24 +94,26 @@ public class ChatConnection extends Thread {
 
     private void showMessages() throws IOException {
         chatServer.inChatUsers.add(socket);
+        setSeenType();
         System.out.println(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
         dataOutputStream.writeUTF("####");
         dataOutputStream.writeUTF(Message.convertFromJsonToArrayListMessages(chatServer.allMessages));
     }
     private void receiveMessage() throws IOException {
         String data = dataInputStream.readUTF();
+        System.out.println("recived chat is: " + data);
         Message message = Message.convertFromJsonToMessage(data);
+
         chatServer.allMessages.add(message);
-        setSeenType();
         sendMessageToWholeSockets(data);
     }
 
     private void setSeenType(){
-        if (chatServer.inChatUsers.size() > 1) {
+        //if (chatServer.inChatUsers.size() > 1) {
             for (Message allMessage : chatServer.allMessages) {
                 allMessage.setSeen(true);
             }
-        }
+        //}
     }
 
     private void sendMessageToWholeSockets(String data) throws IOException {

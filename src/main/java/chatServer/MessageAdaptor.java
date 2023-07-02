@@ -4,9 +4,9 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import masterServer.Message;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MessageAdaptor extends TypeAdapter<Message> {
     @Override

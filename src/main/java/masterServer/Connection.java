@@ -18,6 +18,8 @@ import com.google.gson.GsonBuilder;
 import gameServer.GameRequest;
 import gameServer.GameServer;
 
+import javax.swing.text.html.ImageView;
+
 public class Connection extends Thread {
 
     private ArrayList<Map> maps = new ArrayList<>();
@@ -161,6 +163,9 @@ public class Connection extends Thread {
             case "CREATE_CHAT":
                 createChat();
                 break;
+            case "CHAT_SIZE" :
+                chatSize();
+                break;
             case "GET_ALL_CHATS" :
                 getUsersChats();
                 break;
@@ -178,10 +183,24 @@ public class Connection extends Thread {
                 break;
         }
     }
+    public void chatSize() throws IOException {
+        String input = dataInputStream.readUTF();
+        for(int i = 0 ;  i < allGameChats.size() ; i++){
+            if(allGameChats.get(i).chatId.equals(input)){
+                dataOutputStream.writeUTF(String.valueOf(allGameChats.get(i).chatMembers.size()));
+                return;
+            }
+        }
+    }
 
     public void createChat() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
+        for(int g = 0 ; g < allGameChats.size() ; g++){
+            if(allGameChats.get(g).getChatId().equals(split[0])){
+                return;
+            }
+        }
         Chat chat = new Chat(split[0]);
         for (int i = 1; i < split.length; i++) {
             chat.chatMembers.add(split[i]);
@@ -198,12 +217,13 @@ public class Connection extends Thread {
         }
         dataOutputStream.writeUTF(stringBuilder.toString());
     }
-    // senders username / chat id / message
+
     public void getMessages() throws IOException {
         String input = dataInputStream.readUTF();
         String [] split = input.split("#");
         for (int i = 0; i < allGameChats.size(); i++) {
             if (allGameChats.get(i).getChatId().equals(split[1])) {
+                System.out.println("arian ridi");
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int j = 0; j < allGameChats.get(i).getChatMessages().size(); j++) {
                     Message message = allGameChats.get(i).getChatMessages().get(j);
@@ -218,9 +238,9 @@ public class Connection extends Thread {
                 return;
             }
         }
-
+        dataOutputStream.writeUTF("");
     }
-
+    // chat id / username / message
     public void sendMessage() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");
@@ -251,7 +271,7 @@ public class Connection extends Thread {
         }
 
     }
-    // chat id / message code / content
+
     public void editMessage() throws IOException {
         String input = dataInputStream.readUTF();
         String[] split = input.split("#");

@@ -1,16 +1,15 @@
 package chatServer;
 
 import com.google.gson.TypeAdapter;
-import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class ChatAdaptor extends TypeAdapter<Chat> {
+public class ChatAdaptor extends TypeAdapter<Chat2> {
     @Override
-    public void write(JsonWriter writer, Chat chat) throws IOException {
+    public void write(JsonWriter writer, Chat2 chat) throws IOException {
         writer.beginObject();
         writer.name("name");
         writer.value(chat.getName());
@@ -22,8 +21,8 @@ public class ChatAdaptor extends TypeAdapter<Chat> {
     }
 
     @Override
-    public Chat read(JsonReader reader) throws IOException {
-        Chat chat = new Chat();
+    public Chat2 read(JsonReader reader) throws IOException {
+        Chat2 chat = new Chat2();
         reader.beginObject();
         String fieldname = null;
         while (reader.hasNext()) {
