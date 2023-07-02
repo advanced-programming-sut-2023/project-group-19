@@ -997,8 +997,6 @@ public class Lobby extends Application {
                     usersToBeAddedToGroup.add(search.getText());
                     usersToBeAddedToGroup.add(User.getCurrentUser().getUsername());
                     chatId = search.getText();
-                    for (int g = 0; g < usersToBeAddedToGroup.size(); g++)
-                        System.out.println(usersToBeAddedToGroup.get(g));
                     createChat(usersToBeAddedToGroup);
                     HBox hBox = showPrivateChatBox();
                 } catch (IOException e) {
@@ -1014,7 +1012,6 @@ public class Lobby extends Application {
     private HBox showPrivateChatBox() throws IOException { //110 / 10 / 150
         User receiver = User.getUserByName(chatId);
         if (receiver != null) {
-            System.out.println("Enter design");
             pvBox = new HBox();
             pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(19,132,238,0.6)");
             pvBox.setLayoutX(62);
@@ -1218,7 +1215,6 @@ public class Lobby extends Application {
     }
 
     private void openChat(ArrayList<Message> myMessages, String chatId) {
-        System.out.println("ID: "+chatId);
         pane.getChildren().remove(chatPane);
         pane.getChildren().remove(chatBox);
         pane.getChildren().remove(exit);
@@ -1299,85 +1295,15 @@ public class Lobby extends Application {
         pane.getChildren().add(chatTextField);
         pane.getChildren().add(send);
         pane.getChildren().add(exit);
-        System.out.println("exited open chat");
 
     }
-
-
-//    private NewHBox showPrivateChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
-//        User receiver = User.getUserByName(privateChat.getName());
-//        if (receiver != null) {
-//            System.out.println("Enter design");
-//            pvBox = new NewHBox(privateChat, privateChat.getName());
-//            pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(19,132,238,0.6)");
-//            pvBox.setLayoutX(62);
-//            pvBox.setLayoutY(200);
-//            pvBox.setSpacing(50);
-//            pvBox.setPrefSize(500, 120);
-//
-//            Circle clip = new Circle(50, 50, 50);
-//            Image profile = receiver.getAvatar().getImage();
-//            clip.setFill(new ImagePattern(profile));
-//            clip.setStroke(Color.rgb(19, 132, 238, 0.5));
-//            clip.setTranslateX(10);
-//            clip.setTranslateY(10);
-//            Text chatName = new Text(receiver.getUsername());
-//            chatName.setFill(Color.WHITE);
-//            chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
-//            chatName.setTranslateX(40);
-//            chatName.setTranslateY(30);
-//            pvBox.getChildren().add(clip);
-//            pvBox.setTranslateX(50);
-//            pvBox.setTranslateY(10);
-//            pvBox.getChildren().add(chatName);
-//            pane.getChildren().add(pvBox);
-//            System.out.println("Type: " + privateChat.getType());
-//            if (privateChat.getType().equals("PRIVATE")) {
-//                System.out.println("Pv");
-//                setEventHandlerForChatBox(pvBox , chatId);
-//            }
-//        }
-//        return pvBox;
-//    }
-
-//    private NewHBox showGroupChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
-//        System.out.println("Enter design");
-//        pane.getChildren().remove(searchButtonForUsers);
-//        pane.getChildren().remove(searchBarForUsers);
-//        pane.getChildren().remove(scrollPaneForChatCheckBox);
-//        pane.getChildren().remove(createGroupBox);
-//        pane.getChildren().remove(headerForChat);
-//        pvBox = new NewHBox(privateChat, privateChat.getName());
-//        pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(42,115,250,0.71)");
-//        pvBox.setLayoutX(62);
-//        pvBox.setLayoutY(200);
-//        pvBox.setSpacing(50);
-//        pvBox.setPrefSize(500, 70);
-//
-//        Text chatName = new Text(privateChat.getName());
-//        chatName.setFill(Color.WHITE);
-//        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
-//        chatName.setTranslateX(50);
-//        chatName.setTranslateY(15);
-//        pvBox.setTranslateX(50);
-//        pvBox.setTranslateY(10);
-//        pvBox.getChildren().add(chatName);
-//        pane.getChildren().add(pvBox);
-//        setEventHandlerForChatBox(pvBox);
-//        return pvBox;
-//    }
-
 
     private void setEventHandlerForChatBox(HBox chatHBox, String Id) {
         chatHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println(333);
                 openChat(chatMessages, Id);
-                System.out.println(444);
-                System.out.println(Id);
                 updateChat(Id);
-                System.out.println(555);
             }
         });
     }
@@ -1386,14 +1312,11 @@ public class Lobby extends Application {
         chatMessages.clear();
         try {
             chatId = Id;
-            System.out.println("ID IS: "+ chatId);
             masterServerDataOutputStream.writeUTF("CHAT");
             masterServerDataOutputStream.writeUTF("GET_MESSAGES");
             masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() + '#' + chatId);
 
             String input = masterServerDataInputStream.readUTF();
-            System.out.println("ppppppppppppppppppppppppppppp");
-            System.out.println("Input: "+input);
 
             if (input.length() != 0) {
                 String[] line = input.split("\n");
@@ -1603,55 +1526,16 @@ public class Lobby extends Application {
         ArrayList<Message> myMessages = new ArrayList<>();
         myMessages.add(message);
         setStyleToMessages(myMessages);
-        System.out.println("Message : " + message.getContent());
-
-//        if (message != null) {
-//            HBox messageBox = new HBox();
-//            messageBox.setPrefSize(50, 20);
-//            messageBox.setSpacing(70);
-//            messageBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);");
-//            messageBox.setOnMouseClicked(mouseEvent -> {
-//                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) { //---> Edit
-//                    System.out.println("Clicked");
-//                    try {
-//                        Message message1 = new Message(message.getSender(), "", message.isSeen(), message.getAvatar());
-//                        chatMethods.editMessage(message1, message);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                } else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) { // delete just for me
-//                    try {
-//                        Message message1 = new Message(message.getSender(), "HI", message.isSeen(), message.getAvatar());
-//                        chatMethods.deleteJustForMe(message1);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            });
-//            Text content = new Text(message.getContent());
-//            content.setFill(Color.WHITE);
-//            content.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 14));
-//            content.setTranslateX(10);
-//            content.setTranslateY(1);
-//            TextFlow textFlow = new TextFlow(content);
-//            textFlow.setStyle("-fx-background-radius: 20px; -fx-background-color: rgba(86,46,155,0.74)");
-//            texts.add(content);
-//            messageBox.getChildren().add(textFlow);
-//            messageBox.setAlignment(Pos.BOTTOM_LEFT);
-//            chatBox.getChildren().add(messageBox);
-//        }
     }
 
     public synchronized static void editMessage(Message message) throws IOException {
         String[] subStrings = message.getContent().split("#");
-        System.out.println("Entered editMessage");
         ArrayList<Message> messages = chatMethods.getAllMessages();
         int index = Integer.parseInt(subStrings[1]);
         String newContent = "";
         for (int i = 2; i < subStrings.length; i++) {
             newContent = newContent.concat(subStrings[i]);
         }
-        System.out.println("NewContent:" + newContent + "length:" + newContent.length());
         if (newContent.length() != 0) {
             message.setContent(newContent);
             texts.get(index).setText(newContent);
@@ -1663,7 +1547,6 @@ public class Lobby extends Application {
 
     public synchronized static void deleteMessageJustForMe(Message message) throws IOException {
         String[] subStrings = message.getContent().split("#");
-        System.out.println("Entered deleteJustForMe");
         ArrayList<Message> messages = chatMethods.getAllMessages();
         String userName = subStrings[1];
         String content = "";
@@ -1681,7 +1564,6 @@ public class Lobby extends Application {
     }
 
     public static void setStyleToMessages(ArrayList<Message> myMessages) {
-        System.out.println("entered set style");
         ImageView imageView = null;
         ImageView imageView1 = null;
         Image image = null;
@@ -1773,7 +1655,7 @@ public class Lobby extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 removeChatStuff();
-                setStyleToChatStuffAfter(myMessage,content);
+                setStyleToChatStuffAfter(myMessage);
 
             }
         });
@@ -1866,7 +1748,7 @@ public class Lobby extends Application {
         pane.getChildren().add(heart);
     }
 
-    private static void setStyleToChatStuffAfter(Message myMessage,String content) {
+    private static void setStyleToChatStuffAfter(Message myMessage) {
         editTextField.setPromptText("Send Message");
         editTextField.setPrefSize(850, 30);
         editTextField.setLayoutX(620);
@@ -1882,10 +1764,9 @@ public class Lobby extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         editSendButton.setOnMouseClicked(mouseEvent -> {
             try {
-                System.out.println("Entered successfully");
                 masterServerDataOutputStream.writeUTF("CHAT");
                 masterServerDataOutputStream.writeUTF("EDIT_MESSAGE");
-                masterServerDataOutputStream.writeUTF(chatId + '#' + myMessage.getMessageKey()+"#" + content);
+                masterServerDataOutputStream.writeUTF(chatId + "#" + myMessage.getMessageKey()+ "#" + editTextField.getText());
                 pane.getChildren().remove(editTextField);
                 pane.getChildren().remove(editSendButton);
                 setStyleToChatStuff();
