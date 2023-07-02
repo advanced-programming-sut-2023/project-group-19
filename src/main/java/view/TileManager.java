@@ -223,7 +223,6 @@ public class TileManager extends Application {
                 }
             }
         }, 0, 1000);
-
     }
 
     public int unitsNameCode(String type) {

@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 
 import model.adaaptors.MessageAdaptor;
 import view.Lobby;
-import view.MessageGetter;
 
 import java.lang.reflect.Type;
 import java.time.LocalTime;
@@ -19,6 +18,7 @@ public class Message {
     public String reaction;
     public String sentTime;
     public ImageView avatar;
+    public String messageKey;
     public boolean seen;
     public Message(){
 
@@ -32,6 +32,18 @@ public class Message {
         LocalTime localTime = LocalTime.now();
         String[] list = localTime.toString().split(":");
         this.sentTime = list[0]+":"+list[1]+"."+list[2];
+    }
+
+    public String getMessageKey() {
+        return messageKey;
+    }
+
+    public void setMessageKey(String messageKey) {
+        this.messageKey = messageKey;
+    }
+
+    public void setSentTime(String sentTime) {
+        this.sentTime = sentTime;
     }
 
     public String getSender() {

@@ -209,7 +209,11 @@ public class User implements Comparable<User> {
         return s ;
     }
     public static void makeUsersFromJson() throws IOException {
+        System.out.println("1");
+        Manage.masterServerDataOutputStream.writeUTF("SEND_LIST_OF_USERS");
+        System.out.println(2);
         String data = Manage.masterServerDataInputStream.readUTF();
+        System.out.println(data);
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(User.class, new UserAdaptor());
         builder.setPrettyPrinting();

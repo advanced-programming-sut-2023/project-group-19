@@ -33,6 +33,7 @@ import view.Model.NewHBox;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.*;
+import java.time.LocalTime;
 import java.util.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -93,70 +94,73 @@ public class Lobby extends Application {
     public static ArrayList<Text> texts = new ArrayList<>();
     public static ChatMethods chatMethods;
     public ArrayList<Game> allGameRequests = new ArrayList<>();
-    public static DataInputStream masterServerDataInputStream;
-    public static DataOutputStream masterServerDataOutputStream;
-//    public static User user1;
-//    public static User user2;
-//    public static User user3;
-//    public static User user4;
-//    public static User user5;
+    public ArrayList<String> allUsersChatsId = new ArrayList<>();
+    public ArrayList<Message> chatMessages = new ArrayList<>();
+    public static String chatId;
+    public static DataInputStream masterServerDataInputStream = Manage.masterServerDataInputStream;
+    public static DataOutputStream masterServerDataOutputStream = Manage.masterServerDataOutputStream;
+    public static User user1;
+    public static User user2;
+    public static User user3;
+    public static User user4;
+    public static User user5;
     static {
-//        try {
-//            user1 = new User("z", "s", "a", "s", "w", "q", 3);
-//            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
-//            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
-//            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
-//            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
-//            User.setCurrentUser(user2);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            socket = new Socket("localhost", 8080);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    masterServerDataOutputStream.writeUTF("START_GAME");
-                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
-                    String input = masterServerDataInputStream.readUTF();
-                    if(input.equals("start")){
-                        timer.cancel();
-                        TileManager tileManager = new TileManager();
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                Stage stage1 = new Stage();
-                                try {
-                                    tileManager.start(stage1);
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        });
-
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }, 0, 1000);
+        try {
+            user1 = new User("z", "s", "a", "s", "w", "q", 3);
+            user2 = new User("ali", "s", "a", "s", "w", "q", 3);
+            user3 = new User("ac", "s", "a", "s", "w", "q", 3);
+            user4 = new User("ad", "s", "a", "s", "w", "q", 3);
+            user5 = new User("ae", "s", "a", "s", "w", "q", 3);
+            User.setCurrentUser(user2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            socket = new Socket("localhost", 8888);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            masterServerDataInputStream = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                try {
+//                    masterServerDataOutputStream.writeUTF("START_GAME");
+//                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
+//                    String input = masterServerDataInputStream.readUTF();
+//                    if(input.equals("start")){
+//                        timer.cancel();
+//                        TileManager tileManager = new TileManager();
+//                        Platform.runLater(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Stage stage1 = new Stage();
+//                                try {
+//                                    tileManager.start(stage1);
+//                                } catch (Exception e) {
+//                                    throw new RuntimeException(e);
+//                                }
+//                            }
+//                        });
+//
+//                    }
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }, 0, 1000);
 
     }
     public Label headerForChat;
@@ -177,7 +181,8 @@ public class Lobby extends Application {
     public Stage stage;
     @Override
     public void start(Stage stage) throws Exception {
-//
+        createGlobalChat();
+
 //        masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
 //        masterServerDataInputStream = new DataInputStream(socket.getInputStream());
 //        Manage.masterServerDataOutputStream = masterServerDataOutputStream;
@@ -601,6 +606,15 @@ public class Lobby extends Application {
                 try {
                     pane.getChildren().clear();
                     designChat(gameImages);
+                    Chat chat = ChatMethods.createTeamChat(game.getId());
+                    if(!User.getCurrentUser().getChats().contains(chat)) {
+                        System.out.println("is into 606 line");
+                        User.getCurrentUser().getChats().add(chat);
+                        for(User user : game.allPlayers){
+                            user.getChats().add(chat);
+                        }
+                    }
+
 //                    openChat();
                     //ArminsMethod
                 } catch (IOException e) {
@@ -974,21 +988,14 @@ public class Lobby extends Application {
         searchButton.setOnMouseClicked(mouseEvent -> {
             if (isPrivateChatPressed) {
                 try {
-                    System.out.println("entered try catch");
                     isPrivateChatPressed = false;
-                    Chat privateChat = ChatMethods.addNewPrivateChat(search.getText());
-                    User.getCurrentUser().getChats().add(privateChat);
-                    NewHBox newHBox = showPrivateChatBox(privateChat);
-                } catch (IOException | InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (isGroupChatPressed) {
-                try {
-                    System.out.println("Entered try catch");
-                    isGroupChatPressed = false;
-                    Chat groupChat = ChatMethods.addNewGroupChat(search.getText());
-                    User.getCurrentUser().getChats().add(groupChat);
-                } catch (IOException | InterruptedException e) {
+                    usersToBeAddedToGroup.clear();
+                    usersToBeAddedToGroup.add(search.getText());
+                    usersToBeAddedToGroup.add(User.getCurrentUser().getUsername());
+                    for(int g = 0 ; g < usersToBeAddedToGroup.size() ; g++)
+                        System.out.println(usersToBeAddedToGroup.get(g));
+                    createChat(usersToBeAddedToGroup);
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -1013,8 +1020,28 @@ public class Lobby extends Application {
         typeOfChatMenu.setTextAlignment(TextAlignment.CENTER);
         typeOfChatMenu.setTranslateX(200);
         typeOfChatMenu.setTranslateY(40);
+        chatMenuHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try {
+                    masterServerDataOutputStream.writeUTF("CHAT");
+                    masterServerDataOutputStream.writeUTF("GET_ALL_CHATS");
+                    masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername());
+                    String input = masterServerDataInputStream.readUTF();
+                    String[]split = input.split("#");
+                    for(int u = 0 ; u < split.length ; u++){
+                        allUsersChatsId.add(split[u]);
+                    }
+
+                    setChatList();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         pane.getChildren().add(chatMenuHeader);
     }
+
 
     private void designButtonsOfChatMenu() throws IOException {
         Button refresh = new Button();
@@ -1024,13 +1051,7 @@ public class Lobby extends Application {
         refresh.setBackground(new Background(new BackgroundImage(gameImages.getReload(), BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         refresh.setOnMouseClicked(mouseEvent -> {
-            try {
-//                User.getCurrentUser().getChats().clear();
-                ChatMethods.refreshChats();
-                setChatList();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            updateChat(chatId);
         });
 
         Button lobby = new Button();
@@ -1078,14 +1099,9 @@ public class Lobby extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
         globalChat.setOnMouseClicked(mouseEvent -> {
-            try {
-                Socket socket = new Socket("localhost", 6000);
-                chatMethods = new ChatMethods(socket);
-                messages = chatMethods.enterToChat();
-                openChat(messages);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            chatId = "global";
+            updateChat("global");
+            openChat(chatMessages , "global");
         });
 
 
@@ -1130,46 +1146,41 @@ public class Lobby extends Application {
         chatList.setStyle("-fx-background-color: #4b187e; " +
                 "-fx-background-radius: 10px;");
         chatList.setSpacing(1);
-        if (!User.getCurrentUser().getChats().isEmpty()) {
-            for (Chat chat : User.getCurrentUser().getChats()) {
-                User receiver = searchForGivenUserId(chat.getName());//TODO : Do we need to take it directly from server?
-//                Circle clip = new Circle(25, 25, 25);
-//                Image profile = receiver.getAvatar().getImage();
-//                clip.setFill(new ImagePattern(profile));
-//                clip.setStroke(Color.rgb(26, 11, 136));
 
-                NewHBox chatBox = new NewHBox(chat, chat.getName());
-                chatBox.setPrefSize(284.1, 10);
-                chatBox.setSpacing(70);
+        for (String chat : allUsersChatsId) {
 
-                Text chatName = new Text();
-                chatName.setText(chat.getName());
-                chatName.setFill(Color.WHITE);
-                chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
-                chatName.setTranslateX(-50);
-                chatName.setTranslateY(10);
+            HBox chatBox = new HBox();
+            chatBox.setPrefSize(284.1, 10);
+            chatBox.setSpacing(70);
 
-                chatBox.setStyle("-fx-background-color: rgba(27,16,115,0.71);" +
-                        "-fx-background-radius: 10px;");
-//                chatBox.getChildren().add(clip);
-                chatBox.getChildren().add(chatName);
-                setEventHandlerForChatBox(chatBox);
-                chatList.getChildren().add(chatBox);
-            }
-            scrollPaneForChatList.setPrefWidth(300);
-            scrollPaneForChatList.setPrefHeight(300);
-            scrollPaneForChatList.setContent(chatList);
-            scrollPaneForChatList.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-            scrollPaneForChatList.setLayoutX(110);
-            scrollPaneForChatList.setLayoutY(480);
+            Text chatName = new Text();
+            chatName.setText(chat);
+            chatName.setFill(Color.WHITE);
+            chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 16));
+            chatName.setTranslateX(-50);
+            chatName.setTranslateY(10);
 
-            scrollPaneForChatList.setStyle("-fx-background-color: #1b1073");
-            scrollPaneForChatList.setVisible(true);
-            pane.getChildren().add(scrollPaneForChatList);
+            chatBox.setStyle("-fx-background-radius: 10px;");
+
+            chatBox.getChildren().add(chatName);
+            setEventHandlerForChatBox(chatBox , chat );
+            chatList.getChildren().add(chatBox);
         }
+        scrollPaneForChatList.setPrefWidth(300);
+        scrollPaneForChatList.setPrefHeight(300);
+        scrollPaneForChatList.setContent(chatList);
+        scrollPaneForChatList.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPaneForChatList.setLayoutX(110);
+        scrollPaneForChatList.setLayoutY(480);
+
+        scrollPaneForChatList.setStyle("-fx-background-color: #1b1073");
+        scrollPaneForChatList.setVisible(true);
+        pane.getChildren().add(scrollPaneForChatList);
+
     }
 
-    private void openChat(ArrayList<Message> myMessages) {
+    private void openChat(ArrayList<Message> myMessages , String chatId) {
+        System.out.println("entered open chat");
         pane.getChildren().remove(chatPane);
         pane.getChildren().remove(chatBox);
         pane.getChildren().remove(exit);
@@ -1197,17 +1208,12 @@ public class Lobby extends Application {
         exit.setStyle("-fx-background-color: rgba(27,16,115,0.71); -fx-text-fill: #d3c4c4; -fx-background-radius: 10px");
         exit.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 10));
         exit.setOnMouseClicked(mouseEvent -> {
-            try {
-                pane.getChildren().remove(scrollPaneForChatBox);
-                pane.getChildren().remove(chatTextField);
-                pane.getChildren().remove(send);
-                pane.getChildren().remove(chatPane);
-                chatMethods.exitFromChat();
-                pane.getChildren().remove(exit);
-                pane.getChildren().remove(pvBox);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            pane.getChildren().remove(scrollPaneForChatBox);
+            pane.getChildren().remove(chatTextField);
+            pane.getChildren().remove(send);
+            pane.getChildren().remove(chatPane);
+            pane.getChildren().remove(exit);
+            pane.getChildren().remove(pvBox);
         });
 
         setStyleToMessages(myMessages);
@@ -1241,7 +1247,7 @@ public class Lobby extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         send.setOnMouseClicked(mouseEvent -> {
             try {
-                chatMethods.sendMessage(chatTextField.getText());
+                sendMessage(chatTextField.getText() , chatId);
                 chatTextField.setText("");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -1255,91 +1261,118 @@ public class Lobby extends Application {
         pane.getChildren().add(chatTextField);
         pane.getChildren().add(send);
         pane.getChildren().add(exit);
+        System.out.println("exited open chat");
 
     }
 
 
-    private NewHBox showPrivateChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
-        User receiver = User.getUserByName(privateChat.getName());
-        if (receiver != null) {
-            System.out.println("Enter design");
-            pvBox = new NewHBox(privateChat, privateChat.getName());
-            pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(19,132,238,0.6)");
-            pvBox.setLayoutX(62);
-            pvBox.setLayoutY(200);
-            pvBox.setSpacing(50);
-            pvBox.setPrefSize(500, 120);
+//    private NewHBox showPrivateChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
+//        User receiver = User.getUserByName(privateChat.getName());
+//        if (receiver != null) {
+//            System.out.println("Enter design");
+//            pvBox = new NewHBox(privateChat, privateChat.getName());
+//            pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(19,132,238,0.6)");
+//            pvBox.setLayoutX(62);
+//            pvBox.setLayoutY(200);
+//            pvBox.setSpacing(50);
+//            pvBox.setPrefSize(500, 120);
+//
+//            Circle clip = new Circle(50, 50, 50);
+//            Image profile = receiver.getAvatar().getImage();
+//            clip.setFill(new ImagePattern(profile));
+//            clip.setStroke(Color.rgb(19, 132, 238, 0.5));
+//            clip.setTranslateX(10);
+//            clip.setTranslateY(10);
+//            Text chatName = new Text(receiver.getUsername());
+//            chatName.setFill(Color.WHITE);
+//            chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
+//            chatName.setTranslateX(40);
+//            chatName.setTranslateY(30);
+//            pvBox.getChildren().add(clip);
+//            pvBox.setTranslateX(50);
+//            pvBox.setTranslateY(10);
+//            pvBox.getChildren().add(chatName);
+//            pane.getChildren().add(pvBox);
+//            System.out.println("Type: " + privateChat.getType());
+//            if (privateChat.getType().equals("PRIVATE")) {
+//                System.out.println("Pv");
+//                setEventHandlerForChatBox(pvBox , chatId);
+//            }
+//        }
+//        return pvBox;
+//    }
 
-            Circle clip = new Circle(50, 50, 50);
-            Image profile = receiver.getAvatar().getImage();
-            clip.setFill(new ImagePattern(profile));
-            clip.setStroke(Color.rgb(19, 132, 238, 0.5));
-            clip.setTranslateX(10);
-            clip.setTranslateY(10);
-            Text chatName = new Text(receiver.getUsername());
-            chatName.setFill(Color.WHITE);
-            chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
-            chatName.setTranslateX(40);
-            chatName.setTranslateY(30);
-            pvBox.getChildren().add(clip);
-            pvBox.setTranslateX(50);
-            pvBox.setTranslateY(10);
-            pvBox.getChildren().add(chatName);
-            pane.getChildren().add(pvBox);
-            System.out.println("Type: " + privateChat.getType());
-            if (privateChat.getType().equals("PRIVATE")) {
-                System.out.println("Pv");
-                setEventHandlerForChatBox(pvBox);
-            }
-        }
-        return pvBox;
-    }
-
-    private NewHBox showGroupChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
-        System.out.println("Enter design");
-        pane.getChildren().remove(searchButtonForUsers);
-        pane.getChildren().remove(searchBarForUsers);
-        pane.getChildren().remove(scrollPaneForChatCheckBox);
-        pane.getChildren().remove(createGroupBox);
-        pane.getChildren().remove(headerForChat);
-        pvBox = new NewHBox(privateChat, privateChat.getName());
-        pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(42,115,250,0.71)");
-        pvBox.setLayoutX(62);
-        pvBox.setLayoutY(200);
-        pvBox.setSpacing(50);
-        pvBox.setPrefSize(500, 70);
-
-        Text chatName = new Text(privateChat.getName());
-        chatName.setFill(Color.WHITE);
-        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
-        chatName.setTranslateX(50);
-        chatName.setTranslateY(15);
-        pvBox.setTranslateX(50);
-        pvBox.setTranslateY(10);
-        pvBox.getChildren().add(chatName);
-        pane.getChildren().add(pvBox);
-        setEventHandlerForChatBox(pvBox);
-        return pvBox;
-    }
+//    private NewHBox showGroupChatBox(Chat privateChat) throws IOException { //110 / 10 / 150
+//        System.out.println("Enter design");
+//        pane.getChildren().remove(searchButtonForUsers);
+//        pane.getChildren().remove(searchBarForUsers);
+//        pane.getChildren().remove(scrollPaneForChatCheckBox);
+//        pane.getChildren().remove(createGroupBox);
+//        pane.getChildren().remove(headerForChat);
+//        pvBox = new NewHBox(privateChat, privateChat.getName());
+//        pvBox.setStyle("-fx-background-radius: 10px; -fx-background-color: rgba(42,115,250,0.71)");
+//        pvBox.setLayoutX(62);
+//        pvBox.setLayoutY(200);
+//        pvBox.setSpacing(50);
+//        pvBox.setPrefSize(500, 70);
+//
+//        Text chatName = new Text(privateChat.getName());
+//        chatName.setFill(Color.WHITE);
+//        chatName.setFont(Font.font("Times New Roman", FontWeight.NORMAL, FontPosture.ITALIC, 24));
+//        chatName.setTranslateX(50);
+//        chatName.setTranslateY(15);
+//        pvBox.setTranslateX(50);
+//        pvBox.setTranslateY(10);
+//        pvBox.getChildren().add(chatName);
+//        pane.getChildren().add(pvBox);
+//        setEventHandlerForChatBox(pvBox);
+//        return pvBox;
+//    }
 
 
-    private void setEventHandlerForChatBox(NewHBox chatHBox) {
+    private void setEventHandlerForChatBox(HBox chatHBox , String Id) {
         chatHBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                try {
-                    Socket chatHBoxSocket = chatHBox.getChat().getSocket();
-                    ChatMethods chatMethods1 = new ChatMethods(chatHBoxSocket);
-                    chatMethods = chatMethods1;
-                    messages.clear();
-                    messages = chatMethods1.enterToChat();
-                    openChat(messages);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                System.out.println(333);
+                openChat(chatMessages , Id);
+                System.out.println(444);
+                System.out.println(Id);
+                updateChat(Id);
+                System.out.println(555);
             }
         });
     }
+    public void updateChat(String Id){
+        chatMessages.clear();
+        try {
+            masterServerDataOutputStream.writeUTF("CHAT");
+            masterServerDataOutputStream.writeUTF("GET_MESSAGES");
+            masterServerDataOutputStream.writeUTF(User.getCurrentUser().getUsername() + '#' + chatId);
+
+            String input = masterServerDataInputStream.readUTF();
+            System.out.println("ppppppppppppppppppppppppppppp");
+
+            if (input.length() != 0) {
+                String[] line = input.split("\n");
+                for (int t = 0; t < line.length; t++) {
+                    String[] split = line[t].split("#");
+                    boolean seen = split[2].equals("true");
+
+                    ImageView imageView = new ImageView(new Image(TileManager.class.getResource("/image/LobbyImages/like.png").toExternalForm()));
+                    Message message = new Message(split[0], split[1], seen, imageView);
+                    message.setSentTime(split[4]);
+                    message.setMessageKey(split[5]);
+                    chatMessages.add(message);
+                }
+                chatId = Id;
+                openChat(chatMessages, chatId);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void showAllGroupChats() {
         removeRemainedStuff();
@@ -1476,17 +1509,13 @@ public class Lobby extends Application {
         create.setStyle("-fx-background-color: rgba(15,71,236,0.52); -fx-text-fill: #ffffff; -fx-background-radius: 30px");
         create.setOnMouseClicked(mouseEvent -> {
             try {
-                Chat newGroup = ChatMethods.addNewGroupChat(chatName.getText());
-                ChatMethods chatMethods1 = new ChatMethods(newGroup.getSocket());
-                chatMethods1.addUsersToGroup(usersToBeAddedToGroup, newGroup.getName());
-                usersToBeAddedToGroup.clear();
-                NewHBox newHBox = showGroupChatBox(newGroup);
+                chatId = chatName.getText();
+                usersToBeAddedToGroup.add(User.getCurrentUser().getUsername());
+                createChat(usersToBeAddedToGroup);
+                openChat(chatMessages , chatId);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
-
         });
 
         createGroupBox.getChildren().add(chatName);
@@ -1494,6 +1523,26 @@ public class Lobby extends Application {
         createGroupBox.setPrefSize(500, 200);
         pane.getChildren().add(createGroupBox);
         pane.getChildren().add(headerForChat);
+    }
+    public void createChat(ArrayList<String> allUsers) throws IOException {
+        masterServerDataOutputStream.writeUTF("CHAT");
+        masterServerDataOutputStream.writeUTF("CREATE_CHAT");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(chatId + '#');
+        for(int i = 0 ; i < allUsers.size() ; i++){
+            stringBuilder.append(allUsers.get(i) + '#');
+        }
+        masterServerDataOutputStream.writeUTF(stringBuilder.toString());
+    }
+    public void createGlobalChat() throws IOException {
+        masterServerDataOutputStream.writeUTF("CHAT");
+        masterServerDataOutputStream.writeUTF("CREATE_CHAT");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("global" + '#');
+        for(int i = 0 ; i < User.users.size() ; i++){
+            stringBuilder.append(User.users.get(i).getUsername() + '#');
+        }
+        masterServerDataOutputStream.writeUTF(stringBuilder.toString());
     }
 
     private ArrayList<User> findAllMatchingChats(String text) {
@@ -1588,6 +1637,7 @@ public class Lobby extends Application {
     }
 
     public static void setStyleToMessages(ArrayList<Message> myMessages) {
+        System.out.println("entered set style");
         ImageView imageView = null;
         ImageView imageView1 = null;
         Image image = null;
@@ -1637,12 +1687,6 @@ public class Lobby extends Application {
                 }
             });
 
-            if (myMessage.getReaction() != null && myMessage.getReaction().length() != 0) {
-                imageView = new ImageView(new Image(TileManager.class.getResource
-                        (myMessage.getReaction()).toExternalForm()));
-                messageBox.getChildren().add(imageView);
-            }
-
             Text content = new Text(myMessage.getContent());
             texts.add(content);
             content.setFill(Color.WHITE);
@@ -1686,6 +1730,13 @@ public class Lobby extends Application {
             public void handle(MouseEvent mouseEvent) {
                 removeChatStuff();
                 setStyleToChatStuffAfter(myMessage);
+                try {
+                    masterServerDataOutputStream.writeUTF("CHAT");
+                    masterServerDataOutputStream.writeUTF("DELETE_MESSAGE");
+                    masterServerDataOutputStream.writeUTF(chatId + '#' + myMessage.getMessageKey() + content);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
             }
         });
@@ -1702,8 +1753,9 @@ public class Lobby extends Application {
                 try {
                     removeChatStuff();
                     setStyleToChatStuff();
-                    Message message1 = new Message(myMessage.getSender(), myMessage.getContent(), myMessage.isSeen(), myMessage.getAvatar());
-                    chatMethods.deleteJustForMe(message1);
+                    masterServerDataOutputStream.writeUTF("CHAT");
+                    masterServerDataOutputStream.writeUTF("DELETE_MESSAGE");
+                    masterServerDataOutputStream.writeUTF(chatId + '#' + myMessage.getMessageKey());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -1795,7 +1847,7 @@ public class Lobby extends Application {
             try {
                 System.out.println("Entered successfully");
                 Message message1 = new Message(myMessage.getSender(), editTextField.getText(), myMessage.isSeen(), myMessage.getAvatar());
-                chatMethods.editMessage(message1, myMessage);
+                editMessage(message1, myMessage);
                 pane.getChildren().remove(editTextField);
                 pane.getChildren().remove(editSendButton);
                 setStyleToChatStuff();
@@ -1824,7 +1876,7 @@ public class Lobby extends Application {
         send.setOnMouseClicked(mouseEvent -> {
             //TODO :Here we should send the message to the chat server in order to deliver it to the receiver
             try {
-                chatMethods.sendMessage(chatTextField.getText());
+                sendMessage(chatTextField.getText() , chatId);
                 chatTextField.setText("");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -1842,5 +1894,24 @@ public class Lobby extends Application {
         pane.getChildren().remove(dislike);
         pane.getChildren().remove(heart);
     }
+    public static void sendMessage(String text, String chatId) throws IOException {
+        masterServerDataOutputStream.writeUTF("CHAT");
+        masterServerDataOutputStream.writeUTF("SEND_MESSAGES");
+        String url = User.getCurrentUser().getAvatar().getImage().getUrl();
+        LocalTime localTime = LocalTime.now();
+        String[] list = localTime.toString().split(":");
+        String time = list[0] + ":" + list[1];
+        masterServerDataOutputStream.writeUTF(chatId + '#' + User.getCurrentUser().getUsername() +'#' + text + '#' + "false" + '#' +
+                url + '#' + time );
+    }
+
+    public static void editMessage(Message newMessage, Message oldMessage) throws IOException {
+        String ancientOne = Message.convertMessageToJson(oldMessage);
+        String newOne = Message.convertMessageToJson(newMessage);
+        masterServerDataOutputStream.writeUTF("EDIT_MESSAGE");
+        masterServerDataOutputStream.writeUTF(ancientOne);
+        masterServerDataOutputStream.writeUTF(newOne);
+    }
+
 
 }

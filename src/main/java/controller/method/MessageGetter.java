@@ -1,7 +1,8 @@
-package view;
+package controller.method;
 
 import javafx.application.Platform;
 import model.Message;
+import view.Lobby;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -20,10 +21,10 @@ public class MessageGetter extends Thread{
             try {
                 Thread.sleep(500);
                 Message message = getMessage();
-                System.out.println("Thread : "+message.getContent());
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        if (message == null) return;
                         String content = message.getContent();
                         if (content.matches("#\\d+#.*")){
                             try {
@@ -60,7 +61,6 @@ public class MessageGetter extends Thread{
         if(data.equals("####")) return null ;
         System.out.println("into message getter : " + data);
         Message message = Message.getMessageFromJson(data);
-        System.out.println("Message is : "+message.getContent());
         return message;
     }
 

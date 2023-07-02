@@ -9,10 +9,10 @@ import java.io.IOException;
 public class SendInformationToMasterServer {
     public static void sendCurrentUser(User user) throws IOException {
         String data = User.convertUserToJson(user);
+        System.out.println(data);
         Manage.masterServerDataOutputStream.writeUTF("LOGIN_USER");
         Manage.masterServerDataOutputStream.writeUTF(data);
-        System.out.println(Manage.masterServerDataInputStream.readUTF());
-        ChatMethods.getAllChatsOfUsers(user);
+//        ChatMethods.getAllChatsOfUsers(user);
     }
     public static void sendMapToServer(String map) throws IOException {
         Manage.masterServerDataOutputStream.writeUTF("ADD_MAP");

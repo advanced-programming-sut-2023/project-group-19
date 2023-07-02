@@ -40,13 +40,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 // ahmad Hh8Yy3Oo1#
 //Vv8Mm6Qq1*
-
+// amir Bb6Ee9Pp4#
 
 public class RegisterMenu extends Application {
+    // kazem Yy0Ee1Bb4#
+    //
     static {
         try {
             Manage.connectUserToMasterServer();
-//            User.makeUsersFromJson();
+            User.makeUsersFromJson();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +61,8 @@ public class RegisterMenu extends Application {
             throw new RuntimeException(e);
         }
         buildMaps();
+        //ava Kk3Bb7Uu6#
+        //sam Yy1Nn6Ll9#
 //        try {
 //            MapMethod.addNewMapToServer(Map.getSavedMaps().get(1));
 //        } catch (IOException e) {

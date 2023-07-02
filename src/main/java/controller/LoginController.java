@@ -92,9 +92,9 @@ public class LoginController {
             , String slogan, String numberOfSecQuesion) throws IOException {
        User user =  new User(username, password, nickname, email, answeroFSecQuestion, slogan, Integer.parseInt(numberOfSecQuesion));
        String userInformation = user.toJson();
+        System.out.println("json of user is: " + userInformation);
        Manage.masterServerDataOutputStream.writeUTF("CREATE_USER");
        Manage.masterServerDataOutputStream.writeUTF(userInformation);
-        System.out.println(Manage.masterServerDataInputStream.readUTF());
         System.out.println("---i am in the register function---");
     }
     private void makeUserJson(){

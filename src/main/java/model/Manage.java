@@ -110,7 +110,7 @@ public class Manage {
     }
 
     public static void connectUserToMasterServer() throws IOException {
-        Socket socket = new Socket("localhost", 8080);
+        Socket socket = new Socket("localhost", 8568);
         masterServerDataInputStream = new DataInputStream(socket.getInputStream());
         masterServerDataOutputStream = new DataOutputStream(socket.getOutputStream());
         System.out.println("into connect user to the master server!!!!!!!!!!!!!!");
